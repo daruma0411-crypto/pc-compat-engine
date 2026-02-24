@@ -333,7 +333,13 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
 
 @app.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    # 環境変数 AMAZON_TAG をプレースホルダーに注入（未設定時はデフォルト値）
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+    html = html.replace("'__AMAZON_TAG__'", f"'{amazon_tag}'")
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
 @app.route('/api/health')

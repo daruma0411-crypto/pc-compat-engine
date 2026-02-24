@@ -7,3 +7,5 @@ services:
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false   # Renderダッシュボードで手動設定してください
+      - key: AMAZON_TAG
+        sync: false   # Amazonアソシエイト承認後に設定（例: yourname-22）

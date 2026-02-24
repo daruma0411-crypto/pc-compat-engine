@@ -379,8 +379,8 @@
   const STATUS_LABEL = { OK: 'OK', WARNING: 'WARN', NG: 'NG', UNKNOWN: '?' };
 
   // ─── アフィリエイト設定 ────────────────────────────────────────────────
-  // Amazon アソシエイトタグ（差し替え時はここだけ変更）
-  const AMAZON_TAG = 'pccompat-22';
+  // Amazon アソシエイトタグ（サーバー側の環境変数 AMAZON_TAG から注入される）
+  const AMAZON_TAG = '__AMAZON_TAG__';
   // 楽天アフィリエイトID（取得後に設定: 'xxxxxxxx.xxxxxxxx' 形式）
   const RAKUTEN_AFFILIATE_ID = '';
 
