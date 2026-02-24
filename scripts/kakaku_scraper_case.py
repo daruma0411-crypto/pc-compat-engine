@@ -49,13 +49,15 @@ def build_case_entry(raw: dict) -> dict | None:
     # 対応フォームファクター（最大）
     ff_raw = (sr.get('対応フォームファクタ', '')
               or sr.get('フォームファクタ', '')
-              or sr.get('最大対応MBサイズ', ''))
+              or sr.get('最大対応MBサイズ', '')
+              or sr.get('対応マザーボード', ''))
     ff = normalize_ff(ff_raw) if ff_raw else None
 
     # GPU最大長
     gpu_len = parse_int(sr.get('グラフィックボード最大長', '')
                         or sr.get('拡張カード最大長', '')
-                        or sr.get('ビデオカード最大長', ''))
+                        or sr.get('ビデオカード最大長', '')
+                        or sr.get('対応グラフィックボード', ''))
 
     # CPUクーラー最大高
     cooler_h = parse_int(sr.get('CPUクーラー最大高', '')

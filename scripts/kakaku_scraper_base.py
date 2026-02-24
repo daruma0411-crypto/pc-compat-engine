@@ -159,6 +159,8 @@ def get_raw_specs(code: str) -> dict:
     rows = re.findall(r'<th[^>]*>(.*?)</th>\s*<td[^>]*>(.*?)</td>', html, re.DOTALL)
     for k, v in rows:
         k = re.sub(r'<[^>]+>', '', k).replace('\xa0', '').strip()
+        # 「セクション名\n\n項目名」の形式→最後の項目名のみ使用
+        k = k.split('\n')[-1].strip()
         v = re.sub(r'<[^>]+>', '', v).replace('\xa0', ' ').strip()
         v = re.sub(r'\s+', ' ', v)
         if k and k not in ('', ' ') and v and v not in ('', ' ', '-'):
