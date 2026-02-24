@@ -630,20 +630,22 @@ class AsusScraper:
                 specs = _extract_gpu_specs(text)
                 name = self._fetch_product_name(page, purl)
 
+                # specs 空 = Bot ブロックまたは URL 不在 → 新規・更新ともスキップ
+                if not specs:
+                    print(f"  SKIP: specs空（Botブロックまたは URL 不在）", file=sys.stderr)
+                    continue
+
                 key = purl.rstrip("/")
                 if key in by_url:
                     # 既存レコード更新
                     rec = by_url[key]
                     rec["specs"].update({k: v for k, v in specs.items() if v is not None})
-                    if name and len(name) > 5:
+                    # 名前がBot対策ページのものでなければ更新
+                    if name and len(name) > 5 and "申し訳" not in name:
                         rec["name"] = name
                     updated += 1
                     print(f"  UPDATE: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
                 else:
-                    # specs 空 = 存在しない URL（カテゴリページへのリダイレクト等）→スキップ
-                    if not specs:
-                        print(f"  SKIP: specs空のため新規追加スキップ（URL不在の可能性）", file=sys.stderr)
-                        continue
                     # 新規レコード
                     rec = {
                         "id": _make_id(name),
@@ -710,19 +712,22 @@ class AsusScraper:
                 specs = _extract_mb_specs(text)
                 name = self._fetch_product_name(page, purl)
 
+                # specs 空 = Bot ブロックまたは URL 不在 → 新規・更新ともスキップ
+                if not specs:
+                    print(f"  SKIP: specs空（Botブロックまたは URL 不在）", file=sys.stderr)
+                    continue
+
                 key = purl.rstrip("/")
                 if key in by_url:
                     rec = by_url[key]
                     rec["specs"].update({k: v for k, v in specs.items() if v is not None})
-                    if name and len(name) > 5:
+                    # 名前がBot対策ページのものでなければ更新
+                    if name and len(name) > 5 and "申し訳" not in name:
                         rec["name"] = name
                     updated += 1
                     print(f"  UPDATE: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
                 else:
-                    # specs 空 = 存在しない URL（カテゴリページへのリダイレクト等）→スキップ
-                    if not specs:
-                        print(f"  SKIP: specs空のため新規追加スキップ（URL不在の可能性）", file=sys.stderr)
-                        continue
+                    # 新規レコード
                     rec = {
                         "id": _make_id(name),
                         "name": name,
