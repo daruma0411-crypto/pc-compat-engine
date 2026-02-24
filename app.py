@@ -134,10 +134,20 @@ def _lookup_pc_specs(parts: list) -> dict:
     return results
 
 
+_CASE_FF_COMPAT: dict = {
+    'E-ATX':     {'E-ATX', 'EATX', 'ATX', 'Micro-ATX', 'mATX', 'Mini-ITX'},
+    'EATX':      {'E-ATX', 'EATX', 'ATX', 'Micro-ATX', 'mATX', 'Mini-ITX'},
+    'ATX':       {'ATX', 'Micro-ATX', 'mATX', 'Mini-ITX'},
+    'Micro-ATX': {'Micro-ATX', 'mATX', 'Mini-ITX'},
+    'mATX':      {'Micro-ATX', 'mATX', 'Mini-ITX'},
+    'Mini-ITX':  {'Mini-ITX'},
+}
+
+
 def _compute_prechecks(parts: list, specs: dict) -> list:
     """
-    GPU干渉マージン・CPUソケット・メモリ規格・CPU冷却能力を事前計算して
-    Claude が最優先で使用すべき判定文字列のリストを返す。
+    GPU干渉マージン・CPUソケット・メモリ規格・CPU冷却能力・PSUワット数・
+    MBフォームファクターを事前計算して Claude が最優先で使用すべき判定文字列のリストを返す。
     """
     lines = []
 
@@ -147,6 +157,7 @@ def _compute_prechecks(parts: list, specs: dict) -> list:
     mb_entries     = [(p, specs[p]) for p in parts if p in specs and specs[p].get('category') == 'motherboard']
     cooler_entries = [(p, specs[p]) for p in parts if p in specs and specs[p].get('category') == 'cpu_cooler']
     ram_entries    = [(p, specs[p]) for p in parts if p in specs and specs[p].get('category') == 'ram']
+    psu_entries    = [(p, specs[p]) for p in parts if p in specs and specs[p].get('category') == 'psu']
 
     # GPU × ケース 干渉マージン
     for gpu_part, gpu_data in gpu_entries:
@@ -237,6 +248,82 @@ def _compute_prechecks(parts: list, specs: dict) -> list:
                         )
                 except (ValueError, TypeError):
                     pass
+
+    # PSU ワット数チェック
+    _SYS_BASE_W = 50  # システム固定消費電力（MB・RAM・ストレージ概算）
+    for psu_part, psu_data in psu_entries:
+        psu_w_raw = (psu_data.get('specs') or {}).get('wattage_w') or psu_data.get('wattage_w')
+        if psu_w_raw is None:
+            continue
+        try:
+            psu_w = float(psu_w_raw)
+        except (ValueError, TypeError):
+            continue
+
+        gpu_tdp_total = 0.0
+        for _, gd in gpu_entries:
+            v = (gd.get('specs') or {}).get('tdp_w') or gd.get('tdp_w')
+            if v is not None:
+                try:
+                    gpu_tdp_total += float(v)
+                except (ValueError, TypeError):
+                    pass
+
+        cpu_tdp_total = 0.0
+        for _, cd in cpu_entries:
+            v = (cd.get('specs') or {}).get('tdp_w') or cd.get('tdp_w')
+            if v is not None:
+                try:
+                    cpu_tdp_total += float(v)
+                except (ValueError, TypeError):
+                    pass
+
+        if gpu_tdp_total == 0.0 and cpu_tdp_total == 0.0:
+            continue  # 消費電力データ不足 → Claudeに委ねる
+
+        total_w = gpu_tdp_total + cpu_tdp_total + _SYS_BASE_W
+        usage_pct = total_w / psu_w * 100
+
+        if usage_pct > 90:
+            status = (
+                f"NG（電源容量不足: 推定{total_w:.0f}W / {psu_w:.0f}W = {usage_pct:.0f}%、"
+                f"容量{total_w - psu_w:.0f}W超過）"
+            )
+        elif usage_pct > 75:
+            status = (
+                f"WARNING（使用率{usage_pct:.0f}%、25%以上のマージン推奨: "
+                f"推定{total_w:.0f}W / {psu_w:.0f}W）"
+            )
+        else:
+            status = f"OK（使用率{usage_pct:.0f}%、推定{total_w:.0f}W / {psu_w:.0f}W）"
+
+        lines.append(
+            f"- PSUワット数チェック: {psu_part}({psu_w:.0f}W) "
+            f"vs 推定消費電力{total_w:.0f}W"
+            f"(GPU:{gpu_tdp_total:.0f}W + CPU:{cpu_tdp_total:.0f}W + システム{_SYS_BASE_W}W)"
+            f" = {status}"
+        )
+
+    # MB フォームファクター ↔ ケース互換チェック
+    for mb_part, mb_data in mb_entries:
+        mb_ff = (mb_data.get('specs') or {}).get('form_factor') or mb_data.get('form_factor', '')
+        if not mb_ff:
+            continue
+        for case_part, case_data in case_entries:
+            case_ff = (case_data.get('specs') or {}).get('form_factor') or case_data.get('form_factor', '')
+            if not case_ff:
+                continue
+            allowed = _CASE_FF_COMPAT.get(case_ff.strip(), set())
+            if mb_ff.strip() in allowed:
+                lines.append(
+                    f"- MBフォームファクター互換: {mb_part}({mb_ff}) "
+                    f"vs {case_part}(対応: {case_ff}) = OK（対応）"
+                )
+            else:
+                lines.append(
+                    f"- MBフォームファクター互換: {mb_part}({mb_ff}) "
+                    f"vs {case_part}(対応: {case_ff}) = NG（非対応: {case_ff}ケースに{mb_ff}は非対応）"
+                )
 
     return lines
 
@@ -392,12 +479,14 @@ def diagnose():
             return jsonify({'error': 'parts は最大20件まで指定可能です'}), 400
 
         specs = _lookup_pc_specs(parts)
+        not_found = [p for p in parts if p not in specs]
         diagnosis = _run_pc_diagnosis_with_claude(parts, specs)
 
         return jsonify({
-            'verdict': diagnosis.get('verdict', 'UNKNOWN'),
-            'checks':  diagnosis.get('checks', []),
-            'summary': diagnosis.get('summary', ''),
+            'verdict':   diagnosis.get('verdict', 'UNKNOWN'),
+            'checks':    diagnosis.get('checks', []),
+            'summary':   diagnosis.get('summary', ''),
+            'not_found': not_found,
         })
 
     except Exception as e:
@@ -499,12 +588,14 @@ def chat():
 
         # 診断実行
         specs = _lookup_pc_specs(parts)
+        not_found = [p for p in parts if p not in specs]
         diagnosis = _run_pc_diagnosis_with_claude(parts, specs)
 
         return jsonify({
             'type': 'diagnosis',
             'reply': reply or f'{len(parts)}件のパーツを診断しました。',
             'parts': parts,
+            'not_found': not_found,
             'diagnosis': {
                 'verdict': diagnosis.get('verdict', 'UNKNOWN'),
                 'checks':  diagnosis.get('checks', []),
