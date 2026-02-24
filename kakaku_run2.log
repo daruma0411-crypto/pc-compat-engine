@@ -81,3 +81,47 @@ MB完了: 2975件
 =======================================================
 [START] PSU (既存: 0件)
 =======================================================
+既存: 0件
+
+=== STEP1: 製品コード収集 ===
+  [WARN] https://kakaku.com/pc/powersupply/itemlist.aspx attempt=1 error=HTTP Error 404: Not Found → wait 1s
+  [WARN] https://kakaku.com/pc/powersupply/itemlist.aspx attempt=2 error=HTTP Error 404: Not Found → wait 2s
+  [WARN] https://kakaku.com/pc/powersupply/itemlist.aspx attempt=3 error=HTTP Error 404: Not Found → wait 4s
+[ERROR] 一覧ページ取得失敗
+収集: 0件
+
+=== STEP2: スペック取得 ===
+
+=== 完了 ===
+追加: 0件 / スキップ: 0件 / 失敗: 0件
+保存先: C:\Users\iwashita.AKGNET\pc-compat-engine\workspace\data\kakaku_psu\products.jsonl
+[完了] PSU: 0件 → 0件 (+0件)
+
+=======================================================
+[START] CPUクーラー (既存: 0件)
+=======================================================
+既存: 0件
+
+=== STEP1: 製品コード収集 ===
+  [WARN] https://kakaku.com/pc/cpucooler/itemlist.aspx attempt=1 error=HTTP Error 404: Not Found → wait 1s
+  [WARN] https://kakaku.com/pc/cpucooler/itemlist.aspx attempt=2 error=HTTP Error 404: Not Found → wait 2s
+  [WARN] https://kakaku.com/pc/cpucooler/itemlist.aspx attempt=3 error=HTTP Error 404: Not Found → wait 4s
+[ERROR] 一覧ページ取得失敗
+収集: 0件
+
+=== STEP2: スペック取得 ===
+
+=== 完了 ===
+追加: 0件 / スキップ: 0件 / 失敗: 0件
+保存先: C:\Users\iwashita.AKGNET\pc-compat-engine\workspace\data\kakaku_cooler\products.jsonl
+[完了] CPUクーラー: 0件 → 0件 (+0件)
+
+=======================================================
+【全カテゴリ完了サマリー】
+  ✓ MB          :  2975件
+  ✓ CPU         :  3879件
+  ✓ ケース         :     0件
+  ✓ PSU         :     0件
+  ✓ CPUクーラー     :     0件
+  合計: 6854件
+=======================================================
