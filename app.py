@@ -46,6 +46,7 @@ _PC_DIAGNOSIS_SYSTEM_PROMPT = """\
 - メモリXMP速度がMBの公式最大速度を超過
 - 電源使用率が 80〜90%（25%以上のマージン推奨）
 - CPU TDP がCPUクーラー定格冷却能力を超過（またはクーラー定格未公開）
+- MB制約情報はM.2 SSDを使用しない構成ならWARNINGではなくOKまたは参考情報として扱うこと
 
 ## OK判定
 - 上記の NG / WARNING に該当しない互換性確認済みの組み合わせ
@@ -324,6 +325,22 @@ def _compute_prechecks(parts: list, specs: dict) -> list:
                     f"- MBフォームファクター互換: {mb_part}({mb_ff}) "
                     f"vs {case_part}(対応: {case_ff}) = NG（非対応: {case_ff}ケースに{mb_ff}は非対応）"
                 )
+
+    # MB マニュアル制約情報（M.2/PCIe帯域共有・M.2/SATA無効化）
+    for mb_part, mb_data in mb_entries:
+        constraints = mb_data.get('constraints', {})
+        for rule in constraints.get('m2_pcie_sharing', []):
+            lines.append(
+                f"- MB制約情報: {mb_part}: {rule.get('m2_slot', '?')}使用時は"
+                f"{rule.get('affects', '?')}が{rule.get('effect', '?')}"
+                f" = WARNING（M.2使用時は要確認、未使用なら問題なし）"
+            )
+        for rule in constraints.get('m2_sata_sharing', []):
+            lines.append(
+                f"- MB制約情報: {mb_part}: {rule.get('m2_slot', '?')}使用時は"
+                f"SATA {rule.get('affects', '?')}が{rule.get('effect', '?')}"
+                f" = WARNING（M.2使用時はSATA本数減少、未使用なら問題なし）"
+            )
 
     return lines
 
