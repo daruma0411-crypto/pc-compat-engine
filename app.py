@@ -9,6 +9,7 @@ import glob as glob_module
 import json
 import os
 import re
+import urllib.parse
 import urllib.request
 
 from dotenv import load_dotenv
@@ -398,6 +399,244 @@ def diagnose():
             'checks':  diagnosis.get('checks', []),
             'summary': diagnosis.get('summary', ''),
         })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# ================================================================
+# チャット型番抽出プロンプト
+# ================================================================
+
+_EXTRACT_SYSTEM_PROMPT = """\
+あなたはPC自作パーツ型番抽出アシスタントです。
+ユーザーのメッセージからPCパーツの型番・製品名を抽出し、必ずJSON形式だけで返してください。
+
+## 抽出対象カテゴリ
+GPU, CPU, マザーボード, PCケース, 電源(PSU), メモリ(RAM), CPUクーラー
+
+## 出力形式（JSONのみ）
+{
+  "parts": ["型番1", "型番2"],
+  "missing": ["gpu", "case"],
+  "reply": "ユーザーへの返答（日本語・1〜2文）"
+}
+
+## ルール
+- parts: 会話全体（history含む）から抽出した全型番リスト
+- missing: 診断に有用だが未記載のカテゴリ（gpu/cpu/motherboard/case/psu/ram/cooler）
+- parts が2件以上あれば reply は「診断します」旨の短文
+- parts が1件のみなら reply で不足カテゴリを1つだけ追加質問
+- parts が0件なら reply で型番入力を促す（例を1つ示す）
+- 型番は正式名称に近い形で抽出すること（例: "RTX 4070" → "RTX 4070"）
+"""
+
+
+def _extract_parts_with_claude(message: str, history: list) -> dict:
+    """自然言語メッセージから型番を抽出する。戻り値: {parts, missing, reply}"""
+    if not CLAUDE_API_KEY:
+        return {'parts': [], 'missing': [], 'reply': '型番を直接入力してください。'}
+
+    messages = []
+    for h in history[-6:]:  # 直近6ターンのみ
+        if h.get('role') in ('user', 'assistant'):
+            messages.append({'role': h['role'], 'content': h['content']})
+    messages.append({'role': 'user', 'content': message})
+
+    req_body = json.dumps({
+        'model': 'claude-haiku-4-5-20251001',
+        'max_tokens': 512,
+        'system': _EXTRACT_SYSTEM_PROMPT,
+        'messages': messages,
+    }).encode('utf-8')
+
+    req = urllib.request.Request(
+        'https://api.anthropic.com/v1/messages',
+        data=req_body,
+        headers={
+            'Content-Type': 'application/json',
+            'X-API-Key': CLAUDE_API_KEY,
+            'anthropic-version': '2023-06-01',
+        },
+        method='POST',
+    )
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        resp_data = json.loads(resp.read().decode('utf-8'))
+
+    content = resp_data.get('content', [{}])[0].get('text', '{}')
+    m = re.search(r'```json\s*(.*?)\s*```', content, re.DOTALL)
+    if m:
+        content = m.group(1)
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        return {'parts': [], 'missing': [], 'reply': 'もう一度型番を教えてください。'}
+
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    """自然言語メッセージを受け取り、型番抽出→互換性診断を行う。"""
+    try:
+        data = request.get_json(force=True) or {}
+        message = str(data.get('message', '')).strip()
+        history = data.get('history', [])
+
+        if not message:
+            return jsonify({'error': 'message が空です'}), 400
+
+        # 型番抽出
+        extracted = _extract_parts_with_claude(message, history)
+        parts = extracted.get('parts', [])
+        reply = extracted.get('reply', '')
+
+        # 型番が不足している場合は clarify を返す
+        if len(parts) < 2:
+            return jsonify({
+                'type': 'clarify',
+                'reply': reply,
+                'parts': parts,
+            })
+
+        # 診断実行
+        specs = _lookup_pc_specs(parts)
+        diagnosis = _run_pc_diagnosis_with_claude(parts, specs)
+
+        return jsonify({
+            'type': 'diagnosis',
+            'reply': reply or f'{len(parts)}件のパーツを診断しました。',
+            'parts': parts,
+            'diagnosis': {
+                'verdict': diagnosis.get('verdict', 'UNKNOWN'),
+                'checks':  diagnosis.get('checks', []),
+                'summary': diagnosis.get('summary', ''),
+            },
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/alternatives')
+def alternatives():
+    """NG/WARNINGパーツの代替品をDBから返す。"""
+    try:
+        category  = request.args.get('category', '')   # 'gpu' or 'case'
+        case_name = request.args.get('case_name', '')
+        gpu_name  = request.args.get('gpu_name', '')
+
+        amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
+        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
+        def make_amazon_url(name):
+            q = urllib.parse.quote(name)
+            return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+
+        def make_rakuten_url(name):
+            q = urllib.parse.quote(name)
+            if rakuten_a_id and rakuten_l_id:
+                return (
+                    f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                    f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1'
+                )
+            return f'https://search.rakuten.co.jp/search/mall/{q}/'
+
+        # 全商品を読み込む
+        jsonl_paths = glob_module.glob(
+            os.path.join(_PC_WORKSPACE_DIR, 'data', '*', 'products.jsonl')
+        )
+        all_products = []
+        for path in jsonl_paths:
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        line = line.strip()
+                        if line:
+                            all_products.append(json.loads(line))
+            except Exception:
+                pass
+
+        result = []
+
+        if category == 'gpu' and case_name:
+            # ケース名からケーススペックを取得して max_gpu_length_mm を調べる
+            case_specs = _lookup_pc_specs([case_name])
+            case_data  = case_specs.get(case_name, {})
+            max_len = (case_data.get('specs') or {}).get('max_gpu_length_mm') \
+                      or case_data.get('max_gpu_length_mm')
+            try:
+                max_len = float(str(max_len).replace('mm', '').strip()) if max_len else None
+            except (ValueError, TypeError):
+                max_len = None
+
+            for p in all_products:
+                if p.get('category') != 'gpu':
+                    continue
+                gpu_len_raw = (p.get('specs') or {}).get('length_mm') or p.get('length_mm')
+                try:
+                    gpu_len = float(str(gpu_len_raw).replace('mm', '').strip()) if gpu_len_raw else None
+                except (ValueError, TypeError):
+                    gpu_len = None
+
+                # 長さ制約を満たすGPUのみ（max_len不明な場合は全件）
+                if max_len and gpu_len and gpu_len > max_len:
+                    continue
+
+                s = p.get('specs', {}) or {}
+                result.append({
+                    'name':        p.get('name', ''),
+                    'maker':       p.get('maker', ''),
+                    'specs': {
+                        'length_mm':       s.get('length_mm') or p.get('length_mm'),
+                        'tdp_w':           s.get('tdp_w') or p.get('tdp_w'),
+                        'power_connector': s.get('power_connector') or p.get('power_connector'),
+                        'vram':            s.get('vram') or p.get('vram'),
+                    },
+                    'amazon_url':  make_amazon_url(p.get('name', '')),
+                    'rakuten_url': make_rakuten_url(p.get('name', '')),
+                })
+                if len(result) >= 6:
+                    break
+
+        elif category == 'case' and gpu_name:
+            # GPU名からGPUスペックを取得して length_mm を調べる
+            gpu_specs = _lookup_pc_specs([gpu_name])
+            gpu_data  = gpu_specs.get(gpu_name, {})
+            gpu_len_raw = (gpu_data.get('specs') or {}).get('length_mm') or gpu_data.get('length_mm')
+            try:
+                gpu_len = float(str(gpu_len_raw).replace('mm', '').strip()) if gpu_len_raw else None
+            except (ValueError, TypeError):
+                gpu_len = None
+
+            for p in all_products:
+                if p.get('category') != 'case':
+                    continue
+                s = p.get('specs', {}) or {}
+                max_len_raw = s.get('max_gpu_length_mm') or p.get('max_gpu_length_mm')
+                try:
+                    max_len = float(str(max_len_raw).replace('mm', '').strip()) if max_len_raw else None
+                except (ValueError, TypeError):
+                    max_len = None
+
+                # GPUが収まるケースのみ（gpu_len不明な場合は全件）
+                if gpu_len and max_len and max_len < gpu_len:
+                    continue
+
+                result.append({
+                    'name':  p.get('name', ''),
+                    'maker': p.get('maker', ''),
+                    'specs': {
+                        'max_gpu_length_mm': s.get('max_gpu_length_mm') or p.get('max_gpu_length_mm'),
+                        'form_factors':      s.get('form_factors') or p.get('form_factors'),
+                        'dimensions':        s.get('dimensions') or p.get('dimensions'),
+                    },
+                    'amazon_url':  make_amazon_url(p.get('name', '')),
+                    'rakuten_url': make_rakuten_url(p.get('name', '')),
+                })
+                if len(result) >= 6:
+                    break
+
+        return jsonify({'alternatives': result})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500

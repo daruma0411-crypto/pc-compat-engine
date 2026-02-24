@@ -25,160 +25,145 @@
     --shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
   }
 
-  body {
+  html, body {
+    height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
     background: #f3f4f6;
     color: var(--c-text);
-    min-height: 100vh;
-    padding: 0 0 60px;
+  }
+
+  /* ── アプリシェル ── */
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 720px;
+    margin: 0 auto;
+    background: #f3f4f6;
   }
 
   /* ── ヘッダー ── */
   header {
+    flex-shrink: 0;
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     color: #fff;
-    padding: 32px 20px 28px;
+    padding: 16px 20px 14px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(79,70,229,.3);
   }
-  header h1 { font-size: clamp(20px, 5vw, 28px); font-weight: 700; letter-spacing: -.02em; }
-  header p  { margin-top: 6px; font-size: 14px; opacity: .85; }
+  header h1 { font-size: clamp(15px, 4vw, 20px); font-weight: 700; letter-spacing: -.02em; }
+  header p  { margin-top: 3px; font-size: 12px; opacity: .8; }
 
-  /* ── コンテナ ── */
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 16px;
+  /* ── チャット欄 ── */
+  .chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  /* ── 入力カード ── */
-  .input-card {
+  /* ── メッセージバブル ── */
+  .msg {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    animation: fadeUp .2s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .msg.ai   { align-self: flex-start; max-width: 90%; }
+  .msg.user { align-self: flex-end;   max-width: 80%; flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+  }
+  .msg.user .msg-avatar { background: #d1d5db; }
+
+  .msg-bubble {
+    background: var(--c-surface);
+    border-radius: 16px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: var(--shadow);
+    word-break: break-word;
+  }
+  .msg.ai   .msg-bubble { border-bottom-left-radius: 4px; }
+  .msg.user .msg-bubble {
+    border-bottom-right-radius: 4px;
+    background: var(--c-primary);
+    color: #fff;
+  }
+
+  /* タイピングアニメーション */
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 4px 2px;
+    align-items: center;
+  }
+  .typing-indicator span {
+    width: 7px; height: 7px;
+    background: var(--c-muted);
+    border-radius: 50%;
+    animation: bounce .9s infinite;
+  }
+  .typing-indicator span:nth-child(2) { animation-delay: .18s; }
+  .typing-indicator span:nth-child(3) { animation-delay: .36s; }
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30%           { transform: translateY(-6px); }
+  }
+
+  /* ── 診断カード ── */
+  .diag-card {
     background: var(--c-surface);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 24px;
-    margin-top: 24px;
+    overflow: hidden;
+    margin-top: 10px;
+    width: min(460px, 75vw);
   }
-  .input-card label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--c-muted);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-  }
-  .input-card textarea {
-    width: 100%;
-    border: 1.5px solid var(--c-border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    font-size: 14px;
-    resize: vertical;
-    min-height: 88px;
-    line-height: 1.6;
-    color: var(--c-text);
-    transition: border-color .15s;
-    font-family: inherit;
-  }
-  .input-card textarea:focus {
-    outline: none;
-    border-color: var(--c-primary);
-    box-shadow: 0 0 0 3px rgba(79,70,229,.12);
-  }
-  .hint {
-    font-size: 12px;
-    color: var(--c-muted);
-    margin-top: 6px;
-  }
-  .btn-diagnose {
-    display: block;
-    width: 100%;
-    margin-top: 16px;
-    padding: 14px;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: opacity .15s, transform .1s;
-    letter-spacing: .02em;
-  }
-  .btn-diagnose:hover  { opacity: .9; }
-  .btn-diagnose:active { transform: scale(.98); }
-  .btn-diagnose:disabled { opacity: .5; cursor: not-allowed; }
 
-  /* ── ローディング ── */
-  .loading {
-    display: none;
-    text-align: center;
-    padding: 32px 0;
-    color: var(--c-muted);
-    font-size: 14px;
-  }
-  .loading.show { display: block; }
-  .spinner {
-    width: 32px; height: 32px;
-    border: 3px solid var(--c-border);
-    border-top-color: var(--c-primary);
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-    margin: 0 auto 12px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── 結果エリア ── */
-  #result { display: none; margin-top: 20px; }
-  #result.show { display: block; }
-
-  /* 総合判定バナー */
   .verdict-banner {
-    border-radius: var(--radius);
-    padding: 18px 20px;
+    padding: 13px 15px;
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
+    gap: 11px;
   }
   .verdict-banner.OK      { background: var(--c-ok);   color: #fff; }
   .verdict-banner.WARNING { background: var(--c-warn); color: #fff; }
   .verdict-banner.NG      { background: var(--c-ng);   color: #fff; }
   .verdict-banner.UNKNOWN { background: var(--c-unk);  color: #fff; }
-  .verdict-icon { font-size: 28px; flex-shrink: 0; }
-  .verdict-text h2 { font-size: 20px; font-weight: 700; }
-  .verdict-text p  { font-size: 13px; opacity: .9; margin-top: 2px; }
 
-  /* チェック一覧カード */
-  .checks-card {
-    background: var(--c-surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-  .checks-card h3 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--c-muted);
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    padding: 14px 18px 10px;
-    border-bottom: 1px solid var(--c-border);
-  }
+  .verdict-icon { font-size: 22px; flex-shrink: 0; line-height: 1; }
+  .verdict-text h2 { font-size: 16px; font-weight: 700; }
+  .verdict-text p  { font-size: 12px; opacity: .9; margin-top: 2px; }
+
+  .checks-list { padding: 4px 0; }
   .check-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 13px 18px;
+    gap: 9px;
+    padding: 9px 13px;
     border-bottom: 1px solid var(--c-border);
+    font-size: 13px;
   }
   .check-item:last-child { border-bottom: none; }
   .check-badge {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    padding: 3px 8px;
+    padding: 2px 6px;
     border-radius: 20px;
     flex-shrink: 0;
     margin-top: 1px;
@@ -188,340 +173,429 @@
   .badge-WARNING { background: var(--c-warn-bg); color: var(--c-warn); border: 1px solid #fde68a; }
   .badge-NG      { background: var(--c-ng-bg);   color: var(--c-ng);   border: 1px solid #fecaca; }
   .badge-UNKNOWN { background: var(--c-unk-bg);  color: var(--c-unk);  border: 1px solid #e5e7eb; }
-  .check-body {}
-  .check-item-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .check-detail    { font-size: 13px; color: var(--c-muted); line-height: 1.5; }
+  .check-name   { font-weight: 600; margin-bottom: 2px; }
+  .check-detail { color: var(--c-muted); line-height: 1.4; }
 
-  /* サマリー */
-  .summary-card {
-    background: var(--c-surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 16px 18px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #374151;
-    border-left: 4px solid var(--c-primary);
-  }
-
-  /* 購入リンク枠 */
-  .buy-card {
-    background: var(--c-surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-  .buy-card h3 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--c-muted);
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    padding: 14px 18px 10px;
-    border-bottom: 1px solid var(--c-border);
-  }
-  .buy-list {
-    padding: 8px 14px 4px;
+  /* 代替品ボタン */
+  .alt-btns {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .buy-part {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    gap: 8px;
+    padding: 11px 13px;
+    background: #f9fafb;
+    border-top: 1px solid var(--c-border);
     flex-wrap: wrap;
-    padding: 6px 4px;
-    border-bottom: 1px solid var(--c-border);
   }
-  .buy-part:last-child { border-bottom: none; }
-  .buy-part-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--c-text);
-    min-width: 120px;
+  .btn-alt {
     flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 180px;
+    min-width: 110px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--c-primary);
+    color: var(--c-primary);
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    text-align: center;
   }
-  .buy-part-links {
+  .btn-alt:hover { background: var(--c-primary); color: #fff; }
+
+  /* ── 代替品カードグリッド ── */
+  .alt-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+    width: min(460px, 75vw);
+  }
+  .alt-product {
+    background: var(--c-surface);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 11px 12px;
+  }
+  .alt-name {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .alt-specs {
+    color: var(--c-muted);
+    font-size: 11px;
+    margin-bottom: 7px;
+    line-height: 1.5;
+  }
+  .alt-links {
     display: flex;
-    gap: 6px;
+    gap: 5px;
     flex-wrap: wrap;
-    flex-shrink: 0;
   }
   .buy-btn {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 7px 12px;
-    border-radius: 6px;
-    font-size: 12px;
+    gap: 4px;
+    padding: 5px 9px;
+    border-radius: 5px;
+    font-size: 11px;
     font-weight: 700;
     border: none;
     color: #fff;
     text-decoration: none;
     cursor: pointer;
-    transition: opacity .15s, transform .1s;
+    transition: opacity .15s;
     white-space: nowrap;
-    letter-spacing: .02em;
   }
-  .buy-btn:hover  { opacity: .88; }
-  .buy-btn:active { transform: scale(.97); }
-  /* Amazon: ブランドオレンジ */
+  .buy-btn:hover { opacity: .85; }
   .buy-btn-amazon  { background: #FF9900; }
-  /* 楽天: ブランドレッド */
   .buy-btn-rakuten { background: #BF0000; }
-  /* 価格.com: ブランドブルー */
-  .buy-btn-kakaku  { background: #0075c1; }
-  .buy-btn-icon { font-size: 13px; }
-  .buy-note {
-    font-size: 11px;
-    color: var(--c-muted);
-    padding: 4px 18px 14px;
-    text-align: center;
-  }
 
-  /* エラー */
-  .error-box {
-    background: var(--c-ng-bg);
-    border: 1px solid #fecaca;
-    border-radius: var(--radius);
-    padding: 14px 18px;
-    color: var(--c-ng);
+  /* ── フッター入力欄 ── */
+  .chat-footer {
+    flex-shrink: 0;
+    background: var(--c-surface);
+    border-top: 1px solid var(--c-border);
+    padding: 10px 14px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .chat-input {
+    flex: 1;
+    border: 1.5px solid var(--c-border);
+    border-radius: 22px;
+    padding: 10px 16px;
     font-size: 14px;
-    margin-top: 20px;
-    display: none;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    line-height: 1.5;
+    max-height: 120px;
+    overflow-y: auto;
+    transition: border-color .15s;
+    background: #fff;
   }
-  .error-box.show { display: block; }
+  .chat-input:focus {
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+  }
+  .chat-input::placeholder { color: var(--c-muted); }
+  .chat-input:disabled { background: #f9fafb; }
 
-  /* フッター */
-  footer {
-    text-align: center;
-    color: var(--c-muted);
-    font-size: 12px;
-    margin-top: 32px;
+  .btn-send {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity .15s, transform .1s;
+    line-height: 1;
   }
+  .btn-send:hover  { opacity: .9; }
+  .btn-send:active { transform: scale(.94); }
+  .btn-send:disabled { opacity: .4; cursor: not-allowed; }
 
   @media (max-width: 480px) {
-    header { padding: 24px 16px 20px; }
-    .input-card { padding: 18px; }
-    .buy-list { gap: 6px; }
-    .buy-btn  { font-size: 12px; padding: 7px 11px; }
+    .alt-grid { grid-template-columns: 1fr; }
+    .diag-card, .alt-grid { width: calc(100vw - 70px); }
+    .chat-area { padding: 14px 12px 6px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>PC パーツ互換チェッカー</h1>
-  <p>GPU・ケース・マザーボード・CPUクーラー・電源の互換性を瞬時に診断</p>
-</header>
+<div class="app">
 
-<div class="container">
+  <header>
+    <h1>🖥️ PC 互換性チェッカー</h1>
+    <p>自然言語でパーツを入力するだけで互換性を診断</p>
+  </header>
 
-  <div class="input-card">
-    <label for="parts-input">パーツ型番（カンマ区切り）</label>
+  <div class="chat-area" id="chat-area"></div>
+
+  <div class="chat-footer">
     <textarea
-      id="parts-input"
-      placeholder="例: ROG Matrix RTX 5090 30th, NZXT H9 Flow, X870E Taichi, NH-D15 G2, DARK POWER 14 1200W"
+      class="chat-input"
+      id="chat-input"
+      placeholder="例: RTX 4070をLancool 216に入れたい"
+      rows="1"
     ></textarea>
-    <p class="hint">GPU・ケース・マザーボード・CPUクーラー・電源を入力してください（最大20パーツ）</p>
-    <button class="btn-diagnose" id="btn-diagnose" onclick="runDiagnose()">診断する</button>
+    <button class="btn-send" id="btn-send" title="送信">&#9658;</button>
   </div>
-
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-    AIが互換性を解析中...
-  </div>
-
-  <div class="error-box" id="error-box"></div>
-
-  <div id="result">
-    <div class="verdict-banner" id="verdict-banner">
-      <div class="verdict-icon" id="verdict-icon"></div>
-      <div class="verdict-text">
-        <h2 id="verdict-label"></h2>
-        <p id="verdict-sub"></p>
-      </div>
-    </div>
-
-    <div class="summary-card" id="summary-card"></div>
-
-    <div class="checks-card">
-      <h3>チェック詳細</h3>
-      <div id="checks-list"></div>
-    </div>
-
-    <div class="buy-card">
-      <h3>購入リンク</h3>
-      <div class="buy-list" id="buy-list"></div>
-      <p class="buy-note">※ アフィリエイトリンク経由で購入していただけると運営の支えになります</p>
-    </div>
-  </div>
-
-  <footer>PC Compatibility Checker &mdash; Powered by AI</footer>
 
 </div>
 
 <script>
-  const VERDICT_MAP = {
-    OK:      { label: 'OK — 互換性あり',         sub: 'すべての互換性チェックを通過しました',        icon: '✓', cls: 'OK'      },
-    WARNING: { label: 'WARNING — 要注意',         sub: '一部に互換性リスクがあります。購入前に確認を', icon: '!', cls: 'WARNING' },
-    NG:      { label: 'NG — 非互換',              sub: '組み立て不可能な組み合わせが含まれています',   icon: '✕', cls: 'NG'      },
-    UNKNOWN: { label: 'UNKNOWN — 判定不能',       sub: 'スペック情報が不足しています',                icon: '?', cls: 'UNKNOWN' },
-  };
-
-  const STATUS_LABEL = { OK: 'OK', WARNING: 'WARN', NG: 'NG', UNKNOWN: '?' };
-
-  // ─── アフィリエイト設定 ────────────────────────────────────────────────
-  // Amazon アソシエイトタグ（サーバー側の環境変数 AMAZON_TAG から注入される）
-  const AMAZON_TAG = '__AMAZON_TAG__';
-  // 楽天アフィリエイト（サーバー側の環境変数から注入される）
-  // RAKUTEN_A_ID: アフィリエイトID（例: '1a234567.89012345'）
-  // RAKUTEN_L_ID: リンクID/サイトID（例: '0b234567.89012345'）
+  // ─── アフィリエイト設定（サーバー側プレースホルダー注入） ──────────────
+  const AMAZON_TAG   = '__AMAZON_TAG__';
   const RAKUTEN_A_ID = '__RAKUTEN_A_ID__';
   const RAKUTEN_L_ID = '__RAKUTEN_L_ID__';
 
-  function buildBuyUrls(partName) {
-    const q = encodeURIComponent(partName);
-    const amazon = `https://www.amazon.co.jp/s?k=${q}&tag=${AMAZON_TAG}`;
-    // 楽天検索URL（pcパラメータ用）— q は1回だけエンコード済みなのでそのまま使用
-    const rakutenSearch = `https://search.rakuten.co.jp/search/mall/${q}/`;
-    const rakuten = (RAKUTEN_A_ID && RAKUTEN_L_ID)
-      ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_A_ID}/${RAKUTEN_L_ID}/?pc=${encodeURIComponent(rakutenSearch)}`
-      : rakutenSearch;
-    const kakaku = `https://kakaku.com/search_results/${q}/`;
-    return { amazon, rakuten, kakaku };
-  }
+  // ─── 定数 ──────────────────────────────────────────────────────────────
+  const VERDICT_MAP = {
+    OK:      { label: '互換性OK',  sub: 'すべてのチェックを通過しました',            icon: '✅', cls: 'OK'      },
+    WARNING: { label: '要注意',    sub: '一部に互換性リスクがあります',               icon: '⚠️', cls: 'WARNING' },
+    NG:      { label: '非互換',    sub: '組み立て不可能な組み合わせが含まれています', icon: '❌', cls: 'NG'      },
+    UNKNOWN: { label: '判定不能',  sub: 'スペック情報が不足しています',               icon: '❓', cls: 'UNKNOWN' },
+  };
+  const STATUS_LABEL = { OK: 'OK', WARNING: 'WARN', NG: 'NG', UNKNOWN: '?' };
 
-  async function runDiagnose() {
-    const textarea = document.getElementById('parts-input');
-    const raw = textarea.value.trim();
-    if (!raw) { showError('パーツ型番を入力してください'); return; }
+  // ─── 状態管理 ──────────────────────────────────────────────────────────
+  let history = [];          // { role, content }[]
+  let sending = false;
+  let lastDiagnosis = null;  // { parts, diagnosis }
 
-    const parts = raw.split(',').map(s => s.trim()).filter(Boolean);
-    if (parts.length === 0) { showError('有効なパーツ型番が入力されていません'); return; }
-    if (parts.length > 20) { showError('パーツは最大20件まで入力できます'); return; }
+  // ─── 初期メッセージ ─────────────────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
+    adjustHeight();
+  });
 
-    setLoading(true);
-    hideError();
-    hideResult();
+  // ─── イベント ──────────────────────────────────────────────────────────
+  document.getElementById('btn-send').addEventListener('click', sendMessage);
+  document.getElementById('chat-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+  document.getElementById('chat-input').addEventListener('input', adjustHeight);
+
+  // ─── メッセージ送信 ────────────────────────────────────────────────────
+  async function sendMessage() {
+    if (sending) return;
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    appendUserBubble(msg);
+    history.push({ role: 'user', content: msg });
+    input.value = '';
+    adjustHeight();
+    setSending(true);
+    const typingEl = appendTyping();
 
     try {
-      const res = await fetch('/api/diagnose', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ parts }),
+        body: JSON.stringify({ message: msg, history: history.slice(-10) }),
       });
-
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || `HTTP ${res.status}`);
+        throw new Error(err.error || 'HTTP ' + res.status);
       }
-
       const data = await res.json();
-      renderResult(data, parts);
+      typingEl.remove();
+      history.push({ role: 'assistant', content: data.reply || '' });
 
+      if (data.type === 'diagnosis') {
+        lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
+        appendDiagnosisMessage(data);
+      } else {
+        appendAIBubble(data.reply || '少し詳しく教えてください。');
+      }
     } catch (e) {
-      showError('診断中にエラーが発生しました: ' + e.message);
+      typingEl.remove();
+      appendAIBubble('⚠️ エラーが発生しました: ' + e.message);
     } finally {
-      setLoading(false);
+      setSending(false);
     }
   }
 
-  function renderResult(data, parts) {
-    const verdict = data.verdict || 'UNKNOWN';
-    const checks  = data.checks  || [];
-    const summary = data.summary || '';
+  // ─── チャット要素の追加 ────────────────────────────────────────────────
+  function appendUserBubble(text) {
+    const wrap = mkEl('div', 'msg user');
+    wrap.innerHTML =
+      '<div class="msg-avatar">👤</div>' +
+      '<div class="msg-bubble">' + escHtml(text) + '</div>';
+    chat().appendChild(wrap);
+    scrollBottom();
+  }
 
-    // 総合判定バナー
+  function appendAIBubble(text, extraHtml) {
+    const wrap = mkEl('div', 'msg ai');
+    const inner = mkEl('div');
+    const bubble = mkEl('div', 'msg-bubble');
+    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    if (extraHtml) bubble.insertAdjacentHTML('beforeend', extraHtml);
+    inner.appendChild(bubble);
+    wrap.innerHTML = '<div class="msg-avatar">🤖</div>';
+    wrap.appendChild(inner);
+    chat().appendChild(wrap);
+    scrollBottom();
+    return wrap;
+  }
+
+  function appendTyping() {
+    const wrap = mkEl('div', 'msg ai');
+    wrap.innerHTML =
+      '<div class="msg-avatar">🤖</div>' +
+      '<div class="msg-bubble">' +
+      '<div class="typing-indicator"><span></span><span></span><span></span></div>' +
+      '</div>';
+    chat().appendChild(wrap);
+    scrollBottom();
+    return wrap;
+  }
+
+  // ─── 診断結果メッセージ ────────────────────────────────────────────────
+  function appendDiagnosisMessage(data) {
+    const { reply, parts, diagnosis } = data;
+    const verdict = diagnosis.verdict || 'UNKNOWN';
+    const checks  = diagnosis.checks  || [];
+    const summary = diagnosis.summary || '';
     const vm = VERDICT_MAP[verdict] || VERDICT_MAP.UNKNOWN;
-    const banner = document.getElementById('verdict-banner');
-    banner.className = `verdict-banner ${vm.cls}`;
-    document.getElementById('verdict-icon').textContent  = vm.icon;
-    document.getElementById('verdict-label').textContent = vm.label;
-    document.getElementById('verdict-sub').textContent   = vm.sub;
 
-    // サマリー
-    document.getElementById('summary-card').textContent = summary;
+    const checksHtml = checks.map(c => {
+      const st = c.status || 'UNKNOWN';
+      return '<div class="check-item">' +
+        '<span class="check-badge badge-' + st + '">' + (STATUS_LABEL[st] || st) + '</span>' +
+        '<div>' +
+        '<div class="check-name">'   + escHtml(c.item   || '') + '</div>' +
+        '<div class="check-detail">' + escHtml(c.detail || '') + '</div>' +
+        '</div>' +
+        '</div>';
+    }).join('');
 
-    // チェック一覧
-    const list = document.getElementById('checks-list');
-    list.innerHTML = '';
-    checks.forEach(c => {
-      const status = c.status || 'UNKNOWN';
-      const div = document.createElement('div');
-      div.className = 'check-item';
-      div.innerHTML = `
-        <span class="check-badge badge-${status}">${STATUS_LABEL[status] || status}</span>
-        <div class="check-body">
-          <div class="check-item-name">${escHtml(c.item || '')}</div>
-          <div class="check-detail">${escHtml(c.detail || '')}</div>
-        </div>
-      `;
-      list.appendChild(div);
-    });
+    const showAlt = verdict === 'NG' || verdict === 'WARNING';
+    const altBtnsHtml = showAlt
+      ? '<div class="alt-btns">' +
+        '<button class="btn-alt" onclick="fetchAlternatives(\'gpu\')">🔄 GPUを変える</button>' +
+        '<button class="btn-alt" onclick="fetchAlternatives(\'case\')">🔄 ケースを変える</button>' +
+        '</div>'
+      : '';
 
-    // 購入リンク枠（パーツごとに Amazon / 楽天 / 価格.com の3ボタン）
-    const buyList = document.getElementById('buy-list');
-    buyList.innerHTML = '';
-    parts.forEach(part => {
-      const urls = buildBuyUrls(part);
-      const row = document.createElement('div');
-      row.className = 'buy-part';
-      row.innerHTML = `
-        <span class="buy-part-name" title="${escHtml(part)}">${escHtml(shortName(part))}</span>
-        <div class="buy-part-links">
-          <a class="buy-btn buy-btn-amazon"
-             href="${escHtml(urls.amazon)}" target="_blank" rel="noopener noreferrer">
-            <span class="buy-btn-icon">🛒</span> Amazon
-          </a>
-          <a class="buy-btn buy-btn-rakuten"
-             href="${escHtml(urls.rakuten)}" target="_blank" rel="noopener noreferrer">
-            <span class="buy-btn-icon">🛍</span> 楽天
-          </a>
-          <a class="buy-btn buy-btn-kakaku"
-             href="${escHtml(urls.kakaku)}" target="_blank" rel="noopener noreferrer">
-            <span class="buy-btn-icon">💴</span> 価格.com
-          </a>
-        </div>
-      `;
-      buyList.appendChild(row);
-    });
+    const diagHtml =
+      '<div class="diag-card">' +
+        '<div class="verdict-banner ' + vm.cls + '">' +
+          '<span class="verdict-icon">' + vm.icon + '</span>' +
+          '<div class="verdict-text">' +
+            '<h2>' + vm.label + '</h2>' +
+            '<p>' + escHtml(summary || vm.sub) + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="checks-list">' + checksHtml + '</div>' +
+        altBtnsHtml +
+      '</div>';
 
-    showResult();
+    appendAIBubble(
+      escHtml(reply || parts.length + '件のパーツを診断しました。'),
+      diagHtml
+    );
   }
 
-  // ── ユーティリティ ──
+  // ─── 代替品取得 ────────────────────────────────────────────────────────
+  async function fetchAlternatives(category) {
+    if (!lastDiagnosis) return;
+    const { parts } = lastDiagnosis;
+
+    const gpuName  = parts.find(p => /rtx|gtx|rx\s|arc\s|radeon|geforce/i.test(p))
+                  || parts[0] || '';
+    const caseName = parts.find(p =>
+                       /lancool|lian.?li|nzxt|fractal|cooler.?master|corsair|phanteks|be.quiet|silencio|meshify|define|h[0-9]/i.test(p))
+                  || parts[1] || '';
+
+    const params = new URLSearchParams({ category });
+    if (category === 'gpu'  && caseName) params.set('case_name', caseName);
+    if (category === 'case' && gpuName)  params.set('gpu_name', gpuName);
+
+    const typingEl = appendTyping();
+    try {
+      const res = await fetch('/api/alternatives?' + params.toString());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      typingEl.remove();
+      renderAlternatives(category, data.alternatives || []);
+    } catch (e) {
+      typingEl.remove();
+      appendAIBubble('⚠️ 代替品の取得に失敗しました: ' + e.message);
+    }
+  }
+
+  function renderAlternatives(category, items) {
+    const label = category === 'gpu' ? '対応GPU' : '対応ケース';
+    if (!items.length) {
+      appendAIBubble('該当する' + label + 'が見つかりませんでした。');
+      return;
+    }
+    const cardsHtml = items.map(it => {
+      const specs    = it.specs || {};
+      const specStr  = buildSpecStr(category, specs);
+      const amazonUrl  = it.amazon_url  || buildAmazonUrl(it.name);
+      const rakutenUrl = it.rakuten_url || buildRakutenUrl(it.name);
+      return '<div class="alt-product">' +
+        '<div class="alt-name">'  + escHtml(it.name || '') + '</div>' +
+        '<div class="alt-specs">' + escHtml(specStr)       + '</div>' +
+        '<div class="alt-links">' +
+          '<a class="buy-btn buy-btn-amazon"  href="' + escHtml(amazonUrl)  + '" target="_blank" rel="noopener">🛒 Amazon</a>' +
+          '<a class="buy-btn buy-btn-rakuten" href="' + escHtml(rakutenUrl) + '" target="_blank" rel="noopener">🛍 楽天</a>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+
+    appendAIBubble(
+      label + 'の候補です（' + items.length + '件）：',
+      '<div class="alt-grid">' + cardsHtml + '</div>'
+    );
+  }
+
+  function buildSpecStr(category, specs) {
+    const parts = [];
+    if (category === 'gpu') {
+      if (specs.length_mm)       parts.push(specs.length_mm + 'mm');
+      if (specs.tdp_w)           parts.push(specs.tdp_w + 'W');
+      if (specs.power_connector) parts.push(specs.power_connector);
+    } else {
+      if (specs.max_gpu_length_mm) parts.push('GPU最大 ' + specs.max_gpu_length_mm + 'mm');
+      if (specs.form_factor)       parts.push(specs.form_factor);
+    }
+    return parts.join(' / ');
+  }
+
+  function buildAmazonUrl(name) {
+    return 'https://www.amazon.co.jp/s?k=' + encodeURIComponent(name) + '&tag=' + AMAZON_TAG;
+  }
+  function buildRakutenUrl(name) {
+    const search = 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(name) + '/';
+    if (RAKUTEN_A_ID && !RAKUTEN_A_ID.startsWith('__')) {
+      return 'https://hb.afl.rakuten.co.jp/hgc/' + RAKUTEN_A_ID + '/' + RAKUTEN_L_ID +
+             '/?pc=' + encodeURIComponent(search);
+    }
+    return search;
+  }
+
+  // ─── ユーティリティ ────────────────────────────────────────────────────
+  function chat() { return document.getElementById('chat-area'); }
+  function mkEl(tag, cls) {
+    const el = document.createElement(tag);
+    if (cls) el.className = cls;
+    return el;
+  }
+  function scrollBottom() {
+    const c = chat();
+    setTimeout(() => { c.scrollTop = c.scrollHeight; }, 40);
+  }
+  function setSending(on) {
+    sending = on;
+    document.getElementById('btn-send').disabled  = on;
+    document.getElementById('chat-input').disabled = on;
+  }
   function escHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
-  function shortName(s) {
-    return s.length > 28 ? s.slice(0, 26) + '…' : s;
+  function adjustHeight() {
+    const ta = document.getElementById('chat-input');
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
   }
-
-  function setLoading(on) {
-    document.getElementById('loading').classList.toggle('show', on);
-    document.getElementById('btn-diagnose').disabled = on;
-  }
-  function showError(msg)  {
-    const box = document.getElementById('error-box');
-    box.textContent = msg;
-    box.classList.add('show');
-  }
-  function hideError()  { document.getElementById('error-box').classList.remove('show'); }
-  function showResult() { document.getElementById('result').classList.add('show'); }
-  function hideResult() { document.getElementById('result').classList.remove('show'); }
-
-  // Enter キーで診断
-  document.getElementById('parts-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) runDiagnose();
-  });
 </script>
 
 </body>
