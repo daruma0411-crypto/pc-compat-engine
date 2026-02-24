@@ -125,3 +125,20 @@ MB完了: 2975件
   ✓ CPUクーラー     :     0件
   合計: 6854件
 =======================================================
+[main e34319b] feat: 価格.com全カテゴリスクレイプ完了 MB:2975件
+ Committer: 岩下 春樹 <iwashita@akagane.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 30 insertions(+)
+
+git commit & push...
+完了
