@@ -3,7 +3,7 @@ services:
     name: pc-compat-engine
     env: python
     buildCommand: pip install -r requirements_render.txt
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false   # Renderダッシュボードで手動設定してください
