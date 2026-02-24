@@ -1,0 +1,341 @@
+/* ================================================================
+   common.css — PC互換性チェッカー 共通スタイル
+   ================================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c-primary:  #4f46e5;
+  --c-primary2: #7c3aed;
+  --c-surface:  #ffffff;
+  --c-border:   #e5e7eb;
+  --c-text:     #111827;
+  --c-muted:    #6b7280;
+  --c-ok:       #16a34a;
+  --c-warn:     #ca8a04;
+  --c-ng:       #dc2626;
+  --radius:     12px;
+  --shadow:     0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
+  background: #f3f4f6;
+  color: var(--c-text);
+  min-height: 100vh;
+}
+
+/* ── ナビゲーション ── */
+.site-nav {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 56px;
+}
+.nav-logo {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-right: 12px;
+  letter-spacing: -.02em;
+}
+.nav-logo span { opacity: .75; font-weight: 400; }
+
+/* ドロップダウン */
+.nav-group { position: relative; }
+.nav-group-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.88);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background .15s;
+}
+.nav-group-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+.nav-group-btn::after { content: '▾'; font-size: 10px; }
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.14);
+  min-width: 180px;
+  padding: 6px 0;
+  z-index: 200;
+}
+.nav-group:hover .nav-dropdown { display: block; }
+.nav-dropdown a {
+  display: block;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: var(--c-text);
+  text-decoration: none;
+  transition: background .1s;
+}
+.nav-dropdown a:hover { background: #f3f4f6; color: var(--c-primary); }
+
+/* 通常リンク */
+.nav-link {
+  color: rgba(255,255,255,.88);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 10px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background .15s;
+}
+.nav-link:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+.nav-spacer { flex: 1; }
+
+/* CTAボタン */
+.nav-cta {
+  background: #fff;
+  color: var(--c-primary);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .15s;
+  letter-spacing: .01em;
+}
+.nav-cta:hover { opacity: .88; }
+
+/* ── ページヘッダー ── */
+.page-hero {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: #fff;
+  padding: 48px 20px 40px;
+  text-align: center;
+}
+.page-hero h1 {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  margin-bottom: 10px;
+}
+.page-hero p {
+  font-size: 15px;
+  opacity: .85;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── コンテナ ── */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+/* ── カード ── */
+.card {
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card h2 .icon { font-size: 20px; }
+.card h3 { font-size: 15px; font-weight: 700; margin: 18px 0 8px; color: var(--c-text); }
+.card p  { font-size: 14px; line-height: 1.75; color: #374151; margin-bottom: 10px; }
+.card ul, .card ol {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #374151;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+.card li { margin-bottom: 4px; }
+
+/* ── 商品リンクカード ── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.product-item {
+  border: 1.5px solid var(--c-border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.product-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-text);
+  line-height: 1.4;
+}
+.product-item-desc {
+  font-size: 12px;
+  color: var(--c-muted);
+  flex: 1;
+  line-height: 1.5;
+}
+.btn-amazon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 14px;
+  background: #FF9900;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: opacity .15s;
+  white-space: nowrap;
+  letter-spacing: .02em;
+}
+.btn-amazon:hover { opacity: .88; }
+
+/* ── CTA バナー ── */
+.cta-banner {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.cta-banner h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; border: none; padding: 0; color: #fff; }
+.cta-banner p  { font-size: 13px; opacity: .85; margin-bottom: 16px; }
+.btn-cta {
+  display: inline-block;
+  background: #fff;
+  color: var(--c-primary);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: opacity .15s, transform .1s;
+  letter-spacing: .01em;
+}
+.btn-cta:hover  { opacity: .92; }
+.btn-cta:active { transform: scale(.97); }
+
+/* ── 構成テーブル ── */
+.build-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+.build-table th {
+  background: #f3f4f6;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--c-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.build-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: middle;
+}
+.build-table tr:last-child td { border-bottom: none; }
+.build-table td:last-child { text-align: right; }
+.build-table .part-name { font-weight: 600; color: var(--c-text); }
+.build-table .part-model { color: var(--c-muted); font-size: 12px; display: block; margin-top: 2px; }
+.build-total td { font-weight: 700; font-size: 15px; border-top: 2px solid var(--c-border); }
+
+/* ── バッジ ── */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+}
+.badge-green  { background: #dcfce7; color: #16a34a; }
+.badge-blue   { background: #dbeafe; color: #1d4ed8; }
+.badge-orange { background: #ffedd5; color: #c2410c; }
+.badge-purple { background: #ede9fe; color: #7c3aed; }
+
+/* ── フッター ── */
+.site-footer {
+  background: #1f2937;
+  color: #9ca3af;
+  font-size: 12px;
+  padding: 32px 20px;
+  margin-top: 0;
+}
+.footer-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+}
+.footer-col h4 { color: #e5e7eb; font-size: 13px; margin-bottom: 10px; }
+.footer-col a  { display: block; color: #9ca3af; text-decoration: none; margin-bottom: 6px; }
+.footer-col a:hover { color: #e5e7eb; }
+.footer-copy {
+  max-width: 860px;
+  margin: 24px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid #374151;
+  text-align: center;
+}
+.footer-copy a { color: #9ca3af; text-decoration: underline; }
+
+/* ── レスポンシブ ── */
+@media (max-width: 640px) {
+  .nav-group-btn::after { display: none; }
+  .nav-link, .nav-group-btn { font-size: 12px; padding: 7px 8px; }
+  .nav-cta { padding: 7px 11px; }
+  .page-hero { padding: 36px 16px 28px; }
+  .container { padding: 20px 12px 48px; }
+  .card { padding: 20px 16px; }
+  .product-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { flex-direction: column; gap: 16px; }
+}
+@media (max-width: 400px) {
+  .product-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自作PCブログ | PC互換性チェッカー</title>
+<meta name="description" content="自作PC・パーツ選び・互換性に関する情報ブログ。最新GPU・CPU情報、組み立てTips、トラブルシューティングまで幅広く発信。">
+<link rel="stylesheet" href="/static/css/common.css">
+<style>
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+.blog-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 20px;
+  transition: box-shadow .2s, transform .2s;
+}
+.blog-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  transform: translateY(-2px);
+}
+.blog-card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--c-primary);
+  color: #fff;
+  margin-bottom: 8px;
+}
+.blog-card-tag.tag-gpu { background: #7c3aed; }
+.blog-card-tag.tag-cpu { background: #0891b2; }
+.blog-card-tag.tag-build { background: #059669; }
+.blog-card-tag.tag-tips { background: #d97706; }
+.blog-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.blog-card-desc {
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.blog-card-meta {
+  font-size: 11px;
+  color: var(--c-muted);
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">PC互換<span>チェッカー</span></a>
+    <div class="nav-group">
+      <button class="nav-group-btn">ガイド</button>
+      <div class="nav-dropdown">
+        <a href="/guides/beginner.html">初めての自作PC</a>
+        <a href="/guides/gpu-guide.html">GPU選び方ガイド</a>
+        <a href="/guides/cpu-guide.html">CPU選び方ガイド</a>
+        <a href="/guides/case-guide.html">ケース選び方ガイド</a>
+        <a href="/guides/psu-guide.html">電源選び方ガイド</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <button class="nav-group-btn">構成例</button>
+      <div class="nav-dropdown">
+        <a href="/builds/gaming-50k.html">5万円ゲーミング</a>
+        <a href="/builds/gaming-100k.html">10万円ゲーミング</a>
+        <a href="/builds/gaming-200k.html">20万円ハイエンド</a>
+      </div>
+    </div>
+    <a class="nav-link" href="/blog/index.html">ブログ</a>
+    <a class="nav-link" href="/about.html">サービスについて</a>
+    <div class="nav-spacer"></div>
+    <a class="nav-cta" href="/compat">互換性チェック →</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>自作PCブログ</h1>
+  <p>パーツ選び・互換性・組み立てTipsを発信。最新情報をお届けします。</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2><span class="icon">📰</span>最新記事</h2>
+    <div class="blog-grid">
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-gpu">GPU</span>
+        <div class="blog-card-title">RTX 4070 vs Radeon RX 7700 XT：2026年ミドルレンジ徹底比較</div>
+        <div class="blog-card-desc">フルHD〜WQHD帯域で最もコスパが高いのはどちら？ベンチマーク・VRAM・発熱・DLSS/FSRの観点で徹底比較します。</div>
+        <div class="blog-card-meta">2026年2月 · GPU選び方</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-cpu">CPU</span>
+        <div class="blog-card-title">Intel Core Ultra 200S vs Ryzen 9000：ゲーム・クリエイター別比較</div>
+        <div class="blog-card-desc">Arrow Lake vs Zen 5。2026年の主流CPU対決。ゲーミング・動画編集・配信それぞれの用途でどちらが有利かデータで解説。</div>
+        <div class="blog-card-meta">2026年2月 · CPU選び方</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-build">構成例</span>
+        <div class="blog-card-title">2026年春・コスパ最強自作PC構成ベスト5</div>
+        <div class="blog-card-desc">5万・8万・10万・15万・20万円帯それぞれのコスパ最強構成を一挙紹介。予算別の最適解をわかりやすく解説します。</div>
+        <div class="blog-card-meta">2026年2月 · 構成例</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-tips">Tips</span>
+        <div class="blog-card-title">自作PCの「よくある失敗」5選と対策</div>
+        <div class="blog-card-desc">初心者がやりがちなパーツ選びミスとその回避方法。GPUがケースに入らない・電源不足・メモリ規格違いなど実例付きで解説。</div>
+        <div class="blog-card-meta">2026年1月 · 初心者向け</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-gpu">GPU</span>
+        <div class="blog-card-title">12VHPWR（16ピン）コネクタ完全ガイド</div>
+        <div class="blog-card-desc">RTX 4000系から採用された12VHPWRコネクタの仕様・対応電源の選び方・変換アダプタのリスクまで詳しく解説します。</div>
+        <div class="blog-card-meta">2026年1月 · GPU・電源</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-tips">Tips</span>
+        <div class="blog-card-title">空冷 vs 水冷（AIO）どちらを選ぶ？2026年最新比較</div>
+        <div class="blog-card-desc">DeepCool AK620・Noctua NH-D15などの空冷トップモデルと、240mm/360mm水冷AIOを冷却性能・静音性・コスパで比較。</div>
+        <div class="blog-card-meta">2026年1月 · CPUクーラー</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-build">構成例</span>
+        <div class="blog-card-title">フルHD 144fps特化PC：10万円で実現するゲーム環境</div>
+        <div class="blog-card-desc">144Hzゲーミングモニターを最大活用するための構成。RTX 4070を軸にCPU・電源・ケースのバランスをどう取るか解説。</div>
+        <div class="blog-card-meta">2025年12月 · 構成例</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-tips">Tips</span>
+        <div class="blog-card-title">PCケースのエアフロー：前面吸気・背面排気の基本設計</div>
+        <div class="blog-card-desc">ポジティブプレッシャー・ネガティブプレッシャー・バランス型の違いと、GPUとCPUを同時に冷やす最適なファン配置を解説。</div>
+        <div class="blog-card-meta">2025年12月 · ケース・冷却</div>
+      </div>
+
+      <div class="blog-card">
+        <span class="blog-card-tag tag-cpu">CPU</span>
+        <div class="blog-card-title">DDR5メモリ：速度と容量の選び方完全ガイド</div>
+        <div class="blog-card-desc">DDR5-4800から8000まで、速度別の性能差と価格帯を比較。XMPプロファイルの有効化方法とIntel/AMDでの推奨設定を解説。</div>
+        <div class="blog-card-meta">2025年11月 · メモリ</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta-banner">
+    <h2>パーツが決まったら互換性をチェック</h2>
+    <p>型番を入力するだけ。GPU・CPU・ケース・電源の互換性をAIが一括診断します。</p>
+    <a class="btn-cta" href="/compat">無料で互換性チェック →</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📚</span>カテゴリ別ガイド</h2>
+    <div class="product-grid">
+      <div class="product-item">
+        <div class="product-item-name">GPU選び方ガイド</div>
+        <div class="product-item-desc">予算・解像度別のおすすめGPUを徹底解説。</div>
+        <a class="btn-amazon" href="/guides/gpu-guide.html">ガイドを読む →</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">CPU選び方ガイド</div>
+        <div class="product-item-desc">Intel vs AMD 用途別比較。ソケット互換性も解説。</div>
+        <a class="btn-amazon" href="/guides/cpu-guide.html">ガイドを読む →</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">ケース選び方ガイド</div>
+        <div class="product-item-desc">フォームファクター・GPU長・エアフロー解説。</div>
+        <a class="btn-amazon" href="/guides/case-guide.html">ガイドを読む →</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">電源選び方ガイド</div>
+        <div class="product-item-desc">容量計算・80PLUS認証・モジュラー選びを解説。</div>
+        <a class="btn-amazon" href="/guides/psu-guide.html">ガイドを読む →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>ガイド</h4>
+      <a href="/guides/beginner.html">初めての自作PC</a>
+      <a href="/guides/gpu-guide.html">GPU選び方</a>
+      <a href="/guides/cpu-guide.html">CPU選び方</a>
+      <a href="/guides/case-guide.html">ケース選び方</a>
+      <a href="/guides/psu-guide.html">電源選び方</a>
+    </div>
+    <div class="footer-col">
+      <h4>構成例</h4>
+      <a href="/builds/gaming-50k.html">5万円ゲーミング</a>
+      <a href="/builds/gaming-100k.html">10万円ゲーミング</a>
+      <a href="/builds/gaming-200k.html">20万円ハイエンド</a>
+    </div>
+    <div class="footer-col">
+      <h4>サービス</h4>
+      <a href="/compat">互換性チェッカー</a>
+      <a href="/blog/index.html">ブログ</a>
+      <a href="/about.html">サービスについて</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 PC互換性チェッカー &mdash; <a href="/about.html">プライバシーポリシー</a>
+  </div>
+</footer>
+</body>
+</html>

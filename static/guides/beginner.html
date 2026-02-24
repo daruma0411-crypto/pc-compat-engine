@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>初めての自作PC完全ガイド 2026 | PC互換性チェッカー</title>
+<meta name="description" content="自作PCの始め方を丁寧に解説。必要なパーツ・予算・注意点をわかりやすくまとめました。初心者でも安心して組み立てられます。">
+<link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">PC互換<span>チェッカー</span></a>
+    <div class="nav-group">
+      <button class="nav-group-btn">ガイド</button>
+      <div class="nav-dropdown">
+        <a href="/guides/beginner.html">初めての自作PC</a>
+        <a href="/guides/gpu-guide.html">GPU選び方ガイド</a>
+        <a href="/guides/cpu-guide.html">CPU選び方ガイド</a>
+        <a href="/guides/case-guide.html">ケース選び方ガイド</a>
+        <a href="/guides/psu-guide.html">電源選び方ガイド</a>
+      </div>
+    </div>
+    <div class="nav-group">
+      <button class="nav-group-btn">構成例</button>
+      <div class="nav-dropdown">
+        <a href="/builds/gaming-50k.html">5万円ゲーミング</a>
+        <a href="/builds/gaming-100k.html">10万円ゲーミング</a>
+        <a href="/builds/gaming-200k.html">20万円ハイエンド</a>
+      </div>
+    </div>
+    <a class="nav-link" href="/blog/index.html">ブログ</a>
+    <a class="nav-link" href="/about.html">サービスについて</a>
+    <div class="nav-spacer"></div>
+    <a class="nav-cta" href="/compat">互換性チェック →</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>初めての自作PC完全ガイド 2026</h1>
+  <p>パーツ選びから組み立てまで、初心者でもわかる自作PCの始め方を徹底解説します</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2><span class="icon">🖥️</span>自作PCとは？メリットを知ろう</h2>
+    <p>自作PCとは、CPU・マザーボード・メモリ・GPU・ストレージ・電源・ケースなどのパーツを個別に購入し、自分で組み立てるパソコンのことです。</p>
+    <h3>自作PCの主なメリット</h3>
+    <ul>
+      <li><strong>コストパフォーマンスが高い</strong>：同じ予算でメーカー製PCより高性能にできることが多い</li>
+      <li><strong>カスタマイズ自由</strong>：用途に合わせてパーツを選べる（ゲーム重視・クリエイター向け等）</li>
+      <li><strong>パーツ交換が容易</strong>：壊れたパーツだけ交換・アップグレードできる</li>
+      <li><strong>PCへの理解が深まる</strong>：組み立てることで構造がわかる</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🧩</span>必要なパーツ一覧</h2>
+    <p>自作PCには以下の7〜8種類のパーツが必要です。それぞれの役割を把握しておきましょう。</p>
+    <h3>① CPU（中央処理装置）</h3>
+    <p>PCの頭脳。IntelかAMDを選びます。2026年現在はIntel Core Ultra 200系・AMD Ryzen 9000系が主流です。ゲーム用途なら6〜8コア以上を選びましょう。</p>
+    <h3>② マザーボード</h3>
+    <p>全パーツをつなぐ基板。CPUのソケット形状（LGA1851・AM5など）と必ず一致させる必要があります。形状（ATX/mATX/Mini-ITX）はケースに合わせて選択。</p>
+    <h3>③ メモリ（RAM）</h3>
+    <p>作業領域。2026年はDDR5が主流。ゲームなら最低16GB（32GB推奨）。マザーボードの対応規格・スロット数に合わせて選びます。</p>
+    <h3>④ GPU（グラフィックカード）</h3>
+    <p>映像処理の専用チップ。ゲームや動画編集では最重要パーツ。NVIDIAのGeForce RTXシリーズとAMDのRadeon RXシリーズが主流です。</p>
+    <h3>⑤ ストレージ（SSD/HDD）</h3>
+    <p>データの保存場所。OSインストール用にNVMe SSD（500GB以上）を1枚は用意しましょう。PCIe 4.0/5.0 SSDが速くておすすめです。</p>
+    <h3>⑥ 電源ユニット（PSU）</h3>
+    <p>全パーツに電力を供給。容量（W）は使用パーツの消費電力合計より20〜30%余裕を持って選びます。80PLUS Gold以上の効率評価を推奨。</p>
+    <h3>⑦ PCケース</h3>
+    <p>パーツを収納する筐体。マザーボードのフォームファクターに対応したケースを選ぶ必要あり。GPUの長さもケースの許容値に収まるか確認が必要です。</p>
+    <h3>⑧ CPUクーラー</h3>
+    <p>CPUの熱を冷却。空冷（ファン式）と水冷（AIO）があります。CPUのTDPに合った冷却能力のものを選びましょう。</p>
+  </div>
+
+  <div class="cta-banner">
+    <h2>パーツの互換性、自動チェックできます</h2>
+    <p>選んだパーツの型番を入力するだけでAIが互換性を即座に診断。組み立て前に確認しましょう。</p>
+    <a class="btn-cta" href="/compat">互換性チェックを試す（無料）</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">💰</span>予算別おすすめ構成</h2>
+    <p>自作PCの予算感は用途によって大きく異なります。以下を参考にしてください。</p>
+    <ul>
+      <li><strong>5万円以下</strong>：軽いゲーム・ネット・動画視聴向け。フルHD 60fpsゲームが目標。</li>
+      <li><strong>8〜12万円</strong>：フルHD 144fps・WQHDゲームに最適。コスパ最重視の構成。</li>
+      <li><strong>15〜20万円</strong>：WQHD 144fps・4K 60fps対応。クリエイター兼用も可能。</li>
+      <li><strong>20万円以上</strong>：4K 144fps・動画編集・3DCGなどヘビー用途向け。</li>
+    </ul>
+    <p>具体的な構成例は「<a href="/builds/gaming-50k.html" style="color:var(--c-primary)">5万円ゲーミング構成例</a>」「<a href="/builds/gaming-100k.html" style="color:var(--c-primary)">10万円ゲーミング構成例</a>」も参考にどうぞ。</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🛒</span>パーツをAmazonで探す</h2>
+    <p>各カテゴリのパーツをAmazonで確認できます。</p>
+    <div class="product-grid">
+      <div class="product-item">
+        <div class="product-item-name">CPU（Intel Core Ultra）</div>
+        <div class="product-item-desc">LGA1851ソケット対応。Arrow Lake世代の最新CPU。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=Intel+Core+Ultra+CPU&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">マザーボード（Z890/B860）</div>
+        <div class="product-item-desc">Intel 800シリーズチップセット対応マザー。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=Z890+マザーボード&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">DDR5メモリ 32GB</div>
+        <div class="product-item-desc">ゲーム・クリエイター両用の標準容量。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=DDR5+メモリ+32GB&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">GeForce RTX GPU</div>
+        <div class="product-item-desc">NVIDIAの定番グラフィックスカード。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=GeForce+RTX+グラフィックボード&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">NVMe SSD（PCIe 4.0）</div>
+        <div class="product-item-desc">OS・ゲーム高速読み込み用ストレージ。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=NVMe+SSD+PCIe+4.0&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">ATX電源 850W Gold</div>
+        <div class="product-item-desc">ミドルハイ構成に適した容量・効率。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=ATX+電源+850W+Gold&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">ATXミドルタワーケース</div>
+        <div class="product-item-desc">エアフロー重視・標準的な自作PCケース。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=ATX+ミドルタワー+PCケース&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+      <div class="product-item">
+        <div class="product-item-name">CPUクーラー（空冷）</div>
+        <div class="product-item-desc">コスパ重視の定番空冷クーラー。</div>
+        <a class="btn-amazon" href="https://www.amazon.co.jp/s?k=CPU+空冷クーラー+LGA1851&tag=__AMAZON_TAG__" target="_blank" rel="noopener">🛒 Amazonで見る</a>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--c-muted);margin-top:12px;">※ Amazonアソシエイトリンク経由でご購入いただくとサイト運営の支えになります。</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">⚠️</span>初心者がよく失敗するポイント</h2>
+    <ul>
+      <li><strong>CPUとマザーボードのソケット不一致</strong>：必ず対応表を確認しましょう</li>
+      <li><strong>GPUがケースに入らない</strong>：GPU実装長 &lt; ケース最大GPU長であることを確認</li>
+      <li><strong>メモリ規格の間違い</strong>：DDR4マザーにDDR5を挿すことはできません</li>
+      <li><strong>電源容量が足りない</strong>：GPUのTDPを基準に余裕を持った容量を選ぶ</li>
+      <li><strong>マザーのフォームファクターとケースが合わない</strong>：ATX MBはATX対応ケースが必要</li>
+    </ul>
+    <p>これらは当サイトの<strong>互換性チェッカー</strong>で自動判定できます。ぜひ活用してください。</p>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>ガイド</h4>
+      <a href="/guides/beginner.html">初めての自作PC</a>
+      <a href="/guides/gpu-guide.html">GPU選び方</a>
+      <a href="/guides/cpu-guide.html">CPU選び方</a>
+      <a href="/guides/case-guide.html">ケース選び方</a>
+      <a href="/guides/psu-guide.html">電源選び方</a>
+    </div>
+    <div class="footer-col">
+      <h4>構成例</h4>
+      <a href="/builds/gaming-50k.html">5万円ゲーミング</a>
+      <a href="/builds/gaming-100k.html">10万円ゲーミング</a>
+      <a href="/builds/gaming-200k.html">20万円ハイエンド</a>
+    </div>
+    <div class="footer-col">
+      <h4>サービス</h4>
+      <a href="/compat">互換性チェッカー</a>
+      <a href="/blog/index.html">ブログ</a>
+      <a href="/about.html">サービスについて</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 PC互換性チェッカー &mdash; <a href="/about.html">プライバシーポリシー</a>
+  </div>
+</footer>
+
+</body>
+</html>

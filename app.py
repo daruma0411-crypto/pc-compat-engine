@@ -343,6 +343,22 @@ def index():
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/<path:filename>')
+def static_pages(filename):
+    """ガイド・構成例・ブログ等の静的HTMLページを配信（AMAZON_TAG注入付き）"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    if not filename.endswith('.html'):
+        return send_from_directory(static_dir, filename)
+    html_path = os.path.join(static_dir, filename)
+    if not os.path.isfile(html_path):
+        return 'Not Found', 404
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+    html = html.replace('__AMAZON_TAG__', amazon_tag)
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 @app.route('/api/health')
 def health():
     return jsonify({'status': 'ok'})
