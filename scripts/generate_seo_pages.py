@@ -172,6 +172,7 @@ def individual_page(gpu: dict, case: dict, margin: float,
         else f'{abs(margin):.0f}mmオーバー'
     )
 
+    canonical = f'{_BASE_URL}/compat/{esc(gpu_slug)}-vs-{esc(case_slug)}.html'
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -179,6 +180,7 @@ def individual_page(gpu: dict, case: dict, margin: float,
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(gpu_name)}は{esc(case_name)}に入る？互換性チェック結果</title>
 <meta name="description" content="{esc(gpu_name)}（{gpu_len:.0f}mm）が{esc(case_name)}（最大{case_max:.0f}mm）に入るか計算した結果：{badge}。マージン{margin:.0f}mm。">
+<link rel="canonical" href="{canonical}">
 {_CSS}
 </head>
 <body>
@@ -427,7 +429,10 @@ def _generate_sitemap(gpus: list, cases: list, n_total: int):
     from datetime import datetime
     today = datetime.utcnow().strftime('%Y-%m-%d')
 
-    urls = [f'<url><loc>{_BASE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>']
+    urls = [
+        f'<url><loc>{_BASE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>',
+        f'<url><loc>{_BASE_URL}/compat/index.html</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>',
+    ]
 
     # 個別ページ
     for gpu in gpus:
