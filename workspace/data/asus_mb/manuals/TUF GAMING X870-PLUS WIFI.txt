@@ -1,0 +1,5060 @@
+PRIME / 
+ProArt /  
+TUF GAMING 
+AMD 800 
+Series
+BIOSガイド
+Motherboard
+
+2
+J25269
+初版
+2025年2月 発行
+Copyright © 2025 ASUSTeK COMPUTER INC.All Rights Reserved.
+本書に記載されている製品およびソフトウェアは著作権法により保護されており、その使用、複製、頒布および
+逆コンパイルを制限するライセンスのもとにおいて頒布されます。購入者によるバックアップ目的の場合を除
+き、ASUSTeK Computer Inc. （以下、ASUS）の書面による事前の許可なく、本製品および本書のいかなる部分
+も、いかなる方法によっても複製することが禁じられます。
+以下に該当する場合は、製品保証サービスを受けることができません。
+	
+(1) 製品に対しASUSの書面により認定された以外の修理、改造、改変が行われた場合 
+	
+(2) 製品のシリアル番号の確認ができない場合
+本書の情報の完全性および正確性については最善の努力が払われていますが、本書の内容は「現状のま
+ま」で提供されるものであり、ASUSは明示または黙示を問わず、本書においていかなる保証も行ないませ
+ん。ASUS、その提携会社、従業員、取締役、役員、代理店、ベンダーまたはサプライヤーは、本書および本製品
+の使用または使用不能から生じた直接的、間接的、付随的、結果的な損害（データの変化・消失、事業利益の損
+失、事業の中断など）に対して、たとえASUSがその損害の可能性について知らされていた場合も、一切責任を
+負いません。
+本書は情報提供のみを目的として作成されており、誤りがないという保証はなされません。また、他のいかなる
+保証の対象となることもありません。本書の内容は予告なく変更される場合があります。
+本書に記載している会社名、製品名は、各社の商標または登録商標です。本書では説明の便宜のためにその
+会社名、製品名などを記載する場合がありますが、それらの商標権の侵害を行う意思、目的はありません。
+
+3
+目次
+1.	
+UEFIとは..............................................................................................................5
+2.	
+BIOSセットアッププログラム.................................................................................6
+2.1	
+EZ Mode...................................................................................................................7
+2.2	
+Advanced Mode...................................................................................................8
+2.3	
+Q-Fan Control.....................................................................................................11
+2.4	
+AI OC Guide.........................................................................................................11
+2.5	
+Q-Dashboard......................................................................................................12
+3.	
+My Favorites.....................................................................................................13
+4.	
+Main..................................................................................................................15
+5.	
+Ai Tweaker........................................................................................................17
+6.	
+Advanced.........................................................................................................48
+6.1	
+Trusted Computing..........................................................................................48
+6.2	
+AMD fTPM configuration...............................................................................49
+6.3	
+UEFI Variables Protection...............................................................................50
+6.4	
+CPU Configuration............................................................................................50
+6.5	
+PCI Subsystem Settings..................................................................................50
+6.6	
+USB Configuration............................................................................................51
+6.7	
+Network Stack Configuration.......................................................................51
+6.8	
+NVMe Configuration........................................................................................52
+6.9	
+HDD/SSD SMART Information.....................................................................52
+6.10	
+SATA Configuration..........................................................................................52
+6.11	
+APM Configuration...........................................................................................53
+6.12	
+Onboard Devices Configuration.................................................................54
+6.13	
+NB Configuration..............................................................................................56
+6.14	
+AMD CBS...............................................................................................................57
+6.15	
+AMD PBS...............................................................................................................76
+6.16	
+AMD Overclocking...........................................................................................78
+7.	
+Monitor.............................................................................................................94
+8.	
+Boot............................................................................................................... 104
+9.	
+Tool................................................................................................................ 109
+9.1	
+ASUS EZ Flash 3 Utility..................................................................................110
+9.2	
+ASUS Secure Erase..........................................................................................110
+9.3	
+BIOS Q-Dashboard..........................................................................................110
+9.4	
+ASUS User Profile............................................................................................111
+9.5	
+ASUS SPD Information..................................................................................111
+9.6	
+ASUS MyHotkey...............................................................................................111
+9.7	
+ASUS DriverHub...............................................................................................112
+
+4
+10.	
+Exit................................................................................................................. 113
+11.	
+BIOSの更新.................................................................................................... 114
+11.1	
+ASUS EZ Flash 3...............................................................................................114
+11.2	
+ASUS CrashFree BIOS 3.................................................................................115
+
+5
+1.	
+UEFIとは
+参考： ASUS UEFI BIOSは、Unified Extensible Firmware Interface（UEFI）アーキテクチャに準拠した
+BIOSが備わっており、従来のキーボードのみによるBIOS操作だけでなく、より柔軟で便利なマウ
+ス操作を可能にするユーザーフレンドリーなインターフェースを提供しており、オペレーティング
+システムと同様に直感的な操作が可能です。 
+UEFIは従来のBIOSを拡張したシステムであることから、特に言及がない限り、本書およびASUS
+ではUEFIを「BIOS」と表記します。
+UEFI（Unified Extensible Firmware Interface）は、従来パソコンのハードウェア制御を担ってき
+た BIOS に代わる、OS とファームウェアのインターフェース仕様です。UEFIは非常に高機能な最
+新のファームウェアで従来のBIOSと違い拡張性に富んでいます。UEFIの設定はマザーボードの
+CMOS RAM（CMOS）に保存されています。通常、UEFIの既定値はさまざまな環境で最適なパフォ
+ーマンスを実現できるように設定されています。以下の状況以外では、既定値のままで使用する
+ことをお勧めします。 
+•	
+システム起動中にエラーメッセージが表示されBIOSセットアッププログラムを起動するよ
+うに指示があった場合
+•	
+BIOSの設定を必要とするコンポーネントをシステムに取り付けた場合
+注意！ 不適切なBIOS設定は、不安定な動作や起動不良の原因となります。BIOS設定の変更は、専門知
+識を持った技術者のサポートを受けて行うことを強く推奨します。
+参考： 
+•	 本書に記載している画面は一例です。画面の背景、画面デザイン、表示される項目名、アイコンなど
+の種類や位置などが実際の画面と異なる場合があります。  
+•	 本書は、本書作成時のソフトウェアおよびハードウェアの情報に基づき作成されています。ソフトウ
+ェアのバージョンアップなどにより、記載内容とソフトウェアに搭載されている機能および名称が異
+なる場合があります。また、本書の内容は、製品やサービスの仕様変更などにより将来予告なく変更
+することがあります。 最新情報については当社ウェブサイトをご覧ください。
+
+6
+2.	
+BIOSセットアッププログラム
+コンピューターの起動時に最初に起動するプログラムで、記憶装置の構成、オーバークロック設
+定、電源の管理、起動デバイス設定などのシステムハードウェアの設定をすることができます。
+コンピューターの起動時にBIOSセットアッププログラムを起動する
+システムは起動時にPOST (Power On Self Test) と呼ばれる起動時の自己診断テストを実行しま
+す。このPOST中に<F2>または<Delete>を押すことでBIOSセットアッププログラムを起動するこ
+とができます。
+重要！ 
+•	 マウスを使用してBIOSセットアッププログラムを操作する場合は、USBマウスがマザーボードに接
+続されていることを確認してください。
+•	 BIOS設定の変更後、システムが不安定になった場合は、<F5>キーを押す、またはEXITメニューの
+「Load Optimized Defaults（既定値を読み込む）」を実行しBIOSをデフォルト設定に戻してくださ
+い。
+•	 BIOS設定の変更後、システムが起動しなくなった場合は、CMOSクリアを実行しBIOS設定のリセット
+をお試しください。CMOSクリアの実行方法について、詳しくはお使いの製品のユーザーガイドをご
+覧ください。
+•	 BIOSセットアッププログラムは Bluetooth デバイスには対応しておりません。
+•	 BIOSセットアッププログラム上で、キーボードは英語配列キーボードとして認識されます。
+•	 BIOSセットアッププログラムの各項目の名称、設定値、既定値は、ご利用のモデルやBIOSバージョ
+ン、取り付けたハードウェアによって異なる場合があります。予めご了承ください。
+メニュー画面
+BIOSセットアッププログラム（UEFI BIOS Utility）は、EZ Mode と Advanced Mode の2つのモ
+ードで使用することができます。モードは＜F7＞を押す、または画面右下の EZ Mode(F7) ／ 
+Advanced Mode(F7) ボタンを選択することで切り替えることができます。
+
+7
+2.1	
+EZ Mode
+EZ Mode では、基本的なシステム情報の一覧が表示され、表示言語やシステムパフォーマンス
+モード、起動デバイスの優先順位などが設定できます。Advanced Mode へ切り替えるには<F7>
+を押すか、画面右下の「Advanced Mode (F7)」ボタンを押すことで簡単に切り替えることができ
+ます。
+参考： BIOSセットアッププログラムを起動した際に表示されるモードは変更できます。 
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+表示言語
+システム情報
+EZ System Tuning
+既定値を読み込む
+Q-Dashboard
+Q-Fan Control 
+設定を保存して終了
+起動デバイスの表示
+起動デバイスの優先順位
+Advanced Mode
+Search
+AURA
+ReSize BAR
+
+8
+2.2	
+Advanced Mode
+Advanced Modeでは、上級者向けに、BIOSの高度な設定を行うためのオプションが用意されて
+います。  
+参考： Advanced ModeからEZ Modeへ切り替えるには<F7>を押すか、画面右下の「EZ Mode(F7)」ボ
+タンをクリックすることで簡単に切り替えることができます。
+メニューバー
+画面上部に表示されるメニューバーはカテゴリーを表しています。各カテゴリーで設定できる内
+容は次のとおりです。
+My Favorites
+登録したお気に入り項目
+Main
+基本システム設定
+Ai Tweaker
+オーバークロック設定
+Advanced
+高度なシステム設定
+Monitor
+システム温度/電力状態の表示およびファンの設定
+Boot
+システム起動設定
+Tool
+独自機能
+Exit
+終了メニューおよび既定値の読み込み
+メインアイテム
+サブアイテム
+詳細情報
+メニューバー
+表示言語
+Q-Fan Control
+My Favorite
+ポップアップウィンドウ 
+構成フィールド
+Last Modified
+EZ Mode
+ハードウェアモニター
+Hot keys
+AURA
+Search
+ReSize BAR
+スクロールバー
+Q-Dashboard
+
+9
+メインアイテム
+設定可能なアイテムまたは各種情報のタイトルが表示されます。  
+サブアイテム
+サブアイテムが含まれる項目には矢印マークが表示されています。 
+Language（表示言語）
+BIOSセットアッププログラムで表示する言語を選択します。 
+My Favorite（お気に入り）
+ツリーマップから頻繁に使用する項目をお気に入りとして登録することで、画面の切り替えなど
+の面倒な操作をせずに一画面で各種設定を変更することができるようになります。ショートカッ
+トキーは <F3> です。  
+参考： 詳細は「My Favorites」をご参照ください。
+Qfan（Q-Fanコントロール）
+Q-Fan Control機能によるファンの調整を行うことができます。ショートカットキーは <F6> です。 
+参考： 詳細は「Q-Fan Control」をご参照ください。
+AI OC
+AI Overclocking機能に関するクイックガイドを表示したり、AI Overclock機能を有効にできます。
+ショートカットキーは <F11> です。
+参考： 
+•	 詳細は「AI OC Guide」をご参照ください。
+•	 この機能は、アンロック対応CPUを取り付けている場合にのみ利用可能です。
+•	 この機能は、特定のモデルでのみ利用可能です。
+Search（検索）
+BIOSセットアッププログラム内の項目を検索することができます。検索条件は英語のみ対応して
+います。表示される検索結果は表示言語の設定に準じます。ショートカットキーは <F9> です。
+AURA
+オンボードRGB LED照明または機能LEDのオン／オフを切り替えることができます。ショートカッ
+トキーは <F4> です。
+[All On]:	
+すべてのオンボードLEDをオン
+[Stealth Mode]:	
+すべてのオンボードLEDをオフ
+[Aura Only]:	
+オンボードRGB LED照明をオン/機能LEDをオフ
+[Aura Off]:	
+オンボードRGB LED照明をオフ/機能LEDをオン
+
+10
+ReSize BAR
+CPUからグラフィックスカードなどのPCIeデバイスのビデオメモリーへのアクセスを効率化する
+Resizable BARの有効/無効を設定します。
+[On]	
+Resizable BARを有効にして、ビデオメモリーを最大限に活用できるようにし
+ます。CSM（Compatibility Support Module）は無効になります。
+[Off]	
+Resizable BARを無効にします。
+Hot Keys (操作ガイド）
+BIOSセットアッププログラムを操作するためのキーボードの基本操作一覧を表示します。 
+スクロールバー
+設定項目が画面に収まりきらない場合、メニュー画面の右側にスクロールバーが表示されま
+す。画面に表示されていない項目を表示するには、カーソルキーまたは <Page Up>/<Page 
+Down> を押してください。
+詳細情報
+選択した項目に関する詳細な情報を表示します。 
+構成フィールド
+構成フィールドには各項目の現在設定されている状態や数値が表示されます。ユーザーによる
+変更が可能でない項目は、選択することができません。
+設定可能なフィールドは選択するとハイライト表示されます。構成フィールドの値を変更するに
+は、フィールドを選択してドロップダウンリストからオプションを選択するか値を直接入力します。
+Last Modified（最終変更内容）
+前回保存したBIOSセットアッププログラムの変更内容を表示します。
+Q-Dashboard
+マザーボード上のポートやコネクターの状態を表示するQ-Dashboardを起動します。Q-
+Dashboardでは、マザーボード上のポートやコネクターの接続状態を素早く確認でき、ポートや
+コネクター名をクリックすることで、そのインターフェースに関連するBIOS設定に直接アクセスす
+ることができます。ショートカットキーは<Insert>です。
+参考： 詳細は「Q-Dashboard」をご参照ください。
+
+11
+2.3	
+Q-Fan Control
+Q-Fan Controlを使用すると、ファンプロファイルの設定や、CPUファンおよびケースファンの回転
+数の調整が可能です。
+2.3.1	
+ファンを手動で設定する
+ファンの回転数を手動で設定するには、プロファイルを「Manual（手動）」を選択します。
+ファンの設定手順:
+1.	
+設定するファンを選択します。
+2.	
+グラフのポイントをドラッグして、ファンの回転数を調整します。
+3.	
+「Apply（適用）」を選択して設定を適用します。メイン画面に戻るには「Exit (ESC)」を選択
+します。
+2.4	
+AI OC Guide
+参考： 
+•	 この機能は、アンロック対応CPUを取り付けている場合にのみ利用可能です。
+•	 この機能は、特定のモデルでのみ利用可能です。
+AI OC Guide（AI Overclocking Guide）では、AI Overclocking機能を有効にしたり、推奨される設
+定手順とAI Overclockingの説明をまとめたクイックガイドを確認することができます。
+「Enable AI」を選択すると、AI Overclocking機能が有効になります。
+
+12
+2.5	
+Q-Dashboard
+Q-Dashboardでは、マザーボード上のポートやコネクターの接続状態を素早く確認でき、ポート
+やコネクター名をクリックすることで、そのインターフェースに関連するBIOS設定に直接アクセス
+することができます。 
+表示するインターフェースタイプを選択
+インターフェースにカーソルを合わせて 
+取り付けられているデバイスの詳細を表示
+詳細情報
+閉じる
+
+13
+3.	
+My Favorites
+頻繁に使用する項目をお気に入りとして登録することで、画面の切り替えなど面倒な操作をせず
+に一画面で各種設定を変更することができます。
+
+14
+お気に入り項目を追加する
+手順:
+1.	
+Advanced Modeで<F3>を押すか画面上部の「MyFavorite」をクリックし、Setup Tree 
+Mapを開きます。
+2.	
+Setup Tree Mapでお気に入りに登録する項目の 
+ をクリックするか、<Enter>を押しま
+す。
+参考： 以下の項目はお気に入りに追加できません:
+•	 ユーザー管理項目（システム言語や起動デバイス優先順位など）
+•	 ユーザー設定項目（ASUS SPD Information、システム日付、時間など）
+3.	
+<Esc>を押すか、
+「Exit (ESC)」を選択してSetup Tree Mapを閉じます。
+4.	
+登録した項目は、
+「My Favorites」画面から呼び出すことができます。 
+メインメニュー 
+パネル
+サブメニュー 
+パネル
+追加した項目
+すべて削除
+既定値に戻す
+
+15
+4.	
+Main
+メイン画面では、基本的なシステム情報の概要を確認できるほか、システム時刻、表示言語、セキ
+ュリティ設定を行うことができます。
+System Language
+BIOSセットアッププログラムの表示言語を設定します。
+System Date
+システム日付を設定します。 
+System Time
+システム時刻を設定します。
+Security
+BIOSの管理者パスワードとユーザーパスワードを設定します。
+参考： BIOS管理者パスワード、ユーザーパスワードを忘れたり、紛失してしまった場合は、CMOSクリア
+を実行しBIOS設定のリセットをお試しください。CMOSクリアの実行方法について、詳しくはお使
+いの製品のユーザーガイドをご覧ください。
+
+16
+Administrator Password
+管理者パスワードを設定するとBIOSセットアッププログラムへのアクセスを制限することができ
+ます。BIOSセットアッププログラム起動時にパスワードが要求されます。 
+管理者パスワードの設定手順:
+1.	
+「Administrator Password」を選択します。
+2.	
+「Create New Password」ボックスにパスワードを入力し、<Enter>を押します。
+3.	
+パスワードの確認のため、
+「Confirm New Password」ボックスに先ほど入力したパスワー
+ドと同じパスワードを入力し、[OK]を選択します。
+管理者パスワードの変更手順:
+1.	
+「Administrator Password」を選択します。
+2.	
+「Enter Current Password」ボックスに現在のパスワードを入力し、<Enter>を押します。
+3.	
+「Create New Password」ボックスに新しいパスワードを入力し、<Enter>を押します。
+4.	
+パスワードの確認のため、
+「Confirm New Password」ボックスに先ほど入力したパスワー
+ドと同じパスワードを入力し、[OK]を選択します。
+管理者パスワードの削除手順:
+1.	
+「Administrator Password」を選択します。
+2.	
+「Enter Current Password」ボックスに現在のパスワードを入力し、<Enter>を押します。
+3.	
+パスワードの作成/確認を要求された後なにも入力はせず空白のまま<Enter>を押しま
+す。パスワード消去後は、
+「Administrator Password」には「Not Installed」と表示されま
+す。
+User Password
+ユーザーパスワードを設定するとシステム起動時にパスワードが要求されます。ユーザーパスワ
+ードのみが設定されている場合、BIOSセットアッププログラムは管理者権限となります。  
+ユーザーパスワードの設定手順:
+1.	
+「User Password」を選択します。
+2.	
+「Create New Password」ボックスにパスワードを入力し、<Enter>を押します。
+3.	
+パスワードの確認のため、
+「Confirm New Password」ボックスに先ほど入力したパスワー
+ドと同じパスワードを入力し、[OK]を選択します。
+ユーザーパスワードの変更手順:
+1.	
+「User Password」を選択します。
+2.	
+「Enter Current Password」ボックスに現在のパスワードを入力し、<Enter>を押します。
+3.	
+「Create New Password」ボックスに新しいパスワードを入力し、<Enter>を押します。
+4.	
+パスワードの確認のため、
+「Confirm New Password」ボックスに先ほど入力したパスワー
+ドと同じパスワードを入力し、[OK]を選択します。
+ユーザーパスワードの削除手順:
+1.	
+「User Password」を選択します。
+2.	
+「Enter Current Password」ボックスに現在のパスワードを入力し、<Enter>を押します。
+3.	
+パスワードの作成/確認を要求された後なにも入力はせず空白のまま<Enter>を押しま
+す。パスワード消去後は、
+「User Password」 には 「Not Installed」と表示されます。
+
+17
+Ai Overclock Tuner
+CPUのベースクロック (基本動作周波数) やメモリーのオーバークロックオプションを選択するこ
+とができます。
+[Auto]	
+標準ベースクロックで動作
+[Manual]	
+ベースクロックを任意の値に設定
+[DOCP I]	
+メモリーモジュールのデフォルトDOCPメモリータイミング
+(CL、TRCD、TRP、TRAS)およびASUSにより最適化されたその他のメモリーパ
+ラメーターをロード
+[DOCP II]	
+メモリーモジュールのデフォルトDOCPプロファイルをロード
+[DOCP Tweaked]	 設定が一致する場合は、パフォーマンスを向上させるために調整された
+DOCPプロファイルをロード
+[EXPO I]	
+メモリーモジュールのデフォルトEXPOメモリータイミング 
+(CL、TRCD、TRP、TRAS)およびASUSにより最適化されたその他のメモリーパ
+ラメーターをロード
+[EXPO II]	
+メモリーモジュールのデフォルトEXPOプロファイルをロード
+[EXPO Tweaked]	 設定が一致する場合は、パフォーマンスを向上させるために調整されたEXPO
+プロファイルをロード
+[EXPO on the fly]	 OS上での動的制御を可能にするEXPO On-The-Fly（OTF）プロファイルをロー
+ド
+[AEMP]	
+メモリープロファイルが検出されない場合、ASUSにより最適化されたメモリ
+ーパラメータープロファイルをロード
+参考： 選択可能な設定オプションは、取り付けたメモリーによって異なります。
+5.	
+Ai Tweaker
+オーバークロック関連項目の高度な設定を行うことができます。
+注意！ 不適切なBIOS設定は、不安定な動作や起動不良の原因となります。BIOS設定の変更は、専門知
+識を持った技術者のサポートを受けて行うことを強く推奨します。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+
+18
+参考： 次の項目は「Ai OverClock Tuner」を [Manual] [DOCP I] [DOCP II] [DOCP Tweaked] [EXPO I] 
+[EXPO II] [EXPO Tweaked] [EXPO on the fly] [AEMP] に設定した場合に表示されます。
+BCLK Frequency
+ベースクロック（BCLK：基準動作周波数）を設定します。ベースクロックを変更すると、PCIe、M.2
+、SATAデバイスの安定性に影響します。  
+参考： 次の項目は「Ai Overclock Tuner」を [DOCP I] [DOCP II] [DOCP Tweaked] に設定した場合に
+表示されます。
+DOCP
+D.O.C.P（Direct Over Clock Profile）を選択します。各プロファイルはメモリー動作周波数、タイミ
+ング、電圧が異なります。
+参考： 次の項目は「Ai Overclock Tuner」を [EXPO I] [EXPO II] [EXPO Tweaked] [EXPO on the fly] に
+設定した場合に表示されます。
+EXPO
+メモリーモジュールに記録されたAMD EXPO™（Extended Profiles for Overclocking）を選択し
+ます。各プロファイルはメモリー動作周波数、タイミング、電圧が異なります。
+参考： 次の項目は「Ai OverClock Tuner」を [AEMP] に設定した場合に表示されます。
+AEMP
+ASUS Enhanced Memory Profile（AEMP）を選択します。各プロファイルはメモリー動作周波数、
+タイミング、電圧が異なります。
+Memory Frequency
+SPDで検出される通常のクロック（tCK）よりも低いDDR5動作周波数を強制的に設定します。 
+設定オプション:[Auto] [DDR5-2000 MHz] - [DDR5-12000 MHz]
+FCLK Frequency
+FCLK周波数を設定します。 
+設定オプション:  [Auto] [800 MHz] - [3000 MHz]
+Core Performance Boost
+CPUとメモリーのオーバークロックを自動的に行い、システムのパフォーマンスを向上させる機
+能の有効/無効を設定します。 
+設定オプション: [Auto] [Enabled] [Disabled]
+CPU Core Ratio
+設定オプション: [Auto] [CPU Core Ratio] [AI Optimized]
+参考： 次の項目は「CPU Core Ratio」を [CPU Core Ratio] に設定した場合に表示されます。
+CPU Core Ratio
+CPUコアの動作倍率を設定します。 
+設定オプション: [Auto] [8.00] - [100.00]
+
+19
+CPU Core Ratio (Per CCX)
+各CCX (Core Complex) の動作倍率を設定します。
+Core VID
+カスタムCPUコアVIDを設定します。アイドルコアの省電力機能 (Core-C6 (CC6) sleepな
+ど) は有効のままです。 
+CCD 0
+CCX0 Ratio
+CCXのカスタムコア倍率を設定します。 
+設定オプション: [Auto] [8.00] - [100.00]
+CCD 1
+CCX0 Ratio
+CCXのカスタムコア倍率を設定します。 
+設定オプション: [Auto] [8.00] - [100.00]
+Dynamic OC Switcher
+電流と温度のしきい値に基づいてOCモードとデフォルトモードを動的に切り替える機能
+の有効/無効を設定します。 
+設定オプション: [Auto] [Disabled] [Enabled]
+参考： 次の項目は「Dynamic OC Switcher」を [Enabled] に設定した場合に表示されます。
+Current Threshold to Switch to OC Mode
+CPUがOCモードになるタイミングとデフォルトに戻るタイミングを制御するために、電流
+のしきい値を設定します。しきい値より高い=OCモード、しきい値より低い=デフォルトモ
+ード。推奨値は、CCD (Core Chiplet Die) が1基の場合は40A、2基の場合は60Aです。
+Calibrated Temperature Threshold to switch back
+CPUがデフォルトモードに戻るタイミングを制御するために、キャリブレーション温度のし
+きい値を設定します。温度がしきい値より高い場合、CPUはデフォルトに戻ります。温度が
+しきい値より低く、かつ電流が電流しきい値より高い場合、CPUはOCモードに移行します。
+単位は摂氏です。
+Hysteresis
+数値を低く設定するとしきい値を超えた際の過渡応答が高速になり、数値を高く設定する
+としきい値を超えた際の過渡応答は遅くなります。 
+Overclocking Load Guard
+非常に高負荷な状態が継続する場合に、OCモードからPBOモードに切り替える機能の有
+効/無効を設定します。 
+設定オプション: [Auto] [Disable] [Enable]
+Preference
+全体的な性能を優先する場合は［Performance］、省電力を優先する場合は［Power Efficient］を
+選択します。 
+設定オプション: [Performance] [Power Efficient]
+
+20
+GPU Boost
+プロセッサー内蔵グラフィックスをオーバークロックさせグラフィックス性能を向上させる方法を
+設定します。周波数範囲で値を指定する場合は［Manual］に設定します。 
+設定オプション: [Auto] [Manual Mode]
+参考： 次の項目は「GPU Boost」を [Manual Mode] に設定した場合に表示されます。
+GPU clock frequency
+プロセッサー内蔵グラフィックスの動作周波数を設定します。
+DRAM Timing Control
+メモリーのアクセスタイミングに関する設定を行うことができます。既定値に戻すには、キーボー
+ドで [auto] と入力し <Enter> で決定します。
+注意！ メモリーのアクセスタイミングを変更するとシステムが不安定になる場合があります。システムが
+不安定になった場合は、BIOSをデフォルト設定に戻してください。
+Primary Timings
+Tcl
+DRAM Column Address Strobe Latency（列アドレスを指定してからデータが届くまでの
+遅延）
+Trcd
+DRAM Row Address to Column Address Delay（行アドレスから列アドレスまでの遅延）
+Trp
+DRAM Row Precharge Time（行プリチャージ時間）
+Tras
+DRAM Row Address Strobe Active Time（行アドレスがアクティブ化されてからプリチャ
+ージされるまでの時間）
+Secondary Timings
+Trc
+DRAM Row Cycle Time（行サイクル時間）
+Twr
+DRAM Write Recovery Time（書き込み回復時間）
+Refresh Interval
+更新間隔を設定します。
+Trfc1
+DRAM Refresh Cycle Time 1（リフレッシュサイクル時間 1）
+Trfc2
+DRAM Refresh Cycle Time 2（リフレッシュサイクル時間 2）
+Trfcsb
+DRAM Refresh Cycle Time Same Bank（同じバンクでのリフレッシュサイクル時間）
+Trtp
+DRAM Read to Precharge Delay（読み出しからプリチャージまでの遅延）
+
+21
+TrrdL
+DRAM RAS to RAS Delay Long（行アドレスストローブから行アドレスストローブまでの
+長い遅延）
+TrrdS
+DRAM RAS to RAS Delay Short（行アドレスストローブから行アドレスストローブまでの
+短い遅延）
+Tfaw
+DRAM Four Activate Window（4つの異なるバンクにアクティブ化コマンドを発行できる
+期間）
+TwtrL
+DRAM Write to Read Delay Long（書き込みから読み出しまでの長い遅延）
+TwtrS
+DRAM Write to Read Delay Short（書き込みから読み出しまでの短い遅延）
+TrdrdScl
+DRAM Read to Read Delay Same Bank Group（同じバンクグループでの読み出しから読
+み出しまでの遅延）
+TrdrdSc
+DRAM Read to Read Delay Same Chipselect（同じチップセレクトでの読み出しから読み
+出しまでの遅延）
+TrdrdSd
+DRAM Read to Read Delay Same DIMM（同じDIMMでの読み出しから読み出しまでの
+遅延）
+Trdrddd
+DRAM Read to Read Delay Different DIMM（異なるDIMMでの読み出しから読み出しま
+での遅延）
+TwrwrScl
+DRAM Write to Write Delay Same Bank Group（同じバンクグループでの書き込みから書
+き込みまでの遅延）
+TwrwrSc
+DRAM Write to Write Delay Same Chipselect（同じチップセレクトでの書き込みから書き
+込みまでの遅延）
+TwrwrSd
+DRAM Write to Write Delay Same DIMM（同じDIMMでの書き込みから書き込みまでの
+遅延）
+TwrwrDd
+DRAM Write to Write Delay Different DIMM（異なるDIMMでの書き込みから書き込みま
+での遅延）
+Twrrd
+DRAM Write Read Command Spacing（同じランクでの書き込みから読み出しまでのター
+ンアラウンド時間）
+Trdwr
+DRAM Read Write Command Spacing（同じランクでの読み出しから書き込みまでターン
+アラウンド時間）
+
+22
+Additional Timings
+IBUF_LPWR_MODE
+設定オプション: [Auto] [Enabled] [Disabled]
+ADDR_CMD_MODE
+設定オプション: [Auto] [Buf] [UnBuf]
+M_ORDERING
+設定オプション: [Auto] [NORM] [STRICT] [RELAXED]
+S_COL_WIDTH
+S_COL_WIDTHを設定します。
+MC_SVA_TRIM0
+MC_SVA_TRIM0を設定します。
+MC_SVA_TRIM1
+MC_SVA_TRIM1を設定します。
+MC_SVA_TRIM2
+MC_SVA_TRIM2を設定します。
+MMCM_MULT_F
+設定オプション: [Auto] [Enabled] [Disabled]
+DRAM Signal Control
+DDR Turnaround Times
+Read Drift Adjustment P0
+Auto（自動）= 0 
+設定オプション: [Auto] [minus 4] [minus 3] [minus 2] [minus 1] [plus 1] [plus 2] 
+[plus 3] [plus 4]
+Write Drift Adjustment P0
+Auto（自動）= 0 
+設定オプション: [Auto] [minus 4] [minus 3] [minus 2] [minus 1] [plus 1] [plus 2] 
+[plus 3] [plus 4]
+DDR PMU Training
+Read Preamble P0
+読み取りプリアンブル P0 を設定します。 
+設定オプション: [Auto] [1 tCK - 10 Pattern] [2 tCK - 0010 Pattern] [2 tCK - 1110 
+Pattern (DDR4 Style)] [3 tCK - 000010 Pattern] [4 tCK - 00001010 Pattern]
+Write Preamble P0
+書き込みプリアンブル P0 を設定します。 
+設定オプション: [Auto] [2 tCK - 0010 Pattern] [3 tCK - 000010 Pattern] [4 tCK - 
+00001010 Pattern]
+PHY VrefDAC0 P0 Control
+設定オプション: [Auto] [Manual]
+PHY VrefDAC1 P0 Control
+設定オプション: [Auto] [Manual]
+PMU DQ Vref P0 Control
+設定オプション: [Auto] [Manual]
+ARdPtrInitVal P0 Control
+[Auto]	
+既定の設定に従う
+[Manual]	
+手動で指定
+
+23
+Processor ODT P0-P3 Page
+CA ODT GroupA
+グループAのコマンド/アドレス オンダイターミネーションを設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ/0.5 (480)] [RZQ/1 (240)] [RZQ/2 (120)] 
+[RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CK ODT GroupA
+グループAのコマンドクロック オンダイターミネーションを設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ/0.5 (480)] [RZQ/1 (240)] [RZQ/2 (120)] 
+[RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CS ODT GroupA
+グループAのチップセレクト オンダイターミネーションを設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ/0.5 (480)] [RZQ/1 (240)] [RZQ/2 (120)] 
+[RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CA ODT GroupB
+グループBのコマンド/アドレス オンダイターミネーションを設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ/0.5 (480)] [RZQ/1 (240)] [RZQ/2 (120)] 
+[RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CK ODT GroupB
+グループBのコマンドクロック オンダイターミネーションを設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ/0.5 (480)] [RZQ/1 (240)] [RZQ/2 (120)] 
+[RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CS ODT GroupB
+グループBのチップセレクト オンダイターミネーションを設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ/0.5 (480)] [RZQ/1 (240)] [RZQ/2 (120)] 
+[RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+Processor ODT P state mode
+プロセッサー オンダイターミネーションのPステートモードを設定します。 
+設定オプション: [Sync all P-states] [By per P-states]
+Processor ODT P0 Page
+Processor ODT Impedance Pull Up P0
+プロセッサー オンダイターミネーション インピーダンス プルアップ P0 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor ODT Impedance Pull Down P0
+プロセッサー オンダイターミネーション インピーダンス プルダウン P0 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor DQ drive strengths Pull Up P0
+プロセッサー データ信号 ドライブ強度 プルアップ P0 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Processor DQ drive strengths Pull Down P0
+プロセッサー データ信号 ドライブ強度 プルダウン P0 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+
+24
+Dram ODT Impedance RTT_NOM_WR P0
+メモリー オンダイターミネーション インピーダンス RTT_NOM_WR P0 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_NOM_RD P0
+メモリー オンダイターミネーション インピーダンス RTT_NOM_RD P0 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_WR P0
+メモリー オンダイターミネーション インピーダンス RTT_WR P0 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_PARK P0
+メモリー オンダイターミネーション インピーダンス RTT_PARK P0 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance DQS_RTT_PARK P0
+メモリー オンダイターミネーション インピーダンス DQS_RTT_PARK P0 を設定
+します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram DQ drive strengths Pull Up P0
+メモリー データ信号 ドライブ強度 プルアップ P0 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Dram DQ drive strengths Pull Down P0
+メモリー データ信号 ドライブ強度 プルダウン P0 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Processor ODT P1 Page
+Processor ODT Impedance Pull Up P1
+プロセッサー オンダイターミネーション インピーダンス プルアップ P1 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor ODT Impedance Pull Down P1
+プロセッサー オンダイターミネーション インピーダンス プルダウン P1 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor DQ drive strengths Pull Up P1
+プロセッサー データ信号 ドライブ強度 プルアップ P1 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Processor DQ drive strengths Pull Down P1
+プロセッサー データ信号 ドライブ強度 プルダウン P1 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+
+25
+Dram ODT Impedance RTT_NOM_WR P1
+メモリー オンダイターミネーション インピーダンス RTT_NOM_WR P1 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_NOM_RD P1
+メモリー オンダイターミネーション インピーダンス RTT_NOM_RD P1 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_WR P1
+メモリー オンダイターミネーション インピーダンス RTT_WR P1 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_PARK P1
+メモリー オンダイターミネーション インピーダンス RTT_PARK P1 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance DQS_RTT_PARK P1
+メモリー オンダイターミネーション インピーダンス DQS_RTT_PARK P1 を設定
+します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram DQ drive strengths Pull Up P1
+メモリー データ信号 ドライブ強度 プルアップ P1 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Dram DQ drive strengths Pull Down P1
+メモリー データ信号 ドライブ強度 プルダウン P1 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Processor ODT P2 Page
+Processor ODT Impedance Pull Up P2
+プロセッサー オンダイターミネーション インピーダンス プルアップ P2 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor ODT Impedance Pull Down P2
+プロセッサー オンダイターミネーション インピーダンス プルダウン P2 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor DQ drive strengths Pull Up P2
+プロセッサー データ信号 ドライブ強度 プルアップ P2 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Processor DQ drive strengths Pull Down P2
+プロセッサー データ信号 ドライブ強度 プルダウン P2 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+
+26
+Dram ODT Impedance RTT_NOM_WR P2
+メモリー オンダイターミネーション インピーダンス RTT_NOM_WR P2 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_NOM_RD P2
+メモリー オンダイターミネーション インピーダンス RTT_NOM_RD P2 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_WR P2
+メモリー オンダイターミネーション インピーダンス RTT_WR P2 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_PARK P2
+メモリー オンダイターミネーション インピーダンス RTT_PARK P2 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance DQS_RTT_PARK P2
+メモリー オンダイターミネーション インピーダンス DQS_RTT_PARK P2 を設定
+します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram DQ drive strengths Pull Up P2
+メモリー データ信号 ドライブ強度 プルアップ P2 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Dram DQ drive strengths Pull Down P2
+メモリー データ信号 ドライブ強度 プルダウン P2 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Processor ODT P3 Page
+Processor ODT Impedance Pull Up P3
+プロセッサー オンダイターミネーション インピーダンス プルアップ P3 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor ODT Impedance Pull Down P3
+プロセッサー オンダイターミネーション インピーダンス プルダウン P3 を設定し
+ます。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] 
+[120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 ohm] [43 ohm] 
+[40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 ohm] [26 ohm] [25 ohm]
+Processor DQ drive strengths Pull Up P3
+プロセッサー データ信号 ドライブ強度 プルアップ P3 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Processor DQ drive strengths Pull Down P3
+プロセッサー データ信号 ドライブ強度 プルダウン P3 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 
+ohm] [48 ohm] [40 ohm] [34.3 ohm]
+
+27
+Dram ODT Impedance RTT_NOM_WR P3
+メモリー オンダイターミネーション インピーダンス RTT_NOM_WR P3 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_NOM_RD P3
+メモリー オンダイターミネーション インピーダンス RTT_NOM_RD P3 を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_WR P3
+メモリー オンダイターミネーション インピーダンス RTT_WR P3 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_PARK P3
+メモリー オンダイターミネーション インピーダンス RTT_PARK P3 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance DQS_RTT_PARK P3
+メモリー オンダイターミネーション インピーダンス DQS_RTT_PARK P3 を設定
+します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] 
+[RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram DQ drive strengths Pull Up P3
+メモリー データ信号 ドライブ強度 プルアップ P3 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Dram DQ drive strengths Pull Down P3
+メモリー データ信号 ドライブ強度 プルダウン P3 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Proc CS Drive Strength
+チップセレクト（CS）信号のドライブ強度を設定します。 
+設定オプション: [Auto] [120 ohm] [60 ohm] [40 ohm] [30 ohm]
+Proc CK Drive Strength
+プロセッサーからメモリーチップに送信されるコマンドクロック（CK）信号のドライブ強度
+を設定します。 
+設定オプション: [Auto] [120 ohm] [60 ohm] [40 ohm] [30 ohm]
+Proc CA Drive Strength
+プロセッサーからメモリーチップに送信されるコマンド/アドレス（CA）信号のドライブ強
+度を設定します。 
+設定オプション: [Auto] [120 ohm] [60 ohm] [40 ohm] [30 ohm]
+Proc Data Drive Strength
+プロセッサー データ信号のドライブ強度を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 ohm] [60 ohm] [48 
+ohm] [40 ohm] [34.3 ohm]
+CPU On-Die Termination
+プロセッサー オンダイ ターミネーション（ProcODT）の抵抗値を設定します。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 ohm] [120 ohm] 
+[96 ohm] [80 ohm] [68.6 ohm] [60 ohm] [53.3 ohm] [48 ohm] [43.6 ohm] [40 ohm] 
+[36.9 ohm] [34.3 ohm] [32 ohm] [30 ohm] [28.2 ohm] [26.7 ohm] [25.3 ohm]
+
+28
+Proc Data Drive Strength
+プロセッサー データ信号のドライブ強度を設定します。 
+設定オプション: [Auto] [High Impedance] [120 ohm] [60 ohm] [40 ohm] [30 ohm]
+Proc CA ODT impedance
+ACHAN CA IOのオンダイターミネーションインピーダンスを選択します。 
+設定オプション: [Auto] [30 ohm] [40 ohm] [60 ohm] [120 ohm] [Disabled]
+Proc CK ODT impedance
+ACHAN CK IOのオンダイターミネーションインピーダンスを選択します。 
+設定オプション: [Auto] [30 ohm] [40 ohm] [60 ohm] [120 ohm] [Disabled]
+Proc DQ ODT impedance
+ACHAN DQ IOのオンダイターミネーションインピーダンスを選択します。 
+設定オプション: [Auto] [30 ohm] [40 ohm] [60 ohm] [120 ohm] [Disabled]
+Proc DQS ODT impedance
+ACHAN DQS IOのオンダイターミネーションインピーダンスを選択します。 
+設定オプション: [Auto] [30 ohm] [40 ohm] [60 ohm] [120 ohm] [Disabled]
+DRAM Data Drive Strength
+メモリー データ信号のドライブ強度を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Rtt Nom Wr
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] 
+[RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Rtt Nom Rd
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] 
+[RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Rtt Wr
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] 
+[RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Rtt Park
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] 
+[RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Rtt Park Dqs
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] 
+[RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Power Down Enable
+設定オプション: [Disabled] [Enabled] [Auto]
+Memory Context Restore
+メモリーコンテキストリストアモードの有効/無効を設定します。[Enabled（有効）] に設定
+すると、DRAMリトレーニングを可能な限り回避しPOST遅延を最小限に抑えることができ
+ます。 
+設定オプション: [Disabled] [Enabled] [Auto]
+UCLK DIV1 MODE
+UCLK DIV モードを設定します。  
+設定オプション: [Auto] [UCLK=MEMCLK] [UCLK=MEMCLK/2]
+
+29
+CA Tx Phase Shift Clk
+設定オプション: [Auto] [0] - [7]
+CS Tx Phase Shift Clk
+設定オプション: [Auto] [0] - [7]
+CK Tx Phase Shift Clk
+設定オプション: [Auto] [0] - [7]
+CA Rx Phase Shift Clk
+設定オプション: [Auto] [0] - [7]
+CS Rx Phase Shift Clk
+設定オプション: [Auto] [0] - [7]
+CK Rx Phase Shift Clk
+設定オプション: [Auto] [0] - [7]
+FIFO Wr En Fine Delay
+設定オプション: [Auto] [0] [1]
+POC Sample PD
+設定オプション: [Auto] [Enabled] [Disabled]
+Bank Swap Mode
+設定オプション: [Auto] [Disabled] [Swap CPU] [Swap APU]
+Mem Over Clock Fail Count
+メモリーのオーバークロックが失敗した場合に、ダウンクロックするまでの試行失敗回数
+のしきい値を設定します。
+Precision Boost Overdrive
+Prochot VRM Throttling
+電圧レギュレーターがサーマルリミットに近づいた際にVRMがCPUのスロットリングを行
+う機能の有効/無効を設定します。 
+設定オプション: [Auto] [Disable] [Enable]
+Peak Current Control
+PCC機能の有効/無効を設定します。極度のオーバークロックを行う場合にのみ、無効にす
+る必要があります。 
+設定オプション: [Auto] [Disable] [Enable]
+Medium Load Boostit
+有効にすることで、中負荷時のパフォーマンスが向上する可能性があります。 
+設定オプション: [Auto] [Disabled] [Enabled]
+Precision Boost Overdrive
+AMD Ryzenプロセッサーの性能を最大限に引き出すPrecision Boost Overdrive（PBO）の
+有効/無効を設定します。PBOは、CPUの温度、電力、電流などをリアルタイムで監視し、これ
+らの情報に基づいて動的にクロック周波数を調整します。 
+設定オプション: [Auto] [Disabled] [Enabled] [Enhancement] [Manual] [AMD ECO 
+Mode]
+
+30
+参考： 次の項目は「Precision Boost Overdrive」を [Enhancement] に設定した場合に表示されます。
+Thermal Limit
+サーマルリミットを設定します。 
+設定オプション: [Level 1 (90°C)] [Level 2 (80°C)] [Level 3 (70°C)]
+参考： 次の項目は「Precision Boost Overdrive」を [Manual] に設定した場合に表示されます。
+PPT Limit
+CPUソケットが供給できる電力上限を設定します。
+TDC Limit
+マザーボードのCPUコアVRMフェーズが持続的な動作によって定常状態まで加熱された
+際に許容できる最大電流を設定します。
+EDC Limit
+マザーボードのCPUコアVRMフェーズがピーク/過渡状態で許容できる最大電流を設定
+します。
+参考： 次の項目は「Precision Boost Overdrive」を [AMD ECO Mode] に設定した場合に表示されま
+す。
+AMD ECO Mode
+CPUのコントロール制限を調整して、パフォーマンスを管理します。パフォーマンスはCPU
+クーラーなどの構成によって異なる場合があります。 
+cTDP 65W (88W/75A/150A) 
+cTDP 105W (142W/110A/170A) 
+cTDP 170W (230W/160A/225A) 
+設定オプション: [Auto] [cTDP 35W] [cTDP 65W] [cTDP 105W] [cTDP 170W]
+Precision Boost Overdrive Scalar
+[Auto]	
+1x のスカラーで動作 (通常動作)
+[Manual]	
+カスタマイズした値のスカラーで動作
+参考： 次の項目は「Precision Boost Overdrive Scalar」を [Manual] に設定した場合に表示されます。
+Customized Precision Boost Overdrive Scalar
+Precision Boost Overdriveは、使用するブースト電圧の最大値 (指定の最大値を超えて動
+作) と、その電圧を維持する時間を増加させます。入力した値が大きいほど使用するブース
+ト電圧は高くなり、その電圧を維持する時間は長くなる可能性があります。 
+設定オプション: [1X] - [10X]
+CPU Boost Clock Override
+CPUブーストアルゴリズムによって目標とされる最大CPU周波数を増加 (Poritive) または
+減少 (Negative) させることが可能です。 
+設定オプション: [Auto] [Disabled] [Enabled (Positive)] [Enabled (Negative)]
+
+31
+参考： 次の項目は「CPU Boost Clock Override」を [Enabled (Positive)] に設定した場合に表示され
+ます。
+Max CPU Boost Clock Override(+)
+Precision Boost 2アルゴリズムによって目標とされる最大CPU周波数を引き上げます。
+参考： 次の項目は「CPU Boost Clock Override」を [Enabled (Negative)] に設定した場合に表示され
+ます。
+Max CPU Boost Clock Override(-)
+Precision Boost 2アルゴリズムによって目標とされる最大CPU周波数を低下させます。
+Per-Core Boost Clock Limit
+Per-Core Boost Clock Limit
+各コアにMHz単位で個別の制限を設定します。上限はグローバルCPUブーストク
+ロックによって設定されますが、各コアの周波数を上限より下げることで、その動
+作を抑制します。 
+性能の低いコアを制限することで、Curve Optimizerのマージンが改善される可
+能性があります。 
+設定オプション: [Auto] [Disabled] [Enabled]
+参考： 次の項目は「Per-Core Boost Clock Limit」を [Enabled] に設定した場合に表示されます。
+Core 0~15
+推奨値は、Ai Tweakerメニューの現在のパラメーター設定に基づいて算出され
+ます。
+Platform Thermal Throttle Limit
+プロセッサーの最大許容温度（摂氏）を下げることができます。 
+設定オプション: [Manual] [Auto]
+参考： 次の項目は「Per-Core Boost Clock Limit」を [Manual] に設定した場合に表示されます。
+Platform Thermal Throttle Limit
+プロセッサーの最大許容温度（摂氏）を下げることができます。
+Curve Optimizer
+Curve Optimizer
+プロセッサーの電圧/周波数（AVFS）カーブを調整範囲を設定します。 
+設定オプション: [Auto] [All Cores] [Per Core]
+参考： 次の項目は「Curve Optimizer」を [All Cores] に設定した場合に表示されます。
+All Core Curve Optimizer Sign
+すべてのコアにおける電圧/周波数（AVFS）カーブのシフト方向を設定します。 
+Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い電圧を使用するこ
+とができるようになり、Negative（ネガティブ）はカーブを下方向にシフトさせ、よ
+り低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+
+32
+All Core Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。
+参考： 次の項目は「Curve Optimizer」を [Per Core] に設定した場合に表示されます。
+Core 0-63 Curve Optimizer Sign
+特定のコアにおける電圧/周波数（AVFS）カーブのシフト方向を設定します。 
+Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い電圧を使用するこ
+とができるようになり、Negative（ネガティブ）はカーブを下方向にシフトさせ、よ
+り低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Core 0-63 Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。
+GFX Curve Optimizer
+GFX Curve Optimizer
+プロセッサー内蔵グラフィックス（GFX）の電圧/周波数（AVFS）カーブを調整範囲
+を設定します。 
+設定オプション: [Auto] [GFX Curve Optimizer]
+参考： 次の項目は「GFX Curve Optimizer」を [GFX Curve Optimizer] に設定した場合に表示されま
+す。
+GFX Curve Optimizer Sign
+プロセッサー内蔵グラフィックスにおける電圧/周波数（AVFS）カーブのシフト方
+向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い
+電圧を使用することができるようになり、Negative（ネガティブ）はカーブを下方
+向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+GFX Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。既定値は0で、整数のみ入力できます。入力された値は指定された符号
+（Positive/Negative）と組み合わされ、SMUにGFX Curve Optimizerコマンドとし
+て送信されます。
+Curve Shaper
+Min Frequency - Low Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+33
+参考： 次の項目は「Min Frequency - Low Temperature」を [Enable] に設定した場合に表示されま
+す。
+Min Frequency - Low Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Min Frequency - Low Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Min Frequency - Med Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「Min Frequency - Med Temperature」を [Enable] に設定した場合に表示されま
+す。
+Min Frequency - Med Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Min Frequency - Med Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Min Frequency - High Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+34
+参考： 次の項目は「Min Frequency - High Temperature」を [Enable] に設定した場合に表示されま
+す。
+Min Frequency - High Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Min Frequency - High Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Low Frequency - Low Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「Low Frequency - Low Temperature」を [Enable] に設定した場合に表示されま
+す。
+Low Frequency - Low Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Low Frequency - Low Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Low Frequency - Med Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+35
+参考： 次の項目は「Low Frequency - Med Temperature」を [Enable] に設定した場合に表示されま
+す。
+Low Frequency - Med Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Low Frequency - Med Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Low Frequency - High Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「Low Frequency - High Temperature」を [Enable] に設定した場合に表示されま
+す。
+Low Frequency - High Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Low Frequency - High Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Med Frequency - Low Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+36
+参考： 次の項目は「Med Frequency - Low Temperature」を [Enable] に設定した場合に表示されま
+す。
+Med Frequency - Low Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Med Frequency - Low Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Med Frequency - Med Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「Med Frequency - Med Temperature」を [Enable] に設定した場合に表示されま
+す。
+Med Frequency - Med Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Med Frequency - Med Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Med Frequency - High Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+37
+参考： 次の項目は「Med Frequency - High Temperature」を [Enable] に設定した場合に表示されま
+す。
+Med Frequency - High Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Med Frequency - High Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+High Frequency - Low Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「High Frequency - Low Temperature」を [Enable] に設定した場合に表示されま
+す。
+High Frequency - Low Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+High Frequency - Low Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+High Frequency - Med Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+38
+参考： 次の項目は「High Frequency - Med Temperature」を [Enable] に設定した場合に表示されま
+す。
+High Frequency - Med Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+High Frequency - Med Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+High Frequency - High Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「High Frequency - High Temperature」を [Enable] に設定した場合に表示され
+ます。
+High Frequency - High Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+High Frequency - High Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Max Frequency - Low Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+39
+参考： 次の項目は「Max Frequency - Low Temperature」を [Enable] に設定した場合に表示されま
+す。
+Max Frequency - Low Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Max Frequency - Low Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Max Frequency - Med Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+参考： 次の項目は「Max Frequency - Med Temperature」を [Enable] に設定した場合に表示されま
+す。
+Max Frequency - Med Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Max Frequency - Med Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+Max Frequency - High Temperature
+Curve ShaperはCurve Optimizerと同じ仕組みを使用した高度なオーバークロッ
+ク調整機能です。有限（重複）周波数および温度領域において、すべてのコアの可
+変電圧を変更します。これにより、システムに必要な電圧をより正確に調整できま
+す。一般的に、Low Temperature（低温）はアイドル時の温度、Med Temperature 
+（中温）はシングルスレッドのゲーミングワークロード、High Temperature（高
+温）はストレステストに対応します。さらに、Min Frequency（最低周波数）および
+Low Frequency（低周波数）はアイドル/バックグラウンドタスク、Med Frequency 
+（中周波数）は高コア数ワークロード、High Frequency（高周波数）およびMax 
+Frequency（最大周波数）はゲームおよびシングルスレッドワークロードに対応し
+ます。これらの設定はバンド（帯域）として機能するため、特定の状況では複数の
+設定が動作に影響を与える場合があります。例えば、65℃で実行されているワー
+クロードは低温と中温の値の両方から影響を受ける可能性があります。65℃未満
+のワークロードは低温の影響をより強く受け、65℃を超えるワークロードは中温
+の影響を強く受けます。 
+設定オプション: [Auto] [Enable] [Disable]
+
+40
+参考： 次の項目は「Max Frequency - High Temperature」を [Enable] に設定した場合に表示されま
+す。
+Max Frequency - High Temperature Sign
+シフト方向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、よ
+り高い電圧を使用することができるようになり、Negative（ネガティブ）はカーブを
+下方向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Max Frequency - High Temperature Magnitude
+シフトの大きさを整数で設定します。値が大きいほどシフト量も大きくなります。
+CO Load Guard
+この項目を有効にすると、高負荷時に自動的に安全なCurve Optimizer値に切り替わりま
+す。 
+設定オプション: [Auto] [Disable] [Enable]
+参考： 次の項目は「CO Load Guard」を [Enable] に設定した場合に表示されます。
+All Core Safe CO Sign
+設定オプション: [Positive] [Negative]
+Digi+ VRM
+VRM Initialization Check
+VRMの初期化中に何らかのエラーが発生した場合、本機能を [Enabled（有効）]に設定し
+ているとPOSTコード76/77でシステムが停止します。 
+設定オプション: [Disabled] [Enabled]
+Voltage training
+設定オプション: [Auto] [Disabled] [Enabled]
+CPU Load-line Calibration
+ロードラインはAMD VRM仕様で定義されており、CPUに供給される電圧に影響しま
+す。CPUの動作電圧はCPUの負荷に比例して低下します。ロードラインキャリブレーショ
+ンを高くすると、電圧の低下を抑え、オーバークロック性能を高めることができます。ただ
+し、CPUとVRMの発熱も大きくなります。 
+設定オプション: [Auto] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5:Recommended for 
+OC] [Level 6] [Level 7] [Level 8]
+注意！ 必ずサーマルモジュールを取り付けた状態で使用し、温度を常に確認するようにしてください。
+CPU Current Capability
+CPUに供給する電流容量を設定します。値を高く設定することで、CPUがより多くの電力を
+扱えるようになり、CPUをより高いクロックで動作させることができるようになります。 
+設定オプション: [Auto] [100%] - [140%]
+参考： オーバークロック時や高負荷時には、安定した動作のためにより高い電力が必要となるため、高
+い値に設定します。
+
+41
+CPU VRM Switching Frequency
+CPU VRMのスイッチング周波数を設定します。スイッチング周波数は、VRMの過渡応答
+速度およびコンポーネントの発熱に影響します。周波数を高く設定すると、過渡応答速度
+は速くなりますがVRM温度は高くなります。CPU電圧とロードラインキャリブレーションを
+高く設定する場合は、VRMヒートシンクをファンなどで積極的に冷やすことをおすすめし
+ます。 
+設定オプション: [Auto] [Manual]
+注意！ VRMヒートシンクは取り外さないでください。
+参考： 次の項目は「CPU VRM Switching Frequency」を [Manual] に設定した場合に表示されます。
+Fixed CPU VRM Switching Frequency(KHz)
+CPU VRMの固定スイッチング周波数を設定します。周波数を高くすることでVRMの過渡応
+答を高めることができます。
+CPU Power Duty Control
+CPU VRMフェーズのデューティサイクル制御方法を設定します。
+[T. Probe]	
+VRMの温度バランスを保ちます。
+[Extreme]	
+VRMの電流バランスを保ちます。
+注意！ この項目を [Extreme] に設定する場合は、必ずサーマルモジュールを取り付けた状態で使用し、
+温度を常に確認するようにしてください。
+CPU Power Phase Control
+CPU電源フェーズの制御方法を設定します。
+[Auto]	
+自動的に電源フェーズを制御します。
+[Standard]	
+CPUによりアクティブフェーズ数を制御します。
+[Optimized]	
+ASUSが最適化したフェーズチューニングプロファイルが適用されます。
+[Extreme]	
+すべてのフェーズが動作します。
+[Manual]	
+手動で設定します。
+注意！ この項目を [Extreme] に設定する場合は、必ずサーマルモジュールを取り付けた状態で使用し、
+温度を常に確認するようにしてください。
+参考： 次の項目は「CPU Power Phase Control」を [Manual] に設定した場合に表示されます。
+Power Phase Response
+電源フェーズの応答速度を設定します。 
+設定オプション: [Ultra Fast] [Fast] [Medium] [Regular]
+VDDSOC Current Capability
+設定オプション: [Auto] [100%] - [140%]
+VDDSOC Switching Frequency
+設定オプション: [Auto] [Manual]
+
+42
+参考： 次の項目は「VDDSOC Switching Frequency」を [Manual] に設定した場合に表示されます。
+Fixed VDDSOC VRM Switching Frequency(KHz)
+VDDSOC VRMの固定スイッチング周波数を設定します。スイッチング周波数は、VDDSOC 
+VRMの過渡応答速度およびコンポーネントの発熱に影響します。過渡応答速度を速くす
+るには、周波数を高く設定してください。
+VDDSOC Power Duty Control
+VDDSOC VRMフェーズのデューティサイクル制御方法を設定します。
+[T. Probe]	
+VRMの温度バランスを保ちます。
+[Extreme]	
+VRMの電流バランスを保ちます。
+注意！ この項目を [Extreme] に設定する場合は、必ずサーマルモジュールを取り付けた状態で使用し、
+温度を常に確認するようにしてください。
+VDDSOC Power Phase Control
+設定オプション: [Auto] [Standard] [Optimized] [Extreme] [Manual]
+注意！ この項目を [Extreme] に設定する場合は、必ずサーマルモジュールを取り付けた状態で使用し、
+温度を常に確認するようにしてください。
+参考： 次の項目は「VDDSOC Power Phase Control」を [Manual] に設定した場合に表示されます。
+Power Phase Response
+電源フェーズの応答速度を設定します。 
+設定オプション: [Ultra Fast] [Fast] [Medium] [Regular]
+MISC Switching Frequency
+設定オプション: [Auto] [Manual]
+参考： 次の項目は「MISC Switching Frequency」を [Manual] に設定した場合に表示されます。
+Fixed MISC Switching Frequency(KHz)
+CPUやVDDSOC以外の周辺回路（MISC）の固定スイッチング周波数を設定します。スイッ
+チング周波数は、MISCの過渡応答速度およびコンポーネントの発熱に影響します。過渡
+応答速度を速くするには、周波数を高く設定してください。
+Performance Bias
+特定のソフトウェア実行時にパフォーマンスの最適化を図る機能の有効/無効を設定します。 
+設定オプション: [Auto] [None] [CB R23] [GB3]
+Tweaker’s Paradise
+Clock Spread Spectrum
+クロックスペクトラム拡散の有効/無効を設定します。 
+設定オプション: [Auto] [Enabled] [Disabled]
+
+43
+Stretch mode for L3 DFLL
+設定オプション: [Auto] [Enabled] [Disabled]
+1.8V PLL Voltage
+1.8V PLL電圧を設定します。  
+1.8V Standby Voltage
+1.8V スタンバイ電圧を設定します。
+Misc_ALW
+Misc_ALW電圧を設定します。
+Chipset0 VDD Voltage
+チップセット0 のVDD電圧を設定します。
+Chipset1 VDD Voltage
+チップセット1 のVDD電圧を設定します。
+CPU 3.3V
+CPU 3.3V 電圧を設定します。
+Sense MI Skew 4
+設定オプション: [Auto] [Disabled] [Enabled]
+Core Flex
+独自のアルゴリズムをカスタマイズして、ブースト動作を調整し、電力効率、温度、パフォーマンス
+を最適化できます。最大3つのアルゴリズムを同時にカスタマイズ可能です。
+Load X3D Core Flex Gaming Preset
+X3Dプロセッサー向けに最適化されたアルゴリズムを読み込みます。
+Algorithm 1-3
+アルゴリズムの有効/無効を設定します。アルゴリズムのカスタマイズを行うには、
+［Enabled（有効）］に設定します。 
+設定オプション: [Auto] [Disabled] [Enabled]
+参考： 次の項目は「Algorithm 1-3」を [Enabled] に設定した場合に表示されます。
+Algorithm 1-3 Condition
+モニターする対象を設定します。複数のアルゴリズムが同じ対象をモニターしている場
+合、両方の条件が満たされた場合にのみ処理が実行され、複数の処理値のうち小さい方
+が適用されます。 
+設定オプション: [Auto] [CPU Temperature] [Core Voltage] [Core Current]
+
+44
+Algorithm 1-3 Action
+対象の条件がしきい値を超えたときに実行する処理を選択します。複数のアルゴリズムが
+同じアクションを実行する場合、両方の条件が満たされた場合にのみ処理が実行され、複
+数の処理値のうち小さい方が適用されます。 
+設定オプション: [Auto] [Package Power Limit Fast] [Package Power Limit Slow] 
+[Thermal Limit] [Vcore TDC Limit] [Vcore EDC Limit] [SOC TDC Limit] [SOC EDC Limit] 
+[CCD Priority] [Mem On The Fly]
+Level1 Threshold Value
+Level1 Action Value（レベル1処理値）とLevel2 Action Value（レベル2処理値）を区切るし
+きい値を設定します。条件がこの値以下の場合はLevel1 Action Valueが、この値より大き
+くLevel2 Threshold Valueより小さい場合は、Level2 Action Valueが適用されます。温度
+は摂氏（℃）、電圧はミリボルト（mV）、電流はアンペア（A）単位です。
+Level2 Threshold Value
+Level2 Action Value（レベル2処理値）とLevel3 Action Value（レベル3処理値）を区切るし
+きい値を設定します。条件がこの値以下でLevel1 Threshold Value（レベル1しきい値）より
+大きい場合はLevel2 Action Valueが、この値より大きい場合は、Level3 Action Valueが適
+用されます。温度は摂氏（℃）、電圧はミリボルト（mV）、電流はアンペア（A）単位です。
+Level1 Action Value
+条件がLevel1 Threshold Value（レベル1しきい値）より小さい場合に実行する処理値を
+設定します。電力はワット（W）、温度は摂氏（℃）、電流はアンペア（A）、BCLKはMHz単位で
+す。CCD優先処理値はCCD番号を示し、0はCCD0、1はCCD1を表します。1より大きい値は
+1に制限されます。
+Level2 Action Value
+条件がLevel1 Threshold Value（レベル1しきい値）とLevel2 Threshold Value（レベル2し
+きい値）の間にある場合に実行する処理値を設定します。電力はワット（W）、温度は摂氏
+（℃）、電流はアンペア（A）、BCLKはMHz単位です。CCD優先処理値はCCD番号を示し、0
+はCCD0、1はCCD1を表します。1より大きい値は1に制限されます。
+Level3 Action Value
+条件がLevel2 Threshold Value（レベル2しきい値）より大きい場合に実行する処理値を
+設定します。電力はワット（W）、温度は摂氏（℃）、電流はアンペア（A）、BCLKはMHz単位で
+す。CCD優先処理値はCCD番号を示し、0はCCD0、1はCCD1を表します。1より大きい値は
+1に制限されます。
+CCD Priority Memory Activity Threshold
+Algorithm Action（アルゴリズム処理）がCCD Priority（CCD優先）に設定されている場合、
+メモリーアクティビティが設定されたしきい値よりも高い場合にのみ、CCD優先順位が切
+り替わります。チェックを行わない場合は、この値を0に設定してください。
+CCD Priority Hysteresis
+Algorithm Action（アルゴリズム処理）がCCD Priority（CCD優先）に設定されている場合、
+メモリーアクティビティが設定されたしきい値よりも高い場合にのみ、CCD優先順位が切
+り替わります。チェックを行わない場合は、この値を0に設定してください。
+AI Features
+Processor Utilization
+プロセッサーの使用状況に関する情報を表示します。
+
+45
+Cooler Efficiency Customize
+[Keep Training]	
+クーラー効率を継続的に評価し、適宜更新します。
+[Stop Training]	
+クーラー効率の評価を停止し、現在の評価効率を使用します。
+[User Specify]	
+クーラー効率を手動で指定します。すべての予測はこの手動設定に
+基づきます。
+参考： 次の項目は「Cooler Efficiency Customize」を [User Specify] に設定した場合に表示されます。
+Cooler Score
+クーラー効率の評価ポイントです。
+［最大］250 pts、
+［最小］67 pts、
+［初期値］125 pts。
+Recalibrate Cooler
+クーラー効率を再評価します。
+Cooler Re-evaluation Algorithm
+クーラー効率の再評価の更新頻度を設定できます。 
+設定オプション: [Normal] [More inclined to update] [Very inclined to update] [Less 
+inclined to update] [Least inclined to update]
+Optimism Scale
+予測の楽観度を設定します。値が大きいほど、予測は楽観的になります。
+Extreme Over-voltage
+この項目は、マザーボード上のCPU過電圧ジャンパー（CPU_OV）が有効に設定されている場合
+にのみ有効です。この項目を［Enabled（有効）］に設定すると、オーバークロックのために通常よ
+り高い電圧を設定できます。オーバークロックはCPUに大きな負荷をかけ、寿命を縮める可能性
+があります。 
+設定オプション: [Disabled] [Enabled]
+CPU SOC Voltage
+CPU SoCに供給する電圧の調整方法を設定します。この項目に表示されている値は、マザーボー
+ド上のリモートADCセンサーで測定されたSoC電圧の値です。SoC Local Voltage Readingに表
+示されている値は、プロセッサーのセンサーで直接測定された実際のSoC電圧です。 
+設定オプション: [Auto] [Manual Mode]
+参考： 次の項目は「CPU SOC Voltage」を [Manual Mode] に設定した場合に表示されます。
+VDDSOC Voltage Override
+CPU SoCに供給する電圧を設定します。 
+CPU VDDIO / MC Voltage
+CPU VDDIO / MC に供給する電圧の調整方法を設定します。
+Misc Voltage
+GMIバスに供給する内部VDDGレールに電力を供給するMisc電圧の調整方法を設定します。 
+設定オプション: [Auto] [Manual Mode] [Offset Mode]
+
+46
+参考： 次の項目は「Misc Voltage」を [Manual Mode] に設定した場合に表示されます。
+Misc Voltage Override
+外部電圧レギュレーターからMiscに供給する電圧を設定します。
+参考： 次の項目は「Misc Voltage」を [Offset Mode] に設定した場合に表示されます。
+Offset Mode Sign
+[+]	
+Misc電圧を正の値でオフセットします。
+[–]	
+Misc電圧を負の値でオフセットします。
+Misc Voltage Offset
+Misc電圧のオフセット値を設定します。
+VDDP Voltage
+VDDPはDDRメモリーとメモリーコントローラー間の信号伝達を行う回路（PHY）のための電圧
+であり、メモリー自体に供給されるメモリー電圧（VDDIO_Mem）から生成されています。そのた
+め、VDDP電圧（mV）はメモリー電圧に近づくことはあっても、それを上回ることはありません。
+High DRAM Voltage Mode
+[Disabled（無効）] に設定した場合、メモリー電圧の上限は1.435Vになります。[Enabled（有効）] 
+に設定した場合、メモリー電圧の上限は2.070Vになります。サポートされていないメモリーで有
+効にした場合、電圧は要求された値より低くなります。 
+設定オプション: [Auto] [Disabled] [Enabled]
+DRAM VDD Voltage
+メモリーICのVDD（IC内部回路の動作）電源電圧を設定します。
+DRAM VDDQ Voltage
+メモリーICのVDDQ（入出力インターフェース）電源電圧を設定します。
+VDDG CCD Voltage
+Infinity FabricのCCDにおけるデータ伝送部分の電圧を設定します。 
+設定オプション: [Auto] [650 mV] - [1650 mV]
+VDDG IOD Voltage
+Infinity FabricのI/Oダイにおけるデータ伝送部分の電圧を設定します。  
+設定オプション: [Auto] [650 mV] - [1650 mV]
+Advanced Memory Voltages
+PMIC Force Continuous Current Mode
+設定オプション: [Auto] [Enabled] [Disabled]
+PMIC Voltages
+設定オプション: [Auto] [Sync All PMICs] [By per PMIC]
+参考： 次の項目は「PMIC Voltages」を [Sync All PMICs] に設定した場合に表示されます。
+SPD HUB VLDO (1.8V)
+SPDハブロジックの主電源電圧を設定します。
+
+47
+SPD HUB VDDIO (1.0V)
+SPDハブサイドバンドインターフェースの主電源電圧を設定します。
+Memory VDD Voltage
+メモリーICのVDD（IC内部回路の動作）電源電圧を設定します。 
+Memory VDDQ Voltage
+メモリーICのVDDQ（入出力インターフェース）電源電圧を設定します。
+Memory VPP Voltage
+メモリーチップ内のメモリーセルを活性化するために必要な電力を供給する電源電圧を
+設定します。
+Memory Voltage Switching Frequency
+メモリー電圧レギュレーターのスイッチング周波数をMHz単位で設定します。
+Memory Current Capability
+スイッチングレギュレーターの電流容量をアンペア単位で設定します。 
+
+48
+6.	
+Advanced
+CPUやチップセット、オンボードデバイスが備える機能の設定をすることができます。
+注意！ 不適切なBIOS設定は、不安定な動作や起動不良の原因となります。BIOS設定の変更は、専門知
+識を持った技術者のサポートを受けて行うことを強く推奨します。
+6.1	
+Trusted Computing
+TPM (Trusted Platform Module) などのトラステッドコンピューティングに関する設定をするこ
+とができます。
+Security Device Support
+セキュリティデバイスに対するBIOSのサポートの有効/無効を設定します。
+［Disabled（無効）］に
+設定すると、オペレーティングシステム上にセキュリティデバイスが表示されなくなります。TCG 
+EFIプロトコルとINT1Aインターフェースは使用できなくなります。 
+設定オプション: [Disabled] [Enabled] 
+参考： 次の項目は「Security Device Support」を [Enabled] に設定した場合に表示されます。
+SHA-1 PCR Bank
+SHA-1 PCRバンクの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] 
+SHA256 PCR Bank
+SHA256 PCRバンクの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] 
+SHA512 PCR Bank
+SHA512 PCRバンクの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] 
+
+49
+SM3_256 PCR Bank
+SM3_256 PCRバンクの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] 
+Pending operation
+セキュリティデバイスの動作を予約します。 
+設定オプション: [None] [TPM Clear] 
+参考： セキュリティデバイスの状態を変更するため、リスタート時にコンピューターは再起動します。
+Platform Hierarchy
+プラットフォーム階層の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Storage Hierarchy
+ストレージ階層の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Endorsement Hierarchy
+エンドースメント階層の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Physical Presence Spec Version
+オペレーティングシステムに対して、TPMとの通信に使用するPPI（Platform Profile Interface）の
+バージョンを選択します。 
+設定オプション: [1.2] [1.3]
+参考： 一部のHCKテストはバージョン 1.3 をサポートしていない場合があります。
+6.2	
+AMD fTPM configuration
+AMD CPUに統合されたfTPM (ファームウェアTPM)機能の設定をすることができます。
+Firmware TPM switch
+ファームウェアTPMの有効/無効を設定します。
+[Enable Firmware TPM]	
+プラットフォームfTPMを有効にします。
+[Disable Firmware TPM]	
+プラットフォームfTPMを無効にします。
+注意！ [Disable Firmware TPM] を選択するとfTPMが無効になり、fTPMに保存されているすべてのデ
+ータが失われます。
+Erase fTPM NV for factory reset
+新たにCPUを取り付けた際のfTPMリセットの有効/無効を設定します。
+[Disabled]	
+以前のfTPM情報を保持し、システムを起動します。fTPMをリセットしない限
+り、新しいCPUでfTPMは有効になりません。元のCPUに戻すと、TPM関連の鍵
+やデータを回復できる可能性があります。
+[Enabled]	
+fTPMをリセットします。BitLockerまたは暗号化が有効になっているシステム
+の場合、回復キーがないとシステムは起動しません。
+
+50
+6.5	
+PCI Subsystem Settings
+PCIサブシステムに関する設定をすることができます。
+Above 4G Decoding
+64bit対応デバイスで4GBを超えるメモリーアドレス空間のサポートが必要なPCIデバイスを利
+用する場合に必要な管理機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+参考：  
+•	 Above 4G Decodingは64bit オペレーティングシステムでのみ有効になります。
+•	 次の項目は「Above 4G Decoding」を [Enabled] に設定した場合に表示されます。
+Re-Size BAR Support
+CPUからグラフィックスカードなどのPCIeデバイスのビデオメモリーへのアクセスを効率化する
+Resizable BARの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+参考： グラフィックカード上のGPUメモリー（VRAM）の全領域へアクセスするために「Re-Size BAR 
+Support」を[Enabled]に設定する場合は、Boot > CSM (Compatibility Support Module) > 
+Launch CSM を[Disabled]に設定してください。
+6.3	
+UEFI Variables Protection
+Password protection of Runtime Variables
+システム管理者パスワードを使用してNVRAMランタイム変数を保護する機能の有効/無効を設
+定します。 
+設定オプション: [Enable] [Disable]
+6.4	
+CPU Configuration
+CPUに関する設定をすることができます。
+PSS Support
+ACPI_PPCオブジェクトおよび_PCTオブジェクト生成の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+NX Mode
+実行禁止ページ保護（No-Execute page protection）機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+SVM Mode
+プロセッサーレベルの仮想化機能Secure Virtual Machine（SVM）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+重要！ 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によっ
+て異なる場合があります。
+
+51
+SR-IOV Support
+システムにSR-IOV対応PCIeデバイスが搭載されている場合のSR-IOV（Single Root I/O 
+Virtualization）サポートの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+6.6	
+USB Configuration
+USB コントローラーに関する設定をすることができます。
+参考： Mass Storage Devices には自動検出されたUSBデバイスが表示されます。USBデバイスが検出
+されない場合、項目には [None] と表示されます。
+Legacy USB Support
+USBを正式にサポートしていないオペレーティングシステムでUSBデバイスを使用できるように
+する機能の有効/無効を設定します。
+[Enabled]	
+レガシーUSBサポートを有効にします。
+[Disabled]	
+USBデバイスはBIOSセットアッププログラムでのみ使用できます。
+[Auto]	
+USBデバイスが接続されていない場合、レガシーUSBサポートは自動的に無
+効になります。
+XHCI Hand-off
+XHCIハンドオフ機能をサポートしていないオペレーティングシステムで、BIOSレベルでXHCIハン
+ドオフをサポートする機能の有効/無効を設定します。
+[Disabled]	
+この機能を無効にします。 
+[Enabled]	
+XHCIハンドオフをサポートしていないオペレーティングシステムのため
+に、BIOSによるXHCIハンドオフを有効にします。
+USB Mass Storage Driver Support
+USB大容量記憶装置ドライバーサポートの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Mass Storage Devices:
+マザーボードに取り付けられた大容量デバイスのエミュレーションタイプを選択します。USBエミ
+ュレーション機能は、BIOSがどのように USBデバイスを処理するかを定義します。
+［Auto］はメデ
+ィアフォーマットに従いエミュレートを行います。光学ドライブはCD-ROMとしてエミュレートさ
+れ、メディアが挿入されていないドライブはドライブタイプに応じてエミュレートされます。 
+設定オプション: [Auto] [Floppy] [Forced FDD] [Hard Disk] [CD-ROM]
+USB Single Port Control
+USBポートの個別制御に関する設定をすることができます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+6.7	
+Network Stack Configuration
+UEFIネットワークスタックに関する設定をすることができます。
+Network stack
+UEFIネットワークスタックの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] 
+
+52
+参考： 次の項目は「Network Stack」を [Enabled] に設定した場合に表示されます。
+Ipv4/Ipv6 PXE Support
+IPv4/IPv6プロトコルによるPXEネットワークブートの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+6.9	
+HDD/SSD SMART Information
+SATAコントローラーに接続されたストレージデバイスのS.M.A.R.T.情報を表示します。
+参考： 
+•	 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によって
+異なる場合があります。
+•	 NVM ExpressデバイスのS.M.A.R.T.情報表示はサポートしておりません。
+6.8	
+NVMe Configuration
+NVM Express（NVMe）コントローラーとドライブの情報を表示します。 
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+6.10	
+SATA Configuration
+ストレージコントローラーに関する設定をすることができます。SATAポートおよびM.2 Socket 
+3 スロットにストレージデバイスが取り付けられていない場合、ポート/スロット名の横には
+「Empty」と表示されます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+SATA Controller(s) 
+SATAコントローラーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+
+53
+参考： 次の項目は「SATA Controller(s)」を [Enabled] に設定した場合に表示されます。
+SATA Mode
+SATAコントローラーの動作モードを設定します。
+[AHCI]
+AHCI (Advanced Host Controller Interface) モードで動作します。 
+[RAID]
+RAID (Redundant Arrays of Inexpensive Disks) モードで動作します。複数の
+SATAデバイスを使用してRAIDアレイを構築することができます。
+NVMe RAID Mode
+PCIe M.2 SSD (NVMe SSD) によるRAID機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+SATA6G
+各SATA 6Gb/s ポートの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+SATA6G Hot Plug 
+各SATA 6Gb/s ポートのホットプラグ機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+6.11	
+APM Configuration
+電源管理に関する設定をすることができます。
+Restore AC Power Loss
+停電などによりコンピューターへの電力が遮断されたしまった場合、または電源ユニットからの
+電源供給が完全に停止した場合、再度通電した際の動作を設定します。 
+設定オプション: [Power Off] [Power On] [Last State]
+ErP Ready
+ErP（Energy-related Products）の要件を満たすために、コンピューターがS4（休止状態）または
+S5（シャットダウン）状態になるとBIOSが一部の電源供給を遮断する機能の有効/無効を設定し
+ます。この項目を［Enabled（有効）］に設定すると、PME（PowerManagementEvent）に関連する
+他の設定がすべて無効になり、RGB LEDやRGBヘッダー/アドレサブルヘッダーへの電力供給も
+停止されます。 
+設定オプション: [Disabled] [Enabled (S4+S5)] [Enabled (S5)]
+Max Power Saving
+設定オプション: [Disabled] [Enabled]
+Power On By PCI-E
+PCIeデバイスによる電源オン機能の有効/無効を設定します。オンボードLANコントローラまた
+は取り付けたLANカードによるWake-on-LAN機能を使用する場合はこの機能を [Enabled（有
+効）] に設定します。 
+設定オプション: [Disabled] [Enabled]
+Power On By RTC
+RTC（リアルタイムクロック）を使用して日時を指定しコンピュータを起動する機能の有効/無効を
+設定します。 
+設定オプション: [Disabled] [Enabled]
+
+54
+6.12	
+Onboard Devices Configuration
+オンボードデバイスに関する設定をすることができます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Native ASPM
+オペレーティングシステムによるASPM（Active State Power Management）制御の有効/無効を
+設定します。
+[Auto]	
+既定値
+[Enabled]	
+オペレーティングシステムによりASPMを制御
+[Disabled]	
+BIOSによりASPMを制御
+CPU PCIE ASPM Mode Control
+設定オプション: [Disabled] [L0s Entry] [L1 Entry] [L0s And L1 Entry] [Auto]
+PCIEX16_1 Bandwidth Bifurcation Configuration
+[Auto Mode]	
+	
+PCIEX16_2 スロットの使用状況に基づいて、PCIEX16_1 スロットを
+自動的にx8モードに切り替えます。
+[PCIE RAID Mode]	
+HYPER M.2 X16 CARDに装着された最大4基のM.2 SSDを検出する
+ことが可能になります。
+[GPU with M.2 Storage]	
+M.2 Socket 3 スロットを搭載するグラフィックスカードを取り付け
+ている場合、グラフィックスカードはx8モード、M.2 Socket 3スロッ
+トはx4モードで動作します。
+参考： HYPER M.2 X16 CARDまたはその他のM.2 SSD増設カードなどを取り付ける場合は[PCIE RAID 
+Mode]に設定します。PCIE RAID Modeに設定した場合は、他の拡張カードを取り付けると起動
+に失敗する場合があります。検出可能なM.2 SSDの数は、CPUやシステム構成により異なります。
+PCIEX16_2 Bandwidth Bifurcation Configuration
+[Auto Mode]	
+M.2_2 スロットの使用状況に基づいてPCIEX16_2 スロットの動作モードを自
+動的に切り替えます。 
+M.2_2 スロットが使用されている場合、PCIEX16_2 スロットはx4モードで動
+作します。 
+M.2_2 スロットが使用されていない場合、PCIEX16_2 スロットはx8モードで
+動作します。
+[PCIE RAID Mode]	HYPER M.2 X16 CARDに装着された最大2基のM.2 SSDを検出することが可
+能になります。
+参考： HYPER M.2 X16 CARDまたはその他のM.2 SSD増設カードなどを取り付ける場合は[PCIE RAID 
+Mode]に設定します。PCIE RAID Modeに設定した場合は、他の拡張カードを取り付けると起動
+に失敗する場合があります。検出可能なM.2 SSDの数は、CPUやシステム構成により異なります。
+HD Audio Controller
+HDオーディオコントローラーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Intel LAN Controller
+Intel® LAN コントローラーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+
+55
+10G LAN Card
+10G LANカードの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Wi-Fi Controller
+Wi-Fiコントローラーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Bluetooth Controller
+Bluetoothコントローラーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+RGB LED lighting
+When system is in working state
+システム稼働時のオンボードRGB LED照明または機能LEDのオン／オフを設定します。
+[All On]	
+すべてのオンボードLEDをオン
+[Stealth Mode]	
+すべてのオンボードLEDをオフ
+[Aura Only]	
+オンボードRGB LED照明をオン/機能LEDをオフ
+[Aura Off]	
+オンボードRGB LED照明をオフ/機能LEDをオン
+参考： RGBヘッダーおよびアドレサブルヘッダーは、S0（稼働）状態でのみ動作します。
+Windows Dynamic Lighting
+Windows®オペレーティングシステムに統合された動的ライティング機能によるRGBデバイス制
+御の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+参考： 
+•	 Windows® 11 OSビルド 22621.2361 以降にのみ対応しています。機能を有効に設定する前に、お使
+いのシステムのオペレーティングシステムと互換性があることを確認してください。
+•	 Windows Dynamic LightingをEnabled（有効）に設定した場合、技術的な制約によりAuraエフェク
+トが一部使用できなくなる可能性があります。
+When system is in sleep, hibernate or soft off states
+システム停止中 (S3/S4/S5) のオンボードRGB LED照明または機能LEDのオン／オフを設定しま
+す。
+[All On]	
+すべてのオンボードLEDをオン
+[Stealth Mode]	
+すべてのオンボードLEDをオフ
+[Aura Only]	
+オンボードRGB LED照明をオン/機能LEDをオフ
+[Aura Off]	
+オンボードRGB LED照明をオフ/機能LEDをオン
+参考： RGBヘッダーおよびアドレサブルヘッダーは、S0（稼働）状態でのみ動作します。
+USB power delivery in Soft Off state (S5)
+S5（シャットダウン）時のUSB給電の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+
+56
+Serial Port Configuration
+シリアルポート (COM) に関する設定をすることができます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Serial Port
+COMポート（シリアルポート）の有効/無効を設定します。 
+設定オプション: [Enabled] [Disabled]
+参考： 次の項目は「Serial Port」を [Enabled] に設定した場合に表示されます。
+Change settings
+スーパーI/Oデバイスに最適な設定を選択することができます。
+設定オプション: [IO=3F8h; IRQ=4] [IO=2F8h; IRQ=3] [IO=3E8h; IRQ=4] [IO=2E8h; 
+IRQ=3]
+PCIE Link Speed
+PCIeリンク速度に関する設定をすることができます。
+PCIEX16 Link Mode
+PCIEX16スロットのリンク速度を設定します。 
+設定オプション: [Auto] [GEN 1] [GEN 2] [GEN 3] [GEN 4] [GEN 5]
+M.2 Link Mode
+M.2スロットのリンク速度を設定します。 
+設定オプション: [Auto] [GEN 1] [GEN 2] [GEN 3] [GEN 4] [GEN 5]
+Chipset Link Mode
+CPUとチップセット間のリンク速度を設定します。 
+設定オプション: [Auto] [GEN 1] [GEN 2] [GEN 3] [GEN 4]
+PCIEX16(G4) Link Mode
+PCIEX16(G4)スロットのリンク速度を設定します。 
+設定オプション: [Auto] [GEN 1] [GEN 2] [GEN 3] [GEN 4]
+6.13	
+NB Configuration
+ノースブリッジに関する設定をすることができます。
+Primary Video Device
+BIOSが画面表示に使用するプライマリビデオデバイスを選択します。 
+設定オプション: [IGFX Video] [PCIE Video]
+Integrated Graphics
+プロセッサー内蔵グラフィックスの有効/無効を設定します。 
+設定オプション: [Disabled] [Force] [Auto]
+UMA Frame Buffer Size
+プロセッサー内蔵グラフィックスのためにメインメモリーから割り当てるUMAフレームバッファ
+サイズを設定します。 
+設定オプション: [Auto] [64M] [80M] [96M] [128M] [256M] [384M] [512M] [768M] [1G] [2G] 
+[3G] [4G] [8G] [16G]
+
+57
+6.14	
+AMD CBS
+AMD Common BIOS Settings（CBS）に関する設定をすることができます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Global C-state Control
+すべてのコアにおけるI/OベースCステートおよびInfinity Data Fabric（DF）Cステートの有効/無
+効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+IOMMU
+IOMMU（Input-Output Memory Management Unit）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+ECC
+ECC（Error-Correcting Code、誤り訂正符号）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+SMT Control
+SMT（Symmetric Multithreading、対称型マルチスレッディング）を無効にすることができま
+す。SMTを再び有効にするには、Auto（自動）に設定してから電源を入れ直す必要があります。 
+設定オプション: [Disable] [Auto]
+Core Performance Boost
+CPUの動作状況をリアルタイムで監視し、負荷に応じて自動的に動作クロック（周波数）を引き上
+げるCPB（Core Performance Boost）を無効にすることができます。 
+設定オプション: [Disabled] [Auto]
+CPU Common Options
+Thread Enablement
+Performance
+Prefetcher settings
+L1 Stream HW Prefetcher
+L1ストリームハードウェアプリフェッチャーの有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+L2 Stream HW Prefetcher
+L2ストリームハードウェアプリフェッチャーの有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+L1 Stride Prefetcher
+個々の命令のメモリーアクセス履歴を使用し、各アクセスが前と一定の距離にあ
+る場合に追加の行をフェッチする機能の有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+L1 Region Prefetcher
+ある命令のデータアクセスの後に他のデータアクセスが続く傾向がある場合、メ
+モリーアクセス履歴を使用して追加の行をフェッチする機能の有効/無効を設定
+します。 
+設定オプション: [Disable] [Enable] [Auto]
+L1 Burst Prefetch Mode
+L1バーストプリフェッチモードの有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+
+58
+L2 Up/Down Prefetcher
+メモリーアクセス履歴を使用して、すべてのメモリーアクセスに対して次の行また
+は前の行をフェッチするかどうかを判断する機能の有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+Core Watchdog
+Core Watchdog Timer Enable
+CPUウォッチドッグタイマーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+参考： 次の項目は「Core Watchdog Timer Enable」を [Enabled] に設定した場合に表示されます。
+Core Watchdog Timer Interval
+CPUウォッチドッグタイマーの間隔を設定します。 
+設定オプション: [Auto] [39.68us] [80.64us] [162.56us] [326.4us] [654.08us] 
+[1.309ms] [2.620ms] [5.241ms] [10.484ms] [20.970ms] [40.64ms] [82.53ms] 
+[166.37ms] [334.05ms] [669.41ms] [1.340s] [2.681s] [5.364s] [10.730s] 
+[21.461s]
+Core Watchdog Timer Severity
+CPUウォッチドッグタイマーの重大度を設定します。 
+設定オプション: [No Error] [Transparent] [Corrected] [Deferred] [Uncorrected] 
+[Fatal] [Auto]
+RedirectForReturnDis
+A0ステッピングのCZ （開発コード：Carrizo）プロセッサーに搭載されたXV（Excavator）
+コアでGCCコンパイラを使用する際に発生する可能性のあるC000005（アクセス違反）
+問題の回避策として、MSRC001_1029 デコードコンフィギュレーション（DE_CFG）bit 14 
+[DecfgNoRdrctForReturns]を1に設定します。 
+設定オプション: [1] [0] [Auto]
+Power Supply Idle Control
+設定オプション: [Low Current Idle] [Typical Current Idle] [Auto]
+Opcache Control
+Opcacheの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Streaming Stores Control
+Streaming Stores機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Local APIC MOde
+ローカルAPICの動作モードを設定します。 
+設定オプション: [Compatibility] [xAPIC] [x2APIC] [Auto]
+ACPI _CST C1 Declaration
+C1ステートをOSに宣言する機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Platform First Error Handling
+Platform First Error Handling (PFEH) の有効/無効を設定します。個々のバンクのクロック
+制御、および各バンクからの遅延エラー割り込みのマスクをを行うことができます。  
+設定オプション: [Enabled] [Disabled] [Auto]
+
+59
+MCA error thresh enable
+Machine Check Architecture（MCA）エラーしきい値の有効/無効を設定します。 
+設定オプション: [False] [True] [Auto]
+参考： 次の項目は「MCA error thresh enable」を [True] に設定した場合に表示されます。
+MCA error thresh count
+有効なエラーしきい値カウントは、 4095（0xFFF）から<MCA error thresh count>を引い
+た値になります（例：既定値の0xFF5の場合、閾値は10になります）。
+MCA FruText
+MCA FruTextの有効/無効を設定します。 
+設定オプション: [False] [True]
+SMU and PSP Debug Mode
+この項目が ［Enabled（有効）］ に設定されている場合、本来は訂正不可能なエラーがPSP 
+FWまたはSMU FWによって検出されるとコールドリセットが行われますが、代わりにシス
+テムを停止させます。 
+設定オプション: [Disabled] [Enabled] [Auto]
+PPIN Opt-in
+PPIN機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+REP-MOV/STOS Streaming
+REP-MOV/STOSストリーミングサポートの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Enhanced REP MOVSB/STOSB
+Enhanced REP MOVSB/STOSB（ERMS）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Fast Short REP MOVSB (FSRM)
+Fast Short REP MOVSB（FARM）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+SNP Memory (RMP Table) Coverage
+この項目が ［Enabled（有効）］ に設定されている場合、システムメモリー全体がカバーさ
+れます。 
+設定オプション: [Disabled] [Enabled] [Custom] [Auto]
+参考： 次の項目は「SNP Memory (RMP Table) Coverage」を [Custom] に設定した場合に表示され
+ます。
+Amount of Memory to Cover
+対象となるシステムメモリーの容量をMB単位で16進数で設定します。
+SMEE
+Secure Memory Encryption (SME) の有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+Action on BIST Failure
+CCD BISTで障害が検出された場合の動作を設定します。 
+設定オプション: [Do nothing] [Down-CCD] [Auto]
+
+60
+Log Transparent Errors
+デバッグレジスターに加えて、MCAにトランスペアレントエラーを記録する機能の有効/無
+効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+AVX512
+設定オプション: [Disabled] [Enabled] [Auto]
+MONITOR and MWAIT Disable
+この項目が [Enabled（有効）] に設定されている場合、MONITOR、MWAIT、MONITORX、 
+MWAITXオペコードは無効になります。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Corrector Branch Predictor
+この項目を [Enabled（有効）] に設定することで、分岐が多いコードで条件分岐の予測ミス
+を減らせる可能性があります。 
+設定オプション: [Disabled] [Enabled]
+PAUSE Delay
+PAUSE命令実行後にスレッドがアイドルになるサイクル数を設定します。 
+設定オプション: [Auto] [Disabled] [16 cycles] [32 cycles] [64 cycles] [128 cycles]
+CPU Speculative Store Modes
+[Balanced]	
+	
+ローカルキャッシュにキャッシュラインが存在するが書き込み可能
+な状態でない場合、ストア命令はリモートキャッシュラインコピーへ
+の無効化の送信を遅らせることがあります。
+[More Speculative]	 ストア命令は、可能な限り速やかにリモートキャッシュラインコピー
+に無効化を送信します。
+[Less Speculative]	
+ローカルキャッシュにキャッシュラインが存在しないか、または書き
+込み可能な状態でない場合、ストア命令はリモートキャッシュライン
+コピーへの無効化の送信を遅らせることがあります。
+[Auto]	
+	
+既定の設定が適用されます。
+SVM Lock
+VM_CR[Lock] の有効/無効を設定します。 
+設定オプション: [Enabled] [Disabled] [Auto]
+SVM Enable
+VM_CR[SvmeDisable] の有効/無効を設定します。 
+設定オプション: [Enabled] [Disabled] [Auto]
+DF Common Options
+Memory Addressing
+Memory interleaving
+メモリーチャネルインターリービングの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Memory interleaving size
+メモリーインターリービングサイズを設定します。この設定によってインターリー
+ブの開始アドレスが決定します（bit 8、9、10、11）。 
+設定オプション: [256 Bytes] [512 Bytes] [1KB] [2KB] [Auto]
+
+61
+DRAM map inversion
+メモリーマップ反転の有効/無効を設定します。メモリーマップを反転すると、シス
+テム内で最も高いメモリーチャネルが最も低いアドレスに割り当てられます。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Location of private memory regions
+プライベートメモリー領域（PSP、SMU、CC6）をDRAMペアの先頭に配置するか、
+分散配置するかを設定します。分散配置には、すべてのダイにメモリーが必要で
+す。このオプションの設定に関わらず、一部のダイにメモリーがない場合、常に
+DRAMの先頭に配置されます。 
+設定オプション: [Distributed] [Consolidated] [Consolidated to 1st DRAM pair] 
+[Auto]
+ACPI
+ACPI SRAT L3 Cache as NUMA Domain
+[Disabled]	
+メモリーアドレス指定。ソケットごとにNUMAノードが宣言され
+ます。
+[Enabled]	
+システム内の各CCXは個別のNUMAドメインとして宣言されま
+す。
+[Auto]		
+デフォルトオプションが適用されます。
+Disable DF to external downstream IP Sync Flood Propagation
+UMCまたはFCHなどのダウンストリームスレーブへのエラー伝播を無効にします。これは、
+障害発生時のリセットを回避するために使用します。 
+設定オプション: [Sync flood disabled] [Sync flood enabled] [Auto]
+Disable DF sync flood propagation
+PIEから他のDFコンポーネント、最終的にSDPポートへの伝播を無効にします。 
+設定オプション: [Sync flood disabled] [Sync flood enabled] [Auto]
+Freeze DF module queues on error
+この項目では、エラー発生時にすべてのDFキューをフリーズさせる機能の有効/無効を設
+定します。また、MCAが無効になっている場合でもHWAで強制的に同期フラッドを発生さ
+せることができます。 
+設定オプション: [Disabled] [Enabled] [Auto]
+DF Cstates
+この項目が［Enabled（有効）］に設定されている場合、ファームウェアはこの機能を有効に
+するために必要なレジスタをDFハードウェアにプログラムします。
+（［Auto（自動）］に設定
+されている場合、設定はGlobal C-state Controlの設定に準じます。） 
+設定オプション: [Disabled] [Enabled] [Auto]
+PSP error injection support
+設定オプション: [False] [True]
+UMC Common Options
+DDR Options
+DDR Timing Configuration
+注意！ オーバークロックなどのシステム調整を行うと、AMD限定保証の対象外となることがあります。 
+AMDプロセッサーの保証ポリシーについては、AMDプロセッサーの製品説明書または公式ウェ
+ブサイトをご確認ください。
+
+62
+参考： 次の項目は「DDR Timing Configuration」を [Accept] に設定した場合に表示されます。
+Active Memory Timing Settings
+設定オプション: [Auto] [Enabled]
+参考： 次の項目は「Active Memory Timing Settings」を [Enabled] に設定した場合に表示されます。
+Memory Target Speed
+メモリーの目標速度をMT/s単位で設定します。速度は2000 MT/s、2400 
+MT/s、3200 MT/s～12000 MT/sの範囲で、200 MT/s刻みで設定します。
+値は10進数で入力し、入力した値は200 MT/s単位で切り下げられます。
+DDR SPD Timing
+	
+Tcl Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Tcl Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Tcl
+	
+メモリーモジュールがメモリーコントローラーの要求に応じて
+データを準備するために要する時間 (tCL) を設定します。有効
+な値は16進数で0x16～0x40の範囲で、2クロック刻みで設定し
+ます。
+	
+Trcd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trcd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trcd
+	
+メモリーの準備ができた後、メモリーの読み取りに要する時間 
+(tRCD) を設定します。有効な値は16進数で0x8～0x3Eの範囲
+で、2クロック刻みで設定します。
+	
+Trp Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trp Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trp
+	
+新しい行でデータを使用するためにメモリーが準備に要する時
+間 (tRP) を設定します。有効な値は16進数で0x8～0x3Eの範囲
+で、2クロック刻みで設定します。
+	
+Tras Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+
+63
+参考： 次の項目は「Tras Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Tras
+	
+行がアクティブになりデータへのアクセスが可能になるまで
+に要する最小時間 (tRAS) を設定します。有効な値は16進数で
+0x1E～0x7Eの範囲で、2クロック刻みで設定します。
+	
+Trc Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trc Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trc
+	
+行がアクティブになりリフレッシュされるまでに要する時間 
+(tRC)を設定します。有効な値は16進数で0x20～0xFFの範囲で
+す。
+	
+Twr Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Twr Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Twr
+	
+最小書き込み回復時間 (tWR) を設定します。有効な値は16進数
+で0x30～0x60の範囲で、6クロック刻みで設定します。
+	
+Trfc1 Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trfc1 Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trfc1
+	
+リフレッシュ後、再度リフレッシュが可能になるまでに要する時
+間 (tRFC1) を設定します。有効な値は16進数で0x32～0xFFFの
+範囲です。
+	
+Trfc2 Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trfc2 Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trfc2
+	
+リフレッシュ後、再度リフレッシュが可能になるまでに要する時
+間 (tRFC2) を設定します。有効な値は16進数で0x32～0xFFFの
+範囲です。
+	
+TrfcSb Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+
+64
+参考： 次の項目は「TrfcSb Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrfcSb
+	
+リフレッシュ後、再度リフレッシュが可能になるまでに要する時
+間 (tRFCsb) を設定します。有効な値は16進数で0x32～0x7FF
+の範囲です。
+DDR Non-SPD Timing
+	
+Trtp Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trtp Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trtp
+	
+読み出しからプリチャージまでに要する時間 (tRTP) を設定しま
+す。有効な値は16進数で0x5～0x1Fの範囲です。
+	
+TrrdL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrrdL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrrdL
+	
+同じメモリーパンクグループにおけるアクティブバンクからアク
+ティブバンクまでに要する時間 (tRRD_L) を設定します。有効な
+値は16進数で0x4～0x20の範囲です。
+	
+TrrdS Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrrdS Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrrdS
+	
+異なるメモリーパンクグループにおけるアクティブバンクからア
+クティブバンクまでに要する時間 (tRRD_S) を設定します。有効
+な値は16進数で0x4～0x14の範囲です。
+	
+Tfaw Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Tfaw Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Tfaw
+	
+同じランクの4つの異なるバンクにアクティブ化コマンドを発
+行できる期間 (tFAW) を設定します。有効な値は16進数で0x14
+～0x50の範囲です。
+	
+TwtrL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+
+65
+参考： 次の項目は「TwtrL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwtrL
+	
+同じメモリーバンクグループにおける最小書き込みから読み出
+しに要する時間 (tWTR_L) を設定します。有効な値は16進数で
+0x8～0x30の範囲です。
+	
+TwtrS Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwtrS Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwtrS
+	
+異なるメモリーバンクグループにおける最小書き込みから読み
+出しに要する時間 (tWTR_S) を設定します。有効な値は16進数
+で0x2～0x10の範囲です。
+	
+TrdrdScL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdScL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdScL
+	
+同じメモリーバンクグループにおける読み取りから次の読み取
+りまでに要する時間 (tRDRDSc_L) を設定します。有効な値は16
+進数で0x1～0xFの範囲です。
+	
+TrdrdSc Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdSc Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdSc
+	
+同じDIMM上の同じチップセレクトにおける読み取りから次の
+読み取りまでに要する時間 (tRDRDSc) を設定します。有効な値
+は16進数で0x1～0xFの範囲です。
+	
+TrdrdSd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdSd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdSd
+	
+同じDIMM上の異なるチップセレクトにおける読み取りから次
+の読み取りまでに要する時間 (tRDRDSd) を設定します。有効な
+値は16進数で0x1～0xFの範囲です。
+	
+TrdrdDd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+
+66
+参考： 次の項目は「TrdrdDd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdDd
+	
+異なるDIMM上の異なるチップセレクトにおける読み取りから
+次の読み取りまでに要する時間 (tRDRDd) を設定します。有効
+な値は16進数で0x1～0xFの範囲です。
+	
+TwrwrScL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrScL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrScL
+	
+同じメモリーバンクグループにおける書き込みから次の書き込
+みまでに要する時間 (tWRWRScL) を設定します。有効な値は16
+進数で0x1～0x3Fの範囲です。
+	
+TwrwrSc Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrSc Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrSc
+	
+同じDIMM上の同じチップセレクトにおける書き込みから次の
+書き込みまでに要する時間 (tWRWRSc) を設定します。有効な
+値は16進数で0x1～0xFの範囲です。
+	
+TwrwrSd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrSd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrSd
+	
+同じDIMM上の異なるチップセレクトにおける書き込みから次
+の書き込みまでに要する時間 (tWRWRSd) を設定します。有効
+な値は16進数で0x1～0xFの範囲です。
+	
+TwrwrDd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrDd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrDd
+	
+異なるDIMM上の異なるチップセレクトにおける書き込みから
+次の書き込みまでに要する時間 (tWRWRDd) を設定します。有
+効な値は16進数で0x1～0xFの範囲です。
+	
+Twrrd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+
+67
+参考： 次の項目は「Twrrd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Twrrd
+	
+同じメモリーランクにおける書き込みから次の読み取りまでに
+要する時間 (tWRRD) を設定します。有効な値は16進数で0x1
+～0xFの範囲です。
+	
+Trdwr Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trdwr Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trdwr
+	
+同じメモリーランクにおける読み取りから次の書き込みまでに
+要する時間 (tRDWR) を設定します。有効な値は16進数で0x1
+～0x1Fの範囲です。
+DDR BUS Configuration
+Processor CK drive strengths
+プロセッサーからメモリーチップに送信されるコマンドクロック（CK）信
+号のドライブ強度を設定します。 
+設定オプション: [Auto] [120.0 Ohm] [60.0 Ohm] [40.0 Ohm] [30.0 
+Ohm]
+Processor CA drive strengths
+プロセッサーからメモリーチップに送信されるコマンド/アドレス（CA）
+信号のドライブ強度を設定します。 
+設定オプション: [Auto] [120.0 Ohm] [60.0 Ohm] [40.0 Ohm] [30.0 
+Ohm]
+Processor CS drive strengths
+チップセレクト（CS）信号のドライブ強度を設定します。 
+設定オプション: [Auto] [120.0 Ohm] [60.0 Ohm] [40.0 Ohm] [30.0 
+Ohm]
+CA ODT GroupA
+グループAのコマンド/アドレス オンダイターミネーションの抵抗値を
+設定します。 
+設定オプション: [Auto] [RTT_OFF (Disable)] [RZQ/0.5 (480)] [RZQ/1 
+(240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CK ODT GroupA
+グループAのコマンドクロック オンダイターミネーションの抵抗値を設
+定します。 
+設定オプション: [Auto] [RTT_OFF (Disable)] [RZQ/0.5 (480)] [RZQ/1 
+(240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CS ODT GroupA
+グループAのチップセレクト オンダイターミネーションの抵抗値を設定
+します。 
+設定オプション: [Auto] [RTT_OFF (Disable)] [RZQ/0.5 (480)] [RZQ/1 
+(240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CA ODT GroupB
+グループBのコマンド/アドレス オンダイターミネーションの抵抗値を設
+定します。 
+設定オプション: [Auto] [RTT_OFF (Disable)] [RZQ/0.5 (480)] [RZQ/1 
+(240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+
+68
+CK ODT GroupB
+グループBのコマンドクロック オンダイターミネーションの抵抗値を設
+定します。 
+設定オプション: [Auto] [RTT_OFF (Disable)] [RZQ/0.5 (480)] [RZQ/1 
+(240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+CS ODT GroupB
+グループBのチップセレクト オンダイターミネーションの抵抗値を設定
+します。 
+設定オプション: [Auto] [RTT_OFF (Disable)] [RZQ/0.5 (480)] [RZQ/1 
+(240)] [RZQ/2 (120)] [RZQ/3 (80)] [RZQ/4 (60)] [RFU] [RZQ/6 (40)]
+Processor ODT impedance Pull Up P0-3
+プロセッサー オンダイターミネーション インピーダンス プルアップ 
+P0-3 を設定します。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 
+ohm] [120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 
+ohm] [43 ohm] [40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 
+ohm] [26 ohm] [25 ohm]
+Processor ODT impedance Pull Down P0-3
+プロセッサー オンダイターミネーション インピーダンス プルダウン 
+P0-3 を設定します。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 
+ohm] [120 ohm] [96 ohm] [80 ohm] [68 ohm] [60 ohm] [53 ohm] [48 
+ohm] [43 ohm] [40 ohm] [36 ohm] [34 ohm] [32 ohm] [30 ohm] [28 
+ohm] [26 ohm] [25 ohm]
+Processor DQ drive strengths Pull Up P0-3
+プロセッサー データ信号 ドライブ強度 プルアップ P0-3 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 
+ohm] [60 ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Processor DQ drive strengths Pull Down P0-3
+プロセッサー データ信号 ドライブ強度 プルダウン P0-3 を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 
+ohm] [60 ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Dram ODT Impedance RTT_NOM_WR P0-3
+メモリー オンダイターミネーション インピーダンス RTT_NOM_WR 
+P0-3 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT Impedance RTT_NOM_RD P0-3
+メモリー オンダイターミネーション インピーダンス RTT_NOM_RD P0-3 
+を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT Impedance RTT_WR P0-3
+メモリー オンダイターミネーション インピーダンス RTT_WR P0-3 を設
+定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT Impedance RTT_PARK P0-3
+メモリー オンダイターミネーション インピーダンス RTT_PARK P0-3 を
+設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+
+69
+Dram ODT Impedance DQS_RTT_PARK P0-3
+メモリー オンダイターミネーション インピーダンス DQS_RTT_PARK 
+P0-3 を設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+DRAM DQ drive strengths Pull Up P0-3
+メモリー データ信号 ドライブ強度 プルアップ P0-3 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+DRAM DQ drive strengths Pull Down P0-3
+メモリー データ信号 ドライブ強度 プルダウン P0-3 を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+DDR Controller Configuration
+DDR Power Options
+	
+Power Down Enable
+	
+DDRパワーダウンモードの有効/無効を設定します。 
+	
+設定オプション: [Disabled] [Enabled] [Auto]
+DDR RAS
+Disable Memory Error Injection
+設定オプション: [False] [True] [Auto]
+DDR ECC Configuration
+DDR ECC機能を設定します。
+DDR Security
+TSME
+設定オプション: [Auto] [Enabled] [Disabled]
+Data Scramble
+設定オプション: [Enabled] [Disabled] [Auto]
+DDR Addressing Options
+Chipselect Interleaving
+ノード0のDRAMチップセレクト間でメモリーブロックをインターリーブ
+します。 
+設定オプション: [Disabled] [Auto]
+Address Hash Bank
+バンクアドレスハッシュの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Address Hash CS
+チップセレクトアドレスハッシュの有効/無効を設定します。 
+設定オプション: [Auto] [Enabled] [Disabled]
+Address Hash Subchannel
+サブチャンネルアドレスハッシュの有効/無効を設定します。 
+設定オプション: [Auto] [Enabled] [Disabled]
+BankSwapMode
+設定オプション: [Auto] [Disabled] [Swap CPU] [Swap APU]
+
+70
+DDR Training Options
+DFE Read Training
+Decision Feedback Equalization（DFE）をオンにして2D読み出しトレー
+ニングを実施します。 
+設定オプション: [Auto] [Enable] [Disable]
+DRAM PDA Enumerate ID Programming Mode
+設定オプション: [Auto] [Sequential PDA enumeration mode] [Legacy 
+PDA enumeration mode]
+TX DFE Taps
+TX DEFタップ数を指定します。 
+設定オプション: [Auto] [1 Tap] [2 Taps] [3 Taps] [4 Taps]
+PPT Control
+Package Power Tracking（PPT）の動作を設定します。 
+設定オプション: [Auto] [Disabled] [Relock+Retrain only] [UMC Snoop 
+PPT] [DFI Retrain PPT] [Relock Only] [Relock Only with DFI PPT]
+DDR Training Runtime Reduction
+[Disabled]	DDRトレーニング実行時間短縮を強制的に無効にします。
+[Enabled]	 DDRトレーニング実行時間短縮を強制的に有効にします。
+[Auto]	 	
+既定のコード動作。オーバークロック状態である場合、DDRト
+レーニング実行時間短縮は無効になります。
+RX Burst Length
+読み出しトレーニングのためのバースト長の倍率を設定します。 
+設定オプション: [Auto] [1x] [2x] [4x] [8x]
+TX Burst Length
+書き込みトレーニングのためのバースト長の倍率を設定します。 
+設定オプション: [Auto] [1x] [2x] [4x] [8x]
+RX2D_TrainOpt
+設定オプション: [Auto] [Manual]
+参考： 次の項目は「RX2D_TrainOpt」を [Manual] に設定した場合に表示されます。
+RX2D_DFE
+Rx DFEの有効/無効を設定します。 
+設定オプション: [Auto] [Disabled] [Enabled]
+RX2D Voltage Step Size (2^n)
+設定オプション: [1 DAC step per loop] [2 DAC step per loop] [4 DAC 
+step per loop] [8 DAC step per loop]
+RX2D Delay Step Size (2^n)
+設定オプション: [1 DAC step per loop] [2 DAC step per loop] [4 DAC 
+step per loop] [8 DAC step per loop] 
+TX2D_TrainOpt
+設定オプション: [Auto] [Manual]
+
+71
+参考： 次の項目は「TX2D_TrainOpt」を [Manual] に設定した場合に表示されます。
+TX2D_DFE
+設定オプション: [Auto] [Disabled] [Enabled]
+TX2D Voltage Step Size (2^n)
+設定オプション: [1 DAC step per loop] [2 DAC step per loop] [4 DAC 
+step per loop] [8 DAC step per loop]
+TX2D Delay Step Size (2^n)
+設定オプション: [1 DAC step per loop] [2 DAC step per loop] [4 DAC 
+step per loop] [8 DAC step per loop]
+TX2D Voltage Step Multiplier
+設定オプション: [Auto] [Multiply DAC step size by 16] [No Multiplier]
+TX2D Delay Step Multiplier
+設定オプション: [Auto] [Multiply DAC step size by 16] [No Multiplier]
+RX DFE Taps
+RX DEFタップ数を指定します。 
+設定オプション: [Auto] [1 Tap] [2 Taps] [3 Taps] [4 Taps]
+DDR MBIST Options
+MBIST Enable 
+Memory Built-in Self Test（MBIST）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+参考： 次の項目は「MBIST Enable」を [Enabled] に設定した場合に表示されます。
+MBIST Test Mode
+MBISTテストモードを設定します。Interface Mode（インターフェースモ
+ード）は単一および複数のチップセレクトトランザクションと基本的な接
+続をテストし、Data Eye Mode（データアイモード）はメモリーの電圧とタ
+イミングを測定しデータ信号の品質をテストします。 
+設定オプション: [Interface Mode] [Data Eye Mode] [Both] [Auto]
+MBIST Aggressors
+メモリーアグレッサーテストの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+MBIST Per Bit Slave Die Reporting
+各データ信号、チップセレクト、チャンネルの2D Data Eye結果をABLロ
+グに報告する機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+DDR Data Eye
+	
+Pattern Select
+	
+設定オプション: [Auto] [PRBS] [SSO] [Both]
+	
+Pattern Length Select
+	
+設定オプション: [Auto] [Manual]
+
+72
+参考： 次の項目は「Pattern Length Select」を [Manual] に設定した場合に表示されます。
+	
+Pattern Length
+	
+パターン長を設定します。 
+	
+Aggressor Channel
+	
+この設定はアグレッサーチャンネルの読み出しを補助します。 
+設定オプション: [Auto] [Disabled] [1 Aggressor Channel] [3 
+Aggressor Channels] [7 Aggressor Channels]
+DDR Memory Features
+Memory Context Restore
+メモリーコンテキストリストアモードの有効/無効を設定します。
+［Enabled（有効）］に設定すると、DRAMリトレーニングを可能な限り回
+避しPOST遅延を最小限に抑えることができます。 
+設定オプション: [Auto] [Enabled] [Disabled]
+DDR Turnaround Times
+Read Drift Adjustment
+Auto（自動）= 0 
+設定オプション: [Auto] [minus 4] [minus 3] [minus 2] [minus 1] [plus 
+1] [plus 2] [plus 3] [plus 4]
+Read Drift Adjustment P0-3
+Auto（自動）= 0 
+設定オプション: [Auto] [minus 4] [minus 3] [minus 2] [minus 1] [plus 
+1] [plus 2] [plus 3] [plus 4]
+Write Drift Adjustment
+Auto（自動）= 0 
+設定オプション: [Auto] [minus 4] [minus 3] [minus 2] [minus 1] [plus 
+1] [plus 2] [plus 3] [plus 4]
+Write Drift Adjustment P0-3
+Auto（自動）= 0 
+設定オプション: [Auto] [minus 4] [minus 3] [minus 2] [minus 1] [plus 
+1] [plus 2] [plus 3] [plus 4]
+NBIO Common Options
+PCIe ARI Support
+代替ルーティングID（Alternative Routing ID）解釈の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+PCIe All Port ECRC
+PCIeスロット全体のECRC（End-to-End Cyclic Redundancy Check）の有効/無効を設定し
+ます。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Advanced Error Reporting (AER)
+Advanced Error Reporting（AER）サポートの有効/無効を設定します。 
+設定オプション: [Not Supported] [Supported] [Auto]
+PCIe ARI Enumeration
+各ダウンストリームポートにおける代替ルーティングID解釈（ARI）転送の有効/無効を設
+定します。 
+設定オプション: [Disable] [Enable] [Auto]
+
+73
+GFX Configuration
+UMA Version
+[Legacy]	
+	
+レガシーバージョン
+[Non-Legacy]	
+非レガシーバージョン
+[Auto]	
+	
+ハイブリッドセキュア
+GPU Host Translation Cache
+GPUホスト変換キャッシュの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Audio Configuration
+NB Azalia
+オンボードHDオーディオコントローラーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Auto]
+Audio IOs
+設定オプション: [Auto] [HDA(3SDI) + PDM(2CH)(Default)] [HDA (1SDI) + 
+PDM(6CH)] [HDA(1SDI) + SW0(1MDATA) + PDM(2CH)] [SW0(4MDATA) + 
+PDM(6CH)] [SW0(4MDATA) + SW1(1MDATA) + PDM(2CH)]
+PCIe loopback Mode
+PCIeループバックモードの有効/無効を設定します。 
+設定オプション: [Auto] [Disabled] [Enabled]
+Persistence mode for legacy endpoints
+レガシーエンドポイント用Persistence mode（持続モード）の有効/無効を設定します。一
+部のレガシーPCIeデバイスが検出されない場合は、このオプションを ［Enabled（有効）］ 
+に設定してください。 
+設定オプション: [Auto] [Disabled] [Enabled]
+EQ Bypass to Highest Rate
+リンクアップ（LinkUp=1）中に低データレートでのイコライゼーション手順をバイパスし、
+デバイスがサポートする最高レートで直接イコライゼーションを試みるかどうかを設定し
+ます。 
+設定オプション: [Disable] [Enable] [Auto]
+Retimer margining support
+[Auto]	
+無効にします。ルートポート受信マージニングサポートはデフォルトで
+有効です。
+[Enabled]	
+リタイマーマージニングサポートを有効にします。
+[Disabled]	
+リタイマーマージニングサポートを無効にします。
+SMU Common Options
+CPPC Dynamic Preferred Cores
+設定オプション: [Frequency] [Cache] [Driver] [Auto]
+TDP Control
+[Auto]	
+既定の熱設計電力（TDP）制限設定を使用します。
+[Manual]	
+熱設計電力（TDP）制限を手動で設定します。
+参考： 次の項目は「TDP Control」を [Manual] に設定した場合に表示されます。
+TDP
+熱設計電力（TDP）制限 [mW] を設定します。
+
+74
+ECO Mode
+CPU制御制限を調整して、65Wの熱設計電力（TDP）内で動作させるECO Modeの有効/無
+効を設定します。
+[Enable]	
+プロセッサーのTDPを65Wに制限します。
+[Disable]	
+プロセッサーは既定のTDP設定で動作します。
+PPT Control
+Package Power Tracking（PPT）の制御方法を設定します。 
+設定オプション: [Manual] [Auto]
+参考： 次の項目は「PPT Control」を [Manual] に設定した場合に表示されます。
+PPT
+Package Power Tracking（PPT）[mW] を設定します。
+Thermal Control
+[Auto]	
+既定の最大制御温度（TctlMax）設定を使用します。
+[Manual]	
+最大制御温度（TctlMax）を手動で設定します。
+参考： 次の項目は「Thermal Control」を [Manual] に設定した場合に表示されます。
+TjMax
+最大ジャンクション温度（TjMax）を設定します。この項目はIntegrated Remote 
+Monitor（IRM）制限が適用されます。
+TDC Control
+[Auto]	
+既定の熱設計電流（TDC）設定を使用します。
+[Manual]	
+熱設計電流（TDC）を手動で設定します。
+参考： 次の項目は「TDC Control」を [Manual] に設定した場合に表示されます。
+TDC_VDDCR_VDD
+VDDCR_VDD TDC制限値［mA］を設定します。この項目はIntegrated Remote 
+Monitor（IRM）制限が適用されます。
+EDC Control
+[Auto]	
+既定の電気計電流（EDC）設定を使用します。
+[Manual]	
+電気計電流（EDC）を手動で設定します。
+参考： 次の項目は「EDC Control」を [Manual] に設定した場合に表示されます。
+EDC_VDDCR_VDD
+VDDCR_VDD EDC制限値［mA］を設定します。この項目はIntegrated Remote 
+Monitor（IRM）制限が適用されます。
+Fan Control
+[Auto]	
+既定のファンコントローラー設定を使用します。
+[Manual]	
+ファンコントローラー設定を手動で設定します。
+
+75
+参考： 次の項目は「Fan Control」を [Manual] に設定した場合に表示されます。
+Fan Table Control
+[Auto]	
+既定のファンテーブルを使用します。
+[Manual]	
+ファンテーブルを手動で設定します。
+参考： 次の項目は「Fan Table Control」を [Manual] に設定した場合に表示されます。
+Low Temperature
+低温しきい値［℃］を設定します。
+Medium Temperature
+中温しきい値［℃］を設定します。
+High Temperature
+高温しきい値［℃］を設定します。
+Critical Temperature
+危険温度しきい値［℃］を設定します。
+Low Pwm
+設定オプション: [0] - [100]
+Medium Pwm
+設定オプション: [0] - [100]
+High Pwm
+設定オプション: [0] - [100]
+Temperature Hysteresis
+温度ヒステリシス［℃］を設定します。
+PWM Frequency
+[Auto]	
+デフォルトオプションに設定
+[1]	
+100Hz
+[0]	
+25kHz
+Fan Polarity
+[Auto]	
+デフォルトオプションに設定
+[1]	
+ポジティブ
+[0]	
+ネガティブ
+VDDP Voltage Control
+[Auto]	
+既定のVDDP電圧設定を使用します。
+[Manual]	
+VDDP電圧を手動で設定します。
+参考： 次の項目は「VDDP Voltage Control」を [Manual] に設定した場合に表示されます。
+VDDP Voltage
+VDDP電圧［mV］を設定します。
+Infinity Fabric Frequency and Dividers
+設定オプション: [Auto] [100 MHz] - [1066 MHz]
+
+76
+SyncFifo Mode Override
+Synchronous FIFO（First-In, First-Out）モード オーバーライドの有効/無効を設定します。
+［Auto（自動）］に設定した場合、この機能は無効になります。 
+設定オプション: [Disable] [Enable] [Auto]
+Sustained PowerLimit
+持続電力制限（Sustained Power Limit）を設定します。
+Fast PPT Limit
+短時間適用されるPackage Power Tracking（PPT）制限を設定します。
+Slow PPT Limit
+長時間適用されるPackage Power Tracking（PPT）制限を設定します。
+Slow PPT Time Constant
+長時間適用されるPackage Power Tracking（PPT）制限の時間［秒］を設定します。
+GFXOFF
+グラフィックスワークロードがない場合にグラフィックスコアを無効にするGFXOFF機能の
+有効/無効を設定します。 
+設定オプション: [Disable] [Enable] [Auto]
+6.15	
+AMD PBS
+AMD Platform BIOS Settings（PBS）
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Graphics Features
+グラフィックス機能（内蔵グラフィックス、ディスクリートグラフィックス）に関する設定をすること
+ができます。
+Special Display Features
+Hybrid Graphicsの有効/無効を設定します。 
+設定オプション: [Disabled] [HybridGraphics]
+D3Cold Support
+PCIe x8 スロット D3Coldの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled] [Dummy D3Cold]
+Discrete CPU_DSM Function A
+ディスクリートグラフィックスのGPPブリッジにおけるPCI-SIG ECN_DSM Function A の有
+効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Discrete CPU_DSM Function B
+ディスクリートグラフィックスのGPPブリッジにおけるPCI-SIG ECN_DSM Function B の有
+効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+NVIDIA DGPU Power Enable
+NVIDIA製のモバイルディスクリートグラフィックスカード専用の設定です。電源投入時に
+常にDGPU_EN# A19 ピンとDGPU_SEL# B17 ピンをHIGHに設定する機能の有効/無効を
+設定します。 
+設定オプション: [Disabled] [Enabled]
+
+77
+Non-Eval Discrete GPU Support
+特定のEVAL_PWRGD(B30)およびEVAL_PRESENT#(A5)を持たない非評価版ディスクリー
+トグラフィックスをサポートするには、
+［Enabled（有効）］に設定します。 
+設定オプション: [Disabled] [Enabled]
+Discrete GPU HPD Circuitry
+ディスクリートグラフィックスのディスプレイ接続を検出するHPD（Hot Plug Detect）回路
+を選択します。 
+設定オプション: [OR Circuitry] [Pulse Circuitry]
+Discrete GPU’s USB Port
+ディスクリートグラフィックスに搭載されているUSBポートの有効/無効を設定します。 
+設定オプション: [Keep Default Setting] [Disabled]
+Discrete GPU’s SSID/SVID
+ディスクリートグラフィックスのSSID（Subsystem ID）/SVID（Subsystem Vendor ID）のプロ
+グラムは、Hybrid Graphicsの設定に依存します。 
+設定オプション: [Keep Default Setting] [Program by Vendor]
+Discrete GPU BOMACO Support
+グラフィックスカードのBOMACO（Bus Off Memory Alive Core Off）サポートの有効/無効
+を設定します。 
+設定オプション: [Disabled] [Enabled]
+USB4 configuration (ASM4242 Controller)
+USB4® （ASMedia USB4® ASM4242 ホストコントローラー）に関する設定をすることができます。
+USB4 (ASM4242 Controller) Support
+USB4® （ASM4242）の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+参考： 次の項目は「USB4 (ASM4242 Controller) Support」を [Enabled] に設定した場合に表示され
+ます。
+PCIe Bus Number
+USB4® （ASM4242）の各ポートに割り当てるPCIeバス番号を 16 ~ 56 の範囲で予約しま
+す。
+PCIe Non-Prefetchable MMIO (MB)
+USB4® （ASM4242）の各ポートに割り当てるPCIe非プリフェッチ可能MMIO領域を 256 ~ 
+4096 MBの範囲で予約します。
+PCIe Prefetchable MMIO (GB)
+USB4® （ASM4242）の各ポートに割り当てるPCIeプリフェッチ可能MMIO領域を 1 ~ 512 
+GBの範囲で予約します。
+ACPI D3 Support
+USB4® （ASM4242）のACPI D3サポートの有効/無効を設定します。 
+設定オプション: [Disabled] [D3Hot]
+XHCI Port0-1 Speed
+USB4® （ASM4242）のXHCIポート 0-1 の速度を設定します。 
+設定オプション: [Gen1x1] [Gen1x2] [Gen2x1] [Gen2x2]
+
+78
+6.16	
+AMD Overclocking
+AMDのオーバークロックに関する設定をすることができます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+注意！ 
+・	 オーバークロックなど、製品の仕様を超える周波数での使用による故障および損傷はメーカー保証
+の対象外となります。
+・	 オーバークロックなどのシステム調整を行うと、AMD限定保証の対象外となることがあります。AMD
+プロセッサーの保証ポリシーについては、AMDプロセッサーの製品説明書または公式ウェブサイト
+をご確認ください。
+参考： 次の項目は「AMD Overclocking」を [Accept] に設定した場合に表示されます。
+Manual CPU Overclocking
+CPU Core Count Control
+CCD 00 Bit Map Down Core Control
+Core Complex Die（CCD）内の各コアの有効/無効を設定します。1 に設定すると
+コアが有効になり、0 に設定するとコアは無効になります。
+Bit Map Down Core Discard Changes
+変更を破棄します。
+AMD Variable Protection
+AMD CBS、PBS、AODに関する特定の変数を保護する機能の有効/無効を設定します。この項目が
+［Enabaled（有効）］に設定されている場合、ランタイムユーティリティなどから変数を変更する
+ことはできません。 
+設定オプション: [Disabled] [Enabled]
+Processor Aggregator Device
+プロセッサーアグリゲーターデバイスの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+参考： 次の項目は「Processor Aggregator Device」を [Enabled] に設定した場合に表示されます。
+Core Count Control
+コア数制御の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+HDMI 3.0G Tx SLEW
+設定オプション: [Disabled] [Enabled]
+参考： 次の項目は「HDMI 3.0G Tx SLEW」を [Enabled] に設定した場合に表示されます。
+HDMI 3.0G Tx Slew Control Value
+HDMI 3.0G Tx スルーレート制御値（0 ~ 255）
+
+79
+Bit Map Down Core Apply Changes
+変更を確認して適用します。各CCDのコア数が等しいことを確認する必要があり
+ます。
+SMT Control
+SMT（Symmetric Multithreading、対称型マルチスレッディング）を無効にするこ
+とができます。SMTを再び有効にするには、Auto（自動）に設定してから電源を入
+れ直す必要があります。 
+設定オプション: [Auto] [Disable]
+注意！ SMTが無効に設定されている場合、S3 スリープはサポートされません。
+DDR and Infinity Fabric Frequency/Timings
+DDR Options
+DDR Timing Configuration
+EXPO
+AMD EXPO™（Extended Profiles for Overclocking）の有効/無効を設定
+します。この項目を［Enabled（有効）］に設定した場合、装着されている
+メモリーモジュールにオーバークロックプロファイルが記録されている
+かを検出します。 
+設定オプション: [Auto] [Enabled]
+参考： 次の項目は「EXPO」を [Enabled] に設定した場合に表示されます。
+EXPO Profile
+メモリーモジュールに記録されたAMD EXPO™（Extended Profiles for 
+Overclocking）を選択します。CLはCASレイテンシーを意味します。
+Active Memory Timing Settings
+設定オプション: [Auto] [Enabled]
+参考： 次の項目は「Active Memory Timing Settings」を [Enabled] に設定した場合に表示されます。
+Memory Target Speed
+メモリーの目標速度をMT/s単位で設定します。速度は2000 MT/s、2400 
+MT/s、3200 MT/s～12000 MT/sの範囲で、200 MT/s刻みで設定します。
+値は10進数で入力し、入力した値は200 MT/s単位で切り下げられます。
+DDR SPD Timing
+	
+Tcl Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Tcl Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Tcl
+	
+メモリーモジュールがメモリーコントローラーの要求に応じて
+データを準備するために要する時間 (tCL) を設定します。有効な値は16
+進数で0x16～0x40の範囲で、2クロック刻みで設定します。
+
+80
+	
+Trcd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trcd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trcd
+	
+メモリーの準備ができた後、メモリーの読み取りに要する時間 
+(tRCD) を設定します。有効な値は16進数で0x8～0x3Eの範囲
+で、2クロック刻みで設定します。
+	
+Trp Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trp Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trp
+	
+新しい行でデータを使用するためにメモリーが準備に要する時
+間 (tRP) を設定します。有効な値は16進数で0x8～0x3Eの範囲
+で、2クロック刻みで設定します。
+	
+Tras Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Tras Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Tras
+	
+行がアクティブになりデータへのアクセスが可能になるまで
+に要する最小時間 (tRAS) を設定します。有効な値は16進数で
+0x1E～0x7Eの範囲で、2クロック刻みで設定します。
+	
+Trc Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trc Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trc
+	
+行がアクティブになりリフレッシュされるまでに要する時間 
+(tRC)を設定します。有効な値は16進数で0x20～0xFFの範囲で
+す。
+	
+Twr Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Twr Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Twr
+	
+最小書き込み回復時間 (tWR) を設定します。有効な値は16進数
+で0x30～0x60の範囲で、6クロック刻みで設定します。
+
+81
+	
+Trfc1 Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trfc1 Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trfc1
+	
+リフレッシュ後、再度リフレッシュが可能になるまでに要する時
+間 (tRFC1) を設定します。有効な値は16進数で0x32～0xFFFの
+範囲です。
+	
+Trfc2 Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trfc2 Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trfc2
+	
+リフレッシュ後、再度リフレッシュが可能になるまでに要する時
+間 (tRFC2) を設定します。有効な値は16進数で0x32～0xFFFの
+範囲です。
+	
+TrfcSb Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrfcSb Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrfcSb
+	
+リフレッシュ後、再度リフレッシュが可能になるまでに要する時
+間 (tRFCsb) を設定します。有効な値は16進数で0x32～0x7FF
+の範囲です。
+	
+Trtp Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trtp Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trtp
+	
+読み出しからプリチャージまでに要する時間 (tRTP) を設定しま
+す。有効な値は16進数で0x5～0x1Fの範囲です。
+	
+TrrdL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrrdL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrrdL
+	
+同じメモリーパンクグループにおけるアクティブバンクからアク
+ティブバンクまでに要する時間 (tRRD_L) を設定します。有効な
+値は16進数で0x4～0x20の範囲です。
+
+82
+	
+TrrdS Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrrdS Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrrdS
+	
+異なるメモリーパンクグループにおけるアクティブバンクからア
+クティブバンクまでに要する時間 (tRRD_S) を設定します。有効
+な値は16進数で0x4～0x14の範囲です。
+	
+Tfaw Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Tfaw Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Tfaw
+	
+同じランクの4つの異なるバンクにアクティブ化コマンドを発
+行できる期間 (tFAW) を設定します。有効な値は16進数で0x14
+～0x50の範囲です。
+	
+TwtrL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwtrL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwtrL
+	
+同じメモリーバンクグループにおける最小書き込みから読み出
+しに要する時間 (tWTR_L) を設定します。有効な値は16進数で
+0x8～0x30の範囲です。
+	
+TwtrS Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwtrS Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwtrS
+	
+異なるメモリーバンクグループにおける最小書き込みから読み
+出しに要する時間 (tWTR_S) を設定します。有効な値は16進数
+で0x2～0x10の範囲です。
+DDR Non-SPD Timing
+	
+TrdrdScL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdScL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdScL
+	
+同じメモリーバンクグループにおける読み取りから次の読み取
+りまでに要する時間 (tRDRDSc_L) を設定します。有効な値は16
+進数で0x1～0xFの範囲です。
+
+83
+	
+TrdrdSc Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdSc Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdSc
+	
+同じDIMM上の同じチップセレクトにおける読み取りから次の
+読み取りまでに要する時間 (tRDRDSc) を設定します。有効な値
+は16進数で0x1～0xFの範囲です。
+	
+TrdrdSd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdSd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdSd
+	
+同じDIMM上の異なるチップセレクトにおける読み取りから次
+の読み取りまでに要する時間 (tRDRDSd) を設定します。有効な
+値は16進数で0x1～0xFの範囲です。
+	
+TrdrdDd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TrdrdDd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TrdrdDd
+	
+異なるDIMM上の異なるチップセレクトにおける読み取りから
+次の読み取りまでに要する時間 (tRDRDd) を設定します。有効
+な値は16進数で0x1～0xFの範囲です。
+	
+TwrwrScL Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrScL Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrScL
+	
+同じメモリーバンクグループにおける書き込みから次の書き込
+みまでに要する時間 (tWRWRScL) を設定します。有効な値は16
+進数で0x1～0x3Fの範囲です。
+	
+TwrwrSc Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrSc Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrSc
+	
+同じDIMM上の同じチップセレクトにおける書き込みから次の
+書き込みまでに要する時間 (tWRWRSc) を設定します。有効な
+値は16進数で0x1～0xFの範囲です。
+
+84
+	
+TwrwrSd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrSd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrSd
+	
+同じDIMM上の異なるチップセレクトにおける書き込みから次
+の書き込みまでに要する時間 (tWRWRSd) を設定します。有効
+な値は16進数で0x1～0xFの範囲です。
+	
+TwrwrDd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「TwrwrDd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+TwrwrDd
+	
+異なるDIMM上の異なるチップセレクトにおける書き込みから
+次の書き込みまでに要する時間 (tWRWRDd) を設定します。有
+効な値は16進数で0x1～0xFの範囲です。
+	
+Twrrd Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Twrrd Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Twrrd
+	
+同じメモリーランクにおける書き込みから次の読み取りまでに
+要する時間 (tWRRD) を設定します。有効な値は16進数で0x1
+～0xFの範囲です。
+	
+Trdwr Ctrl
+	
+[Auto]	
+既定の設定に従う
+	
+[Manual]	
+手動で設定
+参考： 次の項目は「Trdwr Ctrl」を [Manual] に設定した場合に表示されます。
+	
+Trdwr
+	
+同じメモリーランクにおける読み取りから次の書き込みまでに
+要する時間 (tRDWR) を設定します。有効な値は16進数で0x1
+～0x1Fの範囲です。
+DDR BUS Configuration
+Processor CS drive strengths
+チップセレクト（CS）信号のドライブ強度を設定します。 
+設定オプション: [Auto] [120.0 Ohm] [60.0 Ohm] [40.0 Ohm] [30.0 
+Ohm]
+Processor CK drive strengths
+プロセッサーからメモリーチップに送信されるコマンドクロック（CK）の
+ドライブ強度を設定します。 
+設定オプション: [Auto] [120.0 Ohm] [60.0 Ohm] [40.0 Ohm] [30.0 
+Ohm]
+
+85
+Processor CA drive strengths
+プロセッサーからメモリーチップに送信されるコマンド/アドレス（CA）
+信号のドライブ強度を設定します。 
+設定オプション: [Auto] [120.0 Ohm] [60.0 Ohm] [40.0 Ohm] [30.0 
+Ohm]
+Processor DQ drive strengths
+すべてのプロセッサー データ信号（DQ）のドライブ強度を設定します。 
+設定オプション: [Auto] [High Impedance] [240 ohm] [120 ohm] [80 
+ohm] [60 ohm] [48 ohm] [40 ohm] [34.3 ohm]
+Processor ODT impedance
+すべてのプロセッサー オンダイターミネーション（ODT）のインピーダン
+スを設定します。 
+設定オプション: [Auto] [High Impedance] [480 ohm] [240 ohm] [160 
+ohm] [120 ohm] [96 ohm] [80 ohm] [68.8 ohm] [60 ohm]
+Dram DQ drive strengths
+すべてのメモリー データ信号（DQ）のプルアップおよびプルダウン出力
+ドライブ強度を設定します。 
+設定オプション: [Auto] [48 ohm] [40 ohm] [34 ohm]
+Dram ODT impedance RTT_NOM_WR
+メモリー オンダイターミネーション インピーダンス RTT_NOM_WR を
+設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_NOM_RD
+メモリー オンダイターミネーション インピーダンス RTT_NOM_RD を
+設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_WR
+メモリー オンダイターミネーション インピーダンス RTT_WR を設定し
+ます。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance RTT_PARK
+メモリー オンダイターミネーション インピーダンス RTT_PARK を設定
+します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+Dram ODT impedance DQS_RTT_PARK
+メモリー オンダイターミネーション インピーダンス DQS_RTT_PARK を
+設定します。 
+設定オプション: [Auto] [RTT_OFF] [RZQ (240)] [RZQ/2 (120)] [RZQ/3 
+(80)] [RZQ/4 (60)] [RZQ/5 (48)] [RZQ/6 (40)] [RZQ/7 (34)]
+DDR Controller Configuration
+DDR Power Options
+	
+Power Down Enable
+	
+DDRパワーダウンモードの有効/無効を設定します。 
+	
+設定オプション: [Disabled] [Enabled] [Auto]
+
+86
+Additional Memory Tweaks
+	
+RX2D_TrainOpt
+	
+設定オプション: [Auto] [Manual]
+参考： 次の項目は「RX2D_TrainOpt」を [Manual] に設定した場合に表示されます。
+	
+RX2D_DFE
+	
+Rx DFEの有効/無効を設定します。DDR Training Runtime 
+Reductionが無効に設定されている場合は常に有効になりま
+す。 
+設定オプション: [Auto] [Disabled] [Enabled]
+	
+RX2D Voltage Step Size (2^n)
+	
+設定オプション: [Auto] [1 DAC steps per loop] [2 DAC steps 
+per loop] [4 DAC steps per loop] [8 DAC steps per loop]
+	
+RX2D Delay Step Size (2^n)
+	
+設定オプション: [Auto] [1 DAC steps per loop] [2 DAC steps 
+per loop] [4 DAC steps per loop] [8 DAC steps per loop]
+	
+TX2D_TrainOpt
+	
+設定オプション: [Auto] [Manual]
+参考： 次の項目は「TX2D_TrainOpt」を [Manual] に設定した場合に表示されます。
+	
+TX2D_DFE
+	
+設定オプション: [Auto] [Disabled] [Enabled]
+	
+TX2D Voltage Step Size (2^n)
+	
+設定オプション: [Auto] [1 DAC steps per loop] [2 DAC steps 
+per loop] [4 DAC steps per loop] [8 DAC steps per loop]
+	
+TX2D Delay Step Size (2^n)
+	
+設定オプション: [Auto] [1 DAC steps per loop] [2 DAC steps 
+per loop] [4 DAC steps per loop] [8 DAC steps per loop]
+	
+TX2D Voltage Step Multiplier
+	
+設定オプション: [Multiply DAC step size by 16] [No Multiply]
+	
+TX2D Delay Step Multiplier
+	
+設定オプション: [Multiply DAC step size by 16] [No Multiply]
+	
+RX DFE Taps
+	
+RX DEFタップ数を指定します。この値はRX2D_DFEが[Enabled（
+有効）] に設定されている場合にのみ適用されます。 
+設定オプション: [Auto] [1 Tap] [2 Tap] [3 Tap] [4 Tap]
+	
+TX DFE Taps
+	
+TX DEFタップ数を指定します。この値はTX2D_DFEが[Enabled（
+有効）] に設定されている場合にのみ適用されます。 
+設定オプション: [Auto] [1 Tap] [2 Tap] [3 Tap] [4 Tap]
+DDR5 Nitro Mode
+6000MT/sを超えるモジュールを搭載したオーバークロックメモリーの互換性の
+改善が期待できますが、起動時間やレイテンシー（遅延）とのトレードオフが発生
+する可能性があります。 
+設定オプション: [Auto] [Enabled] [Disabled]
+
+87
+参考： 次の項目は「DDR Nitro Mode」を [Enable] に設定した場合に表示されます。
+DDR5 Robust Training Mode
+より包括的なメモリートレーニングアルゴリズムにより、起動時間は長くなります
+が、オーバークロックメモリー設定での安定性が向上する可能性があります。 
+設定オプション: [Auto] [Enabled] [Disabled]
+Nitro RX Data
+メモリーコントローラーと物理インターフェース（PHY）間のデータを受信するタイ
+ミングを設定します。値を高く設定すると高い周波数で動作させることができる可
+能性がありますが、レイテンシーは増加します。 
+設定オプション: [Auto] [1] [2] [Disabled]
+Nitro TX Data
+メモリーコントローラーと物理インターフェース（PHY）間のデータを送信するタイ
+ミングを設定します。値を高く設定すると高い周波数で動作させることができる可
+能性がありますが、レイテンシーは増加します。 
+設定オプション: [Auto] [0] [1] [2] [3] [Disabled]
+Nitro Control Line
+メモリーコントローラーと物理インターフェース（PHY）間のコマンドタイミングレ
+イテンシーを設定します。値を高く設定すると高い周波数で動作させることができ
+る可能性がありますが、レイテンシーは増加します。 
+設定オプション: [Auto] [0] [1] [Disabled]
+Nitro RX Burst Length
+データ通信（DQ）トレーニングパターン長 - 数値を高く設定すると、より堅牢なト
+レーニングが行われ、実行時間が長くなります。数値を低く設定すると、トレーニ
+ングの堅牢性が低下し、実行時間が短くなりますが、安定性が低下する可能性が
+あります。 
+設定オプション: [Auto] [1x] [2x] [4x] [8x]
+Nitro TX Burst Length
+データ通信（DQ）トレーニングパターン長 - 数値を高く設定すると、より堅牢なト
+レーニングが行われ、実行時間が長くなります。数値を低く設定すると、トレーニ
+ングの堅牢性が低下し、実行時間が短くなりますが、安定性が低下する可能性が
+あります。 
+設定オプション: [Auto] [1x] [2x] [4x] [8x]
+Nitro DFE Vref Offset Limits
+TxDFE/RxDFE 基準電圧（Vref）オフセット制限の有効/無効を設定します。この項
+目を［Disable（無効）］することで、ガードバンドが不足するような特殊な状況にお
+いてより大きなマージンを確保することができます。 
+設定オプション: [Auto] [Disable]
+Infinity Fabric Frequency and Dividers
+Infinity Fabric Frequency and Dividers
+Infinity Fabric Frequency (FCLK) を設定します。Auto（自動）は、FCLK = MCLK（メ
+モリー周波数）です。手動で設定する場合、最高のパフォーマンスを得るためには
+FCLKはMCLKよりも低くする必要があります。FCLKとMCLKが一致しない場合レイ
+テンシーが発生しますが、MCLKが十分に高い場合、このレイテンシー増加による
+全体的なパフォーマンスの影響は小さくなります。 
+設定オプション: [Auto] [100 MHz] - [3000 MHz]
+UCLK DIV1 MODE
+CPUのアンコア周波数とメモリー周波数の比率を設定します。 
+設定オプション: [Auto] [UCLK=MEMCLK] [UCLK=MEMCLK/2]
+
+88
+Precision Boost Overdrive
+Precision Boost Overdrive
+AMD Ryzenプロセッサーの性能を最大限に引き出すPrecision Boost Overdrive（PBO）の
+有効/無効を設定します。PBOは、CPUの温度、電力、電流などをリアルタイムで監視し、これ
+らの情報に基づいて動的にクロック周波数を調整します。 
+設定オプション: [Auto] [Disable] [Enabled] [Advanced]
+参考： 次の項目は「Precision Boost Overdrive」を [Advanced] に設定した場合に表示されます。
+PBO Limits
+[Auto]	
+AMD既定のPackage Power Tracking (PTT)、Electrical Design Current 
+(EDC)、Thermal Design Current (TDC) を読み込みます。
+[Disable]	
+PBO上限を無効にします。
+[Motherboard]	 マザーボードで設定されているPPT、EDC、TDC上限に従いプロセッサー
+を動作させます。
+[Manual]	
+PPT、EDC、TDC上限を手動で設定します。
+参考： 次の項目は「PBO Limits」を [Manual] に設定した場合に表示されます。
+PPT Limit [mW]
+CPUソケットが供給できる電力上限を設定します。
+TDC Limit [mA]
+マザーボードのCPUコアVRMフェーズが持続的な動作によって定常状態まで加熱された
+際に許容できる最大電流を設定します。 
+EDC Limit [mA]
+マザーボードのCPUコアVRMフェーズがピーク/過渡状態で許容できる最大電流を設定
+します。
+Precision Boost Overdrive Scalar Ctrl
+設定オプション: [Auto] [Manual]
+参考： 次の項目は「Precision Boost Overdrive Scalar Ctrl」を [Manual] に設定した場合に表示され
+ます。
+Precision Boost Overdrive Scalar
+AMDの既定のシリコンヘルス管理をオーバーライドし、使用するブースト電圧の最大値  
+(指定の最大値を超えて動作) と、その電圧を維持する時間を増加させます。入力した値が
+大きいほど使用するブースト電圧は高くなり、その電圧を維持する時間は長くなる可能性
+があります。 
+設定オプション: [1X] - [10X]
+CPU Boost Clock Override
+CPUブーストアルゴリズムによって目標とされる最大CPU周波数を増加 (Poritive) または
+減少 (Negative) させることが可能です。 
+設定オプション: [Disabled] [Enabled (Positive)] [Enabled (Negative)]
+参考： 次の項目は「CPU Boost Clock Override」を [Enabled (Positive)] に設定した場合に表示され
+ます。
+Max CPU Boost Clock Override(+)
+Precision Boost 2アルゴリズムによって目標とされる最大CPU周波数を引き上げます。
+
+89
+参考： 次の項目は「CPU Boost Clock Override」を [Enabled (Negative)] に設定した場合に表示され
+ます。
+Max CPU Boost Clock Override(-)
+Precision Boost 2アルゴリズムによって目標とされる最大CPU周波数を低下させます。
+Platform Thermal Throttle Ctrl
+プロセッサーの最大許容温度（摂氏）を設定します。 
+設定オプション: [Manual] [Auto]
+参考： 次の項目は「Platform Thermal Throttle Ctrl」を [Manual] に設定した場合に表示されます。
+Platform Thermal Throttle Limit
+プロセッサーの最大許容温度（摂氏）を下げることができます。
+GFX Curve Optimizer
+GFX Curve Optimizer
+プロセッサー内蔵グラフィックス（GFX）の電圧/周波数（AVFS）カーブを調整範囲
+を設定します。 
+設定オプション: [Disable] [GFX Curve Optimizer]
+参考： 次の項目は「GFX Curve Optimizer」を [GFX Curve Optimizer] に設定した場合に表示されま
+す。
+GFX Curve Optimizer Sign
+プロセッサー内蔵グラフィックスにおける電圧/周波数（AVFS）カーブのシフト方
+向を設定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い
+電圧を使用することができるようになり、Negative（ネガティブ）はカーブを下方
+向にシフトさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+GFX Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。既定値は0で、整数のみ入力できます。入力された値は指定された符号
+（Positive/Negative）と組み合わされ、SMUにGFX Curve Optimizerコマンドとし
+て送信されます。
+Curve Optimizer
+Curve Optimizer
+プロセッサーの電圧/周波数（AVFS）カーブを調整範囲を設定します。 
+設定オプション: [Disable] [All Cores] [Per Core] [Per CCD]
+参考： 次の項目は「Curve Optimizer」を [All Cores] に設定した場合に表示されます。
+All Core Curve Optimizer Sign
+すべてのコアにおける電圧/周波数（AVFS）カーブのシフト方向を設定します。 
+Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い電圧を使用するこ
+とができるようになり、Negative（ネガティブ）はカーブを下方向にシフトさせ、よ
+り低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+
+90
+All Core Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。
+参考： 次の項目は「Curve Optimizer」を [Per Core] に設定した場合に表示されます。
+Core 0-7 Curve Optimizer Sign
+特定のコアにおける電圧/周波数（AVFS）カーブのシフト方向を設定します。 
+Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い電圧を使用するこ
+とができるようになり、Negative（ネガティブ）はカーブを下方向にシフトさせ、よ
+り低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+Core 0-7 Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。
+参考： 次の項目は「Curve Optimizer」を [Per CCD] に設定した場合に表示されます。
+CCD 0 Curve Optimizer Sign
+CCD（Core Complex Die）における電圧/周波数（AVFS）カーブのシフト方向を設
+定します。Positive（ポジティブ）はカーブを上方向にシフトさせ、より高い電圧を
+使用することができるようになり、Negative（ネガティブ）はカーブを下方向にシフ
+トさせ、より低い電圧を使用することができるようになります。 
+設定オプション: [Positive] [Negative]
+CCD 0 Curve Optimizer Magnitude
+カーブシフトの大きさを整数で設定します。値が大きいほどシフト量も大きくな
+ります。既定値は0で、整数のみ入力できます。入力された値は指定された符号
+（Positive/Negative）と組み合わされ、SMUにGFX Curve Optimizerコマンドとし
+て送信されます。
+VDDG Voltage Control
+VDDG Voltage Control
+VDDG電圧の制御方法を設定します。VDDGは、Infinity Fabricのデータ伝送部分に供給さ
+れる電圧です。VDDG電圧は、CPU SoC/アンコア電圧（VDD_SOC）から派生します。VDDG
+はVDD_SOCを超えることはできません。 
+設定オプション: [Auto] [Global VDDG Voltage Control] [Per-CCD VDDG Voltage 
+Control]
+参考： 次の項目は「VDDG Voltage Control」を [Global VDDG Voltage Control] に設定した場合に表
+示されます。
+Global VDDG CCD Voltage
+Infinity FabricのCCD（Core Complex Die）におけるデータ伝送部分の電圧を設定します。 
+設定オプション: [Auto] [VDDG voltage 650mV] - [VDDG voltage 1650mV]
+Global VDDG IOD Voltage
+Infinity FabricのI/Oダイにおけるデータ伝送部分の電圧を設定します。 
+設定オプション: [Auto] [VDDG voltage 650mV] - [VDDG voltage 1650mV]
+
+91
+参考： 次の項目は「VDDG Voltage Control」を [Per-CCD VDDG Voltage Control] に設定した場合に
+表示されます。
+CCD0-CCD VDDG Voltage
+Infinity FabricのCCD（Core Complex Die）におけるデータ伝送部分の電圧をCCDごとに
+設定します。 
+設定オプション: [Auto] [VDDG voltage 650mV] - [VDDG voltage 1650mV]
+CCD0-IOD VDDG Voltage
+Infinity FabricのI/Oダイにおけるデータ伝送部分の電圧をCCDごとに設定します。 
+設定オプション: [Auto] [VDDG voltage 650mV] - [VDDG voltage 1650mV]
+VDDP Voltage Control
+VDDP Voltage Control
+VDDP電圧の調整方法を設定します。 
+[Auto]	
+既定のVDDP電圧設定を使用します。
+[Manual]	
+VDDP電圧を手動で設定します。
+参考： 次の項目は「VDDP Voltage Control」を [Manual] に設定した場合に表示されます。
+VDDP Voltage Adjust
+VDDP電圧は、DDRバス信号（PHY）の電圧であり、DRAM電圧（VDDIO_Mem）から派生し
+ます。VDDPはVDD_SOCを超えることはできません。5mV刻みで調整が可能です。
+SoC/Uncore OC Mode
+SoC/Uncore OC Mode
+Infinity Fabric、メモリー、内蔵グラフィックスなどのCPU SoC/アンコアコンポーネントを
+常に指定された最大周波数で動作させるオーバークロックモードの有効/無効を設定しま
+す。この機能を[Enabled（有効）] に設定すると、パフォーマンスが向上する可能性がありま
+すが、アイドル時や低負荷時のCPU消費電力が増加します。 
+設定オプション: [Auto] [Enabled] [Disabled]
+SoC Voltage
+SoC Voltage
+Infinity Fabricおよびメモリーのオーバークロックをサポートするために、CPU SoC/アンコ
+ア電圧（VDD_SOC）をmV単位で設定します。内蔵グラフィックスの動作電圧はVDD_SOC
+によって決定されます。5mV刻みで調整が可能です。通常は安全な範囲で電圧が制限され
+ていますが、LN2モード（およびCPU温度が -40℃ 以下の場合）などの極めて低い温度環
+境下では、より高い電圧を設定できます。
+VDD Misc
+VDD Misc Control
+VDD Misc電圧の調整方法を設定します。
+[Auto]	
+システムの既定設定を使用します。
+[Manual]	
+GMI（Global Memory Interconnect）物理層（PHY）電圧を手動で設定し
+ます。
+
+92
+参考： 次の項目は「VDD Misc Control」を [Manual] に設定した場合に表示されます。
+VDD Misc Voltage
+VDD Misc電圧をmV単位で設定します。値はSVI3（Serial VID Interface Version 3） Type 2 
+Slave VID（500〜5600mV、10mV刻み）に従って設定する必要があります。サポートされる
+最小電圧はプロセッサーによって異なります。例えば、AMD Ryzen™ 7000シリーズプロセ
+ッサー（開発コード：Raphael）のオーバークロックには1100mV以上の最小電圧が必要で
+す。通常は安全な範囲で電圧が制限されていますが、LN2モード（およびCPU温度が -40℃ 
+以下の場合）などの極めて低い温度環境下では、より高い電圧を設定できます。
+LCLK Frequency Control
+LCLK Frequency Control
+[Auto]	
+既定値を使用します。
+[Manual]	
+LCLK（Link Clock Frequency）を手動で設定します。
+参考： 次の項目は「LCLK Frequency Control」を [Manual] に設定した場合に表示されます。
+Maximum Frequency
+最大LCLK周波数を設定します。範囲:  1029 ~ 2500
+Onboard Voltage Control
+VDDIO Voltage Control
+VDDIO Ctrl
+VDDIO電圧の制御方法を設定します。
+[Auto]		
+既定のVDDIO電圧を使用します。
+[Manual]	
+DIMM VDD/VDDQをAPU VDDIOに同期するように設定します。
+[Separate]	
+APU VDDIO、DIMM VDD/VDDQを独立制御します。 
+重要！ VDDQとVDDが等しくない状態（VDDQ!=VDD）で動作させることは、メモリーの安定性の問題を
+引き起こす可能性があります。ランプダウンおよびランプアップの電圧変動時には、VDDQとVDD
+の電圧差が200mVを超えないよう注意してください。
+参考： 次の項目は「VDDIO Ctrl」を [Manual] [Spearate] に設定した場合に表示されます。
+DIMM VDD Adjust
+メモリーモジュールに供給する電源電圧を800mVから1430mVの範囲で10mV刻
+みで調整します。電圧変動時には、VDDQとVDDの電圧差が200mVを超えないよ
+う注意してください。
+参考： 次の項目は「VDDIO Ctrl」を [Separate] に設定した場合に表示されます。
+DIMM VDDQ Adjust
+メモリーモジュールに供給する電源電圧を800mVから1430mVの範囲で10mV刻
+みで調整します。電圧変動時には、VDDQとVDDの電圧差が200mVを超えないよ
+う注意してください。また、VPP（Programming Power Voltage）は常にVDDQ以上
+である必要があります。
+APU VDDIO Adjust
+APU VDDIOを調整します。
+
+93
+Enable Platform PMIC Control
+この項目を［Enabled（有効）］に設定した場合、DDR PMIC（Power Management 
+Integrated Circuit）電圧はプロセッサーのファームウェアによって調整され
+ず、EC（Embedded Controller）または他のプラットフォームベースのメカニズム
+によって調整されます。 
+設定オプション: [Auto] [Enable] [Disable]
+VPP Voltage Control
+VPP Ctrl
+[Auto]	既定値を使用します。
+[Manual]	
+メモリーVPP（Programming Power Voltage）を手動で設定しま
+す。
+参考： 次の項目は「VPP Ctrl」を [Manual] に設定した場合に表示されます。
+VPP Adjust
+メモリーVPP（Programming Power Voltage）電圧を1500mVから2135mVの範囲
+で10mV刻みで調整します。 
+設定オプション: [1500] - [2135]
+ECO Mode
+ECO Mode
+設定オプション: [Auto] [65W]
+
+94
+7.	
+Monitor
+システムの温度、電圧、ファンの回転数を表示し、ファンの回転数や制御方法を設定することが
+できます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Temperature Monitor
+CPU Temperature, CPU Package Temperature, MotherBoard Temperature, VRM 
+Temperature, Chipset Temperature, T_Sensor Temperature, DIMM A Temperature, 
+DIMM B Temperature [xxx°C/xxx°F]
+マザーボードに搭載されたオンボードハードウェアモニターによって、さまざまなコンポ
+ーネントの温度を自動的に検出し、摂氏［℃］/華氏［℉］で表示します。検出された温度を
+表示しない場合は［Ignore（無視）］に設定します。
+Fan Speed Monitor
+CPU Fan Speed, CPU Optional Fan Speed, Chassis Fan Speed, AIO PUMP Speed 
+[xxxx RPM]
+マザーボードに搭載されたオンボードハードウェアモニターによって、マザーボードに接
+続されたファンの回転数（RPM）を検出し、表示します。検出された回転数を表示しない場
+合は［Ignore（無視）］に設定します。
+Voltage and Current Monitor
+CPU Core Voltage, 12V Voltage, 5V Voltage, 3.3V Voltage, CPU VDDIO / MC Voltage 
+[x.xxx V]
+マザーボードに搭載されたオンボードハードウェアモニターによって、オンボード電圧
+レギュレーターを介した電圧を検出し、表示します。検出された電圧を表示しない場合は
+［Ignore（無視）］に設定します。
+
+95
+Q-Fan Configuration
+Q-Fan Tuning
+マザーボードに接続されたファンの最低回転数を測定し、各ファンの最小デューティサイ
+クルを自動で設定します。
+注意！ この作業には約2～5分かかります。作業中はシステムをシャットダウンしたり再起動しないでく
+ださい。
+CPU Q-Fan Control
+CPUファンヘッダー（CPU_FAN）/CPUオプションファンヘッダー
+（CPU_OPT）に接続されたファン/ポンプの制御方法を設定します。
+[Auto Detect]
+接続されたファン/ポンプの制御モードを検出し、制御モードを自動
+的に切り替えます。
+[DC Mode]
+3ピン接続のファン/ポンプ用にDCモードで制御します。
+[PWM Mode]
+4ピン接続のファン/ポンプ用にPWMモードで制御します。
+CPU Fan Profile
+CPUファンヘッダー（CPU_FAN）/CPUオプションファンヘッダー（CPU_OPT）に接続された
+ファン/ポンプの動作モードを設定します。手動で設定する場合は、CPU温度が75℃を超え
+ないように、ファンの回転数を適切に設定する必要があります。CPU温度が高くなりすぎる
+と、発熱を抑制するためにCPUの動作クロックが強制的に下げられます。 
+設定オプション: [Standard] [Silent] [Turbo] [Full Speed] [Manual]
+参考： 次の項目は「CPU Fan Profile」を [Standard] [Turbo] [Manual] に設定した場合に表示されま
+す。
+CPU Fan Q-Fan Source
+ファン/ポンプの回転数を制御するために参照する温度ソースを選択します。 
+設定オプション: [CPU] [CPU Package]
+CPU Fan Step Up
+ファン/ポンプの回転数増加レベルを設定します。
+［Level 0］に設定した場合、回転数は瞬
+時に切り替わり、素早くシステムを冷却します。レベルが高くなるほど回転数の変化はゆっ
+くりとなり、騒音を軽減できる可能性がありますが、システムの冷却も遅くなります。 
+設定オプション: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+CPU Fan Step Down
+ファン/ポンプの回転数減少レベルを設定します。
+［Level 0］に設定した場合、回転数は瞬
+時に切り替わり、素早くシステムの騒音を軽減します。レベルが高くなるほど回転数の変化
+はゆっくりとなり、より長時間高い回転数でシステムを冷却できます。 
+設定オプション: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+
+96
+CPU Fan Speed Low Limit
+ファン/ポンプの下限回転数を設定します。設定された回転数を下回ると、システム起動時
+に警告メッセージが表示されます。警告メッセージを非表示にするには［Ignore（無視）］
+に設定します。 
+設定オプション: [Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 RPM]
+参考： 次の項目は「CPU Fan Profile」を [Manual] に設定した場合に表示されます。
+CPU Fan Point8 Temperature
+温度ソースがポイント8 温度よりも低い場合、デューティサイクルはポイント7-ポイント8 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント8 温度より
+も高い場合、ファン/ポンプはポイント8 デューティサイクルで動作します。
+CPU Fan Point8 Duty Cycle (%) 
+温度ソースがポイント8 温度よりも低い場合、デューティサイクルはポイント7-ポイント8 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント8 温度より
+も高い場合、ファン/ポンプはポイント8 デューティサイクルで動作します。
+CPU Fan Point7 Temperature
+温度ソースがポイント7 温度よりも低い場合、デューティサイクルはポイント6-ポイント7 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント7 温度より
+も高い場合、デューティサイクルはポイント7-ポイント8 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point7 Duty Cycle (%) 
+温度ソースがポイント7 温度よりも低い場合、デューティサイクルはポイント6-ポイント7 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント7 温度より
+も高い場合、デューティサイクルはポイント7-ポイント8 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point6 Temperature
+温度ソースがポイント6 温度よりも低い場合、デューティサイクルはポイント5-ポイント6 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント6 温度より
+も高い場合、デューティサイクルはポイント6-ポイント7 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point6 Duty Cycle (%) 
+温度ソースがポイント6 温度よりも低い場合、デューティサイクルはポイント5-ポイント6 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント6 温度より
+も高い場合、デューティサイクルはポイント6-ポイント7 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point5 Temperature
+温度ソースがポイント5 温度よりも低い場合、デューティサイクルはポイント4-ポイント5 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント5 温度より
+も高い場合、デューティサイクルはポイント5-ポイント6 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point5 Duty Cycle (%) 
+温度ソースがポイント5 温度よりも低い場合、デューティサイクルはポイント4-ポイント5 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント5 温度より
+も高い場合、デューティサイクルはポイント5-ポイント6 の設定温度と検出された温度に
+基づいて決定されます。 
+
+97
+CPU Fan Point4 Temperature
+温度ソースがポイント4 温度よりも低い場合、デューティサイクルはポイント3-ポイント4 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント4 温度より
+も高い場合、デューティサイクルはポイント4-ポイント5 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point4 Duty Cycle (%) 
+温度ソースがポイント4 温度よりも低い場合、デューティサイクルはポイント3-ポイント4 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント4 温度より
+も高い場合、デューティサイクルはポイント4-ポイント5 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point3 Temperature
+温度ソースがポイント3 温度よりも低い場合、デューティサイクルはポイント2-ポイント3 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント3 温度より
+も高い場合、デューティサイクルはポイント3-ポイント4 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point3 Duty Cycle (%) 
+温度ソースがポイント3 温度よりも低い場合、デューティサイクルはポイント2-ポイント3 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント3 温度より
+も高い場合、デューティサイクルはポイント3-ポイント4 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point2 Temperature
+温度ソースがポイント2 温度よりも低い場合、デューティサイクルはポイント1-ポイント2 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント2 温度より
+も高い場合、デューティサイクルはポイント2-ポイント3 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point2 Duty Cycle (%) 
+温度ソースがポイント2 温度よりも低い場合、デューティサイクルはポイント1-ポイント2 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント2 温度より
+も高い場合、デューティサイクルはポイント2-ポイント3 の設定温度と検出された温度に
+基づいて決定されます。 
+CPU Fan Point1 Temperature
+温度ソースがポイント1 温度よりも低い場合、ファン/ポンプはポイント1 デューティサイク
+ルで動作します。温度ソースがポイント1 温度よりも高い場合、デューティサイクルはポイ
+ント1-ポイント2 の設定温度と検出された温度に基づいて決定されます。 
+CPU Fan Point1 Duty Cycle (%) 
+温度ソースがポイント1 温度よりも低い場合、ファン/ポンプはポイント1 デューティサイク
+ルで動作します。温度ソースがポイント1 温度よりも高い場合、デューティサイクルはポイ
+ント1-ポイント2 の設定温度と検出された温度に基づいて決定されます。 
+
+98
+Chassis Fan(s) Configuration
+Chassis Fan Q-Fan Control
+ケースファンヘッダー（CHA_FAN）に接続されたケースファン/ポンプの制御方法
+を設定します。
+[Auto Detect]
+接続されたファン/ポンプの制御モードを検出し、制御モー
+ドを自動的に切り替えます。 
+[DC Mode]
+3ピン接続のファン/ポンプ用にDCモードで制御します。
+[PWM Mode]
+4ピン接続のファン/ポンプ用にPWMモードで制御します。
+Chassis Fan Profile
+ケースファンヘッダー（CHA_FAN）に接続されたケースファン/ポンプの動作モー
+ドを設定します。手動で設定する場合は、CPU温度が75℃を超えないように、ファ
+ンの回転数を適切に設定する必要があります。CPU温度が高くなりすぎると、発熱
+を抑制するためにCPUの動作クロックが強制的に下げられます。 
+設定オプション: [Standard] [Silent] [Turbo] [Full Speed] [Manual]
+参考： 次の項目は「Chassis Fan Profile」を [Standard] [Turbo] [Manual] に設定した場合に表示さ
+れます。
+Chassis Fan Q-Fan Source
+ファン/ポンプの回転数を制御するために参照する温度ソースを選択します。 
+設定オプション: [CPU] [CPU Package] [MotherBoard] [VRM] [T_Sensor] 
+[Multiple Sources]
+Chassis Fan Step Up
+ファン/ポンプの回転数増加レベルを設定します。
+［Level 0］に設定した場合、回転
+数は瞬時に切り替わり、素早くシステムを冷却します。レベルが高くなるほど回転
+数の変化はゆっくりとなり、騒音を軽減できる可能性がありますが、システムの冷
+却も遅くなります。 
+設定オプション: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+Chassis Fan Step Down
+ファン/ポンプの回転数減少レベルを設定します。
+［Level 0］に設定した場合、回
+転数は瞬時に切り替わり、素早くシステムの騒音を軽減します。レベルが高くなる
+ほど回転数の変化はゆっくりとなり、より長時間高い回転数でシステムを冷却で
+きます。 
+設定オプション: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+Chassis Fan Speed Low Limit
+ファン/ポンプの下限回転数を設定します。設定された回転数を下回ると、システ
+ム起動時に警告メッセージが表示されます。警告メッセージを非表示にするには
+［Ignore（無視）］に設定します。 
+設定オプション: [Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 RPM]
+
+99
+参考： 次の項目は「Chassis Fan Profile」を [Manual] に設定した場合に表示されます。
+Chassis Fan Point8 Temperature
+温度ソースがポイント8 温度よりも低い場合、デューティサイクルはポイント7-ポ
+イント8 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント8 温度よりも高い場合、ファン/ポンプはポイント8 デューティサイクルで動
+作します。
+Chassis Fan Point8 Duty Cycle (%) 
+温度ソースがポイント8 温度よりも低い場合、デューティサイクルはポイント7-ポ
+イント8 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント8 温度よりも高い場合、ファン/ポンプはポイント8 デューティサイクルで動
+作します。
+Chassis Fan Point7 Temperature
+温度ソースがポイント7 温度よりも低い場合、デューティサイクルはポイント6-ポ
+イント7 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント7 温度よりも高い場合、デューティサイクルはポイント7-ポイント8 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point7 Duty Cycle (%) 
+温度ソースがポイント7 温度よりも低い場合、デューティサイクルはポイント6-ポ
+イント7 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント7 温度よりも高い場合、デューティサイクルはポイント7-ポイント8 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point6 Temperature
+温度ソースがポイント6 温度よりも低い場合、デューティサイクルはポイント5-ポ
+イント6 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント6 温度よりも高い場合、デューティサイクルはポイント6-ポイント7 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point6 Duty Cycle (%) 
+温度ソースがポイント6 温度よりも低い場合、デューティサイクルはポイント5-ポ
+イント6 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント6 温度よりも高い場合、デューティサイクルはポイント6-ポイント7 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point5 Temperature
+温度ソースがポイント5 温度よりも低い場合、デューティサイクルはポイント4-ポ
+イント5 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント5 温度よりも高い場合、デューティサイクルはポイント5-ポイント6 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point5 Duty Cycle (%) 
+温度ソースがポイント5 温度よりも低い場合、デューティサイクルはポイント4-ポ
+イント5 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント5 温度よりも高い場合、デューティサイクルはポイント5-ポイント6 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point4 Temperature
+温度ソースがポイント4 温度よりも低い場合、デューティサイクルはポイント3-ポ
+イント4 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント4 温度よりも高い場合、デューティサイクルはポイント4-ポイント5 の設定
+温度と検出された温度に基づいて決定されます。 
+
+100
+Chassis Fan Point4 Duty Cycle (%) 
+温度ソースがポイント4 温度よりも低い場合、デューティサイクルはポイント3-ポ
+イント4 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント4 温度よりも高い場合、デューティサイクルはポイント4-ポイント5 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point3 Temperature
+温度ソースがポイント3 温度よりも低い場合、デューティサイクルはポイント2-ポ
+イント3 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント3 温度よりも高い場合、デューティサイクルはポイント3-ポイント4 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point3 Duty Cycle (%) 
+温度ソースがポイント3 温度よりも低い場合、デューティサイクルはポイント2-ポ
+イント3 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント3 温度よりも高い場合、デューティサイクルはポイント3-ポイント4 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point2 Temperature
+温度ソースがポイント2 温度よりも低い場合、デューティサイクルはポイント1-ポ
+イント2 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント2 温度よりも高い場合、デューティサイクルはポイント2-ポイント3 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point2 Duty Cycle (%) 
+温度ソースがポイント2 温度よりも低い場合、デューティサイクルはポイント1-ポ
+イント2 の設定温度と検出された温度に基づいて決定されます。温度ソースがポ
+イント2 温度よりも高い場合、デューティサイクルはポイント2-ポイント3 の設定
+温度と検出された温度に基づいて決定されます。 
+Chassis Fan Point1 Temperature
+温度ソースがポイント1 温度よりも低い場合、ファン/ポンプはポイント1 デューテ
+ィサイクルで動作します。温度ソースがポイント1 温度よりも高い場合、デューテ
+ィサイクルはポイント1-ポイント2 の設定温度と検出された温度に基づいて決定
+されます。 
+Chassis Fan Point1 Duty Cycle (%) 
+温度ソースがポイント1 温度よりも低い場合、ファン/ポンプはポイント1 デューテ
+ィサイクルで動作します。温度ソースがポイント1 温度よりも高い場合、デューテ
+ィサイクルはポイント1-ポイント2 の設定温度と検出された温度に基づいて決定
+されます。 
+Allow Fan Stop
+温度ソースが下限温度を下回るとファン/ポンプの動作を停止する機能の有効/無
+効を設定します。 
+設定オプション: [Disabled] [Enabled]
+AIO Pump Q-Fan Control
+AIOポンプヘッダー（AIO_PUMP）に接続されたファン/ポンプの制御方法を設定します
+[Auto Detect]
+接続されたファン/ポンプの制御モードを検出し、制御モードを自動
+的に切り替えます。
+[DC Mode]
+3ピン接続のファン/ポンプ用にDCモードで制御します。
+[PWM Mode]
+4ピン接続のファン/ポンプ用にPWMモードで制御します。
+
+101
+AIO Pump Profile
+AIOポンプヘッダー（AIO_PUMP）に接続されたファン/ポンプの動作モードを設定します。
+手動で設定する場合は、CPU温度が75℃を超えないように、ファンの回転数を適切に設定
+する必要があります。CPU温度が高くなりすぎると、発熱を抑制するためにCPUの動作クロ
+ックが強制的に下げられます。 
+設定オプション: [Standard] [Silent] [Turbo] [Full Speed] [Manual]
+参考： 次の項目は「AIO Pump Profile」を [Standard] [Turbo] [Manual] に設定した場合に表示され
+ます。
+AIO Pump Q-Fan Source
+ファン/ポンプの回転数を制御するために参照する温度ソースを選択します。 
+設定オプション: [CPU] [CPU Package] [MotherBoard] [VRM] [T_Sensor] [Multiple 
+Sources]
+AIO Pump Step Up
+ファン/ポンプの回転数増加レベルを設定します。
+［Level 0］に設定した場合、回転数は瞬
+時に切り替わり、素早くシステムを冷却します。レベルが高くなるほど回転数の変化はゆっ
+くりとなり、騒音を軽減できる可能性がありますが、システムの冷却も遅くなります。 
+設定オプション: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+AIO Pump Step Down
+ファン/ポンプの回転数減少レベルを設定します。
+［Level 0］に設定した場合、回転数は瞬
+時に切り替わり、素早くシステムの騒音を軽減します。レベルが高くなるほど回転数の変化
+はゆっくりとなり、より長時間高い回転数でシステムを冷却できます。 
+設定オプション: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+AIO Pump Speed Low Limit
+ファン/ポンプの下限回転数を設定します。設定された回転数を下回ると、システム起動時
+に警告メッセージが表示されます。警告メッセージを非表示にするには［Ignore（無視）］
+に設定します。 
+設定オプション: [Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 RPM]
+参考： 次の項目は「Chassis Fan Profile」を [Manual] に設定した場合に表示されます。
+AIO Pump Point8 Temperature
+温度ソースがポイント8 温度よりも低い場合、デューティサイクルはポイント7-ポイント8 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント8 温度より
+も高い場合、ファン/ポンプはポイント8 デューティサイクルで動作します。
+AIO Pump Point8 Duty Cycle (%) 
+温度ソースがポイント8 温度よりも低い場合、デューティサイクルはポイント7-ポイント8 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント8 温度より
+も高い場合、ファン/ポンプはポイント8 デューティサイクルで動作します。
+
+102
+AIO Pump Point7 Temperature
+温度ソースがポイント7 温度よりも低い場合、デューティサイクルはポイント6-ポイント7 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント7 温度より
+も高い場合、デューティサイクルはポイント7-ポイント8 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point7 Duty Cycle (%) 
+温度ソースがポイント7 温度よりも低い場合、デューティサイクルはポイント6-ポイント7 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント7 温度より
+も高い場合、デューティサイクルはポイント7-ポイント8 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point6 Temperature
+温度ソースがポイント6 温度よりも低い場合、デューティサイクルはポイント5-ポイント6 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント6 温度より
+も高い場合、デューティサイクルはポイント6-ポイント7 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point6 Duty Cycle (%) 
+温度ソースがポイント6 温度よりも低い場合、デューティサイクルはポイント5-ポイント6 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント6 温度より
+も高い場合、デューティサイクルはポイント6-ポイント7 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point5 Temperature
+温度ソースがポイント5 温度よりも低い場合、デューティサイクルはポイント4-ポイント5 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント5 温度より
+も高い場合、デューティサイクルはポイント5-ポイント6 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point5 Duty Cycle (%) 
+温度ソースがポイント5 温度よりも低い場合、デューティサイクルはポイント4-ポイント5 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント5 温度より
+も高い場合、デューティサイクルはポイント5-ポイント6 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point4 Temperature
+温度ソースがポイント4 温度よりも低い場合、デューティサイクルはポイント3-ポイント4 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント4 温度より
+も高い場合、デューティサイクルはポイント4-ポイント5 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point4 Duty Cycle (%) 
+温度ソースがポイント4 温度よりも低い場合、デューティサイクルはポイント3-ポイント4 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント4 温度より
+も高い場合、デューティサイクルはポイント4-ポイント5 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point3 Temperature
+温度ソースがポイント3 温度よりも低い場合、デューティサイクルはポイント2-ポイント3 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント3 温度より
+も高い場合、デューティサイクルはポイント3-ポイント4 の設定温度と検出された温度に
+基づいて決定されます。 
+
+103
+AIO Pump Point3 Duty Cycle (%) 
+温度ソースがポイント3 温度よりも低い場合、デューティサイクルはポイント2-ポイント3 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント3 温度より
+も高い場合、デューティサイクルはポイント3-ポイント4 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point2 Temperature
+温度ソースがポイント2 温度よりも低い場合、デューティサイクルはポイント1-ポイント2 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント2 温度より
+も高い場合、デューティサイクルはポイント2-ポイント3 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point2 Duty Cycle (%) 
+温度ソースがポイント2 温度よりも低い場合、デューティサイクルはポイント1-ポイント2 
+の設定温度と検出された温度に基づいて決定されます。温度ソースがポイント2 温度より
+も高い場合、デューティサイクルはポイント2-ポイント3 の設定温度と検出された温度に
+基づいて決定されます。 
+AIO Pump Point1 Temperature
+温度ソースがポイント1 温度よりも低い場合、ファン/ポンプはポイント1 デューティサイク
+ルで動作します。温度ソースがポイント1 温度よりも高い場合、デューティサイクルはポイ
+ント1-ポイント2 の設定温度と検出された温度に基づいて決定されます。 
+AIO Pump Point1 Duty Cycle (%) 
+温度ソースがポイント1 温度よりも低い場合、ファン/ポンプはポイント1 デューティサイク
+ルで動作します。温度ソースがポイント1 温度よりも高い場合、デューティサイクルはポイ
+ント1-ポイント2 の設定温度と検出された温度に基づいて決定されます。 
+Chassis Intrusion Detection Support
+ケース侵入検知機能の有効/無効を設定します。 
+設定オプション: [Enabled] [Disabled]
+
+104
+8.	
+Boot
+システムの起動や互換性に関する設定をすることができます。
+CSM (Compatibility Support Module)
+互換性サポートモジュール（CSM）に関する設定をすることができます。
+Launch CSM
+[Enabled]	
+UEFIに対応していないオペレーティングシステムやデバイスをサポート
+するために互換性サポートモジュールを有効にします。
+[Disabled]	
+互換性サポートモジュールを無効にします。UEFIセキュアブートをサポ
+ートし、コンピューターを安全に起動できます。
+参考： 次の項目は「Launch CSM」を [Enabled] に設定した場合に表示されます。
+Boot Device Control
+デバイスの起動モードを選択します。選択したモードのデバイスのみがBoot Option 
+Priorities（起動デバイスの優先順位）に表示されます。 
+設定オプション: [UEFI and Legacy OPROM] [Legacy OPROM only] [UEFI only]
+Boot from Network Devices
+ネットワークデバイスの起動モードを選択します。 
+設定オプション: [Ignore] [Legacy only] [UEFI only]
+Boot from Storage Devices
+ストレージデバイスの起動モードを選択します。 
+設定オプション: [Ignore] [Legacy only] [UEFI only]
+
+105
+Boot from PCI-E/PCI Expansion Devices
+PCI-E/PCI 拡張デバイスの起動モードを選択します。 
+設定オプション: [Ignore] [Legacy only] [UEFI only]
+Secure Boot
+システム起動時に許可されていないファームウェア、オペレーティングシステム、UEFIドライバー 
+（オプションROM）が実行されないようにするWindows® セキュアブートに関する設定をするこ
+とができます。
+OS Type
+[Windows UEFI Mode]
+セキュアブートによる署名チェックを実行します。Windows® 
+UEFIモード、またはWindows® セキュアブートに対応するOS
+の場合はこのオプションを選択します。  
+[Other OS]
+非UEFIモード、またはWindows® セキュアブートに対応して
+いないOSを使用する場合は、このオプションを選択すること
+で機能を最適化します。 
+参考： Windows® セキュアブートは［Windows UEFI Mode］でのみ正常に機能します。
+Secure Boot Mode
+セキュアブートの動作モードを設定します。カスタムモードではパスワードを入力せずに
+署名キーのインストールや削除などの管理を行うことができます。 
+設定オプション: [Standard] [Custom]
+参考： 次の項目は「Secure Boot Mode」を [Custom] に設定した場合に表示されます。
+Key Management
+Install Default Secure Boot keys
+プラットフォームキー (PK)、キー交換キー (KEK)、署名データベース (db)、失効した署名デ
+ータベース (dbx)を含むすべてのセキュアブートキーの既定値を読み込みます。すべての
+セキュアブートキーの状態はLoaded（読み込み済み）となり設定はシステムの再起動後に
+適用されます。
+Clear Secure Boot keys
+すべてのセキュアブートキーを削除します。すべてのセキュアブートキーの状態は未読み
+込みとなり、設定はシステムの再起動後に適用されます。 
+Save all Secure Boot variables
+すべてのセキュアブートキーをUSBストレージドライブに保存します。
+PK Management
+プラットフォームキー (PK) は、許可されていないファームウェアの変更からコンピュータ
+ーを保護します。コンピューターがOSを起動する前にシステムはPKを確認します。 
+Save To File
+PKをUSBストレージドライブに保存します。
+Set New key
+USBストレージドライブからPKを読み込みます。
+
+106
+Delete key
+PKを削除します。PKを削除した場合、システムのすべてのセキュアブートキーが
+無効になります。 
+設定オプション: [Yes] [No]
+重要！ 読み込むファイルは、時間ベースの認証済み変数を持つUEFI変数構造としてフォーマットされて
+いる必要があります。
+KEK Management
+KEK(キー交換キー、キー登録キー)は、署名データベース (db) と失効した署名データベー
+ス (dbx) を管理します。
+参考： キー交換キー（KEK）はWindows® セキュアブート キー登録キー（KEK）を指します。
+Save to file
+KEKをUSBストレージドライブに保存します。
+Set New key
+USBストレージドライブからKEKを読み込みます。
+Append Key
+追加のdbとdbx読み込み管理のために、ストレージドライブから追加のKEKを読
+み込みます。
+Delete key
+KEKを削除します。
+設定オプション: [Yes] [No]
+重要！ 読み込むファイルは、時間ベースの認証済み変数を持つUEFI変数構造としてフォーマットされて
+いる必要があります。
+DB Management
+署名データベース（db）は、コンピューター上で読み込みが許可されるUEFIアプリケーシ
+ョン、オペレーティングシステムローダー、UEFIドライバーの署名者またはイメージがリス
+トされています。
+Save to file
+dbをUSBストレージドライブに保存します。
+Set New key
+USBストレージドライブからdbを読み込みます。
+Append Key
+追加のdbとdbx読み込み管理のために、ストレージドライブから追加のdbを読
+み込みます。
+Delete key
+db を削除します。 
+設定オプション: [Yes] [No]
+重要！ 読み込むファイルは、時間ベースの認証済み変数を持つUEFI変数構造としてフォーマットされて
+いる必要があります。
+
+107
+DBX Management
+失効した署名データベース（dbx）は、信頼されなくなり、読み込むことができなくなったdb
+アイテムの禁止イメージがリストされています。
+Save to file
+dbxをUSBストレージドライブに保存します。
+Set New key
+USBストレージドライブからdbxを読み込みます。
+Append Key
+追加のdbとdbx読み込み管理のために、ストレージドライブから追加のdbxを読
+み込みます。
+Delete key
+dbx を削除します。 
+設定オプション: [Yes] [No]
+重要！ 読み込むファイルは、時間ベースの認証済み変数を持つUEFI変数構造としてフォーマットされて
+いる必要があります。
+Boot Configuration
+Fast Boot
+システムを起動するために必要な最小限のデバイスのみを初期化しシステムを素早く
+起動できるようにするFast Boot機能の有効/無効を設定します。BIOS Boot Specification 
+(BBS) ブートオプションには影響しません。 
+設定オプション: [Disabled] [Enabled]
+参考： 次の項目は、
+「Fast Boot」を [Enabled] に設定した場合に表示されます。
+Next Boot after AC Power Loss
+[Normal Boot]	
+完全電源断後はFast Boot設定を無効にし、通常の起動プロセスを実行
+します。
+[Fast Boot]	
+完全電源断後もFast Bootで起動します。
+Boot Logo Display
+[Auto]	
+Windows®の要件に合わせて 起動ロゴサイズを自動調整します。
+[Full Screen]	
+常に起動ロゴを最大サイズで表示します。
+[Disabled]	
+起動ロゴを非表示にします。
+参考： 次の項目は「Boot Logo Display」を [Auto] [Full Screen] に設定した場合に表示されます。
+Post Delay Time
+BIOSセットアッププログラムを起動するためのPOST待機時間を設定します。 
+設定オプション: [0 sec] - [10 sec]
+重要！ この設定はFast Bootが［Enabled（有効）］に設定されている場合、適用されません。
+
+108
+参考： 次の項目は「Boot Logo Display」を [Disabled] に設定した場合に表示されます。
+Post Report
+POST画面を表示する時間を設定します。 
+設定オプション: [1 sec] - [10 sec] [Until Press ESC]
+Boot up NumLock State
+システム起動時のNumLockキーの有効/無効を設定します。 
+設定オプション: [On] [Off]
+Wait For ‘F1’ If Error
+POST実行中にエラーが発生した場合、＜F1＞キーを押すまでシステムを待機させる機能
+の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Option ROM Messages
+[Force BIOS] 	
+POST中にオプションROMメッセージを表示します。
+[Keep Current] 	
+POST中は起動ロゴのみを表示します。 
+Interrupt 19 Capture
+サービス割り込み信号 INT 0x19 命令の有効/無効を設定します。複数の拡張カードにオプ
+ションROMが搭載されている場合は[Enabled]に設定します。 
+設定オプション: [Enabled] [Disabled]
+AMI Native NVMe Driver Support
+AMIネイティブNVMeドライバーの有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Setup Mode
+[Advanced Mode]	
+BIOSセットアッププログラムをAdvanced Modeで起動します。
+[EZ Mode]	
+BIOSセットアッププログラムをEZ Modeで起動します。
+Boot Option Priorities
+使用可能なデバイスから、起動デバイスの起動優先順位を指定します。画面に表示されるデバイ
+スの数は、起動可能なデバイスの数に依存します。
+重要！ システム起動中に起動デバイスを選択するには、POST時に<F8>を押してください。
+Boot Override
+起動デバイスを選択し起動します。画面に表示されるデバイスの項目数は、システムに接続され
+たデバイスの数によって異なります。
+
+109
+9.	
+Tool
+ASUS独自機能を設定することができます。 
+BIOS Image Rollback Support
+[Enabled]	
+BIOSを以前のバージョンにロールバックすることを可能にしますが、この設定
+はNIST SP 800-147の要件に違反します。
+[Disabled]	
+BIOSを新しいバージョンにのみアップデートすることができます。この設定は
+NIST SP 800-147の要件に準拠しています。
+Publish HII Resources
+設定オプション: [Disabled] [Enabled]
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Flexkey
+[Reset]	
+システムを強制的に再起動します。保存されていない作業中のデータは削除
+されます。
+[Aura On/Off]	
+オンボードRGB LED照明のオン/オフを切り替えます。この設定はBIOS/ソフト
+ウェアオプションとは同期しません。
+[DirectKey]	
+BIOSセットアッププログラムを直接起動します。
+Setup Animator
+BIOSセットアッププログラムのアニメーション効果の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Full HD Setup
+BIOSセットアッププログラムの解像度をフルHD（1920 x 1080）にする機能の有効/無効を設定し
+ます。この機能はお使いのモニターと内蔵グラフィックス/グラフィックスカードの両方が1080p
+以上に対応している場合にのみサポートされます。この機能はモニターと内蔵グラフィックス/グ
+ラフィックスカードの互換性の問題によって制限される場合があります。BIOSがCMOSクリアの実
+行を検出すると、BIOSは強制的にこの機能を［Disabled（無効）］に設定します。 
+設定オプション: [Disabled] [Enabled]
+
+110
+9.2	
+ASUS Secure Erase
+他のストレージ媒体と同様に、SSDの速度は読み込み、書き込み、消去などのデータ処理を行う
+につれて、時間の経過とともに低下する可能性があります。Secure Eraseは、SSDを完全に安全に
+消去し、工場出荷時のパフォーマンスレベルに戻すことができます。
+参考： 
+•	 Secure Eraseにかかる時間はSSDの容量によって異なります。また、Secure Eraseの実行中は絶対に
+電源を切らないでください。
+•	 Secure Eraseを実行すると、SSD上のデータはすべて消去されます。事前に必要なデータのバックア
+ップを必ず行なってください。
+•	 状態の定義:
+	
+-	 Frozen（フリーズ）:  BIOSによりSSDが凍結されている状態です。BIOSはパスワード保護されてい
+ないドライブを起動前にフリーズすることで保護します。Secure Eraseを実行するには、コンピュ
+ーターんの電源をオフにするか、ハードリセットを実行する必要があります。 
+	
+-	 Locked（ロック）:  Secure Erase処理が不完全であるか、停止した場合にロックされることがあり
+ます。これは、ASUSが定義したパスワードとは異なるパスワードを使用するサードパーティ製ソ
+フトウェアが原因である可能性があります。Secure Eraseを実行するには、サードパーティ製ソフ
+トウェアでSSDのロックを解除する必要があります。 
+9.1	
+ASUS EZ Flash 3 Utility
+BIOS更新ツール「ASUS EZ Flash 3 Utility」を起動します。  
+参考： 詳細は「ASUS EZ Flash 3」をご覧ください。
+9.3	
+BIOS Q-Dashboard
+マザーボード上のポートやコネクターの状態を表示するQ-Dashboardを起動します。Q-Dashboard
+では、マザーボード上のポートやコネクターの接続状態を素早く確認でき、ポートやコネクター名を
+クリックすることで、そのインターフェースに関連するBIOS設定に直接アクセスすることができます。
+参考： 詳細は「Q-Dashboard」をご覧ください。
+
+111
+9.4	
+ASUS User Profile
+BIOSセットアッププログラムの設定をプロファイルとして保存、読み込むことができます。 
+Load from Profile
+保存したプロファイルから設定を読み込みます。読み込みたいプロファイル番号を入力し、
+＜Enter＞を押して実行します。
+参考： 
+•	 起動失敗の原因となりますので、プロファイルの読み込み中はシステムをリセットしたりシャットダ
+ウンしないでください。
+•	 プロファイルを読み込む場合は、プロファイル保存時と同じハードウェア構成（CPU、メモリーなど）
+および同じBIOSバージョンで実行することをおすすめします。
+Profile Name
+プロファイル名を入力します。設定したプロファイルが分かりやすいように、ご希望の名前を英数
+字で入力してください。 
+Save to Profile
+現在の設定をプロファイルとして保存します。キーボードで1 - 8の数字を入力しプロファイル番
+号を割り当て、＜Enter＞を押して実行します。
+Load/Save Profile from/to USB Drive
+USBストレージドライブを使用して、BIOS設定のプロファイルをインポート/エクスポートするこ
+とができます。
+9.5	
+ASUS SPD Information
+メモリースロットに装着されたメモリーモジュールから読み込まれたSPD（Serial Presence 
+Detect）情報を表示します。
+9.6	
+ASUS MyHotkey
+POST時に特定のファンクションキーに割り当てる起動オプションを設定します。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Hotkey F3
+POST中に<F3>を押すことで実行される起動オプションを選択します。 
+設定オプション: [Disabled] [Boot from UEFI USB] [Boot from UEFI HDD] [Boot from UEFI 
+CDROM/DVDROM] [Boot from UEFI PXE] [Toggle ASUS EZ Flash 3]
+参考： Boot from UEFI PXE（UEFI-PXEから起動）に設定する場合は、ネットワークスタックが有効に設定
+されていることを確認してください。(Advanced > Network Stack Configuration > Network 
+Stack ［Enabled］)
+
+112
+9.7	
+ASUS DriverHub
+ASUSのドライバーとユーティリティの管理プロセスを合理化し、システムを常に最新かつ最適な
+状態に保つために設計されたアプリ ASUS DriverHub に関する設定をすることができます。
+参考： 表示される内容や設定項目は、お使いのマザーボードや接続されているハードウェア構成によ
+って異なる場合があります。
+Download & Install ASUS DriverHub app
+ASUS DriverHubアプリのダウンロードとインストールを促す機能の有効/無効を設定します。 
+設定オプション: [Disabled] [Enabled]
+Hotkey F4
+POST中に<F4>を押すことで実行される起動オプションを選択します。 
+設定オプション: [Disabled] [Boot from UEFI USB] [Boot from UEFI HDD] [Boot from UEFI 
+CDROM/DVDROM] [Boot from UEFI PXE] [Toggle ASUS EZ Flash 3]
+参考： Boot from UEFI PXE（UEFI-PXEから起動）に設定する場合は、ネットワークスタックが有効に設定
+されていることを確認してください。(Advanced > Network Stack Configuration > Network 
+Stack ［Enabled］)
+
+113
+10.	
+Exit
+BIOSセットアッププログラムの既定値の読み込み、設定の保存、破棄をすることができます。
+Load Optimized Defaults
+BIOSセットアッププログラムの各パラメーターの既定値を読み込みます。ショートカットキーは
+＜F5＞です。
+Save Changes & Reset
+設定を保存して適用し、BIOSセットアッププログラムを終了します。ショートカットキーは＜F10＞ 
+です。
+Discard Changes and Exit
+設定を保存せず、BIOSセットアッププログラムを終了します。ショートカットキーは＜ESC＞です。
+Launch EFI Shell from USB drives
+EFI Shellを起動するためのファイル (Shellx64.efi) が保存されているUSBストレージドライブから
+EFI Shellアプリケーションを起動します。
+
+114
+11.	
+BIOSの更新
+当社ウェブサイトでは、システムの安定性、互換性、パフォーマンスの改善、機能拡張などを提供
+するために最新のBIOSイメージを公開しています。ただし、BIOSの更新にはリスクが伴います。
+現在のバージョンで問題がない場合は、BIOSの更新を行わないでください。不適切な更新は、シ
+ステムが起動しなくなる原因となる可能性があります。更新は必要な場合のみ行ない、更新の際
+は次の手順に従い慎重に行なってください。
+重要！ 最新のBIOSイメージファイルは、当社ウェブサイト https://www.asus.com からダウンロードで
+きます。
+次の機能を使用してBIOSの更新と管理を行なうことができます。
+1.	
+ASUS EZ Flash 3: USBストレージドライブを使用してBIOSセットアッププログラムから
+BIOSを更新します。
+2.	
+ASUS CrashFree BIOS 3: BIOSに障害や破損が発生した場合に、USBストレージドライブ
+を使用してBIOSを復元します。
+11.1	
+ASUS EZ Flash 3
+ASUS EZ Flash 3 では、OSベースのユーティリティを使用することなくBIOSを更新することがで
+きます。
+BIOSを更新する：
+1.	
+BIOSイメージファイルを保存したUSBストレージドライブをシステムのUSBポートに接続
+します。 
+2.	
+BIOSセットアッププログラムのAdvanced Mode を起動し、Tool メニューから ASUS EZ 
+Flash Utility を起動します。
+3.	
+DriveフィールドでBIOSイメージファイルが保存されているUSBストレージドライブを選択
+し＜Enter＞を押します。
+4.	
+Folderフィールドで更新に使用するBIOSイメージファイルを選択し＜Enter＞を押します。 
+5.	
+読み込まれたBIOSメージファイルが正しいことを確認し、
+［Yes］を選択してBIOSの更新を
+開始します。
+6.	
+BIOSの更新が完了したら、
+［OK］を選択してシステムを再起動します。
+
+115
+11.2	
+ASUS CrashFree BIOS 3
+ASUS CrashFree BIOS 3 は、USBストレージドライブを使用して更新の失敗などで破損したBIOS
+イメージを復元することができる自動回復ツールです。
+重要！ 固有のBIOS CAPファイル名は製品によって異なります。詳しくは、お使いの製品のユーザーガイ
+ドをご覧ください。
+BIOSを復元する：
+1.	
+当社ウェブサイト https://www.asus.com/support/ から最新のBIOSファイルをダウンロ
+ードします。
+2.	
+ダウンロードしたファイルをすべて展開し、次のいずれかの方法でBIOSイメージファイル
+名を変更します：
+	
+	•	
+BIOSRenamer.exe を実行する
+	
+	•	
+手動で仕様概要ページで指定された固有のBIOS CAPファイル名に変更する
+	
+	•	
+手動でファイル名を ASUS.CAP に変更する
+3.	
+ファイル名を変更したBIOSイメージファイルを、USBストレージドライブのルートディレク
+トリにコピーします。
+4.	
+BIOSイメージファイルを保存したUSBストレージドライブをマザーボードのUSBポートに
+接続します。
+5.	
+システムの電源をオンにします。
+6.	
+BIOSイメージファイルが検出されると、ASUS EZ Flash Utilityが自動的に起動しBIOSの復
+元を開始します。
+7.	
+BIOSの復元後は、BIOSセットアッププログラムで既定値を読み込み、システムの互換性と
+安定性を確保してから動作確認を行ってください。
+注意！ BIOSの更新中は、USBストレージドライブを取り外す、電源プラグを抜く、ボタン／スイッチを押
+す、ジャンパーを変更するなど、一切の行為を行わないでください。更新中に他の行為を行った
+場合、更新が中断される可能性があります。
+
+116

@@ -12,11 +12,12 @@ ASUS マザーボード マニュアルPDF収集スクレイパー
 フロー:
   1. workspace/data/asus_mb/products.jsonl を読み込む
   2. source_url + helpdesk_manual/ でサポートページURL生成
-  3. Playwright でページ取得、PDFリンク抽出
-  4. httpx で PDF ダウンロード
-  5. PyMuPDF でテキスト抽出
-  6. asus_mb/manuals/{model}.txt に保存
-  7. products.jsonl の manual_url / manual_path / manual_scraped_at を更新
+  3. Playwright でページ取得、GetPDManual APIレスポンスをキャプチャ
+  4. APIレスポンスのJSONからPDFリンクを抽出
+  5. httpx で PDF ダウンロード
+  6. PyMuPDF でテキスト抽出
+  7. asus_mb/manuals/{model}.txt に保存
+  8. products.jsonl の manual_url / manual_path / manual_scraped_at を更新
 
 使い方:
   python asus_mb_manual.py             # 最初の5件（デフォルト）
@@ -41,41 +42,8 @@ sys.path.insert(0, str(_SCRIPT_DIR.parent))
 
 from manual_scraper.base import ManualScraperBase, _UA
 
-# ─── PDF リンク抽出 JS ────────────────────────────────────────────────────────
-
-JS_PDF_LINKS = """
-() => {
-    const links = [];
-    document.querySelectorAll('a[href]').forEach(a => {
-        const href = a.href || '';
-        const text = a.textContent.trim().toLowerCase();
-        const hrefL = href.toLowerCase();
-        // ASUSマニュアルPDFはdlcdnets.asus.com / dlcdnet.asus.com にホスト
-        if (hrefL.includes('.pdf') && (
-            hrefL.includes('dlcdnets.asus.com') ||
-            hrefL.includes('dlcdnet.asus.com') ||
-            hrefL.includes('asus.com') ||
-            text.includes('manual') ||
-            text.includes('ユーザーズ') ||
-            text.includes('user guide')
-        )) {
-            links.push(href);
-        }
-    });
-    return [...new Set(links)];
-}
-"""
-
-JS_FALLBACK_LINKS = """
-() => {
-    // フォールバック: ページ内の全PDFリンク
-    const links = [];
-    document.querySelectorAll('a[href*=".pdf"]').forEach(a => {
-        if (a.href) links.push(a.href);
-    });
-    return [...new Set(links)];
-}
-"""
+# ASUSマニュアルPDFのベースURL
+_ASUS_DL_BASE = "https://dlcdnets.asus.com"
 
 
 class AsusMbManualScraper(ManualScraperBase):
@@ -92,45 +60,55 @@ class AsusMbManualScraper(ManualScraperBase):
         return f"{source_url}/helpdesk_manual/"
 
     def parse_pdf_links(self, page, support_url: str) -> list[str]:
+        """
+        ASUSの GetPDManual API レスポンスをネットワークキャプチャで取得してPDFリンクを返す。
+        APIは helpdesk_manual/ ページロード時に自動的にコールされる。
+        """
+        api_data: dict = {}
+
+        def _on_response(response):
+            try:
+                if "GetPDManual" in response.url:
+                    api_data["json"] = response.json()
+            except Exception:
+                pass
+
+        page.on("response", _on_response)
+
         try:
-            page.goto(support_url, wait_until="domcontentloaded", timeout=40000)
+            page.goto(support_url, wait_until="networkidle", timeout=60000)
         except Exception as e:
             print(f"  [goto] {e}", file=sys.stderr)
-        time.sleep(4)
 
-        # 言語選択ドロップダウンが出た場合はスキップ（Escapeで閉じる）
+        time.sleep(5)
+
+        page.remove_listener("response", _on_response)
+
+        if not api_data.get("json"):
+            print("  [WARN] GetPDManual APIレスポンスなし", file=sys.stderr)
+            return []
+
+        # APIレスポンスからPDFリンクを抽出
+        links = []
         try:
-            page.keyboard.press("Escape")
-            time.sleep(1)
-        except Exception:
-            pass
+            result = api_data["json"].get("Result", {})
+            for group in result.get("Obj", []):
+                for file_info in group.get("Files", []):
+                    dl_path = (file_info.get("DownloadUrl") or {}).get("Global", "")
+                    if dl_path:
+                        full_url = _ASUS_DL_BASE + dl_path
+                        links.append((file_info.get("Title", ""), full_url))
+        except Exception as e:
+            print(f"  [parse] {e}", file=sys.stderr)
+            return []
 
-        # "User Manual" / "Manual" フィルタタブをクリックする試み
-        try:
-            for selector in [
-                'a:has-text("User Manual")',
-                'span:has-text("User Manual")',
-                'a:has-text("マニュアル")',
-                '[data-type="manual"]',
-            ]:
-                els = page.query_selector_all(selector)
-                if els:
-                    els[0].click()
-                    time.sleep(2)
-                    break
-        except Exception:
-            pass
+        # User's Manual (English) を優先、次にその他英語、日本語
+        em_links    = [url for t, url in links if "_EM_" in url or "_EM." in url]
+        en_links    = [url for t, url in links if "_E_" in url and url not in em_links]
+        jp_links    = [url for t, url in links if "_JP_" in url or "_J_" in url or "japanese" in url.lower()]
+        other_links = [url for _, url in links if url not in em_links and url not in en_links and url not in jp_links]
 
-        links = page.evaluate(JS_PDF_LINKS)
-        if not links:
-            links = page.evaluate(JS_FALLBACK_LINKS)
-
-        # EM（英語マニュアル）を優先、次に日本語(JP)、その他
-        em_links = [l for l in links if "_em_" in l.lower() or "_e_manual" in l.lower()]
-        jp_links = [l for l in links if "_jp_" in l.lower() or "japanese" in l.lower()]
-        other    = [l for l in links if l not in em_links and l not in jp_links]
-
-        return em_links + jp_links + other
+        return em_links + en_links + jp_links + other_links
 
 
 def main():

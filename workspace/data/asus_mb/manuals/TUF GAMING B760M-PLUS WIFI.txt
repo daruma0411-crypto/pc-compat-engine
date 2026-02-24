@@ -1,0 +1,3019 @@
+PRIME / 
+ProArt / 
+TUF GAMING 
+Intel 700 系列
+BIOS 用戶手冊
+Motherboard
+
+2
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+C21967
+第三版
+2023 年 4 月發行
+版權說明
+© ASUSTeK Computer Inc. All rights reserved. 華碩電腦股份有限公司保留所有權
+利本用戶手冊包括但不限於其所包含的所有信息皆受到著作權法之保護，未經華碩
+電腦股份有限公司（以下簡稱「華碩」）許可，不得任意地仿製、拷貝、摘抄、轉
+譯或為其他利用。
+免責聲明
+本用戶手冊是以「現況」及「以當前明示的條件下」的狀態提供給您。在法律允許
+的範圍內，華碩就本用戶手冊，不提供任何明示或默示的擔保及保證，包括但不限
+於商業適銷性、特定目的之適用性、未侵害任何他人權利及任何得使用本用戶手冊
+或無法使用本用戶手冊的保證，且華碩對因使用本用戶手冊而獲取的結果或通過本
+用戶手冊所獲得任何信息之準確性或可靠性不提供擔保。
+用戶應自行承擔使用本用戶手冊的所有風險。 用戶明確了解並同意，華碩、華碩之
+授權人及其各該主管、董事、員工、代理人或關係企業皆無須為您因本用戶手冊、
+或因使用本用戶手冊、或因不可歸責於華碩的原因而無法使用本用戶手冊或其任何
+部分而可能生成的衍生、附隨、直接、間接、特別、懲罰或任何其他損失（包括但
+不限於利益損失、業務中斷、數據遺失或其他金錢損失）負責，不論華碩是否被告
+知發生上開損失之可能性。
+由於部分國家或地區可能不允許責任的全部免除或對前述損失的責任限制，所以前
+述限制或排除條款可能對您不適用。
+用戶知悉華碩有權隨時修改本用戶手冊。本產品規格或驅動程序一經改變，本用戶
+手冊將會隨之更新。本用戶手冊更新的詳細說明請您訪問華碩的客戶服務網 http://
+support.asus.com，或是直接與華碩信息產品技術支持專線 400-620-6655 聯絡。
+於本用戶手冊中提及之第三人產品名稱或內容，其所有權及智能財產權皆為各別產
+品或內容所有人所有且受當前智能財產權相關法令及國際條約之保護。
+當下列兩種情況發生時，本產品將不再受到華碩之保修及服務：
+（1）本產品曾經過非華碩授權之維修、規格更改、零件替換或其他未經過華碩授權
+的行為。
+（2）本產品序列號模糊不清或喪失。
+本產品的名稱與版本都會印在主板/顯卡上，版本數字的編碼方式是用三個數字組
+成，並有一個小數點做間隔，如 1.02G、2.03G 等...數字越大表示版本越新，而越
+左邊位數的數字更動表示更動幅度也越大。更新的詳細說明請您到華碩的互聯網瀏
+覽或是直接與華碩聯絡。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+3
+目錄
+1.	
+認識 BIOS 程序.............................................................................................................4
+2.	
+BIOS 程序設置.............................................................................................................5
+2.1	
+EZ Mode ...................................................................................................6
+2.2	
+高級菜單（Advanced menu）...........................................................7
+2.3	
+Qfan Control..........................................................................................11
+2.4	
+AI OC Guide...........................................................................................13
+3.	
+我的最愛（My Favorites）.................................................................................14
+4.	
+主菜單（Main Menu）..........................................................................................16
+5.	
+Ai Tweaker 菜單（Ai Tweaker menu）........................................................18
+6.	
+高級菜單（Advanced menu）...........................................................................50
+6.1	
+平台各項設置（Platform Misc Configuration）.......................51
+6.2	
+CPU 設置（CPU Configuration）................................................52
+6.3	
+系統代理設置（System Agent Configuration）.....................56
+6.4	
+PCH 設置（AMT Configuration）...............................................58
+6.5	
+PCH 儲存設備設置（PCH Storage Configuration）............59
+6.6	
+PCH-FW 設置（PCH-FW Configuration）...............................60
+6.7	
+Thunderbolt(TM) 設置（Thunderbolt(TM) Configuration）....61
+6.8	
+可信任計算（Trusted Computing）..............................................63
+6.9	
+PCI 子系統設置（PCI Subsystem Settings）............................64
+6.10	
+USB 設置（USB Configuration）.................................................65
+6.11	
+網絡協定堆棧設置（Network Stack Configuration）..........66
+6.12	
+NVMe 設置（NVMe Configuration）.........................................66
+6.13	
+HDD/SSD SMART 信息（HDD/SSD SMART Information）.....67
+6.14	
+APM 設置（APM Configuration）..............................................67
+6.15	
+內置設備設置（OnBoard Devices Configuration）................68
+6.16	
+Intel(R) 快速保存技術（Intel(R) Rapid Storage Technology）....70
+7.	
+監控菜單（Monitor menu）................................................................................71
+8.	
+啟動菜單（Boot menu）......................................................................................79
+9.	
+工具菜單（Tool menu）.......................................................................................85
+9.1	
+華碩 EZ Flash 3 公用程序（ASUS EZ Flash 3 Utility）......86
+9.2	
+安全清除（Secure Erase）..............................................................86
+9.3	
+華碩 User Profile..................................................................................87
+9.4	
+華碩 SPD 信息（ASUS SPD Information）.............................88
+9.5	
+MemTest86...........................................................................................88
+9.6	
+華碩 Armoury Crate...........................................................................89
+9.7	
+MyASUS..................................................................................................89
+10.	
+退出 BIOS 程序（Exit menu）...........................................................................90
+11.	
+升級 BIOS 程序..........................................................................................................91
+11.1	
+華碩 EZ Flash 3（ASUS EZ Flash 3）.......................................91
+11.2.	
+ASUS CrashFree BIOS 3..................................................................92
+
+4
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+華碩全新的 UEFI BIOS 是可延伸固件接口，符合最新的 UEFI 架構，這個友善的使
+用接口，跳脫常規使用鍵盤輸入 BIOS 方式，提供更有彈性與更便利的鼠標控制操
+作。您可以輕易地使用新的 UEFI BIOS，如同操作您的操作系統般順暢。在本用戶
+手冊中的「BIOS」一詞除非特別說明，所指皆為「UEFI BIOS」。
+BIOS（Basic Input and Output System；基本輸出入系統）用來保存系統啟動時所
+需要的硬件設置，例如存儲設備設置、超頻設置、高級電源管理與啟動設置等，這
+些設置會保存在主板的 CMOS 中。在正常情況下，默認的 BIOS 程序設置提供大多
+數使用情況下可以獲得最佳的運行性能。建議您不要更改默認的 BIOS 設置，除了以
+下幾種狀況： 
+•	
+在系統啟動期間，屏幕上出現錯誤信息，並要求您運行 BIOS 程序設置。
+•	
+安裝新的系統元件，需要進一步的 BIOS 設置或升級。
+不適當的 BIOS 程序升級可能會導致系統啟動失敗。強烈建議您只有在受過訓練專
+業人士的協助下，才可以運行 BIOS 程序設置的更改。
+•	 下載或更新 BIOS 文件時，請將文件名稱更改為 XXXXX.CAP 或是開啟 
+BIOSRenamer.exe 應用程序以自動將文件重命名給本主板使用。請參考主板
+隨附的用戶手冊中的相關信息以獲得文件名稱。CAP 文件名稱會依型號而
+異，正確名稱請參考主板用戶手冊。
+•	 本章節畫面只能參考，請以實際的 BIOS 選項為準。
+•	 BIOS 設置選項會因版本而異，請確認已更新至最新的 BIOS 版本。
+1. 
+認識 BIOS 程序
+BIOS 程序設置
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+5
+•	 在本章節的 BIOS 程序畫面只能參考，將可能與您所見到的畫面有所差異。
+•	 若您想在 BIOS 設置程序中使用鼠標操控，請先確認已將 USB 接口鼠標連接
+至主板。
+•	 BIOS 程序的出廠默認值可讓系統運行處於最佳性能，但是若系統因您改變 
+BIOS 程序而導致不穩定，請讀取出廠默認值來保持系統的穩定。請選擇 Exit 
+菜單中的 Load Optimized Defaults 項目或按下 <F5> 鍵。請參閱 10. 退出 
+BIOS 程序 中的詳細說明。
+•	 若是更改 BIOS 設置後啟動失敗，請試著使用清除 CMOS，然後將主板的設
+置值恢復為默認值。請參考主板用戶手冊中的相關說明以了解 Clear CMOS 
+按鈕並清除 CMOS 實時時鐘（RTC）內存數據。
+•	 BIOS 設置程序不支持藍牙設備。
+BIOS 菜單畫面
+本主板的 BIOS 設置程序提供您 EZ Mode 和 Advanced Mode 兩種模式。EZ Mode 
+與 Advanced Mode。您可以在 啟動菜單（Boot menu）中的 Setup Mode 切換模
+式，或按 <F7> 鍵進行切換。
+每張主板的 BIOS 設置選項可能會與本章節內容有異，請以實際的 BIOS 選項為
+準。關於實際設置與選項，請參考主板的 BIOS。
+2. 
+BIOS 程序設置
+使用 BIOS Setup（BIOS 設置）功能可以升級 BIOS 或設置其參數。BIOS 設置畫面
+包含導覽鍵與簡要的畫面輔助說明，以指示您使用 BIOS 設置程序。
+當啟動時進入 BIOS 設置程序：
+•	
+當進入啟動自檢（POST）過程時，按下 <Delete> 或 <F2> 鍵可以進入 BIOS 
+設置畫面。若您未按下 <Delete> 或 <F2> 鍵，則啟動自檢（POST）功能會繼
+續進行。
+當 POST 結束後才進入 BIOS 設置程序：
+當 POST 結束後才進入 BIOS 設置程序：
+•	
+按下 <Ctrl>+<Alt>+<Delete> 鍵。
+•	
+或是按下機箱上的 RESET（重置）鍵重新啟動。
+•	
+或是按下機箱上的電源按鈕，將電腦關閉後再重新啟動。如果前兩種方式無
+效，再選用最後一種方式。
+然後再於啟動自檢（POST）過程時按下 <Delete> 鍵進入 BIOS 設置畫面。
+
+6
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+2.1 
+EZ Mode 
+在默認狀態下，當您進入 BIOS 設置畫面時將會顯示 EZ Mode 菜單。您可以在 EZ 
+Mode 中查看系統基本數據，並可以選擇顯示語言、喜好設置及啟動設備順序。若
+要進入 Advanced Mode，請點擊 Advanced Mode(F7)，或是按下 <F7> 快捷鍵。
+進入 BIOS 設置程序的畫面可以做個人化設置，請參考 啟動菜單（Boot menu）中
+關於 Setup Mode 項目的說明 。
+啟動設備的選項將依您所安裝的設備而異。
+選擇 BIOS 程序的顯示語言
+顯示系統信息
+顯示已選擇模式的系統屬
+性，點擊 < 或 > 來切換
+調整模式
+載入最佳化默認值
+顯示處理器風扇速度，點擊按鈕來手
+動調整風扇
+啟動或關閉 SATA RAID 模式來使用 Intel 
+Rapid Storage 技術
+保存更改並重新啟動系統
+顯示可啟動設備
+選擇啟動設備順序
+顯示 Advanced 模式菜單
+搜索 (F9)
+AURA
+ReSize BAR
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+7
+2.2 
+高級菜單（Advanced menu）
+Advanced Mode 提供您更高級的 BIOS 設置選項。以下為 Advanced Mode 畫面之
+範例，各個設置選項的詳細說明請參考之後的章節。
+若要從 EZ Mode 切換至 Advanced Mode，請點擊 Advanced Mode(F7)，或是
+按下 <F7> 快捷鍵。
+菜單項目
+子菜單
+項目說明
+功能表列
+語言
+Q-Fan Control（F6）
+我的最愛(F3)
+菜單項目 
+設置窗口
+上次修改的設置值
+回到 EZ Mode
+顯示系統信息
+快捷鍵
+AURA
+搜索 (F9)
+ReSize BAR
+滾動條
+
+8
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+菜單項目
+於功能表列選定選項時，被選擇的功能將會反白，假設您選擇 Main 功能，則會顯示 
+Main 菜單的項目。
+點擊菜單中的其他項目（例如：My Favories、Ai 
+Tweaker、Advanced、Monitor、Boot、Tool 與 Exit）也會出現該項目不同的選
+項。
+子菜單
+在菜單畫面中，若功能選項前面有一個小三角形標記（>），代表此為子菜單，您可
+利用方向鍵來選擇，並按下 <Enter> 鍵來進入子菜單。
+語言
+這個按鈕位在功能表列的上方，用來選擇 BIOS 程序接口顯示的語言。點擊這個按鈕
+來選擇您想要的 BIOS 畫面顯示語言。
+我的最愛(F3)
+這個按鈕位在功能表列的上方，用來以樹狀圖顯示所有的 BIOS 項目。選擇常用的 
+BIOS 設置項目並保存至我的最愛菜單。您可以按下 <F3> 鍵開啟此菜單。
+請參考 3. 我的最愛（My Favorites） 以獲得更多信息。
+Q-Fan Control（F6）
+這個按鈕位在功能表列的上方，用來顯示風扇現在的設置。使用這個按鈕來手動調
+整風扇至您想要的設置值。您可以按下 <F6> 鍵開啟此菜單。
+請參考 2.3 Q-Fan Control（Q-Fan 控制） 以獲得更多信息。
+功能表列
+BIOS 設置程序最上方各菜單功能說明如下：
+My Favorites
+本項目將記錄時常使用的系統設置及設置值。
+Main
+本項目提供系統基本設置。
+Ai Tweaker
+本項目提供超頻設置。
+Advanced
+本項目提供系統高級功能設置。
+Monitor
+本項目提供溫度、電源及風扇功能設置。
+Boot
+本項目提供啟動磁盤設置。
+Tool
+本項目提供特殊功能設置。
+Exit
+本項目提供退出 BIOS 設置程序與出廠默認值還原功能。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+9
+AI OC Guide
+這個按鈕位在功能表列的上方，用來查看超頻的敘述並且可以啟動該功能。您也可
+以按下 <F11> 鍵以使用此項目。
+•	 請參考  AI OC Guide  一節以獲得更多信息。
+•	 這項功能只有在安裝沒有鎖頻的處理器時才能使用。
+•	 這項功能僅適用於特定型號。
+搜索 (F9)
+這個按鈕用來通過輸入名稱搜索 BIOS 項目，輸入名稱可以找到相關的項目列表。您
+可以按下 <F9> 鍵開啟此菜單。
+AURA
+這個按鈕用來啟動或關閉 Aura 特效或功能性 LED 指示燈。您可以按下 <F4> 鍵開
+啟此菜單。
+[All On]	
+啟動所有的 LED 指示燈（Aura 特效或是功能性指示燈）。
+[Stealth Mode]	 關閉所有的 LED 指示燈（Aura 特效與功能性指示燈）。
+[Aura Only]	
+啟動 Aura 特效，而功能性指示燈將會關閉。
+[Aura Off]	
+關閉 Aura 特效，而功能性指示燈依舊為開啟狀態。
+ReSize BAR
+這個按鈕用來啟動或關閉 ReSize BAR 功能。
+[On]	
+啟動 ReSize BAR 支持以充分利用 GPU 內存。CSM （兼容性支持
+模塊）將會關閉。
+[Off]	
+關閉 ReSize BAR 支持。
+MemTest86
+菜單字段上方的這個按鈕用來啟動 MemTest86。MemTest86 可用於掃描與檢測
+您的內存是否有問題。關於 MemTest86 的更多信息，請參考 www.asus.com/
+support。
+•	 使用 MemTest86 前，請保存所有更改。
+•	 點擊 MemTest86 按鈕後，會有幾秒鐘的加載時間。
+•	 這項功能僅適用於特定型號。
+快捷鍵
+這個按鈕位在功能表列的上方，包含有 BIOS 程序設置的導引方向鍵，請參照功能鍵
+說明來選擇及更改設置。
+滾動條
+在菜單畫面的右方若出現滾動條，即代表此頁選項超過可顯示的畫面，您可利用上/
+下方向鍵或是 PageUp/PageDown 鍵來切換畫面。
+
+10
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+項目說明
+在菜單畫面的右上方為當前所選擇的作用選項的功能說明，此說明會依選項的不同
+而自動更改。使用 <F12> 按鍵來抓取 BIOS 屏幕畫面，並保存至攜帶式存儲設備。
+設置窗口
+此區域顯示菜單項目的設置值。這些項目中，有的功能選項僅為告知用戶當前運行
+狀態，並無法更改，此類項目就會以淡灰色顯示。而可更改的項目，當您使用方向
+鍵移動項目時，
+設置值被選擇後以反白顯示。要改變設置值請選擇此項目，並按下 <Enter> 鍵以顯
+示設置值列表。
+上次修改的設置按鈕
+按下此按鈕可查看您在 BIOS 設置中上一次所做的修改項目。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+11
+2.3 
+Qfan Control
+Q-Fan Control 提供您設置風扇參數文件或手動設置處理器與機箱風扇速度。
+選擇欲設置的風扇
+點擊以啟動 PWM 模式
+點擊以不更改設置
+點擊以應用風扇設置
+點擊以回到主菜單
+點擊欲應用至風
+扇的設置文件
+點擊以啟動 DC 模式
+點擊或輕觸以手動設置風扇
+
+12
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+速度點
+點擊或輕觸以手動設置風扇
+手動設置風扇
+從設置文件清單中選擇 Manual 來手動設置風扇運行的速度。
+請依照以下步驟設置風扇：
+1.	
+選擇想要設置的風扇並查看該風扇現在的狀況。
+2.	
+點擊並拖曳速度點來調整風扇的運行速度。
+3.	
+點擊 應用（Apply） 以保存更改然後點擊 Exit (ESC)。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+13
+2.4 
+AI OC Guide
+•	 本章節畫面僅供參考，可能與您所見到的畫面有所差異。
+•	 這項功能只有在安裝沒有鎖頻的處理器時才能使用。
+•	 這項功能僅適用於特定型號。
+AI OC Guide 用來啟動 Ai Overclocking 超頻功能，或是瀏覽 Ai Overclocking 超頻
+功能的快速說明，包含有建議的設置程序以及 Ai Overclocking 超頻的敘述說明。
+點擊 Enable AI 即可啟動 Ai Overclocking 超頻功能。
+點擊以瀏覽快
+速說明的下一
+個項目
+點擊以瀏覽快速說明
+的上一個項目
+快速說明項目
+點擊回到主菜單
+點擊啟動 AI 
+Overclocking 
+
+14
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+3. 
+我的最愛（My Favorites）
+本菜單是專屬您個人空間，讓您在此輕易存入和讀取您所喜愛的 BIOS 項目。您可以
+藉由添加或卸除這些項目來個人化您的屏幕。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+15
+添加項目至我的最愛
+請依照以下步驟添加項目至我的最愛：
+1.	
+在鍵盤按下 <F3> 鍵或在 BIOS 程序中點擊 MyFavorite 來啟動設置樹狀圖畫
+面。
+2.	
+在設置樹狀圖畫面中選擇想要保存至我的最愛的 BIOS 項目。
+3.	
+從主菜單面板選擇項目，然後點擊子菜單中想要保存至我的最愛的選項，再點
+擊或輕觸 
+ 或是按下 <Enter> 按鍵。
+以下項目無法加入至我的最愛：
+•	 有子菜單的項目。
+•	 用戶自訂項目，例如：語言、啟動設備順序。
+•	 設置項目，例如：內存 SPD 信息、系統時間與日期。
+4.	
+點擊 Exit (ESC) 或按下 <esc> 鍵來關閉樹狀圖窗口。
+5.	
+到我的最愛菜單查看已保存的 BIOS 項目。 
+主菜單面板
+子菜單面板
+選擇快捷方式項目
+刪除所有我
+的最愛項目
+恢復默認值
+
+16
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+4. 
+主菜單（Main Menu）
+當進入 BIOS 設置程序的高級模式（Advanced Mode）時，首先出現的第一個畫面
+即為主菜單。主菜單顯示系統信息概要，用來設置系統日期、時間、語言與安全設
+置。
+安全性菜單（Security）
+本菜單可以讓您改變系統安全設置。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+17
+•	 若您忘記設置的 BIOS 密碼，可以採用清除 CMOS 實時鐘（RTC）內存。請
+參考主板用戶手冊中的相關說明以了解 Clear CMOS 按鈕並清除 CMOS 實時
+時鐘（RTC）內存數據。
+•	 Administrator 或 User Password 項目默認值為 [Not Installed]。當您設置密
+碼之後將顯示為 [Installed]。
+Administrator Password（設置系統管理員密碼）
+當您設置系統管理員密碼後，推薦您先登入您的帳戶，以免 BIOS 設置程序中的某些
+信息無法查看或更改設置。
+請依照以下步驟設置系統管理員密碼（Administrator Password）：
+1.	
+請選擇 Administrator Password 項目並按下 <Enter>。
+2.	
+由 Create New Password 窗口輸入欲設置的密碼，輸入完成時，請按下 
+<Enter>。
+3.	
+請再一次輸入密碼並選擇 OK。
+請依照以下步驟更改系統管理員密碼（Administrator Password）：
+1.	
+請選擇 Administrator Password 項目並按下 <Enter>。
+2.	
+由 Enter Current Password 窗口輸入密碼並按下 <Enter>。
+3.	
+由 Create New Password 窗口輸入新密碼，輸入完成按下 <Enter>。
+4.	
+請再一次輸入密碼並選擇 OK。
+欲刪除系統管理員密碼時，請依照更改系統管理員密碼之步驟，但請在輸入/確認密
+碼窗口出現時選擇 OK。當您刪除系統管理員密碼後，Administrator Password 項目
+將顯示為 [Not Installed]。
+User Password（設置用戶密碼）
+當您設置用戶密碼後，你必需登入您的帳戶才能使用 BIOS 設置程序。Password 項
+目默認值為 [Not Installed]。當您設置密碼之後將顯示為 [Installed]。
+請依照以下步驟設置用戶密碼（User Password）：
+1.	
+請選擇 User Password 項目並按下 <Enter>。
+2.	
+由 Create New Password 窗口輸入欲設置的密碼，輸入完成時，請按下 
+<Enter>。
+3.	
+請再一次輸入密碼並選擇 OK。
+請依照以下步驟更改用戶密碼（User Password）：
+1.	
+請選擇 User Password 項目並按下 <Enter>。
+2.	
+由 Enter Current Password 窗口輸入密碼並按下 <Enter>。
+3.	
+由 Create New Password 窗口輸入新密碼，輸入完成按下 <Enter>。
+4.	
+請再一次輸入密碼並選擇 OK。
+欲刪除用戶密碼時，請依照更改用戶密碼之步驟，但請在輸入/確認密碼窗口出現時
+選擇 OK。當您刪除用戶密碼後，User Password 項目將顯示為 [Not Installed]。
+
+18
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+5. 
+Ai Tweaker 菜單（Ai Tweaker menu）
+本菜單可讓您設置超頻功能的相關選項。
+注意！在您設置本高級菜單的設置時，不正確的設置值將導致系統功能異常。
+以下項目中的設置值，可能會隨安裝在主板上的 CPU 與內存條而異。
+將滾動條往下滾動來顯示以下項目。
+Ai Overclock Tuner
+[Auto]	
+載入系統最佳化設置值。
+[Manual]	
+手動設置 BCLK 數值。
+[AEMP]	
+載入華碩最佳化設置值。
+[XMP I]	
+選擇此項目以使用內存條默認的 XMP I 內存時鐘
+（CL、TRCD、TRP、TRAS）以及通過華碩最佳化的其他內存參數
+設置。
+[XMP II]	
+選擇此項目以使用內存條的默認 XMP 文件。
+以下項目中的設置值，可能會隨安裝在主板上的 CPU 與內存條而異。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+19
+以下項目只有在 Ai Overclock Tuner 設為 [Manual]、 [AEMP]、 [XMP I] 或  
+[XMP II] 時才會出現。
+BCLK Frequency
+本項目用來設置 BCLK 頻率以增強系統性能。請使用 <+> 與 <-> 鍵調整數值。
+建議您依照處理器規格設置數值，設置過高的數值可能造成處理器永久性的損害。
+以下項目只有在 Ai Overclock Tuner 設置為 [AEMP] 時才會出現。
+AEMP
+本項目用來選擇 ASUS Enhanced Memory Profile（AEMP）。每個設置文件都有專
+屬動態隨機存取內存（DRAM）頻率、時間與電壓。
+以下項目只有在 Ai Overclock Tuner 設置為 [XMP I] 或 [XMP II] 時才會出現。
+XMP
+本項目用來選擇 Extreme Memory Profile。每個設置文件都有專屬動態隨機存取內
+存（DRAM）頻率、時間與電壓。
+Intel(R) Adaptive Boost Technology
+本項目用來開啟或關閉 IABT 以通過允許更高的多核心頻率來提高性能。當存在電
+流、功率與熱餘量的情況下，在系統功率與溫度規格內運作，請於啟用 ABT 功能
+前，確認 CPU 的冷卻質量。
+設置值有：[Auto] [Disabled] [Enabled]
+ASUS MultiCore Enhancement
+[Auto - Lets BIOS Optimize]	 通過華碩提供的 CPU 核心頻率設置，獲得最佳化的
+系統超頻性能。
+[Disabled - Enforce All limits]	 本項目用來設置默認的 CPU 核心倍頻。
+[Enabled - Remove All limits]	 本項目可以讓您使用最佳化的功率與電流臨界值以保
+持最佳性能。
+SVID Behavior
+本項目用來依據處理器質量以對處理器的 SVID behavior 運行編程。默認選項為 
+[Typical Scenario]，所選模式越優，處理器的溫度將越低。[Intel’s Fail Safe] 為處
+理器的默認表現，但忽略實際的主板設計。[Trained] 優化 SVID 表現以與 VRM 負
+載線與目標頻率等輸入參數相符。
+設置值有：[Auto] [Best-Case Scenario] [Typical Scenario] [Worst-Case Scenario] 
+[Intel’s Fail Safe]
+
+20
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+BCLK FrequencyDRAM Frequency Ratio
+[Auto]	
+自動最佳化 BCLK 頻率與 DRAM 頻率。
+[100:133]	
+本項目將 BCLK 頻率與 DRAM 頻率的比值設為 100:133。
+[100:133]	
+本項目將 BCLK 頻率與 DRAM 頻率的比值設為 100:100。
+Memory Controller : DRAM Frequency Ratio
+BCLK Frequency: DRAM Frequency Ratio 選擇 100:133 時有較好的超頻性能，
+同時 1:2 Memory Controller: DRAM Frequency Ratio 僅在 DRAM 比值為偶數時運
+作。
+設置值有：[Auto] [1:1] [1:2] [1:4]
+DRAM Frequency
+本項目可讓您設置內存的運作頻率。設置選項會隨著 BCLK Frequency 設置值變
+動。選擇自動模式以套用最佳化設置。
+以下項目中的設置值，可能會隨安裝在主板上的 CPU 與內存條而異。
+呈灰色的設置值不建議使用，請使用呈白色的設置值。
+OC Tuner
+OC Tuner 可依據 DRAM 類型自動超頻 CPU 或 DRAM 頻率與電壓，以帶來更佳性
+能，並可依 iGPU 負載加速 iGPU 性能。選擇 OC Tuner I 或 OC Tuner II 模式時請
+安裝高效 CPU 風扇。
+設置值有：[Keep Current Settings] [OC Tuner I] [OC Tuner II]
+Performance Core Ratio
+[Auto]	
+	
+系統將自動調整所有核心比率。
+[Sync All Cores]	
+設置核心比率限制以同步所有核心。
+[By Core Usage]	
+依據正在使用的核心數量配置活動核心的比率限制。
+[AI Optimized]	 	
+使用動態機器學習算法使活動核心比率最佳化。
+• [AI Optimized] 項目只有在安裝沒有鎖頻的處理器時才會顯示。
+•	 以下項目只有當 Performance Core Ratio 設為 [Sync All Cores] 時才會出
+現。
+ALL-Core Ratio Limit
+選擇 [Auto] 以套用 CPU 默認的 Turbo 倍頻設置或手動指定 Core Ratio Limit 數
+值。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[Auto] [8] - [85]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+21
+以下項目只有當 Performance Core Ratio 設為 [By Core Usage] 時才會出現。
+1-Core Ratio Limit / 2-Core Ratio Limit / 3-Core Ratio Limit / 4-Core Ratio 
+Limit / 5-Core Ratio Limit / 6-Core Ratio Limit 
+N-core 比率限制需高於或等於（N+1）-core 比率限制。（N 代表 CPU 核心數量）
+當核心數量低於 N 時，核心比率限制無法設置為 [Auto] 。最大核心比率限制需低
+於或等於第二大核心比率限制。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[Auto] [36] - [85]
+以下項目只有當 Performance Core Ratio 設為 [AI Optimized] 時才會出現。
+Optimized AVX Frequency
+標準用例選擇 [Normal Use]，或是極端負載如 Prime 95 AVX 時選擇[Heavy AVX]
+。
+設置值有：[Normal Use] [Heavy AVX]
+以下項目只有當 Performance Core Ratio 設為 [Auto]、[Sync All Cores] 或 [By 
+Core Usage] 時才會出現。
+Specific Performance Core
+Performance Core0-5 Specific Ratio Limit 
+為部分性能核心設置比率限制。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[Auto] [8] - [85]
+Performance Core0-5 specific Voltage 
+本項目用來設置 CPU 核心的電壓供應。設為 [Auto] 將依據使用的 CPU 核心
+比調節電壓。不要將此設置與 VCCIN（CPU 輸入電壓）混淆。
+設置值有：[Auto] [Manual Mode] [Adaptive Mode]
+以下項目只有在 Performance Core0-5 specific Voltage 設為 [Manual Mode] 時
+才會出現。
+CPU Core-0 Voltage Override / CPU Core-1 Voltage Override / CPU Core-
+2 Voltage Override / CPU Core-3 Voltage Override / CPU Core-4 Voltage 
+Override / CPU Core-5 Voltage Override
+本項目用來設置處理器核心電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.001V 為間隔，變更的範圍由 0.600V 至 1.700V。
+設置值有：[Auto] [0.00600] - [1.70000]
+請保存並重啟系統使更改生效。
+
+22
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+以下項目只有在 Performance Core0-5 specific Voltage 設為 [Adaptive Mode] 時
+才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移電壓。
+[-]	
+設置負數值偏移電壓。
+Additional Turbo Mode CPU Core0-5 Voltage
+設置在 Turbo 模式下運作時饋送到 CPU 核心的電壓量。設置高 CPU 核心頻
+率時增加電壓。該電壓會受到偏移值的影響。請使用 <+> 與 <-> 鍵調整數值。
+數值以 0.001V 為間隔，變更的範圍由 0.001V 至 1.920V。
+設置值有：[Auto] [0.00100] - [1.92000]
+Performance Core0-5 Offset
+設置 CPU 核心電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 0.001V 
+為間隔，變更的範圍由 0.001V 至 0.999V。設置值有：[Auto] [0.00100] - 
+[0.99900]
+請保存並重啟系統使更改生效。
+Efficient Core Ratio
+[Auto]	
+	
+系統將自動調整所有效率核心比率。
+[Sync All Cores	]	
+設置核心比率限制以同步所有效率核心。
+[By Core Usage]	
+依據正在使用的效率核心數量配置活動核心的比率限制。
+[AI Optimized]	 	
+使用動態機器學習算法使活動核心比率最佳化。
+•	 [AI Optimized] 項目只有在安裝沒有鎖頻的處理器時才會顯示。
+•	 以下項目只有當 Efficient Core Ratio 設置為 [Sync All Cores] 時才會出現。
+ALL-Core Ratio Limit
+當載入 N 效率核心時為效率核心設置比率限制。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[Auto] [8] - [85]
+以下項目只有當 Efficient Core Ratio 設置為 [By Core Usage] 時才會出現。
+Efficient 1-Core Ratio Limit / Efficient 2-Core Ratio Limit / Efficient 3-Core 
+Ratio Limit / Efficient 4-Core Ratio Limit / Efficient 5-Core Ratio Limit / 
+Efficient 6-Core Ratio Limit / Efficient 7-Core Ratio Limit / Efficient 8-Core 
+Ratio Limit
+當載入 N 效率核心時為效率核心設置比率限制。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[Auto] [27] - [85]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+23
+以下項目只有當 Efficient Core Ratio 設為 [Auto]、[Sync All Cores] 或 [By Core 
+Usage] 時才會出現。
+Specific Efficient Core
+Performance Group0-1 Specific Ratio Limit 
+為部分性能核心設置比率限制。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[Auto] [8] - [120]
+Performance Group0-1 specific Voltage
+本項目用來設置 CPU 核心的電壓供應。設為 [Auto] 將依據使用的 CPU 核心
+比調節電壓。不要將此設置與 VCCIN（CPU 輸入電壓）混淆。
+設置值有：[Auto] [Manual Mode] [Adaptive Mode]
+以下項目只有在 Efficient Core Group0-1 specific Voltage 設為 [Manual Mode] 
+時才會出現。
+CPU Core-0 Voltage Override / CPU Core-1 Voltage Override
+設置 CPU 核心電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 0.001V 
+為間隔，變更的範圍由 0.600V 至 1.700V。
+設置值有：[Auto] [0.00600] - [1.70000]
+•	 請保存並重啟系統使更改生效。
+•	 以下項目只有在 Efficient Core Group0 specific Voltage / Efficient Core 
+Group1 specific Voltage 設為 [Adaptive Mode] 時才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移電壓。
+[-]	
+設置負數值偏移電壓。
+Additional Turbo Mode Efficient Group0 Voltage / Additional Turbo Mode 
+Efficient Group1 Voltage
+設置在 Turbo 模式下運作時饋送到 CPU 核心的電壓量。設置高 CPU 核心
+頻率時增加電壓。該電壓會受到偏移值的影響。請使用 <+> 與 <-> 鍵調整
+數值。數值以 0.001V 為間隔，變更的範圍由 0.001V 至 1.920V。設置值
+有：[Auto] [0.00100] - [1.92000]
+Efficient Core Group0 Offset / Efficient Core Group1 Offset
+設置 CPU 核心電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 0.001V 
+為間隔，變更的範圍由 0.001V 至 0.999V。設置值有：[Auto] [0.00100] - 
+[0.99900]
+請保存並重啟系統使更改生效。
+
+24
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+AVX Related Controls
+AVX2
+啟用或關閉 AVX 2 控制器。
+設置值有：[Auto] [Disabled] [Enabled]
+AVX2 Ratio Offset to per-core Ratio Limit
+設置值有：[Auto] [User Specify]
+以下項目只有在 AVX2 Ratio Offset to per-core Ratio Limit 設為 [User Specify] 
+時才會出現。
+AVX2 Ratio Offset
+指定降低 AVX 比與每個核心比的 bin 數量。AVX 是一個壓力更大的工作負
+載，降低 AVX 比率有助於確保 SSE 工作負載的最大可能比。使用 Mailbox 
+MSR 0x150、cmd 0x1B。範圍 0-31。0=無偏移。請使用 <+> 與 <-> 鍵調整
+數值。
+設置值有：[0] - [31]
+AVX2 Voltage Guardband Scale Factor
+設置值有：[Auto] [User Specify]
+以下項目只有在 AVX2 Voltage Guardband Scale Factor 設為 [User Specify] 時
+才會出現。
+AVX2 Voltage Guardband Scale Factor
+控制應用於 AVX 工作負載的電壓防護頻帶。範圍為 1/100 單位，其中 
+125=1.25 比例因數。最終產生的電壓防護頻帶為默認防護頻帶 * 比例因數。  
+若數值低於 100 會降低防護頻帶，而數值高於 100 則會增加防護頻帶。請使
+用 <+> 與 <-> 鍵調整數值。
+設置值有：[0] - [199]
+DRAM Timing Control
+本項目用來管理與設置 DRAM 電力。請使用 <+> 與 <-> 鍵調整數值。當您要恢復
+默認值時，請使用鍵盤輸入 [Auto] 並按下 <Enter> 鍵。You can also select various 
+Memory Presets to load settings suitably tuned for some memory modules.
+自行更改數值將會導致系統的不穩定與硬件損毀，當系統出現不穩定的狀況時，建
+議您使用默認值。
+Primary Timings
+DRAM CAS# Latency
+設置值有：[Auto] [2] - [126]
+DRAM RAS# to CAS# Delay
+設置值有：[Auto] [0] - [255]
+DRAM RAS# PRE Time
+設置值有：[Auto] [0] - [255]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+25
+DRAM RAS# ACT Time
+設置值有：[Auto] [1] - [511]
+DRAM Command Rate
+設置值有：[Auto] [1N] [2N] [3N] [N:1]
+以下項目只有當 DRAM Command Rate 設為 [N:1] 時才會出現。
+N to 1 ratio
+每個有效命令周期之間的數值。
+設定值有：[1] - [7]
+Secondary Timings
+DRAM RAS# to RAS# Delay L
+設置值有：[Auto] [1] - [63]
+DRAM RAS# to RAS# Delay S
+設置值有：[Auto] [1] - [127]
+DRAM REF Cycle Time
+設置值有：[Auto] [1] - [65535]
+DRAM REF Cycle Time 2
+設置值有：[Auto] [1] - [65535]
+DRAM REF Cycle Time Same Bank
+設置值有：[Auto] [0] - [2047]
+DRAM Refresh Interval
+設置值有：[Auto] [1] - [262143]
+DRAM WRITE Recovery Time
+設置值有：[Auto] [1] - [234]
+DRAM READ to PRE Time
+設置值有：[Auto] [1] - [255]
+DRAM FOUR ACT WIN Time
+設置值有：[Auto] [1] - [511]
+DRAM WRITE to READ Delay
+設置值有：[Auto] [1] - [31]
+DRAM WRITE to READ Delay L
+設置值有：[Auto] [1] - [31]
+DRAM WRITE to READ Delay S
+設置值有：[Auto] [1] - [31]
+DRAM CKE Minimum Pulse Width
+設置值有：[Auto] [0] - [127]
+DRAM Write Latency
+設置值有：[Auto] [1] - [255]
+Skew Control
+DDRCRCOMPCTL0/1/2
+Ctl0 dqvrefup
+設置值有：[Auto] [0] - [255]
+
+26
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Ctl0 dqvrefdn
+設置值有：[Auto] [0] - [255]
+Ctl0 dqodtvrefup
+設置值有：[Auto] [0] - [255]
+Ctl0 dqodtvrefdn
+設置值有：[Auto] [0] - [255]
+Ctl1 cmdvrefup
+設置值有：[Auto] [0] - [255]
+Ctl1 ctlvrefup
+設置值有：[Auto] [0] - [255]
+Ctl1 clkvrefup
+設置值有：[Auto] [0] - [255]
+Ctl1 ckecsvrefup
+設置值有：[Auto] [0] - [255]
+Ctl2 cmdvrefdn
+設置值有：[Auto] [0] - [255]
+Ctl2 ctlvrefdn
+設置值有：[Auto] [0] - [255]
+Ctl2 clkvrefdn
+設置值有：[Auto] [0] - [255]
+Tc Odt Control
+ODT_READ_DURATION
+設置值有：[Auto] [0] - [15]
+ODT_READ_DELAY
+設置值有：[Auto] [0] - [7]
+ODT_WRITE_DURATION
+設置值有：[Auto] [0] - [7]
+ODT_WRITE_DELAY
+設置值有：[Auto] [0] - [7]
+MC0 Dimm0 / MC0 Dimm1 / MC1 Dimm0 / MC1 Dimm1
+DQ RTT WR
+設置值有：[Auto] [0 DRAM Clock] [34 DRAM Clock] [40 DRAM 
+Clock] [48 DRAM Clock] [60 DRAM Clock] [80 DRAM Clock] 
+[120 DRAM Clock] [240 DRAM Clock]
+DQ RTT NOM RD
+設置值有：[0 DRAM Clock] [34 DRAM Clock] [40 DRAM Clock] 
+[48 DRAM Clock] [60 DRAM Clock] [80 DRAM Clock] [120 
+DRAM Clock] [240 DRAM Clock]
+DQ RTT NOM WR
+設置值有：[Auto] [0 DRAM Clock] [34 DRAM Clock] [40 DRAM 
+Clock] [48 DRAM Clock] [60 DRAM Clock] [80 DRAM Clock] 
+[120 DRAM Clock] [240 DRAM Clock]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+27
+DQ RTT PARK
+設置值有：[Auto] [0 DRAM Clock] [34 DRAM Clock] [40 DRAM 
+Clock] [48 DRAM Clock] [60 DRAM Clock] [80 DRAM Clock] 
+[120 DRAM Clock] [240 DRAM Clock]
+DQ RTT PARK DQS
+設置值有：[Auto] [0 DRAM Clock] [34 DRAM Clock] [40 DRAM 
+Clock] [48 DRAM Clock] [60 DRAM Clock] [80 DRAM Clock] 
+[120 DRAM Clock] [240 DRAM Clock]
+GroupA CA ODT
+設置值有：[Auto] [0 DRAM Clock] [40 DRAM Clock] [60 DRAM 
+Clock] [80 DRAM Clock] [120 DRAM Clock] [240 xDRAM Clock] 
+[480 DRAM Clock]
+GroupA CS ODT
+設置值有：[Auto] [0 DRAM Clock] [40 DRAM Clock] [60 DRAM 
+Clock] [80 DRAM Clock] [120 DRAM Clock] [240 DRAM Clock] 
+[480 DRAM Clock]
+GroupA CK ODT
+設置值有：[Auto] [0 DRAM Clock] [40 DRAM Clock] [60 DRAM 
+Clock] [80 DRAM Clock] [120 DRAM Clock] [240 DRAM Clock] 
+[480 DRAM Clock]
+GroupB CA ODT
+設置值有：[Auto] [0 DRAM Clock] [40 DRAM Clock] [60 DRAM 
+Clock] [80 DRAM Clock] [120 DRAM Clock] [240 DRAM Clock] 
+[480 DRAM Clock]
+GroupB CS ODT
+設置值有：[Auto] [0 DRAM Clock] [40 DRAM Clock] [60 DRAM 
+Clock] [80 DRAM Clock] [120 DRAM Clock] [240 DRAM Clock] 
+[480 DRAM Clock]
+GroupB CK ODT
+設置值有：[Auto] [0 DRAM Clock] [40 DRAM Clock] [60 DRAM 
+Clock] [80 DRAM Clock] [120 DRAM Clock] [240 DRAM Clock] 
+[480 DRAM Clock]
+Pull-up Output Driver Impedance
+設置值有：[Auto] [34 DRAM Clock] [40 DRAM Clock] [48 DRAM 
+Clock]
+Pull-Down Output Driver Impedance
+設置值有：[Auto] [34 DRAM Clock] [40 DRAM Clock] [48 DRAM 
+Clock]
+RTL IOL Control
+Round Trip Latency Init Value MC0-1 CHA-B
+設置值有：[Auto] [0] - [255]
+Round Trip Latency Max Value MC0-1 CHA-B
+設置值有：[Auto] [0] - [255]
+Round Trip Latency Offset Value Mode Sign MC0-1 CHA-B
+設置值有：[-] [+]
+Round Trip Latency Offset Value MC0-1 CHA-B
+設置值有：[Auto] [0] - [255]
+Round Trip Latency MC0-1 CHA-B R0-7
+設置值有：[Auto] [0] - [255]
+
+28
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Memory Training Algorithms
+本菜單的項目用來讓您開啟或關閉不同的內存訓練演算法。
+Early Command Training
+設置值有：[Auto] [Enabled] [Disabled]
+SenseAmp Offset Training
+設置值有：[Auto] [Enabled] [Disabled]
+Early ReadMPR Timing Centering 2D
+設置值有：[Auto] [Enabled] [Disabled]
+Read MPR Training
+設置值有：[Auto] [Enabled] [Disabled]
+Receive Enable Training
+設置值有：[Auto] [Enabled] [Disabled]
+Jedec Write Leveling
+設置值有：[Auto] [Enabled] [Disabled]
+Early Write Timing Centering 2D
+設置值有：[Auto] [Disabled] [Enabled]
+Early Read Timing Centering 2D
+設置值有：[Auto] [Disabled] [Enabled]
+Write Timing Centering 1D
+設置值有：[Disabled] [Enabled]
+Write Voltage Centering 1D
+設置值有：[Auto] [Disabled] [Enabled]
+Read Timing Centering 1D
+設置值有：[Auto] [Disabled] [Enabled]
+Read Timing Centering with JR
+設置值有：[Auto] [Disabled] [Enabled]
+Dimm ODT Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Max RTT_WR
+在電力訓練時可限制 RTT_WR 的最大值。
+設置值有：[ODT OFF] [120 Ohms]
+DIMM RON Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Write Drive Strength/Equalization 2D*
+設置值有：[Auto] [Disabled] [Enabled]
+Write Slew Rate Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Read ODT Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Comp Optimization Traning
+設置值有：[Auto] [Disabled] [Enabled]
+Read Equalization Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Read Amplifier Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Write Timing Centering 2D
+設置值有：[Auto] [Disabled] [Enabled]
+Read Timing Centering 2D
+設置值有：[Auto] [Disabled] [Enabled]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+29
+Command Voltage Centering
+設置值有：[Auto] [Disabled] [Enabled]
+Early Command Voltage Centering
+設置值有：[Auto] [Disabled] [Enabled]
+Write Voltage Centering 2D
+設置值有：[Auto] [Disabled] [Enabled]
+Read Voltage Centering 2D
+設置值有：[Auto] [Disabled] [Enabled]
+Late Command Training
+設置值有：[Disabled] [Enabled] [Auto]
+Round Trip Latency
+設置值有：[Auto] [Disabled] [Enabled]
+Turn Around Timing Training
+設置值有：[Auto] [Disabled] [Enabled]
+CMD CTL CLK Slew Rate
+設置值有：[Auto] [Disabled] [Enabled]
+CMD/CTL DS & E 2D
+設置值有：[Auto] [Disabled] [Enabled]
+Read Voltage Centering 1D
+設置值有：[Auto] [Disabled] [Enabled]
+TxDqTCO Comp Training*
+設置值有：[Auto] [Disabled] [Enabled]
+ClkTCO Comp Training*
+設置值有：[Auto] [Disabled] [Enabled]
+TxDqsTCO Comp Training*
+設置值有：[Auto] [Disabled] [Enabled]
+VccDLL Bypass Training*
+設置值有：[Auto] [Disabled] [Enabled]
+CMD/CTL Drive Strength Up/Dn 2D
+設置值有：[Auto] [Disabled] [Enabled]
+DIMM CA ODT Training
+設置值有：[Auto] [Disabled] [Enabled]
+PanicVttDnLp Training*
+設置值有：[Auto] [Disabled] [Enabled]
+Read Vref Decap Traning*
+設置值有：[Auto] [Disabled] [Enabled]
+Vddq Training
+設置值有：[Auto] [Disabled] [Enabled]
+Duty Cycle Correction Training
+設置值有：[Auto] [Disabled] [Enabled]
+Rank Margin Tool Per Bit
+設置值有：[Auto] [Disabled] [Enabled]
+DIMM DFE Training
+設置值有：[Auto] [Disabled] [Enabled]
+
+30
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+EARLY DIMM DFE Training
+設置值有：[Auto] [Disabled] [Enabled]
+Tx Dqs Dcc Training
+設置值有：[Auto] [Disabled] [Enabled]
+DRAM DCA Training
+設置值有：[Auto] [Disabled] [Enabled]
+Write Driver Strength Training
+設置值有：[Auto] [Disabled] [Enabled]
+Rank Margin Tool
+設置值有：[Auto] [Disabled] [Enabled]
+Memory Test
+設置值有：[Auto] [Disabled] [Enabled]
+DIMM SPD Alias Test
+設置值有：[Auto] [Disabled] [Enabled]
+Receive Enable Centering 1D
+設置值有：[Auto] [Disabled] [Enabled]
+Retrain Margin Check
+設置值有：[Auto] [Disabled] [Enabled]
+Write Drive Strength Up/Dn independently
+設置值有：[Auto] [Disabled] [Enabled]
+Margin Check Limit
+本項目可以檢視啟動內存是否需要重設。
+設置值有：[Disabled] [L1] [L2] [Both]
+以下項目只有當 Margin Check Limit 設為 [L2]  或 [Both] 時才會出現。
+Margin Limit Check L2
+L2 check threshold is scale of L1 check.
+設置值有：[1] - [300]
+Third Timings
+tRDRD_sg_Training
+設置值有：[Auto] [0] - [127]
+tRDRD_sg_Runtime
+設置值有：[Auto] [0] - [127]
+tRDRD_dg_Training
+設置值有：[Auto] [0] - [127]
+tRDRD_dg_Runtime
+設置值有：[Auto] [0] - [127]
+tRDWR_sg
+設置值有：[Auto] [0] - [255]
+tRDWR_dg
+設置值有：[Auto] [0] - [255]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+31
+tWRWR_sg
+設置值有：[Auto] [0] - [127]
+tWRWR_dg
+設置值有：[Auto] [0] - [127]
+tWRRD_sg
+設置值有：[Auto] [0] - [511]
+tWRRD_dg
+設置值有：[Auto] [0] - [511]
+tRDRD_dr
+設置值有：[Auto] [0] - [255]
+tRDRD_dd
+設置值有：[Auto] [0] - [255]
+tRDWR_dr
+設置值有：[Auto] [0] - [255]
+tRDWR_dd
+設置值有：[Auto] [0] - [255]
+tWRWR_dr
+設置值有：[Auto] [0] - [127]
+tWRWR_dd
+設置值有：[Auto] [0] - [255]
+tWRRD_dr
+設置值有：[Auto] [0] - [127]
+tWRRD_dd
+設置值有：[Auto] [0] - [127]
+tRPRE
+設置值有：[Auto] [0] - [4]
+tWPRE
+設置值有：[Auto] [0] - [4]
+tWRPRE
+設置值有：[Auto] [0] - [1023]
+tPRPDEN
+設置值有：[Auto] [0] - [31]
+tRDPDEN
+設置值有：[Auto] [0] - [255]
+tWRPDEN
+設置值有：[Auto] [0] - [1023]
+tCPDED
+設置值有：[Auto] [0] - [31]
+
+32
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+tREFIX9
+設置值有：[Auto] [0] - [255]
+Ref Interval
+設置值有：[Auto] [0] - [8191]
+tXPDLL
+設置值有：[Auto] [0] - [127]
+tXP
+設置值有：[Auto] [0] - [127]
+tPPD
+設置值有：[Auto] [0] - [15]
+tCCD_L_tDLLK
+設置值有：[Auto] [0] - [15]
+Misc.
+MRC Fast Boot
+啟用或關閉 MRC 控制器。
+設置值有：[Disabled] [Enabled]
+MCH Full Check
+本項目用來增強 BCLK 超頻能力或降低由 BCLK 產生的 EMI 電磁波干擾。設
+置為 [Enabled] 可以降低 EMI 干擾，設置為 [Disabled] 則可以增強 BCLK 超
+頻能力。
+設置值有：[Auto] [Enabled] [Disabled]
+Mem Over Clock Fail Count
+設置值有：[Auto] [1] - [255]
+Training Profile
+本項目用來選擇 DIMM training 數據。
+設置值有：[Auto] [Standard Profile] [ASUS User Profile]
+RxDfe
+本項目可以設置 SOC Rx 上的 DFE。
+設置值有：[Auto] [Enabled] [Disabled]
+Mrc Training Loop Count
+本項目用來設置循環的指數以運行測試。
+設置值有：[Auto] [0] - [32]
+DRAM CLK Period
+本項目用來設置動態隨機存取內存的時間週期。
+設置值有：[Auto] [0] - [161]
+Dll_bwsel
+可嘗試 OC 範圍為 22+。
+設置值有：[Auto] [0] - [63]
+Controller 0, Channel 0 Control
+本項目用來開啟或關閉 Controller 0 與 Channel 0。
+設置值有：[Enabled] [Disabled]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+33
+Controller 0, Channel 1 Control
+本項目用來開啟或關閉 Controller 0 與 Channel 1。
+設置值有：[Enabled] [Disabled]
+Controller 1, Channel 0 Control
+本項目用來開啟或關閉 Controller 1 與 Channel 0。
+設置值有：[Enabled] [Disabled]
+Controller 1, Channel 1 Control
+本項目用來開啟或關閉 Controller 1 與 Channel 1。
+設置值有：[Enabled] [Disabled]
+MC_Vref0-2
+設置值有：[Auto] [0] - [65533]
+Fine Granularity Refresh mode
+設置值有：[Auto] [Disabled] [Enabled]
+DRAM SPD Configuration
+SDRAM Density Per Die
+設置值有：[Auto] [4 Gb] [8 Gb] [12 Gb] [16 Gb] [24 Gb] [32 Gb] 
+[48 Gb] [64 Gb]
+SDRAM Banks Per Bank Group
+設置值有：[Auto] [1 bank per bank group] [2 bank per bank 
+group] [4 bank per bank group]
+SDRAM Bank Groups
+設置值有：[Auto] [1 bank group] [2 bank groups] [4 bank groups] 
+[8 bank groups]
+Configure Memory Dynamic Frequency Switching
+以下項目只有在 Realtime Memory Frequency 設為 [Disabled] 時才會出現。
+Dynamic Memory Boost
+本項目用來開啟或關閉 Dynamic Memory Boost。允許自動切換
+默認 SPD Profile 頻率與選擇的 XMP Profile 頻率。僅選擇 XMP 
+Profile 才有效。
+設置值有：[Disabled] [Enabled]
+以下項目只有在 Dynamic Memory Boost 設為 [Disabled] 時才會出現。
+Realtime Memory Frequency
+本項目可以啟用或關閉內存頻率功能。允許時切換默認 SPD Profile 
+頻率與選擇的 XMP Profile 頻率。僅選擇 XMP Profile 才有效。
+設置值有：[Disabled] [Enabled]
+SA GV
+系統代理程序。本項目可以關閉、調整至特定點或啟用頻率切換。
+啟用時建議將選項保留至停放值以獲得最佳兼容性。啟用此功能需
+要更長的啟動時間。
+設置值有：[Disabled] [Enabled] [Fixed to 1st Point] [Fixed to 2nd 
+Point] [Fixed to 3rd Point] [Fixed to 4th Point]
+
+34
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+以下項目只有在 SA GV 設為 [Enabled]、[Fixed to 1st Point]、[Fixed to 2nd 
+Point]、[Fixed to 3rd Point] 或 [Fixed to 4th Point] 時才會出現。
+First Point Frequency
+本項目可以指定頻率。0-MRC 自動，或是指定為整數的特定頻
+率：2000Mhz。
+設置值有：[0] - [65535]
+First Point Gear
+本項目可以設置 SAGV 點的齒輪比。0-Auto、1-G1、2-G2 與 
+4-G4。設置值有：[0] - [4]
+Second Point Frequency
+本項目可以指定頻率。0-MRC 自動，或是指定為整數的特定頻
+率：2000Mhz。設置值有：[0] - [65535]
+Second Point Gear
+本項目可以設置 SAGV 點的齒輪比。0-Auto、1-G1、2-G2 與 
+4-G4。設置值有：[0] - [4]
+Third Point Frequency
+本項目可以指定頻率。0-MRC 自動，或是指定為整數的特定頻
+率：2000Mhz。設置值有：[0] - [65535]
+Third Point Gear
+本項目可以設置 SAGV 點的齒輪比。0-Auto、1-G1、2-G2 與 
+4-G4。設置值有：[0] - [4]
+Fourth Point Gear 請在主菜單裡設置。
+Digi+ VRM
+CPU Input Voltage Load-line Calibration
+設置值有：[Auto] [Level 1] [Level 2] [Level 3]
+CPU Load-line Calibration
+Load-line 是根據 Intel 所訂立之 VRM 規格，其設置值將影響繪圖處理器電
+壓。CPU 運作電壓將依 CPU 的負載呈比例性遞減，當您將此項目的設置值設
+置越高時，將可提高電壓值與超頻能力，但會增加 CPU 及 VRM 的溫度。從 
+1-7 中選擇一個等級來調整負載線斜率。等級 1 代表更大的 VDroop，等級 7 
+代表最小 VDroop。
+設置值有：[Auto] [Level 1] [Level 2] [Level 3] [Level 4:Recommended for 
+OC] [Level 5] [Level 6] [Level 7]
+實際提升的性能視 CPU 型號而異。
+請勿將散熱系統移除，散熱環境需受到監控。
+Synch ACDC Loadline with VRM Loadline
+開啟本項目來自動調整 VRM 負載線以匹配 AC/DC 負載線。
+設置值有：[Disabled] [Enabled]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+35
+CPU Current Capability
+本項目用來設置較高的數值提供更大的總電力範圍，同時擴展超頻頻率的範
+圍。當系統超頻，或是 CPU 在較高負載需要獲得額外的電力支持時，請選擇
+較高的數值。
+設置值有：[Auto] [100%] - [140%]
+當 CPU 超頻或是需負載額外的電力時，請設置較高的數值。
+CPU VRM Switching Frequency
+本項目用來設置 VRM 開關頻率。VRM 開關頻率影響瞬態回應與 VRM 元件
+溫度。選擇 [Manual] 設置較高的頻率可以獲得較快的暫態響應速度。當處理
+器運作於高電壓與高負載線校準值時，建議使用 VRM 散熱器主動冷卻。
+設置值有：[Auto] [Manual]
+請勿將散熱系統移除，散熱環境需受到監控。
+以下項目只有在 CPU VRM Switching Frequency 設置為 [Manual] 時才會出現。
+Fixed CPU VRM Switching Frequency(KHz)
+本項目可讓您設置固定的 VRM 頻率。數值以 50kHz 為間隔，更改的範圍由 
+250kHz 至 500kHz。
+CPU Power Duty Control
+本項目用來調整每個元件相數的電流與散熱環境。
+[T. Probe]	
+設置降壓控制器以平衡 VRM FET 溫度。
+[Extreme]	
+維持各相電流平衡。
+當本項目設置為 [Extreme] 時請勿將散熱系統卸除，散熱環境需受到監控。
+CPU Power Phase Control
+本項目提供 CPU 電源相數控制設置。
+[Auto]	
+系統自動選擇。
+[Standard]	
+由 CPU 選擇。
+[Extreme]	
+全相數模式。
+當本項目設置為 [Extreme] 時請勿將散熱系統卸除，散熱環境需受到監控。
+
+36
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+CPU VRM Thermal Control
+關閉本項目可提高 CPU VRM 的溫度限制。
+設置值有：[Auto] [Enabled] [Disabled]
+請勿將散熱系統移除。
+以下項目只有使用內置顯卡時才會出現。
+CPU Graphics Load-line Calibration
+Load-line 是根據 Intel 所訂立之 VRM 規格，其設置值將影響繪圖處理器電
+壓。CPU 顯卡運作電壓將依 CPU 顯卡的負載呈比例性遞減。繪圖處理器運行
+電壓將依繪圖處理器的負載呈比例性遞減。從 Level 1 至 Level 8 中選擇，以
+將處理器圖形電源電壓從 100％ 調整至 0%。
+設置值有：[Auto] [Level 1] [Level 2] [Level 3] [Level 4:Recommended for 
+OC] [Level 5] [Level 6] [Level 7]
+實際提升的性能將視 CPU 顯卡規格而異。請勿將散熱系統卸除。
+CPU Graphics Current Capability
+本項目用來設置繪圖處理器的電力相式控制功能。較高的值可提供更寬的總功
+率範圍，並同時擴大超頻頻率範圍。
+設置值有：[Auto] [100%] - [140%]
+當 CPU 超頻或是需負載額外的電力時，請設置較高的數值。
+CPU Graphics VRM Switching Frequency
+本項目讓您設置更高的頻率以獲得較快的暫態響應速度。選擇 [Manual] 設置
+較高的頻率可以獲得較快的暫態響應速度。
+設置值有：[Auto] [Manual]
+當本項目設定為  [Manual] 時請勿將散熱系統移除。散熱環境需受到監控。
+以下項目只有在 CPU Graphics VRM Switching Frequency 設置為 [Manual] 時才
+會出現。
+Fixed CPU Graphics Switching Frequency(KHz)
+本項目讓您設置更高的頻率以獲得較快的暫態響應速度。請使用 <+> 與 <-> 鍵
+調整數值。數值以 50KHz 為間隔，更改的範圍由 250KHz 至 500KHz。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+37
+Internal CPU Power Management
+本項目用來管理與設置 CPU 電力。
+Maximum CPU Core Temperature
+設置 CPU 核心的最高允許溫度。當達到此溫度時，CPU 將會節流或關閉以防
+止核心損壞。
+設置值有：[Auto] [62] - [115]
+請勿將數值設置太高，否則高溫可能會造成 CPU 永久損壞。
+Turbo Mode Parameters
+IVR Transmitter VDDQ ICCMAX
+設置值有：[Auto] [0] - [15]
+Unlimited ICCMAX
+本項目用來開啟或關閉無限制 ICCMAX。支持 VR 電流限制（ICCMAX）值設
+置至 511.75A 以上。[Auto] [Disabled] [Enabled]]
+CPU Core/Cache Current Limit Max. 
+本項目可讓您設置更高的電流限制以防止超頻時的頻率或功率節流。可以設置
+為最大值（511.75）以防止超頻時節流。
+設置值有：[Auto] [0.00] - [511.75]
+CPU Graphics Current Limit
+本項目可讓您設置更高的電流限制以防止超頻時的頻率或功率節流。
+設置值有：[Auto] [0.00] - [511.75]
+Long Duration Package Power Limit
+本項目為 Intel 參數，稱為 [power limit 1]，以瓦特為單位表示。默認值由處理
+器的 TDP（散熱設計功耗）定義。增加此值可讓 Turbo 倍頻在更高的電流負
+載下維持更長時間。 
+設置值有：[Auto] [1] - [4095]
+Package Power Time Window
+本項目為 Intel 參數 [power limit 1]，以秒為單位表示。套用的值表示當 TDP 
+超過限制時，Turbo 倍頻可以保持多長時間。
+設置值有：[Auto] [1] [2] [3] [4] [5] [6] [7] [8] [10] [12] [14] [16] [20] [24] 
+[28] [32] [40] [48] [56] [64] [80] [96] [112] [128] [160] [192] [224] [256] 
+[320] [384] [448]
+Short Duration Package Power Limit
+本項目為 Intel 參數，稱為 [power limit 2]，以瓦特為單位表示。這是第二項
+電源限制，當封包電源超過 Power Limit 1 時，提供您快速的防護。默認值為 
+1.25 乘以 power limit 1。依照 Intel 的定義，當功耗超過 power limit 2 時，平
+台必須支持此值達 10 毫秒。華碩主板經過精心設計，可按照需要支持此值更
+長時間，以運行超頻。 
+設置值有：[Auto] [1] - [4095]
+
+38
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Dual Tau Boost
+本項目可讓您開啟 Dual Tau Boost 功能。僅適用於桌機 35W/65W/12W 
+sku。啟用 DPTF 後，此功能將被忽略。
+設置值有：[Disabled] [Enabled]
+IA AC Load Line
+本項目用來設置 AC 負載線，以毫歐姆為單位。請使用 <+> 與 <-> 鍵調整數
+值。
+設置值有：[Auto] [0.01] - [62.49]
+IA DC Load Line
+本項目用來設置 DC 負載線，以毫歐姆為單位。請使用 <+> 與 <-> 鍵調整數
+值。
+設置值有：[Auto] [0.01] - [62.49]
+IA CEP Enable
+本項目為啟用或關閉 IA CEP 支持功能。使用 pCode Mailbox 指令 0x37
+，Sub-command 0x1。將 Databit2 設置為 1。
+設置值有：[Auto] [Disabled] [Enabled]
+GT CEP Enable
+本項目為啟用或關閉 GT CEP 支持功能。使用 pCode Mailbox 指令 0x37
+，Sub-command 0x1。將 Databit3 設置為 1。
+設置值有：[Auto] [Disabled] [Enabled]
+SA CEP Enable
+本項目為啟用或關閉 SA CEP 支持功能。使用 pCode Mailbox 指令 0x37
+，Sub-command 0x1。將 Databit3 設置為 1。
+設置值有：[Auto] [Disabled] [Enabled]
+IA SoC Iccmax Reactive Protector
+設置值有：[Auto] [Disabled] [Enabled]
+Inverse Temperature Dependency Throttle
+設置值有：[Auto] [Disabled] [Enabled]
+IA VR Voltage Limit [Auto]
+Voltage Limit（VMAX）。此數值表示最大瞬間電壓。範圍為 0 - 7999mV。
+使用 BIOS VR mailbox 指令 0x8。
+設置值有：[Auto] [0] - [7999]
+CPU DLVR Bypass mode support
+設置值有：[Auto] [Disabled] [Enabled]
+Thermal Velocity Boost
+TVB Voltage Optimizations
+本項目用來控制 Intel Thermal Velocity Boost（TVB）功能。此項目默認值為 
+[Enabled]。使用 Overclocking Mailbox command 0x18 / 0x19。
+設置值有：[Auto] [Disabled] [Enabled]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+39
+Enhanced TVB
+本項目僅支持特定規格。
+設置值有：[Auto] [Disabled] [Enabled]
+Overclocking TVB
+開啟本項目可繪製溫度/頻率依賴性。
+設置值有：[Auto] [Disabled] [Enabled] [+1Boost Profile] [+2Boost Profile]
++1Boost Profile(K CPU):
+此設置將在自動最佳化溫度控制的幫助下，增加一個 bin 的功率。
++2Boost Profile(K CPU): 
+此設置將在自動最佳化溫度控制的幫助下，增加兩個 bin 的功率。
+以下的項目只有在 Overclocking TVB 設為 [Enabled] 時才會出現。
+1-Core Active / 2-Core Active / 3-Core Active / 4-Core Active / 5-Core 
+Active / 6-Core Active
+設置值有：[Auto] [Enabled]
+以下的項目只有在 1-Core Active、 2-Core Active、 3-Core Active、 4-Core 
+Active、 5-Core Active 或  6-Core Active 設為 [Enabled] 時才會出現。
+Temperature A
+超過此溫度臨界值的封裝將使用 Negative Ratio Offset A 中的負比率偏移。
+本項目的度量單位為攝氏度。 
+設置值有：[Auto] [1] - [115]
+Negative Ratio Offset A
+當封裝溫度上升到 Temperature A 中指定的臨界值以上時，這將是各頻率的
+潛在負偏移值。[Auto] [User Specify]
+以下項目只有在 Negative Ratio Offset A 設為 [User Specify] 時才會出現。
+Ratio Offset
+請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[0] - [31]
+Temperature B
+超過此溫度臨界值的封裝將使用 Negative Ratio Offset B 中的負比率偏移。
+本項目的度量單位為攝氏度。 
+設置值有：[Auto] [1] - [115]
+Negative Ratio Offset B
+當封裝溫度上升到 Temperature B 中指定的臨界值以上時，這將是各頻率的潛
+在負偏移值。[Auto] [User Specify]
+
+40
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+以下項目只有在 Negative Ratio Offset B 設為 [User Specify] 時才會出現。
+Ratio Offset
+請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[0] - [31]
+V/F Point Offset
+Offset Mode Sign 1-11
+設置值有：[+] [-]
+V/F Point 1-11 Offset
+設置值有：[Auto] [0.001] - [0.999]
+Tweaker’s Paradise
+Realtime Memory Timing
+本項目用來開啟或關閉實時內存時序。當設為 [Enabled] 時，系統將允許在 
+MRC_DONE 後運行實時內存時序更改。
+設置值有：[Disabled] [Enabled]
+SPD Write Disable
+本項目用來開啟或關閉設置 SPD Write Disable。為了安全起見，您必須設置
+禁止寫入 SPD。
+設置值有：[TRUE] [FALSE]
+PVD Ratio Threshold
+對於 Core Domain PLL，切換至較低後分頻器的臨界值默認為 15。當推高 
+BCLK 時，您可以設置一個低於 15 的值，以例數位控制振盪器（DCO）維持
+在合理的頻率。
+設置值有：[Auto] [1] - [40]
+SA PLL Frequency Override
+本項目用來設置 Sa PLL 頻率。
+設置值有：[Auto] [3200 MHz]  [1600 MHz]
+BCLK TSC HW Fixup
+本項目用來在 TSC 由 PMA 複製至 APIC 時啟用或關閉 BCLK TSC HW 
+Fixup。
+設置值有：[Enabled] [Disabled]
+Core Ratio Extension Mode
+本項目用來開啟或關閉 Core Ratio Above 85 擴展模式。
+[Disabled]	
+最大超頻比率限制經 OCMB 0x1 指令指定為 85。
+[Enabled]	
+最大超頻比率限制經 OCMB 0x1 指令指定為 120。
+FLL OC mode
+設置值有：[Auto] [Disabled] [Normal] [Elevated] [Extreme Elevated]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+41
+UnderVolt Protection
+啟用本項目時，在操作系統運行期用戶將無法指定低電壓。建議維持啟用的默
+認值。
+[Disabled]	
+無低電壓保護。
+[Enabled]	
+允許 BIOS 設置低電壓，但運行期啟用低電壓保護。
+Core PLL Voltage
+本項目可以用來設置 Core PLL VCC Trim。數值以 0.015V 為間隔，變更的範
+圍由 0.900V 至 1.845V。
+設置值有：[Auto] [0.90000] - [1.84500]
+GT PLL Voltage
+本項目可以用來設置 GT PLL VCC Trim。數值以 0.015V 為間隔，變更的範
+圍由 0.900V 至 1.845V。
+設置值有：[Auto] [0.90000] - [1.84500]
+Ring PLL Voltage
+本項目可以用來設置 Ring PLL VCC Trim。數值以 0.015V 為間隔，變更的範
+圍由 0.900V 至 1.845V。
+設置值有：[Auto] [0.90000] - [1.84500]
+System Agent PLL Voltage
+本項目可以用來設置 System Agent PLL VCC Trim。數值以 0.015V 為間
+隔，變更的範圍由 0.900V 至 1.845V。
+設置值有：[Auto] [0.90000] - [1.84500]
+Memory Controller PLL Voltage
+本項目可以用來設置 Memory Controller PLL VCC Trim。數值以 0.015V 為間
+隔，變更的範圍由 0.900V 至 1.845V。
+設置值有：[Auto] [0.90000] - [1.84500]
+CPU 1.8V Small Rail
+本項目可以用來設置 CPU 1.8V Small Rail 的電壓。數值以 0.010V 為間隔，
+變更的範圍由 1.500V 至 2.300V。
+設置值有：[Auto] [1.50000] - [2.30000]
+PLL Termination Voltage
+本項目可以用來設置 PLL Termination 的電壓。數值以 0.010V 為間隔，變更
+的範圍由 0.800V 至 1.800V。
+設置值有：[Auto] [0.80000V] - [1.80000V]
+VPPDDR Voltage
+本項目可以設置 VPPDDR 電壓。數值以 0.100V 為間隔，變更的範圍由 
+2.500V 至 2.800V。
+設置值有：[Auto] [2.50000V] - [2.80000V]
+PCH 1.05V Primary Voltage
+本項目可以用來設置 PCH 1.05V 的電壓。數值以 0.010V 為間隔，變更的範
+圍由 0.800V 至 1.600V。
+設置值有：[Auto] [0.80000] - [1.60000]
+
+42
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+PCH Core Voltage
+本項目可以用來設置 PCH Core 電壓。數值以 0.010V 為間隔，變更的範圍由 
+0.700V 至 1.000V。
+設置值有：[Auto] [0.70000] - [1.00000]
+Ring Down Bin
+本項目用來開啟或關閉 Ring DownBin 功能。默認值為 [Enabled]。使用 OC mailbox 
+指令 0x19。
+[Auto]	
+設為默認值。
+[Disabled]	
+處理器不會降低環比率且會遵守需求的環比限制。
+[Enabled]	
+處理器將降低環比率且可能無觀察到最大環比需求。
+請留意關閉此功能可能會導致處理器過壓。
+Min. CPU Cache Ratio
+本項目用來設置處理器的非核心比值至可能的最小值。請使用 <+> 與 <-> 鍵調整數
+值。
+設置值有：[Auto] [8] - [85]
+Max. CPU Cache Ratio
+本項目用來設置處理器的非核心比值至可能的最大值。請使用 <+> 與 <-> 鍵調整數
+值。
+設置值有：[Auto] [8] - [85]
+Max. CPU Graphics Ratio
+本項目用來設置繪圖處理器的核心比值。核心比值將視系統負載而異。請使用 <+> 
+與 <-> 鍵調整數值。
+設置值有：[Auto] [1] - [42]
+Extreme Over-voltage
+關閉本項目可以保護處理器不因過高的電壓而燒毀。當本項目設為 [Enabled] 時，您
+可以選擇較高層級的電壓來進行超頻，但可能會降低處理器的使用壽命。
+設置值有：[Disabled] [Enabled]
+Actual VRM Core Voltage
+本項目可以為核心電壓設置 VRM 輸出軌。手動模式可自行定義數值。偏移模式通
+過 SVID 修改數值。
+設置值有：[Auto] [Manual Mode] [Offset Mode]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+43
+以下項目只有在 Actual VRM Core Voltage 設為 [Manual Mode] 時才會出現。
+CPU Core Voltage Override
+本項目用來讓您通過外部電壓調節器為處理器輸入電壓。請使用 <+> 與 <-> 鍵調整
+數值。數值以 0.005V 為間隔，變更的範圍由 0.600V 至 1.700V。 
+設置值有：[Auto] [0.60000] - [1.70000]
+以下項目只有在 Actual VRM Core Voltage 設為 [Offset Mode] 時才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移電壓。
+[-]	
+設置負數值偏移電壓。
+CPU Core Voltage Offset
+本項目用來通過外部電壓調節器為處理器輸入電壓。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.005V 至 0.635V。
+設置值有：[Auto] [0.00500] - [0.63500]
+Global Core SVID Voltage
+本項目可以設置核心要求的 Global Core Voltage。結果可能會受 Actual VRM Core 
+Voltage 影響。
+設置值有：[Auto] [Manual Mode] [Adaptive Mode]
+以下項目只有在 Global Core SVID Voltage 設為 [Manual Mode] 時才會出現。
+CPU Core Voltage Override
+本項目用來通過外部電壓調節器為處理器輸入電壓。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.600V 至 1.700V。 
+設置值有：[Auto] [0.60000] - [1.70000]
+以下項目只有在 Global Core SVID Voltage 設為 [Adaptive  Mode] 時才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移電壓。
+[-]	
+設置負數值偏移電壓。
+Additional Turbo Mode CPU Core Voltage
+設置在 Turbo 模式下運作時饋送到 CPU 核心的電壓量。設置高 CPU 核心頻率時
+增加電壓。該電壓會受到偏移值的影響。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.001V 為間隔，變更的範圍由 0.250V 至 1.920V。
+設置值有：[Auto] [0.25000] - [1.92000]
+
+44
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Offset Voltage
+本項目用來設置處理器核心電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.001V 為間隔，變更的範圍由 0.001V 至 0.999V。
+設置值有：[Auto] [0.00100] - [0.99900]
+請保存並重啟系統使更改生效。
+Cache SVID Voltage
+本項目可以設置環域要求的快取電壓。結果可能會受 Actual VRM Core Voltage 影
+響。
+設置值有：[Auto] [Manual Mode] [Adaptive Mode]
+以下項目只有在 Cache SVID Voltage 設為 [Manual Mode] 時才會出現。
+CPU Core Voltage Override
+本項目可以用來設置快取電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 0.001V 為
+間隔，變更的範圍由 0.600V 至 1.700V。 
+設置值有：[Auto] [0.60000] - [1.70000]
+以下項目只有在 Cache SVID Voltage 設為 [Adaptive  Mode] 時才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移快取電壓。
+[-]	
+設置負數值偏移快取電壓。
+Additional Turbo Mode Cache Voltage
+設置在 Turbo 模式下運作時饋送到 CPU 核心的電壓量。設置高 CPU 核心頻率時
+增加電壓。該電壓會受到偏移值的影響。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.001V 為間隔，變更的範圍由 0.250V 至 1.920V。
+設置值有：[Auto] [0.25000] - [1.92000]
+Offset Voltage
+本項目用來設置快取電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 0.001V 
+為間隔，變更的範圍由 0.001V 至 0.999V。
+設置值有：[Auto] [0.00100] - [0.99900]
+請保存並重啟系統使更改生效。
+CPU Graphics Voltage
+本項目用來設置饋送到顯卡的電壓模式。手動模式可自行定義數值。偏移模式通過 
+SVID 修改數值。
+設置值有：[Auto] [Manual Mode] [Offset Mode]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+45
+以下項目只有在 CPU Graphics Voltage Mode 設置為 [Manual Mode] 時才會出
+現。
+CPU Graphics Voltage Override
+本項目用來設置 CPU 顯卡電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 0.005V 
+為間隔，變更的範圍由 0.600V 至 1.700V。
+設置值有：[Auto] [0.60000] - [1.70000]
+以下項目只有在 CPU Graphics Voltage 設為 [Offset Mode] 時才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移電壓。
+[-]	
+設置負數值偏移電壓。
+CPU Graphics Voltage Offset
+本項目用來設置處理器顯卡電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.005V 為間隔，變更的範圍由 0.005V 至 0.635V。
+設置值有：[Auto] [0.00500] - [0.63500]
+請保存並重啟系統使更改生效。
+CPU L2 Voltage
+本項目可以設置 CPU L2 電壓。用以幫助維持高時鐘速度。
+設置值有：[Auto] [Manual Mode] [Adaptive Mode]
+以下項目只有在 CPU L2 Voltage 設為 [Manual Mode] 時才會出現。
+CPU L2 Voltage Override
+本項目可以設置 CPU L2 電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 0.001V 為
+間隔，變更的範圍由 0.700V 至 1.800V。
+設置值有：[Auto] [0.70000] - [1.80000]
+以下項目只有在 CPU L2 Voltage 設為 [Adaptive Mode] 時才會出現。
+Offset Mode Sign
+[+]	
+設置正數值偏移 CPU L2 電壓。
+[-]	
+設置負數值偏移 CPU L2 電壓。
+Additional Turbo Mode CPU L2 Voltage
+設置在 Turbo 模式下運作時饋送到 CPU 核心的電壓量。設置高 CPU 核心頻率時
+增加電壓。該電壓會受到偏移值的影響。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.001V 為間隔，變更的範圍由 0.250V 至 1.920V。
+設置值有：[Auto] [0.25000] - [1.92000]
+
+46
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Offset Voltage
+本項目用來設置 CPU L2 電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.001V 為間隔，變更的範圍由 0.001V 至 0.999V。
+設置值有：[Auto] [0.00100] - [0.99900]
+請保存並重啟系統使更改生效。
+CPU System Agent Voltage
+本項目可以用來設置 CPU System Agent 電壓。
+設置值有：[Auto] [Manual Mode] [Offset Mode]
+以下項目只有在 CPU System Agent Voltage 設為 [Manual Mode] 時才會出現。
+CPU System Agent Voltage Override
+本項目用來通過外部電壓調節器為處理器輸入電壓。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.001V 為間隔，變更的範圍由 0.700V 至 1.800V。 
+設置值有：[Auto] [0.70000] - [1.80000]
+以下項目只有在 CPU System Agent Voltage 設定為 [Offset Mode] 時才會出
+現。
+CPU System Agent Voltage Offset
+本項目用來設置 CPU System Agent 電壓偏移值。請使用 <+> 與 <-> 鍵調整數值。
+數值以 0.001V 為間隔，變更的範圍由 0.001V 至 0.999V。
+設置值有：[Auto] [0.00100] - [0.99900]
+請保存並重啟系統使更改生效。
+CPU Input Voltage
+本項目可以用來設置 CPU 輸入電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.010V 為間隔，變更的範圍由 1.500V 至 2.100V。
+設置值有：[Auto] [1.50000] - [2.10000]
+High DRAM Voltage Mode
+若本項目設置為  [Disabled]，則動態隨機存取內存電壓的上限為 1.435V；若設置
+為 [Enabled]，則上限為 2.070V；若在未支持的動態隨機存取內存上啟用，電壓將
+低於要求。
+設置值有：[Auto] [Disabled] [Enabled]
+DRAM VDD Voltage
+請使用 <+> 與 <-> 鍵調整數值。數值以 0.005V 為間隔，變更的範圍由 0.800V 至 
+1.435V。
+設置值有：[Auto] [0.80000] - [1.43500]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+47
+DRAM VDDQ Voltage
+本項目用來設置 DRAM IC 的 VDD 數據部分電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.800V 至 1.435V。
+設置值有：[Auto] [0.80000] - [1.43500]
+Advanced Memory Voltages
+IVR Transmitter VDDQ Voltage
+本項目可以為內存控制器設置內部發射器的電壓。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.700V 至 2.200V。
+設置值有：[Auto] [0.70000] - [2.20000]
+Memory Controller Voltage
+本項目可以用來設置內存控制器電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.010V 為間隔，變更的範圍由 1.006V 至 2.006V。
+設置值有：[Auto] [1.00600] - [2.00600]
+MC Voltage Calculation Voltage Base
+本項目可以設置基於 MC 電壓用以計算。請使用 <+> 與 <-> 鍵調整數值。數
+值以 0.005V 為間隔，變更的範圍由 0.700V 至 2.200V。
+設置值有：[Auto] [0.70000] - [2.20000]
+VDD Calculation Voltage Base
+本項目可以設置基於 VDD 電壓用以計算。請使用 <+> 與 <-> 鍵調整數值。數
+值以 0.005V 為間隔，變更的範圍由 0.700V 至 2.200V。
+設置值有：[Auto] [0.70000] - [2.20000]
+PMIC Voltages
+設置值有：[Auto] [Sync All PMICs] [By per PMIC]
+以下項目只有當 PMIC Voltages 設置為 [Sync All Cores] 時才會出現。
+SPD HUB VLDO (1.8V)
+本項目可以設置 SPD Hub Logic 的主電源。默認值為 1.8V。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.100V 為間隔，變更的範圍由 1.700V 至 
+2.000V。
+設置值有：[Auto] [1.70000] - [2.00000]
+SPD HUB VDDIO (1.0V)
+本項目可以設置 SPD Hub 邊帶界面的主電源。默認值為 1.0V。請使用 
+<+> 與 <-> 鍵調整數值。數值以 0.100V 為間隔，變更的範圍由 0.900V 至 
+1.200V。
+設置值有：[Auto] [0.90000] - [1.20000]
+DRAM VDD Voltage
+本項目可以設置 DRAM IC 之 VDD 部分的電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.800V 至 1.435V。
+設置值有：[Auto] [0.80000] - [1.43500]
+DRAM VDDQ Voltage
+本項目可以設置 DRAM IC 之數據部分的電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.800V 至 1.435V。
+設置值有：[Auto] [0.80000] - [1.43500]
+
+48
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+DRAM VPP Voltage
+本項目可以設置 DRAM 啟動電源供應器的電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 1.500V 至 2.135V。
+設置值有：[Auto] [1.50000] - [2.13500]
+DRAM VDD Switching Frequency
+本項目可以 Mhz 為單位設置 DRAM VDD 調節器的切換頻率。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.250MHz 為間隔，更改的範圍由 0.750MHz 至 
+1.500MHz。
+設置值有：[Auto] [0.75000] - [1.50000]
+DRAM VDDQ Switching Frequency
+本項目可以 Mhz 為單位設置 DRAM VDDQ 調節器的切換頻率。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.250MHz 為間隔，更改的範圍由 0.750MHz 至 
+1.500MHz。
+設置值有：[Auto] [0.75000] - [1.50000]
+DRAM VPP Switching Frequency
+本項目可以 Mhz 為單位設置 DRAM VPP 調節器的切換頻率。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.250MHz 為間隔，更改的範圍由 0.750MHz 至 
+1.500MHz。
+設置值有：[Auto] [0.75000] - [1.50000]
+DRAM Current Capability
+本項目用來設置較高的數值提供更大的總電力範圍，同時擴展超頻頻率的範
+圍。當系統超頻，或是 CPU 在較高負載需要獲得額外的電力支持時，請選擇
+較高的數值。請使用 <+> 與 <-> 鍵調整數值。數值以 0.125A為間隔，變更的
+範圍由 0.125A 至 7.875A。
+設置值有：[Auto] [0.12500] - [7.87500]
+以下項目只有當 PMIC Voltages 設為 [By per PMIC] 時才會出現。
+PMIC0-3 SPD HUB VLDO (1.8V)
+本項目可以設置 SPD Hub Logic 的主電源。默認值為 1.8V。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.100V 為間隔，變更的範圍由 1.700V 至 
+2.000V。
+設置值有：[Auto] [1.70000] - [2.00000]
+PMIC0-3 SPD HUB VDDIO (1.0V)
+本項目可以設置 SPD Hub 邊帶界面的主電源。默認值為 1.0V。請使用 
+<+> 與 <-> 鍵調整數值。數值以 0.100V 為間隔，變更的範圍由 0.900V 至 
+1.200V。
+設置值有：[Auto] [0.90000] - [1.20000]
+PMIC0-3 DRAM VDD Voltage
+本項目可以設置 DRAM IC 之 VDD 部分的電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.800V 至 1.435V。
+設置值有：[Auto] [0.80000] - [1.43500]
+PMIC0-3 DRAM VDDQ Voltage
+本項目可以設置 DRAM IC 之數據部分的電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 0.800V 至 1.435V。
+設置值有：[Auto] [0.80000] - [1.43500]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+49
+PMIC0-3 DRAM VPP Voltage
+本項目可以設置 DRAM 啟動電源供應器的電源。請使用 <+> 與 <-> 鍵調整數
+值。數值以 0.005V 為間隔，變更的範圍由 1.500V 至 2.135V。
+設置值有：[Auto] [1.50000] - [2.13500]
+PMIC0-3 DRAM VDD Switching Frequency
+本項目可以 Mhz 為單位設置 DRAM VDD 調節器的切換頻率。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.250MHz 為間隔，更改的範圍由 0.750MHz 至 
+1.500MHz。
+設置值有：[Auto] [0.75000] - [1.50000]
+PMIC0-3 DRAM VDDQ Switching Frequency
+本項目可以 Mhz 為單位設置 DRAM VDDQ 調節器的切換頻率。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.250MHz 為間隔，更改的範圍由 0.750MHz 至 
+1.500MHz。
+設置值有：[Auto] [0.75000] - [1.50000]
+PMIC0-3 DRAM VPP Switching Frequency
+本項目可以 Mhz 為單位設置 DRAM VPP 調節器的切換頻率。請使用 <+> 
+與 <-> 鍵調整數值。數值以 0.250MHz 為間隔，更改的範圍由 0.750MHz 至 
+1.500MHz。
+設置值有：[Auto] [0.75000] - [1.50000]
+PMIC0-3 DRAM Current Capability
+本項目用來設置較高的數值提供更大的總電力範圍，同時擴展超頻頻率的範
+圍。當系統超頻，或是 CPU 在較高負載需要獲得額外的電力支持時，請選擇
+較高的數值。請使用 <+> 與 <-> 鍵調整數值。數值以 0.125A為間隔，變更的
+範圍由 0.125A 至 7.875A。
+設置值有：[Auto] [0.12500] - [7.87500]
+PCH 1.8V Primary Voltage
+本項目可以用來設置 PCH 1.8V 的電壓。請使用 <+> 與 <-> 鍵調整數值。數值以 
+0.100V 為間隔，變更的範圍由 1.800V 至 2.100V。
+設置值有：[Auto] [1.80000] - [2.10000]
+
+50
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+6. 
+高級菜單（Advanced menu）
+在高級菜單（Advanced menu）裡的項目，為提供您更改 CPU 與其他系統設備的
+設置。將滾動條往下滾動來顯示以下項目。
+注意！在您設置本高級菜單的設置時，不正確的設置值將導致系統功能異常。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+51
+6.1 
+平台各項設置（Platform Misc Configuration）
+本項目用來設置與平台相關的功能。
+PCI Express Native Power Management
+本項目用來提升 PCI Express 的省電功能及操作系統的 ASPM 功能。
+設置值有：[Disabled] [Enabled]
+以下項目只有在 PCI Express Native Power Management 設為  [Enabled] 時才會
+出現。
+Native ASPM
+將本項目設為 [Enabled] 使用 OS 控制 ASPM，或是設為 [Disabled] 使用 BIOS 控
+制 ASPM。
+設置值有：[Auto] [Enabled] [Disabled]
+PCH - PCI Express
+DMI Link ASPM Control
+本項目可讓您控制 DMI Link 上北橋（NB）與南橋（SB）的 Active State Power 
+Management（ASPM）。
+設置值有：[Disabled] [L1] [Auto]
+ASPM
+本項目用來選擇 ASPM state 的節能狀態。
+設置值有：[Disabled] [L1] [Auto]
+L1 Substates
+本項目可選擇設置 PCI Express L1 Substates。
+設置值有：[Disabled] [L1.1] [L1.1 & L1.2]
+
+52
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+SA - PCI Express
+DMI ASPM
+本項目用來設置 DMI ASPM 支持。
+設置值有：[Disabled] [Auto] [ASPM L0s] [ASPM L1] [ASPM L0sL1]
+DMI Gen3 ASPM
+本項目用來設置 DMI Gen3 ASPM 支持。
+設置值有：[Disabled] [Auto] [ASPM L0s] [ASPM L1] [ASPM L0sL1]
+PEG - ASPM
+本項目用來控制 PEG 0 的 ASPM 支持。若 PEG 不是目前使用的設備則無效。
+設置值有：[Disabled] [L0s] [L1] [L0sL1]
+PCI Express Clock Gating
+本項目用來開啟或關閉每個連接端口的 PCI Express Clock Gating。
+設置值有：[Disabled] [Enabled]
+6.2 
+CPU 設置（CPU Configuration）
+本項目可讓您得知中央處理器的各項信息與更改中央處理器的相關設置。將滾動條
+往下滾動來顯示以下項目。
+以下畫面所顯示項目可能會因您所安裝處理器不同而有所差異。
+Efficient Core Information
+此子菜單顯示效率核心信息。
+Performance Core Information
+此子菜單顯示性能核心信息。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+53
+Hardware Prefetcher
+啟用或關閉 MLC 控制器。
+設置值有：[Disabled] [Enabled]
+Adjacent Cache Line Prefetch
+本項目可以讓處理器在 L2 Cache 進行預取反饋和數據，從而降低內存負荷時間，
+改善系統性能。
+設置值有：[Disabled] [Enabled]
+Intel (VMX) Virtualization Technology
+當本項目設為 [Enabled] 時，啟動 Intel 虛擬技術（Virtualization Technology），讓
+硬件平台可以同時運行多個操作系統。
+設置值有：[Disabled] [Enabled]
+Per P-Core Control
+設置值有：[Disabled] [Enabled]
+以下項目只有在 Per P-Core Control 設為 [Enabled] 時才會出現。
+P-Core 0-5
+請勿同時關閉所有 P-core 選項，否則 P-core 選項會在重新啟動後重置。
+設置值有：[Enabled] [Disabled]
+Per E-Core Control
+設置值有：[Disabled] [Enabled]
+以下項目只有在 Per P-Core Control 設為 [Enabled] 時才會出現。
+E-Core 0-7
+設置值有：[Enabled] [Disabled]
+Active Performance Cores
+本項目可讓您設置在每個處理封包中啟用的處理器核心數量。
+設置值有：[All] [1] - [5]
+Active Efficient Cores
+本項目可讓您設置在每個處理封包中啟用的效率核心數量。
+設置值有：[All] [0] - [7]
+核心數與效率核心數同時查看，當兩者都是 {0,0} 時，Pcode 將啟用所有核心。
+Hyper-Threading
+啟動本項目可以讓超線程處理器在操作系統內作為兩個邏輯處理器，允許操作系統
+同時處理二個線程或處理器。
+[Enabled]	
+每個啟動核心可二個線程。
+[Disabled]	
+每個啟動核心僅可一個線程。
+
+54
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Per Core Hyper-Threading
+本菜單的項目用來開啟或關閉每個核心的超線程。。
+Hyper-Threading of Core 0-5
+設置值有：[Disabled] [Enabled]
+Total Memory Encryption
+本項目用來設置全內存加密（TME）以保護動態隨機存取內存數據免受物理攻擊。
+設置值有：[Disabled] [Enabled]
+Legacy Game Compatibility Mode
+本項目設為 [Enabled] 時，按下捲軸鎖定鍵可切換為效率核心, 同時捲軸鎖定指示燈
+會亮起。
+設置值有：[Disabled] [Enabled]
+CPU - Power Management Control
+本項目用來管理與設置處理器電力。
+Boot performance mode
+在操作系統切換前允許您選擇 BIOS 的性能狀態。
+ 設置值有：[Max Battery] [Max Non-Turbo Performance] [Turbo 
+Performance] [Auto]
+Intel(R) SpeedStep(tm)
+本項目可以支持兩個以上的頻率。
+設置值有：[Disabled] [Enabled]
+Intel(R) Speed Shift Technology
+本項目用來開啟或關閉 Intel(R) Speed Shift Technology 的支持。當開啟
+時，CPPC v2 界面可以讓硬件控制 P-states。
+設置值有：[Disabled] [Enabled]
+Intel(R) Turbo Boost Max Technology 3.0
+本項目用來啟動或關閉 Intel(R) Turbo Boost Max Technology 3.0 支持。當
+關閉本功能時，將會在 _CPC 回報最大核心比值的最慢核心。
+設置值有：[Disabled] [Enabled]
+Turbo Mode
+本項目用來設置核心處理器的速度，使其在運作電力、電流與溫度條件限制
+下，可以比基本運作頻率更快的速度運作。（需要 EMTTM 啟用）
+設置值有：[Disabled] [Enabled]
+Acoustic Noise Settings
+本子菜單中的項目可以讓您為 IA、GT 與 SA 網域進行噪音設置。
+Acoustic Noise Settings
+Acoustic Noise Mitigation
+當 CPU 處於更深的 C 狀態時，啟用此選項將有助於減輕某些 SKU 
+上的噪音。
+設置值有：[Disabled] [Enabled]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+55
+以下項目只有在 Acoustic Noise Mitigation 設為 [Enabled] 時才會出現。
+Pre Wake Time
+本項目讓您以 micro ticks 為單位設置最大 Pre Wake 隨機分派時
+間。這是為了減輕噪音動態週期性改變（DPA）調整。請使用 <+> 
+與 <-> 鍵調整數值。
+設置值有：[0] - [255]
+Ramp Up Time
+本項目讓您以 micro ticks 為單位設置最大 Ramp Up 隨機分派時
+間。這是為了減輕噪音動態週期性改變（DPA）調整。請使用 <+> 
+與 <-> 鍵調整數值。
+設置值有：[0] - [255]
+Ramp Down Time
+本項目讓您以 micro ticks 為單位設置最大 Ramp Up 隨機分派時
+間。這是為了減輕噪音動態週期性改變（DPA）調整。請使用 <+> 
+與 <-> 鍵調整數值。
+設置值有：[0] - [255]
+IA VR Domain
+Disable Fast PKG C State Ramp for IA Domain
+需要配置此選項以在更深的 C-state 期間減少噪音。
+[FALSE]	
+請勿在更深的 C-state 期間停用 Fast ramp。
+[TRUE]	
+在更深的 C-state 期間停用 Fast ramp。
+Slow Slew Rate for IA Domain
+為深封裝 C-state 緩衝時間設置 VR IA 慢速電壓轉換速率；慢速電
+壓轉換速率等於快速除以數字，數字為 2、4、8 以減慢擺率以幫助
+最大限度地減少噪音。
+設置值有：[Fast/2] [Fast/4] [Fast/8]
+GT VR Domain
+Disable Fast PKG C State Ramp for GT Domain
+需要配置此選項以在更深的 C-state 期間減少噪音。
+[FALSE]	
+請勿在更深的 C-state 期間停用 Fast ramp。
+[TRUE]	
+在更深的 C-state 期間停用 Fast ramp。
+Slow Slew Rate for GT Domain
+為深封裝 C-state 緩衝時間設置 VR GT 慢速電壓轉換速率；慢速電
+壓轉換速率等於快速除以數字，數字為 2、4、8 以減慢擺率以幫助
+最大限度地減少噪音。
+設置值有：[Fast/2] [Fast/4] [Fast/8]
+CPU C-states
+本項目用來開啟或關閉 CPU 電源節能。允許 CPU 在未 100% 使用時進入 
+C-state。
+設置值有：[Auto] [Disabled] [Enabled]
+以下項目只有在 CPU C-states 設為 [Enabled] 時才會出現。
+Enhanced C-States
+本項目用來開啟或關閉 C1E。啟用後，當所有核心進入 C-State 時，CPU 將
+切換至最低速度。
+設置值有：[Enabled] [Disabled]
+
+56
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Package C State Limit
+本項目可讓您設置處理器封包的 C-state 限制。設置為 [CPU Default] 會將其
+保留為出廠默認值。設置為 [Auto] 將初始化最深的可用封包 C-State 限制。
+設置值有：[C0/C1] [C2] [C3] [C6] [C7] [C7s] [C8] [C9] [C10] [CPU 
+Default] [Auto]
+Thermal Monitor
+本項目可讓您啟用或停用 Thermal Monitor。
+設置值有：[Disabled] [Enabled]
+Dual Tau Boost
+本項目可讓您開啟 Dual Tau Boost 功能。僅適用於桌機 35W/65W/125W 
+sku。啟用 DPTF 後，此功能將被忽略。
+設置值有：[Disabled] [Enabled]
+6.3 
+系統代理設置（System Agent Configuration）
+本菜單可讓您更改系統代理的各項相關設置。
+VT-d
+本項目用來在內存控制中心開啟虛擬化技術。
+設置值有：[Enabled] [Disabled]
+以下項目只有在 VT-d 設為 [Enabled] 時才會出現。
+Control Iommu Pre-boot Behavior
+本項目可讓您在預啟動環境中開啟或關閉 IOMMU（若 DXE 中安裝了 DMAR 列
+表，而 PEI 中安裝了 VTD_INFO_PPI）。
+設置值有：[Disable IOMMU] [Enable IOMMU during boot]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+57
+Memory Configuration
+本項目用來設置內存配置參數。 
+Memory Remap
+本項目用來開啟或關閉 4GB 以上的內存 remap。
+設置值有：[Enabled] [Disabled]
+Graphics Configuration
+本項目用來選擇以處理器、PEG 顯示設備或 PCIe 顯示設備作為優先使用的顯示設
+備。
+Primary Display
+本項目用來選擇以處理器、PEG 顯示設備或 PCIe 顯示設備作為優先使用的顯
+示設備。
+設置值有：[Auto] [CPU Graphics] [PEG Slot] [PCIE]
+iGPU Multi-Monitor
+將此項目設置為 [Enabled] 以啟用整合與獨立顯卡的多顯示器輸出。iGPU 共享
+系統內存大小將固定為 64M。
+設置值有：[Disabled] [Enabled]
+DVMT Pre-Allocated
+本項目可以讓您選擇內部顯示設備使用的 DVMT 5.0 預置（固定）顯示內存
+大小。
+設置值有：[32M] [64M] [96M] [128M] [160M] [192M] [224M] [256M] 
+[288M] [320M] [352M] [384M] [416M] [448M] [480M] [512M]
+RC6(Render Standby)
+本項目用來開啟 Render Standby 支持。
+設置值有：[Disabled] [Enabled]
+VMD setup menu
+本項目用來管理與設置 VMD 電力。
+Enable VMD controller
+啟用或關閉 VMD 控制器。
+設置值有：[Disabled] [Enabled]
+將 Enable VMD controller 設為 [Disabled] 可能會導致數據遺失。
+以下的項目只有在 Enable VMD controller 設為 [Enabled] 時才會出現。
+Map PCIE Storage under VMD
+本項目用來 map 或 unmap PCIE 保存至 VMD。
+設置值有：[Disabled] [Enabled]
+如果將 Map PCIE Storage under VMD 設為 [Enabled] 時，請確認將 Map SATA 
+Controller under VMD 設為 [Disabled]。
+
+58
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Map SATA Controller under VMD
+本項目用來 map 或 unmap 本啟動連接端口至 VMD。
+設置值有：[Disabled] [Enabled]
+如果將 Map SATA Controller under VMD 設為 [Enabled] 時，請確認將 Map 
+PCIE Storage under VMD 設為 [Disabled]。
+PCI Express Configuration
+本子菜單中的項目可以讓您為不同的內置插槽配定 PCIe 速度。 
+子菜單的項目會因主板而異。關於實際設置與選項，請參考主板的 BIOS。
+6.4 
+PCH 設置（AMT Configuration）
+本項目用來管理與設置 PCH PCI 插槽。
+PCI Express Configuration
+本項目用來管理與設置 PCH PCI 插槽。
+子菜單的項目會因主板而異。關於實際設置與選項，請參考主板的 BIOS。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+59
+6.5 
+PCH 儲存設備設置（PCH Storage Configuration）
+當您進入 BIOS 設置程序時，BIOS 設置程序將自動檢測已安裝的 SATA 設備。當未
+檢側到 SATA 設備時將顯示 Empty 。將滾動條往下滾動來顯示其他 BIOS 項目。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+SATA Controller(s) 
+啟用或關閉 SATA 控制器。
+設置值有：[Disabled] [Enabled]
+以下項目只有在 SATA Controller(s) 設為  [Enabled] 時才會出現。
+Aggressive LPM support
+當本項目設置為 [Enabled] 時，可以讓 PCH 主動進入連接電源狀態。
+設置值有：[Disabled] [Enabled]
+SMART Self Test
+S.M.A.R.T.（自動檢測、分析、報告技術，Self-Monitoring, Analysis and Reporting 
+Technology）是一個監控軟件，可以監控您的硬盤，並在發生錯誤時於啟動自測
+（POST）時顯示錯誤信息。
+設置值有：[Disabled] [Enabled]
+SATA 項目可能因主板的接口或插槽而異。關於實際設置與選項，請參考主板的 
+BIOS。
+M.2
+本項目可啟用或關閉選擇的 SATA 連接端口。
+設置值有：[Disabled] [Enabled]
+
+60
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+SATA6G
+本項目可啟用或關閉選擇的 SATA 連接端口。
+設置值有：[Disabled] [Enabled]
+SATA6G Hot Plug 
+指定此連接端口支持熱插拔功能。
+設置值有：[Disabled] [Enabled]
+6.6 
+PCH-FW 設置（PCH-FW Configuration）
+本項目可以設置 TPM 固件。
+TPM Device Selection
+本項目可選擇 TPM 設備為 Firmware TPM 或 Discrete TPM。
+[Enable Discrete TPM]	
+啟用 Discrete TPM。若將獨立的 TPM 卡安裝至主板時，
+請選擇此選項。
+[Enable Firmware TPM]	 啟用平台 Firmware TPM。 
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+61
+PCIE Tunneling over USB4
+本項目用來開啟或關閉 USB4 的 PCIE Tunneling。
+設置值有：[Disabled] [Enabled]
+Discrete Thunderbolt(TM) Support
+本項目用來開啟或關閉 Discrete Thunderbolt 支持。
+設置值有：[Disabled] [Enabled]
+•	 請在 System Agent(SA) Configuration 頁面將 Control Iommu Pre-boot 
+Behavior 設為 [Enabled] 以支持 DMA Protection 功能。
+•	 僅當 Discrete Thunderbolt(TM) Support 項目設為  [Enabled] 時，以下項目
+才會出現。
+Wake From Thunderbolt(TM) Devices
+本項目可以開啟或關閉 Thunderbolt(TM) 設備的系統喚醒。
+設置值有：[Disabled] [Enabled]
+Discrete Thunderbolt(TM) Configuration
+本項目用來設置 Discrete Thunderbolt(TM) 的相關功能。
+DTBT Go2Sx Command
+本項目用來啟用在系統進入 Sx 時將 DTBT 置於 Sx 狀態的指令。
+設置值有：[Disabled] [Enabled]
+Windows 10 Thunderbolt Support
+本項目可以讓您指定 Windows 10 Thunderbolt 支持等級。
+[Enable + RTD3]	 OS 原生支持 RTD3。
+[Disabled]	
+無 OS 原生支持。
+6.7 
+Thunderbolt(TM) 設置（Thunderbolt(TM) 
+Configuration）
+本項目用來設置 Thunderbolt 的相關功能。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+
+62
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+DTBT Controller 0 Configuration
+DTBT Contorller 0
+設置值有：[Disabled] [Enabled]
+TBT Host Router
+可以依據可用連接端口啟用主機路由器。
+設置值有：[One Port] [Two Port]
+Extra Bus Reserved
+本項目用來選擇 TBT Root Port Type。
+[56]	
+One port Host。
+[106]	
+Two port Host.
+Reserved Memory
+本項目可以讓您為此根橋接器設置保留內存。請使用 <+> 與 <-> 鍵
+調整數值。
+設置值有：[1] - [4096]
+Memory alignment
+本項目用來設置內存對齊位元。請使用 <+> 與 <-> 鍵調整數值。
+設置值有：[0] - [31]
+Reserved PMemory
+本項目可以讓您為此根橋接器設置保留預取內存。請使用 <+> 與 
+<-> 鍵調整數值。
+設置值有：[1] - [4096]
+PMemory alignment
+本項目用來設置 PMemory 對齊位元。請使用 <+> 與 <-> 鍵調整數
+值。
+設置值有：[0] - [31]
+Reserved I/O
+請使用 <+> 與 <-> 鍵調整數值。數值更改範圍為 0 至 60。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+63
+6.8 
+可信任計算（Trusted Computing）
+本菜單下的項目可讓您進行可信任計算設置。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+Security Device Support
+本項目可讓您開啟或關閉 BIOS 對安全設備的支持。安全設備不在系統中顯示。TCG 
+EFI 協定與 INT1A 接口不可用。
+設置值有：[Disable] [Enable] 
+以下項目只有在 Security Device Support 設為 [Enable] 時才會出現。
+SHA256 PCR Bank
+本項目用來啟動或關閉 SHA256 PCR Bank。
+設置值有：[Disabled] [Enabled] 
+Pending operation
+本項目可以設置安全設備的運行排程。
+設置值有：[None] [TPM Clear] 
+電腦將會重新啟動以更改安裝設備的狀態。
+Platform Hierarchy
+本項目用來啟動或關閉 Platform Hierarchy。
+設置值有：[Disabled] [Enabled]
+Storage Hierarchy
+本項目用來啟動或關閉 Storage Hierarchy。
+設置值有：[Disabled] [Enabled]
+
+64
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+6.9 
+PCI 子系統設置（PCI Subsystem Settings）
+本項目提供您設置 PCI、 PCI-X 和 PCI Express。
+Above 4G Decoding
+若您的系統支持 64-bit PCI 解碼能力，則可以啟用或關閉 64 位運算能力的設備，
+來解碼超過 4G 以上的 Address Space（地址空間）。
+設置值有：[Disabled] [Enabled]
+•	 僅適用於 64 位的操作系統。
+•	 以下項目只有在 Above 4G Decoding 設為 [Enabled]時才會出現。
+Re-Size BAR Support
+當系統具備 Resizable BAR 功能的 PCIe 設備時，本項目可以啟用或關閉 Resizable 
+BAR 支持（僅系統支持 64-bit PCI 解碼能力）。
+設置值有：[Disabled] [Enabled]
+要啟用 Re-Size BAR 支持以使用 GPU 內存時，請由 Boot 菜單將 
+CSM(Compatibility Support Module)設置為 [Disabled]。
+Endorsement Hierarchy
+本項目用來啟動或關閉 Endorsement Hierarchy。
+設置值有：[Disabled] [Enabled]
+Physical Presence Spec Version
+本項目用來選擇告訴操作系統支持 PPI 版本 1.2 或 1.3。
+設置值有：[1.2] [1.3]
+部分 HCK 測試可能未支持 PPI Spec 版本 1.3。
+TPM 2.0 UEFI Spec Version
+本項目可以選擇 TCG2 規格版本支持。
+[TCG_1_2]	
+兼容於 Windows 8 / Windows 10 模式。
+[TCG_2]	
+支持新 TCG2 協定與事件格式，適用於 Windows 10 或更高版本。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+65
+SR-IOV Support
+若系統支持 SR-IOV 的 PCIe 設備，本項目用來開啟或關閉 Single Root IO 
+Virtualization Support 功能。
+設置值有：[Disabled] [Enabled]
+在 Mass Storage Devices  項目中會顯示自動檢測到的數值或設備。若無連接任何
+設備，則會顯示 None。
+Legacy USB Support
+[Enabled]	
+啟動在傳統操作系統中支持 USB 設備功能。
+[Disabled]	
+USB 設備只能在 BIOS 程序設置中使用，無法在啟動設備列表中被
+檢測到。
+[Auto]	
+系統可以在啟動時便自動檢測是否有 USB 設備存在。若有則啟動 
+USB 控制器。
+XHCI Hand-off
+此項目為不支持 XHCI hand-off 之操作系統的替代方法。XHCI 所有權更改需由 
+XHCI 驅動程序提出。
+[Disabled]	
+關閉本功能。 
+[Enabled]	
+啟動支持沒有 XHCI hand-off 功能的操作系統。
+Mass Storage Devices:
+本項目用來設置主板上安裝的大容量存儲設備的模擬類型。[Auto] 按照設備的媒體
+格式來模擬設備。光驅會被模擬為  [CD-ROM]，無媒體的磁盤將依照磁盤類型進行
+模擬。
+設置值有：[Auto] [Floppy] [Forced FDD] [Hard Disk] [CD-ROM]
+6.10 
+USB 設置（USB Configuration）
+本菜單可讓您更改 USB 設備的各項相關設置。
+
+66
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+6.11 
+網絡協定堆棧設置（Network Stack Configuration）
+本菜單可讓您更改網絡協定堆棧的各項相關設置。
+Network stack
+本項目用來啟動或關閉 UEFI 網絡協定堆棧（Network Stack）功能。
+設置值有：[Disabled] [Enabled] 
+以下的項目只有在 Network Stack 設為 [Enabled] 時才會出現。
+Ipv4/Ipv6 PXE Support
+本項目用來啟動或關閉 Ipv4/Ipv6 PXE 啟動選項。
+設置值有：[Disabled] [Enabled]
+6.12 
+NVMe 設置（NVMe Configuration）
+本菜單顯示已連結設備的 NVMe 控制器與驅動信息。請按下 <Enter> 選擇本菜單顯
+示之已連結的 NVMe 設備以查看更多信息。
+本菜單的顯示選項會依連接至主板的設備而異。關於實際設置與選項，請參考主
+板的 BIOS。
+USB Single Port Control
+本項目用來啟動或關閉個別 USB 連接端口。
+USB 接口的位置請參考主板用戶手冊裡 主板構造圖 與 後側面板接口 的說明。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+67
+6.13 
+HDD/SSD SMART 信息（HDD/SSD SMART 
+Information）
+本菜單顯示已連結設備的 SMART 信息。
+本菜單的顯示選項會依連接至主板的設備而異。關於實際設置與選項，請參考主
+板的 BIOS。
+Restore AC Power Loss
+本項目讓您的系統在 AC 電源中斷後可進入 ON 狀態、OFF 狀態或是同時進入這兩
+種狀態。
+設置值有：[Power Off] [Power On] [Last State]
+Max Power Saving
+設置值有：[Disabled] [Enabled]
+6.14 
+APM 設置（APM Configuration）
+本菜單中的項目可用來調整高級電源管理（APM）設置。
+NVM Express 設備不支持 SMART 信息。
+
+68
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+6.15 
+內置設備設置（OnBoard Devices Configuration）
+本菜單可讓您更改內置設備的各項相關設置。將滾動條往下滾動來顯示以下項目。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+ErP Ready
+在 S4+S5 或 S5 休眠模式下關閉某些電源，減少待機模式下電力的流失，以符合歐
+盟能源使用產品（Energy Related Product）的規範。當設置為 [Enabled] 時，其他 
+PME 選項將被關閉。RGB LED 指示燈與 RGB/可尋址燈條接針也會被關閉。
+設置值有：[Disabled] [Enabled (S4+S5)] [Enabled (S5)]
+Power On By PCI-E
+本項目用來啟動或關閉內置網絡控制器或其他安裝的 PCI-E 網卡的喚醒功能。
+設置值有：[Disabled] [Enabled]
+Power On By RTC
+本項目用來關閉或開啟實時時鐘（RTC）喚醒功能，啟用時，您可自行設置天、小
+時、分、秒以安排時間讓系統自動啟動。
+設置值有：[Disabled] [Enabled]
+PCIe Bandwidth Bifurcation Configuration
+[Auto]	
+運行完整 PCIe X16 模式。
+[X8/X8]	
+將在 X16 上運行的 PCIEX16_1 拆分為 X8/X8。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+69
+HD Audio
+本項目用來讓您使用高保真音頻控制器。
+[Disabled]	
+高保真音頻無條件關閉。
+[Enabled]	
+高保真音頻無條件開啟。
+Intel LAN
+本項目用來開啟或關閉 Intel LAN。
+設置值有：[Disabled] [Enabled]
+USB power delivery in Soft Off state (S5)
+本項目用來當您的電腦處於 S5 狀態時開啟或關閉 USB 電源。
+設置值有：[Disabled] [Enabled]
+Connectivity mode (Wi-Fi & Bluetooth)
+本項目用來開啟或關閉 Wi-Fi 與藍牙連接模堆。
+設置值有：[Disabled] [Enabled]
+LED lighting
+系統在工作狀態時
+當系統在工作狀態時，本項目用來關閉或開啟 RGB LED 指示燈。
+[All On]	
+所有 RGB 指示燈與功能指示燈將開啟。
+[Stealth Mode]	 所有 RGB 指示燈與功能指示燈將關閉。
+[Aura Only]	
+RGB 指示燈將開啟，功能指示燈將關閉。
+[Aura Off]	
+功能指示燈開啟，RGB 指示燈將關閉。
+RGB 接口與可尋址接口僅在 S0（運作）狀態下運行。
+系統在睡眠、休眠或軟關機狀態時
+本項目用來在睡眠、休眠與軟關機狀態下開啟或關閉 RGB LED 指示燈。
+[All On]	
+所有 RGB 指示燈與功能指示燈將開啟。
+[Stealth Mode]	 所有 RGB 指示燈與功能指示燈將關閉。
+[Aura Only]	
+RGB 指示燈將開啟，功能指示燈將關閉。
+[Aura Off]	
+功能指示燈開啟，RGB 指示燈將關閉。
+RGB 接口與可尋址接口僅在 S0（運作）狀態下運行。
+GNA Device
+本項目用來開啟或關閉 SA GNA 設備。
+設置值有：[Enabled] [Disabled]
+Serial Port Configuration
+以下的項目可以讓您進行串口設置。
+本項目只有在主板上有串口（COM）連接器時，才有作用。
+
+70
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Serial Port
+本項目可以啟動或關閉串口。
+設置值有：[Enabled] [Disabled]
+以下的項目只有在 Serial Port 設為 [Enabled] 時才會出現。
+Change settings
+本項目用來為 Super I/O 設備選擇最佳設置。
+設置值有：[Disabled] [Enabled]
+Intel Arc Graphics
+本項目可以最佳化 Intel Arc Graphics 性能。
+設置值有：[Enabled] [Disabled]
+6.16 
+Intel(R) 快速保存技術（Intel(R) Rapid Storage 
+Technology）
+本項目可以管理 Intel(R) RAID 控制器上的 RAID volumes。
+•	 此菜單中的項目可能因連接的存儲設備而異。關於實際設置與選項，請參考主
+板的 BIOS。
+•	 使用 Intel(R) Rapid Storage Technology 創建 RAID 前，請務必進行 VMD 
+configuration settings 設置。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+71
+7. 
+監控菜單（Monitor menu）
+監控菜單可讓您查看系統溫度/電力狀態，並可用來更改風扇設置。
+將滾動條往下滾動來顯示其他 BIOS 項目。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+Temperature Monitor
+CPU Temperature, CPU Package Temperature, MotherBoard Temperature, 
+VRM Temperature, Chipset Temperature, T_Sensor Temperature, DIMM A 
+Temperature, DIMM B Temperature [xxx°C/xxx°F]
+本系列主板可自動檢測並顯示目前主板與其他元件的溫度。若是您不想顯示檢
+測的溫度，請選擇 [Ignore]。
+Fan Speed Monitor
+CPU Fan Speed, CPU Optional Fan Speed, Chassis Fan Speed, AIO PUMP 
+Speed [xxxx RPM]
+為了避免系統因為過熱而造成損壞，本系列主板備有風扇的轉速 
+RPM（Rotations Per Minute）監控，所有的風扇都設置了轉速安全範圍，一
+旦風扇轉速低於安全範圍，華碩智能型主板就會發出警訊，通知用戶注意。如
+果風扇並未連接至主板，本項目會顯示 N/A。若是您不想顯示檢測的速度，請
+選擇 [Ignore]。
+
+72
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Voltage and Current Monitor
+CPU Core Voltage, 12V Voltage, 5V Voltage, 3.3V Voltage, Memory Controller 
+Voltage [x.xxx V]
+本系列主板具有電壓監控的功能，用來確保主板以及 CPU 接受正確的電壓準
+位，以及穩定的電流供應。若是您不想檢測這些項目，請選擇 [Ignore]。
+Q-Fan Configuration
+Q-Fan Tuning
+點擊本項目會自動檢測最低速度並設置每個風扇的最小工作週期。
+調整過程可能需要 2-5 分鐘，在此過程中請不要關閉或重新啟動系統。
+CPU Q-Fan Control
+本項目用來設置 CPU Q-Fan 運作模式。
+[Auto Detect]	 檢測安裝的風扇/水泵類型並自動切換控制模式。
+[DC Mode]	
+在 DC 模式啟動 Q-Fan Control 來使用 3-pin 風扇/水泵。
+[PWM Mode]	 在 PWM 模式啟動 Q-Fan Control 來使用 4-pin 風扇/水泵。
+CPU Fan Profile
+本項目用來設置風扇/水泵適當的性能。選擇 [Manual] 時，當處理器溫度超過 
+75°C 時，建議將風扇/水泵的占空比設為 100%。請留意當風扇/水泵占空比
+不足導致過熱，會造成處理器性能限制。
+設置值有：[Standard] [Silent] [Turbo] [Full Speed] [Manual]
+以下項目只有在 CPU Fan Profile 設為 [Standard]、[Silent]、[Turbo] 或 [Manual] 
+時才會出現。
+CPU Fan Step Up
+本項目用來設置處理器風扇的加速。等級 0 是速度的瞬時變化。等級越高，速
+度變化越慢，也可能導致噪音更小，但這也會導致散熱速度更慢。
+設置值有：[Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+CPU Fan Step Down
+本項目用來設置處理器風扇的減速。等級 0 是速度的瞬時變化。等級越高，速
+度變化越慢，也可能導致噪音更小，但這也會導致散熱速度更慢。
+設置值有：[Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+73
+CPU Fan Speed Low Limit
+本項目用來設置風扇/水泵的最低速度警告值。當達到這個最低速度時，會出
+現警告信息。若設定為 [Ignore]，將不會再出現警告信息。
+設置值有：[Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 
+RPM]
+以下項目只有在 CPU Fan Profile 設為 [Manual] 時才會出現。
+CPU Fan Point4 Temperature
+當溫度源小於 P4 溫度，佔空比會依據 P3-P4 與溫度源決定。當溫度源大於 
+P4 溫度，風扇會運作於 P4 占空比。使用 <+> 或 <-> 鍵調整溫度。
+CPU Fan Point4 Duty Cycle (%) 
+當溫度源小於 P4 溫度，占空比會依據 P3-P4 與溫度源決定。當溫度源大於 
+P4 溫度，風扇會運作於 P4 占空比。使用 <+> 或 <-> 鍵調整風扇/水泵的占
+空比。
+CPU Fan Point3 Temperature
+當溫度源小於 P3 溫度，占空比會依據 P2-P3 與溫度源決定。當溫度源大於 
+P4 溫度，風扇會運作於 P3-P4 占空比。使用 <+> 或 <-> 鍵調整溫度。
+CPU Fan Point3 Duty Cycle (%) 
+當溫度源小於 P3 溫度，占空比會依據 P2-P3 與溫度源決定。當溫度源大於 
+P4 溫度，風扇會運作於 P3-P4 占空比。使用 <+> 或 <-> 鍵調整風扇/水泵的
+占空比。
+CPU Fan Point2 Temperature
+當溫度源小於 P2 溫度，占空比會依據 P1-P2 與溫度源決定。當溫度源大於 
+P2 溫度，風扇會運作於 P2-P3 占空比。使用 <+> 或 <-> 鍵調整溫度。
+CPU Fan Point2 Duty Cycle (%) 
+當溫度源小於 P2 溫度，占空比會依據 P1-P2 與溫度源決定。當溫度源大於 
+P2 溫度，風扇會運作於 P2-P3 占空比。使用 <+> 或 <-> 鍵調整風扇/水泵的
+占空比。
+CPU Fan Point1 Temperature
+當溫度源小於 P1 溫度，風扇會運作於 P1 占空比。當溫度源大於 P1 溫度，
+占空比會依據 P1-P2 與溫度源決定。使用 <+> 或 <-> 鍵調整溫度。
+
+74
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+CPU Fan Point1 Duty Cycle (%) 
+當溫度源小於 P1 溫度，風扇會運作於 P1 占空比。當溫度源大於 P1 溫度，
+占空比會依據 P1-P2 與溫度源決定。使用 <+> 或 <-> 鍵調整風扇/水泵的占
+空比。
+Chassis Fan(s) Configuration
+Chassis Fan Q-Fan Control
+本項目用來設置 Chassis Fan 運作模式。
+[Auto Detect]	檢測安裝的風扇/水泵類型並自動切換控制模式。
+[DC Mode]		 在 DC 模式啟動 Q-Fan Control 來使用 3-pin 風扇/水
+泵。
+[PWM Mode]	在 PWM 模式啟動 Q-Fan Control 來使用 4-pin 風
+扇/水泵。
+Chassis Fan Profile
+本項目用來設置風扇/水泵適當的性能。選擇 [Manual] 時，當處理
+器溫度超過 75°C 時，建議將風扇/水泵的占空比設為 100%。請
+留意當風扇/水泵占空比不足導致過熱，會造成處理器性能限制。
+設置值有：[Standard] [Silent] [Turbo] [Full Speed] [Manual]
+以下項目只有在 CPU Fan Profile 設為 [Standard]、[Silent]、[Turbo] 或 [Manual] 
+時才會出現。
+Chassis Fan Q-Fan Source
+指派的風扇/水泵會依選擇的溫度來源運作。
+設置值有：[CPU] [MotherBoard] [VRM Themistor] [Chipset] 
+[T_Sensor] [Multiple Sources]
+於多個溫度源中選擇三個（最多）溫度源後，風扇將會自動改變默認的最高溫度。
+Chassis Fan Step Up
+本項目用來設置風扇的加速。等級 0 是速度的瞬時變化。等級越
+高，速度變化越慢，也可能導致噪音更小，但這也會導致散熱速度
+更慢。
+設置值有：[Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 
+5]
+Chassis Fan Step Down
+本項目用來設置風扇的減速。等級 0 是速度的瞬時變化。等級越
+高，速度變化越慢，也可能導致噪音更小，但這也會導致散熱速度
+更慢。
+設置值有：[Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 
+5]
+Chassis Fan Speed Low Limit
+本項目用來設置風扇/水泵的最低速度警告值。當達到這個最低速度
+時，會出現警告信息。若設定為 [Ignore]，將不會再出現警告信息。
+設置值有：[Ignore] [200 RPM] [300 RPM] [400 RPM] [500 
+RPM] [600 RPM]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+75
+以下項目只有在 Chassis Fan 1-5 Profile 設為 [Manual] 時才會出現。
+Chassis Fan Point4 Temperature
+當溫度源小於 P4 溫度，占空比會依據 P3-P4 與溫度源決定。當溫
+度源大於 P4 溫度，風扇會運作於 P4 占空比。使用 <+> 或 <-> 鍵
+調整溫度。
+Chassis Fan Point4 Duty Cycle (%) 
+當溫度源小於 P4 溫度，占空比會依據 P3-P4 與溫度源決定。當溫
+度源大於 P4 溫度，風扇會運作於 P4 占空比。使用 <+> 或 <-> 鍵
+調整風扇/水泵的占空比。
+Chassis Fan Point3 Temperature
+當溫度源小於 P3 溫度，占空比會依據 P2-P3 與溫度源決定。當溫
+度源大於 P3 溫度，風扇會運作於 P3-P4 占空比。使用 <+> 或 <-> 
+鍵調整溫度。
+Chassis Fan Point3 Duty Cycle (%) 
+當溫度源小於 P3 溫度，占空比會依據 P2-P3 與溫度源決定。當溫
+度源大於 P3 溫度，風扇會運作於 P3-P4 占空比。使用 <+> 或 <-> 
+鍵調整風扇/水泵的占空比。
+Chassis Fan Point2 Temperature
+當溫度源小於 P2 溫度，占空比會依據 P1-P2 與溫度源決定。當溫
+度源大於 P2 溫度，風扇會運作於 P2-P3 占空比。使用 <+> 或 <-> 
+鍵調整溫度。
+Chassis Fan Point2 Duty Cycle (%) 
+當溫度源小於 P2 溫度，占空比會依據 P1-P2 與溫度源決定。當溫
+度源大於 P2 溫度，風扇會運作於 P2-P3 占空比。使用 <+> 或 <-> 
+鍵調整風扇/水泵的占空比。
+Chassis Fan Point1 Temperature
+當溫度源小於 P1 溫度，風扇會運作於 P1 占空比。當溫度源大於 
+P1 溫度，占空比會依據 P1-P2 與溫度源決定。使用 <+> 或 <-> 鍵
+調整溫度。
+Chassis Fan Point1 Duty Cycle (%) 
+當溫度源小於 P1 溫度，風扇會運作於 P1 占空比。當溫度源大於 
+P1 溫度，占空比會依據 P1-P2 與溫度源決定。使用 <+> 或 <-> 鍵
+調整風扇/水泵的占空比。
+Allow Fan Stop
+本項目用來設置風扇在來源溫度掉到最低溫以下時可以 0% 工作週
+期運行。
+設置值有：[Disabled] [Enabled]
+
+76
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+AIO Pump Q-Fan Control
+本項目用來設置 AIO Pump 運作模式。
+[Auto Detect]	 檢測安裝的風扇/水泵類型並自動切換控制模式。
+[DC Mode]	
+在 DC 模式啟動 Q-Fan Control 來使用 3-pin 風扇/水泵。
+[PWM Mode]	 在 PWM 模式啟動 Q-Fan Control 來使用 4-pin 風扇/水泵。
+AIO Pump Profile
+本項目用來設置風扇/水泵適當的性能。選擇 [Manual] 時，當處理器溫度超過 
+75°C 時，建議將風扇/水泵的占空比設為 100%。請留意當風扇/水泵占空比
+不足導致過熱，會造成處理器性能限制。
+設置值有：[Standard] [Silent] [Turbo] [Full Speed] [Manual]
+以下項目只有在 AIO Pump Profile 設為 [Standard]、[Silent]、[Turbo] 或 [Manual] 
+時才會出現。
+AIO Pump Q-Fan Source
+指派的風扇/水泵會依選擇的溫度來源運作。
+設置值有：[CPU] [MotherBoard] [VRM] [Chipset] [T_Sensor] [Multiple 
+Sources]
+AIO Pump Step Up
+本項目用來設置風扇的加速。等級 0 是速度的瞬時變化。等級越高，速度變化
+越慢，也可能導致噪音更小，但這也會導致散熱速度更慢。
+設置值有：[Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+AIO Pump Step Down
+本項目用來設置風扇的減速。等級 0 是速度的瞬時變化。等級越高，速度變化
+越慢，也可能導致噪音更小，但這也會導致散熱速度更慢。
+設置值有：[Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+AIO Pump Speed Low Limit
+本項目用來設置風扇/水泵的最低速度警告值。當達到這個最低速度時，會出
+現警告信息。若設定為 [Ignore]，將不會再出現警告信息。
+設置值有：[Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 
+RPM]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+77
+以下項目只有在 AIO Pump Profile 設為 [Manual] 時才會出現。
+AIO Pump Point4 Temperature
+當溫度源小於 P4 溫度，占空比會依據 P3-P4 與溫度源決定。當溫度源大於 
+P4 溫度，風扇會運作於 P4 占空比。使用 <+> 或 <-> 鍵調整溫度。
+AIO Pump Point4 Duty Cycle (%) 
+當溫度源小於 P4 溫度，占空比會依據 P3-P4 與溫度源決定。當溫度源大於 
+P4 溫度，風扇會運作於 P4 占空比。使用 <+> 或 <-> 鍵調整風扇/水泵的占
+空比。
+AIO Pump Point3 Temperature
+當溫度源小於 P3 溫度，占空比會依據 P2-P3 與溫度源決定。當溫度源大於 
+P3 溫度，風扇會運作於 P3-P4 占空比。使用 <+> 或 <-> 鍵調整溫度。
+AIO Pump Point3 Duty Cycle (%) 
+當溫度源小於 P3 溫度，占空比會依據 P2-P3 與溫度源決定。當溫度源大於 
+P3 溫度，風扇會運作於 P3-P4 占空比。使用 <+> 或 <-> 鍵調整風扇/水泵的
+占空比。
+AIO Pump Point2 Temperature
+當溫度源小於 P2 溫度，占空比會依據 P1-P2 與溫度源決定。當溫度源大於 
+P2 溫度，風扇會運作於 P2-P3 占空比。使用 <+> 或 <-> 鍵調整溫度。
+AIO Pump Point2 Duty Cycle (%) 
+當溫度源小於 P2 溫度，占空比會依據 P1-P2 與溫度源決定。當溫度源大於 
+P2 溫度，風扇會運作於 P2-P3 占空比。使用 <+> 或 <-> 鍵調整風扇/水泵的
+占空比。
+AIO Pump Point1 Temperature
+當溫度源小於 P1 溫度，風扇會運作於 P1 占空比。當溫度源大於 P1 溫度，
+占空比會依據 P1-P2 與溫度源決定。使用 <+> 或 <-> 鍵調整溫度。
+AIO Pump Point1 Duty Cycle (%) 
+當溫度源小於 P1 溫度，風扇會運作於 P1 占空比。當溫度源大於 P1 溫度，
+占空比會依據 P1-P2 與溫度源決定。使用 <+> 或 <-> 鍵調整風扇/水泵的占
+空比。
+
+78
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Chassis Intrusion Detection Support
+當本項目設為 [Enabled] 時可啟用機箱檢測功能。
+設置值有：[Enabled] [Disabled]
+CPU Temperature LED Switch
+當本項目設置為 [Enabled] 時可啟用 CPU_LED 指示燈在處理器高溫時亮起。
+設置值有：[Enabled] [Disabled]
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+79
+8. 
+啟動菜單（Boot menu）
+本菜單可讓您更改系統啟動設備與相關功能。
+CSM (Compatibility Support Module)
+本項目用來設置 CSM（兼容性支持模塊）項目來完全支持各種 VGA、啟動設備和
+附加設備，藉以獲得更佳的兼容性。
+Launch CSM 將設置為 [Disabled] 且在使用集成顯卡時無法設置。
+Launch CSM
+[Enabled]	
+為獲得更好的兼容性，開啟 CSM 以完全支持非 UEFI 驅動的附
+加設備或 Windows UEFI 模式。
+[Disabled]	
+關閉此功能。
+以下的項目只有在 Launch CSM 設為 [Enabled] 時才會出現。
+Boot Device Control
+本項用來選擇想要啟動的設備類型。
+設置值有：[UEFI and Legacy OPROM] [Legacy OPROM only] 
+[UEFI only]
+Boot from Network Devices
+本項目用來選擇想要運行的網絡設備。
+設置值有：[Ignore] [Legacy only] [UEFI only]
+
+80
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Boot from Storage Devices
+本項用來選擇想要運行的存儲設備類型。
+設置值有：[Ignore] [Legacy only] [UEFI only]
+Boot from PCI-E/PCI Expansion Devices
+本項目用來選擇想要運行的 PCIe/PCI 擴展設備類型。
+設置值有：[Ignore] [Legacy only] [UEFI only]
+Secure Boot
+本項目用來設置 Windows® 安全啟動的相關參數以及管理系統金鑰，以提升系統在
+啟動自檢（POST）時的安全性，避免受到未授權的用戶與惡意軟件的危害。
+OS Type
+[Windows UEFI Mode]	
+本項目用來選擇安裝的操作系統。運行 
+Microsoft® 安全啟動檢查。只有在 Windows® 
+UEFI 模式或其他 Microsoft® 安全啟動兼容操作
+系統中啟動時選擇此項目。
+[Other OS]	
+	
+在 Windows® 非 UEFI 模式中啟動時獲得最
+佳功能。Microsoft® 安全啟動功能僅支持 
+Windows® UEFI 模式。
+Microsoft® 安全啟動功能只可在 Windows® UEFI 模式下正確運行。
+Secure Boot Mode
+本項目用來選擇安全啟動模式。在自定義（Custom）模式下，安全啟動策略
+變數可以由實際存在的用戶設置，而無需進行完全身份驗證。
+設置值有：[Standard] [Custom]
+以下的項目僅當 Secure Boot Mode 設置為 [Custom] 時才會出現。
+Key Management
+Install Default Secure Boot keys
+本項目用來立即載入默認的安全啟動金鑰、平台金鑰（PK）、金鑰加密金鑰
+（KEK）、認證簽名數據庫（db）和撤銷簽名數據庫（dbx）。當載入默認的
+安全啟動金鑰後，PK 狀態會變為載入模式。
+Clear Secure Boot keys
+本項目只有在載入默認的安全啟動金鑰時才會出現。用來讓您清除所有默認的
+安全啟動金鑰。
+Save all Secure Boot variables
+本項目用來將安全啟動金鑰保存至 USB 存儲設備。
+PK Management
+平台金鑰（PK）鎖定並保護固件遭到未授權的更改。在進入操作系統前需先驗
+證平台金鑰（PK）。 
+Save To File
+本項目用來將平台金鑰（PK）保存至 USB 存儲設備。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+81
+Set New key
+本項目用來由 USB 存儲設備載入已下載平台金鑰（PK）。
+Delete key
+本項目用來刪除系統中的 PK。當平台金鑰刪除後即無法使用安全
+啟動金鑰。
+設置值有：[Yes] [No]
+PK 文件必須格式化為一個基於時間認證變量的 UEFI 變量結構。
+KEK Management
+KEK（金鑰交換金鑰 [Key-exchange Key] 或金鑰註冊金鑰 [Key-Enrollment 
+Key]）用來管理簽名數據庫（db）與撤銷簽名數據庫（dbx）。
+Key-exchange Key（KEK）指的是 Microsoft® Secure Boot Key-Enrollment 
+Key（KEK）。
+Save to file
+本項目用來將平台金鑰（KEK）保存至 USB 存儲設備。
+Set New key
+本項目用來由 USB 存儲設備載入已下載平台金鑰（KEK）。
+Append Key
+本項目用來由存儲設備載入附加的 KEK，以管理附加的簽名數據庫
+（db）與撤銷簽名數據庫（dbx）。
+Delete key
+本項目用來刪除系統中的 KEK。
+設置值有：[Yes] [No]
+KEK 文件必須格式化為一個基於時間認證變量的 UEFI 變量結構。
+DB Management
+db（認證簽名數據庫）列出可以在單一電腦載入之 UEFI 應用程序、操作系統
+載入器與 UEFI 驅動程序的簽名者或圖片圖像。
+Save to file
+本項目用來保存 db 至 USB 存儲設備。
+Set New key
+本項目用來由 USB 存儲設備載入已下載的認證簽名數據庫（db）。
+Append Key
+本項目用來由存儲設備載入附加的認證簽名數據庫（db），以安全
+的載入更多的圖片影像。
+Delete key
+本項目用來刪除系統中的 db 文件。
+設置值有：[Yes] [No]
+db 文件必須格式化為一個基於時間認證變量的 UEFI 變量結構。
+
+82
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+DBX Management
+dbx（撤銷簽名數據庫）列出 db 項目中不再被信任且無法被載入之被禁止的
+圖片影像。
+Save to file
+本項目用來保存 dbx 至 USB 存儲設備。
+Set New key
+本項目用來由 USB 存儲設備載入已下載 dbx。
+Append Key
+本項目用來由存儲設備載入附加的 dbx，以管理附加的簽名數據庫
+（db）與撤銷簽名數據庫（dbx）。
+Delete key
+本項目用來刪除系統中的 dbx。
+設置值有：[Yes] [No]
+dbx 文件必須格式化為一個基於時間認證變量的 UEFI 變量結構。
+Boot Configuration
+Fast Boot
+本項目可以啟用或關閉啟動時僅運行最少所需設備。不會對 BBS 啟動選項造
+成影響。
+設置值有：[Disabled] [Enabled]
+以下項目只有在 Fast Boot 設為 [Enabled] 時才會出現。
+Next Boot after AC Power Loss
+[Normal Boot]	 電源中斷後，在下一次啟動時恢復至正常啟動速度。
+[Normal Boot]	 電源中斷後，在下一次啟動時加快啟動速度。
+Boot Logo Display
+[Auto]	
+依 Windows 要求自動調整啟動自檢（POST）過程中的啟動畫
+面。
+[Full Screen]	
+設置在啟動自檢（POST）過程中的啟動畫面為全屏。
+[Disabled]	
+隱藏啟動自檢（POST）過程中的啟動畫面。
+以下的項目只有在 Boot Logo Display 設為 [Auto] 或 [Full Screen] 時才會出現。
+Post Delay Time
+本項目可以讓您選擇 POST 的等候時間，以更快進入 BIOS。您可以在正常啟
+動下僅運行 POST 延後。
+設置值有：[0 sec] - [10 sec]
+本功能僅支持正常啟動時使用。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+83
+以下項目只有在 Boot Logo Display 設為 [Disabled] 時才會出現。
+Post Report
+本項目可以選擇 POST 的等候時間或直到按下 ESC。
+設置值有：[1 sec] - [10 sec] [Until Press ESC]
+Boot up NumLock State
+本項目可以選擇鍵盤 NumLock 狀態。
+設置值有：[On] [Off]
+Wait For ‘F1’ If Error
+系統啟動過程出現錯誤信息時，本項目可讓系統等待您按下 <F1> 鍵確認才會
+繼續進行啟動程序。
+設置值有：[Disabled] [Enabled]
+Option ROM Messages
+[Force BIOS]	
+選購設備固件信息會在啟動自檢時顯示。
+[Keep Current]	
+在啟動自檢時只顯示華碩啟動圖標。 
+Interrupt 19 Capture
+本項目用來開啟或關閉選購設備固件信息以進行 Interrupt 19 Capture。
+設置值有：[Enabled] [Disabled]
+AMI Native NVMe Driver Support
+本項目用來開啟或關閉 AMI Native NVMe 驅動程序。
+設置值有：[Disabled] [Enabled]
+Setup Mode
+[Advanced Mode]	將 Advanced Mode 設置為 BIOS 設置程序的默認值。
+[EZ Mode]	
+將 EZ Mode 設置為 BIOS 設置程序的默認值。
+Boot Sector (MBR/GPT) Recovery Policy
+本項目用來設置 Boot Sector Policy。
+[Auto Recovery]	 	
+	
+依照 UEFI 規則。
+[Local User Control]	 	
+您可以進入設置頁面後選擇 Boot Sector（MBR/
+GPT）Recovery Policy，以在下次啟動時恢復 
+MBR/GPT。
+以下項目只有在 Boot Sector (MBR/GPT) Recovery Policy 設為 [Local User 
+Control] 時才會出現。
+Next Boot Recovery Action
+本項目可以選擇下次啟動時的（MBR/GPT）恢復動作。
+設置值有：[Skip] [Recovery]
+
+84
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+Boot Option Priorities
+本項目讓您自行選擇啟動磁盤並排列啟動設備順序。依照 1st、2nd、3rd 順序分別
+代表其啟動設備順序，而設備的名稱將因使用的硬件設備不同而有所差異。
+•	 欲進入 Windows® 安全模式時，請在啟動自檢（POST）時按下 <F8>
+（Windows® 8 不支持這項功能）。 
+•	 啟動時您可以在 ASUS Logo 出現時按下 <F8> 選擇啟動設備。
+Boot Override
+這些項目會顯示可用的設備。依照 1st、2nd、3rd 順序分別代表其啟動設備順序，
+而設備的名稱將因使用的硬件設備不同而有所差異。點擊任一設備可將該將置設置
+為啟動設備。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+85
+9. 
+工具菜單（Tool menu）
+本工具菜單可以讓您針對特別功能進行設置。請選擇菜單中的選項並按下 <Enter> 
+鍵來顯示子菜單。
+BIOS Image Rollback Support
+[Enabled]	
+支持將 BIOS 回滾到上一版本，但是此設置違反了 NIST SP 800-
+147的要求。
+[Disabled]	
+僅支持將 BIOS 升級到更新的版本，此設置符合 NIST SP 800-147 
+的要求。
+Publish HII Resources
+設置值有：[Disabled] [Enabled]
+子菜單的項目會因主板而異。關於實際設置與選項，請參考主板的 BIOS。
+Flexkey
+[Reset]	
+重新啟動系統。
+[Aura On/Off]	 啟用或關閉 Aura 指示燈。此設置不會與 BIOS/軟件選項同步。
+[DirectKey]	
+啟動後直接進入 BIOS。
+Setup Animator
+本項目用來啟動或關閉設置動畫。
+設置值有：[Disabled] [Enabled]
+
+86
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+狀態說明：
+•	 Frozen：當選取的磁盤狀態為 Frozen 時，不能運行安全清除。。若要卸除鎖
+定，應對 SSD 運行一次啟動循環。通過將磁盤先拔除後再插入即可完成此操
+作。 
+•	 Locked：為避免無法順利於 SSD 運行安全清除，在運行安全清除時，請先解
+開已由華碩設置密碼的第三方軟件（Third-party software）。 
+9.2 
+安全清除（Secure Erase）
+固態硬盤（SSD）會隨著使用的時間與次數而降速。請定期清除固態硬盤，以維持
+良好速度。
+欲使用安全清除功能，請在 Advanced Mode 選擇 Tool > ASUS Secure Erase。
+•	 對固態硬盤進行安全清除數據時，請勿將電腦關機或重新啟動。
+•	 Secure Erase 僅支持 Intel SATA 端口，更多詳細數據請參考 主板結構圖 的
+說明。
+9.1 
+華碩 EZ Flash 3 公用程序（ASUS EZ Flash 3 
+Utility）
+本項目可以讓您運行華碩 EZ Flash 3 公用程序。按下 <Enter> 會出現再次確認的窗
+口，請使用左右鍵選擇 [Yes] 或 [No]，接著按下 <Enter> 確認。
+請參考 華碩 EZ Flash 3 的說明。
+可運行的固態硬盤 
+(SSD)
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+87
+9.3 
+華碩 User Profile
+本菜單可以讓您保存以及載入多種 BIOS 設置文件。 
+Load from Profile
+本項目可以讓您載入先前保存在 BIOS Flash 中的 BIOS 設置。輸入一個保存在 BIOS 
+設置中的設置文件編號，然後按下 <Enter> 鍵並選擇 Yes 來載入文件。
+•	 當進行 BIOS 升級時，請勿關閉或重新啟動系統以免造成系統啟動失敗。
+•	 建議您只在相同的內存/處理器設置與相同的 BIOS 版本狀態下，升級 BIOS 
+程序。
+Profile Name
+本項目用來輸入設置文件名稱。 
+Save to Profile
+本項目可以讓您保存當前的 BIOS 文件至 BIOS Flash 中，並創建一個設置文件。
+從 1 至 8 選擇一個設置文件編號並輸入該編號，然後按下 <Enter> 鍵，接著選擇 
+Yes。
+Load/Save Profile from/to USB Drive
+本項目可以由 USB 存儲設備載入或保存設置文件，或是載入或保存設置文件至 
+USB 存儲設備。
+
+88
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+9.4 
+華碩 SPD 信息（ASUS SPD Information）
+本菜單顯示內存插槽的相關信息。
+9.5 
+MemTest86
+本菜單可用於掃描與檢測內存是否有問題。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+Activate MemTest86
+按下 <Enter> 啟用 MemTest86 以運行與檢查測試結果。
+•	 使用 MemTest86 前，請保存所有更改。
+•	 點擊 <Enter> 啟用 MemTest86 後，會有幾秒鐘的加載時間。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+89
+9.7 
+MyASUS
+本項目用來開啟或關閉在 Windows® 操作系統中下載與安裝 MyASUS 應用程序。
+本菜單中的項目可能因您的主板而異。關於實際設置與選項，請參考主板的 
+BIOS。
+Download & Install MyASUS service & app
+設置值有：[Disabled] [Enabled]
+9.6 
+華碩 Armoury Crate
+本項目用來讓您在 Windows® 操作系統中開啟或關閉 Armoury Crate 應用程序的下
+載與安裝。Armoury Crate 應用程序可以幫助您管理與下載主板最新的驅動程序與
+公用程序。
+Download & Install ARMOURY CRATE app
+設置值有：[Disabled] [Enabled]
+
+90
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+10. 
+退出 BIOS 程序（Exit menu）
+本菜單可讓您讀取 BIOS 程序出廠默認值與退出 BIOS 程序，並可保存與取消對 
+BIOS 項目的更改。你也可以由 Exit 菜單進入 EZ Mode。
+Load Optimized Defaults
+本項目可讓您載入 BIOS 程序設置菜單中每個參數的默認值。當您選擇本項目或按下 
+<F5>，便會出現一個確認對話窗口，選擇 OK 以載入默認值。
+Save Changes & Reset
+當您完成對 BIOS 設置程序所做的更改後，請選擇本項目或按下 <F10>，將會出現
+一個確認對話窗口，請選擇 OK 以保存設置並退出 BIOS 設置程序。
+Discard Changes & Exit
+本項目可讓您放棄所做的更改，並恢復原先保存的設置。在選擇本項目或按下 <Esc>
+鍵後，將會出現一個確認對話窗口，請選擇 Yes 以放棄任何設置並載入原先保存的
+設置，同時退出 BIOS 設置程序。
+Launch EFI Shell from USB drives
+本項目可以讓您由含有數據系統的設備中啟動 EFI Shell（shellx64.efi）。
+
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+91
+11. 
+升級 BIOS 程序
+華碩網站上提供有最新的 BIOS 程序，可以強化系統的穩定度、兼容性或運行性能，
+但是運行 BIOS 程序升級是具有潛在性風險的，若是使用現有版本的 BIOS 程序未發
+生問題時，請勿手動運行升級 BIOS 程序。不適當的 BIOS 程序升級可能會導致系統
+啟動失敗。若有需要，請使用以下各節的方法來升級您的 BIOS 程序。
+請訪問華碩網站（http://www.asus.com/support）來下載本主板最新的 BIOS 文
+件。
+以下工具程序項目提供您管理與升級主板 BIOS 設置程序。
+1.	
+ASUS EZ Flash 3：使用 U 盤來升級 BIOS。
+3.	
+ASUS CrashFree BIOS 3：當 BIOS 文件遺失或損毀時，可以使用 U 盤來升級 
+BIOS。
+11.1 
+華碩 EZ Flash 3（ASUS EZ Flash 3）
+華碩 EZ Flash 3 程式讓您使用 U 盤輕鬆的升級 BIOS 程序。
+請依照以下步驟通過華碩 EZ Flash 3 升級 BIOS 程序：
+1.	
+將保存有最新的 BIOS 文件的 U 盤插入 USB 連接端口。 
+2.	
+進入 BIOS 設置程序的 Advanced Mode，選擇 Tool > ASUS EZ Flash 3 
+Utility，接著請按下 <Enter> 鍵。
+3.	
+按左方向鍵來切換至 Drive 字段。
+4.	
+請利用上/下方向鍵找到存放有最新 BIOS 文件的 U 盤，接著請按下 <Enter> 
+鍵。 
+5.	
+按右方向鍵來切換 Folder Info 字段。
+6.	
+請利用上/下方向鍵找到 U 盤中最新的 BIOS 文件，接著請按下 <Enter> 鍵開
+始 BIOS 升級操作。當 BIOS 升級操作完成後請重新啟動電腦。
+
+92
+PRIME / ProArt / TUF GAMING Intel 700 系列 BIOS 用戶手冊
+11.2. 
+ASUS CrashFree BIOS 3
+華碩最新自行研發的 CrashFree BIOS 3 工具程序，讓您在當 BIOS 程序和數據被病
+毒入侵或毀損時，可以輕鬆的從含有最新或原始 BIOS 文件的 U 盤中恢復 BIOS 程
+序的數據。
+請至 http://www.asus.com/support 網站下載最新 BIOS 文件，並保存在 U 盤
+中。
+恢復 BIOS 程序
+請依照下列步驟恢復 BIOS 程序：
+1.	
+啟動系統。
+2.	
+將含有最新或原始 BIOS 文件的 U 盤插入 USB 連接端口。
+3.	
+接著工具程序便會自動檢查存儲設備中是否存有 BIOS 文件。當搜索到 BIOS 
+文件後，工具程序會開始讀取 BIOS 文件並自動進入 ASUS EZ Flash 3 程序。
+4.	
+系統需要您進入 BIOS 程序來恢復 BIOS 設置，為了確保系統的兼容性與穩定
+性，建議您按下 <F5> 按鍵來載入 BIOS 程序的默認值。
+請勿在更新 BIOS 程序文件時關閉或重新啟動系統！此舉將會導致系統損毀！

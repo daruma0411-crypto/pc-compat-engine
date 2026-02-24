@@ -1,0 +1,3402 @@
+PRIME / 
+ProArt /  
+TUF GAMING 
+Intel 800 
+Series
+BIOS Manual
+Motherboard
+
+2
+E26236
+Revised Edition V3
+April 2025
+Copyright© 2025 ASUSTeK COMPUTER INC. All Rights Reserved.
+No part of this manual, including the products and software described in it, may be reproduced, 
+transmitted, transcribed, stored in a retrieval system, or translated into any language in any form or by any 
+means, except documentation kept by the purchaser for backup purposes, without the express written 
+permission of ASUSTeK COMPUTER INC. (“ASUS”).
+Product warranty or service will not be extended if: (1) the product is repaired, modified or altered, unless 
+such repair, modification of alteration is authorized in writing by ASUS; or (2) the serial number of the 
+product is defaced or missing.
+ASUS PROVIDES THIS MANUAL “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS 
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OR CONDITIONS OF 
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL ASUS, ITS 
+DIRECTORS, OFFICERS, EMPLOYEES OR AGENTS BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, 
+OR CONSEQUENTIAL DAMAGES (INCLUDING DAMAGES FOR LOSS OF PROFITS, LOSS OF BUSINESS, 
+LOSS OF USE OR DATA, INTERRUPTION OF BUSINESS AND THE LIKE), EVEN IF ASUS HAS BEEN ADVISED 
+OF THE POSSIBILITY OF SUCH DAMAGES ARISING FROM ANY DEFECT OR ERROR IN THIS MANUAL OR 
+PRODUCT.
+SPECIFICATIONS AND INFORMATION CONTAINED IN THIS MANUAL ARE FURNISHED FOR 
+INFORMATIONAL USE ONLY, AND ARE SUBJECT TO CHANGE AT ANY TIME WITHOUT NOTICE, AND 
+SHOULD NOT BE CONSTRUED AS A COMMITMENT BY ASUS. ASUS ASSUMES NO RESPONSIBILITY OR 
+LIABILITY FOR ANY ERRORS OR INACCURACIES THAT MAY APPEAR IN THIS MANUAL, INCLUDING THE 
+PRODUCTS AND SOFTWARE DESCRIBED IN IT.
+Products and corporate names appearing in this manual may or may not be registered trademarks or 
+copyrights of their respective companies, and are used only for identification or explanation and to the 
+owners’ benefit, without intent to infringe.
+
+3
+Contents
+1.	
+Knowing BIOS..............................................................................................5
+2.	
+BIOS setup program.....................................................................................6
+2.1	
+EZ Mode...............................................................................................7
+2.2	
+Advanced Mode..................................................................................8
+2.3	
+Qfan Control......................................................................................12
+2.4	
+AI OC Guide........................................................................................12
+2.5	
+Q-Dashboard......................................................................................13
+3.	
+My Favorites..............................................................................................14
+4.	
+Main menu................................................................................................16
+5.	
+Ai Tweaker menu.......................................................................................18
+6.	
+Advanced menu.........................................................................................56
+6.1	
+Platform Misc Configuration............................................................56
+6.2	
+CPU Configuration.............................................................................57
+6.3	
+System Agent (SA) Configuration....................................................59
+6.4	
+PCH Configuration............................................................................60
+6.5	
+PCH Storage Configuration..............................................................60
+6.6	
+PCH-FW Configuration......................................................................61
+6.7	
+Thermal Configuration......................................................................62
+6.8	
+Trusted Computing...........................................................................62
+6.9	
+UEFI Variables Protection.................................................................63
+6.10	
+PCI Subsystem Settings...................................................................63
+6.11	
+USB Configuration.............................................................................63
+6.12	
+Network Stack Configuration...........................................................64
+6.13	
+NVMe Configuration.........................................................................64
+6.14	
+HDD/SSD SMART Information.........................................................64
+6.15	
+APM Configuration............................................................................64
+6.16	
+Thunderbolt(TM) Configuration.......................................................65
+6.17	
+Onboard Devices Configuration.......................................................67
+6.18	
+Intel(R) Rapid Storage Technology...................................................69
+7.	
+Monitor menu............................................................................................70
+8.	
+Boot menu.................................................................................................80
+9.	
+Tool menu..................................................................................................85
+9.1	
+ASUS EZ Flash Utility........................................................................86
+9.2	
+ASUS Secure Erase...........................................................................86
+9.3	
+BIOS Q-Dashboard.............................................................................86
+9.4	
+ASUS SPD Information......................................................................87
+9.5	
+ASUS User Profile..............................................................................87
+9.6	
+ASUS MyHotkey................................................................................87
+9.7	
+ASUS DriverHub.................................................................................88
+
+4
+10.	
+Exit menu..................................................................................................89
+11.	
+Updating BIOS...........................................................................................90
+11.1	
+ASUS EZ Flash ..................................................................................90
+11.2	
+ASUS CrashFree BIOS 3....................................................................91
+
+5
+NOTE: The new ASUS UEFI BIOS is a Unified Extensible Interface that complies with UEFI 
+architecture, offering a user-friendly interface that goes beyond the traditional keyboard-only BIOS 
+controls to enable a more flexible and convenient mouse input. You can easily navigate the new 
+UEFI BIOS with the same smoothness as your operating system. The term “BIOS” in this user 
+manual refers to “UEFI BIOS” unless otherwise specified.
+BIOS (Basic Input and Output System) stores system hardware settings such as storage 
+device configuration, overclocking settings, advanced power management, and boot 
+device configuration that are needed for system startup in the motherboard CMOS. In 
+normal circumstances, the default BIOS settings apply to most conditions to ensure 
+optimal performance. DO NOT change the default BIOS settings except in the following 
+circumstances: 
+•	
+An error message appears on the screen during the system bootup and requests you 
+to run the BIOS Setup.
+•	
+You have installed a new system component that requires further BIOS settings or 
+update.
+CAUTION! Inappropriate BIOS settings may result to instability or boot failure. We strongly 
+recommend that you change the BIOS settings only with the help of a trained service personnel.
+IMPORTANT! We Strongly recommend ALWAYS using the ZIP file from the ASUS website to 
+update your BIOS when using ASUS EZ Flash, so that the ME version will be updated as well. If you 
+opt to only use the CAP file, make sure the ME version matches the new BIOS. Keep in mind that 
+once the ME is updated, it cannot be rolled back. For more information please check the product 
+page on the ASUS website.
+NOTE:
+•	 When downloading or updating the BIOS file for your motherboard, rename it as XXXXX.CAP or 
+launch the BIOSRenamer.exe application to automatically rename the file. The name of the CAP 
+file varies depending on models. Refer to the user manual that came with your motherboard for 
+the name.
+•	 The screenshots in this manual are for reference only, please refer to the latest BIOS version for 
+settings and options.
+•	 BIOS settings and options may vary due to different BIOS release versions or CPU installed. 
+Please refer to the latest BIOS version for settings and options.
+BIOS Setup
+1.	
+Knowing BIOS
+
+6
+2.	
+BIOS setup program
+Use the BIOS Setup to update the BIOS or configure its parameters. The BIOS screen include 
+navigation keys and brief onscreen help to guide you in using the BIOS Setup program.
+Entering BIOS at startup
+To enter BIOS Setup at startup, press <Delete> or <F2> during the Power-On Self Test 
+(POST). If you do not press <Delete> or <F2>, POST continues with its routines.
+Entering BIOS Setup after POST
+To enter BIOS Setup after POST:
+•	
+Press <Ctrl>+<Alt>+<Delete> simultaneously.
+•	
+Press the reset button on the system chassis.
+•	
+Press the power button to turn the system off then back on. Do this option only if you 
+failed to enter BIOS Setup using the first two options.
+After doing either of the three options, press <Delete> key to enter BIOS.
+IMPORTANT!
+•	 The BIOS setup screens shown in this section are for reference purposes only, and may not 
+exactly match what you see on your screen.
+•	 Ensure that a USB mouse is connected to your motherboard if you want to use the mouse to 
+control the BIOS setup program.
+•	 If the system becomes unstable after changing any BIOS setting, load the default settings to 
+ensure system compatibility and stability. Select the Load Optimized Defaults item under the 
+Exit menu or press hotkey <F5>. See section Exit menu for details.
+•	 If the system fails to boot after changing any BIOS setting, try to clear the CMOS and reset the 
+motherboard to the default value. See your motherboard manual for information on how to 
+erase the RTC RAM.
+•	 The BIOS setup program does not support Bluetooth devices.
+BIOS menu screen
+The BIOS Setup program can be used under two modes: EZ Mode and Advanced Mode. You 
+can change modes from Setup Mode in Boot menu or by pressing the <F7> hotkey.
+NOTE: The BIOS settings and options for each motherboard may differ slightly with the 
+screenshots in this manual. Please refer to the BIOS of your motherboard for the actual settings 
+and options.
+
+7
+2.1	
+EZ Mode
+The EZ Mode provides you an overview of the basic system information, and allows you to 
+select the display language, system performance, mode and boot device priority. To access 
+the Advanced Mode, select Advanced Mode(F7) or press the <F7> hotkey for the advanced 
+BIOS settings.
+NOTE: The default screen for entering the BIOS setup program can be changed. Refer to the Setup 
+Mode item in section Boot menu for details.
+NOTE: The boot device options vary depending on the devices you installed to the system.
+Selects the display language 
+of the BIOS setup program
+Displays a quick overview of the system status
+Displays the system properties of the selected mode. 
+Click < or > to switch modes
+Loads optimized 
+default settings
+Click to go to Q-Dashboard
+Displays the CPU Fan’s speed. Click 
+the button to manually tune the fans
+Saves the changes and 
+resets the system
+Selects the boot device priority
+Click to go to Advanced mode
+Search
+AURA
+ReSize BAR
+AI OC
+Enables or disables the SATA RAID mode for 
+Intel Rapid Storage Technology
+Click to display boot devices
+
+8
+2.2	
+Advanced Mode
+The Advanced Mode provides advanced options for experienced end-users to configure 
+the BIOS settings. The figure below shows an example of the Advanced Mode. Refer to the 
+following sections for the detailed configurations.
+NOTE: To switch from EZ Mode to Advanced Mode, click Advanced Mode(F7) or press the <F7> 
+hotkey.
+Menu items
+Submenu items
+General help
+Menu bar
+Language
+Qfan
+My Favorite
+Pop-up Menu 
+Configuration fields
+Last modified settings
+Go back to EZ Mode
+Displays a quick overview of the 
+system status and prediction
+Hot keys
+AURA
+Search
+AI OC
+ReSize BAR
+Scroll bar
+Click to go to Q-Dashboard
+
+9
+Menu bar
+The menu bar on top of the screen has the following main items:
+My Favorites
+For saving the frequently-used system settings and configuration.
+Main
+For changing the basic system configuration
+Ai Tweaker
+For changing the overclocking settings
+Advanced
+For changing the advanced system settings
+Monitor
+For displaying the system temperature, power status, and changing 
+the fan settings.
+Boot
+For changing the system boot configuration
+Tool
+For configuring options for special functions
+Exit
+For selecting the exit options and loading default settings
+Menu items
+The highlighted item on the menu bar displays the specific items for that menu. For 
+example, selecting Main shows the Main menu items. The other items on the menu bar have 
+their respective menu items.
+Submenu items
+An arrow sign (>) before each item on any menu screen means that the item has a submenu. 
+To display the submenu, select the item and press <Enter>.
+Language
+This button above the menu bar contains the languages that you can select for your BIOS. 
+Click this button to select the language that you want to display in your BIOS screen.
+My Favorite
+This button above the menu bar shows all BIOS items in a Tree Map setup. Select frequently-
+used BIOS settings and save it to My Favorites menu. You may also access this item by 
+pressing the <F3> key on the keyboard.
+NOTE: Refer to section My Favorites for more information.
+Qfan
+This button above the menu bar displays the current settings of your fans. Use this button to 
+manually tweak the fans to your desired settings. You may also access this item by pressing 
+the <F6> key on the keyboard.
+NOTE: Refer to section Qfan Control for more information.
+
+10
+AI OC
+This button above the menu bar allows you to view the descriptions of AI overclocking and 
+enable it. You may also access this item by pressing the <F11> key on the keyboard.
+NOTE:
+•	 Refer to section AI OC Guide for more information.
+•	 This function is only enabled when using an unlocked CPU.
+•	 This function is only available on selected models.
+Search
+This button allows you to search for BIOS items by entering its name, enter the item name to 
+find the related item listing. You may also access this item by pressing the <F9> key on the 
+keyboard.
+AURA
+This button allows you to turn the RGB LED lighting or functional LED on or off. You may also 
+access this item by pressing the <F4> key on the keyboard.
+[All On]:	
+All LEDs (Aura or Functional) will be enabled.
+[Stealth Mode]:	
+All LEDs (Aura and Functional) will be disabled.
+[Aura Only]:	
+Aura LEDs will be enabled and functional LEDs will be disabled.
+[Aura Off]:	
+Aura LEDs will be disabled, however functional LEDs will still be enabled.
+ReSize BAR
+This button allows you to turn ReSize BAR function on or off.
+[On]	
+Enable ReSize BAR support to fully harness GPU memory.
+[Off]	
+ReSize BAR support will be disabled.
+Hot keys
+This button at the bottom right contains the navigation keys for the BIOS setup program. Use 
+the navigation keys to select items in the menu and change the settings.
+Scroll bar
+A scroll bar appears on the right side of a menu screen when there are items that do not fit 
+on the screen. Press the Up/Down arrow keys or <Page Up> / <Page Down> keys to display 
+the other items on the screen.
+General help
+At the bottom of the menu screen is a brief description of the selected item. Use <F12> key 
+to capture the BIOS screen and save it to the removable storage device.
+Configuration fields
+These fields show the values for the menu items. If an item is user-configurable, you can 
+change the value of the field opposite the item. You cannot select an item that is not user-
+configurable.
+A configurable field is highlighted when selected. To change the value of a field, select it and 
+press <Enter> to display a list of options.
+
+11
+Last Modified button
+This button shows the items that you last modified and saved in BIOS Setup.
+Q-Dashboard
+This button allows you to view all the ports and connectors on your motherboard as well as 
+quick access to the settings of these ports and connectors. You may also access this item 
+by pressing the <Insert> key on the keyboard.
+NOTE: Refer to section Q-Dashboard for more information.
+
+12
+2.3	
+Qfan Control
+The Qfan Control allows you to set a fan profile or manually configure the operating speed of 
+your CPU and chassis fans.
+2.3.1	
+Configuring fans manually
+Select Manual from the list of profiles to manually configure your fans’ operating speed.
+To configure your fans:
+1.	
+Select the fan that you want to configure and to view its current status.
+2.	
+Click and drag the speed points to adjust the fans’ operating speed.
+3.	
+Click Apply to save the changes then click Exit (ESC).
+2.4	
+AI OC Guide
+NOTE:
+•	 This function is only enabled when using an unlocked CPU.
+•	 This function is only available on selected models.
+The AI OC Guide allows you to enable the Ai Overclocking feature, or view a quick guide 
+of the Ai Overclocking feature which highlights the recommended setup procedure and 
+descriptions of the AI Overclocking.
+Clicking on Enable AI will enable AI Overclocking.
+
+13
+2.5	
+Q-Dashboard
+The Q-Dashboard gives you a quick overview of the ports and connectors available on your 
+motherboard. Clicking on a port or connector will redirect you to the BIOS setting of the 
+selected port or connector.
+Display only the items of the selected group
+Displays device name if a device is 
+connected to this port/connector
+General help
+Exit Q-Dashboard
+
+14
+3.	
+My Favorites
+My Favorites is your personal space where you can easily save and access your favorite 
+BIOS items. You can personalize this screen by adding or removing items.
+NOTE: The screenshots in this section are for reference only and items listed may differ to your 
+motherboard. Please refer to your motherboard for the actual items.
+
+15
+Adding items to My Favorites
+To add BIOS items:
+1.	
+Press <F3> on your keyboard or click MyFavorite from the BIOS screen to open Setup 
+Tree Map screen.
+2.	
+On the Setup Tree Map screen, select an item from main menu panel, then click the 
+submenu that you want to save as favorite from the submenu panel and click 
+ or 
+press <Enter> on your keyboard.
+NOTE: You cannot add the following items to My Favorite items:
+•	 Items with submenu options.
+•	 User-managed items such as language and boot order.
+•	 Configuration items such as Memory SPD Information, system time and date.
+3.	
+Click Exit (ESC) or press <Esc> key to close Setup Tree Map screen.
+4.	
+Go to My Favorites menu to view the saved BIOS items. 
+Main menu panel
+Submenu panel
+Selected shortcut items
+Delete all favorite items
+Recover to default 
+favorite items
+
+16
+4.	
+Main menu
+The Main menu screen appears when you enter the Advanced Mode of the BIOS Setup 
+program. The Main menu provides you an overview of the basic system information, and 
+allows you to set the system date, time, language, and security settings.
+System Language
+Allows you to set the system default language.
+System Date
+Allows you to set the system date. Use <Tab> to switch between Date elements.
+System Language
+Allows you to set the system time. Use <Tab> to switch between Time elements.
+Security
+The Security menu items allow you to change the system security settings.
+NOTE:
+•	 If you have forgotten your BIOS password, erase the CMOS Real Time Clock (RTC) RAM to clear 
+the BIOS password. See the motherboard for information on how to erase the RTC RAM.
+•	 The Administrator or User Password items on top of the screen show the default [Not 
+Installed]. After you set a password, these items show [Installed].
+
+17
+Administrator Password
+If you already have an administrator password set, we recommend that you enter the 
+administrator password for accessing the system. Otherwise, you might be able to see or 
+change only selected fields in the BIOS setup program.
+To set an administrator password:
+1.	
+Select the Administrator Password item and press <Enter>.
+2.	
+In the Create New Password box, key in a password, then press <Enter>.
+3.	
+Re-type to confirm the password then select OK.
+To change an administrator password:
+1.	
+Select the Administrator Password item and press <Enter>.
+2.	
+In the Enter Current Password box, key in the current password, then press <Enter>.
+3.	
+In the Create New Password box, key in a new password, then press <Enter>.
+4.	
+Re-type to confirm the password then select OK.
+To clear an administrator password:
+1.	
+Select the Administrator Password item and press <Enter>.
+2.	
+In the Enter Current Password box, key in the current password, then press <Enter>.
+3.	
+Press <Enter> when prompted to create/confirm the password. After you clear 
+the password, the Administrator Password item on top of the screen shows [Not 
+Installed].
+User Password
+If you have set a user password, you must enter the user password for accessing the 
+system. The User Password item on top of the screen shows the default [Not Installed]. 
+After you set a password, this item shows [Installed].
+To set a user password:
+1.	
+Select the User Password item and press <Enter>.
+2.	
+In the Create New Password box, key in a password, then press <Enter>.
+3.	
+Re-type to confirm the password then select OK.
+To change a user password:
+1.	
+Select the User Password item and press <Enter>.
+2.	
+In the Enter Current Password box, key in the current password, then press <Enter>.
+3.	
+In the Create New Password box, key in a new password, then press <Enter>.
+4.	
+Re-type to confirm the password then select OK.
+To clear a user password:
+1.	
+Select the User Password item and press <Enter>.
+2.	
+In the Enter Current Password box, key in the current password, then press <Enter>.
+3.	
+Press <Enter> when prompted to create/confirm the password. After you clear the 
+password, the User Password item on top of the screen shows [Not Installed].
+
+18
+5.	
+Ai Tweaker menu
+The Ai Tweaker menu items allow you to configure overclocking-related items.
+CAUTION! Be cautious when changing the settings of the Ai Tweaker menu items. Incorrect field 
+values can cause the system to malfunction.
+NOTE: The configuration options for this section vary depending on the CPU and DIMM model you 
+installed on the motherboard.
+Scroll down to display other BIOS items.
+Performance Preferences
+Allows you to adjust processor performance and power limit related settings based on your 
+preferences. 
+Configuration options: [Intel Default Settings] [ASUS Advanced OC Profile]
+Intel Default Settings
+Load the Intel Default Settings and operate within Intel’s recommended parameters. 
+Configuration options: [Performance] [Extreme]
+
+19
+Ai Overclock Tuner
+[Auto]	
+Loads the optimal settings for the system.
+[Manual]	
+When the manual mode is selected, the BCLK (base clock) frequency can 
+be assigned manually.
+[XMP I]	
+Load the DIMM’s default XMP memory timings (CL, TRCD, TRP, TRAS) with 
+BCLK frequency and other memory parameters optimized by ASUS.
+[XMP II]	
+Load the DIMM’s complete default XMP profile.
+[XMP Tweaked]	 Load XMP profile with tweaks for improved performance if config 
+matches.
+[D.O.C.P. I]	
+Load the DIMM’s default D.O.C.P. memory timings (CL, TRCD, TRP, TRAS) 
+with BCLK frequency and other memory parameters optimized by ASUS.
+[D.O.C.P. II]	
+Load the DIMM’s complete default D.O.C.P. profile.
+[AEMP II]	
+Load the memory parameters profile optimized by ASUS if no DIMM 
+profiles detected.
+[AEMP III]	
+Load the memory parameters profile optimized by ASUS if no DIMM 
+profiles detected.
+NOTE: The configuration options for this item vary depending on the DIMM model you installed on 
+the motherboard.
+NOTE: The following items appear only when Ai Overclock Tuner is set to [Manual], [XMP I], [XMP 
+II], [XMP Tweaked], [D.O.C.P. I], [D.O.C.P. II], [AEMP II], or [AEMP III].
+BLCK Mode
+[Auto]	
+Loads the default setting.
+[Synchronous]	
+The CPU BCLK and SOC BCLK are adjusted together, keeping their clock 
+speeds in sync.
+[Asynchronous]	 The CPU BCLK and SOC BCLK can be adjusted independently, allowing 
+different clock speeds for each.
+CPU BCLK Frequency
+Using a higher CPU BCLK frequency will alter the operating frequency of all associated clock 
+domains (CPU and cache). The default BCLK is 100.
+NOTE: The following item appears only when BLCK Mode is set to [Auto] or [Asynchronous].
+SOC BCLK Frequency
+Using a higher SOC BCLK frequency will alter the operating frequency of all associated clock 
+domains (DRAM, NGU and D2D). The default BCLK is 100.
+PCIE CLK Frequency
+Using a higher PCIE BCLK frequency will alter the operating frequency of all associated clock 
+domains (CPU PCIE). The default BCLK is 100.
+
+20
+NOTE: The following item appears only when Ai Overclock Tuner is set to [XMP I], [XMP II], or 
+[XMP Tweaked].
+XMP
+Each profile has its own DRAM frequency, timing and voltage.
+NOTE: The following item appears only when Ai Overclock Tuner is set to [D.O.C.P. I] or [D.O.C.P. 
+II].
+D.O.C.P.
+Each profile has its own DRAM frequency, timing and voltage.
+NOTE: The following item appears only when Ai Overclock Tuner is set to [AEMP II] or [AEMP III].
+AEMP
+Each profile has its own DRAM frequency, timing and voltage.
+ASUS MultiCore Enhancement
+[Auto - Lets BIOS Optimize]	 	
+	
+ASUS optimized core ratio Turbo and 
+temperature settings at default processor 
+speeds.
+[Disabled - Enforce All limits]	
+	
+Intel default Turbo core ratio settings.
+[Enabled - Remove All limits]	
+	
+Optimized power, temperature and current 
+thresholds for maintaining maximum 
+performance.
+[Enabled - Remove All limits (90°C)]	
+This item allows you to enable ASUS optimized 
+power, current thresholds and limit CPU 
+temperature at 90°C for better performance 
+balance.
+SVID Behavior
+Programs the CPU’s SVID behavior based on CPU’s quality. [Trained] optimizes SVID 
+behavior to match input parameters such as Target Frequencies. 
+Configuration options: [Auto] [Best-Case Scenario] [Typical Scenario] [Trained]
+Performance Core Ratio
+[Auto]:	
+The system will adjust all Performance core ratios automatically.
+[Sync All Cores]:	 Configure a core ratio limit to synchronize all Performance cores.
+[By Core Usage]:	 Configure the ratio limits for active cores depending on how many 
+Performance cores are being utilized.
+[AI Optimized]	
+Use AI to optimize the Performance core ratios.
+NOTE: The [AI Optimized] item appears only when you use an unlocked CPU.
+
+21
+NOTE: The following item appears only when Performance Core Ratio is set to [Sync All Cores].
+ALL-Core Ratio Limit
+Enter [Auto] to apply the CPU default Turbo Ratio setting or manually assign a Core ratio 
+limit to synchronize all cores. Use the <+> or <-> to adjust the value.
+NOTE: The following items appear only when Performance Core Ratio is set to [By Core Usage].
+1-Core Ratio Limit / 2-Core Ratio Limit / 3-Core Ratio Limit / 4-Core Ratio Limit / 
+5-Core Ratio Limit / 6-Core Ratio Limit / 7-Core Ratio Limit / 8-Core Ratio Limit
+The N-core ratio limit must be higher than or equal to the (N+1)-core ratio limit. (N stands for 
+the number of CPU cores) The core ratio limit cannot be set to [Auto] when the core number 
+is lower than N. The biggest core’s ratio limit must be lower than or equal to the second 
+biggest core’s ratio limit. Use the <+> or <-> to adjust the value.
+NOTE: The following items appear only when Performance Core Ratio is set to [Auto], [Sync All 
+Cores] or [By Core Usage].
+Specific Performance Core
+Performance Core0-7 Specific Ratio Limit 
+Configure a ratio limit for certain Performance Cores. Use the <+> or <-> to adjust the 
+value.
+Performance Core0-7 specific Voltage 
+Configure the P-Core Voltage requested by the cores. Result may be influenced by 
+Actual VRM Core Voltage. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode] [Adaptive Mode]
+NOTE: The following item appears only when Performance Core0-7 specific Voltage is set to 
+[Manual Mode].
+CPU P-Core0-7 Voltage Override
+Configure the voltage for the CPU P-Core. The values range from 0.600V to 1.700 V 
+with an interval of 0.001V.
+NOTE: You need to save the changes and reset the system for the changes to take effect.
+NOTE: The following items appear only when Performance Core0-7 specific Voltage is set to 
+[Offset Mode] or [Adaptive Mode].
+Offset Mode Sign
+[+]	
+Offset the CPU core voltage by a positive value.
+[-]	
+Offset the CPU core voltage by a negative value.
+
+22
+CPU P-Core0-7 Offset Voltage
+Configure the CPU P-Core voltage offset value. Use the <+> or <-> to adjust the value. 
+The values range from 0.001V to 0.999V with an interval of 0.001V.
+NOTE: You need to save the changes and reset the system for the changes to take effect.
+NOTE: The following items appear only when Performance Core0-7 specific Voltage is set to 
+[Adaptive Mode].
+Additional Turbo Mode CPU P-Core0-7 Voltage
+Configure the amount of voltage fed to the CPU P-Core when running in Turbo mode. 
+Increase the voltage when configuring a high CPU P-Core frequency. This voltage 
+will be affected by the offset value. Use the <+> or <-> to adjust the value. The values 
+range from 0.250V to 1.920V with an interval of 0.001V.
+Efficient Core Ratio
+[Auto]	
+The system will adjust all Efficient core ratios automatically.
+[Sync All Cores]	 Configure a core ratio limit to synchronize all Efficient cores.
+[By Core Usage]	 Configure the ratio limits for active cores depending on how many Efficient 
+cores are being utilized.
+[AI Optimized]	
+Use AI to optimize the Efficient core ratios.
+NOTE: 
+•	 The [AI Optimized] item appears only when you use an unlocked CPU.
+•	 The following item appears only when Efficient Core Ratio is set to [Sync All Cores].
+ALL-Core Ratio Limit
+Ratio Limit for Efficient Cores when N Efficient cores are loaded. Use the <+> or <-> to adjust 
+the value.
+NOTE: The following items appear only when Efficient Core Ratio is set to [By Core Usage].
+Efficient 1-Core Ratio Limit / Efficient 2-Core Ratio Limit / Efficient 3-Core Ratio 
+Limit / Efficient 4-Core Ratio Limit / Efficient 5-Core Ratio Limit / Efficient 
+6-Core Ratio Limit / Efficient 7-Core Ratio Limit / Efficient 8-Core Ratio Limit
+Ratio Limit for Efficient cores when N Efficient cores are loaded. Use the <+> or <-> to adjust 
+the value.
+NOTE: The following items appear only when Efficient Core Ratio is set to [Auto], [Sync All Cores] 
+or [By Core Usage].
+Specific Efficient Core
+Efficient Core Group0-7 Specific Ratio Limit 
+Configure a ratio limit for certain Efficient Cores. Use the <+> or <-> to adjust the value.
+
+23
+Efficient Core Group0-7 specific Voltage
+Configure the E-Core Group Voltage requested by the cores. Result may be influenced 
+by Actual VRM Core Voltage. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode] [Adaptive Mode]
+NOTE: The following items appear only when Efficient Core Group0-7 specific Voltage is set to 
+[Manual Mode].
+CPU E-Core Group0-7 Voltage Override
+Configure the voltage for the CPU E-Core Group. Use the <+> or <-> to adjust the value. 
+The values range from 0.600V to 1.700V with an interval of 0.001V.
+NOTE: The following items appear only when Efficient Core Group0-7 specific Voltage is set to 
+[Offset Mode] or [Adaptive Mode].
+Offset Mode Sign
+[+]	
+Offset the CPU core voltage by a positive value.
+[-]	
+Offset the CPU core voltage by a negative value.
+CPU E-Core Group0 Offset Voltage
+Configure the CPU E-Core Group voltage offset value. Use the <+> or <-> to adjust the 
+value. The values range from 0.001V to 0.999V with an interval of 0.001V.
+NOTE: You need to save the changes and reset the system for the changes to take effect.
+NOTE: The following items appear only when Efficient Core Group0-7 specific Voltage is set to 
+[Adaptive Mode].
+Additional Turbo Mode CPU E-Core Group0-7 Voltage
+Configure the amount of voltage fed to the CPU P-Core when running in Turbo mode. 
+Increase the voltage when configuring a high CPU P-Core frequency. This voltage 
+will be affected by the offset value. Use the <+> or <-> to adjust the value. The values 
+range from 0.250V to 1.920V with an interval of 0.001V.
+Memory Controller : DRAM Frequency Ratio
+Memory Controller Frequency to DRAM Frequency Ratio. 
+Configuration options: [Auto] [1:2] [1:4]
+DRAM Frequency
+Select the DRAM operating frequency. The configurable options vary with the BCLK(base 
+clock) frequency setting. Select the auto mode to apply the optimized setting.
+NOTE: The configuration options for this item vary depending on the DIMM model you installed on 
+the motherboard.
+CAUTION! The frequency ratios in gray are not recommended, use BCLK + ratios in white to reach 
+your target frequency if needed.
+
+24
+DIMM Flex
+Enable to configure DRAM Timings and Frequencies based on DRAM Temperature. Disable 
+to disable this feature. 
+Configuration options: [Disabled] [Enabled]
+NOTE: DRAM settings will remain at Level1 at BIOS boot until the handover to OS. Excessive 
+dynamic switching in the DRAM timings and frequency may lead to system instability whilst in OS.
+AVX Related Controls
+AVX2
+Allows you to enable or disable the AVX 2 Instructions. 
+Configuration options: [Auto] [Disabled] [Enabled]
+AVX2 Ratio Offset
+AVX2 Ratio Offset. Specifies number of bins to decrease AVX ratio vs. Core Ratio. AVX 
+is a more stressful workload, it is helpful to lower the AVX ratio to ensure maximum 
+possible ratio for SSE workloads. Uses Mailbox MSR 0x150, cmd 0x1B. Range 0 - 31. 
+0 = No offset.
+AVX2 Voltage Guardband Scale Factor
+AVX2 Voltage Guardband Scale Factor. Controls the voltage guardband applied to AVX 
+workloads. Range 0 - 200 in 1/100 units, where 125 = 1.25 scale factor. A default value 
+of 100 applies the default voltage guardband scale factor of 1.0. A value > 100 will 
+increase the votlage guardband, and < 100 will decrease the voltage guardband.
+DRAM Timing Control
+The sub-items in this menu allow you to set the DRAM timing control features. Use the 
+<+> and <-> keys to adjust the value. To restore the default setting, type [Auto] using the 
+keyboard and press the <Enter> key.
+CAUTION! Changing the values in this menu may cause the system to become unstable! If this 
+happens, revert to the default settings.
+DIMM Fit
+DIMM Fit
+This feature adjusts parameters based on your hardware margin to maintain 
+memory timing, optimize performance, and improve compatibility.
+DIMM Fit Store
+You can save the adjusted DIMM Fit parameters to one of three preset 
+locations. Select a valid store to apply its fitted values for boot. 
+Configuration options: [None] [Store0] [Store1] [Store2]
+Delete the current DIMM Fit Store
+Delete the current DIMM Fit Store.
+Primary Timings
+DRAM CAS# Latency
+DRAM CAS# Latency (tCL). Only Even numbers are supported on DDR5. Odd Numbers 
+will be rounded up.
+
+25
+DRAM RAS# to CAS# Delay Read
+DRAM RAS# to CAS# Delay Read (tRCD).
+DRAM RAS# to CAS# Delay Write
+DRAM RAS# to CAS# Delay Write (tRCDW).
+DRAM RAS# PRE Time
+DRAM RAS# PRE Time (tRP).
+DRAM RAS# ACT Time
+DRAM RAS# ACT Time (tRAS).
+DRAM Command Rate
+Configuration options: [Auto] [1N] [2N]
+Secondary Timings
+DRAM RAS# to RAS# Delay L
+DRAM RAS# to RAS# Delay (tRRDL).
+DRAM RAS# to RAS# Delay S
+DRAM RAS# to RAS# Delay (tRRDS).
+DRAM REF Cycle Time
+DRAM REF Cycle Time (tRFC).
+DRAM REF Cycle Time Same Bank
+DRAM REF Cycle Time Same Bank (tRFCsb).
+DRAM Refresh Interval
+DRAM Refresh Interval (tREFI).
+DRAM WRITE Recovery Time
+DRAM WRITE Recovery Time (tWR).
+DRAM READ to PRE Time
+DRAM READ to PRE Time (tRTP).
+DRAM FOUR ACT WIN Time
+DRAM FOUR ACT WIN Time (tFAW).
+DRAM WRITE to READ Delay L
+DRAM WRITE to READ Delay (tWTR_L).
+DRAM WRITE to READ Delay S
+DRAM WRITE to READ Delay (tWTR_S).
+DRAM Internal Write to Write Command Delay Time
+DRAM Internal Write to Write Command Delay Time (tCCD_L_WR).
+DRAM CAS Write Latency
+DRAM CAS Write Latency (tCWL).
+Skew Control
+Basic Dimm ODT Control
+Sync Basic Dimm ODT mode
+Configuration options: [Disabled] [Enabled]
+
+26
+NOTE: The following items appear only when Sync Basic Dimm ODT mode is set to [Enabled].
+Channel 1 Slot A1 / Channel 1 Slot A2 / Channel 0 Slot B1 / Channel 
+0 Slot B2
+RTT WR
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT NOM RD
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT NOM WR
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT PARK
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT PARK DQS
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+Pull-up Output Driver Impedance
+Configuration options: [Auto] [34 ohm] [40 ohm] [48 ohm]
+Pull-Down Output Driver Impedance
+Configuration options: [Auto] [34 ohm] [40 ohm] [48 ohm]
+NOTE: The following items appear only when Sync Basic Dimm ODT mode is set to [Disabled].
+Mc0 Channel 1 Slot A1 / Mc1 Channel 1 Slot A1 / Mc0 Channel 1 Slot 
+A2 / Mc1 Channel 1 Slot A2 / Mc0 Channel 0 Slot B1 / Mc1 Channel 0 
+Slot B1 / Mc0 Channel 0 Slot B2 / Mc1 Channel 0 Slot B2
+RTT WR
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT NOM RD
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT NOM WR
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT PARK
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+RTT PARK DQS
+Configuration options: [Auto] [Disabled] [34 ohm] [40 ohm] [48 ohm] 
+[60 ohm] [80 ohm] [120 ohm] [240 ohm]
+Pull-up Output Driver Impedance
+Configuration options: [Auto] [34 ohm] [40 ohm] [48 ohm]
+
+27
+Pull-Down Output Driver Impedance
+Configuration options: [Auto] [34 ohm] [40 ohm] [48 ohm]
+Advanced Dimm ODT Control
+Sync Advanced Dimm ODT mode
+Configuration options: [Disabled] [Enabled]
+NOTE: The following items appear only when Sync Advanced Dimm ODT mode is set to [Enabled].
+Channel 1 Slot A1 / Channel 1 Slot A2 / Channel 0 Slot B1 / Channel 
+0 Slot B2
+GroupA CA ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupA CS ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupA CK ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupB CA ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupB CS ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupB CK ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+NOTE: The following items appear only when Sync Advanced Dimm ODT mode is set to [Disabled].
+Mc0 Channel 1 Slot A1 / Mc1 Channel 1 Slot A1 / Mc0 Channel 1 Slot 
+A2 / Mc1 Channel 1 Slot A2 / Mc0 Channel 0 Slot B1 / Mc1 Channel 0 
+Slot B1 / Mc0 Channel 0 Slot B2 / Mc1 Channel 0 Slot B2
+GroupA CA ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupA CS ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupA CK ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupB CA ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+
+28
+GroupB CS ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+GroupB CK ODT
+Configuration options: [Auto] [Disabled] [40 ohm] [60 ohm] [80 ohm] 
+[120 ohm] [240 ohm] [480 ohm]
+DDRCRCOMPCTL
+DqOdtVrefUp
+Allows you to set DqOdtVrefUp.
+DqOdtVrefDn
+Allows you to set DqOdtVrefDn.
+CmdSlewRate
+Allows you to set CmdSlewRate.
+CmdScompPC
+Allows you to set CmdScompPC.
+CtlSlewRate
+Allows you to set CtlSlewRate.
+CtlScompPC
+Allows you to set CtlScompPC.
+DisableCompRotate
+Allows you to set DisableCompRotate.
+RcompVrefVdd2
+Allows you to set RcompVrefVdd2.
+CmdDrvVrefDnVdd2
+Allows you to set CmdDrvVrefDnVdd2.
+CmdDrvVrefUpVdd2
+Allows you to set CmdDrvVrefUpVdd2.
+CmdDrvVrefUp
+Allows you to set CmdDrvVrefUp.
+CtlDrvVrefUp
+Allows you to set CtlDrvVrefUp.
+ClkDrvVrefUp
+Allows you to set ClkDrvVrefUp.
+DqDrvVrefUp
+Allows you to set DqDrvVrefUp.
+CmdDrvVrefDn
+Allows you to set CmdDrvVrefDn.
+CtlDrvVrefDn
+Allows you to set CtlDrvVrefDn.
+ClkDrvVrefDn
+Allows you to set ClkDrvVrefDn.
+
+29
+DqDrvVrefDn
+Allows you to set DqDrvVrefDn.
+RcompTarget
+Rcomp RdODT
+Allows you to set Rcomp Read ODT Setting.
+Rcomp WrDS
+Allows you to set Rcomp WrDS Setting.
+Rcomp WrDSCmd
+Allows you to set Rcomp WrDSCmd Setting.
+Rcomp WrDSCtl
+Allows you to set Rcomp WrDSCtl Setting.
+Rcomp WrDSClk
+Allows you to set Rcomp WrDSClk Setting.
+Memory Training Algorithms
+Early Command Training
+Configuration options: [Auto] [Disabled] [Enabled]
+SenseAmp Offset Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Early ReadMPR Timing Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+Read MPR Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Receive Enable Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Jedec Write Leveling
+Configuration options: [Auto] [Disabled] [Enabled]
+Early Write Time Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+Early Read Time Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+Unmatched Write Time Centering 1D
+Configuration options: [Auto] [Disabled] [Enabled]
+Write Timing Centering 1D
+Configuration options: [Auto] [Disabled] [Enabled]
+Write Voltage Centering 1D
+Configuration options: [Auto] [Disabled] [Enabled]
+Read Timing Centering 1D
+Configuration options: [Auto] [Disabled] [Enabled]
+Read Voltage Centering 1D
+Configuration options: [Auto] [Disabled] [Enabled]
+DDR5 ODT Timing Config
+Configuration options: [Auto] [Disabled] [Enabled]
+
+30
+View Pin Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+Read DQS ODT Training*
+Read DQS On-Die Termination Training. 
+Configuration options: [Auto] [Disabled] [Enabled] 
+Read DQ ODT Training
+Read DQ On-Die Termination Training. 
+Configuration options: [Auto] [Disabled] [Enabled] 
+Read Equalization Training*
+Configuration options: [Auto] [Disabled] [Enabled] 
+Read CTLE Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Post Package Repair
+Configuration options: [Auto] [Disabled] [Enabled] 
+Write Timing Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+Read Timing Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+Write Voltage Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+Read Voltage Centering 2D
+Configuration options: [Auto] [Disabled] [Enabled]
+RxVref Per-Bit Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Command Voltage Centering
+Configuration options: [Auto] [Disabled] [Enabled]
+Late Command Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Turn Around Timing Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Rank Margin Tool
+Configuration options: [Auto] [Disabled] [Enabled]
+LVR Auto Trim
+Configuration options: [Auto] [Disabled] [Enabled]
+DIMM SPD Alias Test
+Test to determine if the SPD has been corrupted to cause memory aliasing. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Retrain Margin Check
+Configuration options: [Auto] [Disabled] [Enabled]
+Row Hammering Prevention
+Configuration options: [Auto] [Disabled] [Enabled]
+Dimm ODT Training*
+Dimm On-Die Termination Training. 
+Configuration options: [Auto] [Disabled] [Enabled]
+
+31
+DIMM RON Training*
+Configuration options: [Auto] [Disabled] [Enabled]
+TxDqTCO Comp Training*
+Configuration options: [Auto] [Disabled] [Enabled]
+ClkTCO Comp Training*
+Configuration options: [Auto] [Disabled] [Enabled]
+CMD CTL CLK Slew Rate
+Configuration options: [Auto] [Disabled] [Enabled]
+CMD/CTL Drive Stength
+Configuration options: [Auto] [Disabled] [Enabled]
+CMD/CTL Tx Equalization
+Configuration options: [Auto] [Disabled] [Enabled]
+DIMM CA ODT Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Write DQ/DQS Retrain
+Configuration options: [Auto] [Disabled] [Enabled]
+Power Saving Meter Update
+Configuration options: [Auto] [Disabled] [Enabled]
+Pre Training Comp Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+Read Vref Decap Training*
+Configuration options: [Auto] [Disabled] [Enabled]
+Vddq Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Rank Margin Tool Per Bit
+Configuration options: [Auto] [Disabled] [Enabled]
+DQ/DQS Swizzle Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Ref PI Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+Rx SAL Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+VccClk FF Offset Correction
+Configuration options: [Auto] [Disabled] [Enabled]
+Duty Cycle Correction Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Duty Cycle Correction Downstream Training
+Duty Cycle Correction Downstream Training - PI Serializer/LUT 
+Configuration options: [Auto] [Disabled] [Enabled]
+Duty Cycle Correction QCLK Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+Duty Cycle Correction Rise/Fall Training
+Configuration options: [Auto] [Disabled] [Enabled]
+
+32
+Functional Duty Cycle Correction for DDR5 DQS
+Configuration options: [Auto] [Disabled] [Enabled]
+Functional Duty Cycle Correction for DDR5 CLK
+Configuration options: [Auto] [Disabled] [Enabled]
+Functional Duty Cycle Correction for LP5 WCK
+Configuration options: [Auto] [Disabled] [Enabled]
+Functional Duty Cycle Correction for Data DQ
+Configuration options: [Auto] [Disabled] [Enabled]
+Data PI Linearity Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+Ddr5 Rx Cross-Talk Cancellation
+Configuration options: [Auto] [Disabled] [Enabled]
+Duty Cycle Correction for LP5 DCA
+Duty Cycle Correction for LP5 Duty Cycle Alignment 
+Configuration options: [Auto] [Disabled] [Enabled]
+Unmatched Rx Calibration
+Configuration options: [Auto] [Disabled] [Enabled]
+Write Rank-to-Rank Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Read Rank-to-Rank Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Comp Optimization
+Configuration options: [Auto] [Disabled] [Enabled]
+DIMM DFE Training
+Configuration options: [Auto] [Disabled] [Enabled]
+Write Drive Strength
+Configuration options: [Auto] [Disabled] [Enabled]
+Write Equalizationq
+Configuration options: [Auto] [Disabled] [Enabled]
+Margin Check Limit
+Checks Margin to Limit to see if next boot memory needs to be retrain. 
+Configuration options: [Disabled] [L1] [L2] [Both]
+NOTE The following item appears only when Margin Check Limit is set to [L2] or [Both].
+Margin Limit Check L2
+L2 check threshold is scale of L1 check. Ex. 200 is 2 x L1 Check.
+Third Timings
+tRDRD_sg
+Allows you to set tRDRD_sg.
+tRDRD_dg
+Allows you to set tRDRD_dg.
+tWRWR_sg
+Allows you to set tWRWR_sg.
+
+33
+tWRWR_dg
+Allows you to set tWRWR_dg.
+tRDWR_sg
+Allows you to set tRDWR_sg.
+tRDWR_dg
+Allows you to set tRDWR_dg.
+tWRRD_sg
+Allows you to set tWRRD_sg.
+tWRRD_dg
+Allows you to set tWRRD_dg.
+tRDRD_dr
+Allows you to set tRDRD_dr.
+tRDRD_dd
+Allows you to set tRDRD_dd.
+tWRWR_dr
+Allows you to set tWRWR_dr.
+tWRWR_dd
+Allows you to set tWRWR_dd.
+tRDWR_dr
+Allows you to set tRDWR_dr.
+tRDWR_dd
+Allows you to set tRDWR_dd.
+tWRRD_dr
+Allows you to set tWRRD_dr.
+tWRRD_dd
+Allows you to set tWRRD_dd.
+tRPRE
+Allows you to set tRPRE.
+tWPRE
+Allows you to set tWPRE.
+tWPOST
+Allows you to set tWPOST.
+tCCD_L_tDLLK
+Allows you to set tCCD_L_tDLLK.
+Misc. Timings
+Refresh Hp Wm
+Allows you to set refresh Hp Wm.
+Refresh Panic Wm
+Allows you to set refresh Panic Wm.
+Refresh Abr Release
+Allows you to set refresh Abr Release.
+
+34
+Misc.
+Fast Boot
+Enable/Disable fast path thru the MRC. 
+Configuration options: [Disabled] [Enabled]
+MCH Full Check
+Enable this item to enhance the system stability. Disable this item may enhance the 
+DRAM overclocking capability. 
+Configuration options: [Auto] [Enabled] [Disabled]
+Mem Over Clock Fail Count
+Allows you to set Mem Over Clock Fail Count.
+Training Profile
+Select DIMM Training Profile. 
+Configuration options: [Auto] [Standard Profile] [ASUS User Profile]
+Mrc Training Loop Count
+Exponential number of loops to run the test.
+DRAM CLK Period
+Select the DRAM clock period.
+SOC BCLK OC Workaround
+Can try enabling if Memory training fails when overclocking SOC BCLK. 
+Configuration options: [Auto] [Enabled] [Disabled]
+Controller 0, Channel 0 Control
+Controller 0, Channel 0 Control - Enable or Disable Controller 0, Channel 0. 
+Configuration options: [Enabled] [Disabled]
+Controller 0, Channel 1 Control
+Controller 0, Channel 1 Control - Enable or Disable Controller 0, Channel 1. 
+Configuration options: [Enabled] [Disabled]
+Controller 1, Channel 0 Control
+Controller 1, Channel 0 Control - Enable or Disable Controller 1, Channel 0. 
+Configuration options: [Enabled] [Disabled]
+Controller 1, Channel 1 Control
+Controller 1, Channel 1 Control - Enable or Disable Controller 1, Channel 1. 
+Configuration options: [Enabled] [Disabled]
+Configure Memory Dynamic Frequency Switching
+NOTE: This item will be not selectable when DIMM Flex has been enabled. Disable DIMM Flex if 
+you wish to use this.
+NOTE The following item appears only when Realtime Memory Frequency is set to [Disabled].
+Dynamic Memory Boost
+Enable/Disable Dynamic Memory Boost feature, Allows automatic switching 
+between default SPD Profile frequency and selected XMP profile frequency. 
+Only valid if an XMP Profile is selected. 
+Configuration options: [Disabled] [Enabled]
+
+35
+NOTE The following item appears only when Dynamic Memory Boost is set to [Disabled].
+Realtime Memory Frequency
+Enable/Disable Realtime Memory Frequency feature, Allows manual 
+switching in runtime between default SPD Profile frequency and XMP profile 1 
+frequency. Only valid if XMP Profile 1 is selected. 
+Configuration options: [Disabled] [Enabled] 
+SAGV
+System Agent Geyserville. Disabled or Enabled. 
+Configuration options: [Disabled] [Enabled] 
+NOTE The following item appears only when SAGV is set to [Enabled].
+First Point Gear
+Gear ratio for this SAGV point. 
+Configuration options: [Auto] [Gear2] [Gear4]
+Second Point Gear
+Gear ratio for this SAGV point. 
+Configuration options: [Auto] [Gear2] [Gear4]
+Third Point Gear
+Gear ratio for this SAGV point. 
+Configuration options: [Auto] [Gear2] [Gear4]
+NOTE: Fourth Point Gear will always be the settings you set in the main menu, so configure the 
+Fourth Point Gear there.
+DIGI + VRM
+VRM Initialization Check
+When any error occurs during VRM initialization, the system will hang at POSTcode 77 
+if this function is enabled. 
+Configuration options: [Disabled] [Enabled]
+CPU Load-line Calibration
+The load-line is defined by the Intel VRM specification and affects the level of voltage 
+supplied to the processor. Higher load-line calibration settings result in reduced 
+VDroop at the expense of voltage overshoot and will increase CPU temperatures due 
+to higher voltage under load. Select from level 1 to 8 to adjust the load-line slope. 
+Level 1 = greater Vdroop, Level = 8 minimum VDroop. 
+Configuration options: [Auto] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5] [Level 6] 
+[Level 7] [Level 8]
+NOTE: Performance is dependent on the CPU model used. Do not remove the VRM heatsink.
+Current CPU Load-line Calibration
+Synch ACDC Loadline with VRM Loadline
+If enabled,VRM Loadline will be adjust automatically to match AC/DC Loadline. 
+Configuration options: [Disabled] [Enabled]
+
+36
+CPU Current Capability
+Sets the shut-off current limit for the external voltage regulator. A higher setting will 
+allow the voltage regulator to supply more current while a lower setting will cause the 
+voltage regulator to shut off the system when the supplied current is higher than the 
+set value. 
+Configuration options: [Auto] [100%] [110%] [120%] [130%] [140%] [200%]
+NOTE: Configure higher values when overclocking or when using high current demanding stress 
+tests.
+CPU Current Reporting
+Configuration options: [Auto] [100%] [75%] [50%] [25%]
+CPU VRM Switching Frequency
+Sets the VRM switching frequency. VRM switching frequency affects transient 
+response and VRM component temperatures. Setting a higher switching frequency 
+will result in better transient response at the expense of higher VRM temperatures. 
+Active cooling of the VRM heatsink is recommended when running high CPU voltage 
+and high load-line calibration values. 
+Configuration options: [Auto] [Manual]
+CAUTION! Do not remove the VRM heatsink.
+NOTE: The following item appears only when CPU VRM Switching Frequency is set to [Auto].
+VRM Spread Spectrum
+Allows you to reduce the magnitude of peak noise from the VRM. Enable to reduce 
+peak noise. Disable this setting when overclocking. 
+Configuration options: [Auto] [Disabled] [Enabled]
+NOTE: The following item appears only when CPU VRM Switching Frequency is set to [Manual].
+Fixed CPU VRM Switching Frequency(KHz)
+Allows you to set a higher frequency for a quicker transient response speed. The 
+values range from 300 KHz to 800 KHz with an interval of 100 KHz.
+CPU Power Duty Control
+CPU power duty control adjusts the duty cycle of each VRM phase based upon current 
+and/or temperature.
+[T. Probe]	
+Sets the buck controller to balance VRM FET temperatures
+[Extreme]	
+Select to set the VRM current balance mode.
+CAUTION! Do not remove the VRM Heatsink.
+CPU Power Phase Control
+[Auto]	
+Automatically selects the power phase control.
+[Standard]	
+The number of active phases is controlled by the CPU.
+[Optimized]	
+Sets the ASUS optimized phase profile.
+[Extreme]	
+Sets full phase mode.
+
+37
+CPU Power Thermal Control
+Sets the VRM thermal cut-off trip point. 125 Celsius is default and recommended for 
+all overclocking and normal use.
+CAUTION! DO NOT remove the VRM heatsink.
+CPU Graphics Load-line Calibration
+The load-line is defined by the Intel VRM specification and affects the CPU Graphics 
+power voltage. The CPU Graphics working voltage will decrease proportionally 
+depending on the CPU Graphics loading. Higher levels of the load-line calibration can 
+get a higher voltage and a better overclocking performance but increase the CPU 
+Graphics and VRM thermal production. Select from level 1 to 8 to adjust the CPU 
+Graphics power voltage from 100% to 0%. 
+Configuration options: [Auto] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5] [Level 6] 
+[Level 7] [Level 8]
+CAUTION! The boosted performance may vary depending on the CPU Graphics specification. Do 
+not remove the thermal module.
+CPU Graphics Current Capability
+The CPU Graphics current capability adjusts the total power range for CPU Graphics 
+overclocking. A higher value provides a wider total power range and extends the 
+overclocking frequency range simultaneously. 
+Configuration options: [Auto] [100%] [140%]
+NOTE: Configure higher values when overclocking or under a high CPU Graphics loading for extra 
+power support.
+CPU Graphics VRM Switching Frequency
+The switching frequency will affect the CPU Graphics transient response speed and 
+the component thermal production. Select the manual mode to configure a higher 
+frequency to get a quicker transient response speed. 
+Configuration options: [Auto] [Manual]
+CAUTION! Do not remove the thermal module when the manual mode is selected. The thermal 
+conditions should be monitored.
+NOTE: The following item appears only when CPU Graphics VRM Switching Frequency is set to 
+[Manual].
+Fixed CPU Graphics Switching Frequency(KHz)
+The switching frequency will affect the CPU Graphics transient response speed and 
+the component thermal production. Use the <+> or <-> to adjust the value. The values 
+range from 500 KHz to 800 KHz with an interval of 100 KHz.
+VCCSA Load-line Calibration
+CPU System Agent Load-line Calibration. 
+Configuration options: [Auto] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5] [Level 6] 
+[Level 7] [Level 8]
+
+38
+VCCSA Current Capability
+Configuration options: [Auto] [100%] [140%]
+VCCSA VRM Switching Frequency
+Configuration options: [Auto] [Manual]
+NOTE: The following item appears only when CPU Graphics VRM Switching Frequency is set to 
+[Manual].
+Fixed CPU VCCSA Switching Frequency(KHz)
+The switching frequency will affect the CPU VCCSA transient response speed and 
+the component thermal production. Configure a higher frequency to get a quicker 
+transient response speed. Use the <+> or <-> to adjust the value. The values range 
+from 500 KHz to 800 KHz with an interval of 100 KHz.
+Internal CPU Power Management
+The items in this submenu allow you to set the CPU ratio and features.
+Maximum CPU Core Temperature
+Set the maximum allowable temperature for CPU cores. The CPU will throttle or 
+shutdown when it reaches this temperature to prevent damaging the cores. 
+CAUTION! Do not set this value too high, as high temperatures may damage the CPU permanently.
+Turbo Mode Parameters
+Unlimited ICCMAX
+Enable/Disable Unlimited ICCMAX. Support VR Current Limit (ICCMAX) value set 
+above 511.75A. 
+Configuration options: [Auto] [Disabled] [Enabled]
+CPU Core/Cache Current Limit Max.
+Allows configuration of a current limit for frequency/power throttling. Can be set to 
+maximum value (511.75) to prevent throttling when overclocking.
+CPU Graphics Current Limit
+Set a high current limit to prevent frequency or power throttling during overclocking.
+CPU System Agent Current Limit
+Set a high current limit to prevent frequency or power throttling during overclocking.
+Long Duration Package Power Limit
+An Intel parameter known as [power limit 1] and specified in Watts. The default value 
+is defined by TDP of the processor. Increasing the value will allow the Turbo ratio to be 
+maintained for a longer duration under higher current loads. The values range from 1 
+to 4095.
+Package Power Time Window
+An Intel parameter of [power limit 1] and specified in seconds. The applied value 
+indicates how long the Turbo ratio can be active when TDP is exceeded. 
+Configuration options: [Auto] [1] [2] [3] [4] [5] [6] [7] [8] [10] [12] [14] [16] [20] [24] [28] 
+[32] [40] [48] [56] [64] [80] [96] [112] [128]
+
+39
+Short Duration Package Power Limit
+An Intel parameter known as [power limit 2] and specified in Watts. It is the second 
+Intel power limit which provides protection when package power exceeds power limit 
+1. The default setting is 1.25 times power limit 1. According to Intel, the platform must 
+support this value for up to 10msec when power consumption exceeds power limit 
+2. ASUS motherboards are engineered to support this duration for a longer time as 
+required to facilitate overclocking.
+Power Limit 4 Switch
+Enabled/Disabled Power Limit 4 Function. 
+Configuration options: [Auto] [Disabled] [Enabled]
+NOTE: The following item appears only when Power Limit 4 Switch is set to [Enabled].
+Power Limit 4
+An Intel parameter known as [power limit 4] and specified in Watts. Values range from 
+1 W to 1023 W.
+IA AC Load Line
+AC Loadline defined in mOhms. Range is 0-62.49 mOhms.
+IA DC Load Line
+DC Loadline defined in mOhms. Range is 0-62.49 mOhms.
+CPU SVID Support
+Disable this item to prevent the CPU from communicating with the external voltage 
+regulator. 
+Configuration options: [Auto] [Disabled] [Enabled]
+CCF AutoGV
+Enable/disable CCF AutoGV. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Power Floor Management
+This option is to disable SoC's aggressive throttling to manage floor power (minimum 
+power consumption). Disabling this might effectively raise power floor of the SoC and 
+may lead to stability issues. 
+Configuration options: [Auto] [Disabled] [Enabled]
+P-core Power Density Throttle
+This option allows user to disable P-core Power Density Throttling for overclocking 
+purpose. Once disabled, BIOS cannot enable it in the same reset cycle. A warm or cold 
+reset is required to enable protection again. 
+Configuration options: [Auto] [Disabled] [Enabled]
+IA CEP Enable
+Enable/Disable CEP (Current Excursion Protection) Support. 
+Configuration options: [Auto] [Disabled] [Enabled]
+SA CEP Enable
+Enable/Disable CEP (Current Excursion Protection) Support. 
+Configuration options: [Auto] [Disabled] [Enabled]
+GT CEP Enable
+Enable/Disable CEP (Current Excursion Protection) Support. 
+Configuration options: [Auto] [Disabled] [Enabled]
+
+40
+Core VR Fast Vmode
+Core VR Fast Vmode. Use to control Core Fast Vmode Enable/Disable. 
+Configuration options: [Auto] [Disabled] [Enabled]
+GT VR Fast Vmode
+GT VR Fast Vmode. Use to control GT Fast Vmode Enable/Disable. 
+Configuration options: [Auto] [Disabled] [Enabled]
+SA VR Fast Vmode
+SA VR Fast Vmode. Use to control SA Fast Vmode Enable/Disable. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Thermal Velocity Boost
+TVB Voltage Optimizations
+This service controls thermal based voltage optimizations for processors that 
+implement the Intel Thermal Velocity Boost (TVB) feature. This item is set to [Enabled] 
+by default. Uses Overclocking Mailbox command 0x18/0x19. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Enhanced TVB
+This item is only supported on selected SKUs. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Overclocking TVB
+Enable this to be able to draw temperature/frequency dependencies. 
+Configuration options: [Auto] [Disabled] [Enabled] [+1Boost Profile] [+2Boost Profile] 
+[Boost Until Target]
+NOTE: 
++1Boost Profile(K CPU): 
+This setting will enable additional boost of one bin with the help of Auto Optimized Temperature 
+Control.
++2Boost Profile(K CPU): 
+This setting will enable additional boost of two bins with the help of Auto Optimized Temperature 
+Control.
+NOTE: The following item appears only when Overclocking TVB is set to [Enabled], [+1Boost 
+Profile], [+2Boost Profile], or [Boost Until Target].
+OC TVB Configuration Limit
+Select one of the two OC TVB Configuration limits, between Per CCP Module or Per 
+P-core Group. 
+Configuration options: [Auto] [Per CCP Module] [Per P-core Group]
+NOTE: The following item appears only when Overclocking TVB is set to [Boost Until Target].
+Max Boost Target in MHz
+Customize the maximum Target Frequency in MHz or leave auto for auto values based 
+on predictions.
+
+41
+NOTE: The following items appear only when OC TVB Configuration Limit is set to [Per CCP 
+Module].
+P-core 0-7
+Configuration options: [Auto] [Enabled]
+NOTE: The following items appear only when P-core 0-7 is set to [Enabled].
+Temperature A-B
+Package passing this temperature threshold will engage the negative ratio offset 
+specified in Negative Ratio Offset A-B. Unit in Degree Celsius. 
+NOTE: There is a 5ºC degree difference between software and TVB firmware interpretation of CPU 
+Temperature.
+Negative Ratio Offset A-B
+This will be the potential negative offset to respective ratio when package temperature 
+rises above threshold specified in Temperature A-B.
+E-core Cluster 0
+Configuration options: [Auto] [Enabled]
+NOTE: The following items appear only when E-core Cluster 0-3 is set to [Enabled].
+Temperature A-B
+Package passing this temperature threshold will engage the negative ratio offset 
+specified in Negative Ratio Offset A-B. Unit in Degree Celsius. 
+NOTE: There is a 5ºC degree difference between software and TVB firmware interpretation of CPU 
+Temperature.
+Negative Ratio Offset A-B
+This will be the potential negative offset to respective ratio when package temperature 
+rises above threshold specified in Temperature A-B.
+NOTE: The following items appear only when OC TVB Configuration Limit is set to [Per P-core 
+Group].
+1-Core Active / 2-Core Active / 3-Core Active / 4-Core Active / 5-Core Active / 
+6-Core Active / 7-Core Active / 8-Core Active
+Configuration options: [Auto] [Enabled]
+
+42
+NOTE: The following items appear only when 1-Core Active / 2-Core Active / 3-Core Active / 
+4-Core Active / 5-Core Active / 6-Core Active / 7-Core Active / 8-Core Active is set to [Enabled].
+Temperature A-B
+Package passing this temperature threshold will engage the negative ratio offset 
+specified in Negative Ratio Offset A-B. Unit in Degree Celsius. 
+NOTE: There is a 5ºC degree difference between software and TVB firmware interpretation of CPU 
+Temperature.
+Negative Ratio Offset A-B
+This will be the potential negative offset to respective ratio when package temperature 
+rises above threshold specified in Temperature A-B.
+Overclocking TVB Global Temperature Offset Sign
+This selects if positive or negative offset is desired when anyone of the Overclocking 
+TVB Boost Profiles are selected. 
+Configuration options: [+] [-]
+Overclocking TVB Global Temperature Offset Value
+The desired value to offset the temperature thresholds of the Overclocking TVB Boost 
+Profiles by should be entered here.
+Max Voltage Limits
+Process Vmax Limit
+Disabling the Vmax limit Setting will allow user to set any voltage. But disabling the 
+voltage limit checks may cause permanent damage to processor. Disabling limit 
+check will persist until next cold boot. Disabling VMax Limit will clip ratio to 4x unless 
+the processor is under 10 degrees Celsius. 
+Configuration options: [Auto] [Disabled] [Enabled]
+P-Core Max Voltage limits
+Allows you to set P-Core Max Voltage Limits.
+E-Core Max Voltage limits
+Allows you to set E-Core Max Voltage Limits.
+GT Max Voltage limits
+Allows you to set GT Max Voltage Limits.
+Ring Max Voltage limits
+Allows you to set Ring Max Voltage Limits.
+SA Max Voltage limits
+Allows you to set SA Max Voltage Limits.
+NGU Max Voltage limits
+Allows you to set NGU Max Voltage Limits.
+VCCIA Boot Voltage
+Select VCCIA boot voltage between Nominal and High Voltage. VCCIA boot Voltage - 
+the default voltage is Nominal, to support the high voltage, BIOS can program VCCIA 
+boot voltage higher than 1.65v (max 2.01v). 
+Configuration options: [Auto] [Nominal] [High Voltage]
+
+43
+VCCSA Boot Voltage
+Select VCCSA boot voltage between Nominal and High Voltage (up to 1.2/1.3V). 
+VCCSA boot Voltage - the default voltage is Nominal, to support the high voltage, BIOS 
+can program the EPOC2 bits to bump up voltage to up to 1.2/1.3V. 0 - Nominal. 1 - 
+High Voltage(up to 1.2/1.3V). 
+Configuration options: [Auto] [Nominal] [High Voltage]
+V/F Point Offset
+V/F Point Present Mode
+Configuration options: [Auto] [All Core Mode] [Per Core Mode]
+NOTE: The following item appears only when V/F Point Present Mode is set to [All Core Mode].
+V/F Point Voltage Control Mode
+Configuration options: [Auto] [Manual Mode]
+NOTE: The following items appear only when V/F Point Voltage Control Mode is set to [Manual 
+Mode].
+Offset Mode Sign 1~15
+Configuration options: [+] [-]
+V/F Point 1~15 Offset
+V/F Point 1~15 Offset in Milli-Volts.
+NOTE: The following items appear only when V/F Point Present Mode is set to [Per Core Mode].
+Performance Core0-7 V/F Point Offset
+V/F Point Voltage Control Mode
+Configuration options: [Auto] [Manual Mode]
+NOTE: The following items appear only when V/F Point Voltage Control Mode is set to [Manual 
+Mode].
+Offset Mode Sign 1~15
+Configuration options: [+] [-]
+V/F Point 1~15 Offset
+V/F Point 1~15 Offset in Milli-Volts.
+Efficient Core V/F Point Offset
+V/F Point Present Mode
+Configuration options: [Auto] [All Core Mode] [Per Core Mode]
+NOTE: The following item appears only when V/F Point Present Mode is set to [All Core Mode].
+V/F Point Voltage Control Mode
+Configuration options: [Auto] [Manual Mode]
+
+44
+NOTE: The following items appear only when V/F Point Voltage Control Mode is set to [Manual 
+Mode].
+Offset Mode Sign 1~15
+Configuration options: [+] [-]
+V/F Point 1~15 Offset
+V/F Point 1~15 Offset in Milli-Volts.
+NOTE: The following items appear only when V/F Point Present Mode is set to [Per Core Mode].
+Efficient Core Group0-7 V/F Point Offset
+V/F Point Voltage Control Mode
+Configuration options: [Auto] [Manual Mode]
+NOTE: The following items appear only when Efficient Core Group0-7 V/F Point Offset is set to 
+[Manual Mode].
+Offset Mode Sign 1~15
+Configuration options: [+] [-]
+V/F Point 1~15 Offset
+V/F Point 1~15 Offset in Milli-Volts.
+Tweaker’s Paradise
+Clocking
+Initial CPU BCLK Frequency
+Allows you to set Initial CPU BCLK Frequency.
+Initial SOC BCLK Frequency
+Allows you to set Initial SOC BCLK Frequency.
+SOC BCLK Spread Spectrum
+Enable to reduce EMI, disable to get more accurate Base Clocks. 
+Configuration options: [Auto] [Disabled] [Enabled]
+PCIE/DMI Spread Spectrum
+Configuration options: [Auto] [Disabled] [Enabled]
+Realtime Memory Timing
+Enable/Disable realtime memory timings. When enabled, the system will allow 
+performing realtime memory timing changes after MRC_DONE. 
+Configuration options: [Auto] [Disabled] [Enabled]
+SPD Write Disable
+Enable/Disable setting SPD Write Disable. For security recommendations, SPD write 
+disable bit must be set. 
+Configuration options: [TRUE] [FALSE]
+
+45
+CPU OC Features
+UnderVolt Protection
+When UnderVolt Protection is enabled, user will not be able to program under voltage 
+in OS runtime. Recommended to keep it enabled by default. 
+[Auto]	
+Use default settings.
+[Enabled]	
+Allow BIOS undervolting, but enable UnderVolt Protection in Runtime. 
+[Disabled]	
+No UnderVolt Protection in Runtime.
+CPU BGREF Mode
+Select CPU Bandgap Reference Mode between Normal and Bandgap Bypassed. CPU 
+Bandgap Reference Mode - the default voltage is Normal. 
+Configuration options: [Auto] [Normal] [Bandgap Bypassed]
+PVD Ratio Threshold for SOC
+Select PVD Ratio Threshold Value from Range 1 to 63. 0 - Static PVD ratio specified by 
+PvdMode for SOC
+PVD Mode Select for SOC 
+Select PVD Mode Value from Range 1 to 3. 0x0 = div-1 (VCO = Output clock), 0x1 = 
+div-2 (VCO = 2x Output clock), 0x2 = div-4 (VCO = 4x Output clock), 0x3 = div-8 (VCO = 
+8x Output clock)
+PVD Ratio Threshold for CPU
+Select PVD Ratio Threshold Value from Range 1 to 63. 0 - Static PVD ratio specified by 
+PvdMode for CPU
+PVD Mode Select for CPU 
+Select PVD Mode Value from Range 1 to 3. 0x0 = div-1 (VCO = Output clock), 0x1 = 
+div-2 (VCO = 2x Output clock), 0x2 = div-4 (VCO = 4x Output clock), 0x3 = div-8 (VCO = 
+8x Output clock)
+FLL OC mode
+Select the type of tuning you want for the CPU FLL. 
+Configuration options: [Auto] [Disabled] [Ratio OC] [Ratio + BCLK OC] [BCLK OC]
+Core Minimum Ratio
+Request Core Minimum Ratio. Limit Core minimum ratio for extreme overclocking and 
+the ratio is in units of 100Mhz. The request value will be updated to minimum allowed 
+one if it's too small. The request value will be updated to the maximum allowed one if 
+it's too big. 0 indicates no setting.
+SA PLL Frequency Override
+Configure Sa PLL Frequency. 
+Configuration options: [Auto] [2400 MHz] [1600 MHz]
+BCLK TSC HW Fixup
+BCLK TSC HW Fixup disable during TSC copy from PMA to APIC.
+Configuration options: [Auto] [Disabled] [Enabled]
+Core PLL Voltage Offset
+PLL Voltage Offset, Range 0-15. Units are in 17.5mV. Default is 0. This control can 
+be used to increase the range of this domain frequency in extreme overclocking 
+conditions.
+
+46
+Ring PLL Voltage Offset
+PLL Voltage Offset, Range 0-15. Units are in 17.5mV. Default is 0. This control can 
+be used to increase the range of this domain frequency in extreme overclocking 
+conditions.
+SOC System Agent PLL Voltage Offset
+PLL Voltage Offset, Range 0-15. Units are in 17.5mV. Default is 0. This control can 
+be used to increase the range of this domain frequency in extreme overclocking 
+conditions.
+IA Atom PLL Voltage Offset
+PLL Voltage Offset, Range 0-15. Units are in 17.5mV. Default is 0. This control can 
+be used to increase the range of this domain frequency in extreme overclocking 
+conditions.
+Memory Controller PLL Voltage Offset
+PLL Voltage Offset, Range 0-15. Units are in 17.5mV. Default is 0. This control can 
+be used to increase the range of this domain frequency in extreme overclocking 
+conditions.
+CPU System Agent PLL Voltage Offset
+PLL Voltage Offset, Range 0-15. Units are in 17.5mV. Default is 0. This control can 
+be used to increase the range of this domain frequency in extreme overclocking 
+conditions.
+Core PLL IRefTune Offset
+PLL Current Reference Tuning Offset, Range 0-15. Default is 0. The value provided in 
+this field is added to the PLL fuse. The value after adding offset cannot exceed 0xF, it 
+is does, FW clips the value to 0xF before writing back the value to fuse.
+IA Atom PLL IRefTune Offset
+PLL Current Reference Tuning Offset, Range 0-15. Default is 0. The value provided in 
+this field is added to the PLL fuse. The value after adding offset cannot exceed 0xF, it 
+is does, FW clips the value to 0xF before writing back the value to fuse.
+External Voltages
+NGU SVID Voltage
+Configure the NGU Voltage requested by the cores. This adds a Voltage work point to 
+System Agent Voltage Rail for the Processor to evaluate based on NGU Frequency. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode] [Adaptive Mode]
+NOTE: The following items appears only when NGU SVID Voltage is set to [Manual Mode].
+CPU NGU Voltage Override
+Configure the voltage for the CPU NGU. Use the <+> or <-> to adjust the value. The 
+values range from 0.600V to 1.700V with an interval of 0.001V.
+NOTE: The following items appear only when NGU SVID Voltage is set to [Offset Mode] or 
+[Adaptive Mode].
+Offset Mode Sign
+[+]:	
+Offset the CPU NGU voltage by a positive value.
+[-]:	
+Offset the CPU NGU voltage by a negative value.
+
+47
+Offset Voltage
+Configure the CPU NGU voltage offset value. Save changes and reset the system for 
+the change to take effect. Use the <+> or <-> to adjust the value. The values range 
+from 0.001V to 0.999V with an interval of 0.001V.
+NOTE: The following item appears only when NGU SVID Voltage is set to [Adaptive Mode].
+Additional Turbo Mode CPU NGU Voltage
+Configure the amount of voltage fed to the CPU NGU when running in Turbo mode. 
+Increase the voltage when configuring a high CPU NGU frequency. This voltage will be 
+affected by the offset value. Use the <+> or <-> to adjust the value. The values range 
+from 0.250V to 1.920V with an interval of 0.001V.
+VCCIO 1.25v Voltage
+Configure the voltage for the VCCIO. Use the <+> or <-> to adjust the value. The values 
+range from 0.700V to 1.700V with an interval of 0.010V.
+SOC 1.8v Voltage
+Configure the voltage for the SOC 1.8v. Use the <+> or <-> to adjust the value. The 
+values range from 1.400V to 2.400V with an interval of 0.010V.
+CPU 1.8v Voltage
+Configure the voltage for the CPU 1.8v. Use the <+> or <-> to adjust the value. The 
+values range from 1.400V to 2.200V with an interval of 0.010V.
+DDR 1.8v Voltage
+Configure the voltage for the DDR 1.8v. Use the <+> or <-> to adjust the value. The 
+values range from 1.400V to 2.400V with an interval of 0.010V.
+Quiet 1.8v Voltage
+Configure the voltage for the Quiet 1.8v. Use the <+> or <-> to adjust the value. The 
+values range from 1.400V to 2.400V with an interval of 0.010V.
+CPU Core Boot Voltage
+The CPU voltage at initial boot up.
+CPU System agent Boot Voltage
+The CPU System agent voltage at initial boot up.
+VNNAON Boot Voltage
+The VNNAON voltage at initial boot up.
+SOC 1.8v Boot Voltage
+The SOC 1.8v voltage at initial boot up. Use the <+> or <-> to adjust the value. The 
+values range from 1.400V to 2.400V with an interval of 0.010V.
+CPU 1.8v Boot Voltage
+The CPU 1.8v voltage at initial boot up. Use the <+> or <-> to adjust the value. The 
+values range from 1.400V to 2.200V with an interval of 0.010V.
+CPU Core Reset Voltage
+Configure the voltage for the CPU Core when reset.
+CPU System agent Reset Voltage
+Configure the voltage for the CPU System agent when reset.
+VNNAON Reset Voltage
+Configure the voltage for the VNNAON when reset.
+
+48
+SOC 1.8v Reset Voltage
+Configure the voltage for the SOC 1.8v when reset. Use the <+> or <-> to adjust the 
+value. The values range from 1.400V to 2.400V with an interval of 0.010V.
+CPU 1.8v Reset Voltage
+Configure the voltage for the CPU 1.8v when reset. Use the <+> or <-> to adjust the 
+value. The values range from 1.400V to 2.200V with an interval of 0.010V.
+AI Features
+The items in this menu allows you to enable or disable different AI Features.
+Processor Utilization
+This item allows you to view the Processor Utilization information.
+Package Temperature Threshold
+When regulation is set to enable, frequency will adjust to stay below this package 
+temperature threshold.
+Regulate Frequency by above Threshold
+When enabled, frequency will adjust to stay below the above threshold. SVID must be 
+enabled for this to work. 
+Configuration options: [Auto] [Enabled] [Disabled]
+Cooler Efficiency Customize
+[Keep Training]	
+Continuous evaluations will be performed on Cooler efficiency 
+and updated accordingly.
+[Stop Training]	
+Cooler efficiency evaluations will stop and current evaluated 
+efficiency will be used.
+[User Specify]	
+Manually specify the Cooler efficiency and all predictions will be 
+based off this manual setting.
+NOTE: The following item appears only when Cooler Efficiency Customize is set to [User Specify].
+Cooler Score
+The value of the Cooler’s pts. [Maximum] 250 pts; [Minimum] 1 pts; [Default] 125 pts.
+Recalibrate Cooler
+This will recalibrate your Cooler efficiency from scratch.
+Cooler Re-evaluation Algorithm
+Configuration options: [Normal] [More inclined to update] [Very inclined to update] 
+[Less inclined to update] [Least inclined to update]
+Optimism Scale
+Allows you to set the optimism of the predictions. The higher the value, the more 
+optimistic the predictions and vice versa.
+Ring Down Bin
+Enable/Disable Ring Downbin feature. Default for Overclocking is [Disabled] to allow for a 
+predictable ring ratio. Uses OC mailbox command 0x19.
+[Auto]	
+Set to default.
+[Disabled]	
+CPU will not down bin the ring ratio and the requested ring ratio limit will 
+be observed.
+[Enabled]	
+CPU will down bin the ring ratio, which means the requested max ring ratio 
+may not be observed.
+
+49
+Max. CPU Graphics Ratio
+Configures the CPU graphics ratio. The ratio may vary depending on the system loading.
+Min. CPU Cache Ratio
+Configures the minimum possible CPU cache ratio.
+Max. CPU Cache Ratio
+Configures the maximum possible CPU cache ratio.
+NGU Ratio
+Set NGU Ratio. This adds a ratio work point to System Agent Voltage Frequency Curve for 
+the Processor to map NGU SVID Voltage to. This is the maximum ratio the inter-connect 
+within the SOC-Memory Controller runs at. Default is 26x.
+CPU D2D Ratio
+Set CPU D2D Ratio. D2D is an acronym for Die to Die and this is the ratio of the BUS 
+connecting the different tiles. Default is 21x.
+Extreme Over-voltage
+[Enabled]:	
+Set to this option to select a high overclocking voltage, but which may 
+affect the CPU lifespan.
+[Disabled]:	
+Set to this option for CPU overvoltage protection.
+NOTE: This item can only be enabled when the onboard CPU_OV jumper is switched on. [Enabled] 
+allows higher voltages for overclocking, but the CPU lifetime will not be guaranteed.
+BCLK Aware Adaptive Voltage
+When enabled, pcode will be aware of the BCLK frequency when calculating the CPU 
+V/F curves. This is ideal for BCLK OC to avoid high voltage overrides. Uses OC Mailbox 
+command 0x15. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Actual VRM Core Input Voltage
+Configure the VRM output rail for Core Voltage. Manual mode allows user-defined values. 
+Offset mode modifies values by SVID. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode]
+NOTE: The following item appears only when Actual VRM Core Input Voltage is set to [Manual 
+Mode].
+CPU Core Voltage Override
+Configure the voltage for the CPU Core. Use the <+> or <-> to adjust the value. The values 
+range from 0.900V to 1.720V with an interval of 0.005V.
+NOTE: The following items appear only when Actual VRM Core Input Voltage is set to [Offset 
+Mode].
+Offset Mode Sign
+[+]	
+To offset the CPU core voltage by a positive value.
+[–]	
+To offset the CPU core voltage by a negative value.
+
+50
+Offset Voltage
+Configure the CPU core voltage offset value. Save changes and reset the system for the 
+change to take effect. Use the <+> or <-> to adjust the value. The values range from 0.005V 
+to 0.635V with an interval of 0.005V.
+CPU DLVR Mode
+Select Core(s) and RING DLVR Mode. Regulation Mode is the default recommended Mode 
+and uses the Processor's Internal Regulator to feed the cores. Power Gate Mode bypasses 
+this and feeds the cores directly from the VCore Rail Source. 
+Configuration options: [Auto] [Regulation Mode] [Power Gate Mode]
+Performance Core DLVR Voltage
+Configure the P-Core Voltage requested by the cores. Result may be influenced by Actual 
+VRM Core Voltage. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode] [Adaptive Mode]
+NOTE: The following item appears only when Performance Core DLVR Voltage is set to [Manual 
+Mode].
+CPU P-Core Voltage Override
+Configure the voltage for the CPU P-Core. Use the <+> or <-> to adjust the value. The values 
+range from 0.600V to 1.700V with an interval of 0.001V.
+NOTE: The following items appear only when Performance Core DLVR Voltage is set to [Adaptive 
+Mode].
+Additional Turbo Mode Voltage
+Configure the amount of voltage fed to the CPU P-Core when running in Turbo mode. 
+Increase the voltage when configuring a high CPU P-Core frequency. This voltage will be 
+affected by the offset value. Use the <+> or <-> to adjust the value. The values range from 
+0.250V to 1.920V with an interval of 0.001V.
+NOTE: The following items appear only when Performance Core DLVR Voltage is set to [Offset 
+Mode], or [Adaptive Mode].
+Offset Mode Sign
+[+]	
+To offset the CPU P-Core voltage by a positive value.
+[–]	
+To offset the CPU P-Core voltage by a negative value.
+Offset Voltage
+Configure the CPU P-Core voltage offset value. Save changes and reset the system for the 
+change to take effect. Use the <+> or <-> to adjust the value. The values range from 0.001V 
+to 0.999V with an interval of 0.001V.
+Efficient Core DLVR Voltage
+Configure the E-Core Voltage requested by the cores. Result may be influenced by Actual 
+VRM Core Voltage. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode] [Adaptive Mode]
+
+51
+NOTE: The following item appears only when Efficient Core DLVR Voltage is set to [Manual Mode].
+CPU E-Core Voltage Override
+Configure the voltage for the CPU E-Core. Use the <+> or <-> to adjust the value. The values 
+range from 0.600V to 1.700V with an interval of 0.001V.
+NOTE: The following item appears only when Efficient Core DLVR Voltage is set to [Adaptive 
+Mode].
+Additional Turbo Mode Voltage
+Configure the amount of voltage fed to the CPU E-Core when running in Turbo mode. 
+Increase the voltage when configuring a high CPU P-Core frequency. This voltage will be 
+affected by the offset value. Use the <+> or <-> to adjust the value. The values range from 
+0.250V to 1.920V with an interval of 0.001V.
+NOTE: The following items appear only when Efficient Core DLVR Voltage is set to [Offset Mode], 
+or [Adaptive Mode].
+Offset Mode Sign
+[+]	
+To offset the CPU E-Core voltage by a positive value.
+[–]	
+To offset the CPU E-Core voltage by a negative value.
+Offset Voltage
+Configure the CPU E-Core voltage offset value. Save changes and reset the system for the 
+change to take effect. Use the <+> or <-> to adjust the value. The values range from 0.001V 
+to 0.999V with an interval of 0.001V.
+Ring DLVR Voltage
+Configure the Ring Voltage requested by the cores. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode] [Adaptive Mode]
+NOTE: The following item appears only when Ring DLVR Voltage is set to [Manual Mode].
+CPU Ring Voltage Override
+Configure the voltage for the CPU Ring. The values range from 0.600V to 1.700V with an 
+interval of 0.001V.
+NOTE: The following item appears only when Ring DLVR Voltage is set to [Adaptive Mode].
+Additional Turbo Mode Voltage
+Configure the amount of voltage fed to the CPU Ring when running in Turbo mode. Increase 
+the voltage when configuring a high CPU Ring frequency. This voltage will be affected by the 
+offset value. Use the <+> or <-> to adjust the value. The values range from 0.250V to 1.920V 
+with an interval of 0.001V.
+
+52
+NOTE: The following items appear only when Ring DLVR Voltage is set to [Offset Mode], or 
+[Adaptive Mode].
+Offset Mode Sign
+[+]	
+To offset the CPU Ring voltage by a positive value.
+[–]	
+To offset the CPU Ring voltage by a negative value.
+Offset Voltage
+Configure the CPU Ring voltage offset value. Save changes and reset the system for the 
+change to take effect. Use the <+> or <-> to adjust the value. The values range from 0.001V 
+to 0.999V with an interval of 0.001V.
+CPU Graphics Voltage
+Configure the VRM output rail for CPU Graphics Voltage. Manual mode allows user-defined 
+values. Offset mode modifies values by SVID. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode]
+NOTE: The following item appears only when CPU Graphics Voltage is set to [Manual Mode].
+CPU Graphics Voltage Override
+Configure the voltage for the CPU Graphics. Use the <+> or <-> to adjust the value. The 
+values range from 0.700V to 1.700V with an interval of 0.005V.
+NOTE: The following items appear only when CPU Graphics Voltage is set to [Offset Mode].
+Offset Mode Sign
+[+]:	
+Offset the CPU Graphics voltage by a positive value.
+[-]:	
+Offset the CPU Graphics voltage by a negative value.
+Offset Voltage
+Configure the CPU Graphics voltage offset value. Save changes and reset the system for the 
+change to take effect. Use the <+> or <-> to adjust the value. The values range from 0.005V 
+to 0.635V with an interval of 0.005V.
+CPU System agent Voltage
+Configure the VRM output rail for CPU System agent Voltage. Manual mode allows user-
+defined values. Offset mode modifies values by SVID. 
+Configuration options: [Auto] [Manual Mode] [Offset Mode]
+NOTE: The following item appears only when CPU System agent Voltage is set to [Manual Mode].
+CPU System agent Voltage Override
+Configure the voltage for the CPU System agent. Use the <+> or <-> to adjust the value. The 
+values range from 0.700V to 1.700V with an interval of 0.005V.
+
+53
+NOTE: The following items appear only when CPU System agent Voltage is set to [Offset Mode].
+Offset Mode Sign
+[+]:	
+Offset the CPU System agent voltage by a positive value.
+[-]:	
+Offset the CPU System agent voltage by a negative value.
+Offset Voltage
+Configure the CPU System agent voltage offset value. Save changes and reset the system 
+for the change to take effect. Use the <+> or <-> to adjust the value. The values range from 
+0.005V to 0.635V with an interval of 0.005V.
+VNNAON 0.77v Voltage
+Configure the VRM output rail for VNNAON Voltage. Manual mode allows user-defined 
+values. This rail may help CPU D2D Ratio overclock. 
+Configuration options: [Auto] [Manual Mode]
+NOTE: The following item appears only when VNNAON 0.77v Voltage is set to [Manual Mode].
+VNNAON Voltage Override
+Configure the voltage for the VNNAON. Use the <+> or <-> to adjust the value. The values 
+range from 0.770V to 1.400V with an interval of 0.010V.
+Memory Controller Voltage
+Configure the voltage for the MC Voltage. Use the <+> or <-> to adjust the value. The values 
+range from 0.900V to 1.800V with an interval of 0.010V.
+High DRAM Voltage Mode
+If Disabled, the upper range for DRAM Voltage will be 1.435V. If Enabled, the upper range will 
+be 2.070V. If enabled on non-supported DRAM, the voltage will be lower than requested. 
+Configuration options: [Auto] [Disabled] [Enabled]
+DRAM VDD Voltage
+Power for the DRAM ICs’ VDD portion.
+DRAM VDDQ Voltage
+Power for the DRAM ICs’ VDD Data portion.
+Advanced Memory Voltages
+VccDdqControl Bypass
+Configuration options: [Auto] [Disabled] [Enabled]
+Vddq Voltage Override
+Vddq Voltage default is 1.1v.
+VccIogControl Bypass
+Configuration options: [Auto] [Disabled] [Enabled]
+VccIog Voltage Override
+VccIog Voltage default is 0.85v.
+VccClk Voltage Override
+VccClk Voltage default is 0.85v.
+
+54
+MC Voltage Calculation Voltage Base
+The Base MC Voltage used for Calculations.
+VDD Calculation Voltage Base
+The Base VDD Voltage used for Calculations.
+PMIC Voltages
+Configuration options: [Auto] [Sync All PMICs] [By per PMIC]
+NOTE: The following items appear only when PMIC Voltages is set to [Sync All PMICs].
+SPD HUB VLDO (1.8V)
+Main power for the SPD Hub Logic. Default is 1.8V.
+SPD HUB VDDIO (1.0V)
+Power for the SPD Hub side-band interface. Default is 1.0V.
+DRAM VDD Voltage
+Power for the DRAM ICs’ VDD portion.
+DRAM VDDQ Voltage
+Power for the DRAM ICs’ VDD Data portion.
+DRAM VPP Voltage
+DRAM Activating Power Supply.
+DRAM VDD Switching Frequency
+Switching Frequency of DRAM VDD Regulator in MHz.
+DRAM VDDQ Switching Frequency
+Switching Frequency of DRAM VDDQ Regulator in MHz.
+DRAM VPP Switching Frequency
+Switching Frequency of DRAM VPP Regulator in MHz.
+DRAM Current Capability
+Current Capability for the Switching Regulators in Amps.
+NOTE: The following items appear only when PMIC Voltages is set to [By per PMIC].
+PMIC0-1 SPD HUB VLDO (1.8V)
+Main power for the SPD Hub Logic. Default is 1.8V.
+PMIC0-1 SPD HUB VDDIO (1.0V)
+Power for the SPD Hub side-band interface. Default is 1.0V.
+PMIC0-1 DRAM VDD Voltage
+Power for the DRAM ICs’ VDD portion.
+PMIC0-1 DRAM VDDQ Voltage
+Power for the DRAM ICs’ VDD Data portion.
+PMIC0-1 DRAM VPP Voltage
+DRAM Activating Power Supply.
+PMIC0-1 DRAM VDD Switching Frequency
+Switching Frequency of DRAM VDD Regulator in MHz.
+
+55
+PMIC0-1 DRAM VDDQ Switching Frequency
+Switching Frequency of DRAM VDDQ Regulator in MHz.
+PMIC0-1 DRAM VPP Switching Frequency
+Switching Frequency of DRAM VPP Regulator in MHz.
+PMIC0-1 DRAM Current Capability
+Current Capability for the Switching Regulators in Amps.
+
+56
+6.	
+Advanced menu
+The Advanced menu items allow you to change the settings for the CPU and other system 
+devices. Scroll down to display other BIOS items.
+CAUTION! Be cautious when changing the settings of the Advanced menu items. Incorrect field 
+values can cause the system to malfunction.
+6.1	
+Platform Misc Configuration
+The items in this menu allow you to configure the platform-related features.
+PCI Express Native Power Management
+For enhanced PCI Express power saving. Select [Enable] to perform Active State Power 
+Management (ASPM) operations in OS. 
+Configuration options: [Disabled] [Enabled]
+NOTE: The following item appears only when PCI Express Native Power Management is set to 
+[Enabled].
+Native ASPM
+Set this item to [Enabled] for OS Controlled ASPM, or set this item to [Disabled] for BIOS 
+controlled ASPM. 
+Configuration options: [Auto] [Enabled] [Disabled]
+
+57
+6.2	
+CPU Configuration
+The items in this menu show the CPU-related information that the BIOS automatically 
+detects. Scroll down to display other BIOS items.
+CAUTION! The items in this menu may vary based on the CPU installed.
+Efficient Core Information
+This submenu displays the Efficient Core Information.
+Performance Core Information
+This submenu displays the Performance Core Information.
+Intel (VMX) Virtualization Technology
+When enabled, a VMM can utilize the additional hardware capabilities provided by 
+Vanderpool Technology. 
+Configuration options: [Disabled] [Enabled]
+Per Core Control
+Configuration options: [Disabled] [Enabled]
+NOTE: The following item appears only when Per Core Control is set to [Enabled].
+Processor Disable
+Core 0-23 Control (E-core)
+Configuration options: [Disabled] [Enabled]
+PCH - PCI Express
+DMI Link ASPM Control
+Allows you to control the Active State Power Management of the DMI Link. 
+Configuration options: [Disabled] [L1] [Auto]
+ASPM
+Set the ASPM Level. 
+Configuration options: [Disabled] [L0s] [L1] [L0sL1] [Auto]
+L1 Substates
+PCI Express L1 Substates settings. 
+Configuration options: [Disabled] [L1.1] [L1.1 & L1.2]
+SA - PCI Express
+DMI ASPM
+DMI ASPM Support. 
+Configuration options: [Disabled] [Auto] [ASPM L1]
+ASPM
+Set the ASPM Level. 
+Configuration options: [Disabled] [L0s] [L1] [L0sL1] [Auto]
+
+58
+NOTE: The following items appear only when Per Core Control is set to [Disabled].
+Active Performance Cores
+Number of cores to enable in each processor package. 
+Configuration options: [All] [1] [2] [3] [4] [5] [6] [7]
+Active Efficient Cores
+Number of Efficient cores to enable in each processor package. 
+Configuration options: [All] [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] 
+[18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31]
+NOTE: Number of Cores and Efficient Cores are looked at together. When both are {0,0}, Pcode will 
+enable all cores.
+Active SOC-North Efficient-cores
+Number of SOC-North Efficient-cores to enable in SOC North. 
+Configuration options: [All] [0] [1]
+Total Memory Encryption
+Configure Total Memory Encryption (TME) to protect DRAM data from physical attacks. 
+When this option is configured as [Enabled], VT-d option must be [Enabled].
+This option will be grayed out when VT-d option is configured as [Disabled].
+CPU - Power Management Control
+Boot performance mode
+Select the performance state that the BIOS will set starting from reset vector. 
+Configuration options: [Max Battery] [Max Non-Turbo Performance] [Turbo 
+Performance]
+Intel(R) SpeedStep(tm)
+Supports more than two frequency ranges. 
+Configuration options: [Disabled] [Enabled]
+Intel(R) Speed Shift Technology
+Enables/disables the Intel(R) Speed Shift Technology support. When enabled,  CPPC 
+v2 interface allows hardware controlled P-states. 
+Configuration options: [Disabled] [Enabled]
+Turbo Mode
+Enable/Disable processor Turbo Mode (requires EMTTM enabled too). 
+Configuration options: [Disabled] [Enabled]
+CPU C-states
+Enable/Disable CPU Power Management. Allows CPU to go to C states when it's not 
+100% utilized. 
+Configuration options: [Auto] [Disabled] [Enabled]
+
+59
+NOTE: The following items appear only when CPU C-states is set to [Enabled].
+Enhanced C-states
+Enables/disables C1E. When enabled, CPU slows down to minimum speed when all 
+cores enter the C-state. 
+Configuration options: [Auto] [Disabled] [Enabled]
+Package C State Limit
+Maximum Package C State Limit Setting. [Cpu Default] Leaves to Factory default 
+value. [Auto] Initializes to deepest available Package C State Limit. 
+Configuration options: [C0/C1] [C2] [C3] [C6] [C7] [C7S] [C8] [C9] [C10] [Cpu Default] 
+[Auto]
+Thermal Monitor 
+Configuration options: [Disabled] [Enabled]
+Dual Tau Boost
+Enable Dual Tau Boost feature. This is only applicable for Desktop 35W/65W/125W 
+sku. When DPTF is enabled this feature is ignored. 
+Configuration options: [Disabled] [Enabled]
+6.3	
+System Agent (SA) Configuration
+The items in this menu allow you to change the System Agent (SA) parameters.
+VT-d
+Check to enable VT-d function on MCH. 
+Configuration options: [Enabled] [Disabled]
+NOTE: The following item appears only when VT-d is set to [Enabled].
+Control Iommu Pre-boot Behavior
+Enable IOMMU in Pre-boot environment (If DMAR table is installed in DXE and If VTD_INFO_
+PPI is installed in PEI). 
+Configuration options: [Enabled] [Disabled]
+Memory Configuration
+Memory Remap
+Enable/Disable Memory Remap above 4GB. 
+Configuration options: [Enabled] [Disabled]
+Graphics Configuration
+Internal Graphics
+Keep IGFX enabled based on the setup options. 
+Configuration options: [Enabled] [Disabled]
+DVMT Pre-Allocated
+Select DVMT 5.0 Pre-Allocated (Fixed) Graphics Memory size used by the Internal 
+Graphics Device. 
+Configuration options: [32M] [64M] [96M] [128M]
+
+60
+RC6(Render Standby)
+Check to enable render standby support. 
+Configuration options: [Enabled] [Disabled]
+VMD Setup menu
+Enable VMD controller
+Enable/Disable VMD controller. 
+Configuration options: [Enabled] [Disabled]
+Map PCIE Storage under VMD
+Map/Unmap PCIe Storage to VMD. 
+Configuration options: [Enabled] [Disabled]
+Map SATA Controller under VMD
+Map/Unmap this Root Port to VMD. 
+Configuration options: [Enabled] [Disabled]
+PCI Express Configuration
+The items in this submenu allow you to configure the PCIe Speeds for the different onboard 
+slots. 
+NOTE: The items in this submenu may vary according to your motherboard. Please refer to the 
+BIOS of your motherboard for the actual settings and options.
+6.4	
+PCH Configuration
+The items in this menu allow you to change the PCIe configurations for slots supported by 
+the PCH.
+PCI Express Configuration
+The items in this submenu allow you to configure the PCIe Speeds for the different onboard 
+slots supported by the PCH.
+NOTE: The items in this submenu may vary according to your motherboard. Please refer to the 
+BIOS of your motherboard for the actual settings and options.
+6.5	
+PCH Storage Configuration
+While entering Setup, the BIOS automatically detects the presence of SATA devices. The 
+SATA device port items show Empty if no SATA device is installed to the corresponding port. 
+Scroll down to display the other BIOS items.
+NOTE: The settings and options of this menu may vary depending on your motherboard. Please 
+refer to the BIOS of your motherboard for the actual settings and options.
+SATA Controller(s)
+Allows you to enable or disable the SATA Device. 
+Configuration options: [Disabled] [Enabled]
+
+61
+NOTE: The following items appear only when SATA Controller(s) is set to [Enabled].
+Aggressive LPM support
+Allows PCH to aggressively enter link power state. 
+Configuration options: [Disabled] [Enabled]
+SMART Self Test
+S.M.A.R.T. (Self-Monitoring, Analysis and Reporting Technology) is a monitoring system that 
+shows a warning message during POST (Power-on Self Test) when an error occurs in the 
+hard disks. 
+Configuration options: [Disabled] [Enabled] 
+NOTE: The SATA items may vary according to your motherboard’s ports/slots. Please refer to the 
+BIOS of your motherboard for the actual settings and options.
+M.2
+Enable or disable the selected SATA port. 
+Configuration options: [Disabled] [Enabled]
+M.2 Hot Plug
+Designates this port as Hot Pluggable. 
+Configuration options: [Disabled] [Enabled]
+SATA6G
+Enable or Disable SATA Port. 
+Configuration options: [Disabled] [Enabled]
+SATA6G Hot Plug
+Designates this port as Hot Pluggable. 
+Configuration options: [Disabled] [Enabled]
+6.6	
+PCH-FW Configuration
+This item allows you to configure the Management Engine Technology parameters.
+TPM Device Selection
+Selects TPM device: Firmware TPM or Discrete TPM. 
+[Enable Discrete TPM]	
+Enable Discrete TPM, disable platform Firmware TPM.
+[Enable Firmware TPM]	
+Enable platform Firmware TPM, disable Discrete TPM. If you 
+plug in Discrete TPM card on your Mother Board, please select 
+this option to Discrete TPM.
+
+62
+6.7	
+Thermal Configuration
+The items in this menu allow you to configure Thermal Parameters.
+Intel(R) Innovation Platform Framework Configuration
+This submenu allows you to configure Intel(R) Innovation Platform Framework Configuration 
+options.
+Intel(R) Innovation Platform Framework
+Allows you to enable or disable Intel Innovation Platform Thermal Framework. 
+Configuration options: [Disabled] [Enabled]
+6.8	
+Trusted Computing
+The items in this menu allow you to configure the Trusted Computing settings.
+NOTE: The availability of this menu, as well as the settings and options may vary depending 
+on your motherboard. Please refer to the BIOS of your motherboard for the actual settings and 
+options.
+Security Device Support
+Enables or Disables BIOS support for security device. O.S. will not show Security Device. 
+TCG EFI protocol and INT1A interface will not be available. 
+Configuration options: [Disable] [Enable] 
+NOTE: The following items appear only when Security Device Support is set to [Enable].
+SHA256 PCR Bank
+Allows you to enable or disable the SHA256 PCR Bank. 
+Configuration options: [Disabled] [Enabled] 
+Pending operation
+Allows you to schedule an Operation for the Security Device. 
+Configuration options: [None] [TPM Clear] 
+NOTE: Your computer will reboot during restart in order to change the State of the Security Device.
+Platform Hierarchy
+Allows you to enable or disable the Platform Hierarchy. 
+Configuration options: [Disabled] [Enabled]
+Storage Hierarchy
+Allows you to enable or disable the Storage Hierarchy. 
+Configuration options: [Disabled] [Enabled]
+Endorsement Hierarchy
+Allows you to enable or disable the Endorsement Hierarchy. 
+Configuration options: [Disabled] [Enabled]
+
+63
+Physical Presence Spec Version
+Allows you to select to Tell O.S. to support PPI Version 1.2 or 1.3. 
+Configuration options: [1.2] [1.3]
+NOTE: Some HCK tests might not support 1.3.
+6.9	
+UEFI Variables Protection
+The items in this menu allow you to configure the NVRAM Runtime Variable Protection 
+settings.
+Password protection of Runtime Variables
+Allows you to control the NVRAM Runtime Variable Protection through System Admin 
+Password. 
+Configuration options: [Disable] [Enable]
+6.10	
+PCI Subsystem Settings
+The items in this menu allow you to configure PCI, PCI-X, and PCI Express settings.
+Re-Size BAR Support
+If the system has Resizable BAR capable PCIe Devices, this option enables or disables 
+Resizable BAR Support (Only if System supports 64 bit PCI Decoding). 
+Configuration options: [Disabled] [Enabled]
+NOTE: To enable Re-Size BAR Support for harnessing full GPU memory, please go to the Boot 
+section.
+SR-IOV Support
+This option enables or disables Single Root IO Virtualization Support if the system has SR-
+IOV capable PCIe devices. 
+Configuration options: [Disabled] [Enabled]
+6.11	
+USB Configuration
+The items in this menu allow you to change the USB-related features.
+XHCI Hand-off
+This is a workaround for OSes without XHCI hand-off support. The XHCI ownership change 
+should be claimed by XHCI driver.
+[Disabled]	
+Support XHCI by XHCI drivers for operating systems with XHCI support. 
+[Enabled]	
+Support XHCI by BIOS for operating systems without XHCI support.
+USB Single Port Control
+Allows you to enable or disable the individual USB ports.
+NOTE: Refer to section Motherboard layout and Rear I/O connection in your motherboard’s user 
+manual for the location of the USB ports.
+
+64
+6.12	
+Network Stack Configuration
+The items in this menu allow you to change the Network Stack Configuration.
+Network stack
+Allows you to disable or enable the UEFI network stack. 
+Configuration options: [Disabled] [Enabled] 
+NOTE: The following items appear only when Network Stack is set to [Enabled].
+Ipv4 PXE Support
+Allows you to enable or disable the Ipv4 PXE boot support. 
+Configuration options: [Disabled] [Enabled]
+Ipv6 PXE Support
+Allows you to enable or disable the Ipv6 PXE boot support. 
+Configuration options: [Disabled] [Enabled]
+6.13	
+NVMe Configuration
+This menu displays the NVMe controller and Drive information of the connected devices. 
+You may press <Enter> on a connected NVMe device which appears in this menu to view 
+more information on the NVMe device.
+NOTE: The options displayed in this menu may vary depending on the devices connected to your 
+motherboard. Please refer to the BIOS of your motherboard for the actual settings and options.
+6.14	
+HDD/SSD SMART Information
+The items in this menu allow you to view the SMART information for connected storage 
+devices.
+NOTE:
+•	 The options displayed in this menu may vary depending on the devices connected to your 
+motherboard. Please refer to the BIOS of your motherboard for the actual settings and options.
+•	 NVM Express devices do not support SMART information.
+6.15	
+APM Configuration
+The items in this menu allow you to change the advanced power management settings.
+Restore AC Power Loss
+Allows you to set the AC power state to enter when power is re-applied after a power failure. 
+Configuration options: [Power Off] [Power On] [Last State]
+Max Power Saving
+Configuration options: [Disabled] [Enabled]
+
+65
+ErP Ready
+Allows you to switch off some power at S4+S5 or S5 to get the system ready for ErP 
+requirement. When set to [Enabled], all other PME options are switched off. RGB LEDs and 
+RGB/Addressable RGB Headers will also be disabled. 
+Configuration options: [Disabled] [Enabled (S4+S5)] [Enabled (S5)]
+Power On By PCI-E
+Allows you to enable or disable the Wake-on-LAN function of the onboard LAN controller or 
+other installed PCI-E LAN cards. 
+Configuration options: [Disabled] [Enabled]
+Power On By RTC
+Allows you to enable or disable the RTC (Real-Time Clock) to generate a wake event and 
+configure the RTC alarm date. When enabled, you can set the days, hours, minutes, or 
+seconds to schedule an RTC alarm date. 
+Configuration options: [Disabled] [Enabled]
+6.16	
+Thunderbolt(TM) Configuration
+The items in this menu allow you to configure Thunderbolt settings.
+NOTE: The availability of this menu, as well as the settings and options may vary depending 
+on your motherboard. Please refer to the BIOS of your motherboard for the actual settings and 
+options.
+PCIE Tunneling over USB4
+Allows you to enable or disable PCIE Tunneling over USB4. 
+Configuration options: [Disabled] [Enabled]
+USB4 CM Mode
+[Software CM]	
+The system boots with SW CM in both BIOS and OS phase.
+[CM Debug]	
+The system with boot without any CM in BIOS phase, then boot to OS with 
+the CM based on OS' preference by every boot.
+Integrated Thunderbolt(TM) Enable
+Enable or Disable Integrated Thunderbolt(TM). 
+Configuration options: [Disabled] [Enabled]
+NOTE: The following item appears only when Integrated Thunderbolt(TM) Enable is set to 
+[Enabled].
+Integrated Thunderbolt(TM) Configuration
+Os Native Resource Balance
+Configuration options: [Disabled] [Enabled]
+Connect Topology Timeout value for ITBT
+Connect Topology Timeout value for Integrated Thunderbolt(TM) Controller.
+Force Poweron Timeout value for ITBT
+Force Poweron Timeout value for Integrated Thunderbolt(TM).
+
+66
+ITBT RTD3
+Configuration options: [Disabled] [Enabled]
+NOTE: ITBT RTD3 Disabled is not supported when SW CM is applied for OS3.
+ITBT RTD3 EXIT DELAY
+ITBT RTD3 EXIT DELAY (milli seconds)
+PCIE ITBT RTD3 POLLING LINK ACTIVE TIMEOUT
+Adjust link active polling time during D3C exit and delay in PS0 before return to OS 
+(milli seconds).
+ITBT Root Port 0 Configuration
+ITBT Root Port 0
+Configuration options: [Disabled] [Enabled]
+Extra Bus Reserved
+Extra Bus Reserved 42. Extra Bus Reserved is required for each layer = (Extra 
+Bus Reserved on the previous layer - 2 - the number of non-hot-plug ports in 
+the current layer) / the number of hot-plug ports in the current layer.
+Reserved Memory
+Reserved Memory for this Root Bridge (1-4096) MB.
+Memory Alignment
+Memory Alignment (0-31 bits).
+Reserved PMemory
+Reserved Prefetchable Memory for this Root Bridge (1-32768) MB.
+PMemory Alignment
+PMemory Alignment (0-31 bits).
+Thunderbolt 5 Enable
+Configuration options: [Disabled] [Enabled]
+NOTE: The following items appear only when Thunderbolt 5 Enable is set to [Enabled].
+USB4 Host Router Class Code
+Option for class code to be applied to Host Router for loading different driver.
+[Auto]	
+Determined by OSPM USB support.
+[Intel USB4 Ver2]	 Intel USB4 Ver2 driver.
+[USB4 Standard]	 OS inbox driver.
+Thunderbolt 5 Configuration
+GPIO Force Pwr
+Set GPIO3 to 1/0. 
+Configuration options: [Disabled] [Enabled]
+GPIO filter
+GPIO filter is needed to avoid electrical noise on PCH GPIOs during hotplug of 12V 
+USB devices. 
+Configuration options: [Disabled] [Enabled]
+
+67
+TBT Controller Configuration
+TBT Host Router
+Allows you to enable host router based on ports available.
+Configuration options: [One Port] [Two Port]
+Extra Bus Reserved
+Extra Bus Reserved 56-One port Host, 106-Two port Host.
+Reserved Memory
+Allows you to set the Reserved Memory for this Root Bridge (1-4096) MB.
+Memory alignment
+Memory Alignment (0-31 bits)
+Reserved PMemory
+Reserved Prefetchable Memory for this Root Bridge (1-32768) MB.
+PMemory alignment
+PMemory Alignment (0-31 bits).
+Reserved I/O
+Allows you to set Reserved I/O.
+6.17	
+Onboard Devices Configuration
+The items in this menu allow you to change the onboard devices settings. Scroll down to 
+view the other BIOS items.
+NOTE: The settings and options of this menu may vary depending on your motherboard. Please 
+refer to the BIOS of your motherboard for the actual settings and options.
+CPU TypeC Mode
+[Alternate Mode]	 USB/DP alternate mode
+[USB4 Mode]	
+USB4 Mode
+PCIe Bandwidth Bifurcation Configuration
+[Auto]	
+	
+Run full PCIe X16 mode by default. If PCIe devices are detected 
+in PCIEX16(G5)_2, PCIEX16(G5)_1 will run at X8.
+[PCIE X16 Mode]	 	
+PCIEX16(G5)_1 runs full PCIe X16 mode.
+[PCIE X8X4X4 Mode]	
+Split up PCIEX16(G5)_1 that runs at X16 into X8/X4/X4.
+[GPU with M.2 storage]	
+PCIEX16(G5)_1 slot will support a graphics card running at x8 
+and a NVMe M.2 SSD running at x4.
+HD Audio
+Controls the detection of the HD-Audio device.
+[Disabled]	
+HDA will be unconditionally disabled.
+[Enabled]	
+HDA will be unconditionally enabled.
+Intel LAN Controller
+Allows you to enable or disable Intel LAN. 
+Configuration options: [Disabled] [Enabled]
+
+68
+10G LAN Card
+Enable/Disable 10G LAN Card. 
+Configuration options: [Disabled] [Enabled]
+USB power delivery in Soft Off state (S5)
+Allows you to enable or disable USB power when your PC is in the S5 state. 
+Configuration options: [Disabled] [Enabled]
+Wi-Fi Controller
+Allows you to enable or disable Wi-Fi Controller. 
+Configuration options: [Disabled] [Enabled]
+Bluetooth Controller
+Allows you to enable or disable Bluetooth Controller. 
+Configuration options: [Disabled] [Enabled]
+LED lighting
+When system is in working state
+Allows you to turn the RGB LED lighting on or off when the system is in the working state.
+[All On]	
+RGB LEDs and Functional will be behave normally.
+[Stealth Mode]	
+All LEDs will be disabled.
+[Aura Only]	
+RGB LEDs will light up, while all functional LEDs will be disabled.
+[Aura Off]	
+Functional LEDs behave normally, while RGB LEDs will be disabled.
+NOTE: The RGB Header(s) and Addressable Header(s) will only work under the S0 (working) state.
+Windows Dynamic Lighting
+Windows Dynamic Lighting allows users to control RGB devices through Windows Settings. 
+Configuration options: [Disabled] [Enabled]
+NOTE:
+•	 Compatible is limited to Windows 11 OS builds 22621.2361 and later, so ensure to verify your 
+system's compatibility before activating it.
+•	 The aura effect may be limited due to technical constraints when Windows Dynamic Lighting is 
+enabled.
+When system is in sleep, hibernate or soft off states
+Allows you to turn the RGB LED lighting on or off when the system is in the sleep, hibernate 
+or soft off states.
+[All On]	
+RGB LEDs and Functional will be behave normally.
+[Stealth Mode]	
+All LEDs will be disabled.
+[Aura Only]	
+RGB LEDs will light up, while all functional LEDs will be disabled.
+[Aura Off]	
+Functional LEDs behave normally, while RGB LEDs will be disabled.
+NOTE: The RGB Header(s) and Addressable Header(s) will only work under the S0 (working) state.
+
+69
+Serial Port Configuration
+Set Parameters of Serial Port.
+NOTE: This item function only if there is a serial port(COM) connector on a motherboard.
+Serial Port
+Enable or Disable Serial Port (COM). 
+Configuration options: [Disabled] [Enabled]
+Change Settings
+Select an optimal setting for Super IO device.
+Configuration options: [IO=3F8h; IRQ=4] [IO=2F8h; IRQ=3] [IO=3E8h; IRQ=4] [IO=2E8h; 
+IRQ=3]
+M.2_5 Configuration
+[Auto]:	
+Auto-detects the M.2_5 device mode.
+[SATA mode]:	
+Only supports M.2_5 SATA devices.
+[PCIE mode]:	
+Only supports M.2_5 PCIE devices.
+6.18	
+Intel(R) Rapid Storage Technology
+The items in this menu allow you manage RAID volumes on the Intel(R) RAID Controller.
+NOTE: 
+•	 The settings and options of this menu may vary depending on the storage devices connected. 
+Please refer to the BIOS of your motherboard for the actual settings and options.
+•	 Ensure to set the VMD Setup menu before using Intel(R) Rapid Storage Technology to create a 
+RAID set.
+
+70
+7.	
+Monitor menu
+The Monitor menu displays the system temperature/power status, and allows you to change 
+the fan settings.
+Scroll down to display the other BIOS items.
+NOTE: The settings and options of this menu may vary depending on your motherboard. Please 
+refer to the BIOS of your motherboard for the actual settings and options.
+Temperature Monitor
+CPU Temperature, CPU Package Temperature, MotherBoard Temperature, VRM 
+Temperature, Chipset Temperature, T_Sensor Temperature, Water In/Out T Sensor 
+Temperature, DIMM A Temperature, DIMM B Temperature [xxx°C/xxx°F]
+The onboard hardware monitor automatically detects and displays the temperatures 
+for the different components. Select [Ignore] if you do not wish to display the detected 
+temperatures.
+Fan Speed Monitor
+CPU Fan Speed, CPU Optional Fan Speed, Chassis Fan Speed, AIO PUMP Speed 
+[xxxx RPM]
+The onboard hardware monitor automatically detects and displays the fan speeds in 
+rotations per minute (RPM). If the fan is not connected to the motherboard, the field 
+shows N/A. Select [Ignore] if you do not wish to display the detected speed.
+
+71
+Voltage Monitor
+VRM Core Input Voltage, 12V Voltage, 5V Voltage, 3.3V Voltage, Memory Controller 
+Voltage [x.xxx V]
+The onboard hardware monitor automatically detects the voltage output through the 
+onboard voltage regulators. Select [Ignore] if you do not want to detect this item.
+Q-Fan Configuration
+Q-Fan Tuning
+Click this item to automatically detect the lowest speed and configure the minimum 
+duty cycle for each fan.
+CAUTION! The process may take 2 to 5 minutes. DO NOT shut down or reset your system during 
+the tuning process.
+CPU Q-Fan Control
+Allows you to set the CPU Q-Fan operating mode.
+[Auto Detect]
+Detects the type of installed fan/pump and automatically switches 
+the control modes.
+[DC Mode]
+Enables the Q-Fan Control feature in DC mode for 3-pin fan/pump.
+[PWM Mode]
+Enables the Q-Fan Control feature in PWM mode for 4-pin fan/
+pump.
+CPU Fan Profile
+Allows you to set the appropriate performance level of the assigned fan/pump. When 
+selecting [Manual], we suggest raising your fan/pump duty to 100% if your CPU 
+temperature exceeds 75°C. Please be noted CPU performance will throttle due to 
+overheating with inefficient fan/pump duty. 
+Configuration options: [Standard] [Silent] [Turbo] [Full Speed] [Manual]
+NOTE: The following items appear only when CPU Fan Profile is set to [Standard], [Silent], [Turbo], 
+or [Manual].
+Chassis Fan Q-Fan Source
+The assigned fan/pump will be controlled according to the selected temperature 
+source. 
+Configuration options: [CPU] [CPU Package]
+CPU Fan Step Up
+Step up allows you to adjust how quickly the fan rotation speed increases, with 
+level 0 being an instantaneous change in speed. The higher the level, the slower the 
+change in speed, and may also result in less noise, but this will also cause slower heat 
+dissipation. 
+Configuration options: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+CPU Fan Step Down
+Step down allows you to adjust how quickly the fan rotation speed decreases, with 
+level 0 being an instantaneous change in speed. The higher the level, the slower the 
+change in speed, and may also result in less noise, but this will also cause slower heat 
+dissipation. 
+Configuration options: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+
+72
+CPU Fan Speed Low Limit
+Allows you to set the lower speed limit for assigned fan/pump. A warning message 
+will appear when the limit is reached; the warning message will not appear if [Ignore] 
+is selected. 
+Configuration options: [Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 RPM]
+NOTE: The following items appear only when CPU Fan Profile is set to [Manual].
+CPU Fan Point8 Temperature
+When the temperature source is lower than the temperature of P8, the duty cycle 
+will be determined according to the P7-P8 and the temperature source. When the 
+temperature source is higher than the temperature of P8, the fan will operate at the 
+duty cycle of P8.
+CPU Fan Point8 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P8, the duty cycle 
+will be determined according to the P7-P8 and the temperature source. When the 
+temperature source is higher than the temperature of P8, the fan will operate at the 
+duty cycle of P8.
+CPU Fan Point7 Temperature
+When the temperature source is lower than the temperature of P7, the duty cycle 
+will be determined according to the P6-P7 and the temperature source. When the 
+temperature source is higher than the temperature of P7, the duty cycle will be 
+determined according to the P7-P8 and the temperature source. 
+CPU Fan Point7 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P7, the duty cycle 
+will be determined according to the P6-P7 and the temperature source. When the 
+temperature source is higher than the temperature of P7, the duty cycle will be 
+determined according to the P7-P8 and the temperature source. 
+CPU Fan Point6 Temperature
+When the temperature source is lower than the temperature of P6, the duty cycle 
+will be determined according to the P5-P6 and the temperature source. When the 
+temperature source is higher than the temperature of P6, the duty cycle will be 
+determined according to the P6-P7 and the temperature source. 
+CPU Fan Point6 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P6, the duty cycle 
+will be determined according to the P5-P6 and the temperature source. When the 
+temperature source is higher than the temperature of P6, the duty cycle will be 
+determined according to the P6-P7 and the temperature source. 
+CPU Fan Point5 Temperature
+When the temperature source is lower than the temperature of P5, the duty cycle 
+will be determined according to the P4-P5 and the temperature source. When the 
+temperature source is higher than the temperature of P5, the duty cycle will be 
+determined according to the P5-P6 and the temperature source. 
+CPU Fan Point5 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P5, the duty cycle 
+will be determined according to the P4-P5 and the temperature source. When the 
+temperature source is higher than the temperature of P5, the duty cycle will be 
+determined according to the P5-P6 and the temperature source. 
+
+73
+CPU Fan Point4 Temperature
+When the temperature source is lower than the temperature of P4, the duty cycle 
+will be determined according to the P3-P4 and the temperature source. When the 
+temperature source is higher than the temperature of P4, the duty cycle will be 
+determined according to the P4-P5 and the temperature source. 
+CPU Fan Point4 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P4, the duty cycle 
+will be determined according to the P3-P4 and the temperature source. When the 
+temperature source is higher than the temperature of P4, the duty cycle will be 
+determined according to the P4-P5 and the temperature source. 
+CPU Fan Point3 Temperature
+When the temperature source is lower than the temperature of P3, the duty cycle 
+will be determined according to the P2-P3 and the temperature source. When the 
+temperature source is higher than the temperature of P3, the duty cycle will be 
+determined according to the P3-P4 and the temperature source. 
+CPU Fan Point3 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P3, the duty cycle 
+will be determined according to the P2-P3 and the temperature source. When the 
+temperature source is higher than the temperature of P3, the duty cycle will be 
+determined according to the P3-P4 and the temperature source. 
+CPU Fan Point2 Temperature
+When the temperature source is lower than the temperature of P2, the duty cycle 
+will be determined according to the P1-P2 and the temperature source. When the 
+temperature source is higher than the temperature of P2, the duty cycle will be 
+determined according to the P2-P3 and the temperature source. 
+CPU Fan Point2 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P2, the duty cycle 
+will be determined according to the P1-P2 and the temperature source. When the 
+temperature source is higher than the temperature of P2, the duty cycle will be 
+determined according to the P2-P3 and the temperature source. 
+CPU Fan Point1 Temperature
+When the temperature source is lower than the temperature of P1, the fan will operate 
+at the duty cycle of P1. When the temperature source is higher than the temperature 
+of P1, the duty cycle will be determined according to the P1-P2 and the temperature 
+source. 
+CPU Fan Point1 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P1, the fan will operate 
+at the duty cycle of P1. When the temperature source is higher than the temperature 
+of P1, the duty cycle will be determined according to the P1-P2 and the temperature 
+source. 
+
+74
+Chassis Fan(s) Configuration
+Chassis Fan Q-Fan Control
+Allows you to set the Chassis Fan operating mode.
+[Auto Detect]
+Detects the type of installed fan/pump and 
+automatically switches the control modes. 
+[DC Mode]
+Enables the Q-Fan Control feature in DC mode for 3-pin 
+fan/pump.
+[PWM Mode]
+Enables the Q-Fan Control feature in PWM mode for 
+4-pin fan/pump.
+Chassis Fan Profile
+Allows you to set the appropriate performance level of the assigned fan/
+pump. When selecting [Manual], we suggest raising your fan/pump duty 
+to 100% if your CPU temperature exceeds 75°C. Please be noted CPU 
+performance will throttle due to overheating with inefficient fan/pump duty. 
+Configuration options: [Standard] [Silent] [Turbo] [Full Speed] [Manual]
+NOTE: The following items appear only when CPU Fan Profile is set to [Standard], [Silent], [Turbo], 
+or [Manual].
+Chassis Fan Q-Fan Source
+The assigned fan/pump will be controlled according to the selected 
+temperature source. 
+Configuration options: [CPU] [CPU Package] [MotherBoard] [Chipset] [VRM] 
+[T_Sensor] [Multiple Sources]
+NOTE: For Multiple Sources, select up to three temperature sources and the fan will automatically 
+change based on the highest temperature.
+Chassis Fan Step Up
+Step up allows you to adjust how quickly the fan rotation speed  increases, 
+with level 0 being an instantaneous change in speed. The higher the level, the 
+slower the change in speed, and may also result in less noise, but this will also 
+cause slower heat dissipation. 
+Configuration options: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+Chassis Fan Step Down
+Step down allows you to adjust how quickly the fan rotation speed decreases, 
+with level 0 being an instantaneous change in speed. The higher the level, the 
+slower the change in speed, and may also result in less noise, but this will also 
+cause slower heat dissipation. 
+Configuration options: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+Chassis Fan Speed Low Limit
+Allows you to set the lower speed limit for assigned fan/pump. A warning 
+message will appear when the limit is reached; the warning message will not 
+appear if [Ignore] is selected. 
+Configuration options: [Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] 
+[600 RPM]
+
+75
+NOTE: The following items appear only when Chassis Fan Profile is set to [Manual].
+Chassis Fan Point8 Temperature
+When the temperature source is lower than the temperature of P8, the duty 
+cycle will be determined according to the P7-P8 and the temperature source. 
+When the temperature source is higher than the temperature of P8, the fan will 
+operate at the duty cycle of P8.
+Chassis Fan Point8 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P8, the duty 
+cycle will be determined according to the P7-P8 and the temperature source. 
+When the temperature source is higher than the temperature of P8, the fan will 
+operate at the duty cycle of P8.
+Chassis Fan Point7 Temperature
+When the temperature source is lower than the temperature of P7, the duty 
+cycle will be determined according to the P6-P7 and the temperature source. 
+When the temperature source is higher than the temperature of P7, the duty 
+cycle will be determined according to the P7-P8 and the temperature source. 
+Chassis Fan Point7 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P7, the duty 
+cycle will be determined according to the P6-P7 and the temperature source. 
+When the temperature source is higher than the temperature of P7, the duty 
+cycle will be determined according to the P7-P8 and the temperature source. 
+Chassis Fan Point6 Temperature
+When the temperature source is lower than the temperature of P6, the duty 
+cycle will be determined according to the P5-P6 and the temperature source. 
+When the temperature source is higher than the temperature of P6, the duty 
+cycle will be determined according to the P6-P7 and the temperature source. 
+Chassis Fan Point6 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P6, the duty 
+cycle will be determined according to the P5-P6 and the temperature source. 
+When the temperature source is higher than the temperature of P6, the duty 
+cycle will be determined according to the P6-P7 and the temperature source. 
+Chassis Fan Point5 Temperature
+When the temperature source is lower than the temperature of P5, the duty 
+cycle will be determined according to the P4-P5 and the temperature source. 
+When the temperature source is higher than the temperature of P5, the duty 
+cycle will be determined according to the P5-P6 and the temperature source. 
+Chassis Fan Point5 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P5, the duty 
+cycle will be determined according to the P4-P5 and the temperature source. 
+When the temperature source is higher than the temperature of P5, the duty 
+cycle will be determined according to the P5-P6 and the temperature source. 
+Chassis Fan Point4 Temperature
+When the temperature source is lower than the temperature of P4, the duty 
+cycle will be determined according to the P3-P4 and the temperature source. 
+When the temperature source is higher than the temperature of P4, the duty 
+cycle will be determined according to the P4-P5 and the temperature source. 
+
+76
+Chassis Fan Point4 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P4, the duty 
+cycle will be determined according to the P3-P4 and the temperature source. 
+When the temperature source is higher than the temperature of P4, the duty 
+cycle will be determined according to the P4-P5 and the temperature source. 
+Chassis Fan Point3 Temperature
+When the temperature source is lower than the temperature of P3, the duty 
+cycle will be determined according to the P2-P3 and the temperature source. 
+When the temperature source is higher than the temperature of P3, the duty 
+cycle will be determined according to the P3-P4 and the temperature source. 
+Chassis Fan Point3 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P3, the duty 
+cycle will be determined according to the P2-P3 and the temperature source. 
+When the temperature source is higher than the temperature of P3, the duty 
+cycle will be determined according to the P3-P4 and the temperature source. 
+Chassis Fan Point2 Temperature
+When the temperature source is lower than the temperature of P2, the duty 
+cycle will be determined according to the P1-P2 and the temperature source. 
+When the temperature source is higher than the temperature of P2, the duty 
+cycle will be determined according to the P2-P3 and the temperature source. 
+Chassis Fan Point2 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P2, the duty 
+cycle will be determined according to the P1-P2 and the temperature source. 
+When the temperature source is higher than the temperature of P2, the duty 
+cycle will be determined according to the P2-P3 and the temperature source. 
+Chassis Fan Point1 Temperature
+When the temperature source is lower than the temperature of P1, the fan will 
+operate at the duty cycle of P1. When the temperature source is higher than 
+the temperature of P1, the duty cycle will be determined according to the P1-
+P2 and the temperature source. 
+Chassis Fan Point1 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P1, the fan will 
+operate at the duty cycle of P1. When the temperature source is higher than 
+the temperature of P1, the duty cycle will be determined according to the P1-
+P2 and the temperature source. 
+Allow Fan Stop
+This function allows the fan to run at 0% duty cycle when the temperature of 
+the source is dropped below the lower temperature. 
+Configuration options: [Disabled] [Enabled]
+AIO Pump Q-Fan Control
+Allows you to set the AIO Pump operating mode.
+[Auto Detect]
+Detects the type of installed fan/pump and automatically switches 
+the control modes.
+[DC Mode]
+Enables the Q-Fan Control feature in DC mode for 3-pin fan/pump.
+[PWM Mode]
+Enables the Q-Fan Control feature in PWM mode for 4-pin fan/
+pump.
+
+77
+AIO Pump Profile
+Allows you to set the appropriate performance level of the assigned fan/pump. When 
+selecting [Manual], we suggest raising your fan/pump duty to 100% if your CPU 
+temperature exceeds 75°C. Please be noted CPU performance will throttle due to 
+overheating with inefficient fan/pump duty. 
+Configuration options: [Standard] [Silent] [Turbo] [Full Speed] [Manual]
+NOTE: The following items appear only when AIO Pump Profile is set to [Standard], [Silent], 
+[Turbo], or [Manual].
+AIO Pump Q-Fan Source
+The assigned fan/pump will be controlled according to the selected temperature 
+source. 
+Configuration options: [CPU] [CPU Package] [MotherBoard] [Chipset] [VRM] [T_Sensor] 
+[Multiple Sources]
+AIO Pump Step Up
+Step up allows you to adjust how quickly the fan rotation speed increases, with 
+level 0 being an instantaneous change in speed. The higher the level, the slower the 
+change in speed, and may also result in less noise, but this will also cause slower heat 
+dissipation. 
+Configuration options: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+AIO Pump Step Down
+Step down allows you to adjust how quickly the fan rotation speed decreases, with 
+level 0 being an instantaneous change in speed. The higher the level, the slower the 
+change in speed, and may also result in less noise, but this will also cause slower heat 
+dissipation. 
+Configuration options: [Level 0] [Level 1] [Level 2] [Level 3] [Level 4] [Level 5]
+AIO Pump Speed Low Limit
+Allows you to set the lower speed limit for assigned fan/pump. A warning message 
+will appear when the limit is reached; the warning message will not appear if [Ignore] 
+is selected. 
+Configuration options: [Ignore] [200 RPM] [300 RPM] [400 RPM] [500 RPM] [600 RPM]
+NOTE: The following items appear only when Chassis Fan Profile is set to [Manual].
+AIO Pump Point8 Temperature
+When the temperature source is lower than the temperature of P8, the duty cycle 
+will be determined according to the P7-P8 and the temperature source. When the 
+temperature source is higher than the temperature of P8, the fan will operate at the 
+duty cycle of P8.
+AIO Pump Point8 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P8, the duty cycle 
+will be determined according to the P7-P8 and the temperature source. When the 
+temperature source is higher than the temperature of P8, the fan will operate at the 
+duty cycle of P8.
+
+78
+AIO Pump Point7 Temperature
+When the temperature source is lower than the temperature of P7, the duty cycle 
+will be determined according to the P6-P7 and the temperature source. When the 
+temperature source is higher than the temperature of P7, the duty cycle will be 
+determined according to the P7-P8 and the temperature source. 
+AIO Pump Point7 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P7, the duty cycle 
+will be determined according to the P6-P7 and the temperature source. When the 
+temperature source is higher than the temperature of P7, the duty cycle will be 
+determined according to the P7-P8 and the temperature source. 
+AIO Pump Point6 Temperature
+When the temperature source is lower than the temperature of P6, the duty cycle 
+will be determined according to the P5-P6 and the temperature source. When the 
+temperature source is higher than the temperature of P6, the duty cycle will be 
+determined according to the P6-P7 and the temperature source. 
+AIO Pump Point6 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P6, the duty cycle 
+will be determined according to the P5-P6 and the temperature source. When the 
+temperature source is higher than the temperature of P6, the duty cycle will be 
+determined according to the P6-P7 and the temperature source. 
+AIO Pump Point5 Temperature
+When the temperature source is lower than the temperature of P5, the duty cycle 
+will be determined according to the P4-P5 and the temperature source. When the 
+temperature source is higher than the temperature of P5, the duty cycle will be 
+determined according to the P5-P6 and the temperature source. 
+AIO Pump Point5 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P5, the duty cycle 
+will be determined according to the P4-P5 and the temperature source. When the 
+temperature source is higher than the temperature of P5, the duty cycle will be 
+determined according to the P5-P6 and the temperature source. 
+AIO Pump Point4 Temperature
+When the temperature source is lower than the temperature of P4, the duty cycle 
+will be determined according to the P3-P4 and the temperature source. When the 
+temperature source is higher than the temperature of P4, the duty cycle will be 
+determined according to the P4-P5 and the temperature source. 
+AIO Pump Point4 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P4, the duty cycle 
+will be determined according to the P3-P4 and the temperature source. When the 
+temperature source is higher than the temperature of P4, the duty cycle will be 
+determined according to the P4-P5 and the temperature source. 
+AIO Pump Point3 Temperature
+When the temperature source is lower than the temperature of P3, the duty cycle 
+will be determined according to the P2-P3 and the temperature source. When the 
+temperature source is higher than the temperature of P3, the duty cycle will be 
+determined according to the P3-P4 and the temperature source. 
+
+79
+AIO Pump Point3 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P3, the duty cycle 
+will be determined according to the P2-P3 and the temperature source. When the 
+temperature source is higher than the temperature of P3, the duty cycle will be 
+determined according to the P3-P4 and the temperature source. 
+AIO Pump Point2 Temperature
+When the temperature source is lower than the temperature of P2, the duty cycle 
+will be determined according to the P1-P2 and the temperature source. When the 
+temperature source is higher than the temperature of P2, the duty cycle will be 
+determined according to the P2-P3 and the temperature source. 
+AIO Pump Point2 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P2, the duty cycle 
+will be determined according to the P1-P2 and the temperature source. When the 
+temperature source is higher than the temperature of P2, the duty cycle will be 
+determined according to the P2-P3 and the temperature source. 
+AIO Pump Point1 Temperature
+When the temperature source is lower than the temperature of P1, the fan will operate 
+at the duty cycle of P1. When the temperature source is higher than the temperature 
+of P1, the duty cycle will be determined according to the P1-P2 and the temperature 
+source. 
+AIO Pump Point1 Duty Cycle (%) 
+When the temperature source is lower than the temperature of P1, the fan will operate 
+at the duty cycle of P1. When the temperature source is higher than the temperature 
+of P1, the duty cycle will be determined according to the P1-P2 and the temperature 
+source. 
+
+80
+8.	
+Boot menu
+The Boot menu items allow you to change the system boot options.
+Secure Boot
+Allows you to configure the Windows® Secure Boot settings and manage its keys to protect 
+the system from unauthorized access and malwares during POST.
+OS Type
+[Windows UEFI Mode]
+This item allows you to select your installed operating 
+system. Execute the Microsoft® Secure Boot check. Only 
+select this option when booting on Windows® UEFI mode 
+or other Microsoft® Secure Boot compliant OS.
+[Other OS]
+Get the optimized function when booting on Windows® 
+non-UEFI mode. Microsoft® Secure Boot only supports 
+Windows® UEFI mode.
+NOTE: The Microsoft secure boot can only function properly on Windows UEFI mode.
+Secure Boot Mode
+This option allows you to select the Secure Boot mode from between Standard 
+or Custom. In Custom mode, Secure Boot Policy variables can be configured by a 
+physically present user without full authentication. 
+Configuration options: [Standard] [Custom]
+
+81
+NOTE: The following item appears only when Secure Boot Mode is set to [Custom].
+Key Management
+Install Default Secure Boot keys
+Allows you to immediately load the default Security Boot keys, Platform key (PK), Key-
+exchange Key (KEK), Signature database (db), and Revoked Signatures (dbx). When 
+the default Secure boot keys are loaded, the PK state will change from Unloaded 
+mode to loaded mode.
+Clear Secure Boot keys
+This item appears only when you load the default Secure Boot keys. Allows you to 
+clear all default Secure Boot keys.
+Save all Secure Boot variables
+Allows you to save all secure boot keys to a USB storage device.
+PK Management
+The Platform Key (PK) locks and secures the firmware from any permissible changes. 
+The system verifies the PK before your system enters the OS. 
+Save To File
+Allows you to save the PK to a USB storage device.
+Set New key
+Allows you to load the downloaded PK from a USB storage device.
+Delete key
+Allows you to delete the PK from your system. Once the PK is deleted, all the 
+system’s Secure Boot keys will not be active. 
+Configuration options: [Yes] [No]
+IMPORTANT! The PK file must be formatted as a UEFI variable structure with time-based 
+authenticated variable.
+KEK Management
+The KEK (Key-exchange Key or Key Enrollment Key) manages the Signature database 
+(db) and Revoked Signature database (dbx).
+NOTE: Key-exchange Key (KEK) refers to Microsoft® Secure Boot Key-Enrollment Key (KEK).
+Save to file
+Allows you to save the KEK to a USB storage device.
+Set New key
+Allows you to load the downloaded KEK from a USB storage device.
+Append Key
+Allows you to load the additional KEK from a storage device for an additional 
+db and dbx loaded management.
+Delete key
+Allows you to delete the KEK from your system.
+Configuration options: [Yes] [No]
+
+82
+IMPORTANT! The KEK file must be formatted as a UEFI variable structure with time-based 
+authenticated variable.
+DB Management
+The db (Authorized Signature database) lists the signers or images of UEFI 
+applications, operating system loaders, and UEFI drivers that you can load on the 
+single computer.
+Save to file
+Allows you to save the db to a USB storage device.
+Set New key
+Allows you to load the downloaded db from a USB storage device.
+Append Key
+Allows you to load the additional db from a storage device for an additional db 
+and dbx loaded management.
+Delete key
+Allows you to delete the db file from your system. 
+Configuration options: [Yes] [No]
+IMPORTANT! The db file must be formatted as a UEFI variable structure with time-based 
+authenticated variable.
+DBX Management
+The dbx (Revoked Signature database) lists the forbidden images of db items that are 
+no longer trusted and cannot be loaded.
+Save to file
+Allows you to save the dbx to a USB storage device.
+Set New key
+Allows you to load the downloaded dbx from a USB storage device.
+Append Key
+Allows you to load the additional dbx from a storage device for an additional 
+db and dbx loaded management.
+Delete key
+Allows you to delete the dbx file from your system. 
+Configuration options: [Yes] [No]
+IMPORTANT! The dbx file must be formatted as a UEFI variable structure with time-based 
+authenticated variable.
+Boot Configuration
+Fast Boot
+Allows you to enable or disable boot with initialization of a minimal set of devices 
+required to launch active boot option. Has no effect for BBS boot options. 
+Configuration options: [Disabled] [Enabled]
+
+83
+NOTE: The following item appears only when Fast Boot is set to [Enabled].
+Next Boot after AC Power Loss
+[Normal Boot]	
+Returns to normal boot on the next boot after an AC power loss.
+[Fast Boot]	
+Accelerates the boot speed on the next boot after an AC power loss.
+Boot Logo Display
+[Auto]	
+Automatically adjust the boot logo size for Windows requirements.
+[Full Screen]	
+Maximize the boot logo size.
+[Disabled]	
+Hide the logo during POST.
+NOTE: The Following item appears only when Boot Logo Display is set to [Auto] or [Full Screen].
+Post Delay Time
+Allows you to select a desired additional POST waiting time to easily enter the BIOS 
+Setup. You can only execute the POST delay time during normal boot. 
+Configuration options: [0 sec] - [10 sec]
+IMPORTANT! This feature only works when set under normal boot.
+NOTE: The following item appears only when Boot Logo Display is set to [Disabled].
+Post Report
+Allows you to select a desired POST report waiting time or until ESC is pressed. 
+Configuration options: [1 sec] - [10 sec] [Until Press ESC]
+Boot up NumLock State
+Allows you to select the keyboard NumLock state. 
+Configuration options: [On] [Off]
+Wait For ‘F1’ If Error
+Allows your system to wait for the <F1> key to be pressed when error occurs. 
+Configuration options: [Disabled] [Enabled]
+AMI Native NVMe Driver Support
+Allows you to enable or disable AMI Native NVMe driver. 
+Configuration options: [Disabled] [Enabled]
+Setup Mode
+[Advanced Mode]	
+This item allows you to go to Advanced Mode of the BIOS after 
+POST.
+[EZ Mode]	
+This item allows you to go to EZ Mode of the BIOS after POST.
+Boot Sector (MBR/GPT) Recovery Policy
+Determines Boot Sector Policy.
+[Auto Recovery]	 	
+Follow UEFI Rule.
+[Local User Control]	
+You can enter setup page and select Boot 
+Sector(MBR/GPT) Recovery Policy to recovery MBR/
+GPT on the next boot time.
+
+84
+NOTE: The following item appears only when Boot Sector (MBR/GPT) Recovery Policy is set to 
+[Local User Control].
+Next Boot Recovery Action
+Choose the (MBR/GPT) recovery action on the next boot. 
+Configuration options: [Skip] [Recovery]
+Boot Option Priorities
+These items specify the boot device priority sequence from the available devices. The 
+number of device items that appears on the screen depends on the number of devices 
+installed in the system.
+IMPORTANT!
+•	 To access Windows® OS in Safe Mode, press <F8 > after POST (Windows® 8 not supported). 
+•	 To select the boot device during system startup, press <F8> when ASUS Logo appears.
+Boot Override
+These item displays the available devices. The number of device items that appear on the 
+screen depends on the number of devices installed in the system. Click an item to start 
+booting from the selected device.
+
+85
+9.	
+Tool menu
+The Tool menu items allow you to configure options for special functions. Select an item 
+then press <Enter> to display the submenu.
+BIOS Image Rollback Support
+[Enabled]	
+Support roll back your BIOS to a previous version, but this setting violates 
+the NIST SP 800-147 requirement.
+[Disabled]	
+Only support updating your BIOS to a newer version, and this setting 
+meets the NIST SP 800-147 requirement.
+Publish HII Resources
+Configuration options: [Disabled] [Enabled]
+NOTE: The availability of the following items may vary according to your motherboard. Please refer 
+to the BIOS of your motherboard for the actual settings and options.
+Flexkey
+[Reset]	
+Reboots the system.
+[Aura On/Off]	
+Enable or Disable Aura LEDs. This setting does not sync with the BIOS/
+software option.
+[DirectKey]	
+Boot directly into the BIOS.
+Setup Animator
+Allows you to enable or disable the Setup animator. 
+Configuration options: [Disabled] [Enabled]
+
+86
+9.2	
+ASUS Secure Erase
+SSD speeds may lower over time as with any storage medium due to data processing. 
+Secure Erase completely and safely cleans your SSD, restoring it to factory performance 
+levels.
+To launch Secure Erase, click Tool > ASUS Secure Erase on the Advanced mode menu.
+NOTE:
+•	 The time to erase the contents of your SSD may take a while depending on its size. Do not turn 
+off the system during the process.
+•	 Secure Erase is only supported on Intel SATA port. For more information about Intel SATA ports, 
+refer to section Motherboard layout in your user manual.
+•	 Status definition:
+	
+-	 Frozen. The frozen state is the result of a BIOS protective measure. The BIOS guards drives 
+that do not have password protection by freezing them prior to booting. If the drive is frozen, 
+a power off or hard reset of your PC must be performed to proceed with the Secure Erase. 
+	
+-	 Locked. SSDs might be locked if the Secure Erase process is either incomplete or was 
+stopped. This may be due to a third party software that uses a different password defined by 
+ASUS. You have to unlock the SSD in the software before proceeding with Secure Erase. 
+9.1	
+ASUS EZ Flash Utility
+This item allows you to run ASUS EZ Flash. When you press <Enter>, a confirmation 
+message appears. Use the left/right arrow key to select between [Yes] or [No], then press 
+<Enter> to confirm your choice.
+NOTE: For more details, refer to section ASUS EZ Flash.
+9.3	
+BIOS Q-Dashboard
+This item allows you to access the BIOS Q-Dashboard feature. This feature provides you with 
+a perspective of the motherboard with vital components and connectors labeled for quick 
+access.
+NOTE: For more details, refer to section Q-Dashboard.
+Full HD Setup
+Enable this feature to have a 1920x1080 resolution for BIOS Setup. Please note the feature 
+is supported when your monitor and graphics card are both 1080p or above. This feature 
+may be limited by the compatibility of your GPU and monitor pairing. When the BIOS detects 
+a Clear CMOS action, the BIOS will forcibly set the Full HD Setup to [Disabled] during this 
+boot process. 
+Configuration options: [Disabled] [Enabled]
+
+87
+9.5	
+ASUS User Profile
+This item allows you to store or load multiple BIOS settings. 
+Load from Profile
+Allows you to load the previous BIOS settings saved in the BIOS Flash. Key in the profile 
+number that saved your BIOS settings, press <Enter>, and then select Yes.
+NOTE:
+•	 DO NOT shut down or reset the system while updating the BIOS to prevent the system boot 
+failure!
+•	 We recommend that you update the BIOS file only coming from the same memory/CPU 
+configuration and BIOS version.
+Profile Name
+Allows you to key in a profile name. 
+Save to Profile
+Allows you to save the current BIOS settings to the BIOS Flash, and create a profile. Key in a 
+profile number from one to eight, press <Enter>, and then select Yes.
+Load/Save Profile from/to USB Drive
+Allows you to load or save profile from your USB drive, load and save profile to your USB 
+drive.
+9.4	
+ASUS SPD Information
+This item allows you to view the DRAM SPD information.
+9.6	
+ASUS MyHotkey
+This menu allow you to configure Hotkeys.
+NOTE: The availability of this menu, as well as the settings and options may vary depending 
+on your motherboard. Please refer to the BIOS of your motherboard for the actual settings and 
+options.
+Hotkey F3
+Press <F3> to enter UEFI-USB or UEFI-HDD or UEFI-CDROM/DVDROM or UEFI-PXE or ASUS 
+AZ Flash 3 in POST. 
+Configuration options: [Disabled] [Boot from UEFI USB] [Boot from UEFI HDD] [Boot from 
+UEFI CDROM/DVDROM] [Boot from UEFI PXE] [Toggle ASUS EZ Flash]
+NOTE: Please make sure Network is enabled before AsusMyHotkey is set to Boot From UEFI PXE. 
+(Advanced -> Network Stack Configuration -> Network Stack)
+
+88
+9.7	
+ASUS DriverHub
+This menu allow you to download and install the ASUS DriverHub app.
+NOTE: The availability of this menu, as well as the settings and options may vary depending 
+on your motherboard. Please refer to the BIOS of your motherboard for the actual settings and 
+options.
+Download & Install ASUS DriverHub app
+Allows you to enable DriverHub download process. DriverHub app can help you manage and 
+download the latest drivers and utility updates for your motherboard. 
+Configuration options: [Disabled] [Enabled]
+Hotkey F4
+Press F4 to enter UEFI-USB or UEFI-HDD or UEFI-CDROM/DVDROM or UEFI-PXE or ASUS EZ 
+Flash in POST. 
+Configuration options: [Disabled] [Boot from UEFI USB] [Boot from UEFI HDD] [Boot from 
+UEFI CDROM/DVDROM] [Boot from UEFI PXE] [Toggle ASUS EZ Flash]
+NOTE: Please make sure Network is enabled before AsusMyHotkey is set to Boot From UEFI PXE. 
+(Advanced -> Network Stack Configuration -> Network Stack)
+
+89
+10.	
+Exit menu
+The Exit menu items allow you to load the optimal default values for the BIOS items, and 
+save or discard your changes to the BIOS items. You can access the EZ Mode from the Exit 
+menu.
+Load Optimized Defaults
+This option allows you to load the default values for each of the parameters on the Setup 
+menus. When you select this option or if you press <F5>, a confirmation window appears. 
+Select OK to load the default values.
+Save Changes & Reset
+Once you are finished making your selections, choose this option from the Exit menu to 
+ensure the values you selected are saved. When you select this option or if you press <F10>, 
+a confirmation window appears. Select OK to save changes and exit.
+Discard Changes & Exit
+This option allows you to exit the Setup program without saving your changes. When you 
+select this option or if you press <Esc>, a confirmation window appears. Select Yes to 
+discard changes and exit.
+Launch EFI Shell from USB drives
+This option allows you to attempt to launch the EFI Shell application (shellx64.efi) from one 
+of the available filesystem devices.
+
+90
+11.	
+Updating BIOS
+The ASUS website publishes the latest BIOS versions to provide enhancements on system 
+stability, compatibility,and performance. However, BIOS updating is potentially risky. If 
+there is no problem using the current version of BIOS, DO NOT manually update the BIOS. 
+Inappropriate BIOS updating may result to system’s failure to boot. Carefully follow the 
+instructions in this chapter to update your BIOS when necessary.
+IMPORTANT!
+•	 Visit http://www.asus.com to download the latest BIOS file for this motherboard.
+•	 We strongly recommend ALWAYS using the ZIP file from the ASUS website to update your BIOS 
+with EZ Flash to ensure the ME version is updated as well. If you are only using the CAP file, 
+make sure the ME version matches the new BIOS. Please note that once the ME is updated, 
+it cannot be rolled back. For more information, please visit the product page on the ASUS 
+website.
+The following utilities allow you to manage and update the motherboard BIOS setup 
+program.
+1.	
+ASUS EZ Flash: Updates the BIOS using a USB flash drive.
+2.	
+ASUS CrashFree BIOS 3: Restores the BIOS using a USB flash drive when the BIOS file 
+fails or gets corrupted.
+11.1	
+ASUS EZ Flash 
+ASUS EZ Flash allows you to download and update to the latest BIOS using a USB drive.
+To update the BIOS:
+1.	
+Insert the USB flash drive that contains the latest BIOS file to a USB port. 
+2.	
+Enter the Advanced Mode of the BIOS setup program. Go to the Tool menu to select 
+ASUS EZ Flash Utility and press <Enter>.
+3.	
+Press Left arrow key to switch to the Drive field.
+4.	
+Press the Up/Down arrow keys to find the USB flash drive that contains the latest 
+BIOS, and then press <Enter>. 
+5.	
+Press Right arrow key to switch to the Folder field.
+6.	
+Press the Up/Down arrow keys to find the BIOS file, and then press <Enter> to perform 
+the BIOS update process. Reboot the system when the update process is done.
+
+91
+11.2	
+ASUS CrashFree BIOS 3
+The ASUS CrashFree BIOS 3 utility is an auto recovery tool that allows you to restore the 
+BIOS file when it fails or gets corrupted during the updating process. You can restore a 
+corrupted BIOS file using a USB flash drive that contains the BIOS file.
+IMPORANT! Make sure to download the latest BIOS file at https://www.asus.com/support/ and 
+save it to a USB flash drive.
+Recovering the BIOS
+To recover the BIOS:
+1.	
+Turn on the system.
+2.	
+Insert the USB flash drive containing the BIOS file to the USB port.
+3.	
+The utility automatically checks the devices for the BIOS file. When found, the utility 
+reads the BIOS file and enters ASUS EZ Flash automatically.
+4.	
+The system requires you to enter BIOS Setup to recover the BIOS setting. To ensure 
+system compatibility and stability, we recommend that you press <F5> to load default 
+BIOS values.
+CAUTION! DO NOT shut down or reset the system while updating the BIOS! Doing so can cause 
+system boot failure!
+
+92

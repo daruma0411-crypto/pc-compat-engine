@@ -219,7 +219,7 @@ class ManualScraperBase(ABC):
         """httpx で PDF をダウンロードする"""
         try:
             headers = {"User-Agent": _UA, "Accept": "application/pdf,*/*"}
-            with httpx.Client(follow_redirects=True, timeout=timeout) as client:
+            with httpx.Client(follow_redirects=True, timeout=timeout, verify=False) as client:
                 resp = client.get(url, headers=headers)
                 resp.raise_for_status()
                 ct = resp.headers.get("content-type", "")

@@ -1,0 +1,2711 @@
+X870E AORUS MASTER
+使用手冊
+Rev. 1003
+技嘉為善盡地球公民之責任，將減少紙張應用，且為減緩地球暖化效應，本產
+品包裝材料皆可回收再利用，技嘉與您一同為環保盡一份力！
+更詳盡的產品相關訊息，請至技嘉網站查詢。
+
+版權
+© 2026年，技嘉科技股份有限公司，版權所有。
+本使用手冊所提及之商標與名稱，均屬其合法註冊之公司所有。
+責任聲明
+本使用手冊受著作權保護，所撰寫之內容均為技嘉所擁有。
+本使用手冊所提及之產品規格或相關資訊，技嘉保留修改之權利。
+本使用手冊所提及之產品規格或相關資訊有任何修改或變更時，恕不另行通知。
+未事先經由技嘉書面允許，不得以任何形式複製、修改、轉載、傳送或出版本使用
+手冊內容。
+ 
+
+如果您要瞭解產品詳細規格資料，請仔細閱讀【使用手冊】。
+ 
+
+如果您要快速安裝，請至技嘉網站參考【硬體安裝指南】。
+https://download.gigabyte.com/FileList/Manual/mb_manual_installation-guide_800series.pdf
+產品相關資訊，請至網站查詢：https://www.gigabyte.com/tw
+產品版本辨識
+您可以在主機板上找到標示著此主機板的版本「REV : X.X」。其中X.X為數字，例如
+標示「REV : 1.0」，意即此主機板的版本為1.0。當您要更新主機板的BIOS、驅動程式
+或參考其他技術資料時，請注意產品版本的標示。
+範例：
+
+- 3 -
+目 錄
+第一章 產品介紹 ........................................................................................................4
+1-1 
+主機板配置圖 .................................................................................................. 4
+1-2 
+主機板功能方塊圖 .......................................................................................... 5
+1-3 
+清點配件 ........................................................................................................... 6
+第二章 硬體安裝 ........................................................................................................7
+2-1 
+安裝前的注意須知 .......................................................................................... 7
+2-2 
+產品規格 ........................................................................................................... 8
+2-3 
+安裝中央處理器及散熱風扇 ........................................................................ 12
+2-4 
+安裝記憶體模組............................................................................................. 15
+2-5 
+安裝擴充卡 ..................................................................................................... 17
+2-6 
+後方裝置插座介紹 ........................................................................................ 18
+2-7 
+內建按鈕、電壓量測點及指示燈 ................................................................20
+2-8 
+插座及跳線介紹 ............................................................................................22
+第三章 BIOS 組態設定 ............................................................................................36
+第四章 安裝作業系統及驅動程式.........................................................................38
+4-1 
+作業系統安裝 .................................................................................................38
+4-2 
+驅動程式安裝 ................................................................................................39
+第五章 附錄 ..............................................................................................................40
+5-1 
+建構磁碟陣列 ................................................................................................40
+5-2 
+除錯燈號代碼說明 ........................................................................................ 41
+Regulatory Notices .....................................................................................................45
+技嘉產品台灣地區保固共同條款 ..........................................................................49
+技嘉科技全球服務網 ..............................................................................................50
+
+- 4 -
+1-1 
+主機板配置圖
+(註)  
+請至「除錯燈號代碼說明」頁面參考代碼定義。
+M2_WIFI
+Socket AM5
+ATX
+AUDIO
+DDR5_A1
+DDR5_A2
+DDR5_B1
+DDR5_B2
+BAT
+AMD 
+Chipset
+AMD 
+Chipset
+M_BIOS
+CODEC
+PCIEX16
+PCIEX4_1
+PCIEX4_2
+FU3C_20G
+DB_PORT (註)
+EC_TEMP2
+EC_TEMP1
+80
+110
+M2A_CPU
+80
+110
+M2D_SB
+80
+110
+M2C_CPU
+80
+110
+M2B_CPU
+X870E AORUS MASTER
+FUSB_1
+SYS_FAN2
+F_PANEL
+ESPI_DB
+ARGB_V2_1
+SYS_FAN1
+F_AUDIO
+SPI_TPM
+FUSB_2
+LED_C
+ARGB_V2_3
+FU3A_5G_2
+SYS_FAN3
+CPU_OPT
+ARGB_V2_4
+ARGB_V2_2
+CPU_FAN
+iTE® 
+Super I/O
+PW_SW
+RESET
+ATX_12V ATX_12V1
+SATA3
+FU3A_5G_1
+2 0
+3 1
+CPU DRAM
+VGA
+BOOT
+溫度感測點
+第一章 
+產品介紹
+Realtek® 
+5GbE LAN
+USB 3.2 
+Gen 1 Hub
+ASMedia USB4® 
+Controller
+REAR_BUTTON
+USB_HDMI
+U4_40G_DP1
+U3A_10G_1
+U3A_10G_2
+U4_40G_DP2
+U32G2_LAN
+U3A_5G
+F_HDMI
+FAN6_PUMP
+RST
+FAN5_PUMP
+CLR_CMOS
+DB_SENSE
+SYS_FAN4
+M.2 EZ-Latch 
+Click
+
+- 5 -
+1-2 
+主機板功能方塊圖
+(註)  
+是否支援此規格依CPU而定。
+USB 3.2 
+Gen 1 Hub
+AM5 CPU
+CPU CLK+/- (100 MHz)
+LAN
+RJ45
+4 SATA 6Gb/s
+(SATA3 0~3)
+PCI Express 4.0 Bus
+PCI Express 4.0 Bus
+PCI Express Bus
+PCI Express 3.0 Bus
+4 USB 3.2 Gen 1
+2 USB 3.2 Gen 2 Type-A
+1 USB 3.2 Gen 2 Type-A
+2 USB 2.0/1.1
+4 USB 2.0/1.1
+4 USB 3.2 Gen 1
+x4
+x1
+x1
+2 USB4® USB Type-C®, 
+with DisplayPort (註) 
+Alt mode
+ASMedia USB4® 
+Controller
+M.2 WIFI
+PCI Express 5.0/4.0 (註) Bus
+1 M.2 Socket 3
+(M2D_SB)
+Realtek® 
+5GbE LAN
+1 USB Type-C®, 
+with USB 3.2 Gen 2x2 support
+1 USB 3.2 Gen 2 Type-A
+DDR5 5200/4800 MT/s
+x16/x8/x4 (註)
+Line Out
+MIC
+S/PDIF Out
+CODEC
+PCIe x4
+PCIe x4
+eSPI 
+Bus
+SPI 
+Bus
+iTE® 
+Super I/O
+BIOS
+TPM
+2 HDMI (註)
+AMD Chipset
+AMD Chipset
+1 PCI Express x4
+(PCIEX4_2)
+x4
+1 PCI Express x16
+1 PCI Express x8
+2 M.2 Socket 3
+(M2B_CPU、M2C_CPU)
+x8
+Switch
+或
+x4
+x4
+1 M.2 Socket 3
+(M2A_CPU)
+x4
+1 PCI Express x4
+(PCIEX4_1)
+
+- 6 -
+1-3 
+清點配件
+ 
+5
+X870E AORUS MASTER 主機板- 1片
+ 
+5
+使用手冊- 1本
+ 
+5
+硬體安裝指南- 1本
+ 
+5
+天線- 1支
+ 
+5
+DDR Wind Blade - 1組
+ 
+5
+DDR Wind Blade風扇延長線 - 1條
+ 
+5
+SATA 排線- 2條
+ 
+5
+偵測噪音線- 1條
+ 
+5
+感溫線- 2條
+ 
+5
+魔鬼氈束線帶- 2條
+ 
+5
+G Connector - 1個
+ 
+5
+M.2導熱片- 4個
+* 上述附帶配件僅供參考，實際配件請以實物為準，技嘉科技保留修改之權利。
+
+- 7 -
+2-1 
+安裝前的注意須知
+主機板是由許多精密的積體電路及其他元件所構成，這些積體電路很容易因靜電影響
+而損壞。所以在安裝前請先詳閱此使用手冊並做好下列準備：
+ • 安裝前請確認所使用的機殼尺寸與主機板相符。
+ • 安裝前請勿任意撕毀主機板上的序號及代理商保固貼紙等，否則會影響到產品保
+固期限的認定標準。
+ • 要安裝或移除主機板以及其他硬體設備之前請務必先關閉電源，並且將電源線
+自插座中拔除。
+ • 安裝其他硬體設備至主機板內的插座時，請確認接頭和插座已緊密結合。
+ • 拿取主機板時請儘量不要觸碰金屬接線部份以避免線路發生短路。
+ • 拿取主機板、中央處理器(CPU)或記憶體模組時，最好戴上防靜電手環。若無防靜
+電手環，請確保雙手乾燥，並先碰觸金屬物以消除靜電。
+ • 主機板在未安裝之前，請先置放在防靜電墊或防靜電袋內。
+ • 當您要連接或拔除主機板電源插座上的插頭時，請確認電源供應器是關閉的。
+ • 在開啟電源前請確定電源供應器的電壓值是設定在所在區域的電壓標準值。
+ • 在開啟電源前請確定所有硬體設備的排線及電源線都已正確地連接。 
+ • 請勿讓螺絲接觸到主機板上的線路或零件，避免造成主機板損壞或故障。
+ • 請確定沒有遺留螺絲或金屬製品在主機板上或電腦機殼內。
+ • 請勿將電腦主機放置在不平穩處。
+ • 請勿將電腦主機放置在溫度過高或潮濕的環境中。
+ • 在安裝時若開啟電源可能會造成主機板、其他設備或您自己本身的傷害。
+ • 如果您對執行安裝不熟悉，或使用本產品發生任何技術性問題時，請洽詢專業的
+技術人員。
+ • 使用轉接器、延長線或電線時，請查閱其安裝及接地相關說明。
+第二章 
+硬體安裝
+
+- 8 -
+2-2 
+產品規格
+中央處理器
+(CPU)
+ 
+
+AMD AM5插槽，支援：
+AMD Ryzen™ 9000系列處理器/
+AMD Ryzen™ 8000系列處理器/
+AMD Ryzen™ 7000系列處理器
+(請至技嘉網站查詢有關支援的處理器列表)
+晶片組
+ 
+
+AMD X870E
+記憶體
+ 
+
+支援DDR5 5200/4800 MT/s
+ 
+
+4個DDR5 DIMM插槽，最高支援到256 GB (單一插槽支援64 GB容量)
+ 
+
+支援雙通道記憶體技術
+ 
+
+支援ECC Un-buffered DIMM/non-ECC Un-buffered DIMM記憶體
+ 
+ 支援AMD EXtended Profiles for Overclocking (AMD EXPO™)及Extreme Memory 
+Profile (XMP)記憶體
+(CPU和記憶體的配置可能會影響支援的記憶體類型、速度和DRAM模組
+數量，請至技嘉網站查詢記憶體模組支援列表。)
+顯示功能
+ 
+
+內建於支援AMD Radeon™顯示晶片的處理器+ASMedia USB4®控制器：
+- 
+ 2個USB4® USB Type-C®連接埠，支援USB4及DisplayPort技術之顯示
+輸出，可支援至最高3840x2160@240 Hz的解析度
+* 支援DisplayPort 1.4版本及HDR。
+ 
+
+內建於支援AMD Radeon™顯示晶片的處理器：
+- 
+1個HDMI插座，可支援至最高4096x2160@60 Hz的解析度
+* 支援HDMI 2.1版本及HDCP 2.3及HDR。
+** 僅支援兼容於原生HDMI 2.1 TMDS規範的接口。
+- 
+1個前端HDMI插座，可支援至最高1920x1080@30 Hz的解析度
+* 支援HDMI 1.4版本。
+(顯示功能所支援的規格將因使用的CPU而有差異。)
+音效
+ 
+
+內建Realtek® ALC1220晶片
+* 後方音源插座提供的音效輸出孔支援DSD音訊。
+ 
+
+支援DTS:X® Ultra
+ 
+
+支援High Definition Audio
+ 
+
+支援2/4/5.1/7.1聲道
+*  透過音效軟體可以重新定義音源插座功能，若要啟動7.1聲道音效輸出，請
+進入音效軟體設定。
+ 
+
+支援S/PDIF輸出
+網路
+ 
+
+內建Realtek® 5GbE 網路晶片(5 Gbps/2.5 Gbps/1 Gbps/100 Mbps)
+無線通訊模組
+ 
+
+Qualcomm® Wi-Fi 7 QCNCM865
+- 
+802.11a, b, g, n, ac, ax, be，支援2.4/5/6 GHz無線頻段
+- 
+BLUETOOTH 5.4
+- 
+支援11be 320MHz無線通信標準
+(實際傳輸速度將因使用環境及設備而有所差異。)
+*  Wi-Fi 7的完整功能仰賴Windows 11 SV3版本的支援度，Windows 10沒有提供
+相關驅動程式。
+**  Wi-Fi 7於6 GHz 載波的可用頻道編號仰賴各國家的通訊法規允許。
+*** 藍牙版本可能會更新，詳細資訊請參考 Wi-Fi 晶片供應商的網站。
+
+- 9 -
+擴充槽
+ 
+
+1個PCI Express x16插槽(PCIEX16)，內建於CPU：
+ 
+ AMD Ryzen™ 9000/7000系列處理器，支援PCIe 5.0及x16運作規格
+*  PCIEX16插槽僅支援顯示卡或NVMe SSD，若只安裝一張顯示卡時務必安裝
+至PCIEX16插槽。
+*  由於M2B_CPU及M2C_CPU插座與PCIEX16插槽共享頻寬，所以當M2B_CPU
+或M2C_CPU插座安裝裝置時，PCIEX16插槽最高以x8頻寬運作。
+ 
+ AMD Ryzen™ 8000系列-Phoenix 1處理器，支援PCIe 4.0及x8運作規格
+ 
+ AMD Ryzen™ 8000系列-Phoenix 2處理器，支援PCIe 4.0及x4運作規格
+ 
+
+內建於晶片組：
+- 
+ 1個PCI Express x16插槽，支援PCIe 4.0及x4運作規格(PCIEX4_1)
+- 
+ 1個PCI Express x16插槽，支援PCIe 3.0及x4運作規格(PCIEX4_2)
+儲存裝置介面
+ 
+ 1個M.2插座(M2A_CPU)，內建於CPU，支援Socket 3，M key，type 25110/22110/
+2580/2280 SSD：
+ 
+ AMD Ryzen™ 9000/7000系列處理器，支援PCIe 5.0 x4/x2 SSD
+ 
+  AMD Ryzen™ 8000系列-Phoenix 1處理器，支援PCIe 4.0 x4/x2 SSD
+ 
+  AMD Ryzen™ 8000系列-Phoenix 2處理器，支援PCIe 4.0 x4/x2 SSD
+ 
+
+ 2個M.2插座(M2B_CPU、M2C_CPU)，內建於CPU，支援Socket 3，M key， 
+type 22110/2280 SSD：
+ 
+ AMD Ryzen™ 9000/7000系列處理器，支援PCIe 5.0 x4/x2 SSD
+*  當使用AMD Ryzen™ 8000系列-Phoenix 1或Phoenix 2處理器，M2B_CPU及
+M2C_CPU插座則無法使用。
+ 
+ 1個M.2插座(M2D_SB)，內建於晶片組，支援Socket 3，M key，type 22110/2280 
+PCIe 4.0 x4/x2 SSD
+ 
+
+4個SATA 6Gb/s插座
+ 
+
+NVMe SSD支援建構RAID 0、RAID 1、RAID 5及RAID 10
+* RAID 5僅適用於AMD Ryzen™ 9000系列處理器。
+ 
+
+SATA硬碟支援建構RAID 0、RAID 1及RAID 10
+USB
+ 
+
+內建於CPU+ASMedia USB4®控制器：
+- 
+2個USB4® USB Type-C®連接埠在後方面板
+ 
+
+內建於CPU：
+- 
+1個USB 3.2 Gen 2 Type-A連接埠(紅色)在後方面板
+ 
+
+內建於晶片組+USB 3.2 Gen 1 Hub：
+- 
+ 4個USB 3.2 Gen 1連接埠在後方面板
+ 
+
+內建於晶片組：
+- 
+ 1個USB Type-C®連接埠，支援USB 3.2 Gen 2x2，需經由排線從主機
+板內USB插座接出
+- 
+3個USB 3.2 Gen 2 Type-A連接埠(紅色)在後方面板
+- 
+ 4個USB 3.2 Gen 1連接埠，需經由排線從主機板內USB插座接出
+- 
+ 6個USB 2.0/1.1連接埠(2個在後方面板，4個需經由排線從主機板內
+USB插座接出)
+
+- 10 -
+內接插座
+ 
+
+1個24-pin ATX主電源插座
+ 
+
+2個8-pin ATX 12V電源插座
+ 
+
+1個CPU風扇插座
+ 
+
+1個CPU風扇/水冷幫浦插座
+ 
+
+4個系統風扇插座
+ 
+
+2個系統風扇/水冷幫浦插座
+ 
+
+4個可編程RGB Gen2 LED燈條電源插座
+ 
+
+1個RGB LED燈條電源插座
+ 
+
+4個M.2 Socket 3插座
+ 
+
+4個SATA 6Gb/s插座
+ 
+
+1個前端控制面板插座
+ 
+
+1個前端音源插座
+ 
+
+1個USB Type-C®插座，支援USB 3.2 Gen 2x2
+ 
+
+2個USB 3.2 Gen 1插座
+ 
+
+2個USB 2.0/1.1插座
+ 
+
+1個噪音偵測插座
+ 
+
+ 1個安全加密模組插座(限搭配GC-TPM2.0 SPI V2使用)
+ 
+
+1個HDMI插座(註)
+ 
+
+1個電源按鈕
+ 
+
+1個系統重置按鈕
+ 
+
+1個系統重置針腳
+ 
+
+1個清除CMOS資料針腳
+ 
+
+2個感溫線針腳
+ 
+
+電壓量測點
+後方面板裝置
+連接插座
+ 
+
+1個Q-Flash Plus按鈕
+ 
+
+1個清除CMOS資料按鈕
+ 
+
+1個HDMI插座(註)
+ 
+
+2個USB4® USB Type-C® (DisplayPort (註))連接埠
+ 
+
+4個USB 3.2 Gen 2 Type-A連接埠(紅色)
+ 
+
+4個USB 3.2 Gen 1連接埠
+ 
+
+2個USB 2.0/1.1連接埠
+ 
+
+1個RJ-45埠
+ 
+
+2個天線連接埠(2T2R)
+ 
+
+2個音源接頭
+ 
+
+1個S/PDIF光纖輸出插座
+I/O控制器
+ 
+
+內建iTE® I/O 控制晶片
+(註)  
+是否支援此規格依CPU而定。
+
+- 11 -
+硬體監控
+ 
+
+電壓偵測
+ 
+
+溫度偵測
+ 
+
+風扇轉速偵測
+ 
+
+水冷系統流速偵測
+ 
+
+風扇故障警告
+ 
+
+智慧風扇控制
+*  是否支援智慧風扇(幫浦)控制功能會依不同的散熱風扇(幫浦)而定。
+ 
+
+噪音偵測
+BIOS
+ 
+
+1個256 Mbit ﬂash
+ 
+
+使用經授權AMI UEFI BIOS
+ 
+
+PnP 1.0a、DMI 2.7、WfM 2.0、SM BIOS 2.7、ACPI 5.0
+附加工具程式
+ 
+
+支援GIGABYTE Control Center (GCC)
+*  GCC支援的程式會因不同主機板而有所差異；各程式所支援的功能也會依
+主機板的規格而不同。
+ 
+
+支援Q-Flash
+ 
+
+支援Q-Flash Plus
+ 
+
+支援Smart Backup
+附贈軟體
+ 
+
+Norton® Internet Security (OEM版本)
+ 
+
+LAN bandwidth management software
+* 由於軟體供應商終止合約，服務已停止提供。
+作業系統
+ 
+
+支援Windows 11 64-bit
+規格
+ 
+
+ATX規格；30.5公分x 24.4公分
+*  產品規格或相關資訊技嘉保留修改之權利，有任何修改或變更時，恕不另行通知。
+ 
+&
+請至技嘉網站「服務/支援\工具程式」頁面下載最新的工具程式。
+https://www.gigabyte.com/tw/Support/Utility/Motherboard?m=ut
+
+- 12 -
+2-3 
+安裝中央處理器及散熱風扇
+在開始安裝中央處理器(CPU)前，請注意以下的訊息：
+ • 請確認所使用的CPU是在此主機板的支援範圍。
+(請至技嘉網站查詢有關支援的CPU列表)
+ • 安裝CPU之前，請務必將電源關閉，以免造成毀損。
+ • 請確認CPU的第一腳位置，若方向錯誤，CPU會無法放入CPU插槽內(或是確認CPU兩側
+的凹角位置及CPU插槽上的凸角位置)。
+ • 請在CPU表面塗抹散熱膏。
+ • 在CPU散熱風扇未安裝完成前，切勿啟動電腦，否則過熱會導致CPU的毀損。
+ • 請依據您的CPU規格來設定頻率，我們不建議您將系統速度設定超過硬體之標準範圍，
+因為這些設定對於週邊設備而言並非標準規格。如果您要將系統速度設定超出標準規
+格，請評估您的硬體規格，例如：CPU、顯示卡、記憶體、硬碟等來設定。
+A. 確認中央處理器方向
+請務必確認主機板上的CPU插槽凸角位置及CPU的凹角位置。
+在安裝CPU前請勿先移除保護蓋，此保護蓋會在安裝完CPU且將金屬上蓋蓋回時自動脫落。
+凹角
+凹角
+三角形為CPU
+第一腳位置
+AM5 CPU
+凸角
+凸角
+AM5 CPU插槽
+三角形為插槽
+第一腳位置
+ 
+&
+請至技嘉網站查詢更詳盡的硬體安裝說明。
+https://www.gigabyte.com/WebPage/210/quick-guide.html?m=sw
+
+- 13 -
+B. 安裝中央處理器
+請依下列步驟將CPU正確地安裝於主機板的CPU插槽內。
+CPU未正確置入CPU插槽時，切勿強行將CPU插槽拉桿下壓扣住，以免造成CPU及插槽
+的毀損。
+j
+k
+l
+第一腳
+w
+u
+v
+j
+將CPU插槽拉桿微下壓後向外推開。
+k
+將CPU插槽拉桿向上完全拉起。
+l
+以手指扶住金屬上蓋的塑膠保護蓋，
+將CPU插槽金屬上蓋向上掀開，同時
+金屬上蓋的塑膠保護蓋也會一起翻
+起。
+以手指抓取CPU兩側，確認CPU的第一
+腳位置(三角形標示)對齊CPU插槽上的
+第一腳處(或是將CPU上的凹角對齊插
+槽上的凸角)輕輕放入。
+確定CPU安裝正確後，將金屬上蓋蓋
+回，接著將拉桿向下壓回扣住，此時塑
+膠保護蓋會自動掉落，將其移除即可
+完成安裝。
+*為保護CPU插槽，沒有安裝CPU時，請
+將塑膠保護蓋蓋回金屬上蓋。
+l
+k
+j
+
+- 14 -
+C. 安裝散熱風扇
+CPU安裝完成後務必安裝散熱風扇。(實際散熱風扇安裝步驟請依您所使用的散熱風扇為準。請
+參考您所欲安裝的散熱風扇所附的使用手冊。)
+u
+v
+在已安裝完成的CPU上均勻塗抹一層
+適量的散熱膏。
+Type A：
+將散熱風扇的扣具勾住CPU插槽腳座
+一邊的凸點，再將另一邊的扣具向下
+施力勾住CPU插槽腳座的凸點。將散
+熱風扇拉桿從左側向上轉向右側扣
+緊。
+Type B：
+首先請移除CPU插槽腳座的四個螺絲
+再移除CPU插槽腳座，接著將散熱風
+扇的四個插銷對準背板螺柱，再將插
+銷的螺絲依右圖1-2-3-4 X型的順序，依
+序鎖緊。
+w
+最後將散熱風扇的電源線插入主機板
+上的CPU散熱風扇電源插座(CPU_FAN)，
+即完成CPU散熱風扇的安裝。
+CPU_FAN
+u
+Type B
+j
+l
+v
+k
+m
+j
+k
+* 使用Type B散熱風扇時，在鎖緊過程中不建
+議將螺絲一次性地擰緊到底，請重複1-2-3-4
+的順序每步僅轉一圈，直到所有螺絲都鎖緊。
+4
+1
+2
+3
+Type A
+
+- 15 -
+2-4 
+安裝記憶體模組
+在開始安裝記憶體模組前，請注意以下的訊息：
+ • 請確認所使用的記憶體模組規格是在此主機板的支援範圍，建議您使用相同容量、廠
+牌、速度、顆粒的記憶體模組。(請至技嘉網站查詢有關支援的記憶體模組速度及列表)
+ • 在安裝記憶體模組之前，請務必將電源關閉，以免造成毀損。
+ • 記憶體模組有防呆設計，若插入的方向錯誤，記憶體模組就無法安裝，此時請立刻更
+改插入方向。
+ • 安裝記憶體模組時，請務必先從DDR5_A2插槽開始安裝。
+雙通道記憶體技術
+此主機板配置4個記憶體模組插槽並支援雙通道記憶體技術(Dual Channel Technology)。安裝記憶
+體模組後，BIOS會自動偵測記憶體的規格及其容量。當使用雙通道記憶體時，記憶體匯流排的頻
+寬會增加為原來的兩倍。
+4個記憶體模組插槽分為兩組通道(Channel)：
+ 
+通道A (Channel A)：DDR5_A1，DDR5_A2
+ 
+通道B (Channel B)：DDR5_B1，DDR5_B2
+由於CPU的限制，若要使用雙通道記憶體技術，在安裝記憶體模組時需注意以下說明：
+1. 如果只安裝一支記憶體模組，無法啟動雙通道記憶體技術。
+2. 如果要安裝兩支或四支記憶體模組，建議您使用相同的記憶體模組(即相同容量、廠牌、速度、
+顆粒)。
+DDR5_A1
+DDR5_A2
+DDR5_B1
+DDR5_B2
+※ 記憶體安裝建議：
+DDR5_A1
+DDR5_A2
+DDR5_B1
+DDR5_B2
+1支記憶體模組
+- -
+a
+- -
+- -
+2支記憶體模組*
+- -
+a
+- -
+a
+4支記憶體模組*
+a
+a
+a
+a
+(a：安裝記憶體，- -：沒有安裝記憶體)
+( * ：啟動雙通道記憶體建議組合)
+系統開機前如果記憶體模組安裝在
+錯誤的插槽時，記憶體狀態指示燈
+將會亮起，務必更換至正確插槽，
+請參考表格安裝記憶體模組。
+CPU
+VGA
+DRAM
+BOOT
+
+- 16 -
+DDR Wind Blade
+隨貨附贈的DDR Wind Blade專為記憶體散熱所設計。透過連接至特定風扇插座(參考以下表格)，
+可以讀取DDR溫度監控點(註)的溫度，並提供您在GIGABYTE Control Center (GCC，技嘉控制中心)
+設定風扇轉速運作模式。詳細設定請至技嘉網站查詢「獨特功能介紹」－「FAN Control」的說明。
+SYS_FAN4
+FAN5_PUMP
+FAN6_PUMP
+※ 支援記憶體PMIC溫度讀取的插座
+*  可使用隨貨附贈的風扇延長線連接
+DDR Wind Blade至插座。
+I. 隨主機板固定至機殼(使用所附螺絲)：
+II. 固定至開放平台(使用所附扣具)：
+*  上述圖片僅供參考，實際產品圖請以實物為準。
+(註)  DDR溫度監控點只有在您安裝有支援此功能的記憶體模組時才會出現，支援性相關請與您購置記憶體的廠商洽詢。
+u
+v
+w
+A
+B
+B
+A
+GIGABYTE Control Center
+選擇風扇插座
+安裝方式
+請依實際需求參考以下兩種安裝方式，安裝完成後，請將DDR Wind Blade 風扇電源線連接至支援
+記憶體PMIC溫度讀取的風扇插座。
+溫度監控點設為
+「DDR」(註)
+
+- 17 -
+2-5 
+安裝擴充卡
+在開始安裝擴充卡前，請注意以下的訊息：
+ • 請確認所使用的擴充卡規格是在此主機板的支援範圍，並請詳細閱讀擴充卡的使用
+手冊。
+ • 在安裝擴充卡之前，請務必將電源關閉，以免造成毀損。
+請依下列步驟將擴充卡正確地安裝於主機板的擴充卡插槽內：
+1. 先找到正確規格的擴充卡插槽，再移除電腦機殼背面、插槽旁的金屬擋板。
+2. 將擴充卡對齊插槽，垂直地向下壓入插槽內。
+3. 請確定擴充卡之金手指已完全插入插槽內。
+4. 將擴充卡的金屬檔板以螺絲固定於機殼內。
+5. 安裝完所有的擴充卡後，再將電腦機殼蓋上。
+6. 開啟電源，若有必要請至BIOS中設定各擴充卡相關的設定。
+7. 在作業系統中安裝擴充卡所附的驅動程式。
+PCIEX16插槽
+ 
+&
+請至技嘉網站參考更詳盡的PCIe EZ-Latch Plus卸除說明。
+https://www.gigabyte.com/WebPage/922/removePCIE.html
+
+- 18 -
+2-6 
+後方裝置插座介紹
+Q-Flash Plus按鈕(註一)
+Q-Flash Plus提供您於系統關機(S5待機模式)狀態下更新BIOS，透過連接至特定連接埠的USB
+隨身碟，按下Q-Flash Plus按鈕即會啟動並載入資料修復。運作時QFLED會開始閃爍(表示開始
+進行比對)，QFLED閃爍停止時代表主BIOS更新結束。
+清除CMOS資料按鈕
+利用清除CMOS資料按鈕可以在必要時將主機板的CMOS資料(例如：BIOS設定)清除，回到出
+廠設定值。
+USB 2.0/1.1連接埠
+此連接埠支援USB 2.0/1.1規格，您可以連接USB裝置至此連接埠。
+HDMI插座(註二)
+此插座可相容於HDCP 2.3規格並且支援Dolby TrueHD及DTS HD Master 
+Audio音訊格式，最高可支援192KHz/24bit 7.1-channel LPCM音效輸出。您
+可以連接支援HDMI接頭的螢幕至此插座。HDMI技術最高可支援至4096x2160@60 Hz的解析度，
+實際所支援的解析度會依您所使用的顯示器而有不同。
+USB 3.2 Gen 1連接埠
+此連接埠支援USB 3.2 Gen 1規格，並可相容於USB 2.0規格。您可以連接USB裝置至此連接埠。
+USB 3.2 Gen 2 Type-A連接埠(紅色) (Q-Flash Plus連接埠)
+此連接埠支援USB 3.2 Gen 2規格，並可相容於USB 3.2 Gen 1及USB 2.0規格。您可以連接USB
+裝置至此連接埠。執行Q-Flash Plus (註一)時，請將USB隨身碟連接至此連接埠。
+當您安裝HDMI設備後，請將音效播放的預設裝置設為HDMI (此選項名稱會因不同作
+業系統而有不同)。
+ • 要移除連接於各插座上的連接線時，請先移除設備端的接頭，再移除連接至主機板
+端的接頭。
+ • 移除連接線時，請直接拔出，切勿左右搖晃接頭，以免造成接頭內的線路短路。
+ • 使用清除CMOS資料按鈕前，請務必關閉電腦的電源並拔除電源線。
+ • 請勿在開機狀態下使用清除CMOS資料按鈕，否則系統將立即關機，並且可能造成
+資料的遺失或毀損。
+ • 清除CMOS資料重新開機後，請進入BIOS載入出廠預設值(Load Optimized Defaults)或
+自行輸入設定值(請至技嘉網站查詢「BIOS組態設定」的說明)。
+
+- 19 -
+天線連接埠(2T2R)
+連接天線至此連接埠。
+USB4® USB Type-C®連接埠(DisplayPort (註二))
+此連接埠支援標準USB4® USB Type-C®及DisplayPort顯示輸出，您可以連接USB4® USB Type-C®
+介面顯示器或使用轉接線連接標準DisplayPort螢幕。連接DisplayPort顯示器時，最高可支援
+3840x2160@240 Hz的解析度，實際所支援的解析度會依您所使用的顯示器而有不同。此連接
+埠同時支援USB4®規格且採用可正反插的設計，並可相容於USB 3.2 Gen 2x2、USB 3.2 Gen 2、 
+USB 3.2 Gen 1及USB 2.0規格。您也可以連接USB裝置至此連接埠。
+USB 3.2 Gen 2 Type-A連接埠(紅色)
+此連接埠支援USB 3.2 Gen 2規格，並可相容於USB 3.2 Gen 1及USB 2.0規格。您可以連接USB
+裝置至此連接埠。
+網路插座(RJ-45)
+此網路插座是超高速乙太網路(Gigabit Ethernet)，提供連線至網際網路，傳輸速率最高每秒可
+達5 GB (5 Gbps)。網路插座指示燈說明如下：
+速度指示燈
+運作指示燈
+網路插座
+速度指示燈：
+燈號狀態 
+說明
+亮綠色燈
+傳輸速率5 Gbps
+亮橘色燈
+傳輸速率2.5 Gbps/1 Gbps/100 Mbps
+運作指示燈：
+燈號狀態 
+說明
+閃爍
+傳輸資料中
+亮黃色燈
+無傳輸資料
+ 
+&
+請至技嘉網站查詢音效軟體的設定說明。
+https://www.gigabyte.com/WebPage/698/realtek1220-audio.html
+音效連接孔設定如下：
+接頭
+耳機/2聲道
+4聲道
+5.1聲道
+7.1聲道
+音源輸出/前置喇叭輸出
+a
+a
+a
+a
+麥克風/後喇叭輸出
+a
+a
+a
+前方面板音源輸出/側喇叭輸出
+a
+前方面板麥克風輸入/
+中央及重低音輸出
+a
+a
+透過音效軟體可以重新定義音源插座功能，若要啟動7.1聲道音效輸出，請進入音效
+軟體設定。
+將天線確實安裝至天線連接埠，完成安裝後將天線調整至收訊良好。
+音源輸出/前置喇叭輸出
+此插孔為音源輸出孔。
+麥克風/後喇叭輸出
+此插孔為麥克風連接孔。
+S/PDIF光纖輸出插座
+此插座提供數位音效輸出至具有光纖傳輸功能的音效系統，使用此功能時須確認您的音效系
+統具有光纖數位輸入插座。
+(註一) 
+若要啟動Q-Flash Plus功能，請至技嘉網站查詢「獨特功能介紹」的說明。
+(註二) 
+是否支援此規格依CPU而定。
+
+- 20 -
+2-7 
+內建按鈕、電壓量測點及指示燈
+快速按鈕
+此主機板內建兩顆快速按鈕，包含電源按鈕及系統重置按鈕。電源按鈕及系統重置按鈕可方便使
+用者在裸機狀態並且欲更換系統配備或做系統測試時，快速地開關電腦或是重新開機。
+RESET：系統重置按鈕
+PW_SW：電源按鈕
+PW_SW
+RESET
+系統重置按鈕提供多種功能設定，若要變更為其他功能，請至技嘉網站查詢「BIOS組態
+設定」－「RST (MULTIKEY)」的說明。
+電壓量測點
+您可使用萬用電表測量以下主機板的電壓。
+VCORE_SOC
+VDIMM
+VCORE
+VDD_MISC
+A_VDD18
+PM_VCC18
+1 1 1 1 1 1
+
+- 21 -
+CPU：CPU狀態指示燈
+DRAM：記憶體狀態指示燈
+VGA：顯示卡狀態指示燈
+BOOT：作業系統狀態指示燈
+CPU
+DRAM
+VGA
+BOOT
+狀態指示燈
+狀態指示燈可以顯示開機後CPU、記憶體、顯示卡及作業系統的狀態是否正常。CPU、DRAM及VGA
+燈號亮起時表示裝置有異常；BOOT燈號亮起則表示未進入作業系統。
+
+- 22 -
+2-8 
+插座及跳線介紹
+連接各種外接硬體設備時，請注意以下的訊息：
+ • 請先確認所使用的硬體設備規格與欲連接的插座符合。
+ • 在安裝各種設備之前，請務必將設備及電腦的電源關閉，並且將電源線自插座中拔除，
+以免造成設備的毀損。
+ • 安裝好設備欲開啟電源前，請再次確認設備的接頭與插座已緊密結合。
+1)
+ATX_12V/ATX_12V1
+2)
+ATX
+3)
+CPU_FAN
+4)
+SYS_FAN1/2/3/4
+5)
+FAN5/6_PUMP
+6)
+CPU_OPT
+7)
+EC_TEMP1/EC_TEMP2
+8)
+ARGB_V2_1/2/3/4
+9)
+LED_C
+10)
+DB_SENSE
+11)
+SATA3 0/1/2/3
+12)
+M2A_CPU/M2D_SB/M2C_CPU/M2B_CPU
+13)
+F_PANEL
+14)
+F_AUDIO
+15)
+FU3C_20G
+16)
+FU3A_5G_1/FU3A_5G_2
+17)
+FUSB_1/FUSB_2
+18)
+SPI_TPM
+19)
+F_HDMI
+20)
+RST
+21)
+CLR_CMOS
+22)
+BAT
+13
+16
+21
+22
+19
+2
+11
+4
+20
+10
+7
+16
+5
+15
+17
+18 4
+4
+14
+1
+9
+12
+12
+12
+12
+3
+6
+8
+8
+
+- 23 -
+1/2) ATX_12V/ATX_12V1/ATX (2x4-pin 12V電源插座及2x12-pin主電源插座)
+ 
+透過電源插座可使電源供應器提供足夠且穩定的電源給主機板上的所有元件。在插入電源插座
+前，請先確定電源供應器的電源是關閉的，且所有裝置皆已正確安裝。電源插座有防呆設計，確
+認正確的方向後插入即可。
+ 
+12V電源插座主要是提供CPU電源，若沒有接上12V電源插座，系統將不會啟動。
+為因應擴充需求，建議您使用輸出功率大的電源供應器(500瓦或以上)，以供應足夠的電
+力需求。若使用電力不足的電源供應器，可能會導致系統不穩或無法開機。
+ATX_12V/ATX_12V1
+ATX_12V/ATX_12V1：
+接腳
+定義
+1
+接地腳(僅供2x4-pin的電
+源接頭使用)
+2
+接地腳(僅供2x4-pin的電
+源接頭使用)
+3
+接地腳
+4
+接地腳
+5
++12V (僅供2x4-pin的電源
+接頭使用)
+6
++12V (僅供2x4-pin的電源
+接頭使用)
+7
++12V
+8
++12V
+ATX：
+接腳
+定義
+接腳
+定義
+1
+3.3V
+13
+3.3V
+2
+3.3V
+14
+-12V
+3
+接地腳
+15
+接地腳
+4
++5V
+16
+PS_ON (soft On/Off)
+5
+接地腳
+17
+接地腳
+6
++5V
+18
+接地腳
+7
+接地腳
+19
+接地腳
+8
+Power Good
+20
+無作用
+9
+5VSB (stand by +5V)
+21
++5V
+10
++12V
+22
++5V
+11
++12V (僅供2x12-pin的電源
+接頭使用)
+23
++5V (僅供2x12-pin的電源
+接頭使用)
+12
+3.3V (僅供2x12-pin的電源
+接頭使用)
+24
+接地腳 (僅供2x12-pin的電
+源接頭使用)
+4
+1
+8
+5
+13
+1
+24
+12
+ATX
+ATX
+ATX_12V1
+ATX_12V
+
+- 24 -
+ • 請務必接上散熱風扇的電源插座，以避免CPU及系統處於過熱的工作環境，若溫度
+過高可能導致CPU燒毀或是系統當機。
+ • 這些散熱風扇電源插座並非跳線，請勿放置跳帽在針腳上。
+3/4) CPU_FAN/SYS_FAN1/2/3/4 (散熱風扇插座)
+ 
+此主機板的散熱風扇插座皆為4-pin。這些插座皆有防呆設計，安裝時請注意方向(黑色線為接
+地線)。若要使用風扇控制功能，須搭配具有轉速控制設計的散熱風扇才能使用此功能。建
+議您於機殼內加裝系統散熱風扇，以達到最佳的散熱效能。
+CPU_FAN
+1
+1
+1
+SYS_FAN1/SYS_FAN2/
+SYS_FAN3/SYS_FAN4
+接腳
+定義
+1
+接地腳
+2
+電壓速度控制腳
+3
+轉速偵測腳
+4
+脈寬調變速度控制腳
+5) FAN5/6_PUMP (系統風扇/水冷幫浦插座)
+ 
+這些風扇/幫浦插座為4-pin。此插座有防呆設計，安裝時請注意方向(黑色線為接地線)。若要使
+用風扇控制功能，須搭配具有轉速控制設計的散熱風扇才能使用此功能。建議您於機殼內加
+裝系統散熱風扇，以達到最佳的散熱效能。此插座亦可提供水冷幫浦調整轉速的功能，詳細
+設定請至技嘉網站查詢「BIOS組態設定」－「Smart Fan 6」的說明。
+接腳
+定義
+1
+接地腳
+2
+電壓速度控制腳
+3
+轉速偵測腳
+4
+脈寬調變速度控制腳
+SYS_FAN4
+FAN5_PUMP
+FAN6_PUMP
+SYS_FAN2
+SYS_FAN3
+SYS_FAN1
+CPU_FAN
+SYS_FAN4、FAN5_PUMP及FAN6_PUMP支援記憶體PMIC溫度讀取功能。
+
+- 25 -
+7) EC_TEMP1/EC_TEMP2 (感溫線針腳)
+ 
+這些針腳可連接感溫線，提供溫度偵測的功能。
+接腳
+定義
+1
+SENSOR IN
+2
+接地線
+6) CPU_OPT (CPU風扇/水冷幫浦插座)
+ 
+此風扇/幫浦插座為4-pin。此插座有防呆設計，安裝時請注意方向(黑色線為接地線)。若要使用
+風扇控制功能，須搭配具有轉速控制設計的散熱風扇才能使用此功能。
+接腳
+定義
+1
+接地腳
+2
+電壓速度控制腳
+3
+轉速偵測腳
+4
+脈寬調變速度控制腳
+1
+插座
+CPU_FAN
+SYS_FAN1~4
+FAN5/6_PUMP
+CPU_OPT
+最大供應電流
+2A
+2A
+2A
+2A
+最大消耗功率
+24W
+24W
+24W
+24W
+1
+CPU_OPT
+EC_TEMP2
+EC_TEMP1
+
+- 26 -
+8) ARGB_V2_1/2/3/4 (可編程RGB Gen2 LED燈條電源插座)
+ 
+這些插座可連接標準5050可編程RGB Gen2 LED燈條，最大供電是3安培(5伏特)，LED數目256顆
+以內之燈條。
+ • 為避免LED顯示異常，請勿同時安裝可編程RGB Gen1 LED燈條和可編程RGB Gen2 LED
+燈條至同一個插座。
+ • 安裝或移除前，請務必將設備及電腦的電源關閉，並且將電源線自插座中拔除，以免
+造成設備的毀損。
+有關燈條的控制功能，請至技嘉網站查詢「獨特功能介紹」的說明。
+1
+1
+接腳
+定義
+1
+V (5V)
+2
+Data
+3
+無接腳
+4
+接地腳
+請將可編程RGB Gen2 LED燈條接至此插座。安裝時請將燈條的電
+源接腳(接頭上三角形標示)連接至插座的接腳1，不正確安裝將會
+造成燈條燒毀。
+1
+ARGB_V2_2/
+ARGB_V2_4
+ARGB_V2_1
+ARGB_V2_3
+可編程RGB Gen2 
+LED燈條
+1
+ARGB_V2_1
+LED_C
+ARGB_V2_3
+ARGB_V2_4
+ARGB_V2_2
+9) LED_C (RGB LED燈條電源插座)
+ 
+此插座可連接標準5050 RGB LED燈條(12V/G/R/B)，最大供電是2安培(12伏特)，長度限制為2公
+尺。
+請將RGB LED燈條接至此插座。安裝時請將燈條的電源接腳(接
+頭上三角形標示)連接至插座的接腳1 (12V)，不正確安裝將會造成
+燈條燒毀。
+接腳
+定義
+1
+12V
+2
+G
+3
+R
+4
+B
+1
+RGB 
+LED燈條
+1
+12V
+
+- 27 -
+11) SATA3 0/1/2/3 (SATA 6Gb/s插座)
+ 
+這些SATA插座支援SATA 6Gb/s規格，並可相容於SATA 3Gb/s及SATA 1.5Gb/s規格。一個SATA插
+座只能連接一個SATA裝置，可以建構RAID 0、RAID 1及RAID 10磁碟陣列，若您要建構RAID，
+請至技嘉網站查詢「建構磁碟陣列」的說明。
+接腳
+定義
+1
+接地腳
+2
+TXP
+3
+TXN
+4
+接地腳
+5
+RXN
+6
+RXP
+7
+接地腳
+SATA3
+2
+0
+3
+1
+若要啟動熱插拔功能，請至技嘉網站查詢「BIOS組態設定」－「SATA Configuration」的
+說明。
+1
+1
+7
+7
+SATA3 0/1/2/3
+10) DB_SENSE (噪音偵測插座)
+ 
+此插座可連接噪音偵測線，提供偵測機殼內部噪音的功能。
+接腳
+定義
+1
+噪音偵測腳
+2
+接地腳
+安裝前，請務必將插座上的跳帽移除；若不使用此插座時請將跳帽蓋回。
+有關噪音偵測的功能請至技嘉網站查詢「獨特功能介紹」－「FAN Control」的說明。
+1
+噪音偵測線
+1
+DB_SENSE
+
+- 28 -
+12) M2A_CPU/M2D_SB/M2C_CPU/M2B_CPU (M.2 Socket 3插座)
+ 
+M.2 SSD分為M.2 SATA SSD及M.2 PCIe SSD，此主機板的M.2 Socket 3插座僅支援M.2 PCIe 
+SSD。M.2插座可以建構RAID磁碟陣列，但是M.2 PCIe SSD無法與其它SATA硬碟共同建構磁
+碟陣列。若您要建構RAID，請至技嘉網站查詢「建構磁碟陣列」的說明。
+80
+110
+60
+42
+M2B_CPU
+80
+110
+60
+42
+M2D_SB
+80
+110
+60
+42
+M2C_CPU
+80
+110
+60
+42
+M2A_CPU
+M2A_CPU
+M2D_SB
+M2C_CPU
+M2B_CPU
+M.2 EZ-Latch Click
+M.2 EZ-Latch Plus
+M.2 EZ-Latch Click
+M.2 EZ-Latch 
+Click
+請依下列步驟將M.2 SSD正確地安裝於M.2插座。
+ • M2A_CPU安裝方法：
+ 
+步驟一：
+ 
+先以順時針方向扳動M.2 EZ-Latch Click卡扣，將主機板散熱片取下。
+ 
+步驟二：
+ 
+移除M.2插座導熱片的膠膜，再將M.2 SSD以斜角方式放入插座。
+若要在110孔位安裝M.2 SSD，請先移除80孔位的M.2 EZ-Latch Plus卡扣。
+若要更換導熱片，建議使用厚度1.25mm的導熱片。
+ 
+步驟三：
+ 
+按壓M.2 SSD最前端，將M.2 SSD確實安裝至卡扣。移除散熱片底部導熱片的膠膜，最後扳
+動M.2 EZ-Latch Click卡扣再將散熱片安裝至原本的孔位。
+隨附的M.2導熱片
+預裝的M.2導熱片
+ • 安裝M.2導熱片(僅適用於已安裝導熱片的M.2插座)：
+ 
+使用單面M.2 SSD時，請先將隨附的M.2導熱片黏貼至M.2插座已預裝的導熱片上，再進行M.2 
+SSD的安裝。
+使用雙面M.2 SSD時，切勿安裝此隨附的M.2導熱片。
+
+- 29 -
+ • M2D_SB/M2C_CPU/M2B_CPU安裝方法：
+ 
+步驟一：
+ 
+先以順時針方向扳動M.2 EZ-Latch Click卡扣，將主機板散熱片取下，並依實際要安裝的M.2 
+SSD規格找到適合孔位之後，將M.2 EZ-Latch Plus卡扣移至該孔位鎖上。
+ 
+步驟二：
+ 
+移除M.2插座導熱片的膠膜，再將M.2 SSD以斜角方式放入插座，按壓M.2 SSD最前端，將M.2 
+SSD確實安裝至卡扣。
+ 
+步驟三：
+ 
+移除散熱片底部導熱片的膠膜，最後扳動M.2 EZ-Latch Click卡扣再將散熱片安裝至原本的
+孔位。
+※ 各M.2插座所支援的SSD類型：
+M.2 PCIe x4 SSD
+M.2 PCIe x2 SSD
+M.2 SATA SSD
+M2A_CPU
+a
+a
+r
+M2D_SB
+a
+a
+r
+M2C_CPU
+a
+a
+r
+M2B_CPU
+a
+a
+r
+80
+110
+60
+42
+M2B_CPU
+80
+110
+60
+42
+M2D_SB
+80
+110
+60
+42
+M2C_CPU
+M.2 EZ-Latch Plus
+ 
+&
+請至技嘉網站參考更詳盡的M.2 EZ-Latch Click/M.2 EZ-Latch Plus安裝及卸除說明。
+M.2 EZ-Latch Click安裝：https://www.gigabyte.com/WebPage/1048/M.2-EZ-Latch-Click.html
+M.2 EZ-Latch Plus安裝：https://www.gigabyte.com/WebPage/920/M2-latchplus.html
+M.2 EZ-Latch Plus卸除：https://www.gigabyte.com/WebPage/921/removeM2.html
+*  主機板散熱片設計可能會因機種而有不同，請依實際散熱片類型進行拆除。
+M.2 EZ-Latch Click
+
+- 30 -
+電腦機殼的前方控制面板設計會因不同機殼而有不同，主要包括電源開關、系統重置開
+關、電源指示燈、硬碟動作指示燈、喇叭等，請依機殼上的訊號線連接。
+13) F_PANEL (前端控制面板插座)
+ 
+電腦機殼的電源開關、系統重置開關、喇叭、機殼被開啟偵測開關/感應器及系統運作指示燈等
+可以接至此插座。請依據下列的針腳定義連接，連接時請注意針腳的正負(+/-)極。
+ • PW－電源開關：
+ 
+連接至電腦機殼前方面板的主電源開關鍵。您可以在BIOS組態中設定此按鍵的關機方式(請
+至技嘉網站查詢「BIOS組態設定」－「Soft-Off by PWR-BTTN」的說明)。
+ • SPEAK－喇叭針腳：
+ 
+連接至電腦機殼前方面板的喇叭。系統會以不同的嗶聲來反應目前的開機狀況，通常正常開
+機時，會有一嗶聲。
+ • HD－硬碟動作指示燈：
+ 
+連接至電腦機殼前方面板的硬碟動作指示燈。當硬碟有存取動作時指示燈即會亮起。
+ • RES－系統重置開關：
+ 
+連接至電腦機殼前方面板的重置開關(Reset)鍵。在系統當機而無法正常重新開機時，可以按
+下重置開關鍵來重新啟動系統。
+ • CI－電腦機殼被開啟偵測針腳：
+ 
+連接至電腦機殼的機殼被開啟偵測開關/感應器，以偵測機殼是否曾被開啟。若要使用此功
+能，需搭配具有此設計的電腦機殼。
+ • NC：無作用。
+ • PLED/PWR_LED－電源指示燈：
+連接至機殼前方面板的電源指示燈。當系統正在運作時，指示燈
+為持續亮著；系統進入休眠模式(S3/S4)及關機(S5)時，則為熄滅。
+系統狀態
+燈號
+S0
+燈亮
+S3/S4/S5
+燈滅
+電源指示燈
+1
+2
+19
+20
+CI-
+CI+
+PWR_LED-
+PWR_LED+
+PLED-
+PW-
+SPEAK+
+SPEAK-
+PLED+
+PW+
+電源指示燈
+HD-
+RES+
+HD+
+RES-
+硬碟動作
+指示燈
+系統重
+置開關機殼被開啟
+偵測針腳
+電源開關
+喇叭針腳
+PWR_LED-
+NC
+NC
+F_PANEL
+
+- 31 -
+14) F_AUDIO (前端音源插座)
+ 
+此前端音源插座支援HD (High Definition，高傳真)。您可以連接機殼前方面板的音效模組至此
+插座，安裝前請先確認音效模組的接腳定義是否與插座吻合，若安裝不當可能造成設備無法
+使用甚至損毀。
+接腳
+定義
+1
+MIC L
+2
+接地腳
+3
+MIC R
+4
+無作用
+5
+Head Phone R
+6
+麥克風偵測
+7
+SENSE_SEND
+8
+無接腳
+9
+Head Phone L
+10
+耳機偵測
+9
+1
+10
+2
+有部份市售機殼的前方音源連接線並非模組化，而各機殼的音源連接線定義或有不
+同，如何連接請洽機殼製造商。
+15) FU3C_20G (USB Type-C®連接埠擴充插座，支援USB 3.2 Gen 2x2)
+ 
+此插座支援USB 3.2 Gen 2x2規格並可接出一個USB連接埠。
+接腳
+定義
+接腳
+定義
+1
+VBUS
+11
+VBUS
+2
+TX1+
+12
+TX2+
+3
+TX1-
+13
+TX2-
+4
+接地腳
+14
+接地腳
+5
+RX1+
+15
+RX2+
+6
+RX1-
+16
+RX2-
+7
+VBUS
+17
+接地腳
+8
+CC1
+18
+D-
+9
+SBU1
+19
+D+
+10
+SBU2
+20
+CC2
+20
+10
+11
+1
+F_AUDIO
+FU3C_20G
+
+- 32 -
+16) FU3A_5G_1/FU3A_5G_2 (USB 3.2 Gen 1連接埠擴充插座)
+ 
+這些插座支援USB 3.2 Gen 1/USB 2.0規格，一個插座可以接出兩個USB連接埠。若要選購內含
+2個USB 3.2 Gen 1連接埠的3.5吋前置擴充面板，您可以聯絡當地代理商購買。
+接腳
+定義
+接腳
+定義
+1
+VBUS
+11
+D2+
+2
+SSRX1-
+12
+D2-
+3
+SSRX1+
+13
+接地腳
+4
+接地腳
+14
+SSTX2+
+5
+SSTX1-
+15
+SSTX2-
+6
+SSTX1+
+16
+接地腳
+7
+接地腳
+17
+SSRX2+
+8
+D1-
+18
+SSRX2-
+9
+D1+
+19
+VBUS
+10
+無作用
+20
+無接腳
+1
+10
+11
+20
+17) FUSB_1/FUSB_2 (USB 2.0/1.1連接埠擴充插座)
+ 
+這些插座支援USB 2.0/1.1規格，透過USB擴充擋板，一個插座可以接出兩個USB連接埠。USB
+擴充擋板為選購配件，您可以聯絡當地代理商購買。
+接腳
+定義
+1
+電源 (5V)
+2
+電源 (5V)
+3
+USB DX-
+4
+USB DY-
+5
+USB DX+
+6
+USB DY+
+7
+接地腳
+8
+接地腳
+9
+無接腳
+10
+無作用
+10
+9
+2
+1
+連接USB擴充擋板前，請務必將電腦的電源關閉，並且將電源線自插座中拔除，以免造
+成USB擴充擋板的毀損。
+FUSB_2
+FU3A_5G_2
+FUSB_1
+FU3A_5G_1
+
+- 33 -
+接腳
+定義
+1
+Data Output
+2
+電源(1.8V)
+3
+無接腳
+4
+無作用
+5
+Data Input
+6
+CLK
+7
+Chip Select
+8
+接地腳
+9
+IRQ
+10
+無作用
+11
+無作用
+12
+RST
+18) SPI_TPM (安全加密模組連接插座)
+ 
+您可以連接SPI介面的TPM (Trusted Platform Module)安全加密模組至此插座。
+12
+11
+2
+1
+SPI_TPM
+19) F_HDMI (HDMI插座) (註)
+ 
+此插座支援HDMI顯示輸出，供您連接機殼內置螢幕。連接機殼內置螢幕時，最高可支援
+1920x1080@30 Hz的解析度，實際所支援的解析度，會依您所使用的機殼內置螢幕而有不同。
+關於如何連接您的機殼內置螢幕，請詳細閱讀顯示裝置的使用手冊。
+F_HDMI
+(註)  
+是否支援此規格依CPU而定。
+
+- 34 -
+20) RST (系統重置針腳) 
+ 
+系統重置針腳可以連接至電腦機殼前方面板的重置開關(Reset)鍵，在系統當機而無法正常重新
+開機時，可以按下重置開關鍵來重新啟動系統。
+系統重置針腳提供多種功能設定，若要變更為其他功能，請至技嘉網站查詢「BIOS組態
+設定」－「RST (MULTIKEY)」的說明。
+1
+接腳
+定義
+1
+重置
+2
+接地腳
+RST
+21) CLR_CMOS (清除CMOS資料功能針腳) 
+ 
+利用此針腳可以將主機板的BIOS設定資料清除，回到出廠設定值。如果您要清除CMOS資料
+時，請使用如螺絲起子之類的金屬物同時碰觸兩支針腳數秒鐘。
+ • 清除CMOS資料前，請務必關閉電腦的電源並拔除電源線。
+ • 開機後請進入BIOS載入出廠預設值(Load Optimized Defaults)或自行輸入設定值(請至
+技嘉網站查詢「BIOS組態設定」的說明)。
+開路：一般運作
+短路：清除CMOS資料
+CLR_CMOS
+
+- 35 -
+22) BAT (電池)
+ 
+此電池提供電腦系統於關閉電源後仍能記憶CMOS資料(例如：日期及BIOS設定)所需的電力，
+當此電池的電力不足時，會造成CMOS的資料錯誤或遺失，因此當電池電力不足時必須更換。
+您也可以利用拔除電池來清除CMOS資料：
+1. 請先關閉電腦，並拔除電源線。
+2. 小心地將電池從電池座中取出，等候約一分鐘。(或是使用
+如螺絲起子之類的金屬物碰觸電池座的正負極，造成其短
+路約五秒鐘) 
+3. 再將電池裝回。
+4. 接上電源線並重新開機。
+ • 更換電池前，請務必關閉電腦的電源並拔除電源線。
+ • 更換電池時請更換相同型號的電池，不正確的型號可能引起配備的損毀。
+ • 若無法自行更換電池或不確定電池型號時，請聯絡購買店家或代理商。
+ • 安裝電池時，請注意電池上的正(+)負(-)極(正極須向上)。
+ • 更換下來的舊電池須依當地法規處理。
+BAT
+
+- 36 -
+BIOS (Basic Input and Output System，基本輸入輸出系統)經由主機板上的CMOS晶片，紀錄著系統
+各項硬體設備的設定參數。主要功能為開機自我測試(POST，Power-On Self-Test)、保存系統設定值
+及載入作業系統等。BIOS包含了BIOS設定程式，供使用者依照需求自行設定系統參數，使電腦正
+常工作或執行特定的功能。
+記憶CMOS資料所需的電力由主機板上的鋰電池供應，因此當系統電源關閉時，這些資料並不會遺
+失，當下次再開啟電源時，系統便能讀取這些設定資料。
+若要進入BIOS設定程式，電源開啟後，BIOS在進行POST時，按下<Delete>鍵便可進入BIOS設定程
+式主畫面。
+當您需要更新BIOS，可以使用技嘉獨特的BIOS更新方法：Q-Flash或Q-Flash Plus。
+ • Q-Flash 是可在BIOS設定程式內更新BIOS的軟體，讓使用者不需進入作業系統，就可以輕鬆的
+更新或備份BIOS。
+ • Q-Flash Plus 提供您於系統關機(S5待機模式)狀態下更新BIOS，透過連接至特定連接埠的USB
+隨身碟，按下Q-Flash Plus按鈕即會啟動並載入資料修復。
+欲瞭解Q-Flash及Q-Flash Plus的詳細使用方法，請至技嘉網站查詢「獨特功能介紹」－「BIOS更新
+方法介紹」的說明。
+第三章 
+BIOS 組態設定
+ • 更新BIOS有其潛在的風險，如果您使用目前版本的BIOS沒有問題，我們建議您不要
+任意更新BIOS。如需更新BIOS，請小心的執行，以避免不當的操作而造成系統毀損。
+ • 我們不建議您隨意變更BIOS設定程式的設定值，因為可能因此造成系統不穩定或其它
+不可預期的結果。如果因設定錯誤造成系統不穩定或不開機時，請試著清除CMOS設
+定值資料，將BIOS設定回復至出廠預設值。
+ • 清除CMOS設定值，請參考第二章－「電池」或「CLR_CMOS針腳/按鈕」的說明，或請至
+技嘉網站查詢「BIOS組態設定」－「Load Optimized Defaults」的說明。
+ 
+&
+請至技嘉網站查詢更詳盡的BIOS 組態設定說明。
+https://www.gigabyte.com/WebPage/1081/amd800-bios.html
+
+- 37 -
+開機畫面：
+功能鍵說明：
+<DEL>：BIOS SETUP\Q-FLASH
+ 
+按<Delete>鍵進入BIOS設定程式主畫面，或透過BIOS設定程式進入Q-Flash。
+<F12>：BOOT MENU
+ 
+Boot Menu功能讓您不需進入BIOS設定程式就能設定優先開機裝置。使用<h>或<i>鍵選擇欲
+作為優先開機的裝置，然後按<Enter>鍵確認。系統會直接由所設定的裝置開機。
+ 
+注意：在此畫面所做的設定只適用於該次開機。重新開機後系統仍會以在BIOS設定程式內的
+開機順序設定為主。
+<END>：Q-FLASH
+ 
+按<End>鍵讓您不需進入BIOS設定程式就能直接進入Q-Flash。
+功能鍵
+電源開啟後，會看到如以下的開機Logo畫面：
+
+- 38 -
+第四章 
+安裝作業系統及驅動程式
+4-1 
+作業系統安裝
+完成BIOS的設定後，您可以開始安裝作業系統。
+由於部份作業系統已內建RAID控制器的驅動程式，為確保系統效能及相容性，建議在安裝作業系
+統後，開啟GIGABYTE Control Center程式，安裝所有主機板驅動程式。若您要安裝的作業系統需另
+外在安裝過程中安裝RAID控制器的驅動程式，請參考下列步驟：
+步驟一：
+請至技嘉網站，搜尋至此主機板型號的產品頁，在「支援與下載\下載\SATA RAID/AHCI」頁面下載AMD 
+RAID Preinstall Driver程式，將其解壓縮並複製到USB隨身碟。
+步驟二：
+由作業系統的光碟片開機並執行安裝作業系統的步驟，當載入驅動程式的畫面出現時，請選擇
+「瀏覽」。
+步驟三：
+選擇USB隨身碟，進入RAID驅動程式的檔案夾後，依序安裝以下三支驅動程式。
+j	AMD-RAID Bottom Device
+k	AMD-RAID Controller
+l	AMD-RAID Config Device
+載入所需的驅動程式後，請繼續作業系統的安裝。
+
+- 39 -
+4-2 
+驅動程式安裝
+作業系統安裝完成後，在桌面右下角會出現詢問是否要透過GIGABYTE Control Center (GCC，技嘉控
+制中心)下載並安裝驅動程式及技嘉工具程式對話框，請按「安裝」鍵進行安裝。(請先確認「BIOS組
+態設定」中「Settings\IO Ports\Gigabyte Utilities Downloader Configuration\Gigabyte Utilities Downloader」
+的設定為「Enabled」)。
+安裝前，請務必確認系統已連接至網際網路。
+ 
+&
+請至技嘉網站查詢更多的軟體介紹。
+https://www.gigabyte.com/WebPage/1082/amd800-app.html
+ 
+&
+請至技嘉網站查詢更多的疑難排解說明。
+https://www.gigabyte.com/WebPage/351/faq.html
+當確認是否同意「EULA (使用者授權協定)」訊息出現時，請按「Accept」安裝GIGABYTE Control 
+Center (GCC)。在GIGABYTE CONTROL CENTER對話框中勾選欲安裝的驅動程式及工具程式後，按
+下「安裝」鍵即可進行安裝。
+
+- 40 -
+第五章 
+附錄
+5-1 
+建構磁碟陣列
+RAID簡介：
+事前準備：
+此主機板支援RAID 0、RAID 1、RAID 5及RAID 10，建構磁碟陣列前請依照上表準備所需的硬碟
+數量。
+ • SATA硬碟或SSD，為達到最佳的效能，請使用相同型號及相同容量的硬碟。
+ • Windows 作業系統的安裝光碟片。
+ • 可上網的電腦。
+ • USB隨身碟。
+ 
+&
+請至技嘉網站查詢更詳盡的RAID設定說明。
+https://www.gigabyte.com/WebPage/1080/amd800-raid.html
+若安裝的是M.2 PCIe SSD，無法與其它SATA硬碟共同建構磁碟陣列。
+RAID 0
+RAID 1
+RAID 5 (註)
+RAID 10
+硬碟數目
+≥2
+2
+≥3
+4
+總容量
+硬碟數目*容量最小
+的硬碟
+容量最小的硬碟
+(硬碟數目-1)*容量
+最小的硬碟
+(硬碟數目/2)*容量
+最小的硬碟
+容錯功能
+No
+Yes
+Yes
+Yes
+(註) 僅適用於使用AMD Ryzen™ 9000系列處理器的NVMe SSD。
+
+- 41 -
+5-2 
+除錯燈號代碼說明
+代碼
+說明
+10
+PEI Core is started. 
+11
+Pre-memory CPU initialization is started.
+12~14
+Reserved.
+15
+Pre-memory North-Bridge initialization is started.
+16~18
+Reserved.
+19
+Pre-memory South-Bridge initialization is started.
+1A~2A
+Reserved.
+2B~2F
+Memory initialization.
+31
+Memory installed.
+32~36
+CPU PEI initialization.
+37~3A
+IOH PEI initialization.
+3B~3E
+PCH PEI initialization.
+3F~4F
+Reserved.
+60
+DXE Core is started.
+61
+NVRAM initialization.
+62
+Installation of the PCH runtime services.
+63~67
+CPU DXE initialization is started.
+68
+PCI host bridge initialization is started.
+69
+IOH DXE initialization.
+6A
+IOH SMM initialization.
+6B~6F
+Reserved.
+70
+PCH DXE initialization.
+71
+PCH SMM initialization.
+72
+PCH devices initialization.
+73~77
+PCH DXE initialization (PCH module specific).
+78
+ACPI Core initialization.
+79
+CSM initialization is started.
+7A~7F
+Reserved for AMI use.
+80~8F
+Reserved for OEM use (OEM DXE initialization codes).
+90
+Phase transfer to BDS (Boot Device Selection) from DXE.
+91
+Issue event to connect drivers.
+一般開機
+
+- 42 -
+代碼
+說明
+92
+PCI Bus initialization is started.
+93
+PCI Bus hot plug initialization.
+94
+PCI Bus enumeration for detecting how many resources are requested.
+95
+Check PCI device requested resources.
+96
+Assign PCI device resources.
+97
+Console Output devices connect (ex. Monitor is lighted).
+98
+Console input devices connect (ex. PS2/USB keyboard/mouse are activated).
+99
+Super IO initialization.
+9A
+USB initialization is started.
+9B
+Issue reset during USB initialization process.
+9C
+Detect and install all currently connected USB devices. 
+9D
+Activated all currently connected USB devices.
+9E~9F
+Reserved.
+A0
+IDE initialization is started.
+A1
+Issue reset during IDE initialization process.
+A2
+Detect and install all currently connected IDE devices.
+A3
+Activated all currently connected IDE devices.
+A4
+SCSI initialization is started.
+A5
+Issue reset during SCSI initialization process.
+A6
+Detect and install all currently connected SCSI devices.
+A7
+Activated all currently connected SCSI devices.
+A8
+Verify password if needed.
+A9
+BIOS Setup is started.
+AA
+Reserved.
+AB
+Wait user command in BIOS Setup.
+AC
+Reserved.
+AD
+Issue Ready To Boot event for OS Boot.
+AE
+Boot to Legacy OS.
+AF
+Exit Boot Services.
+B0
+Runtime AP installation begins.
+B1
+Runtime AP installation ends.
+B2
+Legacy Option ROM initialization.
+B3
+System reset if needed.
+
+- 43 -
+代碼
+說明
+B4
+USB device hot plug-in.
+B5
+PCI device hot plug.
+B6
+Clean-up of NVRAM.
+B7
+Reconfigure NVRAM settings.
+B8~BF
+Reserved.
+C0~CF
+Reserved.
+代碼
+說明
+E0
+S3 Resume is stared (called from DXE IPL).
+E1
+Fill boot script data for S3 resume.
+E2
+Initializes VGA for S3 resume.
+E3
+OS S3 wake vector call.
+S3 喚醒
+代碼
+說明
+F0
+Recovery mode will be triggered due to invalid firmware volume detection.
+F1
+Recovery mode will be triggered by user decision.
+F2
+Recovery is started.
+F3
+Recovery firmware image is found.
+F4
+Recovery firmware image is loaded.
+F5~F7
+Reserved for future AMI progress codes.
+復原
+代碼
+說明
+50~55
+Memory initialization error occurs.
+56
+Invalid CPU type or speed.
+57
+CPU mismatch.
+58
+CPU self test failed or possible CPU cache error.
+59
+CPU micro-code is not found or micro-code update is failed.
+5A
+Internal CPU error.
+5B
+Reset PPI is failed.
+5C~5F
+Reserved.
+D0
+CPU initialization error.
+D1
+IOH initialization error.
+錯誤
+
+- 44 -
+代碼
+說明
+D2
+PCH initialization error.
+D3
+Some of the Architectural Protocols are not available.
+D4
+PCI resource allocation error. Out of Resources.
+D5
+No Space for Legacy Option ROM initialization.
+D6
+No Console Output Devices are found.
+D7
+No Console Input Devices are found.
+D8
+It is an invalid password.
+D9~DA
+Can't load Boot Option.
+DB
+Flash update is failed.
+DC
+Reset protocol is failed.
+DE~DF
+Reserved.
+E8
+S3 resume is failed.
+E9
+S3 Resume PPI is not found.
+EA
+S3 Resume Boot Script is invalid.
+EB
+S3 OS Wake call is failed.
+EC~EF
+Reserved.
+F8
+Recovery PPI is invalid.
+F9
+Recovery capsule is not found.
+FA
+Invalid recovery capsule.
+FB~FF
+Reserved.
+
+- 45 -
+Supplier's Declaration of Conformity
+47 CFR § 2.1077 Compliance Information
+Product Name: Motherboard
+Trade Name: GIGABYTE
+Model Number: X870E AORUS MASTER
+Responsible Party – U.S. Contact Information: G.B.T. Inc. 
+Address: 17358 Railroad street, City Of Industry, CA91748
+Tel.: 1-626-854-9338
+Internet contact information: https://www.gigabyte.com 
+FCC Compliance Statement: 
+This device complies with Part 15 of the FCC Rules, Subpart B, Unintentional Radiators. 
+Operation is subject to the following two conditions: (1) This device may not cause harmful interference, and (2) this 
+device must accept any interference received, including interference that may cause undesired operation.
+Regulatory Notices
+United States of America, Federal Communications Commission Statement
+Antenna use:
+In order to comply with FCC RF exposure limits, low gain integrated 
+antennas should be located at a minimum distance of 7.9 inches (20 cm) 
+or more from the body of all persons.
+Explosive Device Proximity Warning
+Warning: Do not operate a portable transmitter (such as a wireless network 
+device) near unshielded blasting caps or in an explosive environment 
+unless the device has been modified to be qualified for such use.
+Antenna Warning
+The wireless adapter is not designed for use with high-gain antennas.
+Use On Aircraft Caution
+Caution: Regulations of the FCC and FAA prohibit airborne operation of 
+radio-frequency wireless devices because their signals could interfere with 
+critical aircraft instruments.
+Other Wireless Devices
+Safety Notices for Other Devices in the Wireless Network: Refer to the 
+documentation supplied with wireless Ethernet adapters or other devices 
+in the wireless network.
+Canada, Canada-Industry Notice: 
+This device complies with Industry Canada license-exempt RSS 
+standard(s). Operation is subject to the following two conditions: 
+(1) this device may not cause interference, and
+(2) this device must accept any interference, including interference that 
+may cause undesired operation of the device.
+Cet appareil est conforme aux normes Canada d'Industrie de RSS 
+permis-exempt. L'utilisation est assujetti aux deux conditions suivantes: 
+(1) le dispositif ne doit pas produire de brouillage préjudiciable, et 
+(2) ce dispositif doit accepter tout brouillage reçu, y compris un brouillage 
+susceptible de provoquer un fonctionnement indésirable.
+Caution: When using IEEE 802.11a wireless LAN, this product is restricted 
+to indoor use due to its operation in the 5.15-to 5.25-GHz frequency 
+range. Industry Canada requires this product to be used indoors for the 
+frequency range of 5.15 GHz to 5.25 GHz to reduce the potential for 
+harmful interference to co-channel mobile satellite systems. High power 
+radar is allocated as the primary user of the 5.25-to 5.35-GHz and 5.65 to 
+5.85-GHz bands. These radar stations can cause interference with and/or 
+damage to this device. The maximum allowed antenna gain for use with 
+this device is 6dBi in order to comply with the E.I.R.P limit for the 5.25-to 
+5.35 and 5.725 to 5.85 GHz frequency range in point-to-point operation. To 
+comply with RF exposure requirements all antennas should be located at a 
+minimum distance of 20cm, or the minimum separation distance allowed 
+by the module approval, from the body of all persons.
+Attention: l'utilisation d'un réseau sans fil IEEE802.11a est restreinte à 
+une utilisation en intérieur à cause du fonctionnement dansla bande de 
+fréquence 5.15-5.25 GHz. Industry Canada requiert que ce produit soit utilisé 
+à l'intérieur des bâtiments pour la bande de fréquence 5.15-5.25 GHz afin de 
+réduire les possibilités d'interférences nuisibles aux canaux co-existants des 
+systèmes de transmission satellites. Les radars de puissances ont fait l'objet 
+d'une allocation primaire de fréquences dans les bandes 5.25-5.35 GHz et 
+5.65-5.85 GHz. Ces stations radar peuvent créer des interférences avec ce 
+produit et/ou lui être nuisible. Le gain d'antenne maximum permissible pour 
+une utilisation avec ce produit est de 6 dBi afin d'être conforme aux limites 
+de puissance isotropique rayonnée équivalente (P.I.R.E.) applicable dans les 
+bandes 5.25-5.35 GHz et 5.725-5.85 GHz en fonctionnement point-à-point. 
+Pour se conformer aux conditions d'exposition de RF toutes les antennes 
+devraient être localisées à une distance minimum de 20 cm, ou la distance 
+de séparation minimum permise par l'approbation du module, du corps de 
+toutes les personnes.
+Under Industry Canada regulations, this radio transmitter may only operate 
+using an antenna of a type and maximum (or lesser) gain approved for 
+the transmitter by Industry Canada. To reduce potential radio interference 
+to other users, the antenna type and its gain should be chosen so that 
+the equivalent isotropically radiated power (e.i.r.p.) is not more than that 
+necessary for successful communication.
+Conformément à la réglementation d'Industrie Canada, le présent émetteur 
+radio peut fonctionner avec une antenne d'un type et d'un gain maximal 
+(ou inférieur) approuvé pour l'émetteur par Industrie Canada. Dans le 
+but de réduire les risques de brouillage radio électrique à l'intention des 
+autres utilisateurs, il faut choisir le type d'antenne et son gain de sorte 
+que la puissance isotrope rayonnée équivalente (p.i.r.e.) ne dépasse pas 
+l'intensité nécessaire à l'établissement d'une communication satisfaisante.
+The FCC with its action in ET Docket 96-8 has adopted a safety standard for human exposure to radio frequency (RF) electromagnetic energy emitted 
+by FCC certified equipment. The Intel PRO/Wireless 5000 LAN products meet the Human Exposure limits found in OET Bulletin 65, 2001, and ANSI/
+IEEE C95.1, 1992. Proper operation of this radio according to the instructions found in this manual will result in exposure substantially below the FCC's 
+recommended limits.
+The following safety precautions should be observed:
+•• Do not touch or move antenna while the unit is transmitting or receiving.
+•• Do not hold any component containing the radio such that the antenna is very close or touching any exposed parts of the body, especially the face 
+or eyes, while transmitting.
+•• Do not operate the radio or attempt to transmit data unless the antenna is connected; if not, the radio may be damaged.
+•• Use in specific environments:
+-	
+The use of wireless devices in hazardous locations is limited by the constraints posed by the safety directors of such environments.
+-	
+The use of wireless devices on airplanes is governed by the Federal Aviation Administration (FAA).
+-	
+The use of wireless devices in hospitals is restricted to the limits set forth by each hospital.
+
+- 46 -
+European Union (EU) CE Declaration of Conformity
+This device complies with the following directives: Electromagnetic 
+Compatibility Directive 2014/30/EU, Low-voltage Directive 2014/35/EU, 
+Radio Equipment Directive 2014/53/EU, ErP Directive 2009/125/EC, RoHS 
+directive (recast) 2011/65/EU & the 2015/863 Statement.
+This product has been tested and found to comply with all essential 
+requirements of the Directives.
+European Union (EU) RoHS (recast) Directive 2011/65/EU & the 
+European Commission Delegated Directive (EU) 2015/863 Statement
+GIGABYTE products have not intended to add and safe from hazardous 
+substances (Cd, Pb, Hg, Cr+6, PBDE, PBB, DEHP, BBP, DBP and DIBP). 
+The parts and components have been carefully selected to meet RoHS 
+requirement. Moreover, we at GIGABYTE are continuing our efforts to 
+develop products that do not use internationally banned toxic chemicals.
+European Union (EU) Community Waste Electrical & Electronic 
+Equipment (WEEE) Directive Statement
+GIGABYTE will fulfill the national laws as interpreted from the 2012/19/
+EU WEEE (Waste Electrical and Electronic Equipment) (recast) directive. 
+The WEEE Directive specifies the treatment, collection, recycling and 
+disposal of electric and electronic devices and their components. Under 
+the Directive, used equipment must be marked, collected separately, and 
+disposed of properly.
+WEEE Symbol Statement
+The symbol shown below is on the product or on its 
+packaging, which indicates that this product must not be 
+disposed of with other waste. Instead, the device should 
+be taken to the waste collection centers for activation of the 
+treatment, collection, recycling and disposal procedure. 
+For more information about where you can drop off your 
+waste equipment for recycling, please contact your local 
+government office, your household waste disposal service or where 
+you purchased the product for details of environmentally safe recycling.
+Battery Information
+European Union—Disposal and recycling information
+GIGABYTE Recycling Program (available in some regions)
+This symbol indicates that this product and/or battery should not be 
+disposed of with household waste.  You must use the public collection 
+system to return, recycle, or treat them in compliance with the local 
+regulations.
+End of Life Directives-Recycling
+The symbol shown below is on the product or on its packaging, 
+which indicates that this product must not be disposed of with 
+other waste. Instead, the device should be taken to the waste 
+collection centers for activation of the treatment, collection, 
+recycling and disposal procedure.
+For any support regarding the EU General Product Safety Regulation (GPSR), 
+please contact Giga-Byte Technology B.V. Steenoven 24, 5626 DK Eindhoven, 
+Netherlands. Email: EU.grp@gigabyte.com
+Déclaration de Conformité aux Directives de l'Union européenne (UE)
+Cet appareil portant la marque CE est conforme aux directives de l'UE 
+suivantes: directive Compatibilité Electromagnétique 2014/30/UE, directive 
+Basse Tension 2014/35/UE, directive équipements radioélectriques 
+2014/53/UE, la directive RoHS II 2011/65/UE & la déclaration 2015/863.
+La conformité à ces directives est évaluée sur la base des normes 
+européennes harmonisées applicables.
+European Union (EU) CE-Konformitätserklärung
+Dieses Produkte mit CE-Kennzeichnung erfüllen folgenden EU-Richtlinien: 
+EMV-Richtlinie 2014/30/EU, Niederspannungsrichtlinie 2014/35/EU, 
+Funkanlagen Richtlinie 2014/53/EU, RoHS-Richtlinie 2011/65/EU erfüllt 
+und die 2015/863 Erklärung.
+Die Konformität mit diesen Richtlinien wird unter Verwendung der 
+entsprechenden Standards zurEuropäischen Normierung beurteilt.
+CE declaração de conformidade
+Este produto com a marcação CE estão em conformidade com das 
+seguintes Diretivas UE: Diretiva Baixa Tensão 2014/35/EU; Diretiva 
+CEM 2014/30/EU; Diretiva RSP 2011/65/UE e a declaração 2015/863.
+A conformidade com estas diretivas é veriﬁcada utilizando as normas 
+europeias harmonizadas.
+CE Declaración de conformidad
+Este producto que llevan la marca CE cumplen con las siguientes 
+Directivas de la Unión Europea: Directiva EMC 2014/30/EU, Directiva de 
+bajo voltaje 2014/35/EU, Directiva de equipamentos de rádio 2014/53/EU, 
+Directiva RoHS 2011/65/EU y la Declaración 2015/863.
+El cumplimiento de estas directivas se evalúa mediante las normas 
+europeas armonizadas.
+CE Dichiarazione di conformità
+I prodotti con il marchio CE sono conformi con una o più delle seguenti 
+Direttive UE, come applicabile: Direttiva EMC 2014/30/UE, Direttiva sulla 
+bassa tensione 2014/35/UE, Direttiva di apparecchiature radio 2014/53/
+UE, Direttiva RoHS 2011/65/EU e Dichiarazione 2015/863.
+La conformità con tali direttive viene valutata utilizzando gli Standard 
+europei armonizzati applicabili.
+Deklaracja zgodności UE Unii Europejskiej
+Urządzenie jest zgodne z następującymi dyrektywami: Dyrektywa 
+kompatybilności elektromagnetycznej 2014/30/UE, Dyrektywa 
+niskonapięciowej 2014/35/UE, Dyrektywa urządzeń radiowych 2014/53/
+UE, Dyrektywa RoHS 2011/65/UE i dyrektywa2015/863.
+Niniejsze urządzenie zostało poddane testom i stwierdzono jego zgodność 
+z wymaganiami dyrektywy.
+ES Prohlášení o shodě
+Toto zařízení splňuje požadavky Směrnice o Elektromagnetické 
+kompatibilitě 2014/30/EU, Směrnice o Nízkém napětí 2014/35/EU, 
+Směrnice o rádiových zařízeních 2014/53/EU, Směrnice RoHS 2011/65/
+EU a 2015/863.
+Tento produkt byl testován a bylo shledáno, že splňuje všechny základní 
+požadavky směrnic.
+EK megfelelőségi nyilatkozata
+A termék megfelelnek az alábbi irányelvek és szabványok 
+követelményeinek, azok a kiállításidőpontjában érvényes, aktuális 
+változatában: EMC irányelv 2014/30/EU, Kisfeszültségű villamos 
+berendezésekre vonatkozó irányelv 2014/35/EU, rádióberendezések 
+irányelv 2014/53/EU, RoHS irányelv 2011/65/EU és 2015/863.
+Δήλωση συμμόρφωσης ΕΕ
+Είναι σε συμμόρφωση με τις διατάξεις των παρακάτω Οδηγιών 
+της Ευρωπαϊκής Κοινότητας: Οδηγία 2014/30/ΕΕ σχετικά με την 
+ηλεκτρομαγνητική συμβατότητα, Οοδηγία χαμηλή τάση 2014/35/EU, 
+Οδηγία 2014/53/ΕΕ σε ραδιοεξοπλισμό, Οδηγία RoHS 2011/65/ΕΕ 
+και 2015/863.
+Η συμμόρφωση με αυτές τις οδηγίες αξιολογείται χρησιμοποιώντας τα 
+ισχύοντα εναρμονισμένα ευρωπαϊκά πρότυπα.
+D33006 
+RoHS
+-	 Battery type: CR2032, voltage rating: +3VDC.
+-	 Non-rechargeable batteries are not to be recharged.
+-	 Remove and immediately recycle or dispose of used batteries, batteries 
+from equipment not used for an extended period of time according to local 
+regulations and keep away from children. Do NOT dispose of batteries in 
+household trash or incinerate.
+-	 Even used batteries may cause severe injury or death.
+-	 Do not force discharge, recharge, disassemble, heat above (manufacturer's 
+specified temperature rating) or incinerate. Doing so may result in injury due 
+to venting, leakage or explosion resulting in chemical burns.
+-	 For treatment information, call a local poison control center.
+-	 The product contains non-replaceable batteries.
+-	 For service person only:
+	
+CAUTION: Risk of fire explosion if the battery is replaced by an incorrect 
+type. Replace the battery only with the same type.
+ 
+警告：若置換不同型式之電池有起火或爆炸風險。
+-	 à l’attention du personnel de maintenance :
+	
+ATTENTION: Risque d'incendie et d'explosion en cas de remplacement 
+de la batterie par un modèle incorrect. Remplacez la batterie uniquement 
+par une batterie de même type.
+WARNING
+••
+INGESTION HAZARD: This product contains a button cell or 
+coin battery.
+••
+DEATH or serious injury can occur if ingested.
+••
+A swallowed button cell or coin battery can cause Internal 
+Chemical Burns in as little as 2 hours.
+••
+KEEP new and used batteries OUT OF REACH of CHILDREN
+••
+Seek immediate medical attention if a battery is suspected to 
+be swallowed or inserted inside any part of the body.
+
+- 47 -
+Wireless module country approvals:
+Wireless module manufacturer:	 Qualcomm® Technologies , Inc.
+Wireless module model name:	
+QCNCM865
+NCC Wireless Statements / 無線設備警告聲明：
+低功率電波輻射性電機管理辦法
+(1) 
+取得審驗證明之低功率射頻器材，非經核准，公司、商號或使用者均不得擅自變更頻率、加大功率或變更原設計之
+特性及功能。低功率射頻器材之使用不得影響飛航安全及干擾合法通信；經發現有干擾現象時，應立即停用，並改
+善至無干擾時方得繼續使用。前述合法通信，指依電信管理法規定作業之無線電通信。低功率射頻器材須忍受合法
+通信或工業、科學及醫療用電波輻射性電機設備之干擾。
+(2) 
+應避免影響附近雷達系統之操作。
+Korea KCC NCC Wireless Statement:
+5,25GHz - 5,35 GHz 대역을 사용하는 무선 장치는 실내에서만 사용하도록 제한됩니다.
+Japan Wireless Statement:
+5.15 GHz 帯 ~ 5.35 GHz 帯& 6GHz LPI 帯: 屋内のみの使用。
+European Community Directive R&TTE Directive Compliance Statement:
+This equipment complies with all the requirements and other relevant provisions of Radio Equipment Directive 2014/53/EU.
+The IEEE 802.11 wireless LAN 5.15 GHz–5.35 GHz and/or Wi-Fi 6E Low Power Indoor 5.945 GHz–6.425 GHz (or 5.925 GHz–6.425 GHz in UK) 
+frequency bands are restricted for indoor use only in all countries listed in the matrix below.
+AT
+BE
+BG
+CH
+CY
+CZ
+DE
+DK
+EE
+EL
+ES
+FI
+FR
+HR
+HU
+IE
+IS
+IT
+LI
+LT
+LU
+LV
+MT
+NL
+PL
+PT
+RO
+SE
+SI
+SK
+TR
+UK The Radio Equipment Regulations 2017 Statement:
+This equipment complies with all the requirements and other relevant provisions of Radio Equipment Regulations 2017. 
+The IEEE 802.11 wireless LAN 5.15 GHz–5.35 GHz and/or Wi-Fi 6E Low Power Indoor 5.925 GHz–6.425 GHz frequency bands are restricted for 
+indoor use only.
+UK
+
+- 48 -
+限用物質含有情況標示聲明
+設備名稱：主機板 
+型號（型式）：X870E AORUS MASTER
+Equipment name 
+Type designation (Type)
+單元Unit
+限用物質及其化學符號
+Restricted substances and its chemical symbols
+鉛
+Lead
+(Pb)
+汞
+Mercury
+(Hg)
+鎘
+Cadmium
+(Cd)
+六價鉻
+Hexavalent 
+chromium
+(Cr+6)
+多溴聯苯
+Polybrominated 
+biphenyls
+(PBB)
+多溴二苯醚
+Polybrominated 
+diphenyl ethers 
+(PBDE)
+印刷電路板
+－
+○
+○
+○
+○
+○
+主被動零組件
+－
+○
+○
+○
+○
+○
+風扇
+－
+○
+○
+○
+○
+○
+外部訊號連接器
+－
+○
+○
+○
+○
+○
+線材
+－
+○
+○
+○
+○
+○
+散熱器
+○
+○
+○
+○
+○
+○
+備考1.  "超出0.1 wt %" 及 "超出0.01 wt %" 係指限用物質之百分比含量超出百分比含量基準值。
+Note 1:  "Exceeding 0.1 wt %" and "exceeding 0.01 wt %" indicate that the percentage content of the restricted substance exceeds the 
+reference percentage value of presence condition.
+備考2. "○"係指該項限用物質之百分比含量未超出百分比含量基準值。
+Note 2:  "○" indicates that the percentage content of the restricted substance does not exceed the percentage of reference value of 
+presence.
+備考3. "－"係指該項限用物質為排除項目。
+Note 3: The "－" indicates that the restricted substance corresponds to the exemption.
+
+- 49 -
+技嘉產品台灣地區保固共同條款
+1. 本條款保固標的，僅適用於消費者在台灣地區購買之技嘉產品(新品)。
+2. 特價品、整新品、二手商品，庫存品或境外購買之產品，概依當時所附之保固條件為準，超出保固範圍或期限
+者，其維修，收費事宜，請洽本公司各服務中心。
+3. 產品之保固：以保證書記載與官網公告為準。
+4. 代理商或經銷商提供之保固，由其負責，不得據以轉嫁本公司承受。
+5. 產品上無技嘉標籤或序號者，或序號與產品不符者，或難以辨識時，恕不提供保固與售後服務。若有維修需
+求，請洽原購買店家協助處理。
+※ 產品序號識別：
+產品序號：4719331803056SN080500084640
+出廠日期：西元2008年第05週出廠
+6. 消費者自購買產品七日內，發生產品不良或故障時，(除第十二條所列情形外)得憑保證書或發票，並備齊配件，
+以原箱包裝，向原經銷商更換新品，逾期則以維修方式處理。
+7. 新品外觀瑕疵，屬於人為疏忽，不得請求本公司(經銷商)更換新品。
+8. 產品送修時，請以原廠包材或適當材料(如紙箱、氣泡袋或保麗龍等)包裝，如因包裝不當，導致損壞，本公司
+恕不提供保固。
+9. 除有提供到府收取件產品外，消費者應攜帶技嘉產品及其保證書到各服務中心檢修。
+10. 保固期間，本公司負責免費維修，若無法修復時，本公司得更換良品或替代品。
+11. 維修（含付費維修），所拆解之零配件，產權屬本公司所有。
+12. 保固期間如有不可歸責於技嘉之故障，例如(但不限於)下列事項，必須付費維修，無法修復則不予收費。
+(1) 天災、意外、或人為疏忽
+(6) 私自拆解結構或維修
+(2) 違反產品手冊之使用提示
+(7) 蓄意破壞
+(3) 組裝不當或非正常使用
+(8) 線路或零件氧化(請經常清除積塵以減少發生)
+(4) 使用未經認可之配件
+(9) 當做測試設備使用(如RAM、VGA、USB測試)
+(5) 超出允許使用之環境
+(10) 電源異常造成之損毀
+13. 隨機之耗材、贈品及包材等均不在保固範圍之列。
+14. 過(不)保固產品之檢測及維修，均需收費，無法修復則不收維修費。收費標準請參閱官網或洽服務中心。
+15. 本條款(V2.1)自100.12.01公告施行。本公司保有增刪、修改、解釋本條款之權利，並於本公司之網頁上公告後
+生效。已經出售的產品，從其所附保證條款。
+
+- 50 -
+技嘉科技全球服務網
+ •
+技嘉科技股份有限公司
+地址：新北市231新店區寶強路6號
+電話：+886 (2) 8912-4000，傳真：+886 (2) 8912-4005
+技術服務專線：0800-079-800 ， 02-8913-1377
+服務時間：
+星期一~星期五　上午 09:30 ~下午 08:30 
+星期六  　　　　上午 09:30 ~下午 05:30 
+技術/非技術問題支援：https://esupport.gigabyte.com
+網址(英文)：https://www.gigabyte.com
+網址(中文)：https://www.gigabyte.com/tw
+ •
+技嘉科技服務專區 (GIGABYTE eSupport)
+若您有技術或非技術(業務及市場)的相關問題時，歡迎至 https://esupport.gigabyte.com 詢問。

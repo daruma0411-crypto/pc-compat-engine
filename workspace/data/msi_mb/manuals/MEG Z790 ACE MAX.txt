@@ -1,0 +1,2768 @@
+MEG Series
+Motherboard
+MEG Z790 ACE MAX
+User Guide
+
+2
+Contents
+Quick Start.....................................................................................................................4
+Specifications..............................................................................................................16
+Special Features.........................................................................................................22
+Package Contents.......................................................................................................23
+Back Panel Connectors..............................................................................................24
+LAN Port LED Status Table................................................................................... 25
+Audio Jacks Connection........................................................................................ 26
+Installing Antennas............................................................................................... 28
+Connecting Thunderbolt Devices via Daisy-chain................................................ 29
+Overview of Components............................................................................................30
+CPU Socket............................................................................................................ 31
+DIMM Slots............................................................................................................ 32
+PCI_E1~3: PCIe Expansion Slots.......................................................................... 33
+M2_1~5: M.2 Slots (Key M).................................................................................... 34
+SATA_5~8 & SATA_A1~A2: SATA 6Gb/s Connectors............................................ 43
+JAUD1: Front Audio Connector............................................................................. 43
+JFP1, JFP2: Front Panel Connectors................................................................... 44
+JDASH1: Tuning Controller Connector................................................................. 45
+W_FLOW1: Water Flow Meter Connector............................................................. 45
+JCI1: Chassis Intrusion Connector....................................................................... 46
+POWER1, RESET1: Power Button, Reset Button.................................................. 46
+CPU_PWR1~2, ATX_PWR1, PD_PWR1: Power Connectors................................. 47
+JUSB5~6: USB 3.2 Gen 2x2 Type-C Front Panel Connectors................................ 48
+JUSB3~4: USB 3.2 Gen 1 Connectors................................................................... 48
+JUSB1~2: USB 2.0 Connectors............................................................................. 49
+JTPM1: TPM Module Connector........................................................................... 49
+T_SEN1~2: Thermal Sensor Connector................................................................ 50
+BIOS_SW1: Multi-BIOS Switch.............................................................................. 50
+JOC_FS1: Safe Boot Jumper................................................................................. 51
+JOC_RT1: OC Retry Button Connector.................................................................. 51
+JSLOW1: Slow Mode Booting Jumper.................................................................. 52
+JLN1~2: Low Temperature Booting Jumpers...................................................... 52
+CPU_FAN1, PUMP_FAN1~2, SYS_FAN1~5: Fan Connectors............................... 53
+
+3
+JBAT1: Clear CMOS (Reset BIOS) Jumper........................................................... 54
+V-Check Points Lite............................................................................................... 54
+JAF_1:  Integrated ARGB LED & System Fans Connector................................... 55
+JRGB1: RGB LED Connector................................................................................. 56
+JARGB_V2_1~3: A-RAINBOW V2 (ARGB Gen2) LED Connectors......................... 57
+Onboard LEDs.............................................................................................................59
+EZ Debug LED....................................................................................................... 59
+LED_SW1: EZ LED Control.................................................................................... 59
+Debug Code LED................................................................................................... 60
+Boot Phases.......................................................................................................... 60
+Debug Code LED Table.......................................................................................... 60
+Installing OS, Drivers & MSI Center..........................................................................67
+MSI Center............................................................................................................. 70
+UEFI BIOS....................................................................................................................71
+BIOS Setup............................................................................................................. 72
+Resetting BIOS...................................................................................................... 73
+Updating BIOS....................................................................................................... 73
+Block Diagram.............................................................................................................75
+Regulatory Notices......................................................................................................... i
+
+4
+Quick Start
+Thank you for purchasing a new motherboard from MSI®. This Quick Start section 
+provides demonstration diagrams about how to install your computer. Some of the 
+installations also provide video demonstrations. Please link to the URL to watch it 
+with the web browser on your phone or tablet. You may have even link to the URL by 
+scanning the QR code.
+Preparing Tools and Components
+Intel® LGA1700 CPU
+LGA1700 CPU Fan
+Graphics Card
+SATA Hard Disk Drive
+Phillips Screwdriver
+Chassis
+Power Supply Unit
+A Package of Screws
+Thermal Paste
+DDR5 Memory
+
+5
+Safety Information
+	∙The components included in this package are prone to damage from electrostatic 
+discharge (ESD). Please adhere to the following instructions to ensure successful 
+computer assembly. 
+	∙Ensure that all components are securely connected. Loose connections may cause 
+the computer to not recognize a component or fail to start. 
+	∙Hold the motherboard by the edges to avoid touching sensitive components. 
+	∙It is recommended to wear an electrostatic discharge (ESD) wrist strap when 
+handling the motherboard to prevent electrostatic damage. If an ESD wrist strap 
+is not available, discharge yourself of static electricity by touching another metal 
+object before handling the motherboard. 
+	∙Store the motherboard in an electrostatic shielding container or on an anti-static 
+pad whenever the motherboard is not installed. 
+	∙Before turning on the computer, ensure that there are no loose screws or metal 
+components on the motherboard or anywhere within the computer case.
+	∙Do not boot the computer before installation is completed. This could cause 
+permanent damage to the components as well as injury to the user. 
+	∙If you need help during any installation step, please consult a certified computer 
+technician.
+	∙Always turn off the power supply and unplug the power cord from the power outlet 
+before installing or removing any computer component.
+	∙Keep this user guide for future reference.
+	∙Keep this motherboard away from humidity.
+	∙Make sure that your electrical outlet provides the same voltage as is indicated on 
+the PSU, before connecting the PSU to the electrical outlet.
+	∙Place the power cord such a way that people can not step on it. Do not place 
+anything over the power cord.
+	∙All cautions and warnings on the motherboard should be noted.
+	∙If any of the following situations arises, get the motherboard checked by service 
+personnel:
+•	Liquid has penetrated into the computer.
+•	The motherboard has been exposed to moisture.
+•	The motherboard does not work well or you can not get it work according to user 
+guide.
+•	The motherboard has been dropped and damaged.
+•	The motherboard has obvious sign of breakage.
+	∙Do not leave this motherboard in an environment above 60°C (140°F), it may damage 
+the motherboard.
+
+6
+Case stand-off notification
+To prevent damage to the motherboard, any unnecessary mounting stand-off between 
+the motherboard circuits and the computer case is prohibited. The Case standoff keep 
+out zone signs will be marked on the backside of motherboard (as shown below) to 
+serve as a warning to user.
+Avoid collision notification
+Protective paint is printed around each screw hole to prevent parts from being 
+scratched.
+
+7
+Installing a Processor
+	
+⚽ 
+	∙https://youtu.be/KMf9oIDsGes
+1
+2
+3
+6
+4
+5
+7
+8
+9
+
+8
+Installing DDR5 memory
+	∙https://youtu.be/XiNmkDNZcZk
+	
+⚽ 
+DIMMA2
+DIMMA2
+DIMMB2
+DIMMA1
+DIMMA2
+DIMMB1
+DIMMB2
+
+9
+HDD LED
+RESET SW
+Connecting the Front Panel Header
+	∙http://youtu.be/DPELIdVNZUI
+JFP1
+HDD LED
+HDD LED -
+HDD LED +
+POWER LED -
+POWER LED +
+POWER LED
+RESET SW
+POWER SW
+POWER LED+
+POWER LED-
+HDD LED
+	
+⚽ 
+1
+2
+10
+9
+Power LED
+Reserved
+Power Switch
+JFP1
+Reset Switch
+HDD LED
+
+10
+BAT1
+Installing the Motherboard
+1
+	∙https://youtu.be/wWI6Qt51Wnc
+	
+⚽ 
+Torque:
+3 kgf·cm*
+*3 kgf·cm  
+= 0.3 N·m  
+= 2.6 lbf·in
+2
+
+11
+Connecting the Power Connectors
+	∙http://youtu.be/gkDYyR_83I4
+ATX_PWR1
+CPU_PWR1~2
+	
+⚽ 
+PD_PWR1
+
+12
+Installing SATA Drives
+	∙http://youtu.be/RZsMpqxythc
+1
+2
+3
+4
+5
+	
+⚽ 
+
+13
+Installing a Graphics Card
+	∙http://youtu.be/mG0GZpr9w_A
+	
+⚽ 
+1
+2
+3
+4
+5
+6
+
+14
+Connecting Peripheral Devices
+
+15
+Power On
+4
+3
+1
+2
+
+16
+Specifications
+CPU
+	∙Supports Intel® Core™ 14th/ 13th/ 12th Gen Processors, 
+Intel® Pentium® Gold and Celeron® Processors*
+	∙Processor socket LGA1700
+* Please go to www.msi.com to get the newest support status as new processors 
+are released.
+Chipset
+Intel® Z790 Chipset
+Memory
+	∙4x DDR5 memory slots, support up to 192GB* 
+	∙Supports 1R 5600 MHz (by JEDEC & POR)
+	∙Max. overclocking frequency:
+•	1DPC 1R Max speed up to 7800+ MHz
+•	1DPC 2R Max speed up to 6800+ MHz
+•	2DPC 1R Max speed up to 6400+ MHz
+•	2DPC 2R Max speed up to 6000+ MHz
+	∙DIMM slots with single-sided latches
+	∙Supports Intel® XMP 3.0 OC
+	∙Supports Dual-Controller Dual-Channel mode
+	∙Supports non-ECC, un-buffered memory
+* Please refer to www.msi.com for more information on compatible memory.
+Expansion Slots
+	∙3x PCIe x16 slots
+•	Supports x16/x0, x8/x8
+•	 PCI_E1 slot* (From CPU)
+•	Supports up to PCIe 5.0 x16
+•	PCI_E2 slot** (From CPU)
+•	Supports up to PCIe 5.0 x8
+•	PCI_E3 slot (From Z790 Chipset)
+•	Supports up to PCIe 4.0 x4
+* PCI_E1 slot will run at PCIe 5.0 x8 mode when installing device in the PCI_E2 
+slot or M2_4 slot.
+** M2_4 slot will be unavailable when installing device in the PCI_E2 slot.
+Onboard Graphics
+	∙1x DisplayPort over USB-C port, supporting a maximum 
+resolution of 4K 60Hz*/**
+* Available only on processors featuring integrated graphics.
+** Graphics specifications may vary depending on the CPU installed.
+Multi-GPU
+Supports AMD Multi-GPU
+Continued on next column
+
+17
+Continued from previous column
+Thunderbolt 4
+Intel® JHL8540 Thunderbolt™ 4 Controller
+	∙2x Thunderbolt™ 4 (USB-C) ports on the back panel
+•	Supports up to 40Gbps transfer rate with Thunderbolt 
+devices
+•	Supports up to 20Gbps transfer rate with USB4 devices
+•	Supports up to 10Gbps transfer rate with USB 3.2 
+devices
+•	Supports up to 5V/3A ,15W power charging
+•	Each port can daisy-chain up to three Thunderbolt 4 
+devices or five Thunderbolt 3 devices
+•	Supports up to 8K display (need to connect the 
+DisplayPort of the motherboard or discrete graphics 
+card to the Mini DisplayPort Input port on the back 
+panel)
+SATA Ports
+	∙6x SATA 6Gb/s ports
+•	SATA_5~8* (From Z790 chipset)
+•	SATA_A1~A2 (From ASM1061)
+* SATA_7 will be unavailable when installing M.2 SATA SSD in the M2_5 slot.
+Continued on next column
+
+18
+Continued from previous column
+M.2 SSD Slots
+	∙5x M.2 slots (Key M)
+•	M2_1 slot (From CPU)
+•	Supports up to PCIe 4.0 x4
+•	Supports 2260/ 2280/ 22110 storage devices
+•	M2_2 slot (From Z790 chipset)
+•	Supports up to PCIe 4.0 x4
+•	Supports 2260/ 2280 storage devices
+•	M2_3 slot (From Z790 chipset)
+•	Supports up to PCIe 4.0 x4
+•	Supports up to SATA 6Gb/s
+•	Supports 2260/ 2280 storage devices
+•	M2_4 slot* (From CPU)
+•	Supports up to PCIe 5.0 x4
+•	Supports 2280 storage devices
+•	M2_5 slot** (From Z790 chipset)
+•	Supports up to PCIe 4.0 x4
+•	Supports up to SATA 6Gb/s
+•	Supports 2260/ 2280/ 22110 storage devices
+* M2_4 slot will be unavailable when installing device in the PCI_E2 slot.
+** SATA_7 will be unavailable when installing M.2 SATA SSD in the M2_5 slot.
+RAID
+	∙Supports RAID 0, RAID 1, RAID 5 and RAID 10 for SATA 
+storage devices*
+	∙Supports RAID 0, RAID 1, RAID 5 and RAID 10 for M.2 
+NVMe storage devices
+* SATA_A1_A2 do not support RAID function.
+Audio
+Realtek® ALC4082 Codec + ES9280AQ PRO Combo DAC/HPA
+	∙7.1-Channel USB High Performance Audio
+	∙Supports up to 32-bit/384kHz playback on front panel
+	∙Supports S/PDIF output
+LAN
+	∙2x Intel® 2.5Gbps LAN controllers
+Continued on next column
+
+19
+Continued from previous column
+Wi-Fi & Bluetooth®
+Wi-Fi 7
+∙ The Wireless module is pre-installed in the M.2 (Key-E) 
+slot
+∙ Supports MU-MIMO TX/RX, 2.4GHz/ 5GHz/ 6GHz*(320MHz) 
+up to 5.8Gbps
+∙ Supports 802.11 a/ b/ g/ n/ ac/ ax/ be
+∙ Supports Bluetooth® 5.4**, MLO, 4KQAM
+ *6GHz band support may depend on every country’s regulations and Wi-Fi 7 will 
+be ready in Windows 11 SV3.
+** The Bluetooth version may be updated. Please refer to the Wi-Fi chipset 
+vendor’s website for details. Bluetooth 5.4 support schedule depends on MSFT 
+Windows 11 plan.
+Power Connectors
+	∙1x 24-pin ATX main power connector
+	∙2x 8-pin ATX 12V power connectors
+	∙1x 6-pin PD power connector*
+* To achieve USB PD 60W charging for JUSB6, PD_PWR1 connector needs to be 
+connected to the power supply unit.
+Internal USB 
+Connectors
+	∙2x USB 3.2 Gen 2x2 20Gbps Type-C front panel 
+connectors* (From Z790 chipset)
+•	JUSB6 supports USB PD 60W fast charging
+	∙2x USB 3.2 Gen 1 5Gbps connectors (From Hub GL3523)
+•	Supports additional 4 USB 3.2 Gen 1 5Gbps ports
+	∙2x USB 2.0 Type-A connectors (From Hub GL850G)
+•	Supports additional 4 USB 2.0 ports
+* To achieve 60W PD fast charging for JUSB6, the PD_PWR1 connector needs to 
+be connected to the power supply unit.
+Fan Connectors
+	∙1x 4-pin CPU fan connector
+	∙2x 4-pin water-pump fan connectors
+	∙5x 4-pin system fan connectors
+System Connectors
+	∙1x Front panel audio connector
+	∙2x System panel connectors
+	∙1x Chassis Intrusion connector
+	∙1x 3-pin Water Flow connector
+	∙1x TPM module connector
+	∙1x Tuning Controller connector
+Continued on next column
+
+20
+Continued from previous column
+Buttons
+	∙1x Power button
+	∙1x Reset button
+Jumpers
+	∙1x Clear CMOS jumper
+	∙1x OC safe boot jumper
+	∙1x Slow mode jumper
+	∙2x Low temperature booting jumpers
+Switches
+	∙1x EZ LED Control switch 
+	∙1x Multi-BIOS switch 
+LED Features
+	∙1x 4-pin RGB LED connector
+	∙3x 3-pin ARGB Gen2 LED connectors
+	∙4x EZ Debug LED
+	∙1x 2-Digit Debug Code LED
+	∙1x Integrated ARGB LED & system fan connector
+Back Panel 
+Connectors
+	∙1x Clear CMOS button
+	∙1x Flash BIOS button
+	∙1x Smart button
+	∙2x LAN (RJ45) ports
+	∙3x USB 3.2 Gen 2 10Gbps Type-A ports (From Z790 
+chipset)
+	∙4x USB 3.2 Gen 2 10Gbps Type-A ports (From Hub-
+GL3590)
+	∙1x USB 3.2 Gen 2 10Gbps Type-C port (From Z790 chipset) 
+with DisplayPort Alt Mode
+	∙2x Thunderbolt 4 USB-C ports
+	∙2x Mini DisplayPort Inputs (for Thunderbolt 4 pass 
+through)
+	∙2x Wi-Fi Antenna connectors
+	∙5x OFC audio jacks
+	∙1x Optical S/PDIF Out connector
+I/O Controller
+NUVOTON NCT6687D-R Controller Chip
+Continued on next column
+
+21
+Continued from previous column
+Hardware Monitor
+	∙CPU/ System/ Chipset temperature detection
+	∙CPU/ System/ Pump fan speed detection
+	∙CPU/ System/ Pump fan speed control
+Form Factor
+	∙E-ATX Form Factor
+	∙10.9 in. x 12 in. (277 mm x 305 mm)
+BIOS Features
+	∙Dual BIOS
+	∙2x 256 Mb flash
+	∙UEFI AMI BIOS
+	∙ACPI 6.4, SMBIOS 3.5
+	∙Multi-language
+Software
+	∙Drivers
+	∙MSI Center
+	∙Intel Extreme Tuning Utility
+	∙CPU-Z MSI GAMING
+	∙Norton 360
+	∙7-ZIP
+	∙AIDA64 Extreme - MSI Edition
+	∙MSI APP Player (BlueStacks)
+	∙Adobe Creative Cloud
+	∙Acrobat
+
+22
+Special Features
+MSI Center Features
+•		Gaming Mode
+•	Smart Priority
+•	Game Highlights
+•	Mystic Light
+•	Ambient Link
+•	Frozr AI Cooling
+•	LAN Manager
+•	User Scenario
+•	True Color
+•	Live Update
+•	Hardware Monitoring
+•	Super Charger
+•	Devices Speed Up
+Thermal Features
+•	All Aluminum Design
+•	Stacked Fin Array
+•	Cross Heat-pipe
+•	Aluminum Baseplate
+•	M.2 Shield Frozr
+•	K7 MOSFET thermal pad / Extra 
+choke pad
+•	Fan headers (CPU + PUMP + 
+SYSTEM)
+Performance
+•	Core Boost
+•	VRM Power Design (VCPU / VGT / 
+AUX)
+•	Dual CPU Power(2x8 pin)
+•	OC Engine
+•	Memory Boost
+•	Memory Force
+•	Lightning Gen 5 PCI-E / M.2 Slot
+•	Lightning Gen 4 PCI-E / M.2 Slot
+•	USB4
+•	Lightning USB 20G
+•	Multi GPU Support
+•	Thunderbolt 4
+•	Front USB Type-C
+•	USB with PD
+•	Server Grade PCB
+•	2oz Copper thickened PCB
+DIY Friendly
+•	PCI-E Steel Armor
+•	Pre-installed I/O Shield
+•	Screwless M.2 Shield Frozr
+•	EZ M.2 Clips
+•	EZ DEBUG LED
+•	EZ LED Control
+•	Smart Button
+•	System Saver
+•	Magnetic M.2 Shield Frozr
+•	Flash BIOS Button
+Audio
+•	Audio Boost 5 HD
+RGB Support
+•	Mystic Light
+•	Mystic Light Extension (RGB)
+•	Mystic Light Extension (A-RAINBOW 
+V2)
+•	Ambient Link Support
+BIOS
+•	Click BIOS 5
+
+23
+Package Contents
+Please check the contents of your motherboard package. It should contain:
+Board
+•	1x Motherboard
+Documentation
+•	1x Quick installation guide
+•	1x European Union regulatory notice
+Application
+•	1x USB drive with drivers & utilities
+Cables
+•	2x SATA 6Gb/s cables
+•	1x Thermistor cable
+•	1x JRGB extension cable (1 to 2)
+•	1x JARGB extension cable
+•	1x DP to Mini-DP cable
+•	1x Front panel cable
+•	1x ARGB & fan extension Y cable
+Accessories
+•	1x Wi-Fi antenna set
+•	2x EZ M.2 Clip packages (1 set/pack)
+•	3x M.2 plate screw packages (1 set/pack)
+•	1x M.2 screw package (3 pcs/pack)
+•	1x Cable sticker
+	
+⚠Important
+	∙There is an ISO file in the supplied USB drive. Please do not delete it accidentally. 
+For more information on installing drivers, please refer to Installing OS, Drivers & 
+MSI Center chapter.
+	∙If any of the above items are damaged or missing, please contact your retailer.
+
+24
+Back Panel Connectors
+Item
+Description
+1
+Clear CMOS button - Power off your computer. Press and hold the Clear 
+CMOS button for about 5-10 seconds to reset BIOS to default values.
+2
+2.5 Gbps LAN ports
+3
+USB 3.2 Gen 2 10Gbps Type-A ports (From Z790 chipset)
+4
+ Wi-Fi antenna connectors
+5
+Audio jacks
+6
+Flash BIOS button - Please refer to page 74 for details about updating BIOS 
+with Flash BIOS button.
+7
+Smart button - We provide 4 functions for the smart button to achieve. 
+Please refer to the BIOS manual for details about selecting the smart 
+button function.
+	∙Reset (default) - press the smart button to reset the system.
+	∙Mystic Light on/ off - press the smart button to turn on/ off all the 
+onboard LEDs. The Mystic Light on/ off function mode is unavailable 
+when the LED_SW1 (EZ LED Control) switch turns OFF.
+	∙Safe Boot - press and hold the smart button and start the system 
+simultaneously to boot in Safe Boot mode. The system will boot with 
+default and lower the PCIe (from CPU) mode.
+	∙Turbo Fan - press the smart button for all fans to operate full speed or 
+default speeds.
+1
+2
+7
+8
+9
+10
+10
+13
+13
+6
+5
+4
+12
+12
+11
+11
+3
+
+25
+Item
+Description
+8
+USB 3.2 Gen 2 10Gbps Type-C port (From Z790 chipset) 
+	∙DisplayPort Alt Mode
+9
+USB 3.2 Gen 2 10Gbps Type-A port (From Z790 chipset)
+	∙Flash BIOS port
+10
+USB 3.2 Gen 2 10Gbps Type-A ports (From Hub-GL3590)
+11
+Thunderbolt 4 USB-C ports (From JHL8540)
+∙ DisplayPort Alt Mode 
+∙ USB4 20Gbps
+∙ Power Delivery up to 15W
+12
+Mini DisplayPort Inputs (for Thunderbolt 4 pass through)
+13
+Optical S/PDIF Out connector
+LAN Port LED Status Table
+Link/ Activity LED
+Status
+Description
+Off
+No link
+Yellow
+Linked
+Blinking
+Data activity
+Speed LED
+Status
+Speed
+Off
+10 Mbps
+Green
+100/1000 Mbps
+Orange
+2.5 Gbps
+
+26
+Audio Jacks Connection
+Audio jacks to headphone and microphone diagram
+Audio jacks to stereo speakers diagram
+AUDIO INPUT
+
+27
+Audio jacks to 7.1-channel speakers diagram
+Audio jacks to 4-channel speakers diagram
+Audio jacks to 5.1-channel speakers diagram
+AUDIO INPUT
+Rear
+Front
+AUDIO INPUT
+Rear
+Front
+Center/
+Subwoofer
+AUDIO INPUT
+Rear
+Front
+Side
+Center/
+Subwoofer
+
+28
+Installing Antennas
+1.	 Combine the antenna with the base.
+2.	 Screw two antenna cables tight to the Wi-Fi antenna connectors as shown.
+1
+2
+3.	 Place the antenna as high as possible.
+
+29
+Connecting Thunderbolt Devices via Daisy-chain
+Daisy-chain is a method of connecting multiple devices to a PC with only one output 
+terminal.
+Daisy-chain allows you to connect multiple thunderbolt devices to a single thunderbolt 
+port on the back panel.
+You can also daisy chain monitor by connecting graphics card to the Mini DisplayPort 
+Input port on the back panel.
+If you want to connect USB devices, please place them at the end of the chain.
+
+30
+BAT1
+Overview of Components
+JFP2
+JCI1
+JLN1
+JLN2
+JOC_RT1
+JSLOW1
+JTPM1
+M2_5
+JUSB6
+JUSB5
+JUSB4
+JUSB3
+PD_PWR1
+SATA▼A1▲A2
+SATA▼7▲8
+SATA▼5▲6
+ATX_PWR1
+SYS_FAN1
+CPU_FAN1
+PUMP_FAN1
+JARGB_V2_2
+JARGB_V2_3
+DIMMB2
+CPU_PWR1
+CPU_PWR2
+JAF_1
+JFP1
+JOC_FS1
+JUSB2
+POWER1
+PESET1
+JUSB1
+SYS_FAN5
+SYS_FAN4
+SYS_FAN3
+SYS_FAN2
+PUMP_FAN2
+W_FLOW1
+BIOS_SW1
+LED_SW1
+JDASH1
+JARGB_V2_1
+JRGB1
+JAUD1
+PCI_E1
+PCI_E2
+PCI_E3
+M2_1
+M2_2
+M2_3
+M2_4
+JBAT1
+T_SEN1
+T_SEN2
+DIMMB1
+DIMMA2
+DIMMA1
+Processor Socket
+
+31
+	
+⚠Important
+	∙Always unplug the power cord from the power outlet before installing or removing 
+the CPU.
+	∙Please retain the CPU protective cap after installing the processor. MSI will deal 
+with Return Merchandise Authorization (RMA) requests if only the motherboard 
+comes with the protective cap on the CPU socket.
+	∙When installing a CPU, always remember to install a CPU heatsink. A CPU heatsink 
+is necessary to prevent overheating and maintain system stability.
+	∙Confirm that the CPU heatsink has formed a tight seal with the CPU before booting 
+your system.
+	∙Overheating can seriously damage the CPU and motherboard. Always make sure the 
+cooling fans work properly to protect the CPU from overheating. Be sure to apply an 
+even layer of thermal paste (or thermal tape) between the CPU and the heatsink to 
+enhance heat dissipation.
+	∙Whenever the CPU is not installed, always protect the CPU socket pins by covering 
+the socket with the plastic cap.
+	∙If you purchased a separate CPU and heatsink/ cooler, Please refer to the 
+documentation in the heatsink/ cooler package for more details about installation.
+	∙This motherboard is designed to support overclocking. Before attempting to 
+overclock, please make sure that all other system components can tolerate 
+overclocking. Any attempt to operate beyond product specifications is not 
+recommended. MSI® does not guarantee the damages or risks caused by inadequate 
+operation beyond product specifications.
+CPU Socket
+Introduction to the LGA1700 
+CPU
+The surface of the LGA1700 CPU has 
+four notches and a golden triangle to 
+assist in correctly lining up the CPU for 
+motherboard placement. The golden 
+triangle is the Pin 1 indicator.
+Distance from the center of the 
+CPU to the nearest DIMM slot.
+50.9 mm
+
+32
+DIMM Slots
+DIMMA1
+DIMMB1
+Channel A
+Channel B
+DIMMA2
+DIMMB2
+Memory module installation recommendation
+	
+⚠Important
+	∙The DIMM slots on this motherboard only have a single latch. Please be careful 
+when installing or removing memory modules to avoid damaging the slots.
+	∙Always insert memory modules in the DIMMA2 slot first.
+	∙To ensure system stability for Dual channel mode, memory modules must be of the 
+same type, number and density. 
+	∙Some memory modules may operate at a lower frequency than the marked value 
+when overclocking due to the memory frequency operates dependent on its Serial 
+Presence Detect (SPD). Go to BIOS and find the DRAM Frequency to set the memory 
+frequency if you want to operate the memory at the marked or at a higher frequency.
+	∙It is recommended to use a more efficient memory cooling system for full DIMMs 
+installation or overclocking.
+	∙The stability and compatibility of installed memory module depend on installed CPU 
+and devices when overclocking.
+	∙Please refer to www.msi.com for more information on compatible memory.
+DIMMA2
+DIMMA2
+DIMMB2
+DIMMA1
+DIMMA2
+DIMMB1
+DIMMB2
+
+33
+PCI_E1~3: PCIe Expansion Slots
+PCI_E1: PCIe 5.0 x16 (From CPU)
+PCI_E2: PCIe 5.0 x8 (From CPU)	
+PCI_E3: PCIe 4.0 x4 (From Z790 chipset)
+	
+⚠Important
+	∙If you install a large and heavy graphics card, you need to use a tool such as MSI  
+Graphics Card Bolster to support its weight to prevent deformation of the slot.
+	∙For a single PCIe x16 expansion card installation with optimum performance, using 
+the PCI_E1 slot is recommended.
+	∙When adding or removing expansion cards, always turn off the power supply and 
+unplug the power supply power cable from the power outlet. Read the expansion 
+card’s documentation to check for any necessary additional hardware or software 
+changes.
+	∙PCI_E1 slot will run at PCIe 5.0 x8 mode when installing device in the PCI_E2 slot or 
+M2_4 slot.
+	∙M2_4 slot will be unavailable when installing in the PCI_E2 slot.
+x16
+x8
+x8
+Multiple graphics cards installation recommendation
+
+34
+M2_1~5: M.2 Slots (Key M)
+M2_1
+M2_2
+M2_3
+M2_5
+M2_4
+	
+⚠Important
+	∙Intel® RST only supports PCIe M.2 SSD with UEFI ROM.
+	∙If your M.2 SSD equips its own heatsink, please remove the M.2 plates or rubber 
+cubes in the M.2 slots before installing M.2 SSD. Do not re-install the heatsinks 
+supplied with your motherboard.
+	∙M2_4 slot will be unavailable when installing in the PCI_E2 slot.
+	∙SATA_7 will be unavailable when installing M.2 SATA SSD in the M2_5 slot.
+Installing M.2 module into M2_1 slot
+1.	 Press and hold the end button of Screwless M.2 Shield Frozr heatsink.
+1
+	
+⚽ 
+	∙https://youtu.be/J88vcXeLido
+Watch the video to learn how to 
+Install M.2 SSD with Screwless 
+M.2 Shield Frozr heatsink.
+
+35
+2.	 Slightly lift up the end part of Screwless M.2 Shield Frozr heatsink and move it 
+forward to uninstall the heatsink. 
+2
+3.	 Remove the protective films from the M.2 thermal pads on the M.2 plate. 
+3
+4.	 Remove or exchange the screws according to your SSD length. Skip this step, if you 
+install 2280 SSD. 
+4
+4
+22110 SSD
+2260 SSD
+
+36
+5.	 Insert your M.2 SSD into the M.2 slot at a 30-degree angle.
+6.	 Rotate the EZ M.2 Clip to fix the M.2 SSD.
+30º
+30º
+30º
+30º
+22110 SSD
+2260/2280 SSD
+6
+6
+5
+5
+7.	 Remove the protective films from the thermal pads under Screwless M.2 Shield 
+Frozr heatsink.
+8.	 Align the tenons under Screwless M.2 Shield Frozr heatsink with the notches, and 
+then put the heatsink back in place.
+9.	 Press the end side of the Screwless M.2 Shield Frozr heatsink down to lock it 
+completely.
+8
+7
+9
+
+37
+Installing M.2 module into M2_2 & M2_3 slots
+1.	 Loosen the screws of M.2 Shield Frozr heatsink. 
+2.	 Lift the M.2 Shield Frozr heatsink up and remove it.
+1
+1
+2
+3.	 Remove the protective films from the M.2 thermal pads on the M.2 plate. 
+3
+4.	 If you install 2260 SSD, remove the screw from the M.2 plate and then install 
+supplied EZ M.2 Clip kit on the M.2 plate. Skip this step if you install 2280 SSD. 
+4
+
+38
+5.	 Insert your M.2 SSD into the M.2 slot at a 30-degree angle.
+6.	 Rotate the EZ M.2 Clip to fix the M.2 SSD.
+30º
+30º
+30º
+30º
+2280 SSD
+2260 SSD
+6
+5
+5
+6
+ 
+7.	 Remove the protective films from the thermal pads under the M.2 Shield Frozr 
+heatsink.
+8.	 Put the M.2 Shield Frozr heatsink back in place and secure it.
+7
+8
+8
+
+39
+67
+Installing M.2 module into M2_4 & M2_5 slots
+1.	 Loosen the screws of M.2 Shield Frozr heatsink.
+2.	 Lift up the M.2 Shield Frozr heatsink and remove it.
+1
+1
+2
+3.	 Remove the protective films from the M.2 thermal pads on the M.2 plate. 
+3
+
+40
+4.	 Please follow the below instructions according to your SSD length. Skip this step if 
+you install 2280 SSD into M2_5 slot. 
+•	 Installing 2260 SSD into M2_5 slot
+Remove the installed standoff from the M.2 plate and install EZ M.2 Clip in the 
+2260 screw hole. 
+2260
+•	 Installing 22110 SSD into M2_5 slot
+Remove the installed EZ M.2 Clip in the 2280 screw hole and remove the upper 
+component of EZ M.2 Clip in the 22110 screw hole. 
+2280
+22110
+
+41
+5.	 Insert your M.2 SSDs into M.2 slots at a 30-degree angle. 
+30º
+30º
+6.	  Please follow the below instructions according to your SSD length.
+•	 Installing 2260/2280 SSD into M2_5 slot
+Rotate the EZ M.2 Clip to fix the M.2 SSDs.
+2280 SSD
+2260/2280 SSD
+6
+6
+•	 Install 22110 SSD into M2_5 slot
+Secure the M.2 SSDs with the supplied M.2 screw.
+6
+2280 SSD
+22110 SSD
+
+42
+7.	 Remove the protective film from the thermal pad under the M.2 Shield Frozr 
+heatsink.
+8.	 Put the M.2 Shield Frozr heatsink back in place and secure it.
+7
+8
+8
+
+43
+SATA_5~8 & SATA_A1~A2: SATA 6Gb/s Connectors
+These connectors are SATA 6Gb/s interface ports. Each connector can connect to one 
+SATA device.
+SATA_A1
+SATA_7
+SATA_5
+SATA_A2
+SATA_8
+SATA_6
+	
+⚠Important
+	∙Please do not fold the SATA cable at a 90-degree angle. Data loss may result during 
+transmission otherwise.
+	∙SATA cables have identical plugs on either sides of the cable. However, it is 
+recommended that the flat connector be connected to the motherboard for space 
+saving purposes.
+	∙SATA_7 will be unavailable when installing M.2 SATA SSD in the M2_5 slot.
+JAUD1: Front Audio Connector
+This connector allows you to connect audio jacks on the front panel.
+1
+2
+10
+9
+Pin
+Signal Name
+Pin
+Signal Name
+1
+MIC L
+2
+Ground
+3
+MIC R
+4
+NC
+5
+Head Phone R
+6
+MIC Detection
+7
+SENSE_SEND
+8
+No Pin
+9
+Head Phone L
+10
+Head Phone Detection
+
+44
+JFP1, JFP2: Front Panel Connectors
+The JFP1 connector controls the power on, power reset, and the LEDs on your PC 
+case/chassis. Power Switch/ Reset Switch headers allow you to connect power button/ 
+reset button. Power LED header connects to LED light on the PC case, and HDD LED 
+header indicates the activity of the hard disk. The JFP2 connector is for Buzzer and 
+Speaker. To connect the cables from PC case to the right pins, please refer to the 
+following images below.
+1
+2
+10
+9
+Power LED
+Reserved
+Power Switch
+JFP1
+Reset Switch
+HDD LED
+1
+JFP2
+Buzzer
+Speaker
+	
+⚠Important
+Please note that Power LED and HDD LED have positive and negative connection, 
+you need to link up the cable to the corresponding positive and negative port on the 
+motherboard. Otherwise, LEDs won’t work properly.
+
+45
+JDASH1: Tuning Controller Connector
+This connector is used to connect an optional Tuning Controller module.
+1
+2
+14
+13
+Pin
+Signal Name
+Pin
+Signal Name
+1
+No Pin
+2
+NC
+3
+MCU_SMB_SCL_M
+4
+ MCU_SMB_SDA_M
+5
+VCC5
+6
+Ground
+7
+PSIN#_R
+8
+FP_RST#_R
+9
+OC_RETRY#
+10
+OC_FS
+11
+BLK+
+12
+BLK-
+13
+CLRCMOS_EN
+14
+NC
+Pin
+Signal Name
+Pin
+Signal Name
+1
+Ground
+2
+WFLOW PWR
+3
+WFLOW IN
+W_FLOW1: Water Flow Meter Connector
+This connector allows you to connect a water flow meter to monitor the flow rate of 
+your liquid cooling system.
+1
+
+46
+JCI1: Chassis Intrusion Connector
+This connector allows you to connect the chassis intrusion switch cable. 
+Normal 
+(default)
+Trigger the chassis 
+intrusion event
+Using chassis intrusion detector
+1.	 Connect the JCI1 connector to the chassis intrusion switch/ sensor on the chassis.
+2.	 Close the chassis cover.
+3.	 Go to BIOS > SETTINGS > Security > Chassis Intrusion Configuration.
+4.	 Set Chassis Intrusion to Enabled.
+5.	 Press F10 to save and exit and then press the Enter key to select Yes.
+6.	 Once the chassis cover is opened again, a warning message will be displayed on 
+screen when the computer is turned on.
+Resetting the chassis intrusion warning
+1.	 Go to BIOS > SETTINGS > Security > Chassis Intrusion Configuration.
+2.	 Set Chassis Intrusion to Reset.
+3.	 Press F10 to save and exit and then press the Enter key to select Yes.
+POWER1, RESET1: Power Button, Reset Button
+The Power/ Reset button allows you to power on/ reset the computer.
+Power button
+Reset
+Reset button
+
+47
+	
+⚠Important
+	∙Make sure that all the power cables are securely connected to a proper ATX power 
+supply to ensure stable operation of the motherboard.
+	∙To achieve USB PD 60W fast charging for JUSB6, the PD_PWR1 connector needs to 
+be connected to the power supply unit.
+CPU_PWR1~2, ATX_PWR1, PD_PWR1: Power Connectors
+These connectors allow you to connect an ATX power supply. 
+CPU_PWR1~2
+Pin
+Signal Name
+Pin
+Signal Name
+1
+Ground
+2
+Ground
+3
+Ground
+4
+ Ground
+5
++12V
+6
++12V
+7
++12V
+8
++12V
+ATX_PWR1
+Pin
+Signal Name
+Pin
+Signal Name
+1
++3.3V
+2
++3.3V
+3
+Ground
+4
++5V
+5
+Ground
+6
++5V
+7
+Ground
+8
+PWR OK
+9
+5VSB
+10
++12V
+11
++12V
+12
++3.3V
+13
++3.3V
+14
+-12V
+15
+Ground
+16
+PS-ON#
+17
+Ground
+18
+Ground
+19
+Ground
+20
+Res
+21
++5V
+22
++5V
+23
++5V
+24
+Ground
+5
+4
+1
+8
+CPU_PWR1~2
+24
+13
+1
+12
+ATX_PWR1
+PD_PWR1
+Pin
+Signal Name
+Pin
+Signal Name
+1
++12v
+2
++12v
+3
++12v
+4
+ Ground
+5
+Ground
+6
+Ground
+PD_PWR1
+1
+4
+3
+6
+
+48
+JUSB3~4: USB 3.2 Gen 1 Connectors
+These connectors allow you to connect USB 3.2 Gen 1 5Gbps ports on the front panel.
+	
+⚠Important
+Note that the Power and Ground pins must be connected correctly to avoid possible 
+damage. 
+JUSB5~6: USB 3.2 Gen 2x2 Type-C Front Panel 
+Connectors
+These connectors allow you to connect USB 3.2 Gen 2x2 20Gbps Type-C connector on 
+the front panel. The connector has a foolproof design. When you connect the cable, be 
+sure to connect it with the corresponding orientation.
+JUSB5~6
+USB Type-C Cable
+USB Type-C port on 
+the front panel
+Pin
+Signal Name
+Pin
+Signal Name
+1
+Power
+2
+USB3_RX_DN
+3
+USB3_RX_DP
+4
+Ground
+5
+USB3_TX_C_DN
+6
+USB3_TX_C_DP
+7
+Ground
+8
+USB2.0-
+9
+USB2.0+
+10
+Ground
+11
+USB2.0+
+12
+USB2.0-
+13
+Ground
+14
+USB3_TX_C_DP
+15
+USB3_TX_C_DN
+16
+Ground
+17
+USB3_RX_DP
+18
+USB3_RX_DN
+19
+Power
+20
+No Pin
+1
+10
+11
+20
+	
+⚠Important
+To achieve USB PD 60W charging for JUSB6, PD_PWR1 connector needs to be 
+connected to the power supply unit.
+
+49
+JUSB1~2: USB 2.0 Connectors
+These connectors allow you to connect USB 2.0 ports on the front panel.
+	
+⚠Important
+	∙Note that the VCC and Ground pins must be connected correctly to avoid possible 
+damage.
+	∙In order to recharge your iPad, iPhone and iPod through USB ports, please install 
+MSI Center utility.
+JTPM1: TPM Module Connector
+This connector is for TPM (Trusted Platform Module). Please refer to the TPM security 
+platform manual for more details and usages.
+Pin
+Signal Name
+Pin
+Signal Name
+1
+VCC
+2
+VCC
+3
+USB0-
+4
+USB1-
+5
+USB0+
+6
+USB1+
+7
+Ground
+8
+Ground
+9
+No Pin
+10
+NC
+1
+2
+10
+9
+Pin
+Signal Name
+Pin
+Signal Name
+1
+SPI Power
+2
+SPI Chip Select
+3
+Master In Slave Out 
+(SPI Data)
+4
+Master Out Slave In 
+(SPI Data)
+5
+Reserved
+6
+SPI Clock
+7
+Ground
+8
+SPI Reset
+9
+Reserved
+10
+No Pin
+11
+Reserved
+12
+Interrupt Request
+1
+2
+12
+11
+
+50
+BIOS_SW1: Multi-BIOS Switch
+This motherboard has two built-in BIOS ROMs. If one is crashed, you can shift to the 
+other for booting by sliding the switch. 
+	
+⚠Important
+	∙Do not use the Multi-BIOS switch when system is booting up.
+	∙You can also use the MSI Center or Flash BIOS Button to flash BIOS. Please refer to 
+BIOS section for details.
+BIOS B
+BIOS A 
+(Default)
+T_SEN1~2: Thermal Sensor Connector
+These connectors allow you to connect the thermistor cable and use it to monitor the 
+temperature of the detection point.
+Thermistor cable
+GND
+Sense
+
+51
+Normal
+(default)
+Boot with the saved 
+BIOS settings.
+Enabled
+Apply the BIOS default 
+settings and lower PCIe 
+(from CPU) mode for 
+Safe Boot
+JOC_FS1: Safe Boot Jumper
+This jumper is used for Safe Boot. Once enabled, the system will boot with default 
+settings and lower PCIe (from CPU) mode.
+JOC_RT1: OC Retry Button Connector
+This connector allows you to connect a button. When you press and hold the button, 
+the system will keep retrying OC items until it boot up successfully.
+Normal 
+(default)
+Retry OC
+
+52
+JSLOW1: Slow Mode Booting Jumper
+This jumper is used for LN2 cooling solution, that provides the extreme overclocking 
+conditions, to boot at a stable processor frequency and to prevent the system from 
+crashing.
+Normal
+(Default)
+Enabled
+(Please enable this jumper 
+during BIOS POST.)
+Enabled
+(Please enable this jumper 
+during BIOS POST.)
+Normal
+(Default)
+	
+⚠Important
+	∙Please note that overclocking at an extremely low temperature carries the risk of 
+system instability and may cause damages to the system.
+	∙The overclocking results may vary depending on the CPU you use.
+	∙Do not enable the jumper when the system is power off. Otherwise, the system will 
+be unbootable.
+JLN1~2: Low Temperature Booting Jumpers
+These jumpers allow liquid nitrogen cooling system to boot at an extremely low 
+temperature. Please try to enable the jumper to help the system boot successfully.
+
+53
+CPU_FAN1, PUMP_FAN1~2, SYS_FAN1~5: Fan 
+Connectors
+Fan connectors can be classified as PWM (Pulse Width Modulation) Mode or DC Mode. 
+PWM Mode fan connectors provide constant 12V output and adjust fan speed with 
+speed control signal. DC Mode fan connectors control fan speed by changing voltage. 
+The auto mode fan connectors can automatically detect PWM and DC mode. 
+You can control fans in BIOS> HARDWARE MONITOR panel. It allows you to set DC 
+or PWM to your fan type. Check the Smart Fan Mode, the fan speed will change 
+according to the CPU or system temperature. Uncheck the Smart Fan Mode, the fan 
+will spin at maximum speed.
+	
+⚠Important
+Make sure fans are working properly after switching the PWM/ DC mode.
+CPU_FAN1
+SYS_FAN1
+SYS_FAN2
+SYS_FAN4
+SYS_FAN3
+PUMP_FAN1
+PUMP_FAN2
+SYS_FAN5
+1
+1
+PWM Mode pin definition
+Pin
+Signal Name
+Pin
+Signal Name
+1
+Ground
+2
++12V
+3
+Sense
+4
+Speed Control Signal
+DC Mode pin definition
+Pin
+Signal Name
+Pin
+Signal Name
+1
+Ground
+2
+Voltage Control
+3
+Sense
+4
+NC
+Fan connector specifications
+Connector
+Default fan mode
+Max. current 
+Max. power
+CPU_FAN1
+Auto mode
+3A
+36W
+PUMP_FAN1~2
+Auto mode
+3A
+36W
+SYS_FAN1~5
+DC mode
+2A
+24W
+
+54
+JBAT1: Clear CMOS (Reset BIOS) Jumper
+There is CMOS memory onboard that is external powered from a battery located on 
+the motherboard to save system configuration data. If you want to clear the system 
+configuration, set the jumpers to clear the CMOS memory. 
+Keep Data 
+(default)
+Clear CMOS/ 
+Reset BIOS
+Resetting BIOS to default values
+1.	 Power off the computer and unplug the power cord.
+2.	 Use a jumper cap to short JBAT1 for about 5-10 seconds.
+3.	 Remove the jumper cap from JBAT1.
+4.	 Plug the power cord and Power on the computer.
+V-Check Points Lite
+These voltage checkpoints are used to measure the current system voltages. A 
+multimeter (not included) will be required to check voltages. To measure voltage, 
+place test leads on the GND (screw mounting hole) and a specific V-Check Point. 
+Please refer to the manual of your multimeter for more information.
+VCCIN_AUX
+GND
+VCC
+CPU_VDD2
+
+55
+JAF_1:  Integrated ARGB LED & System Fans Connector
+This connector allows you to connect the ARGB Gen1 LED strips and system fans.
+Pin
+Signal Name
+Pin
+Signal Name
+1
+Ground
+2
+5V
+3
+12V
+4
+DATA
+5
+Sense
+6
+Ground
+7
+Speed Control Signal
+8
+No Pin
+1
+7
+8
+2
+1
+U
+G
+D
+ARGB & Fan Extension Y Cable
+JAF_1 connector
+ARGB Gen1 LED Fan
+Addressable RGB LED Fan Connection 
+	
+⚠Important
+JAF_1 connector is incompatible with ARGB Gen2 LED devices. ARGB Gen2 LED 
+devices may not work properly when connected to this connector.
+
+56
+	
+⚠Important
+	∙The JRGB connector supports up to 2 meters continuous 5050 RGB LED strips 
+(12V/G/R/B) with the maximum power rating of 3A (12V).
+	∙Always turn off the power supply and unplug the power cord from the power outlet 
+before installing or removing the RGB LED strip.
+	∙Please use MSI’s software to control the extended LED strip.
+JRGB1: RGB LED Connector
+The JRGB connector allows you to connect the 5050 RGB LED strips 12V. 
+1
+G R B
+JRGB connector
+JRGB extension cable
+5050 RGB LED strips 12V
+RGB LED Strip Connection
+1
+1
+G R B
+JRGB connector
+System fan connector
+RGB LED Fan Connection 
+RGB LED fan
+Pin
+Signal Name
+Pin
+Signal Name
+1
++12V
+2
+G
+3
+R
+4
+B
+1
+
+57
+JARGB_V2_1~3: A-RAINBOW V2 (ARGB Gen2) LED 
+Connectors
+The JARGB_V2 connectors allow you to connect the ARGB Gen2 and the ARGB-based 
+LED strips. The JARGB_V2 connector supports up to 240 individually addressable RGB 
+LEDs with maximum power rating of 3A (5V). 
+Pin
+Signal Name
+Pin
+Signal Name
+1
++5V
+2
+Data
+3
+No Pin
+4
+Ground
+1
+1
+1
+1
+1
+D
++5V
+JARGB_V2 connector
+JARGB_V2 connector
+System Fan connector
+JARGB_V2 extension cable
+ARGB/ ARGB Gen2 LED strip
+Addressable RGB LED Strip Connection
+Addressable RGB LED Fan Connection 
+ARGB/ ARGB Gen2 LED Fan
+
+58
+	
+⚠CAUTION
+Do not connect the wrong type of LED strips. The JRGB connector and the JARGB_V2 
+connector provide different voltages, and connecting the ARGB 5V LED strip to the 
+JRGB connector will result in damage to the LED strip.
+	
+⚠Important
+	∙If you connect ARGB Gen1 and ARGB Gen2 LED strips into the same connector, 
+it may cause issues. Please do not mix ARGB Gen1 and ARGB Gen2 LED strips 
+together.
+	∙It is recommended that you install LED strips with the same specification to achieve 
+the best effects.
+	∙Always turn off the power supply and unplug the power cord from the power outlet 
+before installing or removing the addressable RGB LED strip.
+	∙Please use MSI’s software to control the extended LED strip.
+
+59
+EZ Debug LED
+These LEDs indicate the debug status of the motherboard. 
+Onboard LEDs
+ CPU - indicates CPU is not detected or fail.
+ DRAM - indicates DRAM is not detected or fail.
+ VGA - indicates GPU is not detected or fail.
+ BOOT - indicates the booting device is not detected or fail.
+LED_SW1: EZ LED Control
+This switch is used to switch on/ off all the LEDs of motherboard.
+LED_SW1
+LED_OFF
+LED_ON 
+(Default)
+
+60
+Debug Code LED
+The Debug Code LED displays progress and error codes during and after POST. Refer 
+to the Debug Code LED table for details.
+Boot Phases
+Security (SEC) – initial low-level initialization
+Pre-EFI Initialization (PEI) – memory initialization
+Driver Execution Environment (DXE) – main hardware initialization
+Boot Device Selection (BDS) – system setup, pre-OS user interface & selecting a 
+bootable device (CD/DVD, HDD, USB, Network, Shell, …)
+Debug Code LED Table
+SEC Progress Codes
+01
+Power on. Reset type detection (soft/hard)
+02
+AP initialization before microcode loading
+03
+System Agent initialization before microcode loading
+04
+PCH initialization before microcode loading
+06
+Microcode loading
+07
+AP initialization after microcode loading
+08
+System Agent initialization after microcode loading
+09
+PCH initialization after microcode loading
+0B
+Cache initialization
+Hexadecimal Character Table
+Hexadecimal
+0
+1
+2
+3
+4
+5
+6
+7
+LED display
+Hexadecimal
+8
+9
+A
+B
+C
+D
+E
+F
+LED display
+
+61
+SEC Error Codes
+0C - 0D
+Reserved for future AMI SEC error codes
+0E
+Microcode not found
+0F
+Microcode not loaded
+PEI Progress Codes
+10
+PEI Core is started
+11
+Pre-memory CPU initialization is started
+12 - 14
+Pre-memory CPU initialization (CPU module specific)
+15
+Pre-memory System Agent initialization is started
+16 - 18
+Pre-Memory System Agent initialization (System Agent module specific)
+19
+Pre-memory PCH initialization is started
+1A - 1C
+Pre-memory PCH initialization (PCH module specific)
+2B
+Memory initialization. Serial Presence Detect (SPD) data reading
+2C
+Memory initialization. Memory presence detection
+2D
+Memory initialization. Programming memory timing information
+2E
+Memory initialization. Configuring memory
+2F
+Memory initialization (other)
+31
+Memory Installed
+32
+CPU post-memory initialization is started
+33
+CPU post-memory initialization. Cache initialization
+34
+CPU post-memory initialization. Application Processor(s) (AP) 
+initialization
+35
+CPU post-memory initialization. Boot Strap Processor (BSP) selection
+36
+CPU post-memory initialization. System Management Mode (SMM) 
+initialization
+37
+Post-Memory System Agent initialization is started
+38 - 3A
+Post-Memory System Agent initialization (System Agent module specific)
+3B
+Post-Memory PCH initialization is started
+
+62
+3C - 3E
+Post-Memory PCH initialization (PCH module specific)
+4F
+DXE IPL is started
+PEI Error Codes
+50
+Memory initialization error. Invalid memory type or incompatible 
+memory speed
+51
+Memory initialization error. SPD reading has failed
+52
+Memory initialization error. Invalid memory size or memory modules do 
+not match
+53
+Memory initialization error. No usable memory detected
+54
+Unspecified memory initialization error
+55
+Memory not installed
+56
+Invalid CPU type or Speed
+57
+CPU mismatch
+58
+CPU self test failed or possible CPU cache error
+59
+CPU micro-code is not found or micro-code update is failed
+5A
+Internal CPU error
+5B
+Reset PPI is not available
+5C - 5F
+Reserved for future AMI error codes
+DXE Progress Codes
+60
+DXE Core is started
+61
+NVRAM initialization
+62
+Installation of the PCH Runtime Services
+63
+CPU DXE initialization is started
+64 - 67
+CPU DXE initialization (CPU module specific)
+68
+PCI host bridge initialization
+69
+System Agent DXE initialization is started
+6A
+System Agent DXE SMM initialization is started
+
+63
+6B - 6F
+System Agent DXE initialization (System Agent module specific)
+70
+PCH DXE initialization is started
+71
+PCH DXE SMM initialization is started
+72
+PCH devices initialization
+73 - 77
+PCH DXE Initialization (PCH module specific)
+78
+ACPI module initialization
+79
+CSM initialization
+7A - 7F
+Reserved for future AMI DXE codes
+90
+Boot Device Selection (BDS) phase is started
+91
+Driver connecting is started
+92
+PCI Bus initialization is started
+93
+PCI Bus Hot Plug Controller Initialization
+94
+PCI Bus Enumeration 32
+95
+PCI Bus Request Resources
+96
+PCI Bus Assign Resources
+97
+Console Output devices connect
+98
+Console input devices connect
+99
+Super IO Initialization
+9A
+USB initialization is started
+9B
+USB Reset
+9C
+USB Detect
+9D
+USB Enable
+9E -9F
+Reserved for future AMI codes
+A0
+IDE initialization is started
+A1
+IDE Reset
+A2
+IDE Detect
+A3
+IDE Enable
+
+64
+A4
+SCSI initialization is started
+A5
+SCSI Reset
+A6
+SCSI Detect
+A7
+SCSI Enable
+A8
+Setup Verifying Password
+A9
+Start of Setup
+AB
+Setup Input Wait
+AD
+Ready To Boot event
+AE
+Legacy Boot event
+AF
+Exit Boot Services event
+B0
+Runtime Set Virtual Address MAP Begin
+B1
+Runtime Set Virtual Address MAP End
+B2
+Legacy Option ROM Initialization
+B3
+System Reset
+B4
+USB hot plug
+B5
+PCI bus hot plug
+B6
+Clean-up of NVRAM
+B7
+Configuration Reset (reset of NVRAM settings)
+B8 - BF
+Reserved for future AMI codes
+DXE Error Codes
+D0
+CPU initialization error
+D1
+System Agent initialization error
+D2
+PCH initialization error
+D3
+Some of the Architectural Protocols are not available
+D4
+PCI resource allocation error. Out of Resources
+D5
+No Space for Legacy Option ROM
+D6
+No Console Output Devices are found
+
+65
+D7
+No Console Input Devices are found
+D8
+Invalid password
+D9
+Error loading Boot Option (LoadImage returned error)
+DA
+Boot Option is failed (StartImage returned error)
+DB
+Flash update is failed
+DC
+Reset protocol is not available
+S3 Resume Progress Codes
+E0
+S3 Resume is stared (S3 Resume PPI is called by the DXE IPL)
+E1
+S3 Boot Script execution
+E2
+Video repost
+E3
+OS S3 wake vector call
+E4 - E7
+Reserved for future AMI progress codes
+S3 Resume Error Codes
+E8
+S3 Resume Failed
+E9
+S3 Resume PPI not Found
+EA
+S3 Resume Boot Script Error
+EB
+S3 OS Wake Error
+EC - EF
+Reserved for future AMI error codes
+Recovery Progress Codes
+F0
+Recovery condition triggered by firmware (Auto recovery)
+F1
+Recovery condition triggered by user (Forced recovery)
+F2
+Recovery process started
+F3
+Recovery firmware image is found
+F4
+Recovery firmware image is loaded
+F5 - F7
+Reserved for future AMI progress codes
+Recovery Error Codes
+
+66
+F8
+Recovery PPI is not available
+F9
+Recovery capsule is not found
+FA
+Invalid recovery capsule
+FB - FF
+Reserved for future AMI error codes
+ACPI States Codes
+The following codes appear after booting and the operating system into ACPI modes.  
+01
+System is entering S1 sleep state
+02
+System is entering S2 sleep state
+03
+System is entering S3 sleep state
+04
+System is entering S4 sleep state
+05
+System is entering S5 sleep state
+10
+System is waking up from the S1 sleep state
+20
+System is waking up from the S2 sleep state
+30
+System is waking up from the S3 sleep state
+40
+System is waking up from the S4 sleep state
+AC
+System has transitioned into ACPI mode. Interrupt controller is in PIC 
+mode.
+AA
+System has transitioned into ACPI mode. Interrupt controller is in APIC 
+mode.
+CPU Temperature
+00 - 99
+Displays current CPU temperature after the system has fully booted into 
+the OS.
+
+67
+Installing OS, Drivers & MSI Center
+Please download and update the latest utilities and drivers at www.msi.com
+Installing Windows 11
+1.	 Power on the computer.
+2.	 Insert the Windows 11 installation disc/USB into your computer.
+3.	 Press the Restart button on the computer case.
+4.	 Press F11 key during the computer POST (Power-On Self Test) to get into Boot 
+Menu.
+5.	 Select the Windows 11 installation disc/USB from the Boot Menu.
+6.	 Press any key if screen shows Press any key to boot from CD or DVD... message. If 
+not, please skip this step.
+7.	 Follow the instructions on the screen to install Windows 11.
+
+68
+Installing Drivers with MSI Driver Utility Installer
+	
+⚠Important
+	∙Some new network chips have not been natively supported by Windows 11. It is 
+recommended that the LAN driver be installed before installing drivers with MSI 
+Driver Utility Installer. Please refer to www.msi.com to install the LAN driver for your 
+motherboard.
+	∙The MSI Driver Utility Installer will only pop up once. If you cancel or close it during 
+the process, please refer to the Live Update chapter of the MSI Center manual to 
+install the drivers. You can also go to www.msi.com to search your motherboard and 
+download the drivers.
+	∙MSI Driver Utility Installer needs to be installed over the internet.
+1.	 Start up your computer in Windows 11.
+2.	 Select Start > Settings > Windows Update, and then select Check for updates.
+3.	 MSI Driver Utility Installer will pop up automatically.
+4.	 Select the I have read and agree to the MSI Terms of Use check box, and then click 
+Next.
+
+69
+5.	 Check the Select All checkbox in the lower-left corner and click Install to install 
+MSI Center and drivers. The installation progress will be shown at the bottom.
+6.	 Once the progress has completed, click Finish.
+
+70
+MSI Center
+MSI Center is an application that helps you easily optimize game settings and 
+smoothly use content creation softwares. It also allows you to control and synchronize 
+LED light effects on PCs and other MSI products. With MSI Center, you can customize 
+ideal modes, monitor system performance, and adjust fan speed.
+MSI Center User Guide
+If you would like to know more information about MSI Center, please refer to
+http://download.msi.com/manual/mb/MSICENTER.pdf
+or scan the QR code to access.
+	
+⚠Important
+Functions may vary depending on the product you have.
+Installing Drivers with MSI USB Drive
+1.	 Start up your computer in Windows 11.
+2.	 Insert MSI USB Drive into the USB port. 
+3.	 You can see a Disc Image file which contains drivers and utilities in the USB drive. 
+Double-click the file to open it.
+4.	 Execute an application file named DVDSetup.
+5.	 The installer will find and list all necessary drivers in the Drivers/Software tab.
+6.	 Click the Install button in the lower-right corner of the window.
+7.	 The drivers installation will then be in progress, after it has finished it will prompt 
+you to restart.
+8.	 Click OK button to finish.
+9.	 Restart your computer.
+
+71
+UEFI BIOS
+MSI UEFI BIOS is compatible with UEFI (Unified Extensible Firmware Interface) 
+architecture. UEFI has many new functions and advantages that traditional BIOS 
+cannot achieve, and it will completely replace BIOS in the future. The MSI UEFI 
+BIOS uses UEFI as the default boot mode to take full advantage of the new chipset’s 
+capabilities.  
+	
+⚠Important
+The term BIOS in this user guide refers to UEFI BIOS unless otherwise noted.
+UEFI advantages
+	∙Fast booting - UEFI can directly boot the operating system and save the BIOS self-
+test process. And also eliminates the time to switch to CSM mode during POST.
+	∙Supports for hard drive partitions larger than 2 TB.
+	∙Supports more than 4 primary partitions with a GUID Partition Table (GPT).
+	∙Supports unlimited number of partitions.
+	∙Supports full capabilities of new devices - new devices may not provide backward 
+compatibility.
+	∙Supports secure startup - UEFI can check the validity of the operating system to 
+ensure that no malware tampers with the startup process.
+Incompatible UEFI cases
+	∙32-bit Windows operating system - this motherboard supports only Windows 11 
+64-bit operating system.
+	∙Older graphics card - the system will detect your graphics card. If you use older 
+graphics cards, it may display a warning message There is no GOP (Graphics Output 
+protocol) support detected in this graphics card.
+	
+⚠Important
+We recommend that you replace it with a graphics card supporting GOP/UEFI or use 
+CPU with integrated graphics for having normal function.
+How to check the BIOS mode?
+1.	 Power on your computer.
+2.	 Press Delete key, when the Press DEL key to enter Setup Menu, F11 to enter Boot 
+Menu message appears on the screen during the boot process.
+3.	 After entering the BIOS, you can check the BIOS Mode at the top of the screen.
+BIOS Mode: UEFI
+
+72
+BIOS Setup
+The default settings offer the optimal performance for system stability in normal 
+conditions. You should always keep the default settings to avoid possible system 
+damage or failure booting unless you are familiar with BIOS. 
+	
+⚠Important
+	∙BIOS items are continuously update for better system performance. Therefore, 
+the description may be slightly different from the latest BIOS and should be for 
+reference only. You could also refer to the HELP information panel for BIOS item 
+description.
+	∙The BIOS screens, options and settings will vary depending on your system.
+Entering BIOS Setup
+Press Delete key, when the Press DEL key to enter Setup Menu, F11 to enter Boot 
+Menu message appears on the screen during the boot process.
+Function key
+F1:	
+General Help list 
+F2:	
+Add/ Remove a favorite item
+F3:	
+Enter Favorites menu	
+F4:	
+Enter CPU Specifications menu
+F5:	
+Enter Memory-Z menu	
+F6:	
+Load optimized defaults
+F7:	
+Switch between Advanced mode and EZ mode	
+F8:	
+Load Overclocking Profile
+F9:	
+Save Overclocking Profile	
+F10:	
+Save Change and Reset*
+F12:	
+Take a screenshot and save it to USB flash drive (FAT/ FAT32 format only).
+Ctrl+F:	
+Enter Search page
+* When you press F10, a confirmation window appears and it provides the modification 
+information. Select between Yes or No to confirm your choice.
+BIOS User Guide
+If you’d like to know more instructions on setting up the BIOS, please refer to 
+https://download.msi.com/archive/mnu_exe/mb/Intel700BIOS.pdf  
+or scan the QR code to access.
+	
+⚠Important
+Functions may vary depending on the product you have.
+
+73
+Resetting BIOS
+You might need to restore the default BIOS setting to solve certain problems. There 
+are several ways to reset BIOS:
+	∙Go to BIOS and press F6 to load optimized defaults.
+	∙Short the Clear CMOS jumper on the motherboard.
+	∙Press the Clear CMOS button on the rear I/O panel.
+	
+⚠Important
+Be sure the computer is off before clearing CMOS data. Please refer to the Clear 
+CMOS jumper/ button section for resetting BIOS. 
+Updating BIOS
+Updating BIOS with M-FLASH
+Before updating:
+Please download the latest BIOS file that matches your motherboard model from MSI 
+website. And then save the BIOS file into the USB flash drive.
+Updating BIOS:
+1.	 Switch to the target BIOS ROM by Multi-BIOS switch. Please skip this step if your 
+motherboard doesn’t has this switch.
+2.	 Insert the USB flash drive that contains the update file into the USB port.
+3.	 Please refer the following methods to enter flash mode.
+•	Reboot and press Ctrl + F5 key during POST and click on Yes to reboot the system.
+Press <Ctrl+F5> to activate M-Flash for BIOS update.
+•	Reboot and press Del key during POST to enter BIOS. Click the M-FLASH button 
+and click on Yes to reboot the system. 
+4.	 Select a BIOS file to perform the BIOS update process.
+5.	 When prompted click on Yes to start recovering BIOS.
+6.	 After the flashing process is 100% completed, the system will reboot automatically. 
+
+74
+Updating the BIOS with MSI Center
+Before updating:
+	∙Make sure the LAN driver is already installed and the internet connection is set 
+properly. 
+	∙Please close all other application software before updating the BIOS.
+To update BIOS:
+1.	 Install and launch MSI Center and go to Support page.
+2.	 Select Live Update and click on Advance button.
+3.	 Select the BIOS file and click on Install button.
+4.	 The installation reminder will appear, then click the Install button on it.
+5.	  The system will automatically restart to update BIOS.
+6.	 After the flashing process is 100% completed, the system will restart 
+automatically. 
+Updating BIOS with Flash BIOS Button
+1.	 Please download the latest BIOS file that matches your motherboard model from 
+the MSI® website.
+2.	 Rename the BIOS file to MSI.ROM, and save it to the root of the USB storage device.
+3.	 Connect the power supply to CPU_PWR1 and ATX_PWR1. (No need to install CPU 
+and memory.) 
+4.	 Plug the USB storage device that contains the MSI.ROM file into the Flash BIOS 
+Port on the rear I/O panel.
+5.	 Press the Flash BIOS Button to flash BIOS, and the LED starts flashing.
+6.	 The LED will be turned off when the process is completed.
+
+75
+Block Diagram
+MEG Z790 ACE MAX
+PCIe 5.0x16 PCI_E1
+PCIe 5.0x8 PCI_E2
+DDR5
+DIMM A1/A2
+DIMM B1/B2
+GEN4 x4 M.2_1
+(PCIe Only)
+GEN4 x4 M.2_2 
+(PCIe Only)
+USB3.2 Gen2x2 20Gbps
+(Front Type-C)
+USB3.2 Gen2 10Gbps
+(Type-A)
+Intel 2.5Gbps 
+SATA_5_6_8
+SATA_A1_A2
+ASM1061
+WiFi 7/ BT 5.4
+PCH
+HD Audio
+ALC4082
+ESS9280AQ
+CPU
+DMI 4.0
+PCIe 5.0 X8
+PCIe 5.0 X8
+GEN5 x4 M.2_4
+(PCIe Only)
+PCIe 5.0 X8
+PCIe 5.0 X8
+MUX
+GEN4 x4 M.2_3
+(PCIe + SATA)
+GEN4 x4 M.2_5
+(PCIe + SATA)
+GL3523
+USB3.2 Gen1 5Gbps
+(Front Type-A)
+GL3590
+USB3.2 Gen2 10Gbps
+(Type-A)
+Data Transfer+ Display
+USB3.2 Gen2 10Gbps(Type-C)
++DP 1.4 (4K@60Hz)
+Thunderbolt 4
+GL850
+USB2.0
+(Front Type-A)
+SPI
+SPI
+SATA7 will be unavailable when installing
+M.2 SATA SSD in the M2_5 slot.
+*M2_4 slot will be unavailable when
+installing in the PCI_E2 slot.
+SATA_7
+MUX
+RTS5450
+
+i
+Regulatory Notices
+FCC-B Radio Frequency Interference Statement
+This equipment has been tested and found to comply with the limits 
+for a Class B digital device, pursuant to part 15 of the FCC rules. These 
+limits are designed to provide reasonable protection against harmful 
+interference in a residential installation. This equipment generates, 
+uses and radiates radio frequency energy, and, if not installed and 
+used in accordance with the instructions, may cause harmful interference to radio 
+communications. However, there is no guarantee that interference will not occur in a 
+particular installation. If this equipment does cause harmful interference to radio or 
+television reception, which can be determined by turning the equipment off and on, the 
+user is encouraged to try to correct the interference by one or more of the following 
+measures:
+	∙Reorient or relocate the receiving antenna.
+	∙Increase the separation between the equipment and receiver.
+	∙Connect the equipment into an outlet on a circuit different from that to which the 
+receiver is connected.
+NOTE
+	∙The changes or modifications not expressly approved by the party responsible for 
+compliance could void the user’s authority to operate the equipment.
+	∙Shield interface cables and AC power cord, if any, must be used in order to comply 
+with the emission limits.
+FCC Conditions
+This device complies with part 15 of the FCC Rules. Operation is subject to the 
+following two conditions:
+	∙This device may not cause harmful interference.
+	∙This device must accept any interference received, including interference that may 
+cause undesired operation.
+MSI Computer Corp.
+901 Canada Court, City of Industry, CA 91748, USA
+(626)913-0828
+www.msi.com
+
+ii
+CE Conformity
+Products bearing the CE marking comply with one or more of the 
+following EU Directives as may be applicable:
+	∙RED 2014/53/EU
+	∙Low Voltage Directive 2014/35/EU
+	∙EMC Directive 2014/30/EU
+	∙RoHS Directive 2011/65/EU
+	∙ErP Directive 2009/125/EC
+Compliance with these directives is assessed using applicable European Harmonized 
+Standards.
+The point of contact for regulatory matters is MSI-Europe: Eindhoven 5706 5692 ER 
+Son.
+Products with Radio Functionality (EMF)
+This product incorporates a radio transmitting and receiving device. For computers 
+in normal use, a separation distance of 20 cm ensures that radio frequency exposure 
+levels comply with EU requirements. Products designed to be operated at closer 
+proximities, such as tablet computers, comply with applicable EU requirements in 
+typical operating positions. Products can be operated without maintaining a separation 
+distance unless otherwise indicated in instructions specific to the product.
+Restrictions for Products with Radio Functionality
+CAUTION: IEEE 802.11x wireless LAN with 5.15~5.35 GHz frequency 
+band is restricted for indoor use only in all European Union member 
+states, EFTA (Iceland, Norway, Liechtenstein), and most other European 
+countries (e.g., Switzerland, Turkey, Republic of Serbia). Using this WLAN 
+application outdoors might lead to interference issues with existing radio 
+services.
+Radio frequency bands and maximum power levels
+	∙Features: Wi-Fi 7, BT
+	∙Frequency Range: 2.4 GHz: 2400~2485MHz; 5 GHz: 5150~5350MHz, 
+5470~5725MHz, 5725~5850MHz; 6 GHz: 5955~6415MHz
+	∙Max Power Level: 2.4 GHz: 20dBm; 5 GHz: 23dBm; 6 GHz: 23dBm
+
+iii
+Wireless Radio Use
+This device is restricted to indoor use when operating in the 2.4GHz, 5GHz, 6GHz 
+frequency band.
+Cet appareil doit être utilisé à l’intérieur.
+당해 무선설비는 운용중 전파혼신 가능성이 있음.
+この製品は、周波数帯域 2.4GHz, 5GHz, 6GHz で動作しているときは、屋内においてのみ使
+用可能です。
+NCC無線設備警告聲明
+工作頻率2.4GHz, 5GHz, 6GHz該頻段限於室內使用。
+經型式認證合格之低功率射頻電機，非經許可，公司、商號或使用者均不得擅自變更頻率、
+加大功率或變更原設計之特性及功能。
+低功率射頻電機之使用不得影響飛航安全及干擾合法通信；經發現有干擾現象時，應立即
+停用，並改善至無干擾時方得繼續使用。前項合法通信，指依電信法規定作業之無線電通
+信。低功率射頻電機須忍受合法通信或工業、科學及醫療用電波輻射性電機設備之干擾。
+Compliance Statement of Innovation, Science and 
+Economic Development Canada (ISED)
+This device complies with with Innovation, Science and Economic Development 
+Canada’s licence-exempt RSS(s). Operation is subject to the following two conditions: 
+(1) this device may not cause interference, and (2) this device must accept any 
+interference, including interference that may cause undesired operation of the device.
+Operation in the band 5150-5250 MHz is only for indoor use to reduce the potential for 
+harmful interference to co-channel mobile satellite systems.
+CAN ICES-003(B)/NMB-003(B)
+Australia and New Zealand notice
+This equipment incorporates a radio transmitting and receiving device. In normal use, 
+a separation distance of 20 cm ensures that radio frequency exposure levels comply 
+with the Australian and New Zealand Standards.
+クラスB情報技術装置
+この装置は、クラスＢ情報技術装置です。この装置は、家庭環境で使用することを目的とし
+ていますが、この装置がラジオやテレビジョン受信機に近接して使用されると、受信障害を
+引き起こすことがあります。取扱説明書に従って正しい取り扱いをして下さい。
+VCCI-B
+KC인증서
+상호: (주)엠에스아이코리아 
+제품명: 메인보드 
+모델명: 20-7D86 
+제조년월: 2023년 
+제조자 및 제조국가: MSI/중국
+R-R-MSI-20-7D86
+
+iv
+Battery Information
+European Union:
+Batteries, battery packs, and accumulators should not be disposed of as 
+unsorted household waste. Please use the public collection system to 
+return, recycle, or treat them in compliance with the local regulations.
+BSMI:
+廢電池請回收 
+For better environmental protection, waste batteries should be collected 
+separately for recycling or special disposal.
+California, USA: 
+The button cell battery may contain perchlorate material and requires 
+special handling when recycled or disposed of in California.  
+For further information please visit: 
+https://dtsc.ca.gov/perchlorate/
+WARNING
+	∙INGESTION HAZARD: This product contains a button cell or coin battery.
+	∙DEATH or serious injury can occur if ingested.
+	∙A swallowed button cell or coin battery can cause Internal Chemical 
+Burns in as little as 2 hours.
+	∙KEEP new and used batteries OUT OF REACH OF CHILDREN
+	∙Seek immediate medical attention if a battery is suspected to be 
+swallowed or inserted inside any part of the body.
+	∙Remove and immediately recycle or dispose of used batteries according to local 
+regulations and keep away from children. Do NOT dispose of batteries in household 
+trash or incinerate. 
+	∙Even used batteries may cause severe injury or death. Call a local poison control 
+center for treatment information. 
+	∙Battery type: CR2032 
+	∙Battery voltage: 3V 
+	∙Non-rechargeable batteries are not to be recharged. 
+	∙Do not force discharge, recharge, disassemble, heat above (manufacturer’s 
+specified temperature rating) or incinerate. Doing so may result in injury due to 
+venting, leakage or explosion resulting in chemical burns. 
+	∙This product contains an irreplaceable battery.
+	∙This icon indicates that a swallowed button battery can cause serious injury or 
+death. Please keep batteries out of sight or reach of children.
+
+v
+Chemical Substances Information
+In compliance with chemical substances regulations, such as the EU REACH 
+Regulation (Regulation EC No. 1907/2006 of the European Parliament and the 
+Council), MSI provides the information of chemical substances in products at:
+https://csr.msi.com/global/index
+Environmental Policy
+	∙The product has been designed to enable proper reuse of parts and 
+recycling and should not be thrown away at its end of life.
+	∙Users should contact the local authorized point of collection for 
+recycling and disposing of their end-of-life products.
+	∙Visit the MSI website and locate a nearby distributor for further recycling 
+information.
+	∙Users may also reach us at gpcontdev@msi.com for information regarding proper 
+Disposal, Take-back, Recycling, and Disassembly of MSI products.
+WEEE (Waste Electrical and Electronic Equipment) 
+Statement
+ENGLISH
+To protect the global environment and as an environmentalist, MSI must 
+remind you that...
+Under the European Union (“EU”) Directive on Waste Electrical and 
+Electronic Equipment, Directive 2002/96/EC, which takes effect on August 
+13, 2005, products of “electrical and electronic equipment” cannot be 
+discarded as municipal wastes anymore, and manufacturers of covered 
+electronic equipment will be obligated to take back such products at the end of their 
+useful life. MSI will comply with the product take back requirements at the end of life 
+of MSI-branded products that are sold into the EU. You can return these products to 
+local collection points.
+DEUTSCH
+Hinweis von MSI zur Erhaltung und Schutz unserer Umwelt
+Gemäß der Richtlinie 2002/96/EG über Elektro- und Elektronik-Altgeräte dürfen 
+Elektro- und Elektronik-Altgeräte nicht mehr als kommunale Abfälle entsorgt 
+werden. MSI hat europaweit verschiedene Sammel- und Recyclingunternehmen 
+beauftragt, die in die Europäische Union in Verkehr gebrachten Produkte, am Ende 
+seines Lebenszyklus zurückzunehmen. Bitte entsorgen Sie dieses Produkt zum 
+gegebenen Zeitpunkt ausschliesslich an einer lokalen Altgerätesammelstelle in Ihrer 
+Nähe.
+FRANÇAIS
+En tant qu’écologiste et afin de protéger l’environnement, MSI tient à rappeler ceci...
+Au sujet de la directive européenne (EU) relative aux déchets des équipement 
+électriques et électroniques, directive 2002/96/EC, prenant effet le 13 août 2005, 
+que  les produits électriques et électroniques ne peuvent être déposés dans les 
+
+vi
+décharges ou tout simplement mis à la poubelle. Les fabricants de ces équipements 
+seront obligés de récupérer certains produits en fin de vie. MSI prendra en compte 
+cette exigence relative au retour des produits en fin de vie au sein de la communauté 
+européenne. Par conséquent vous pouvez retourner localement ces matériels dans 
+les points de collecte.
+РУССКИЙ
+Компания MSI предпринимает активные действия по защите окружающей среды, 
+поэтому напоминаем вам, что.... 
+В соответствии с директивой Европейского Союза (ЕС) по предотвращению 
+загрязнения окружающей среды использованным электрическим и электронным 
+оборудованием (директива WEEE 2002/96/EC), вступающей в силу 13 августа 2005 
+года, изделия, относящиеся к электрическому и электронному оборудованию, 
+не могут рассматриваться как бытовой мусор, поэтому производители 
+вышеперечисленного электронного оборудования обязаны принимать его для 
+переработки по окончании срока службы. MSI обязуется соблюдать требования по 
+приему продукции, проданной под маркой MSI на территории EC, в переработку по 
+окончании срока службы. Вы можете вернуть эти изделия в специализированные 
+пункты приема. 
+ESPAÑOL
+MSI como empresa comprometida con la protección del medio ambiente, recomienda:
+Bajo la directiva 2002/96/EC de la Unión Europea en materia de desechos y/o 
+equipos electrónicos, con fecha de rigor desde el 13 de agosto de 2005, los productos 
+clasificados como “eléctricos y equipos electrónicos” no pueden ser depositados en 
+los contenedores habituales de su municipio, los fabricantes de equipos electrónicos, 
+están obligados a hacerse cargo de dichos productos al termino de su período de vida. 
+MSI estará comprometido con los términos de recogida de sus productos vendidos en 
+la Unión Europea al final de su periodo de vida. Usted debe depositar estos productos 
+en el punto limpio establecido por el ayuntamiento de su localidad o entregar a una 
+empresa autorizada para la recogida de estos residuos.
+NEDERLANDS
+Om het milieu te beschermen, wil MSI u eraan herinneren dat….
+De richtlijn van de Europese Unie (EU) met betrekking tot Vervuiling van Electrische 
+en Electronische producten (2002/96/EC), die op 13 Augustus 2005 in zal gaan kunnen 
+niet meer beschouwd worden als vervuiling. Fabrikanten van dit soort producten 
+worden verplicht om producten retour te nemen aan het eind van hun levenscyclus. 
+MSI zal overeenkomstig de richtlijn handelen voor de producten die de merknaam MSI 
+dragen en verkocht zijn in de EU. Deze goederen kunnen geretourneerd worden op 
+lokale inzamelingspunten.
+SRPSKI
+Da bi zaštitili prirodnu sredinu, i kao preduzeće koje vodi računa o okolini i prirodnoj 
+sredini, MSI mora da vas podesti da… 
+Po Direktivi Evropske unije (“EU”) o odbačenoj ekektronskoj i električnoj opremi, 
+Direktiva 2002/96/EC, koja stupa na snagu od 13. Avgusta 2005, proizvodi koji spadaju 
+pod “elektronsku i električnu opremu” ne mogu više biti odbačeni kao običan otpad i 
+proizvođači ove opreme biće prinuđeni da uzmu natrag ove proizvode na kraju njihovog 
+uobičajenog veka trajanja. MSI će poštovati zahtev o preuzimanju ovakvih proizvoda 
+
+vii
+kojima je istekao vek trajanja, koji imaju MSI oznaku i koji su prodati u EU. Ove 
+proizvode možete vratiti na lokalnim mestima za prikupljanje.
+POLSKI
+Aby chronić nasze środowisko naturalne oraz jako firma dbająca o ekologię, MSI 
+przypomina, że...Zgodnie z Dyrektywą Unii Europejskiej (“UE”) dotyczącą odpadów 
+produktów elektrycznych i elektronicznych (Dyrektywa 2002/96/EC), która wchodzi w 
+życie 13 sierpnia 2005, tzw. “produkty oraz wyposażenie elektryczne i elektroniczne “ 
+nie mogą być traktowane jako śmieci komunalne, tak więc producenci tych produktów 
+będą zobowiązani do odbierania ich w momencie gdy produkt jest wycofywany z 
+użycia. MSI wypełni wymagania UE, przyjmując produkty (sprzedawane na terenie 
+Unii Europejskiej) wycofywane z użycia. Produkty MSI będzie można zwracać w 
+wyznaczonych punktach zbiorczych.
+TÜRKÇE
+Çevreci özelliğiyle bilinen MSI dünyada çevreyi korumak için hatırlatır: 
+Avrupa Birliği (AB) Kararnamesi Elektrik ve Elektronik Malzeme Atığı, 2002/96/
+EC Kararnamesi altında 13 Ağustos 2005 tarihinden itibaren geçerli olmak üzere, 
+elektrikli ve elektronik malzemeler diğer atıklar gibi çöpe atılamayacak ve bu 
+elektonik cihazların üreticileri, cihazların kullanım süreleri bittikten sonra ürünleri 
+geri toplamakla yükümlü olacaktır. Avrupa Birliği’ne satılan MSI markalı ürünlerin 
+kullanım süreleri bittiğinde MSI ürünlerin geri alınması isteği ile işbirliği içerisinde 
+olacaktır. Ürünlerinizi yerel toplama noktalarına bırakabilirsiniz.
+ČESKY
+Záleží nám na ochraně životního prostředí - společnost MSI upozorňuje...
+Podle směrnice Evropské unie (“EU”) o likvidaci elektrických a elektronických výrobků 
+2002/96/EC platné od 13. srpna 2005 je zakázáno likvidovat “elektrické a elektronické 
+výrobky” v běžném komunálním odpadu a výrobci elektronických výrobků, na které 
+se tato směrnice vztahuje, budou povinni odebírat takové výrobky zpět po skončení 
+jejich životnosti.  Společnost MSI splní požadavky na odebírání výrobků značky MSI, 
+prodávaných v zemích EU, po skončení jejich životnosti. Tyto výrobky můžete odevzdat 
+v místních sběrnách.
+MAGYAR
+Annak érdekében, hogy környezetünket megvédjük, illetve környezetvédőként fellépve 
+az MSI emlékezteti Önt, hogy ...
+Az Európai Unió („EU”) 2005. augusztus 13-án hatályba lépő, az elektromos és 
+elektronikus berendezések hulladékairól szóló 2002/96/EK irányelve szerint az 
+elektromos és elektronikus berendezések többé nem kezelhetőek lakossági 
+hulladékként, és az ilyen elektronikus berendezések gyártói kötelessé válnak az 
+ilyen termékek visszavételére azok hasznos élettartama végén.  Az MSI betartja 
+a termékvisszavétellel kapcsolatos követelményeket az MSI márkanév alatt az 
+EU-n belül értékesített termékek esetében, azok élettartamának végén. Az ilyen 
+termékeket a legközelebbi gyűjtőhelyre viheti.
+ITALIANO
+Per proteggere l’ambiente, MSI, da sempre amica della natura, ti ricorda che….
+In base alla Direttiva dell’Unione Europea (EU) sullo Smaltimento dei Materiali 
+Elettrici ed Elettronici, Direttiva 2002/96/EC in vigore dal 13 Agosto 2005, prodotti 
+
+viii
+appartenenti alla categoria dei Materiali Elettrici ed Elettronici non possono più 
+essere eliminati come rifiuti municipali: i produttori di detti materiali saranno obbligati 
+a ritirare ogni prodotto alla fine del suo ciclo di vita. MSI si adeguerà a tale Direttiva 
+ritirando tutti i prodotti marchiati MSI che sono stati venduti all’interno dell’Unione 
+Europea alla fine del loro ciclo di vita. È possibile portare i prodotti nel più vicino punto 
+di raccolta
+日本JIS C 0950材質宣言
+日本工業規格JIS C 0950により、2006年7月1日以降に販売される特定分野の電気および
+電子機器について、製造者による含有物質の表示が義務付けられます。 
+https://csr.msi.com/tw/Japan-JIS-C-0950-Material-Declarations
+India RoHS
+This product complies with the “India E-waste (Management and Handling) Rule 2011” 
+and prohibits use of lead, mercury, hexavalent chromium, polybrominated biphenyls 
+or polybrominated diphenyl ethers in concentrations exceeding 0.1 weight % and 0.01 
+weight % for cadmium, except for the exemptions set in Schedule 2 of the Rule.
+Türkiye EEE yönetmeliği
+Türkiye Cumhuriyeti: EEE Yönetmeliğine Uygundur
+Україна обмеження на наявність небезпечних речовин
+Обладнання відповідає вимогам Технічного регламенту щодо обмеження 
+використання деяких небезпечних речовин в електричному та електронному 
+обладнані, затвердженого постановою Кабінету Міністрів України від 3 грудня 2008 
+№ 1057.
+Việt Nam RoHS
+Kể từ ngày 01/12/2012, tất cả các sản phẩm do công ty MSI sản xuất tuân thủ Thông tư 
+số 30/2011/TT-BCT quy định tạm thời về giới hạn hàm lượng cho phép của một số hóa 
+chất độc hại có trong các sản phẩm điện, điện tử”
+
+ix
+MS-7D86主板产品中有害物质的名称及含量
+部件名称
+有害物质
+铅
+(Pb)
+汞
+(Hg)
+镉
+(Cd)
+六价铬
+(Cr(VI))
+多溴联苯
+(PBB)
+多溴二苯醚
+(PBDE)
+印刷电路板组件*
+╳
+○
+○
+○
+○
+○
+纽扣电池
+○
+○
+○
+○
+○
+○
+外部信号连接头
+╳
+○
+○
+○
+○
+○
+其他 (例: 线材等)
+╳
+○
+○
+○
+○
+○
+本表格依据 SJ/T 11364 的规定编制。
+○: 表示该有害物质在该部件所有均质材料中的含量均在 GB/T 26572 规定的限量要
+求以下。
+╳: 表示该有害物质至少在该部件的某一均质材料中的含量超出 GB/T 26572 规定的限
+量要求，但所有部件都符合欧盟RoHS要求。
+* 印刷电路板组件: 包括印刷电路板及其构成的零部件。
+■ 上述有毒有害物质或元素清单会依型号之部件差异而有所增减。
+■ 产品部件本体上如有环保使用期限标识，以本体标识为主。
+限用物質含有情況標示聲明書
+設備名稱：電腦主機板
+型號(型式)：MS-7D86
+單元
+限用物質及其化學符號
+鉛 
+(Pb)
+汞 
+(Hg)
+鎘 
+(Cd)
+六價鉻 
+(Cr+6)
+多溴聯苯 
+(PBB)
+多溴二苯醚 
+(PBDE)
+電路板
+○
+○
+○
+○
+○
+○
+電子元件
+─
+○
+○
+○
+○
+○
+金屬機構件
+─
+○
+○
+○
+○
+○
+塑膠機構件
+○
+○
+○
+○
+○
+○
+備考1. “超出0.1 wt %” 及 “超出0.01 wt %” 係指限用物質之百分比含量超出百分比含
+量基準值。
+備考2. “○” 係指該項限用物質之百分比含量未超出百分比含量基準值。
+備考3. “─” 係指該項限用物質為排除項目。
+
+x
+Copyright and Trademarks Notice
+Copyright © Micro-Star Int’l Co., Ltd. All rights reserved. The MSI 
+logo used is a registered trademark of Micro-Star Int’l Co., Ltd. All 
+other marks and names mentioned may be trademarks of their respective owners. No 
+warranty as to accuracy or completeness is expressed or implied. MSI reserves the 
+right to make changes to this document without prior notice.
+The terms HDMI™, HDMI™ High-Definition Multimedia Interface, HDMI™ Trade dress 
+and the HDMI™ Logos are trademarks or registered trademarks of HDMI™ Licensing 
+Administrator, Inc.
+Technical Support
+If a problem arises with your system and no solution can be obtained from the user 
+guide, please contact your place of purchase or local distributor. Alternatively, please 
+try the following help resources for further guidance.
+	∙Visit the MSI website for technical guide, BIOS updates, driver updates, and other 
+information: http://www.msi.com
+	∙Register your product at: http://register.msi.com
+Revision History
+	∙Version 2.0, 2023/09, First release.
+	∙Version 2.1, 2023/11, Update CPU spec.
+	∙Version 2.2, 2024/03, Add battery safety warning.

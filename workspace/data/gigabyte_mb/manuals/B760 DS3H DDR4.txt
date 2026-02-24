@@ -1,0 +1,2529 @@
+技嘉为尽地球公民的责任，将减少纸张应用，且为减缓地球暖化效应，本
+产品包装材料都可回收再利用，技嘉与您一同为环保尽一份力！
+更详尽的产品相关信息，请至技嘉网站查询。
+B760 DS3H AX
+B760 DS3H AX V2
+B760 DS3H AC
+B760 DS3H
+B760 DS3H AX DDR4
+B760 DS3H AC DDR4
+B760 DS3H DDR4
+使用手册
+Rev. 1205
+
+版权
+© 2025年，技嘉科技股份有限公司，版权所有。
+本使用手册所提及的商标与名称，均属其合法注册的公司所有。
+责任声明
+本使用手册受著作权保护，所撰写的内容均为技嘉所拥有。
+本使用手册所提及的产品规格或相关信息，技嘉保留修改的权利。
+本使用手册所提及的产品规格或相关信息有任何修改或变更时，恕不另行通知。
+未事先经由技嘉书面允许，不得以任何形式复制、修改、转载、传送或出版本使
+用手册内容。
+ 
+
+如果您要了解产品详细规格数据，请仔细阅读【使用手册】。
+ 
+
+如果您要快速安装，请至技嘉网站参考【硬件安装指南】。
+https://download.gigabyte.cn/FileList/Manual/mb_manual_installation-guide_12QM-100xR.pdf
+产品相关信息，请至网站查询：https://www.gigabyte.cn
+产品版本辨识
+您可以在主板上找到标示着此主板的版本「REV : X.X」。其中X.X为数字，例如标
+示「REV : 1.0」，意即此主板的版本为1.0。当您要更新主板的BIOS、驱动程序或参
+考其他技术数据时，请注意产品版本的标示。
+范例：
+
+- 3 -
+目 录
+第一章 产品介绍 .......................................................................................................4
+1-1 
+主板配置图 ...................................................................................................... 4
+1-2 
+清点配件 .......................................................................................................... 6
+第二章 硬件安装 .......................................................................................................7
+2-1 
+安装前的注意事项 ......................................................................................... 7
+2-2 
+产品规格 .......................................................................................................... 8
+2-3 
+安装中央处理器及散热风扇 ..................................................................... 12
+2-4 
+安装内存条 .................................................................................................... 15
+2-5 
+安装扩展卡 .................................................................................................... 16
+2-6 
+后方设备接口介绍 ....................................................................................... 17
+2-7 
+内建按钮及指示灯 ....................................................................................... 19
+2-8 
+插座及跳线介绍 ........................................................................................... 21
+第三章 BIOS 程序设置 ............................................................................................33
+第四章 安装操作系统及驱动程序.......................................................................35
+4-1 
+操作系统安装 ................................................................................................ 35
+4-2 
+驱动程序安装 ................................................................................................ 36
+第五章 附录 ..............................................................................................................37
+5-1 
+构建磁盘阵列 ................................................................................................ 37
+Regulatory Notices ...................................................................................................... 38
+技嘉主板售后服务及质量保证卡 ....................................................................... 43
+
+- 4 -
+1-1 
+主板配置图
+第一章 
+产品介绍
+温度感测点
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+m 
+只有B760 DS3H提供此功能。
+KB_MS_
+USB20
+CPU_FAN
+CPU_OPT
+SYS_FAN1
+LGA1700
+ATX
+SPDIF_O
+AUDIO
+BAT
+ATX_12V_2X4
+F_U32
+F_U32C
+U320G
+U32G2
+CODEC
+CLR_CMOS
+M_BIOS
+HDMI
+M2_WIFI jkl
+DP
+USB_LAN
+PCIEX1_1
+PCIEX1_4
+PCIEX1_5
+PCIEX16
+PCIEX1_3
+iTE® 
+Super I/O
+Realtek® 
+GbE LAN
+F_USB2
+QFLASH_
+PLUS
+LED_C1
+F_USB1
+SPI_TPM
+SYS_FAN3_
+PUMP
+COM
+F_AUDIO
+F_PANEL
+D_LED1
+M2A_CPU
+80
+110
+M2P_SB
+80
+CPU
+DRAM
+VGA
+BOOT
+D_LED2
+LED_C2
+SYS_FAN2B
+SYS_FAN2A
+USB 2.0 Hub
+RST_SW
+QFLED
+RST
+Intel® B760
+DDR5_A1
+DDR5_A2
+DDR5_B1
+DDR5_B2
+SATA3
+5 7
+4 6
+B760 DS3H AX j B760 DS3H AX V2 k 
+B760 DS3H AC l B760 DS3H m
+
+- 5 -
+温度感测点
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+p 
+只有B760 DS3H DDR4提供此功能。
+KB_MS_
+USB20
+CPU_FAN
+CPU_OPT
+SYS_FAN1
+LGA1700
+ATX
+SPDIF_O
+AUDIO
+BAT
+ATX_12V_2X4
+F_U32
+F_U32C
+U320G
+U32G2
+CODEC
+CLR_CMOS
+M_BIOS
+HDMI
+DP
+USB_LAN
+PCIEX1_1
+PCIEX1_4
+PCIEX1_5
+PCIEX16
+PCIEX1_3
+iTE® 
+Super I/O
+Realtek® 
+GbE LAN
+F_USB2
+QFLASH_
+PLUS
+LED_C1
+F_USB1
+SPI_TPM
+SYS_FAN3_
+PUMP
+COM
+F_AUDIO
+F_PANEL
+D_LED1
+M2A_CPU
+80
+110
+M2P_SB
+80
+CPU
+DRAM
+VGA
+BOOT
+D_LED2
+LED_C2
+SYS_FAN2B
+SYS_FAN2A
+USB 2.0 Hub
+RST_SW
+QFLED
+RST
+Intel® B760
+DDR4_A1
+DDR4_A2
+DDR4_B1
+DDR4_B2
+SATA3
+5 7
+4 6
+M2_WIFI no
+B760 DS3H AX DDR4 n
+B760 DS3H AC DDR4 o
+B760 DS3H DDR4 p
+
+- 6 -
+1-2 
+清点配件
+ 
+5
+B760 DS3H AX、B760 DS3H AX V2、B760 DS3H AC、B760 DS3H、
+B760 DS3H AX DDR4、B760 DS3H AC DDR4或B760 DS3H DDR4主板- 1片
+ 
+5
+使用手册- 1本
+ 
+5
+天线- 1支jkn
+ 
+5
+天线- 2支lo
+ 
+5
+SATA 排线- 2条
+ 
+5
+M.2螺丝
+ 
+5
+后方I/O设备挡板铁片- 1个
+ 
+5
+M.2厚/薄垫片- 1包jkm
+* 上述附带配件仅供参考，实际配件请以实物为准，技嘉科技保留修改的权利。
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+m 
+只有B760 DS3H提供此功能。
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+
+- 7 -
+第二章 
+硬件安装
+2-1 
+安装前的注意事项
+主板是由许多精密的集成电路及其他元件所构成，这些集成电路很容易因静电影响
+而损坏。所以在安装前请先详细阅读此使用手册并做好下列准备：
+ • 安装前请确认所使用的机箱尺寸与主板相符。
+ • 安装前请勿任意撕毁主板上的序列号及代理商保修贴纸等，否则会影响到产品
+保修期限的认定标准。
+ • 要安装或移除主板以及其他硬件设备之前请务必先关闭电源，并且将电源线自
+插座中拔除。
+ • 安装其他硬件设备至主板内的插座时，请确认接口和插座已紧密结合。
+ • 拿取主板时请尽量不要触碰金属接线部份以避免线路发生短路。
+ • 拿取主板、中央处理器(CPU)或内存条时，最好戴上防静电手环。若无防静电手
+环，请确保双手干燥，并先碰触金属物以消除静电。
+ • 主板在未安装之前，请先置放在防静电垫或防静电袋内。
+ • 当您要连接或拔除主板电源插座上的插头时，请确认电源供应器是关闭的。
+ • 在开启电源前请确定电源供应器的电压值是设置在所在区域的电压标准值。
+ • 在开启电源前请确定所有硬件设备的排线及电源线都已正确地连接。 
+ • 请勿让螺丝接触到主板上的线路或零备，避免造成主板损坏或故障。
+ • 请确定没有遗留螺丝或金属制品在主板上或电脑机箱内。
+ • 请勿将电脑主机放置在不平稳处。
+ • 请勿将电脑主机放置在温度过高或潮湿的环境中。
+ • 在安装时若开启电源可能会造成主板、其他设备或您自己本身的伤害。
+ • 如果您对执行安装不熟悉，或使用本产品发生任何技术性问题时，请咨询专业
+的技术人员。
+ • 使用转接器、延长线或电线时，请查阅其安装及接地相关说明。
+
+- 8 -
+2-2 
+产品规格
+中央处理器
+(CPU)
+ 
+
+LGA1700插槽，支持第十四代、第十三代及第十二代Intel® Core™、Pentium® 
+Gold 及 Celeron®处理器
+(请至技嘉网站查询有关支持的处理器列表)
+ 
+
+L3高速缓存取决于CPU
+芯片组
+ 
+
+Intel® B760高速芯片组
+内存
+ 
+
+第十四代、第十三代Intel® Core™ i9/i7处理器：
+- 
+支持DDR5 5600/5200/4800/4400 MT/s jklm
+ 
+第十三代Intel® Core™ i5/i3及第十二代Intel® Core™、Pentium® Gold 及 Celeron®
+处理器：
+- 
+支持DDR5 4800/4400 MT/s jklm
+ 
+
+支持DDR4 3200/3000/2933/2666/2400/2133 MT/s nop
+ 
+4个DDR5 DIMM插槽，可支持高达256 GB (单一插槽支持64 GB容量) jklm
+ 
+4个DDR4 DIMM插槽，可支持高达128 GB (单一插槽支持32 GB容量) nop
+ 
+
+支持双通道内存技术
+ 
+
+支持ECC Un-buffered DIMM 1Rx8/2Rx8内存(non-ECC模式运行)
+ 
+
+支持non-ECC Un-buffered DIMM 1Rx8/2Rx8/1Rx16内存
+ 
+
+支持Extreme Memory Profile (XMP)内存
+(CPU和内存的配置可能会影响支持的内存类型、速度和DRAM模块数量，
+请至技嘉网站查询内存条支持列表。)
+显示功能
+ 
+
+基于有显示功能的处理器-支持Intel® HD Graphics：
+- 
+1个HDMI接口，可支持高达4096x2160@60 Hz的分辨率
+* 支持HDMI 2.1版本及HDCP 2.3。
+** 仅支持兼容于原生HDMI 2.1 TMDS规范的接口。
+- 
+1个DP接口，可支持高达4096x2304@60 Hz的分辨率
+* 支持DP 1.2版本及HDCP 2.3。
+(显示功能所支持的规格将因使用的CPU而有差异。)
+音频
+ 
+
+集成Realtek® 音频芯片
+ 
+
+支持High Definition Audio
+ 
+
+支持2/4/5.1/7.1声道
+*  通过音频软件可以重新定义音频插座功能，若要启动7.1声道音频输出，请
+进入音频软件设置。
+ 
+
+支持S/PDIF输出
+网络
+ 
+
+集成Realtek® GbE网络芯片(1 Gbps/100 Mbps/10 Mbps)
+无线通信模块
+j
+ 
+
+Intel® Wi-Fi 6E AX210 (PCB rev. 1.0)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 160MHz无线通信标准
+ 
+
+Intel® Wi-Fi 6E AX211 (PCB rev. 1.1)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 160MHz无线通信标准
+(实际传输速度将因使用环境及设备而有所差异。)
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+m 
+只有B760 DS3H提供此功能。
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+p 
+只有B760 DS3H DDR4提供此功能。
+
+- 9 -
+无线通信模块
+j
+ 
+
+Realtek® Wi-Fi 6E RTL8852CE (PCB rev. 1.2)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 160MHz无线通信标准
+(实际传输速度将因使用环境及设备而有所差异。)
+无线通信模块
+k
+ 
+
+Realtek® Wi-Fi 6 RTL8851BE
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 80MHz无线通信标准
+(实际传输速度将因使用环境及设备而有所差异。)
+无线通信模块
+l
+ 
+
+Intel® Wireless-AC 9461 (PCB rev. 1.0)
+- 
+WIFI 802.11a, b, g, n, ac，支持2.4/5 GHz无线双频
+- 
+BLUETOOTH 5.1
+- 
+支持11ac 无线通信标准
+ 
+
+Intel® Wireless-AC 9560 (PCB rev. 1.1)
+- 
+WIFI 802.11a, b, g, n, ac，支持2.4/5 GHz无线双频
+- 
+BLUETOOTH 5.1
+- 
+支持11ac 160MHz无线通信标准
+(实际传输速度将因使用环境及设备而有所差异。)
+无线通信模块
+n
+ 
+
+AMD Wi-Fi 6E RZ608 (MT7921K) (PCB rev. 1.0)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.2
+- 
+支持11ax 80MHz无线通信标准
+ 
+
+Intel® Wi-Fi 6E AX210 (PCB rev. 1.1)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 160MHz无线通信标准
+ 
+
+Intel® Wi-Fi 6E AX211 (PCB rev. 1.2)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 160MHz无线通信标准
+ 
+
+Realtek® Wi-Fi 6E RTL8852CE (PCB rev. 1.3)
+- 
+WIFI a, b, g, n, ac, ax，支持2.4/5/6 GHz无线频段
+- 
+BLUETOOTH 5.3
+- 
+支持11ax 160MHz无线通信标准
+(实际传输速度将因使用环境及设备而有所差异。)
+无线通信模块
+o
+ 
+
+Realtek® Wi-Fi RTL8821CE (PCB rev. 1.0)
+- 
+WIFI 802.11a, b, g, n, ac，支持2.4/5 GHz无线双频
+- 
+BLUETOOTH 5.0
+- 
+支持11ac 无线通信标准
+ 
+
+Intel® Wireless-AC 9461 (PCB rev. 1.1)
+- 
+WIFI 802.11a, b, g, n, ac，支持2.4/5 GHz无线双频
+- 
+BLUETOOTH 5.1
+- 
+支持11ac 无线通信标准
+ 
+
+Intel® Wireless-AC 9560 (PCB rev. 1.2)
+- 
+WIFI 802.11a, b, g, n, ac，支持2.4/5 GHz无线双频
+- 
+BLUETOOTH 5.1
+- 
+支持11ac 160MHz无线通信标准
+(实际传输速度将因使用环境及设备而有所差异。)
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+
+- 10 -
+扩展插槽
+ 
+
+基于CPU：
+- 
+ 1个PCI-E x16插槽，支持PCIe 4.0及x16运行规格(PCIEX16)
+*  PCIEX16插槽仅支持显卡或NVMe SSD，若只安装一张显卡时务必安装至
+PCIEX16插槽。
+ 
+
+基于芯片组：
+- 
+ 4个PCI-E x16插槽，支持PCIe 3.0及x1运行规格(PCIEX1_1、 
+PCIEX1_3~PCIEX1_5) 
+存储设备接口
+ 
+
+基于CPU：
+- 
+ 1个M.2插槽(支持Socket 3，M key，type 22110/2280 PCIe 4.0 x4/x2 SSD) 
+(M2A_CPU)
+ 
+
+基于芯片组：
+- 
+ 1个M.2插槽(支持Socket 3，M key，type 2280 PCIe 4.0 x4/x2 SSD) 
+(M2P_SB)
+- 
+4个SATA 3.0接口
+ 
+
+SATA硬盘支持构建RAID 0、RAID 1、RAID 5及RAID 10
+USB
+ 
+
+基于芯片组：
+- 
+1个USB Type-C®接口在后窗IO，支持USB 3.2 Gen 2x2
+- 
+ 1个USB Type-C®接口，支持USB 3.2 Gen 1，需经由排线从主板内
+USB插座接出
+- 
+1个USB 3.2 Gen 2 Type-A接口(红色)在后窗IO
+- 
+2个USB 3.2 Gen 1接口，需经由排线从主板内USB插座接出
+- 
+4个USB 2.0/1.1接口在后窗IO
+ 
+
+基于芯片组+USB 2.0 Hub：
+- 
+4个USB 2.0/1.1接口，需经由排线从主板内USB插座接出
+内接插座
+ 
+
+1个24 PIN 主板供电插座
+ 
+
+1个8 PIN CPU 供电插座
+ 
+
+1个CPU风扇插座
+ 
+
+1个CPU风扇/水泵插座
+ 
+
+3个系统风扇插座
+ 
+
+1个系统风扇/水泵插座
+ 
+
+2个可编程LED灯带电源插座
+ 
+
+2个RGB LED灯带电源插座
+ 
+
+2个M.2 SSD 插槽
+ 
+
+4个SATA 3.0接口
+ 
+
+1个主板跳线插座
+ 
+
+1个前置音频插座
+ 
+
+1个S/PDIF输出插座
+ 
+
+1个USB Type-C®插座，支持USB 3.2 Gen 1
+ 
+
+1个USB 3.2 Gen 1插座
+ 
+
+2个USB 2.0/1.1插座
+ 
+
+ 1个安全加密模块插座(限搭配GC-TPM2.0 SPI/GC-TPM2.0 SPI 2.0/
+GC-TPM2.0 SPI V2使用)
+ 
+
+1个COM插座
+ 
+
+1个Q-Flash Plus按钮
+ 
+
+1个系统重置按钮
+ 
+
+1个系统重置针脚
+ 
+
+1个清除CMOS数据针脚
+
+- 11 -
+后窗IO设备
+连接接口
+ 
+
+1个PS/2键盘/鼠标接口
+ 
+
+2个SMA天线接口(2T2R)jlno (1T1R)klo(注一)
+ 
+
+1个USB Type-C®接口，支持USB 3.2 Gen 2x2
+ 
+
+1个USB 3.2 Gen 2 Type-A接口(红色)
+ 
+
+4个USB 2.0/1.1接口
+ 
+
+1个HDMI 接口(注二)
+ 
+
+1个DP接口(注二)
+ 
+
+1个RJ-45网线接口
+ 
+
+3个音频接口
+I/O控制器
+ 
+
+集成iTE® I/O 控制芯片
+硬件监控
+ 
+
+电压检测
+ 
+
+温度检测
+ 
+
+风扇转速检测
+ 
+
+水冷系统流速检测
+ 
+
+风扇故障警告
+ 
+
+智能风扇控制
+*  是否支持智能风扇(水泵)控制功能会依不同的散热风扇(水泵)而定。
+BIOS
+ 
+
+1个128 Mbit ﬂash
+ 
+
+使用经授权AMI UEFI BIOS
+ 
+
+PnP 1.0a、DMI 2.7、WfM 2.0、SM BIOS 2.7、ACPI 5.0
+附加工具程序
+ 
+
+支持GIGABYTE Control Center (GCC)
+*  GCC支持的程序会因不同主板而有所差异；各程序所支持的功能也会依
+主板的规格而不同。
+ 
+
+支持Q-Flash
+ 
+
+支持Q-Flash Plus
+ 
+
+支持Smart Backup
+附赠软件
+ 
+
+Norton® Internet Security (OEM版本)
+ 
+
+LAN bandwidth management software
+操作系统
+ 
+
+支持Windows 11 64-bit
+ 
+
+支持Windows 10 64-bit
+规格
+ 
+
+ATX规格；30.5cmx 24.4cm
+*  产品规格或相关信息技嘉保留修改的权利，有任何修改或变更时，恕不另行通知。
+ 
+&
+请至技嘉网站「支持\工具程序」页面下载最新的工具程序。
+https://www.gigabyte.cn/Support/Utility/Motherboard?m=ut
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+(注一) 
+只有Realtek® Wi-Fi 6 RTL8851BE、Intel® Wireless-AC 9461及Realtek® Wi-Fi RTL8821CE提供此功能。
+(注二) 
+是否支持此规格依CPU而定。
+
+- 12 -
+2-3 
+安装中央处理器及散热风扇
+在开始安装中央处理器(CPU)前，请注意以下的信息：
+ • 请确认所使用的CPU是在此主板的支持范围。
+(请至技嘉网站查询有关支持的CPU列表)
+ • 安装CPU之前，请务必将电源关闭，以免造成损毁。
+ • 请确认CPU的第一针脚位置，若方向错误，CPU会无法放入CPU插槽内(或是确认CPU
+两侧的凹角位置及CPU插槽上的凸角位置)。
+ • 请在CPU表面涂抹散热膏。
+ • 在CPU散热风扇未安装完成前，切勿启动电脑，否则过热会导致CPU的损毁。
+ • 请依据您的CPU规格来设置频率，我们不建议您将系统速度设置超过硬件的标准范
+围，因为这些设置对于集成外设而言并非标准规格。如果您要将系统速度设置超出
+标准规格，请评估您的硬件规格，例如：CPU、显卡、内存、硬盘等来设置。
+A. 确认中央处理器方向
+请务必确认主板上的CPU插槽凸角位置及CPU的凹角位置。
+凸角
+凸角
+LGA1700 CPU 插槽
+三角形为插槽
+第一针脚位置
+凹角
+凹角
+LGA1700 CPU
+三角形为CPU
+第一针脚位置
+在安装CPU前请勿先移除保护盖，此保护盖会在安装完CPU且将金属上盖盖回时自动
+脱落。
+ 
+&
+请至技嘉网站查询更详尽的硬件安装说明。
+https://www.gigabyte.cn/WebPage/210/quick-guide.html?m=sw
+
+- 13 -
+B. 安装中央处理器
+请依下列步骤将CPU 正确地安装于主板的CPU 插槽内。
+w
+u
+CPU未正确置入CPU插槽时，切勿强行将CPU插槽拉杆下压扣住，以免造成CPU及插槽
+的损毁。
+v
+j
+将CPU插槽拉杆微下压后向外推开。
+k
+将CPU插槽拉杆向上完全拉起。
+l
+以手指扶住金属上盖的侧边卡钩，
+将CPU插槽金属上盖向上掀开，同
+时金属上盖的塑胶保护盖也会一
+起翻起。
+以手指抓取CPU两侧，确认CPU的第
+一针脚位置(三角形标示)对齐CPU插
+槽上的第一针脚缺角处(或是将CPU上
+的凹角对齐插槽上的凸角)轻轻放入。
+确定CPU安装正确后，将金属上盖盖
+回，塑胶保护盖会自动掉落，将其移
+除即可。接着将拉杆向下压回扣住即
+可完成安装。
+*为保护CPU插槽，没有安装CPU时，请
+将塑胶保护盖盖回金属上盖。
+j
+k
+l
+侧边卡钩
+第一针脚
+j
+k
+l
+
+- 14 -
+C. 安装散热风扇
+CPU 安装完成后务必安装散热风扇。( 实际散热风扇安装步骤请依您所使用的散热风扇为准。
+请参考您所要安装的散热风扇所附的使用手册。)
+u
+v
+在已安装完成的CPU上均匀涂抹一层
+适量的散热膏。
+将散热风扇的四个插销对准主板上
+的四个CPU散热风扇脚座孔位，就定
+位时请同时将斜对角的两个插销用
+力向下压。
+j
+j
+k
+k
+w
+最后将散热风扇的电源线插入主板上
+的CPU散热风扇电源插座(CPU_FAN)，
+即完成CPU散热风扇的安装。
+CPU_FAN
+
+- 15 -
+2-4 
+安装内存条
+在开始安装内存条前，请注意以下的信息：
+ • 请确认所使用的内存条规格是在此主板的支持范围，建议您使用相同容量、厂牌、速
+度、颗粒的内存条。(请至技嘉网站查询有关支持的内存条速度及列表)
+ • 在安装内存条之前，请务必将电源关闭，以免造成损毁。
+ • 内存条有防呆设计，若插入的方向错误，内存条就无法安装，此时请立刻更改插入
+方向。
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+m 
+只有B760 DS3H提供此功能。
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+p 
+只有B760 DS3H DDR4提供此功能。
+※ 启动双通道内存建议组合：
+DDR5_A1jklm
+DDR4_A1nop
+DDR5_A2jklm
+DDR4_A2nop
+DDR5_B1jklm
+DDR4_B1nop
+DDR5_B2jklm
+DDR4_B2nop
+1支内存条
+- -
+a
+- -
+- -
+1支内存条
+- -
+- -
+- -
+a
+2支内存条*
+- -
+a
+- -
+a
+4支内存条*
+a
+a
+a
+a
+(a：安装内存条，- -：没有安装内存条)
+( * ：启动双通道内存条建议组合)
+双通道内存技术
+此主板配置4个内存条插槽并支持双通道内存技术(Dual Channel Technology)。安装内存条后，BIOS
+会自动检测内存的规格及其容量。当使用双通道内存时，内存前端总线的带宽会增加为原来
+的两倍。
+4个内存条插槽分为两组通道(Channel)：
+ 
+通道A (Channel A)：DDR5_A1jklm/DDR4_A1nop，DDR5_A2jklm/DDR4_A2nop
+ 
+通道B (Channel B)：DDR5_B1jklm/DDR4_B1nop，DDR5_B2jklm/DDR4_B2nop
+由于CPU的限制，若要使用双通道内存技术，在安装内存条时需注意以下说明：
+1. 如果只安装一支内存条，无法启动双通道内存技术。
+2. 如果要安装两支或四支内存条，建议您使用相同的内存条(即相同容量、厂牌、速度、颗粒)。
+DDR5_A1jklm/DDR4_A1nop
+DDR5_A2jklm/DDR4_A2nop
+DDR5_B1jklm/DDR4_B1nop
+DDR5_B2jklm/DDR4_B2nop
+
+- 16 -
+2-5 
+安装扩展卡
+在开始安装扩展卡前，请注意以下的信息：
+ • 请确认所使用的扩展卡规格是在此主板的支持范围，并请详细阅读扩展卡的使用
+手册。
+ • 在安装扩展卡之前，请务必将电源关闭，以免造成损毁。
+请依下列步骤将扩展卡正确地安装于主板的扩展卡插槽内：
+1. 先找到正确规格的扩展卡插槽，再移除电脑机箱背面、插槽旁的金属挡板。
+2. 将扩展卡对齐插槽，垂直地向下压入插槽内。
+3. 请确定扩展卡的金手指已完全插入插槽内。
+4. 将扩展卡的金属挡板以螺丝固定于机箱内。
+5. 安装完所有的扩展卡后，再将电脑机箱盖上。
+6. 开启电源，若有必要请至BIOS中设置各扩展卡相关的设置。
+7. 在操作系统中安装扩展卡所附的驱动程序。
+PCIEX16插槽
+
+- 17 -
+USB 2.0/1.1接口(Q-Flash Plus接口)
+此接口支持USB 2.0/1.1规格，您可以连接USB设备至此接口。执行Q-Flash Plus (注一)时，请将
+U盘连接至此接口。
+USB 2.0/1.1接口
+此接口支持USB 2.0/1.1规格，您可以连接USB设备至此接口。
+PS/2 键盘/鼠标接口
+连接PS/2键盘或鼠标至此接口。
+SMA天线接口(2T2R)jlno /(1T1R)klo(注二)
+连接天线至此接口。
+2-6 
+后方设备接口介绍
+HDMI接口(注三)
+此接口可兼容于HDCP 2.3规格并且支持Dolby TrueHD及DTS HD Master 
+Audio音频信号格式，可支持高达192KHz/24bit 7.1-channel LPCM音频输
+出。您可以连接支持HDMI接口的显示器至此接口。HDMI技术可支持高达4096x2160@60 Hz
+的分辨率，实际所支持的分辨率会依您所使用的显示器而有不同。
+DP接口(注三)
+DP除了可以传送影像及语音数据外，也支持双向式的音频信号传输。DP支持HDCP 2.3内容保
+护技术。您可以连接支持DP接口的显示器至此接口。注：DP技术可支持高达4096x2304@60 Hz
+的分辨率，实际所支持的分辨率会依您所使用的显示器而有不同。
+将天线锁至天线接口，完成安装后将天线调整至收讯良好。
+当您安装HDMI/DP设备后，请将音频播放的预设设备设为HDMI/DP (此选项名称会因
+不同操作系统而有不同)。
+ • 要移除连接于各插座上的连接线时，请先移除设备端的接口，再移除连接至主板端
+的接口。
+ • 移除连接线时，请直接拔出，切勿左右摇晃接口，以免造成接口内的线路短路。
+(注一) 
+若要启动Q-Flash Plus功能，请至技嘉网站查询「产品功能介绍」的说明。
+(注二) 
+只有Realtek® Wi-Fi 6 RTL8851BE、Intel® Wireless-AC 9461及Realtek® Wi-Fi RTL8821CE提供此功能。
+(注三) 
+是否支持此规格依CPU而定。
+jklno
+j 
+只有B760 DS3H AX提供此功能。
+k 
+只有B760 DS3H AX V2提供此功能。
+l 
+只有B760 DS3H AC提供此功能。
+n 
+只有B760 DS3H AX DDR4提供此功能。
+o 
+只有B760 DS3H AC DDR4提供此功能。
+
+- 18 -
+ 
+&
+请至技嘉网站查询音频软件的设置说明。
+https://www.gigabyte.cn/WebPage/697/realtek897-audio.html
+音频输入/后喇叭输出(蓝色)
+此接口为音频输入孔。
+音频输出/前置喇叭输出(绿色)
+此接口为音频输出孔。
+麦克风/中央及重低音输出(粉红色)
+此接口为麦克风连接孔。
+USB 3.2 Gen 2 Type-A接口(红色)
+此接口支持USB 3.2 Gen 2规格，并可兼容于USB 3.2 Gen 1及USB 2.0规格。您可以连接USB
+设备至此接口。
+USB Type-C®接口，支持USB 3.2 Gen 2x2
+此接口支持USB 3.2 Gen 2x2规格且采用可正反插的设计，并可兼容于USB 3.2 Gen 2、USB 3.2 Gen 1
+及USB 2.0规格。您可以连接USB设备至此接口。
+网线接口(RJ-45)
+此网线接口是高速网卡(Gigabit Ethernet)，提供连线至互联网，传输速率每秒可高达1 GB 
+(1 Gbps)。网线接口指示灯说明如下：
+速度指示灯运行指示灯
+网线接口
+速度指示灯：
+灯号状态 
+说明
+亮橘色灯
+传输速率1 Gbps
+亮绿色灯
+传输速率100 Mbps
+灯灭
+传输速率10 Mbps
+运行指示灯：
+灯号状态 
+说明
+闪烁
+传输数据中
+灯灭
+无传输数据
+音频连接孔设置如下：
+接口
+耳机/2 声道
+4 声道
+5.1 声道
+7.1 声道
+音频输入/ 后喇叭输出
+a
+a
+a
+音频输出/ 前置喇叭输出
+a
+a
+a
+a
+麦克风/ 中央及重低音输出
+a
+a
+前方面板音频输出/
+侧喇叭输出
+a
+通过音频软件可以重新定义音频插座功能，若要启动7.1声道音频输出，请进入音
+频软件设置。
+
+- 19 -
+2-7 
+内建按钮及指示灯
+快速按钮
+系统重置按钮方便用户在裸机状态并且要更换系统配备或做系统测试时，快速地重新开机。
+QFLASH_PLUS (Q-Flash Plus按钮)
+Q-Flash Plus提供您于系统关机(S5待机模式)状态下更新BIOS，通过连接至特定接口的U盘，
+按下Q-Flash Plus按钮即会启动并载入数据修复。运行时QFLED会开始闪烁(表示开始进行比
+对)，QFLED闪烁停止时代表主BIOS更新结束。
+QFLASH_PLUS
+QFLED
+若要启动Q-Flash Plus功能，请至技嘉网站查询「产品功能介绍」的说明。
+系统重置按钮提供多种功能设置，若要变更为其他功能，请至技嘉网站查询「BIOS程
+序设置」－「RST_SW (MULTIKEY)」的说明。
+RST_SW
+
+- 20 -
+CPU：CPU 状态指示灯
+DRAM：内存状态指示灯
+VGA：显卡状态指示灯
+BOOT：操作系统状态指示灯
+CPU
+DRAM
+VGA
+BOOT
+状态指示灯
+状态指示灯可以显示开机后CPU、内存、显卡及操作系统的状态是否正常。CPU、DRAM及VGA灯
+号亮起时表示设备有异常；BOOT灯号亮起则表示未进入操作系统。
+
+- 21 -
+2-8 
+插座及跳线介绍
+11
+20
+5
+14
+2
+15
+9
+21
+19
+4
+16
+17
+1
+4
+8
+7
+18
+12
+10
+10
+13
+6 7 8
+3
+1)
+ATX_12V_2X4
+2)
+ATX
+3)
+CPU_FAN
+4)
+SYS_FAN1/2A/2B
+5)
+SYS_FAN3_PUMP
+6)
+CPU_OPT
+7)
+D_LED1/D_LED2
+8)
+LED_C1/LED_C2
+9)
+SATA3 4/5/6/7
+10)
+M2A_CPU/M2P_SB
+11)
+F_PANEL
+12)
+F_AUDIO
+13)
+SPDIF_O
+14)
+F_U32C
+15)
+F_U32
+16)
+F_USB1/F_USB2
+17)
+SPI_TPM
+18)
+COM
+19)
+CLR_CMOS
+20)
+RST
+21)
+BAT
+连接各种外接硬件设备时，请注意以下的信息：
+ • 请先确认所使用的硬件设备规格与要连接的插座符合。
+ • 在安装各种设备之前，请务必将设备及电脑的电源关闭，并且将电源线自插座中拔
+除，以免造成设备的损毁。
+ • 安装好设备要开启电源前，请再次确认设备的接口与插座已紧密结合。
+
+- 22 -
+1/2) ATX_12V_2X4/ATX (8 PIN CPU供电插座及24 PIN 主板供电插座)
+ 
+通过电源插座可使电源供应器提供足够且稳定的电源给主板上的所有元件。在插入电源插
+座前，请先确定电源供应器的电源是关闭的，且所有设备都已正确安装。电源插座有防呆设
+计，确认正确的方向后插入即可。
+ 
+12V电源插座主要是提供CPU电源，若没有接上12V电源插座，系统将不会启动。
+为因应扩展需求，建议您使用输出功率大的电源供应器(500瓦或以上)，以供应足够
+的电力需求。若使用电力不足的电源供应器，可能会导致系统不稳或无法开机。
+ATX：
+接脚
+定义
+接脚
+定义
+1
+3.3V
+13
+3.3V
+2
+3.3V
+14
+-12V
+3
+接地脚
+15
+接地脚
+4
++5V
+16
+PS_ON (soft On/Off)
+5
+接地脚
+17
+接地脚
+6
++5V
+18
+接地脚
+7
+接地脚
+19
+接地脚
+8
+Power Good
+20
+无作用
+9
+5VSB (stand by +5V)
+21
++5V
+10
++12V
+22
++5V
+11
++12V ( 仅供24 PIN 的电
+源接口使用)
+23
++5V ( 仅供24 PIN 的电源
+接口使用)
+12
+3.3V ( 仅供24 PIN 的电源
+接口使用)
+24
+接地脚 ( 仅供24 PIN 的
+电源接口使用)
+ATX_12V_2X4：
+接脚
+定义
+1
+接地脚( 仅供8 PIN 的
+电源接口使用)
+2
+接地脚( 仅供8 PIN 的
+电源接口使用)
+3
+接地脚
+4
+接地脚
+5
++12V ( 仅供8 PIN 的电
+源接口使用)
+6
++12V ( 仅供8 PIN 的电
+源接口使用)
+7
++12V
+8
++12V
+ATX_12V_2X4
+4
+1
+8
+5
+13
+1
+24
+12
+ATX
+ATX
+ATX_12V_2X4
+
+- 23 -
+ • SYS_FAN2A/SYS_FAN2B的功能设置是同步的。
+ • 请务必接上散热风扇的电源插座，以避免CPU及系统处于过热的工作环境，若温
+度过高可能导致CPU烧毁或是系统死机。
+ • 这些散热风扇电源插座并非跳线，请勿放置跳帽在针脚上。
+3/4) CPU_FAN/SYS_FAN1/2A/2B (散热风扇插座)
+ 
+此主板的散热风扇插座都为4-pin。这些插座都有防呆设计，安装时请注意方向(黑色线为接
+地线)。若要使用风扇控制功能，须搭配具有转速控制设计的散热风扇才能使用此功能。建
+议您于机箱内加装系统散热风扇，以达到上佳的散热性能。
+CPU_FAN/
+SYS_FAN1
+1
+SYS_FAN2A/
+SYS_FAN2B
+5) SYS_FAN3_PUMP (系统风扇/水泵插座)
+ 
+此风扇/水泵插座为4-pin。此插座有防呆设计，安装时请注意方向(黑色线为接地线)。若要使
+用风扇控制功能，须搭配具有转速控制设计的散热风扇才能使用此功能。建议您于机箱内
+加装系统散热风扇，以达到上佳的散热性能。此插座也可提供水泵调整转速的功能，详细设
+置请至技嘉网站查询「BIOS程序设置」－「Smart Fan 6」的说明。
+接脚
+定义
+1
+接地脚
+2
+电压速度控制脚
+3
+转速检测脚
+4
+脉宽调变速度控制脚
+1
+1
+CPU_FAN/SYS_FAN1/2A：
+接脚
+定义
+1
+接地脚
+2
+电压速度控制脚
+3
+转速检测脚
+4
+脉宽调变速度控制脚
+SYS_FAN2B：
+接脚
+定义
+1
+接地脚
+2
+电压速度控制脚
+3
+无作用
+4
+脉宽调变速度控制脚
+CPU_FAN
+SYS_FAN1
+SYS_FAN2B
+SYS_FAN2A
+SYS_FAN3_PUMP
+
+- 24 -
+6) CPU_OPT (CPU风扇/水泵插座)
+ 
+此风扇/水泵插座为4-pin。此插座有防呆设计，安装时请注意方向(黑色线为接地线)。若要使
+用风扇控制功能，须搭配具有转速控制设计的散热风扇才能使用此功能。
+接脚
+定义
+1
+接地脚
+2
+电压速度控制脚
+3
+转速检测脚
+4
+脉宽调变速度控制脚
+接脚
+定义
+1
+V (5V)
+2
+Data
+3
+无接脚
+4
+接地脚
+插座
+CPU_FAN
+SYS_FAN1/2A/2B
+SYS_FAN3_PUMP
+CPU_OPT
+最大供应电流
+2A
+2A
+2A
+2A
+最大消耗功率
+24W
+24W
+24W
+24W
+1
+7) D_LED1/D_LED2 (可编程LED灯带电源插座)
+ 
+这些插座可连接标准5050可编程LED灯带，最大供电是5安培(5伏特)，LED数目1000颗以内的
+灯带。
+请将可编程LED灯带接至此插座。安装时请将灯带的电源接脚
+(接口上三角形标示)连接至插座的接脚1，不正确安装将会造成
+灯带烧毁。
+可编程LED灯带
+1
+1
+D_LED1
+1
+D_LED2
+CPU_OPT
+D_LED2
+D_LED1
+安装或移除前，请务必将设备及电脑的电源关闭，并且将电源线自插座中拔除，以免
+造成设备的损毁。
+有关灯带的控制功能，请至技嘉网站查询「产品功能介绍」的说明。
+
+- 25 -
+安装或移除前，请务必将设备及电脑的电源关闭，并且将电源线自插座中拔除，以免
+造成设备的损毁。
+有关灯带的控制功能，请至技嘉网站查询「产品功能介绍」的说明。
+8) LED_C1/LED_C2 (RGB LED灯带电源插座)
+ 
+这些插座可连接标准5050 RGB LED灯带(12V/G/R/B)，最大供电是2安培(12伏特)，长度限制
+为2m。
+请将RGB LED灯带接至此插座。安装时请将灯带的电源接脚
+(接口上三角形标示)连接至插座的接脚1 (12V)，不正确安装将会
+造成灯带烧毁。
+接脚
+定义
+1
+12V
+2
+G
+3
+R
+4
+B
+1
+LED_C2
+1
+LED_C1
+9) SATA3 4/5/6/7 (SATA 3.0接口)
+ 
+这些SATA接口支持SATA 3.0规格，并可兼容于SATA 2.0及SATA 1.0规格。一个SATA接口只能
+连接一个SATA设备。通过Intel®芯片组可以构建RAID 0、RAID 1、RAID 5及RAID 10磁盘阵列，
+若您要构建RAID，请至技嘉网站查询「构建磁盘阵列」的说明。
+接脚
+定义
+1
+接地脚
+2
+TXP
+3
+TXN
+4
+接地脚
+5
+RXN
+6
+RXP
+7
+接地脚
+SATA3
+5
+7
+4
+6
+若要启动热插拔功能，请至技嘉网站查询「BIOS程序设置」－「SATA Configuration」
+的说明。
+1
+1
+7
+7
+RGB 
+LED灯带
+1
+12V
+LED_C2
+LED_C1
+SATA3 6/7
+SATA3 4/5
+
+- 26 -
+10) M2A_CPU/M2P_SB (M.2 SSD 插槽)
+ 
+此主板的M.2 SSD 插槽仅支持M.2 PCIe SSD。
+请依下列步骤将M.2 SSD正确地安装于M.2插槽。
+步骤一：
+依实际要安装的M.2 SSD规格找到适合螺丝孔位之后将螺柱移至该孔位锁上，再将M.2 SSD
+以斜角方式放入插座。
+步骤二：
+压住M.2 SSD之后，从随货附赠的M.2螺丝包中找出螺丝将M.2 SSD固定。
+※ 各M.2插槽所支持的SSD类型：
+M.2 PCIe x4 SSD
+M.2 PCIe x2 SSD
+M.2 SATA SSD
+M2A_CPU
+a
+a
+r
+M2P_SB
+a
+a
+r
+80
+110
+60
+42
+M2A_CPU
+80
+110
+60
+42
+M2P_SB
+M2P_SB
+M2A_CPU
+ • 安装M.2垫片(仅适用于未安装导热片的M.2插槽)：
+ 
+a. 使用双面M.2 SSD时，请将厚垫片黏贴至如下图建议位置内。
+ 
+b. 使用单面M.2 SSD时，则请先将薄垫片和厚垫片相黏，再将其黏贴至下图建议位置内。
+垫片黏贴需避开主板上的芯片或IC零件。
+厚垫片(黑色)
+薄垫片(灰色)
+垫片黏贴建议位置
+80
+
+- 27 -
+电脑机箱的前方控制面板设计会因不同机箱而有不同，主要包括电源开关、系统重置
+开关、电源指示灯、硬盘动作指示灯、喇叭等，请依机箱上的信号线连接。
+11) F_PANEL (主板跳线插座)
+ 
+电脑机箱的电源开关、系统重置开关、喇叭、机箱被开启检测开关/感应器及系统运行指示
+灯等可以接至此插座。请依据下列的针脚定义连接，连接时请注意针脚的正负(+/-)极。
+ • PW－电源开关：
+ 
+连接至电脑机箱前方面板的主电源开关键。您可以在BIOS程序中设置此按键的关机方式
+(请至技嘉网站查询「BIOS程序设置」－「Soft-Off by PWR-BTTN」的说明)。
+ • SPEAK－喇叭针脚：
+ 
+连接至电脑机箱前方面板的喇叭。系统会以不同的哔声来反应目前的开机状况，通常正
+常开机时，会有一哔声。
+ • HD－硬盘动作指示灯：
+ 
+连接至电脑机箱前方面板的硬盘动作指示灯。当硬盘有存取动作时指示灯即会亮起。
+ • RES－系统重置开关：
+ 
+连接至电脑机箱前方面板的重置开关(Reset)键。在系统死机而无法正常重新开机时，可
+以按下重置开关键来重新启动系统。
+ • CI－电脑机箱被开启检测针脚：
+ 
+连接至电脑机箱的机箱被开启检测开关/感应器，以检测机箱是否曾被开启。若要使用此
+功能，需搭配具有此设计的电脑机箱。
+ • NC：无作用。
+ • PLED/PWR_LED－电源指示灯：
+连接至机箱前方面板的电源指示灯。当系统正在运行时，指示灯
+为持续亮着；系统进入休眠模式(S3/S4)及关机(S5)时，则为熄灭。
+系统状态
+灯号
+S0
+灯亮
+S3/S4/S5
+灯灭
+电源指示灯
+1
+2
+19
+20
+CI-
+CI+
+PWR_LED-
+PWR_LED+
+PLED-
+PW-
+SPEAK+
+SPEAK-
+PLED+
+PW+
+电源指示灯
+HD-
+RES+
+HD+
+RES-
+硬盘动作
+指示灯
+系统重
+置开关机箱被开启
+检测针脚
+电源开关
+喇叭针脚
+PWR_LED-
+NC
+NC
+F_PANEL
+
+- 28 -
+12) F_AUDIO (前置音频插座)
+ 
+此前置音频插座支持HD (High Definition，高保真)。您可以连接机箱前方面板的音频模块至
+此插座，安装前请先确认音频模块的接脚定义是否与插座吻合，若安装不当可能造成设备
+无法使用甚至损毁。
+13) SPDIF_O (S/PDIF输出插座)
+ 
+此插座提供输出S/PDIF数字信号的功能，可通过数字音频信号连接线将数字音频信号由主
+板端输出至支持的音频设备。关于如何连接您的数字音频信号连接线，请详细阅读音频设
+备的使用手册。
+接脚
+定义
+1
+MIC L
+2
+接地脚
+3
+MIC R
+4
+无作用
+5
+Head Phone R
+6
+麦克风检测
+7
+SENSE_SEND
+8
+无接脚
+9
+Head Phone L
+10
+耳机检测
+接脚
+定义
+1
+5VDUAL
+2
+无接脚
+3
+SPDIFO
+4
+接地脚
+9
+1
+10
+2
+有部份市售机箱的前方音频连接线并非模块化，而各机箱的音频连接线定义或有不
+同，如何连接请咨询机箱制造商。
+1
+F_AUDIO
+SPDIF_O
+
+- 29 -
+15) F_U32 (USB 3.2 Gen 1接口扩展插座)
+ 
+此插座支持USB 3.2 Gen 1/USB 2.0规格，一个插座可以接出两个USB接口。若要选购内含2个
+USB 3.2 Gen 1接口的3.5英寸前置扩展面板，您可以联系当地代理商购买。
+接脚
+定义
+接脚
+定义
+1
+VBUS
+11
+D2+
+2
+SSRX1-
+12
+D2-
+3
+SSRX1+
+13
+接地脚
+4
+接地脚
+14
+SSTX2+
+5
+SSTX1-
+15
+SSTX2-
+6
+SSTX1+
+16
+接地脚
+7
+接地脚
+17
+SSRX2+
+8
+D1-
+18
+SSRX2-
+9
+D1+
+19
+VBUS
+10
+无作用
+20
+无接脚
+20
+1
+10
+11
+14) F_U32C (USB Type-C®接口扩展插座，支持USB 3.2 Gen 1)
+ 
+此插座支持USB 3.2 Gen 1规格并可接出一个USB接口。
+接脚
+定义
+接脚
+定义
+1
+VBUS
+11
+VBUS
+2
+TX1+
+12
+TX2+
+3
+TX1-
+13
+TX2-
+4
+接地脚
+14
+接地脚
+5
+RX1+
+15
+RX2+
+6
+RX1-
+16
+RX2-
+7
+VBUS
+17
+接地脚
+8
+CC1
+18
+D-
+9
+SBU1
+19
+D+
+10
+SBU2
+20
+CC2
+20
+10
+11
+1
+F_U32C
+F_U32
+
+- 30 -
+接脚
+定义
+1
+Data Output
+2
+电源(3.3V)
+3
+无接脚
+4
+无作用
+5
+Data Input
+6
+CLK
+7
+Chip Select
+8
+接地脚
+9
+IRQ
+10
+无作用
+11
+无作用
+12
+RST
+17) SPI_TPM (安全加密模块连接插座)
+ 
+您可以连接SPI介面的TPM (Trusted Platform Module)安全加密模块至此插座。
+12
+11
+2
+1
+16) F_USB1/F_USB2 (USB 2.0/1.1接口扩展插座)
+ 
+这些插座支持USB 2.0/1.1规格，通过USB扩展挡板，一个插座可以接出两个USB接口。USB扩
+展挡板为选购配件，您可以联系当地代理商购买。
+接脚
+定义
+1
+电源 (5V)
+2
+电源 (5V)
+3
+USB DX-
+4
+USB DY-
+5
+USB DX+
+6
+USB DY+
+7
+接地脚
+8
+接地脚
+9
+无接脚
+10
+无作用
+10
+9
+2
+1
+连接USB扩展挡板前，请务必将电脑的电源关闭，并且将电源线自插座中拔除，以免
+造成USB扩展挡板的损毁。
+F_USB1
+F_USB2
+SPI_TPM
+
+- 31 -
+18) COM (板载COM扩展插座)
+ 
+通过板载COM扩展挡板可以接出一组板载COM。板载COM扩展挡板为选购配件，您可以联
+系当地代理商购买。
+接脚
+定义
+1
+NDCD-
+2
+NSIN
+3
+NSOUT
+4
+NDTR-
+5
+接地脚
+6
+NDSR-
+7
+NRTS-
+8
+NCTS-
+9
+NRI-
+10
+无接脚
+10
+9
+2
+1
+19) CLR_CMOS (清除CMOS数据功能针脚) 
+ 
+利用此针脚可以将主板的BIOS设置数据清除，回到出厂设置值。如果您要清除CMOS数据
+时，请使用如螺丝起子之类的金属物同时触碰两支针脚数秒钟。
+ • 清除CMOS数据前，请务必关闭电脑的电源并拔除电源线。
+ • 开机后请进入BIOS载入出厂预设值(Load Optimized Defaults)或自行输入设置值(请至
+技嘉网站查询「BIOS程序设置」的说明)。
+开路：一般运行
+短路：清除CMOS 数据
+COM
+CLR_CMOS
+
+- 32 -
+20) RST (系统重置针脚) 
+ 
+系统重置针脚可以连接至电脑机箱前方面板的重置开关(Reset)键，在系统死机而无法正常
+重新开机时，可以按下重置开关键来重新启动系统。
+系统重置针脚提供多种功能设置，若要变更为其他功能，请至技嘉网站查询「BIOS
+程序设置」－「RST_SW (MULTIKEY)」的说明。
+1
+接脚
+定义
+1
+重置
+2
+接地脚
+21) BAT (电池)
+ 
+此电池提供电脑系统于关闭电源后仍能存储CMOS数据(例如：日期及BIOS设置)所需的电力，
+当此电池的电力不足时，会造成CMOS的数据错误或遗失，因此当电池电力不足时必须更换。
+您也可以利用拔除电池来清除CMOS数据：
+1. 请先关闭电脑，并拔除电源线。
+2. 小心地将电池从电池座中取出，等候约一分钟。(或是使用
+如螺丝起子之类的金属物触碰电池座的正负极，造成其短
+路约五秒钟) 
+3. 再将电池装回。
+4. 接上电源线并重新开机。
+ • 更换电池前，请务必关闭电脑的电源并拔除电源线。
+ • 更换电池时请更换相同型号的电池，不正确的型号可能引起配备的损毁。
+ • 若无法自行更换电池或不确定电池型号时，请联系购买店家或代理商。
+ • 安装电池时，请注意电池上的正(+)负(-)极(正极须向上)。
+ • 更换下来的旧电池须依当地法规处理。
+RST
+BAT
+
+- 33 -
+BIOS (Basic Input and Output System，基本输入输出系统)经由主板上的CMOS芯片，记录着系统各
+项硬件设备的设置参数。主要功能为开机自我测试(POST，Power-On Self-Test)、保存系统设置
+值及载入操作系统等。BIOS包含了BIOS设置程序，供用户依照需求自行设置系统参数，使电脑
+正常工作或执行特定的功能。
+存储CMOS数据所需的电力由主板上的锂电池供应，因此当系统电源关闭时，这些数据并不会
+遗失，当下次再开启电源时，系统便能读取这些设置数据。
+若要进入BIOS设置程序，电源开启后，BIOS在进行POST时，按下<Delete>键便可进入BIOS设置
+程序主画面。
+当您需要更新BIOS，可以使用技嘉的BIOS更新方法：Q-Flash或Q-Flash Plus。
+ • Q-Flash 是可在BIOS设置程序内更新BIOS的软件，让用户不需进入操作系统，就可以轻松
+的更新或备份BIOS。
+ • Q-Flash Plus 提供您于系统关机(S5待机模式)状态下更新BIOS，通过连接至特定接口的U盘，
+按下Q-Flash Plus按钮即会启动并载入数据修复。
+要了解Q-Flash及Q-Flash Plus的详细使用方法，请至技嘉网站查询「产品功能介绍」－「BIOS更
+新方法介绍」的说明。
+第三章 
+BIOS 程序设置
+ • 更新BIOS有其潜在的风险，如果您使用目前版本的BIOS没有问题，我们建议您不要
+任意更新BIOS。如需更新BIOS，请小心的执行，以避免不当的操作而造成系统损毁。
+ • 我们不建议您随意变更BIOS设置程序的设置值，因为可能因此造成系统不稳定或其
+它不可预期的结果。如果因设置错误造成系统不稳定或不开机时，请试着清除CMOS
+设置值数据，将BIOS设置恢复至出厂预设值。
+ • 清除CMOS设置值，请参考第二章－「电池」或「CLR_CMOS针脚」的说明，或请至技
+嘉网站查询「BIOS程序设置」－「Load Optimized Defaults」的说明。
+ 
+&
+请至技嘉网站查询更详尽的BIOS 程序设置说明。
+https://www.gigabyte.cn/WebPage/928/intel700-bios.html
+
+- 34 -
+开机画面：
+功能键说明：
+<DEL>：BIOS SETUP\Q-FLASH
+ 
+按<Delete> 键进入BIOS 设置程序主画面，或通过BIOS 设置程序进入Q-Flash。
+<F12>：BOOT MENU
+ 
+Boot Menu 功能让您不需进入BIOS 设置程序就能设置优先开机设备。使用<h> 或<i> 键
+选择要作为优先开机的设备，然后按<Enter> 键确认。系统会直接由所设置的设备开机。
+ 
+注意：在此画面所做的设置只适用于该次开机。重新开机后系统仍会以在BIOS 设置程序
+内的开机顺序设置为主。
+<END>：Q-FLASH
+ 
+按<End> 键让您不需进入BIOS 设置程序就能直接进入Q-Flash。
+电源开启后，会看到如以下的开机Logo画面：
+功能键
+
+- 35 -
+第四章 
+安装操作系统及驱动程序
+4-1 
+操作系统安装
+完成BIOS的设置后，您可以开始安装操作系统。
+若您要安装操作系统在磁盘阵列硬盘上，需先安装Intel® RST VMD Controller驱动程序，请参考
+下列步骤：
+步骤一：
+请至技嘉网站，搜索至此主板型号的产品页，在「支持与下载\下载\SATA RAID/AHCI」页面下载
+Intel SATA Preinstall driver程序，将其解压缩并复制到U盘。
+ 
+步骤二：
+由操作系统的光盘开机并执行安装操作系统的步骤，当载入驱动程序的画面出现时，请选择
+「浏览」。
+步骤三：
+选择U盘，进入驱动程序的文件夹后，当出现下图的画面后请选择「Intel RST VMD Controller」驱动
+程序并按「下一步」载入所需的驱动程序。完成后，请继续操作系统的安装。
+
+- 36 -
+安装前，请务必确认系统已连接至互联网。
+ 
+&
+请至技嘉网站查询更多的软件介绍。
+https://www.gigabyte.cn/WebPage/926/intel700-app.html
+ 
+&
+请至技嘉网站查询更多的疑难排解说明。
+https://www.gigabyte.cn/WebPage/351/faq.html
+4-2 
+驱动程序安装
+操作系统安装完成后，在桌面右下角会出现询问是否要通过GIGABYTE Control Center (GCC，技
+嘉控制中心)下载并安装驱动程序及技嘉工具程序对话框，请按「安装」键进行安装。(请先确
+认「BIOS程序设置」中「Settings\IO Ports\Gigabyte Utilities Downloader Configuration\Gigabyte Utilities 
+Downloader」的设置为「Enabled」)。
+当确认是否同意「EULA (用户授权协议)」信息出现时，请按「同意」安装GIGABYTE Control 
+Center (GCC)。在GIGABYTE CONTROL CENTER对话框中勾选要安装的驱动程序及工具程序后，
+按下「安装」键即可进行安装。
+
+- 37 -
+第五章 
+附录
+5-1 
+构建磁盘阵列
+RAID简介：
+RAID 0
+RAID 1
+RAID 5
+RAID 10
+硬盘数目
+≥2
+2
+≥3
+4
+总容量
+硬盘数目*容量最
+小的硬盘
+容量最小的硬盘
+(硬盘数目-1)*容量
+最小的硬盘
+(硬盘数目/2)*容量
+最小的硬盘
+纠错功能
+No
+Yes
+Yes
+Yes
+事前准备：
+此主板支持SATA RAID 0、RAID 1、RAID 5及RAID 10，构建磁盘阵列前请依照上表准备所需的硬
+盘数量。
+ • SATA硬盘或SSD，为达到上佳的性能，请使用相同型号及相同容量的硬盘。
+ • Windows 操作系统的安装光盘。
+ • 可上网的电脑。
+ • U盘。
+ 
+&
+请至技嘉网站查询更详尽的RAID设置说明。
+https://www.gigabyte.cn/WebPage/927/intel700-raid.html
+Intel® B760系列不支持NVMe SSD构建RAID 0、RAID 1、RAID 5及RAID 10。
+
+- 38 -
+Antenna use:
+In order to comply with FCC RF exposure limits, low gain integrated 
+antennas should be located at a minimum distance of 7.9 inches (20 cm) 
+or more from the body of all persons.
+Explosive Device Proximity Warning
+Warning: Do not operate a portable transmitter (such as a wireless network 
+device) near unshielded blasting caps or in an explosive environment 
+unless the device has been modified to be qualified for such use.
+Antenna Warning
+The wireless adapter is not designed for use with high-gain antennas.
+Use On Aircraft Caution
+Caution: Regulations of the FCC and FAA prohibit airborne operation of 
+radio-frequency wireless devices because their signals could interfere with 
+critical aircraft instruments.
+Other Wireless Devices
+Safety Notices for Other Devices in the Wireless Network: Refer to the 
+documentation supplied with wireless Ethernet adapters or other devices 
+in the wireless network.
+Canada, Canada-Industry Notice: 
+This device complies with Industry Canada license-exempt RSS 
+standard(s). Operation is subject to the following two conditions: 
+(1) this device may not cause interference, and
+(2) this device must accept any interference, including interference that 
+may cause undesired operation of the device.
+Cet appareil est conforme aux normes Canada d'Industrie de RSS 
+permis-exempt. L'utilisation est assujetti aux deux conditions suivantes: 
+(1) le dispositif ne doit pas produire de brouillage préjudiciable, et 
+(2) ce dispositif doit accepter tout brouillage reçu, y compris un brouillage 
+susceptible de provoquer un fonctionnement indésirable.
+Caution: When using IEEE 802.11a wireless LAN, this product is restricted 
+to indoor use due to its operation in the 5.15-to 5.25-GHz frequency 
+range. Industry Canada requires this product to be used indoors for the 
+frequency range of 5.15 GHz to 5.25 GHz to reduce the potential for 
+harmful interference to co-channel mobile satellite systems. High power 
+radar is allocated as the primary user of the 5.25-to 5.35-GHz and 5.65 to 
+5.85-GHz bands. These radar stations can cause interference with and/or 
+damage to this device. The maximum allowed antenna gain for use with 
+this device is 6dBi in order tocomply with the E.I.R.P limit for the 5.25-to 
+5.35 and 5.725 to 5.85 GHz frequency range in point-to-point operation. To 
+comply with RF exposure requirements all antennas should be located at a 
+minimum distance of 20cm, or the minimum separation distance allowed 
+by the module approval, from the body of all persons.
+Attention: l'utilisation d'un réseau sans fil IEEE802.11a est restreinte à 
+une utilisation en intérieur à cause du fonctionnement dansla bande de 
+fréquence 5.15-5.25 GHz. Industry Canada requiert que ce produit soit utilisé 
+à l'intérieur des bâtiments pour la bande de fréquence 5.15-5.25 GHz afin de 
+réduire les possibilités d'interférences nuisibles aux canaux co-existants des 
+systèmes de transmission satellites. Les radars de puissances ont fait l'objet 
+d'une allocation primaire de fréquences dans les bandes 5.25-5.35 GHz et 
+5.65-5.85 GHz. Ces stations radar peuvent créer des interférences avec ce 
+produit et/ou lui être nuisible. Le gain d'antenne maximum permissible pour 
+une utilisation avec ce produit est de 6 dBi afin d'être conforme aux limites 
+de puissance isotropique rayonnée équivalente (P.I.R.E.) applicable dans les 
+bandes 5.25-5.35 GHz et 5.725-5.85 GHz en fonctionnement point-à-point. 
+Pour se conformer aux conditions d'exposition de RF toutes les antennes 
+devraient être localisées à une distance minimum de 20 cm, ou la distance 
+de séparation minimum permise par l'approbation du module, du corps de 
+toutes les personnes.
+Under Industry Canada regulations, this radio transmitter may only operate 
+using an antenna of a type and maximum (or lesser) gain approved for 
+the transmitter by Industry Canada. To reduce potential radio interference 
+to other users, the antenna type and its gain should be chosen so that 
+the equivalent isotropically radiated power (e.i.r.p.) is not more than that 
+necessary for successful communication.
+Conformément à la réglementation d'Industrie Canada, le présent émetteur 
+radio peut fonctionner avec une antenne d'un type et d'un gain maximal 
+(ou inférieur) approuvé pour l'émetteur par Industrie Canada. Dans le 
+but de réduire les risques de brouillage radio électrique à l'intention des 
+autres utilisateurs, il faut choisir le type d'antenne et son gain de sorte 
+que la puissance isotrope rayonnée équivalente (p.i.r.e.) ne dépasse pas 
+l'intensité nécessaire à l'établissement d'une communication satisfaisante.
+Regulatory Notices
+United States of America, Federal Communications Commission Statement
+The FCC with its action in ET Docket 96-8 has adopted a safety standard for human exposure to radio frequency (RF) electromagnetic energy emitted 
+by FCC certified equipment. The Intel PRO/Wireless 5000 LAN products meet the Human Exposure limits found in OET Bulletin 65, 2001, and ANSI/
+IEEE C95.1, 1992. Proper operation of this radio according to the instructions found in this manual will result in exposure substantially below the FCC's 
+recommended limits.
+The following safety precautions should be observed:
+•• Do not touch or move antenna while the unit is transmitting or receiving.
+•• Do not hold any component containing the radio such that the antenna is very close or touching any exposed parts of the body, especially the face 
+or eyes, while transmitting.
+•• Do not operate the radio or attempt to transmit data unless the antenna is connected; if not, the radio may be damaged.
+•• Use in specific environments:
+-	
+The use of wireless devices in hazardous locations is limited by the constraints posed by the safety directors of such environments.
+-	
+The use of wireless devices on airplanes is governed by the Federal Aviation Administration (FAA).
+-	
+The use of wireless devices in hospitals is restricted to the limits set forth by each hospital.
+Supplier's Declaration of Conformity
+47 CFR § 2.1077 Compliance Information
+Product Name: Motherboard
+Trade Name: GIGABYTE
+Model Number: B760 DS3H AX/B760 DS3H AX V2/B760 DS3H AC/B760 DS3H/B760 DS3H AX DDR4/
+B760 DS3H AC DDR4/B760 DS3H DDR4
+Responsible Party – U.S. Contact Information: G.B.T. Inc. 
+Address: 17358 Railroad street, City Of Industry, CA91748
+Tel.: 1-626-854-9338
+Internet contact information: https://www.gigabyte.com 
+FCC Compliance Statement: 
+This device complies with Part 15 of the FCC Rules, Subpart B, Unintentional Radiators. 
+Operation is subject to the following two conditions: (1) This device may not cause harmful interference, and (2) this 
+device must accept any interference received, including interference that may cause undesired operation.
+
+- 39 -
+European Union (EU) CE Declaration of Conformity
+This device complies with the following directives: Electromagnetic 
+Compatibility Directive 2014/30/EU, Low-voltage Directive 2014/35/EU, 
+Radio Equipment Directive 2014/53/EU, ErP Directive 2009/125/EC, RoHS 
+directive (recast) 2011/65/EU & the 2015/863 Statement.
+This product has been tested and found to comply with all essential 
+requirements of the Directives.
+European Union (EU) RoHS (recast) Directive 2011/65/EU & the 
+European Commission Delegated Directive (EU) 2015/863 Statement
+GIGABYTE products have not intended to add and safe from hazardous 
+substances (Cd, Pb, Hg, Cr+6, PBDE, PBB, DEHP, BBP, DBP and DIBP). 
+The parts and components have been carefully selected to meet RoHS 
+requirement. Moreover, we at GIGABYTE are continuing our efforts to 
+develop products that do not use internationally banned toxic chemicals.
+European Union (EU) Community Waste Electrical & Electronic 
+Equipment (WEEE) Directive Statement
+GIGABYTE will fulfill the national laws as interpreted from the 2012/19/
+EU WEEE (Waste Electrical and Electronic Equipment) (recast) directive. 
+The WEEE Directive specifies the treatment, collection, recycling and 
+disposal of electric and electronic devices and their components. Under 
+the Directive, used equipment must be marked, collected separately, and 
+disposed of properly.
+WEEE Symbol Statement
+The symbol shown below is on the product or on its 
+packaging, which indicates that this product must not be 
+disposed of with other waste. Instead, the device should be 
+taken to the waste collection centers for activation of the 
+treatment, collection, recycling and disposal procedure. 
+For more information about where you can drop off your waste equipment 
+for recycling, please contact your local government office, your household 
+waste disposal service or where you purchased the product for details of 
+environmentally safe recycling.
+Battery Information
+European Union—Disposal and recycling information
+GIGABYTE Recycling Program (available in some regions)
+This symbol indicates that this product and/or battery should not be 
+disposed of with household waste.  You must use the public collection 
+system to return, recycle, or treat them in compliance with the local 
+regulations.
+End of Life Directives-Recycling
+The symbol shown below is on the product or on its packaging, 
+which indicates that this product must not be disposed of with 
+other waste. Instead, the device should be taken to the waste 
+collection centers for activation of the treatment, collection, 
+recycling and disposal procedure.
+Déclaration de Conformité aux Directives de l'Union européenne (UE)
+Cet appareil portant la marque CE est conforme aux directives de l'UE 
+suivantes: directive Compatibilité Electromagnétique 2014/30/UE, directive 
+Basse Tension 2014/35/UE, directive équipements radioélectriques 
+2014/53/UE, la directive RoHS II 2011/65/UE & la déclaration 2015/863.
+La conformité à ces directives est évaluée sur la base des normes 
+européennes harmonisées applicables.
+European Union (EU) CE-Konformitätserklärung
+Dieses Produkte mit CE-Kennzeichnung erfüllen folgenden EU-Richtlinien: 
+EMV-Richtlinie 2014/30/EU, Niederspannungsrichtlinie 2014/35/EU, 
+Funkanlagen Richtlinie 2014/53/EU, RoHS-Richtlinie 2011/65/EU erfüllt 
+und die 2015/863 Erklärung.
+Die Konformität mit diesen Richtlinien wird unter Verwendung der 
+entsprechenden Standards zurEuropäischen Normierung beurteilt.
+CE declaração de conformidade
+Este produto com a marcação CE estão em conformidade com das 
+seguintes Diretivas UE: Diretiva Baixa Tensão 2014/35/EU; Diretiva 
+CEM 2014/30/EU; Diretiva RSP 2011/65/UE e a declaração 2015/863.
+A conformidade com estas diretivas é veriﬁcada utilizando as normas 
+europeias harmonizadas.
+CE Declaración de conformidad
+Este producto que llevan la marca CE cumplen con las siguientes 
+Directivas de la Unión Europea: Directiva EMC 2014/30/EU, Directiva de 
+bajo voltaje 2014/35/EU, Directiva de equipamentos de rádio 2014/53/EU, 
+Directiva RoHS 2011/65/EU y la Declaración 2015/863.
+El cumplimiento de estas directivas se evalúa mediante las normas 
+europeas armonizadas.
+CE Dichiarazione di conformità
+I prodotti con il marchio CE sono conformi con una o più delle seguenti 
+Direttive UE, come applicabile: Direttiva EMC 2014/30/UE, Direttiva sulla 
+bassa tensione 2014/35/UE, Direttiva di apparecchiature radio 2014/53/
+UE, Direttiva RoHS 2011/65/EU e Dichiarazione 2015/863.
+La conformità con tali direttive viene valutata utilizzando gli Standard 
+europei armonizzati applicabili.
+Deklaracja zgodności UE Unii Europejskiej
+Urządzenie jest zgodne z następującymi dyrektywami: Dyrektywa 
+kompatybilności elektromagnetycznej 2014/30/UE, Dyrektywa 
+niskonapięciowej 2014/35/UE, Dyrektywa urządzeń radiowych 2014/53/
+UE, Dyrektywa RoHS 2011/65/UE i dyrektywa2015/863.
+Niniejsze urządzenie zostało poddane testom i stwierdzono jego zgodność 
+z wymaganiami dyrektywy.
+ES Prohlášení o shodě
+Toto zařízení splňuje požadavky Směrnice o Elektromagnetické 
+kompatibilitě 2014/30/EU, Směrnice o Nízkém napětí 2014/35/EU, 
+Směrnice o rádiových zařízeních 2014/53/EU, Směrnice RoHS 2011/65/
+EU a 2015/863.
+Tento produkt byl testován a bylo shledáno, že splňuje všechny základní 
+požadavky směrnic.
+EK megfelelőségi nyilatkozata
+A termék megfelelnek az alábbi irányelvek és szabványok 
+követelményeinek, azok a kiállításidőpontjában érvényes, aktuális 
+változatában: EMC irányelv 2014/30/EU, Kisfeszültségű villamos 
+berendezésekre vonatkozó irányelv 2014/35/EU, rádióberendezések 
+irányelv 2014/53/EU, RoHS irányelv 2011/65/EU és 2015/863.
+Δήλωση συμμόρφωσης ΕΕ
+Είναι σε συμμόρφωση με τις διατάξεις των παρακάτω Οδηγιών 
+της Ευρωπαϊκής Κοινότητας: Οδηγία 2014/30/ΕΕ σχετικά με την 
+ηλεκτρομαγνητική συμβατότητα, Οοδηγία χαμηλή τάση 2014/35/EU, 
+Οδηγία 2014/53/ΕΕ σε ραδιοεξοπλισμό, Οδηγία RoHS 2011/65/ΕΕ 
+και 2015/863.
+Η συμμόρφωση με αυτές τις οδηγίες αξιολογείται χρησιμοποιώντας τα 
+ισχύοντα εναρμονισμένα ευρωπαϊκά πρότυπα.
+ 
+-	 Battery type: CR2032, voltage rating: +3VDC.
+-	 Non-rechargeable batteries are not to be recharged.
+-	 Remove and immediately recycle or dispose of used batteries, batteries 
+from equipment not used for an extended period of time according to local 
+regulations and keep away from children. Do NOT dispose of batteries in 
+household trash or incinerate.
+-	 Even used batteries may cause severe injury or death.
+-	 Do not force discharge, recharge, disassemble, heat above (manufacturer's 
+specified temperature rating) or incinerate. Doing so may result in injury due 
+to venting, leakage or explosion resulting in chemical burns.
+-	 For treatment information, call a local poison control center.
+-	 The product contains non-replaceable batteries.
+WARNING
+••
+INGESTION HAZARD: This product contains a button cell or 
+coin battery.
+••
+DEATH or serious injury can occur if ingested.
+••
+A swallowed button cell or coin battery can cause Internal 
+Chemical Burns in as little as 2 hours.
+••
+KEEP new and used batteries OUT OF REACH of CHILDREN
+••
+Seek immediate medical attention if a battery is suspected to 
+be swallowed or inserted inside any part of the body.
+
+- 40 -
+Wireless module approvals: 
+To identify your Motherboard version or revision number, look for "REV: X.X" printed on the PCB on the top left corner of the Motherboard. 
+For example, "REV:1.0" means the revision of the motherboard is 1.0.
+Motherboard revision no.:
+Wireless module manufacturer, model name:
+Motherboard revision no.:
+Wireless module manufacturer, model name:
+B760 DS3H AX rev. 1.0
+Intel
+® Corporation AX210NGW
+B760 DS3H AX DDR4 rev. 1.0
+AMD Corporation RZ608, MediaTek MT7921K
+B760 DS3H AX rev. 1.1
+Intel
+® Corporation AX211NGW
+B760 DS3H AX DDR4 rev. 1.1
+Intel
+® Corporation AX210NGW
+B760 DS3H AX rev. 1.2
+Realtek Semiconductor Corp. RTL8852CE
+B760 DS3H AX DDR4 rev. 1.2
+Intel
+® Corporation AX211NGW
+B760 DS3H AX V2 rev. 1.0
+Realtek Semiconductor Corp. RTL8851BE
+B760 DS3H AX DDR4 rev. 1.3
+Realtek Semiconductor Corp. RTL8852CE
+B760 DS3H AC rev. 1.0
+Intel
+® Corporation 9461NGW
+B760 DS3H AC DDR4 rev. 1.0
+Realtek Semiconductor Corp. RTL8821CE
+B760 DS3H AC rev. 1.1
+Intel
+® Corporation 9560NGW
+B760 DS3H AC DDR4 rev. 1.1
+Intel
+® Corporation 9461NGW
+B760 DS3H AC DDR4 rev. 1.2
+Intel
+® Corporation 9560NGW
+Approvals for wireless module AX210NGW:
+Approvals for wireless module RTL8851BE:
+NCC Wireless Statements / 無線設備警告聲明：
+低功率電波輻射性電機管理辦法
+(1) 
+取得審驗證明之低功率射頻器材，非經核准，公司、商號或使用者均不得擅自變更頻率、加大功率或變更原設計之
+特性及功能。低功率射頻器材之使用不得影響飛航安全及干擾合法通信；經發現有干擾現象時，應立即停用，並改
+善至無干擾時方得繼續使用。前述合法通信，指依電信管理法規定作業之無線電通信。低功率射頻器材須忍受合法
+通信或工業、科學及醫療用電波輻射性電機設備之干擾。
+(2) 
+應避免影響附近雷達系統之操作。
+Korea KCC NCC Wireless Statement:
+5,25GHz - 5,35 GHz 대역을 사용하는 무선 장치는 실내에서만 사용하도록 제한됩니다.
+Japan Wireless Statement:
+5.15 GHz 帯 ~ 5.35 GHz 帯& 6GHz LPI 帯: 屋内のみの使用。
+European Community Directive R&TTE Directive Compliance Statement:
+This equipment complies with all the requirements and other relevant provisions of Radio Equipment Directive 2014/53/EU.
+The IEEE 802.11 wireless LAN 5.15 GHz–5.35 GHz and/or Wi-Fi 6E Low Power Indoor 5.945 GHz–6.425 GHz (or 5.925 GHz–6.425 GHz in UK) 
+frequency bands are restricted for indoor use only in all countries listed in the matrix below.
+AT
+BE
+BG
+CH
+CY
+CZ
+DE
+DK
+EE
+EL
+ES
+FI
+FR
+HR
+HU
+IE
+IS
+IT
+LI
+LT
+LU
+LV
+MT
+NL
+PL
+PT
+RO
+SE
+SI
+SK
+TR
+UK The Radio Equipment Regulations 2017 Statement:
+This equipment complies with all the requirements and other relevant provisions of Radio Equipment Regulations 2017. 
+The IEEE 802.11 wireless LAN 5.15 GHz–5.35 GHz and/or Wi-Fi 6E Low Power Indoor 5.925 GHz–6.425 GHz frequency bands are restricted for 
+indoor use only.
+UK
+
+- 41 -
+Approvals for wireless module RTL8852CE:
+Approvals for wireless module RTL8821CE:
+Approvals for wireless module RZ608, MT7921K:
+Approvals for wireless module 9461NGW:
+Approvals for wireless module 9560NGW:
+Approvals for wireless module AX211NGW:
+
+- 42 -
+China RoHS Compliance Statement
+中国《废弃电器电子产品回收处理管理条例》提示性说明
+为了更好地关爱及保护地球，当用户不再需要此产品或产品寿命终止时，请遵守国家废弃电器电子产品回收处理相关
+法律法规，将其交给当地具有国家认可的回收处理资质的厂商进行回收处理。
+环保使用期限
+Environment-friendly use period
+此标识指期限(十年)，电子电气产品中含有的有害物质不会发生外泄或突变、电子电气产品用户正常使用
+该电子电气产品不会对环境造成严重污染或对其人身、财产造成严重损害的期限。
+产品中有害物质的名称及含量：
+部件名称
+有害物质
+铅
+(Pb)
+汞
+(Hg)
+镉
+(Cd)
+六价铬
+(Cr+6)
+多溴联苯
+(PBB)
+多溴二苯醚
+(PBDE)
+印刷电路板
+○
+○
+○
+○
+○
+○
+结构件及风扇
+×
+○
+○
+○
+○
+○
+芯片及其他主动零件
+×
+○
+○
+○
+○
+○
+连接器
+×
+○
+○
+○
+○
+○
+被动电子元器件
+×
+○
+○
+○
+○
+○
+外部信号连接口及线材
+×
+○
+○
+○
+○
+○
+焊接金属
+○
+○
+○
+○
+○
+○
+助焊剂，散热膏，标签及其他耗材
+○
+○
+○
+○
+○
+○
+本表格依据 SJ/T 11364 的规定编制。
+○：表示该有害物质在该部件所有均质材料中的含量均在 GB/T 26572 规定的限量要求以下。
+×：表示该有害物质至少在该部件的某一均质材料中的含量超出 GB/T 26572 规定的限量要求。
+
+技嘉主板售后服务及质量保证卡
+ 
+亲爱的用户，感谢您选用技嘉科技的主板产品，选择技嘉——创新科技，美化生活。
+ 
+为了确保您能够充分享有技嘉科技为您提供的完善售后服务支持，请您在购买技嘉科技产品后认真阅
+读本质量保证卡的说明并妥善保存此说明。
+关于技嘉主板售后服务及质量保证卡说明如下：
+1. 
+技嘉科技的主板产品在中华人民共和国境内(不包含港澳台地区)由宁波中嘉科贸有限公司总经销。
+2. 
+ 技嘉科技为主板产品在中华人民共和国境内(不包含港澳台地区)提供3年保修服务，如参加4年质保活动
+的，则按官网注册时间延长保修期。
+3. 
+技嘉主板售后服务及质量保证卡仅适用于在中华人民共和国境内(不包含港澳台地区)通过合法途径购
+买的技嘉主板产品。
+4. 
+根据中华人民共和国部分商品修理更换退货责任规定(三包法)，用户在使用技嘉主板产品过程中，若主
+板产品出现下列情况，技嘉科技将不承担保修义务：
+A. 
+超过有效保修期限的；
+B. 
+未按产品使用手册的要求使用、维护、保管而造成损坏的；
+C. 
+擅自改动、自行维修、组装不当而造成产品损坏的；
+D. 
+使用未经合法认证的软件或扩展部件而造成产品损坏的；
+E. 
+非正常的使用方式或环境造成电路板或部件划伤、扭曲、腐蚀、生锈、氧化、断裂等造成产品损坏的；
+F. 
+人为造成损坏的，如：印刷电路板撞裂、板弯、线路划断、CPU脚座损坏等；
+G. 
+因不可抗力或人为之操作使用不当造成损坏的；
+H. 
+假冒产品和走私品；
+I. 
+产品序列号遗失或被涂改致无法辨认或与实际产品实物不符的；
+J. 
+ 以特殊测试用途为目的，对内存插槽、显卡插槽、USB接口、网口插槽等部件长时间不正当使用造
+成主板损坏的。
+5. 
+技嘉主板产品技术支持服务指导
+ 
+A.   如果您在使用技嘉主板产品过程中遇到问题，可以先通过查阅技嘉官方网站https://www.gigabyte.cn/
+下载用户手册寻找解决方案。
+ 
+B.   您也可拨打技嘉科技主板400技术服务专线400-820-9608，服务时间：星期一到星期五9:00-18:00法定
+节假日除外。（技嘉科技400主板技术服务专线由技嘉科技授权宁波中嘉科贸有限公司设立）。
+6. 
+技嘉主板产品送修服务指导
+ 
+A. 
+当确认您所使用的技嘉主板产品由于硬件故障需要维修服务，在送修前请务必告知您所使用的主
+板产品型号，BIOS版本，搭配的配件配置，详细的故障现象等信息，方便技嘉工程师能够帮助您更
+加准确快速的判断出故障的原因。
+ 
+B. 
+如购买时经销商向您承诺的服务范围大于技嘉提供的服务范围，超出部分的服务，请联系经销商
+以取得详细服务咨询。
+C. 
+产品送修时，请以原厂包装材料或其他适合材料（如纸箱、气泡袋等）包装，送修主板需加置CPU保
+护盖，以免运送途中发生损坏。如是因包装不当导致运送中发生的损坏，技嘉科技将不提供保修。
+随产品的耗材，赠品及包装材料等均不在保修范围内。
+7. 
+申请质保售后服务时请同时出示本质保卡和有效购买凭证。
+8. 
+质量保证卡必须加盖经销商印章方为有效。
+9. 
+申请质保售后服务可联系经销商或技嘉科技授权的其他经销商。
+10. 技嘉科技在法律允许的范围内保留对《技嘉主板售后服务及质量保证卡》增加、删减、修改及解释的所
+有权利，并于技嘉科技官方网站上公告后生效。
+
+- 44 -
+ •
+技嘉科技服务专区 (GIGABYTE eSupport)
+若您有技术或非技术(业务及市场)的相关问题时，欢迎至 https://esupport.gigabyte.com 询问。
+ •
+技术服务联络窗口
+技术服务专线：400-820-9608
+服务时间：星期一~ 星期五：9:00~ 18:00 ( 法定节/ 假日除外) 
+技术咨询网络服务：https://esupport.gigabyte.com
+技嘉官方网址：https://www.gigabyte.cn/

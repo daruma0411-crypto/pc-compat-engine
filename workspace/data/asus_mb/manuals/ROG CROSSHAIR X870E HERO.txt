@@ -1,0 +1,2527 @@
+Carte mère
+ROG 
+CROSSHAIR 
+X870E HERO
+
+2
+F27104
+Cinquième Édition
+Septembre 2025
+Copyright © 2025 ASUSTeK COMPUTER INC. Tous droits réservés.
+Aucun extrait de ce manuel, incluant les produits et logiciels qui y sont décrits, ne peut être reproduit, transmis, 
+transcrit, stocké dans un système de restitution, ou traduit dans quelque langue que ce soit sous quelque forme ou 
+quelque moyen que ce soit, à l'exception de la documentation conservée par l'acheteur dans un but de sauvegarde, 
+sans la permission écrite expresse de ASUSTeK COMPUTER INC. (“ASUS”).
+La garantie sur le produit ou le service ne sera pas prolongée si (1) le produit est réparé, modifié ou altéré, à moins 
+que cette réparation, modification ou altération ne soit autorisée par écrit par ASUS ; ou (2) si le numéro de série 
+du produit est dégradé ou manquant.
+ASUS fournit ce manuel "en l'état" sans garantie d'aucune sorte, explicite ou implicite, y compris, mais non limité 
+aux garanties implicites ou aux conditions de commerciabilité ou d'adéquation à un but particulier. En aucun cas 
+ASUS, ses directeurs, ses cadres, ses employés ou ses agents ne peuvent être tenus responsables des dégâts 
+indirects, spéciaux, accidentels ou consécutifs (y compris les dégâts pour manque à gagner, pertes de profits, 
+perte de jouissance ou de données, interruption professionnelle ou assimilé), même si ASUS a été prévenu de la 
+possibilité de tels dégâts découlant de tout défaut ou erreur dans le présent manuel ou produit.
+Les spécifications et les informations contenues dans ce manuel sont fournies à titre indicatif seulement et sont 
+sujettes à des modifications sans préavis, et ne doivent pas être interprétées comme un engagement de la part 
+d'ASUS. ASUS n'est en aucun cas responsable d'éventuelles erreurs ou inexactitudes présentes dans ce manuel, y 
+compris les produits et les logiciels qui y sont décrits.
+Les noms des produits et des sociétés qui apparaissent dans le présent manuel peuvent être, ou non, des 
+marques commerciales déposées, ou sujets à copyrights pour leurs sociétés respectives, et ne sont utilisés qu'à 
+des fins d'identification ou d'explication, et au seul bénéfice des propriétaires, sans volonté d'infraction.
+
+3
+Table des matières
+Consignes de sécurité.......................................................................................................................4
+À propos de ce manuel......................................................................................................................6
+Résumé des caractéristiques de la ROG CROSSHAIR X870E HERO.............................................8
+Contenu de la boîte..........................................................................................................................14
+Connecteurs avec bande passante partagée................................................................................15
+Chapitre 1 : Introduction au produit
+1.1	
+Avant de commencer......................................................................................................17
+1.2	
+Schéma de la carte mère................................................................................................18
+1.3	
+Connecteurs arrières et audio de la carte mère............................................................34
+1.3.1	
+Connecteurs arrières...................................................................................34
+1.3.2	
+Témoins des ports réseau..........................................................................35
+1.3.3	
+Connexions audio........................................................................................35
+Chapitre 2 : Configuration de base
+2.1	
+Installer le processeur.....................................................................................................39
+2.2	
+Installer un module de mémoire....................................................................................42
+2.3	
+Installer un module M.2..................................................................................................43
+2.4	
+Installer la carte mère......................................................................................................51
+2.5	
+Installation de l'antenne WiFi ASUS Q-Antenna............................................................52
+2.6	
+BIOS FlashBack™.............................................................................................................53
+2.7	
+Démarrer pour la première fois......................................................................................54
+2.8	
+Éteindre l'ordinateur.........................................................................................................54
+Chapitre 3 : BIOS et configurations RAID
+3.1	
+Présentation du BIOS UEFI.............................................................................................55
+3.2	
+ASUS EZ Flash 3..............................................................................................................56
+3.3	
+ASUS CrashFree BIOS 3..................................................................................................57
+3.4	
+Configuration de volumes RAID.....................................................................................58
+Annexes
+Tableau de débogage Q-Code.........................................................................................................59
+Mentions générales.........................................................................................................................63
+Avis concernant le modèle avec Wi-Fi............................................................................................66
+Garantie	 ...........................................................................................................................................68
+Informations de contact ASUS.......................................................................................................69
+Service et assistance.......................................................................................................................69
+Enregistrer le produit........................................................................................................................69
+
+4
+Consignes de sécurité
+Sécurité électrique
+•	
+Pour éviter tout risque de choc électrique, débranchez le câble d'alimentation de la prise 
+électrique avant de toucher au système.
+•	
+Lors de l'ajout ou du retrait de composants, vérifiez que les câbles d'alimentation sont 
+débranchés avant de brancher d'autres câbles. Si possible, déconnectez tous les câbles 
+d'alimentation du système avant d'y installer un périphérique.
+•	
+Avant de connecter ou de déconnecter les câbles de la carte mère, vérifiez que tous les 
+câbles d'alimentation sont bien débranchés.
+•	
+Demandez l'assistance d'un professionnel avant d'utiliser un adaptateur ou une rallonge. Ces 
+appareils risquent d'interrompre le circuit de terre.
+•	
+Vérifiez que votre alimentation fournit une tension électrique adaptée à votre pays. Si vous 
+n'êtes pas certain du type de voltage disponible dans votre région/pays, contactez votre 
+fournisseur électrique local.
+•	
+Si le bloc d'alimentation est endommagé, n'essayez pas de le réparer vous-même. Contactez 
+un technicien qualifié ou votre revendeur.
+Sécurité de fonctionnement
+•	
+Avant d'installer la carte mère et d'y ajouter des périphériques, lisez attentivement tous les 
+manuels fournis.
+•	
+Avant d'utiliser le produit, vérifiez que tous les câbles sont bien branchés et que les câbles 
+d'alimentation ne sont pas endommagés. Si vous relevez le moindre dommage, contactez 
+votre revendeur immédiatement.
+•	
+Pour éviter les court-circuits, gardez les clips, les vis et les agrafes loin des connecteurs, des 
+slots, des interfaces de connexion et de la circuiterie.
+•	
+Évitez la poussière, l'humidité et les températures extrêmes. Ne placez pas le produit dans 
+une zone susceptible de devenir humide.
+•	
+Placez le produit sur une surface stable.
+•	
+Si vous rencontrez des problèmes techniques avec votre produit, contactez un technicien 
+qualifié ou votre revendeur.
+•	
+Votre carte mère doit être utilisée dans un environnement dont la température ambiante est 
+comprise entre 10°C et 35°C.
+•	
+Manipulez avec soin lors du retrait de composants de la carte mère ou de l'ajout d'autres 
+périphériques. Pour votre sécurité, portez des gants ou un équipement de protection.
+
+5
+Informations sur la sécurité des piles bouton
+1.	
+Retirez et recyclez ou jetez immédiatement les piles usagées conformément aux 
+réglementations locales et gardez-les hors de portée des enfants. N'incinérez pas et ne jetez 
+pas les piles avec les ordures ménagères.
+2.	
+En cas d'ingestion ou d'insertion dans une partie du corps, appelez un centre antipoison local 
+pour obtenir des informations sur le traitement. Même les piles usagées peuvent causer des 
+blessures graves ou la mort.
+3.	
+Ce produit utilise des piles CR2032 avec une tension nominale de 3V.
+4.	
+N'essayez pas de recharger des piles non rechargeables.
+5.	
+Ne forcez pas la décharge, ne la rechargez pas, ne la démontez pas, ne chauffez pas 
+au-dessus de la température nominale spécifiée par le fabricant de la batterie et ne 
+l'incinérez pas. Cela pourrait entraîner des blessures ou des brûlures chimiques causées par 
+l'évacuation, les fuites ou l'explosion.
+6.	
+Ce produit contient des batteries non remplaçables.
+ AVERTISSEMENT
+•	 RISQUE D'INGESTION: Ce produit contient une pile 
+bouton.
+•	 La MORT ou des blessures graves peuvent survenir en 
+cas d'ingestion.
+•	 Une pile bouton avalée peut causer des brûlures 
+chimiques internes en 2 heures.
+•	 GARDEZ les piles neuves et usagées HORS DE 
+PORTÉE des ENFANTS.
+•	 Consultez immédiatement un médecin si vous 
+soupçonnez qu'une pile a été avalée ou insérée dans 
+toute partie du corps.
+!
+
+6
+À propos de ce manuel
+Ce manuel de l'utilisateur contient les informations dont vous aurez besoin pour installer et 
+configurer la carte mère.
+Organisation du manuel
+Ce manuel contient les parties suivantes :
+•	
+Chapitre 1 : Introduction au produit
+Ce chapitre décrit les fonctionnalités de la carte mère et comprend des descriptions pour 
+chaque partie de la carte mère.
+•	
+Chapitre 2 : Configuration de base
+Ce chapitre décrit les procédures de configuration de base de votre carte mère.
+•	
+Chapitre 3 : BIOS et configurations RAID
+Ce chapitre explique comment accéder au BIOS, mettre à jour le BIOS grâce à l'utilitaire EZ 
+Flash, ainsi que les configurations RAID.
+Où trouver plus d'informations ?
+Consultez les sources suivantes pour plus d'informations ou pour la mise à jour du produit et des 
+logiciels.
+1.	
+Site web ASUS
+Le site web d'ASUS (www.asus.com) contient des informations complètes et à jour sur les 
+produits ASUS et sur les logiciels afférents.
+2.	
+Documentation optionnelle
+Le contenu livré avec votre produit peut inclure de la documentation optionnelle, telle que des 
+cartes de garantie, qui peut avoir été ajoutée par votre revendeur. Ces documents ne font pas 
+partie du contenu standard.
+3.	
+Guide d'installation pour carte mère
+Visitez https://www.asus.com/fr/support pour plus d'informations sur le guide d'installation 
+de la carte mère.
+
+7
+5.	
+Guide de configuration RAID
+Visitez https://www.asus.com/fr/support pour plus d'informations sur le guide de 
+configuration RAID.
+6.	
+Fonction BIOS FlashBack™
+Visitez https://www.asus.com/fr/support pour plus d'informations sur la fonction BIOS 
+FlashBack™.
+4.	
+FAQ des pilotes et utilitaires
+Visitez https://www.asus.com/fr/support pour plus d'informations sur le téléchargement et 
+l'installation des pilotes et utilitaires de votre carte mère.
+Conventions utilisées dans ce manuel
+Pour être sûr d'effectuer certaines tâches correctement, veuillez prendre notes des symboles 
+suivants.
+ATTENTION
+Ces informations vous permettront d'éviter d'endommager les composants ou 
+de vous blesser lors de la réalisation d'une tâche.
+IMPORTANT 
+Instructions que vous DEVEZ suivre pour mener une tâche à bien.
+REMARQUE :
+Astuces et informations pratiques pour vous aider à mener une tâche à bien.
+
+8
+Résumé des caractéristiques de la ROG CROSSHAIR X870E 
+HERO
+Processeur
+Socket AMD AM5 pour processeurs AMD Ryzen™ série 9000 / 8000 / 7000 *
+*	 Rendez-vous sur le site https://www.asus.com/support/download-center/ pour 
+consulter la liste des processeurs compatibles avec cette carte mère.
+Chipset
+AMD X870E
+Mémoire 
+4 x Slots DIMM pour un maximum de 256 Go de mémoire DDR5 
+Prend en charge jusqu'à 
+8200+ MT/s (OC) avec les processeurs Ryzen™ série 9000,
+8600+ MT/s (OC) avec les processeurs Ryzen™ série 8000,
+8000+ MT/s (OC) avec les processeurs Ryzen™ série 7000, 
+Mémoire ECC et non-ECC, unbuffered*
+Architecture mémoire Dual-Channel (bi-canal) 
+Prise en charge de la technologie AMD EXPO™ (Extended Profiles for 
+Overclocking)
+Technologie DRAM NitroPath
+Profil de mémoire améliorée ASUS (AEMP)
+*	 Le type de mémoire, la fréquence de fonctionnement et le nombre de modules 
+DRAM pris en charge dépendent du type de processeur et de la configuration de la 
+mémoire. Pour plus d'informations, consultez l'onglet Processeur/Mémoire de la page 
+d'information du produit ou visitez :
+https://www.asus.com/fr/support/download-center.
+*	 La mémoire DDR5 Non-ECC et unbuffered prend en charge la fonction On-Die ECC.
+Unité graphique
+1 x Port HDMI™ **
+2 x Ports USB4® (40 Gb/s) avec sorties d'affichage USB Type-C® ***
+*	 	 Les caractéristiques de l'unité graphique varie en fonction du modèle de processeur 
+utilisé. Référez-vous aux spécifications du processeur AMD.
+**		 Prend en charge la résolution 4K@60Hz comme défini dans les spécifications HDMI 
+2.1.
+***	 Prend en charge la résolution 4K@60Hz comme défini dans les spécifications 
+DisplayPort 1.4a
+****	La résolution maximale varie en fonction de la résolution prise en charge par le 
+processeur ou la carte graphique utilisée.
+Slots d'extension
+Processeurs AMD Ryzen™ des séries 9000 et 7000 *
+2 x Slots PCIe 5.0 x16 avec Q-Release Slim (en mode x16, x8/x8** ou x8/x4/
+x4***)
+Processeurs AMD® Ryzen™ série 8700 / 8600 / 8400 *
+2 x Slots PCIe 4.0 x16 avec Q-Release Slim (prend uniquement en charge 
+PCIEx16_1 et une bande passante totale en mode x8. PCIEx16_2 sera 
+désactivé)
+Processeurs AMD Ryzen™ des séries 8500 et 8300 *
+2 x Slots PCIe 4.0 x16 avec Q-Release Slim (prend uniquement en charge 
+PCIEx16_1 et une bande passante totale en mode x4. PCIEx16_2 sera 
+désactivé)
+*	 	 	
+Veuillez consulter le tableau de bifurcation PCIe sur
+(https://www.asus.com/fr/support/FAQ/1037507/).
+**		 	
+Lorsque PCIEX16_1 et PCIEX16_2 sont utilisés, ces deux slots fonctionnent en 
+mode x8.
+***	 	
+Lorsque M.2_2 est activé, mais que M.2_3 n'est pas utilisé, PCIEX16_1 fonctionne 
+en mode x8 et PCIEX16_2 est désactivé.
+	 	 	
+Lorsque M.2_3 est activé, mais que M.2_2 n'est pas utilisé, PCIEX16_1 fonctionne 
+en mode x8 et PCIEX16_2 en mode x4.
+	 	 	
+Lorsque M.2_2 et M.2_3 sont activés, PCIEX16_1 fonctionne en mode x8 et 
+PCIEX16_2 est désactivé.
+****		
+Afin de garantir la compatibilité de l'appareil installé, veuillez consulter 
+https://www.asus.com/support/download-center/ pour obtenir la liste des 
+périphériques pris en charge.
+(continue à la page suivante)
+
+9
+Résumé des caractéristiques de la ROG CROSSHAIR X870E 
+HERO
+Stockage 
+5 x Slots M.2, 1 x Connecteur SlimSAS et 4 x Ports SATA 6 Gb/s*
+Processeurs AMD Ryzen™ des séries 9000 et 7000
+ - Slot M.2_1 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 5.0 x4)
+ - Slot M.2_2 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 5.0 x4)**
+ - Slot M.2_3 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 5.0 x4)**
+Processeurs AMD Ryzen™ série 8000
+ - Slot M.2_1 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 4.0 x4)
+ - Slot M.2_2 pour lecteurs M Key 2242/2260/2280 (non pris en charge)**
+ - Slot M.2_3 pour lecteurs M Key 2242/2260/2280 (non pris en charge)
+Chipset AMD X870E
+ - Slot M.2_4 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 4.0 x4)
+ - Slot M.2_5 pour lecteurs M Key 2280 (Mode PCIe 4.0 x4)
+ - Le connecteur SlimSAS prend en charge le mode PCIe 4.0 x4
+ - 4 x Connecteurs SATA 6.0 Gb/s
+Technologie AMD RAIDXpert2
+ - Processeurs AMD Ryzen™ série 9000 : RAID 0/1/5/10
+ - Processeurs AMD Ryzen™ série 8000 : RAID 0/1
+ - Processeurs AMD Ryzen™ série 7000 : RAID 0/1/10
+*	 	 Les spécifications varient selon les types de processeurs.
+**		 Lorsque M.2_2 est activé, mais que M.2_3 n'est pas utilisé, PCIEX16_1 fonctionne en 
+mode x8 et PCIEX16_2 est désactivé.
+	 	 Lorsque M.2_3 est activé, mais que M.2_2 n'est pas utilisé, PCIEX16_1 fonctionne en 
+mode x8 et PCIEX16_2 en mode x4.
+	 	 Lorsque M.2_2 et M.2_3 sont activés, PCIEX16_1 fonctionne en mode x8 et 
+PCIEX16_2 est désactivé.
+Ethernet
+1 x Contrôleur Ethernet Intel® 2.5Gb
+1 x Contrôleur Ethernet Realtek 5Gb
+ASUS LANGuard
+WiFi et Bluetooth®
+Wi-Fi 7*
+2x2 Wi-Fi 7 (802.11be) 
+Prise en charge des bandes de fréquence 2,4/5/6 GHz**
+Prend en charge la bande passante WiFi 7 320 MHz, avec un débit allant 
+jusqu'à 6,5 Gb/s.
+Bluetooth® v5.4***
+*	 	 Les fonctionnalités WiFi peuvent varier en fonction du système d'exploitation
+	 	  - Pour Windows 11, le WiFi 7 nécessitera la version 24H2 ou une version ultérieure 
+pour bénéficier de toutes les fonctions, Windows 11 21H2/22H2/23H2 prend 
+uniquement en charge le WiFi 6E.
+	 	  - Pour Windows 10, veuillez noter qu'aucun pilote n'est disponible, référez-vous au 
+site web du fournisseur du chipset WiFi pour plus de détails.
+**		 La bande de fréquence WiFi 6 GHz et sa réglementation en matière de bande passante 
+peuvent varier selon les pays.
+***	 La version du Bluetooth peut varier, veuillez consulter le site web du fabricant du 
+module WiFi pour consulter les dernières spécifications.
+(continue à la page suivante)
+
+10
+Résumé des caractéristiques de la ROG CROSSHAIR X870E 
+HERO
+USB
+USB sur panneau E/S arrière (10 ports au total)
+2 x Ports USB4® (40 Gb/s) (2 x USB Type-C®)
+8 x Ports USB 10 Gb/s (6 x Type-A + 2 x Type-C®) 
+USB en façade (10 ports au total)
+1 x USB 20 Gb/s (compatible USB Type-C® avec charge PD/QC4+ 60W max.)**
+1 x Connecteur USB 20 Gb/s (compatible USB Type-C®)
+2 x Connecteurs USB 5 Gb/s (pour 4 ports USB 5 Gb/s supplémentaires)
+2 x Connecteurs USB 2.0 (pour 4 ports USB 2.0 supplémentaires)
+*	 Sortie d'alimentation USB Type-C® : 5V/3A
+**	Sortie d'alimentation USB Type-C® : 5V/9V/15V/20V (3A max), PPS : 3,3-21V (3A max)
+Audio
+CODEC HD Audio ALC4082 ROG SupremeFX (son Surround 7.1)*
+ - Impedance sense pour les sorties casque audio avants et arrières
+ - Prise en charge de la détection et de la réaffectation (en façade uniquement) 
+des prises audio ainsi que de la multidiffusion des flux audio
+ - Audio de grande qualité avec un rapport SNR de 120 dB pour le port de sortie 
+audio et de 110 dB pour le port d'entrée audio
+ - Prend en charge un flux audio jusqu'à 32 bits / 384 kHz (prise audio du 
+panneau avant)
+Fonctionnalités audio 
+ - Technologie de blindage SupremeFX Shielding™ 
+ - Quad DAC ESS® ES9219
+ - Prises audio plaquées or
+ - Sortie S/PDIF optique (panneau E/S)
+ - Condensateurs audio de haute qualité
+*	 Pour utiliser la sortie audio Surround 7.1, veuillez utiliser un châssis doté d'un module 
+HD Audio sur le panneau avant.
+**	Le port de sortie audio du panneau arrière ne prend pas en charge l'audio spatialisé. Si 
+vous souhaitez utiliser l'audio spatialisé, connectez votre périphérique de sortie audio à 
+la prise audio sur le panneau avant de votre châssis ou à un périphérique audio USB.
+Interfaces de connexion 
+arrières
+2 x Ports USB4® (40 Gb/s) (2 x USB Type-C®)
+8 x Ports USB 10 Gb/s (6 x Type-A + 2 x Type-C®) 
+1 x Port HDMI™
+1 x Module WiFi
+1 x Port Ethernet Intel® 2.5Gb
+1 x Port Ethernet Realtek 5Gb
+2 x Prises audio plaquées or
+1 x Port de sortie S/PDIF optique
+1 x Bouton BIOS Flashback™
+1 x Bouton Clear CMOS
+(continue à la page suivante)
+
+11
+Résumé des caractéristiques de la ROG CROSSHAIR X870E 
+HERO
+Interfaces de connexion 
+internes
+Ventilateurs et refroidissement 
+1 x Connecteur pour ventilateur du processeur à 4 broches
+1 x Connecteur pour ventilateur du processeur optionnel à 4 broches
+1 x Connecteur de pompe AIO à 4 broches
+4 x Connecteurs pour ventilateur du châssis (4 broches)
+1 x Connecteur de pompe à eau W_PUMP+
+Alimentation 
+1 x Connecteur d'alimentation principale (24 broches)
+2 x Connecteurs d'alimentation +12V (8 broches)
+1 x Connecteur d'alimentation PCIe (8 broches)
+Stockage 
+5 x Slots M.2 (M Key) 
+1 x Connecteur SlimSAS
+4 x Connecteurs SATA 6.0 Gb/s
+USB 
+2 x Connecteurs USB 20 Gb/s (USB Type-C®)
+2 x Connecteurs USB 5 Gb/s (pour 4 ports USB 5 Gb/s supplémentaires)
+2 x Connecteurs USB 2.0 (pour 4 ports USB 2.0 supplémentaires)
+Divers
+3 x Connecteurs adressables Gen2
+1 x Commutateur de changement de mode PCIe
+1 x Bouton FlexKey 
+1 x Connecteur pour port audio en façade (F_AUDIO)
+1 x Connecteur (10-1 broches) pour panneau système avant
+1 x Bouton ReTry
+1 x Bouton Démarrer
+1 x Connecteur pour câble à thermistance
+1 x Cavalier Mode LN2 
+Fonctionnalités spéciales
+Kit Extreme OC
+ - Bouton FlexKey
+ - Mode LN2
+ - Bouton ReTry
+ - Bouton Démarrer
+Extreme Engine Digi+
+ - Condensateurs noirs métalliques 10K
+ - Bobines MicroFine 
+(continue à la page suivante)
+
+12
+Résumé des caractéristiques de la ROG CROSSHAIR X870E 
+HERO
+Fonctionnalités spéciales
+ASUS Q-Design
+ - M.2 Q-Latch
+ - Slot M.2 Q-Release
+ - M.2 Q-Slide
+ - Slot PCIe Q-Release Slim (avec SafeSlot)
+ - Antenne WiFi ASUS (Q-Antenna)
+ - Q-Code
+ - Q-Connector
+ - Q-Dashboard (Tableau de bord)
+ - Q-LED (CPU [rouge], DRAM [jaune], VGA [blanc], Boot Device [jaune vert])
+ - Q-Slot
+Solution de dissipation thermique ASUS
+ - Plaque arrière du dissipateur M.2
+ - Dissipateur thermique M.2
+ - Dissipateur thermique VRM
+ - Panneau arrière en métal
+ASUS EZ DIY
+ - Plaque arrière
+ - Bouton BIOS Flashback™
+ - Bouton Clear CMOS
+ - ProCool II
+ - Cache E/S pré-monté
+ - SafeSlot
+ - SafeDIMM
+Aura Sync
+ - Connecteurs Gen2 adressables
+USB 20 Gb/s avec Quick Charge 4+ sur le panneau avant
+ - Charge rapide jusqu'à 60W et surveillance de la puissance USB*
+ - Sortie : 5/9/15/20V (3A max), PPS : 3,3–21V (3A max)
+ - Compatible avec PD3.0 et PPS
+*	 Pour fournir une charge à 60W, veuillez brancher le câble d'alimentation sur le 
+connecteur d'alimentation PCIe (6 broches). Sans cette connexion, la puissance de 
+charge maximale est de 27W.
+Fonctionnalités logicielles
+Logiciel ROG Exclusive 
+ - ROG CPU-Z
+ - Dolby Atmos
+ - Internet Security (abonnement d'un an)
+ - Éclairage Polymo II 
+(continue à la page suivante)
+
+13
+Résumé des caractéristiques de la ROG CROSSHAIR X870E 
+HERO
+Fonctionnalités logicielles
+Logiciels ASUS exclusifs : 
+Armoury Crate
+ - AIDA64 Extreme (Version complète d'essai pour 1 an) 
+ - Aura Creator
+ - Aura Sync
+ - Fan Xpert 4 (avec AI Cooling II)
+ - GameFirst
+ - HWiNFO
+ - Éco. d'énergie
+ASUS DriverHub
+ASUS GlideX
+Surveillance de la puissance USB
+TurboV Core 
+WinRAR (essai gratuit de 40 jours)
+Adobe Creative Cloud (essai gratuit)
+BIOS UEFI
+Guide d'AI Overclocking
+ASUS EZ DIY 
+ - ASUS CrashFree BIOS 3 
+ - ASUS EZ Flash 3 
+ - ASUS UEFI BIOS (EZ Mode)
+ - ASUS MyHotkey
+FlexKey
+BIOS
+Mémoire Flash de 256 Mo, BIOS UEFI AMI
+Nom de fichier du BIOS 
+(.CAP)
+ROG CROSSHAIR X870E HERO : A5558.cap
+Gérabilité réseau
+WOL par PME, PXE
+Système d'exploitation 
+Windows 11
+Format
+Format ATX
+30,5 cm x 24,4 cm
+REMARQUE : Les caractéristiques sont sujettes à modifications sans préavis. Visitez le site internet 
+d'ASUS pour consulter la dernière liste des caractéristiques de cette carte mère.
+
+14
+Contenu de la boîte
+Vérifiez la présence des éléments suivants dans l'emballage de votre carte mère.
+Carte mère
+1 x Carte mère ROG CROSSHAIR X870E HERO
+Câbles
+1 x Câble d'extension RGB adressable (ARGB) 
+4 x Câbles SATA 6 Gb/s 
+Divers
+1 x Antenne WiFi ASUS (Q-Antenna)
+1 x Q-Connector
+2 x Kits de loquets M.2 Q-Latch
+3 x Kits de glissières M.2 Q-Slides
+5 x Kits de protections en caoutchouc M.2
+1 x Autocollants ROG
+1 x Carte de remerciement ROG
+1 x Ouvre-bouteille ROG
+Support d'installation
+1 x Périphérique USB incluant les utilitaires et les pilotes 
+Documentation
+1 x Guide de démarrage rapide
+REMARQUE :
+•	 Si l'un des éléments ci-dessus est endommagé ou manquant, veuillez contacter votre revendeur.
+•	 Les éléments non répertoriés dans la liste du contenu de la boîte ci-dessus sont vendus séparément et 
+ne sont pas fournis avec votre carte mère.
+
+15
+Connecteurs avec bande passante partagée
+CROSSHAIR X870E HERO
+DDR5 DIMM_B21st  (64bit, 288-pin module)
+DDR5 DIMM_B1 (64bit, 288-pin module)
+DDR5 DIMM_A21st (64bit, 288-pin module)
+DDR5 DIMM_A1 (64bit, 288-pin module)
+CPU_12V_1
+CPU_12V_2
+PCIE_8PIN_PWR
+PCIE_8PIN_LED
+CPU_12V_LED
+HDMI
+ATX_PWR
+BOOT
+VGA
+DRAM
+CPU
+PCIEX16(G5)_1
+Q_CODE
+ADD GEN2_3
+ADD GEN2_2
+HD_LED
+SLIMSAS
+CPU_OPT
+CPU_FAN
+CHA_FAN2
+AIO_PUMP
+F_AUDIO
+SATA6G_1
+SATA6G_2
+SATA6G_3
+SATA6G_4
+AMD
+X870E
+AMD
+X870E
+AUDIO
+LAN1_U10G_9
+U10G_202122
+U40G_EC2
+U10G_4
+U40G_EC1
+U10G_C23
+LAN2_U10G_10
+U10G_C3
+M.2(WIFI)
+USB_1415
+USB_1213
+T_SENSOR
+U5G_E12
+PCIEX16(G5)_2
+U20G_C6
+U20G_C18
+CHA_FAN3
+CHA_FAN4
+LN2_MODE
+BATTERY
+FLBK_CL_CMOS
+F_PANEL
+ADD GEN2_1
+RETRY BUTTON
+W_PUMP+
+CHA_FAN1
+SOCKET AM5
+U5G_8E3
+M.2_5(SOCKET3)
+2280
+M.2_4(SOCKET3)
+M.2_3(SOCKET3)
+M.2_1(SOCKET3)
+M.2_2(SOCKET3)
+2242
+2260
+2280
+2280
+2242
+2260
+2280
+2242
+2260
+ALT_PCIE_MODE
+LED2
+LED1
+2242
+2260
+A
+A
+A
+A
+2280
+Configuration
+1 
+2
+3
+4
+A
+PCIEX16(G5)_1
+x16
+x8
+x8
+x8
+PCIEX16(G5)_2
+-
+x8
+-
+x4
+M.2_2 (lié au processeur)
+-
+-
+x4
+-
+M.2_3 (lié au processeur)
+-
+-
+x4
+x4
+
+16
+
+17
+Introduction au produit
+Chapitre 1 : Introduction au produit
+ATTENTION !
+•	 Débranchez le câble d'alimentation de la prise murale avant de toucher les composants.
+•	 Utilisez un bracelet antistatique ou touchez un objet métallique relié au sol (comme l'alimentation) pour 
+vous décharger de toute électricité statique avant de toucher aux composants.
+•	 Tenez les composants par les coins pour éviter de toucher les circuits imprimés.
+•	 Quand vous désinstallez le moindre composant, placez-le sur une surface antistatique ou remettez-le 
+dans son emballage d'origine.
+•	 Avant d'installer ou de désinstaller un composant, assurez-vous que l'alimentation est éteinte et que le 
+câble d'alimentation est bien débranché. Le non-respect de cette précaution peut endommager la carte 
+mère, les périphériques et/ou les composants.
+REMARQUE : Les définitions des broches dans ce chapitre sont fournies à titre indicatif uniquement. Les 
+noms de broche dépendent de l'emplacement du connecteur/cavalier.
+1.1	
+Avant de commencer
+Suivez les précautions ci-dessous avant d'installer la carte mère ou d'en modifier les paramètres.
+
+18
+1.2	
+Schéma de la carte mère
+CROSSHAIR X870E HERO
+DDR5 DIMM_B21st  (64bit, 288-pin module)
+DDR5 DIMM_B1 (64bit, 288-pin module)
+DDR5 DIMM_A21st (64bit, 288-pin module)
+DDR5 DIMM_A1 (64bit, 288-pin module)
+CPU_12V_1
+CPU_12V_2
+PCIE_8PIN_PWR
+PCIE_8PIN_LED
+CPU_12V_LED
+HDMI
+ATX_PWR
+BOOT
+VGA
+DRAM
+CPU
+PCIEX16(G5)_1
+Q_CODE
+ADD GEN2_3
+ADD GEN2_2
+HD_LED
+SLIMSAS
+CPU_OPT
+CPU_FAN
+CHA_FAN2
+AIO_PUMP
+F_AUDIO
+SATA6G_1
+SATA6G_2
+SATA6G_3
+SATA6G_4
+AMD
+X870E
+AMD
+X870E
+AUDIO
+LAN1_U10G_9
+U10G_202122
+U40G_EC2
+U10G_4
+U40G_EC1
+U10G_C23
+LAN2_U10G_10
+U10G_C3
+M.2(WIFI)
+USB_1415
+USB_1213
+T_SENSOR
+U5G_E12
+PCIEX16(G5)_2
+U20G_C6
+U20G_C18
+CHA_FAN3
+CHA_FAN4
+LN2_MODE
+BATTERY
+FLBK_CL_CMOS
+F_PANEL
+ADD GEN2_1
+RETRY BUTTON
+W_PUMP+
+CHA_FAN1
+SOCKET AM5
+U5G_8E3
+M.2_5(SOCKET3)
+2280
+M.2_4(SOCKET3)
+M.2_3(SOCKET3)
+M.2_1(SOCKET3)
+M.2_2(SOCKET3)
+2242
+2260
+2280
+2280
+2242
+2260
+2280
+2242
+2260
+ALT_PCIE_MODE
+LED2
+LED1
+2242
+2260
+2280
+5
+18
+19
+12
+14
+9
+25
+4
+4
+10
+7
+8
+6
+6
+6
+6
+13
+10
+16
+9
+12
+15
+4
+20
+11
+4
+5
+24
+23
+1
+21
+22
+2
+3
+17
+
+19
+Contenu du schéma
+1.
+Socket du processeur
+2.
+Slots mémoire (DIMM)
+3.
+Slots d'extension
+4.
+Connecteurs des ventilateurs et de la pompe
+5.
+Connecteurs d'alimentation
+6.
+Slot M.2
+7.
+Port SATA 6 Gb/s
+8.
+Connecteur SlimSAS
+9.
+Connecteur pour port USB 20 Gb/s Type-C® en façade
+10.
+Connecteur USB 5 Gb/s
+11.
+Connecteur USB 2.0
+12.
+Connecteur Gen2 adressable
+13.
+Commutateur de changement de mode PCIe
+14.
+Bouton FlexKey
+15.
+Connecteur pour port audio en façade
+16.
+Connecteur du panneau système avant
+17.
+Cavalier LN2 Mode
+18.
+Bouton ReTry
+19.
+Bouton Démarrer
+20.
+Connecteur pour capteur thermique
+21.
+LED Q-Code
+22.
+Témoins lumineux Q-LED
+23.
+LED d'activité du périphérique de stockage
+24.
+LED du connecteur d'alimentation du processeur (8 broches)
+25.
+LED du connecteur d'alimentation PCIe (8 broches)
+
+20
+2.	
+Slots mémoire (DIMM)
+La carte mère est équipée de slots DIMM réservés à l'installation de modules de mémoire 
+DDR5.
+ATTENTION ! Un module mémoire DDR5 s'encoche différemment d'un module DDR4 / DDR3 / DDR2 / 
+DDR. NE PAS installer de module de mémoire DDR4, DDR3, DDR2 ou DDR sur les slots DIMM destinés aux 
+modules DDR5.
+REMARQUE : Fonction de détection d'installation de la mémoire vive (DRAM) : Le voyant LED DRAM 
+détectera si les modules de mémoire ont été installés dans les slots mémoire recommandés et si 
+les modules de mémoire ont été correctement insérés dans les slots mémoire une fois la carte mère 
+connectée à une alimentation. Une fois la carte mère sous tension, le voyant DRAM reviendra à la 
+procédure de vérification des erreurs d'origine, quel que soit l'état du voyant lumineux avant la mise sous 
+tension.
+1.	
+Socket du processeur
+La carte mère est équipée d'un socket AM5 conçu pour les processeurs AMD Ryzen™ de la série 
+9000 / 8000 / 7000.
+Socket AM5
+ATTENTION !
+•	 Le socket AM5 possède des broches différentes. Assurez-vous de n'installer qu'un processeur conçu 
+pour le socket AM5.
+•	 Le processeur ne peut être installé que dans un seul sens. NE PAS forcer sur le processeur pour le faire 
+entrer dans le socket afin d'éviter de plier les broches du socket et/ou d'endommager le processeur.
+•	 Assurez-vous que tous les câbles sont débranchés lors de l'installation du processeur.
+•	 Lors de l'achat de la carte mère, vérifiez que le couvercle PnP est bien placé sur l'interface de connexion 
+du processeur et que les broches de ce dernier ne sont pas pliées. Contactez immédiatement votre 
+revendeur si le couvercle PnP est manquant ou si vous constatez des dommages sur le couvercle PnP, 
+sur l'interface de connexion, sur les broches ou sur les composants de la carte mère. ASUS prendra en 
+charge les frais de réparation si le dommage a été causé par le transport/transit du produit.
+•	 Conservez bien le couvercle après avoir installé la carte mère. ASUS ne traitera les requêtes de RMA 
+(Autorisation de retour des marchandises) que si la carte mère est renvoyée avec le couvercle placé sur 
+le socket AM5.
+•	 La garantie du produit ne couvre pas les dommages infligés aux broches de l'interface de connexion du 
+processeur s'ils résultent d'une mauvaise installation ou d'un mauvais retrait, ou s'ils ont été infligés par 
+un mauvais positionnement, par une perte ou par une mauvaise manipulation ou retrait du couvercle 
+PnP de protection de l'interface de connexion.
+
+21
+Configurations mémoire recommandées
+Configurations mémoire
+Vous pouvez installer des modules de mémoire DDR5 ECC ou non-ECC sur les slots DDR5.
+REMARQUE :
+•	 La fréquence de fonctionnement par défaut de la mémoire peut varier en fonction de son SPD. Par 
+défaut, certains modules de mémoire peuvent fonctionner à une fréquence inférieure à la valeur 
+indiquée par le fabricant.
+•	 Les modules de mémoire ont besoin d'un meilleur système de refroidissement pour fonctionner de 
+manière stable en charge maximale ou en overclocking.
+•	 Installez toujours des modules de mémoire dotés de la même latence CAS. Pour une compatibilité 
+optimale, il est recommandé d'installer des barrettes mémoire identiques ou partageant le même code 
+de données. Consultez votre revendeur pour plus d'informations.
+•	 Visitez le site web d'ASUS pour la dernière liste des fabricants de modules de mémoire compatibles 
+avec cette carte mère.
+
+22
+3.	
+Slots d'extension
+ATTENTION ! Assurez-vous d'avoir bien débranché le câble d'alimentation avant d'ajouter ou de retirer des 
+cartes d'extension. Manquer à cette précaution peut vous blesser et endommager les composants de la 
+carte mère.
+REMARQUE : Pour installer une carte d'extension PCIe, référez-vous au Guide d'installation de la carte 
+mère sur le site d'assistance ASUS.
+CROSSHAIR X870E HERO
+PCIEX16(5G)_1
+PCIEX16(5G)_2
+1
+2
+
+23
+REMARQUE :
+•	 Pour processeurs AMD Ryzen™ des séries 9000 et 7000
+	
+ - Lorsque PCIEX16_1 et PCIEX16_2 sont utilisés, ces deux slots fonctionnent en mode x8.
+	
+ - Lorsque M.2_2 est activé, mais que M.2_3 n'est pas utilisé, PCIEX16_1 fonctionne en mode x8 et 
+PCIEX16_2 est désactivé.
+	
+ - Lorsque M.2_3 est activé, mais que M.2_2 n'est pas utilisé, PCIEX16_1 fonctionne en mode x8 et 
+PCIEX16_2 en mode x4.
+	
+ - Lorsque M.2_2 et M.2_3 sont activés, PCIEX16_1 fonctionne en mode x8 et PCIEX16_2 est désactivé.
+•	 Pour les processeurs AMD Ryzen™ série 8700 / 8600 / 8400
+- Prend uniquement en charge PCIEx16(G5)_1 et une bande passante totale en mode x8. 
+PCIEx16(G5)_2 sera désactivé.
+•	 Pour les processeurs AMD Ryzen™ série 8500 / 8300 
+- Prend uniquement en charge PCIEx16(G5)_1 et une bande passante totale en mode x4. 
+PCIEx16(G5)_2 sera désactivé.
+
+24
+Inclinez pour libérer 
+la carte d'extension
+Utiliser la fonctionnalité PCIe Q-Release Slim
+La fonctionnalité Q-Release Slim vous permet de retirer facilement une carte d'extension installée 
+sur ce slot PCIe, même lorsque la carte d'extension bloque le loquet PCIe.
+Pour libérer une carte d'extension d'un slot PCIe avec Q-Release Slim :
+1.	
+Assurez-vous que la carte d'extension est alignée sur le slot PCIe et perpendiculaire à la carte 
+mère avant de retirer la carte.
+2.	
+Tenez fermement l'extrémité de la carte d'extension la plus proche des ports d'E/S arrière de 
+la carte mère, puis éloignez légèrement la carte d'extension de la carte mère en biais pour 
+libérer la carte d'extension.
+3.	
+Une fois que la carte d'extension est complètement libérée du slot PCIe Q-Release Slim, vous 
+pouvez retirer la carte.
+REMARQUE : L'illustration ci-dessous est donnée à titre indicatif uniquement. La carte mère et le bouton 
+Q-Release Slim peuvent différer selon les modèles, mais les étapes d'utilisation restent les mêmes.
+ATTENTION ! Retirez UNIQUEMENT la carte d'extension à partir de l'extrémité la plus proche des ports 
+d'E/S arrière de la carte mère. Le retrait de la carte d'extension en tenant une autre partie de la carte avec 
+une force excessive peut endommager la carte d'extension et/ou la carte mère.
+
+25
+4.	
+Connecteurs des ventilateurs et de la pompe
+Les connecteurs pour ventilateurs et pompes vous permettent d'installer des ventilateurs et 
+pompes afin de refroidir le système.
+CPU_FAN
+CPU_OPT
+AIO_PUMP
+W_PUMP+
+CHA_FAN1
+CHA_FAN2
+CHA_FAN3
+CHA_FAN4
+ATTENTION !
+•	 N'oubliez pas de connecter les câbles de ventilateur aux connecteurs de la carte mère. Une circulation 
+de l'air insuffisante peut endommager les composants de la carte mère. Ce connecteur n'est pas un 
+cavalier ! Ne placez pas de capuchon de cavalier sur ce connecteur !
+•	 Assurez-vous que le câble est correctement inséré dans le connecteur.
+IMPORTANT  ! Pour les kits de refroidissement liquide, branchez le connecteur de la pompe au connecteur 
+W_PUMP+ ou AIO_PUMP.
+REMARQUE :
+•	 Lorsque vous connectez un seul ventilateur de processeur, vous pouvez le relier au connecteur CPU_
+FAN ou CPU_OPT.
+•	 Lorsque vous connectez deux ventilateurs de processeur, assurez-vous de les relier aux connecteurs 
+CPU_FAN et CPU_OPT, et veillez à utiliser deux ventilateurs de même marque et de même modèle.
+•	 La prise en charge de la fonction W_PUMP+ dépend du dispositif de watercooling.
+Connecteur
+Intensité Max
+Puissance 
+Max
+Vitesse par défaut
+Contrôle partagé
+CPU_FAN
+1A
+12W
+Contrôle Q-Fan 
+A
+CPU_OPT
+1A
+12W
+Contrôle Q-Fan 
+A
+CHA_FAN1
+1A
+12W
+Contrôle Q-Fan 
+-
+CHA_FAN2
+1A
+12W
+Contrôle Q-Fan 
+-
+CHA_FAN3
+1A
+12W
+Contrôle Q-Fan 
+-
+CHA_FAN4
+1A
+12W
+Contrôle Q-Fan 
+-
+AIO_PUMP
+1A
+12W
+Pleine vitesse
+-
+W_PUMP+
+3A
+36W
+Pleine vitesse
+-
+
+26
+5.	
+Connecteurs d'alimentation
+Les connecteurs d'alimentation vous permettent de connecter la carte mère à une source 
+d'alimentation. Les fiches de la source d'alimentation doivent être branchées selon une 
+orientation précise, trouvez la bonne orientation et appuyez fermement jusqu'à ce que les 
+fiches soient totalement insérées.
+ATX_PWR
+CPU_12V_1
+CPU_12V_2
+PCIE_8PIN_PWR
+ATTENTION ! Assurez-vous de connecter la prise 8 broches, ou de connecter les prises 4 et 8 broches 
+simultanément.
+REMARQUE :
+•	 Une alimentation plus puissante est recommandée lors de l'utilisation d'un système équipé de plusieurs 
+périphériques. Le système pourrait devenir instable, voire ne plus démarrer du tout, si l'alimentation est 
+inadéquate.
+•	 Si vous souhaitez utiliser deux ou plusieurs cartes graphiques PCI Express x16, il est recommandé 
+d'utiliser un bloc d'alimentation pouvant fournir 900W-1200W ou plus pour garantir la stabilité du 
+système.
+•	 Le connecteur PCIE_8PIN_PWR fournit l'alimentation pour la prise en charge de PD3.0 sur le 
+connecteur USB 20 Gb/s Type-C® du panneau avant.
+•	 Entrée : 100-240V (CA), 6A/3A, 50/60Hz.
+
+27
+6.	
+Slot M.2
+Le slot M.2 vous permet d'installer des périphériques M.2, tels que des SSD M.2.
+M.2_1(SOCKET3)
+M.2_2(SOCKET3)
+M.2_3(SOCKET3)
+M.2_4(SOCKET3)
+M.2_5(SOCKET3)
+REMARQUE :
+•	 Processeurs AMD Ryzen™ des séries 9000 et 7000:
+	
+ - Slot M.2_1 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 5.0 x4)
+	
+ - Slot M.2_2 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 5.0 x4)
+	
+ - Slot M.2_3 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 5.0 x4)
+•	 Processeurs AMD Ryzen™ série 8000:
+	
+ - Slot M.2_1 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 4.0 x4)
+	
+ - Slots M.2_2 et M.2_3 (M Key) non pris en charge par ce processeur.
+•	 Chipset AMD® X870E :
+	
+ - Slot M.2_4 pour lecteurs M Key 2242/2260/2280 (Mode PCIe 4.0 x4)
+	
+ - Slot M.2_5 pour lecteurs M Key 2280 (Mode PCIe 4.0 x4)
+•	 Lorsque M.2_2 et M.2_3 sont activés, PCIEX16_1 fonctionne en mode x8 et PCIEX16_2 est désactivé.
+•	 Lorsque M.2_2 est activé, mais que M.2_3 n'est pas utilisé, PCIEX16_1 fonctionne en mode x8 et 
+PCIEX16_2 est désactivé.
+•	 Lorsque M.2_3 est activé, mais que M.2_2 n'est pas utilisé, PCIEX16_1 fonctionne en mode x8 et 
+PCIEX16_2 en mode x4.
+7.	
+Port SATA 6 Gb/s
+Le port SATA 6 Gb/s permet de connecter des périphériques SATA, tels que des lecteurs 
+optiques ou disques durs, par un câble SATA.
+SATA6G_1
+SATA6G_2
+SATA6G_3
+SATA6G_4
+REMARQUE :
+•	 L'installation de périphériques de stockage SATA sur les ports SATA6G_1-4 permet de créer des 
+volumes RAID grâce au chipset AMD X870E.
+•	 Pour installer un périphérique SATA, consultez le Guide d'installation de la carte mère sur le site 
+d'assistance ASUS.
+•	 Avant de créer un volume RAID, consultez le Guide de configuration RAID. Vous pouvez télécharger le 
+Guide de configuration RAID sur le site web d'ASUS.
+
+28
+8.	
+Connecteur SlimSAS
+Le connecteur SlimSAS permet de connecter des périphériques de stockage NVMe.
+SLIMSAS
+REMARQUE : Technologie AMD RAIDXpert2 : les processeurs Ryzen™ série 7000 prennent en charge les 
+volumes RAID 0/1/10 (PCIe et SATA), les processeurs Ryzen série 8000 prennent en charge les volumes 
+RAID 0/1 (PCIe), les processeurs Ryzen série 9000 prennent en charge les volumes RAID 0/1/5/10 (PCIe). 
+9.	
+Connecteur pour port USB 20 Gb/s Type-C® en façade
+Le connecteur USB 20 Gb/s Type-C® permet de connecter des ports USB 20 Gb/s Type-C® 
+supplémentaires sur le panneau avant. Le connecteur USB 20 Gb/s Type-C® offre un débit 
+allant jusqu'à 20 Gb/s et prend en charge PD 3.0 avec charge rapide jusqu'à 60W (20V/3A).
+U20G_C6
+U20G_C18
+REMARQUE :
+•	 Pour la prise en charge de PD 3.0 / QC 4+, assurez-vous de brancher le connecteur PCIE_8PIN_PWR.
+•	 La fonction PD 3.0 avec charge rapide jusqu'à 60W (20V/3A) est uniquement prise en charge par les 
+contrôleurs CC Logic.
+•	 En état S5 (Arrêt piloté), PD 3.0 et QC 4.0+ fournissent une puissance maximale de 10W.
+10.	
+Connecteur USB 5 Gb/s
+Ce connecteur est dédié à la connexion de ports USB 5 Gb/s supplémentaires. Le connecteur 
+USB 5 Gb/s fournit des vitesses de transfert jusqu'à 5 Gb/s.
+U5G_E12
+U5G_8E3
+
+29
+11.	
+Connecteur USB 2.0
+Ce connecteur est dédié à la connexion de ports USB 2.0 supplémentaires. Le connecteur 
+USB 2.0 fournit des vitesses de transfert jusqu'à 480 Mb/s.
+USB_E12
+USB_E34
+ATTENTION ! Ne connectez pas de câble 1394 aux ports USB. Cela pourrait endommager la carte mère !
+12.	
+Connecteur Gen2 adressable
+Ce connecteur est dédié aux bandes LED RGB (ARGB) WS2812B individuellement 
+adressables ou aux bandes LED WS2812B.
+ADD GEN2_1
+ADD GEN2_2
+ADD GEN2_3
+ATTENTION ! Avant d'installer ou de désinstaller un composant, assurez-vous que l'alimentation est éteinte 
+et que le câble d'alimentation est bien débranché. Le non-respect de cette précaution peut endommager la 
+carte mère, les périphériques et/ou les composants.
+REMARQUE :
+•	 Le connecteur Gen2 adressable prend en charge les bandes LED RGB adressables (5V/Données/Terre) 
+avec une puissance nominale maximale de 3A (5V). De plus, le connecteur adressable de cette carte 
+mère peut prendre en charge jusqu'à 120 LED par connecteur en mode Gen1, ou un maximum combiné 
+de 500 LED en mode Gen2.
+•	 L'éclairage et les couleurs réels varient en fonction de la bande LED.
+•	 Si votre bande LED ne s'allume pas, vérifiez que la bande LED RGB adressable est connectée dans le 
+bon sens, et que le connecteur 5V est aligné avec l'en-tête 5V de la carte mère.
+•	 La bande LED RGB adressable ne s'allume qu'une fois le système démarré.
+
+30
+13.	
+Commutateur de changement de mode PCIe
+Le commutateur de changement de mode PCIe vous permet de basculer le signal PCIe 
+provenant du processeur sur Gen4 ou Gen3 pour le slot PCIe.
+ALT_PCIE_MODE
+REMARQUE :
+•	 Lorsque le commutateur de changement de mode PCIe est réglé sur Auto, le signal PCIe du processeur 
+sera le paramètre par défaut.
+•	 Lorsque le commutateur de changement de mode PCIe est réglé sur 1st step, le signal PCIe du 
+processeur sera en mode Gen4 et le voyant LED1 s'allumera en vert.
+•	 Lorsque le commutateur de changement de mode PCIe est réglé sur 2nd step, le signal PCIe du 
+processeur sera en mode Gen3 et le voyant LED2 s'allumera en jaune.
+•	 Les voyants lumineux adjacents indiquent le mode PCIe que vous utilisez actuellement.
+14.	
+Bouton FlexKey (Reset)
+Appuyez sur le bouton FlexKey pour redémarrer le système. Vous pouvez également 
+configurer le bouton et lui assigner une fonction différente, tels que le démarrage en mode 
+sans échec ou l'activation de l'éclairage AURA.
+FLEXKEY
+15.	
+Connecteur pour port audio en façade
+Ce connecteur est dédié au module E/S audio disponible en façade de certains boîtiers 
+d'ordinateurs et prend en charge la norme HD Audio. Branchez le câble du module E/S audio 
+en façade à ce connecteur.
+F_AUDIO
+
+31
+18.	
+Bouton ReTry
+Le bouton ReTry est spécialement conçu pour les fans d'overclocking. Il est le plus utile 
+pendant le processus de démarrage lorsque le bouton de réinitialisation est inutilisable. 
+Appuyez sur ce bouton pour forcer le redémarrage du système tout en conservant les mêmes 
+paramètres afin d'effectuer plusieurs essais rapides et réussir le POST.
+RETRY_BUTTON
+16.	
+Connecteur du panneau système avant
+Le connecteur du panneau système avant prend en charge plusieurs fonctions relatives au 
+châssis.
+F_PANEL
+•	
+Connecteur pour LED d'alimentation système (+PWR_LED-)
+Ce connecteur à 2 broches vous permet de connecter la LED d'alimentation système. La LED 
+d'alimentation système s'allume lorsque vous démarrez le système et clignote lorsque ce 
+dernier est en veille.
+•	
+LED d'activité du périphérique de stockage (+HDD_LED-)
+Ce connecteur à 2 broches vous permet de connecter la LED d'activité du périphérique 
+de stockage. LED d'activité du périphérique de stockage s'allume ou clignote lorsque des 
+données sont lues ou écrites sur le support de stockage.
+•	
+Bouton d'alimentation/arrêt piloté (PWR_BTN)
+Ce connecteur 3-1 broches est réservé au bouton d'alimentation du système. Appuyez sur le 
+bouton d'alimentation pour démarrer le système, ou pour le mettre en veille ou mode soft-off 
+(selon les paramètres du système d'exploitation).
+•	
+Connecteur pour bouton de réinitialisation (RESET)
+Ce connecteur à 2 broches permet de brancher le bouton de réinitialisation du châssis. 
+Appuyez sur ce bouton pour redémarrer le système.
+17.	
+Cavalier LN2 Mode
+Placez le cavalier sur les broches 2-3 pour optimiser la carte mère et résoudre le bug de 
+démarrage à froid pendant le POST et permettre au système de démarrer.
+LN2_MODE
+
+32
+19.	
+Bouton Démarrer
+Appuyez sur le bouton d'alimentation pour démarrer le système, le mettre en veille ou 
+l'éteindre (selon les paramètres du système d'exploitation).
+DÉMARRER
+REMARQUE : Ce bouton s'allume lorsque le système est alimenté pour indiquer que le système doit être 
+éteint et tous les câbles débranchés avant de retirer ou installer des composants sur la carte mère.
+20.	
+Connecteur pour capteur thermique
+Le connecteur pour capteur thermique permet de connecter un capteur afin de surveiller la 
+température des périphériques et des composants essentiels de la carte mère. Connectez 
+le capteur thermique et placez le sur le périphérique ou le composant de la carte mère pour 
+détecter sa température.
+T_SENSOR
+21.	
+LED Q-Code
+Ces voyants offrent un système d'affichage à code symbolisé par deux valeurs numériques 
+pour vous informer de l'état du système.
+Q_CODE
+REMARQUE :
+•	 Les témoins Q-LED vous donnent la cause la plus probable d'un code erreur comme point de départ 
+pour le dépannage. La cause réelle peut varier en fonction du cas.
+•	 Veuillez consulter le tableau de débogage dans la section Annexes pour plus de détails.
+
+33
+23.	
+LED d'activité du périphérique de stockage
+LED d'activité du périphérique de stockage s'allume ou clignote lorsque des données sont 
+lues ou écrites sur le support de stockage.
+HD_LED
+22.	
+Témoins lumineux Q-LED
+Les témoins Q-LED vérifient l'état des composants clés (processeur, mémoire, carte 
+graphique, périphériques de démarrage) durant la séquence de démarrage de la carte mère. 
+Si une erreur est détectée, le voyant correspondant s'allume jusqu'à ce que le problème soit 
+résolu.
+CPU (ROUGE)
+DRAM (JAUNE)
+VGA (BLANC)
+BOOT (VERT JAUNE)
+REMARQUE :
+•	 Les témoins Q-LED vous donnent la cause la plus probable d'un code erreur comme point de départ 
+pour le dépannage. La cause réelle peut varier en fonction du cas.
+•	 Fonction de détection d'installation de la mémoire vive (DRAM) : Le voyant DRAM détectera si 
+les modules de mémoire ont été installés dans les emplacements recommandés et s'ils ont été 
+correctement insérés dans leurs emplacements une fois la carte mère connectée à une alimentation. 
+Une fois la carte mère sous tension, le voyant DRAM reviendra à la procédure de vérification des erreurs 
+d'origine, quel que soit l'état du voyant lumineux avant la mise sous tension.
+25.	
+LED du connecteur d'alimentation PCIe (8 broches)
+La LED du connecteur d'alimentation PCIe s'allume pour indiquer que le connecteur 
+d'alimentation (8 broches) PCIE_8PIN_PWR n'est pas branché.
+PLUG_8PIN_PCIE
+24.	
+LED du connecteur d'alimentation du processeur (8 broches)
+La LED du connecteur d'alimentation du processeur s'allume pour indiquer que le connecteur 
+d'alimentation (8 broches) n'est pas branché.
+CPU_12V_LED
+
+34
+1.3	
+Connecteurs arrières et audio de la carte mère
+1.3.1	
+Connecteurs arrières
+Connecteurs arrières
+1.
+Bouton d'effacement de la mémoire CMOS (CLR_CMOS). L'utilisation de ce bouton 
+permet d'effacer les informations de configuration du BIOS. N'utilisez ce bouton que si le 
+système se bloque suite à un overclocking.
+2.
+USB 10 Gb/s (rouge) Type-A sur les ports 20, 21 et 22 
+3.
+Port Ethernet Realtek 5Gb*
+4.
+Port Ethernet Intel® 2.5Gb*
+5.
+Prises audio plaquées or**
+6.
+Bouton BIOS Flashback™
+7.
+Port HDMI™
+8.
+Ports EC1 USB 40 Gb/s (USB4®) avec contrôleur ASMedia ASM4242
+9.
+Port 4 USB 10 Gb/s (rouge) Type-A
+10.
+Ports EC2 USB 40 Gb/s (USB4®) avec contrôleur ASMedia ASM4242
+11.
+Port C11 USB 10 Gb/s Type-C®
+12.
+Port 10 USB 10 Gb/s (rouge) Type-A
+13.
+Port C23 USB 10 Gb/s Type-C®
+14.
+Port 9 USB 10 Gb/s (rouge) Type-A
+15.
+Module WiFi
+16.
+Sortie S/PDIF optique
+* et ** : reportez-vous aux tableaux dans les sections "Témoins des ports réseau" et "Connexions audio".
+REMARQUE : Ne branchez vos périphériques que sur des ports dont le débit de transmission de données 
+est compatible. Par exemple, connectez vos appareils USB 5 Gb/s aux ports USB 5 Gb/s afin d'obtenir de 
+meilleures performances avec vos appareils.
+1
+4
+2
+5
+6
+7
+15
+10
+13
+14
+3
+11
+12
+9
+8
+16
+
+35
+LED ACT/
+LIEN
+LED 
+VITESSE
+Port réseau
+LED ACT/
+LIEN
+LED 
+VITESSE
+Port réseau
+LED d'indications du port Ethernet Intel® 2.5Gb
+LED Vitesse
+État
+Description
+Éteint
+Pas de lien
+Éteint
+Connexion 100 Mb/s / 
+10 Mb/s
+Vert
+Connexion 2,5 Gb/s
+Orange
+Connexion 1 Gb/s
+LED ACT/LIEN
+État
+Description
+Éteint
+Pas de lien
+Vert
+Lien établi
+Clignotant
+Activité de 
+données
+1.3.2	
+Témoins des ports réseau
+LED d'indications du port Ethernet Realtek 5Gb
+LED Vitesse
+État
+Description
+Éteint
+Pas de lien
+Vert
+Connexion 5 Gb/s
+Orange
+Connexion 2.5 Gb/s / 
+1 Gb/s / 10 Mb/s / 100 
+Mb/s
+LED ACT/LIEN
+État
+Description
+Éteint
+Pas de lien
+Vert
+Lien établi
+Clignotant
+Activité de 
+données
+1.3.3	
+Connexions audio
+Configurations audio 2, 4, 5.1 et 7.1 canaux
+Port
+2 canaux
+4 canaux
+5.1 canaux
+7.1 canaux
+Arrière
+SORTIE AUDIO 
+Sortie haut-
+parleurs avants
+Sortie haut-
+parleurs avants
+Sortie haut-
+parleurs avants
+Sortie haut-
+parleurs avants
+ENTRÉE 
+MICRO
+-
+-
+Haut-parleur 
+central/Caisson de 
+basse
+Haut-parleur 
+central/Caisson de 
+basse
+Avant
+CASQUE (vert)
+-
+-
+-
+Sortie haut-
+parleurs latéraux
+ENTRÉE 
+MICRO (rose)
+-
+Sortie haut-
+parleurs arrières
+Sortie haut-
+parleurs arrières
+Sortie haut-
+parleurs arrières
+REMARQUE : Pour utiliser la sortie audio Surround 7.1, veuillez utiliser un châssis doté d'un module HD 
+Audio sur le panneau avant.
+
+36
+Connexion à un casque ou un microphone
+REMARQUE : Le port de sortie audio du panneau arrière ne prend pas en charge l'audio spatialisé. Si vous 
+souhaitez utiliser l'audio spatialisé, connectez votre périphérique de sortie audio à la prise audio sur le 
+panneau avant de votre châssis ou à un périphérique audio USB.
+Connecter un système de haut-parleurs à 2 canaux
+
+37
+Connecter un système de haut-parleurs à 4 canaux
+Connexion à un système de haut-parleurs 5.1
+
+38
+Connexion à un système de haut-parleurs 7.1
+
+39
+Configuration de base
+Chapitre 2 : Configuration de base
+REMARQUE : Les schémas d'installation de cette section sont donnés à titre indicatif uniquement. La 
+disposition des composants de la carte mère peut varier en fonction du modèle. Les étapes d'installation 
+sont toutefois identiques.
+2.1	
+Installer le processeur
+ATTENTION !
+•	 Assurez-vous de n'installer qu'un processeur conçu pour le socket AM5. Le processeur ne peut être 
+installé que dans un seul sens. NE PAS forcer sur le processeur pour le faire entrer dans le socket afin 
+d'éviter de plier les broches du socket et/ou d'endommager le processeur
+•	 Assurez-vous que tous les câbles sont débranchés lors de l'installation du processeur.
+•	 Lors de l'achat de la carte mère, vérifiez que le couvercle PnP est bien placé sur l'interface de connexion 
+du processeur et que les broches de ce dernier ne sont pas pliées. Contactez immédiatement votre 
+revendeur si le couvercle PnP est manquant ou si vous constatez des dommages sur le couvercle PnP, 
+sur l'interface de connexion, sur les broches ou sur les composants de la carte mère. ASUS prendra en 
+charge les frais de réparation si le dommage a été causé par le transport/transit du produit.
+IMPORTANT  ! Installez un dissipateur thermique ou un kit de refroidissement AIO après avoir installé le 
+processeur. Référez-vous à la section Guide d'installation de la carte mère sur le site d'assistance ASUS, 
+ou au manuel de l'utilisateur du dissipateur thermique / kit de refroidissement AIO pour consulter les 
+étapes d'installation.
+
+40
+
+41
+
+42
+2.2	
+Installer un module de mémoire
+Retrait de la barrette de mémoire (DIMM)
+
+43
+2.3	
+Installer un module M.2
+REMARQUE :
+•	 Les illustrations ne décrivent les étapes d'installation que pour les slots M.2 sélectionnés, les étapes 
+sont identiques pour les autres slots M.2.
+•	 Utilisez un tournevis Phillips pour installer ou retirer les vis ou supports à vis mentionnés dans cette 
+section.
+•	 Si le pad thermique du dissipateur M.2 est endommagé, nous vous recommandons de le remplacer par 
+un pad thermique d'une épaisseur de 1,25 mm.
+•	 Le type de carte M.2 pris en charge peut varier en fonction du modèle de carte mère.
+1.	
+Appuyez sur la languette du slot M.2 Q-Release pour libérer le dissipateur thermique.
+2.	
+Tirez légèrement le dissipateur thermique vers l'extérieur, puis soulevez et retirez le 
+dissipateur.
+
+44
+3.	
+Desserrez les vis des autres dissipateurs thermiques M.2.
+4.	
+Soulevez et retirez le(s) dissipateur(s) thermique(s).
+5.	
+Installez votre module M.2 dans le slot M.2. Les étapes d'installation peuvent différer selon le 
+type de slot M.2, référez-vous aux différentes étapes ci-dessous :
+	
+Installation d'un module M.2 22110 sur un slot M.2 de longueur 22110 avec plaque arrière 
+ou d'un module M.2 2280 sur un slot M.2 de longueur 2280 avec plaque arrière
+	
+A.	
+(optionnel) Si nécessaire, retirez la glissière M.2 Q-Slide préinstallée en poussant 
+la glissière complètement vers le slot M.2, puis en le retirant de la plaque arrière du 
+module M.2.
+REMARQUE : Seules les plaques arrière de modules M.2 de longueur 22110 sont préinstallées avec la 
+glissière M.2 Q-Slide.
+M.2 Q-Slide
+Plaque arrière de module M.2
+CROSSHAIR X870E HERO
+3
+
+45
+	
+B.	
+(optionnel) Installez la protection en caoutchouc pour module M.2 fournie 
+lorsque vous installez un module M.2 simple face. N'installez pas la protection en 
+caoutchouc pour module M.2 fournie sur un module M.2 double-face.
+REMARQUE :
+•	 Suivez cette étape uniquement si la protection en caoutchouc pour module M.2 est fournie avec votre 
+carte mère.
+•	 Installez la protection en caoutchouc pour module M.2 dans le trou de vis situé à la longueur M.2 2260.
+OPTIONAL
+Protection en caoutchouc pour module M.2
+	
+C.	
+Installez votre module M.2 dans le slot M.2.
+IMPORTANT  ! Assurez-vous que rien n'obstrue votre module M.2 lors de l'installation du module dans le 
+slot M.2.
+	
+D.	
+Appuyez sur le module M.2 jusqu'à ce qu'il soit verrouillé par le loquet M.2 Q-Latch.
+M.2 Q-Latch
+
+46
+	
+Installation d'un module M.2 2280/2260/2242 sur un slot M.2 avec une plaque arrière M.2 
+de longueur 22110 ou d'un module M.2 2260/2242 sur un slot M.2 avec une plaque arrière 
+M.2 de longueur 2280
+	
+A.	
+(optionnel) Si nécessaire, installez la glissière M.2 Q-Slide fournie en fixant la 
+glissière à l'extrémité de la plaque arrière M.2 la plus proche du slot M.2, puis en la 
+poussant le long de la plaque arrière M.2 vers le loquet M.2 Q-Latch.
+REMARQUE : Suivez cette étape uniquement dans les cas suivants :
+ - La glissière M.2 Q-Slide est fournie avec votre carte mère. 
+ - La glissière M.2 Q-Slide n'est pas préinstallée sur la plaque arrière du module M.2.
+	
+B.	
+Poussez la glissière M.2 Q-Slide sur le trou de vis situé à la longueur adaptée à 
+votre lecteur M.2.
+M.2 Q-Slide
+Plaque arrière de module M.2
+M.2 Q-Latch
+
+47
+	
+C.	
+(optionnel) Installez la protection en caoutchouc pour module M.2 fournie 
+lorsque vous installez un module M.2 simple face. N'installez pas la protection en 
+caoutchouc pour module M.2 fournie sur un module M.2 double-face.
+REMARQUE :
+•	 Suivez cette étape uniquement dans les cas suivants : 
+ - Installation d'un module M.2 de longueur 2280 ou 2260 et 
+ -	
+Lorsque la protection en caoutchouc pour module M.2 est fournie avec la carte mère.
+•	 Installez la protection en caoutchouc M.2 fournie dans : 
+ - Le trou de vis situé à la longueur M.2 2260 pour installer un module M.2 2280. 
+ - Le trou de vis situé à la longueur M.2 2242 pour installer un module M.2 2260.
+	
+D.	
+Installez votre module M.2 dans le slot M.2.
+IMPORTANT  ! Assurez-vous que rien n'obstrue votre module M.2 lors de l'installation du module dans le 
+slot M.2.
+	
+E.	
+Poussez le module M.2 sur la glissière M.2 Q-Slide jusqu'à ce qu'il s'enclenche et 
+soit maintenu par la glissière.
+OPTIONAL
+Protection en caoutchouc pour module M.2
+M.2 Q-Slide
+
+48
+	
+Installation d'un module M.2 sur un slot M.2 sans plaque arrière M.2
+	
+A.	
+(optionnel) Si nécessaire, retirez le loquet amovible M.2 Q-Latch préinstallé sur le 
+trou de vis situé à la longueur 2280.
+REMARQUE : Suivez cette étape uniquement si une vis de loquet M.2 Q-Latch amovible est préinstallée 
+dans le trou de vis situé à la longueur 2280 et peut être retirée.
+	
+B.	
+(optionnel) Installez la protection en caoutchouc pour module M.2 fournie 
+lorsque vous installez un module M.2 simple face. N'installez pas la protection 
+en caoutchouc pour module M.2 fournie sur un module M.2 double-face. La 
+protection en caoutchouc pré-installée est compatible avec les modules M.2 
+double-face.
+REMARQUE : Ne suivez cette étape que si vous installez un module M.2 de longueur 22110 / 2280 et 
+lorsque la protection en caoutchouc pour module M.2 est fournie avec votre carte mère.
+OPTIONAL
+Protection en caoutchouc pour module M.2
+	
+C.	
+(optionnel) Installez le loquet M.2 Q-Latch dans le trou de vis situé à la longueur 
+adaptée à votre module M.2.
+REMARQUE : Vous pouvez utiliser une vis de loquet M.2 Q-Latch fournie ou une vis de loquet M.2 Q-Latch 
+amovible préinstallée.
+
+49
+	
+D.	
+Installez votre module M.2 dans le slot M.2.
+IMPORTANT  ! Assurez-vous que rien n'obstrue votre module M.2 lors de l'installation du module dans le 
+slot M.2.
+	
+E.	
+Appuyez sur le module M.2 jusqu'à ce qu'il soit verrouillé par le loquet M.2 Q-Latch.
+6.	
+Retirez le film plastique des pads thermiques situés sous le dissipateur thermique.
+REMARQUE : Si le pad thermique du dissipateur M.2 est endommagé, nous vous recommandons de le 
+remplacer par un pad thermique d'une épaisseur de 1,25 mm.
+7.	
+Faites glisser le dissipateur thermique dans l'emplacement à l'extrémité avec le slot M.2, puis 
+appuyez sur le dissipateur thermique jusqu'à ce qu'il s'enclenche et soit maintenu en place.
+
+50
+8.	
+Retirez le film plastique des pads thermiques situés sous les autres dissipateurs thermiques.
+REMARQUE : Si le pad thermique du dissipateur M.2 est endommagé, nous vous recommandons de le 
+remplacer par un pad thermique d'une épaisseur de 1,25 mm.
+9.	
+Replacez le(s) dissipateur(s) thermique(s).
+10.	
+Fixez le(s) dissipateur(s) thermique(s) en utilisant les vis fournies.
+CROSSHAIR X870E HERO
+
+51
+ATTENTION ! Ne vissez pas trop fort ! Vous risqueriez d'endommager la carte mère.
+2.	
+Placez la carte mère dans le châssis en vous assurant que ses ports d'E/S (entrée/sortie) 
+sont alignés avec la zone d'E/S du châssis.
+3.	
+Placez neuf (9) vis dans les pas de vis (marqués d'un cercle rouge sur l'illustration ci-
+dessous) pour sécuriser la carte mère au châssis.
+REMARQUE : Cette instruction est fournie à titre de référence, veuillez utiliser le nombre de vis adéquat en 
+fonction de votre installation.
+2.4	
+Installer la carte mère
+1.	
+(sur certains modèles) Installez le cache E/S fourni sur le panneau arrière du châssis.
+REMARQUE : N'installez le cache E/S que si votre carte mère ne dispose pas d'un cache E/S préinstallé.
+CROSSHAIR X870E HERO
+
+52
+2.5	
+Installation de l'antenne WiFi ASUS Q-Antenna
+Installer l'antenne WiFi ASUS (Q-Antenna)
+Connectez l'antenne WiFi ASUS Q-Antenna incluse sur les ports dédiés situés à l'arrière du châssis 
+de votre ordinateur.
+ATTENTION !
+•	 Assurez-vous de bien maintenir le connecteur lorsque vous retirez l'antenne des ports WiFi et n'essayez 
+pas de retirer le connecteur d'antenne des ports WiFi en tirant sur le câble du connecteur.
+•	 L'antenne ne peut être dépliée qu'à un angle droit (90°). Ne forcez pas l'antenne vers un angle supérieur 
+à 90°, ce qui pourrait l'endommager.
+IMPORTANT  !
+•	 Assurez-vous que l'antenne WiFi ASUS (Q-Antenna) est bien installée sur les ports WiFi.
+•	 Placez l'antenne à plus de 20 cm de toute personne.
+REMARQUE : L'illustration ci-dessus est donnée à titre indicatif uniquement. La disposition des ports 
+d'E/S peut varier en fonction du modèle, cependant les instructions d'installation de l'antenne WiFi sont 
+identiques.
+Utiliser les fonctions de l'antenne WiFi ASUS (Q-Antenna)
+L'antenne WiFi ASUS (Q-Antenna) dispose d'une variété de fonctionnalités sans fil. Vous pouvez 
+en savoir plus sur ces fonctionnalités et comment les utiliser dans l'onglet Antenne WiFi ASUS 
+(Q-Antenna) de l'application Armoury Crate.
+REMARQUE : Les fonctions d'antenne WiFi ASUS (Q-Antenna) dans Armoury Crate ne sont prises en 
+charge qu'avec l'antenne et le module WiFi fournis.
+
+53
+Bouton BIOS Flashback™
+Port USB BIOS Flashback™
+2.6	
+BIOS FlashBack™
+BIOS Flashback™ vous permet de mettre à jour le BIOS sans avoir à accéder au BIOS actuel ou au 
+système d'exploitation. 
+Pour utiliser BIOS Flashback™ :
+1.	
+Visitez le site https://www.asus.com/fr/support/ et téléchargez la dernière version du BIOS.
+2.	
+Lancez l'application BIOSRenamer.exe pour renommer automatiquement le fichier ou 
+renommez manuellement le fichier avec le nom de fichier BIOS spécifié dans la section 
+Résumé des caractéristiques, puis copiez-le sur votre périphérique de stockage USB.
+REMARQUE : L'application BIOSRenamer.exe est fournie avec le fichier BIOS lorsque vous téléchargez le 
+fichier de mise à jour du BIOS pour une carte mère compatible BIOS FlashBack™. 
+3.	
+Branchez le connecteur d'alimentation 24 broches sur la carte mère et mettez le bloc 
+alimentation sous tension (inutile de démarrer le système). Insérez le périphérique de 
+stockage USB dans le port USB pour utiliser la fonction BIOS FlashBack™.
+4.	
+Maintenez le bouton BIOS Flashback™ enfoncé pendant trois (3) secondes jusqu'à ce que la 
+LED clignote à trois reprises, puis relâchez. La fonction BIOS Flashback™ est alors activée.
+5.	
+La mise à jour est terminée lorsque le voyant lumineux s'éteint.
+REMARQUE : Référez-vous à la section BIOS et configurations RAID pour consulter les autres méthodes 
+de mise à jour du BIOS.
+ATTENTION !
+•	 Ne pas débrancher le périphérique de stockage, allumer l'ordinateur, appuyer sur le bouton Clear CMOS 
+ou court-circuiter le cavalier CLRTC lors de la mise à jour du BIOS. En cas d'interruption du processus 
+de mise à jour, veuillez répéter les procédures pour terminer la mise à jour du BIOS.
+•	 Si le voyant lumineux clignote pendant cinq secondes puis reste allumé, cela signifie que la fonction 
+BIOS Flashback™ rencontre des difficultés de fonctionnement. Causes possibles : 1. Mauvaise 
+installation du périphérique de stockage. 2. Nom de fichier incorrect ou format de fichier invalide. 
+Veuillez redémarrer le système pour corriger ce problème. 
+•	 La mise à jour du BIOS comporte certains risques. Si celui-ci est endommagé lors du processus de 
+mise à jour et que le système ne redémarre plus, contactez le service après-vente ASUS le plus proche 
+pour obtenir de l'aide.
+
+54
+2.7	
+Démarrer pour la première fois
+1.	
+Après avoir effectué tous les branchements, refermez le châssis d'ordinateur. 
+2.	
+Assurez-vous que tous les interrupteurs sont éteints.
+3.	
+Connectez le câble d'alimentation au connecteur d'alimentation à l'arrière du châssis.
+4.	
+Reliez l'autre extrémité du câble d'alimentation à une prise électrique équipée d'une protection 
+contre les surtensions.
+5.	
+Allumez l'ordinateur en suivant la séquence suivante :
+	
+a.	
+Écran
+	
+b.	
+Périphériques de stockage externes (en commençant par le dernier sur la chaîne)
+	
+c.	
+Alimentation système
+6.	
+Après avoir démarré, le voyant lumineux d'alimentation situé en façade du châssis s'allume. 
+Pour les alimentations ATX, le voyant lumineux système s'allume lorsque vous appuyez 
+sur le bouton d'alimentation ATX. Si votre moniteur est compatible avec les standards “non 
+polluants” ou s'il possède une fonction d'économie d'énergie, le voyant lumineux du moniteur 
+peut s'allumer ou passer de la couleur orange à la couleur verte après l'allumage.
+	
+Le système exécute alors les tests de démarrage (POST). Pendant l'exécution des tests, 
+des messages supplémentaires apparaissent à l'écran. Si rien ne se produit dans les 30 
+secondes qui suivent le démarrage de l'ordinateur, le système peut avoir échoué un des tests 
+de démarrage. Vérifiez le réglage des cavaliers et les connexions, ou faites appel au service 
+après-vente de votre revendeur.
+7.	
+Au démarrage, maintenez la touche <Suppr.> enfoncée pour accéder au menu de 
+configuration du BIOS. Suivez les instructions du chapitre 3 pour plus de détails.
+2.8	
+Éteindre l'ordinateur
+Lorsque le système est sous tension, appuyer sur le bouton d'alimentation pendant moins de 4 
+secondes passe le système en mode veille ou en mode arrêt piloté en fonction du paramétrage du 
+BIOS. Appuyer sur le bouton pendant plus de 4 secondes passe le système en mode arrêt piloté quel 
+que soit le réglage du BIOS.
+
+55
+BIOS et configurations RAID
+Chapitre 3 : BIOS et configurations RAID
+REMARQUE : Pour plus de détails sur le BIOS et les configurations RAID, consultez la section "Manuel et 
+Documentation" de l'onglet "Support" de la page d'information du produit, ou visitez :
+https://www.asus.com/fr/support.
+3.1	
+Présentation du BIOS UEFI
+Le BIOS (Basic Input and Output System) stocke divers paramètres matériels du système tels que 
+la configuration des périphériques de stockage, les paramètres d'overclocking, les paramètres 
+de gestion de l'alimentation et la configuration des périphériques de démarrage nécessaires à 
+l'initialisation du système dans le CMOS de la carte mère. De manière générale, les paramètres 
+par défaut du BIOS conviennent à la plupart des utilisations de l'ordinateur pour assurer des 
+performances optimales. Il est recommandé de NE PAS modifier les paramètres par défaut du 
+BIOS sauf dans les cas suivants : 
+•	
+Un message d'erreur apparaît au démarrage du système et requiert l'accès au BIOS.
+•	
+Un composant installé nécessite un réglage spécifique ou une mise à jour du BIOS.
+ATTENTION ! Une mauvaise utilisation du BIOS peut entraîner une instabilité du système ou un échec 
+de démarrage. Il est fortement recommandé de ne modifier les paramètres du BIOS qu'avec l'aide d'un 
+technicien qualifié.
+REMARQUE : Les réglages et les options du BIOS peuvent varier selon les versions du BIOS. Consultez la 
+dernière version du BIOS pour les réglages et les options.
+Accéder au BIOS au démarrage du système
+Pour accéder au BIOS au démarrage du système, appuyez sur <Suppr.> ou <F2> lors du POST 
+(Power-On Self Test). Si vous n'appuyez pas sur <Suppr.> ni sur <F2>, le POST continue ses tests.
+IMPORTANT  !
+•	 Si le système devient instable après avoir modifié un ou plusieurs paramètres du BIOS, rechargez les 
+valeurs par défaut pour restaurer la compatibilité et la stabilité du système. Choisissez l'option Load 
+Optimized Settings (Charger les valeurs optimisées par défaut) du menu Exit ou appuyez sur la touche 
+<F5>.
+•	 Si le système ne démarre pas après la modification d'un ou plusieurs paramètres du BIOS, essayez 
+d'effacer la mémoire CMOS pour restaurer les options de configuration par défaut de la carte mère.
+•	 Le BIOS ne prend pas en charge les périphériques Bluetooth.
+L'écran de menu BIOS
+Le programme de configuration du BIOS possède deux interfaces de configuration : EZ Mode (Mode 
+EZ) et Advanced Mode (Mode avancé). Vous pouvez changer de mode à partir de Setup Mode 
+(Mode de configuration) dans le menu Boot (Démarrage) ou en appuyant sur la touche <F7>.
+
+56
+3.2	
+ASUS EZ Flash 3
+ASUS EZ Flash 3 vous permet de mettre à jour le BIOS sans avoir à passer par un utilitaire 
+Windows®.
+IMPORTANT  ! Assurez-vous de charger les paramètres par défaut du BIOS pour garantir la stabilité et la 
+compatibilité du système. Choisissez l'option Load Optimized Settings (Charger les valeurs optimisées par 
+défaut) du menu Exit ou appuyez sur la touche <F5>.
+Pour mettre à jour le BIOS :
+ATTENTION !
+•	 Cette fonction est compatible avec les périphériques de stockage Flash au format FAT 32/16 et 
+n'utilisant qu'une seule partition.
+•	 NE PAS éteindre ni redémarrer le système lors de la mise à jour du BIOS ! Cela pourrait provoquer un 
+échec de démarrage du système !
+1.	
+Insérez le périphérique de stockage USB contenant le fichier BIOS sur l'un des ports USB de 
+votre ordinateur.
+2.	
+Accédez à l'interface Advanced Mode (Mode avancé) du BIOS. Allez dans le menu Tool 
+(Outils), sélectionnez l'élément ASUS EZ Flash 3 Utility puis appuyez sur <Entrée>.
+3.	
+Appuyez sur la touche directionnelle gauche pour sélectionner le champ Drive (Lecteur).
+4.	
+Utilisez les touches directionnelles haut/bas du clavier pour sélectionner le support de 
+stockage contenant le fichier BIOS, puis appuyez sur <Entrée>. 
+5.	
+Appuyez sur la touche directionnelle droite pour sélectionner le champ Folder (Dossier).
+6.	
+Utilisez les touches directionnelles haut/bas du clavier pour localiser le fichier BIOS, puis 
+appuyez sur <Entrée> pour lancer le processus de mise à jour du BIOS. Redémarrez le 
+système une fois la mise à jour terminée.
+
+57
+3.3	
+ASUS CrashFree BIOS 3
+ASUS CrashFree BIOS 3 est un outil de récupération automatique qui permet de restaurer le BIOS 
+lorsqu'il est défectueux ou corrompu suite à une mise à jour. Vous pouvez mettre à jour un BIOS 
+corrompu en utilisant un périphérique de stockage USB contenant le fichier BIOS à jour.
+Restaurer le BIOS
+1.	
+Téléchargez la dernière version du BIOS de votre carte mère en vous rendant sur 
+https://www.asus.com/fr/support/.
+2.	
+Renommez le fichier en utilisant l'une des méthodes suivantes :
+	
+	
+•	
+Lancez l'application BIOSRenamer.exe pour renommer automatiquement le 
+fichier.
+	
+	
+•	
+Renommez manuellement le fichier avec le nom de fichier BIOS spécifié dans la 
+section Résumé des caractéristiques.
+	
+	
+•	
+Renommez manuellement le fichier en ASUS.CAP.
+3.	
+Copiez le fichier renommé sur votre périphérique de stockage USB.
+4.	
+Insérez le périphérique de stockage USB contenant le fichier BIOS sur l'un des ports USB de 
+votre ordinateur.
+5.	
+Allumez l'ordinateur. 
+6.	
+L'utilitaire vérifiera automatiquement la présence du fichier BIOS sur l'un de ces supports. Une 
+fois trouvé, l'utilitaire commencera alors à mettre à jour le fichier BIOS corrompu.
+7.	
+Une fois la mise à jour terminée, vous devrez ré-accéder au BIOS pour reconfigurer vos 
+réglages. Toutefois, il est recommandé d'appuyer sur <F5> pour rétablir les valeurs par défaut 
+du BIOS afin de garantir une meilleure compatibilité et stabilité du système.
+ATTENTION ! NE PAS éteindre ni redémarrer le système lors de la mise à jour du BIOS ! Cela pourrait 
+provoquer un échec de démarrage du système !
+
+58
+3.4	
+Configuration de volumes RAID
+La carte mère prend en charge les configurations RAID.
+Définitions RAID
+Volume vous permet de relier le stockage d'un ou plusieurs disques, quel que soit l'espace sur ces 
+disques. Cette configuration est utile pour trouver de l'espace sur les disques inutilisés par d'autres 
+disques dans l'ensemble. Cette configuration ne procure aucun avantage en terme de performances 
+ou de redondance de données, une défaillance de disque entraînera une perte de données.
+Les ensembles RAIDABLE (aussi connus sous le nom de RAID Ready) représentent un type spécial 
+de Volume (JBOD) qui permet à l'utilisateur d'ajouter davantage d'espace de stockage ou de créer 
+un ensemble redondant après l'installation du système.
+REMARQUE : La capacité à créer des ensembles RAIDABLE peut varier en fonction du système.
+RAID 0 (Data striping) optimise deux disques durs identiques pour lire et écrire des données dans 
+des piles parallèles entrelacées. Deux disques durs accomplissent la même tâche comme un seul 
+disque mais à un taux de transfert de données soutenu, le double de celui d'un disque dur unique, 
+améliorant ainsi de manière significative l'accès aux données et au stockage. L'utilisation de deux 
+disques durs neufs et identiques est nécessaire pour cette configuration.
+RAID 1 (Data mirroring) fait une copie à l'identique des données d'un disque vers un second disque. 
+Si un disque est défaillant, le logiciel de gestion d'ensemble RAID redirige toutes les applications 
+vers le disque opérationnel restant qui contient une copie des données de l'autre disque. Cette 
+configuration RAID offre une bonne protection des données, et augmente la tolérance aux pannes 
+de l'ensemble du système. Utilisez deux nouveaux disques pour cette configuration, ou un disque 
+neuf et un disque existant. Le nouveau disque doit être de la même taille ou plus large que le disque 
+existant.
+RAID 5 répartit en bandes les données et les informations de parité entre 5 disques durs ou plus. 
+Les avantages de la configuration RAID 5 incluent de meilleures performances des disques durs, 
+la tolérance aux pannes, et des capacités de stockage plus importantes. La configuration RAID 5 
+convient particulièrement aux processus de transaction, aux applications de bases de données 
+professionnelles, à la planification des ressources de l'entreprise, et autres systèmes internes. À 
+utiliser avec au moins trois disques identiques.
+RAID 10 est une combinaison de data striping et data mirroring sans parité à calculer et écrire. Avec 
+un volume RAID 10, vous bénéficiez des avantages combinés des configurations RAID 0 et RAID 1. 
+Utilisez quatre nouveaux disques pour cette configuration, ou un disque existant et trois nouveaux 
+disques.
+
+59
+Annexes
+Annexes
+Tableau de débogage Q-Code
+Code
+Description
+00
+Non utilisé
+01
+Mise sous tension. Détection du type de réinitialisation (soft/hard).
+02
+Initialisation AP avant chargement du microcode
+03
+Initialisation de l'agent système avant chargement du microcode
+04
+Initialisation PCH avant chargement du microcode
+06
+Chargement du microcode
+07
+Initialisation AP après chargement du microcode
+08
+Initialisation de l'agent système après chargement du microcode
+09
+Initialisation PCH après chargement du microcode
+0B
+Initialisation du cache
+0C – 0D
+Réservé aux futurs codes d'erreur AMI SEC
+0E
+Microcode introuvable
+0F
+Microcode non chargé
+10
+PEI Core est lancé
+11 – 14
+L'initialisation pré-mémoire du processeur est lancée
+15 – 18
+L'initialisation pré-mémoire de l'agent système est lancée 
+19 – 1C
+L'initialisation pré-mémoire PCH est lancée
+2B – 2F
+Initialisation de la mémoire
+30
+Réservé aux ASL (Voir la section Codes d'état ASL ci-dessous)
+31
+Mémoire installée
+32 – 36
+Initialisation post-mémoire du processeur
+37 – 3A
+L'initialisation post-mémoire de l'agent système est lancée
+3B – 3E
+L'initialisation post-mémoire du PCH est lancée
+4F
+DXE IPL est lancé
+50 – 53
+Erreur d'initialisation de la mémoire. Type de mémoire invalide ou vitesse de 
+mémoire incompatible
+54
+Erreur d'initialisation de la mémoire non spécifiée
+55
+Mémoire non installée
+56
+Type de processeur ou vitesse invalide
+57
+Le processeur ne correspond pas
+58
+Échec de l'auto test du processeur ou erreur du cache du processeur possible
+59
+Le micro-code du processeur est introuvable ou la mise à jour du micro-code a 
+échoué
+5A
+Erreur du processeur interne
+5B
+Le PPI de réinitialisation n'est pas disponible
+5C – 5F
+Réservé aux futurs codes d'erreur AMI
+(continue à la page suivante)
+
+60
+Tableau de débogage Q-Code
+Code
+Description
+E0
+La reprise S3 est lancée (Le PPI de reprise S3 est appelé par le DXE IPL)
+E1
+Exécution du Boot Script S3
+E2
+Reposter la vidéo
+E3
+Appel de vecteur de réveil S3 du système d'exploitation
+E4 – E7
+Réservé aux futurs codes de progression AMI
+E8
+Échec de reprise S3
+E9
+PPI reprise S3 introuvable
+EA
+Erreur de script reprise démarrage S3
+EB
+Erreur de réveil du système d'exploitation S3
+EC – EF
+Réservé aux futurs codes d'erreur AMI
+F0
+Condition de récupération déclenchée par le firmware (Auto récupération)
+F1
+Condition de récupération déclenchée par l'utilisateur (Récupération forcée)
+F2
+Le processus de récupération est lancé
+F3
+Image de récupération du microprogramme trouvée
+F4
+Image de récupération du microprogramme chargée
+F5 – F7
+Réservé aux futurs codes de progression AMI
+F8
+La récupération PPI n'est pas disponible
+F9
+Capsule de récupération introuvable
+FA
+Capsule de récupération invalide
+FB – FF
+Réservé aux futurs codes d'erreur AMI
+60
+DXE Core est lancé
+61
+Initialisation NVRAM
+62
+Installation des Services d'exécution du PCH
+63 – 67
+L'initialisation DXE du processeur est lancée
+68
+Initialisation du pont hôte PCI
+69
+L'initialisation de l'agent système DXE est lancée
+6A
+L'initialisation SMM de l'agent système DXE est lancée
+6B – 6F
+Initialisation de l'agent système DXE (Module spécifique agent système)
+70
+L'initialisation PCH DXE est lancée
+71
+L'initialisation PCH DXE SMM est lancée
+72
+Initialisation des périphériques PCH
+73 – 77
+Initialisation des périphériques PCH DXE (Module PCH spécifique)
+78
+Initialisation du module ACPI
+79
+Initialisation CSM
+7A – 7F
+Réservé aux futurs codes AMI DXE
+(continue à la page suivante)
+
+61
+Tableau de débogage Q-Code
+Code
+Description
+90
+La phase de sélection de périphérique de démarrage Boot Device (BDS) est 
+lancée
+91
+La connexion du pilote est lancée
+92
+L'initialisation du bus PCI est lancée
+93
+Initialisation du contrôleur de branchement à chaud du bus PCI
+94
+Énumération du bus PCI
+95
+Demander les ressources du bus PCI
+96
+Affecter les ressources du bus PCI
+97
+Les périphériques de sortie de la console se connectent
+98
+Les périphériques d'entrée de la console se connectent
+99
+Initialisation Super IO
+9A
+L'initialisation USB est lancée
+9B
+Réinitialisation USB
+9C
+Détection USB
+9D
+Activer USB
+9E – 9F
+Réservé aux futurs codes AMI
+A0
+L'initialisation IDE est lancée
+A1
+Réinitialisation IDE
+A2
+Détection IDE
+A3
+Activer IDE
+A4
+L'initialisation SCSI est lancée
+A5
+Réinitialisation SCSI
+A6
+Détection SCSI
+A7
+Activer SCSI
+A8
+Configuration de vérification du mot de passe
+A9
+Démarrage de la configuration
+AA
+Réservé aux ASL (Voir la section Codes d'état ASL ci-dessous)
+AB
+Configuration attente entrée
+AC
+Réservé aux ASL (Voir la section Codes d'état ASL ci-dessous)
+AD
+Événement Prêt à démarrer
+AE
+Événement Legacy Boot (Démarrage hérité)
+AF
+Événement services de sortie de démarrage
+B0
+Début de temps de définition d'adresse virtuelle MAP
+B1
+Fin de temps de définition d'adresse virtuelle MAP
+B2
+Initialisation des options Legacy de la ROM
+B3
+Réinitialisation du système
+(continue à la page suivante)
+
+62
+Code
+Description
+B4
+Branchement à chaud USB
+B5
+Branchement à chaud du bus PCI
+B6
+Nettoyage de la NVRAM
+B7
+Réinitialisation de configuration (Réinitialisation des paramètres NVRAM)
+B8– BF
+Réservé aux futurs codes AMI
+D0
+Erreur d'initialisation du processeur
+D1
+Erreur d'initialisation de l'agent système
+D2
+Erreur d'initialisation PCH
+D3
+Certains des protocoles d'architecture ne sont pas disponibles
+D4
+Erreur d'allocation des ressources PCI. Hors ressources
+D5
+Aucun espace pour les options Legacy de la ROM
+D6
+Périphériques de sortie de la console introuvables
+D7
+Périphériques d'entrée de la console introuvables
+D8
+Mot de passe erroné
+D9
+Erreur de chargement d'option de démarrage (Erreur LoadImage)
+DA
+Échec d'option de démarrage (Erreur StartImage)
+DB
+Échec de la mise à jour Flash
+DC
+Le protocole de réinitialisation n'est pas disponible
+Tableau de débogage Q-Code
+Points de contrôle ACPI / ASL (Sous système d'exploitation)
+Code
+Description
+03
+Le système entre en état de veille S3
+04
+Le système entre en état de veille S4
+05
+Le système entre en état de veille S5
+30
+Le système sort de l'état de veille S3
+40
+Le système sort de l'état de veille S4
+AC
+Le système est passé en mode ACPI. Le contrôleur d'interruption est en mode PIC.
+AA
+Le système est passé en mode ACPI. Le contrôleur d'interruption est en mode APIC.
+
+ROG MAXIMUS Z790 HERO EVA-02
+63
+Annexes
+Annexes
+Annexes
+Mentions générales
+Informations de conformité FCC
+Partie responsable :
+Asus Computer International
+Adresse :
+48720 Kato Rd., Fremont, CA 94538, USA
+Numéro de fax / téléphone :
+(510)739-3777 / (510)608-4555
+Cet appareil est conforme à l'alinéa 15 des règles établies par la FCC. Son utilisation est sujette 
+aux deux conditions suivantes : (1) cet appareil ne doit pas créer d'interférences nuisibles, et (2) 
+cet appareil doit tolérer tout type d'interférences, y compris celles susceptibles de provoquer un 
+fonctionnement non souhaité de l'appareil.
+Cet appareil a été testé et déclaré conforme aux limites relatives aux appareils numériques de 
+classe B, en accord avec la Section 15 de la réglementation de la Commission Fédérale des 
+Communications (FCC). Ces limites sont conçues pour offrir une protection raisonnable contre les 
+interférences nuisibles en installation résidentielle. Cet appareil génère, utilise et peut émettre de 
+l'énergie de radiofréquence et, s'il n'est pas installé et utilisé en accord avec les instructions, peut 
+créer des interférences nuisibles aux communications radio. Cependant, il n'y a pas de garantie que 
+des interférences ne surviendront pas dans une installation particulière. Si cet appareil crée des 
+interférences nuisibles à la réception de la radio ou de la télévision (il est possible de le déterminer 
+en éteignant puis en rallumant l'appareil), l'utilisateur est encouragé à essayer de corriger les 
+interférences par l'une ou plusieurs des mesures suivantes : 
+ - Réorienter ou repositionner l'antenne de réception.
+ - Augmenter la distance de séparation entre l'appareil et le récepteur.
+ - Brancher l'appareil sur une prise secteur d'un circuit différent de celui auquel le récepteur est 
+branché.
+ - Consulter le revendeur ou un technicien radio/TV qualifié pour obtenir de l'aide.
+Note sur l'exposition aux fréquences radio
+Cet appareil doit être installé et utilisé en accord avec les instructions fournies et les antennes 
+utilisées pour cet émetteur doivent être installées à au moins 20 cm de distance de toute personne 
+et ne pas être situées près de ou utilisées conjointement avec une autre antenne ou un autre 
+émetteur. Les instructions d'installation de l'antenne ainsi que les conditions de fonctionnement de 
+l'émetteur doivent être fournies aux utilisateurs et aux installateurs pour satisfaire aux normes en 
+matière d'exposition aux fréquences radio.
+Avis de marque déposée HDMI 
+Le terme HDMI (High-Definition Multimedia Interface), l'habillage commercial HDMI et le logo HDMI 
+sont des marques commerciales ou marques déposées par HDMI Licensing Administrator, Inc.
+
+64
+Annexes
+Annexes
+Déclaration de conformité aux normes environnementales
+ASUS développe une conception écologique pour tous ses produits et s'assure que des standards 
+élevés en terme de protection de l'environnement sont respectés tout au long du processus de 
+fabrication. De plus, ASUS met à votre disposition des informations sur les différentes normes de 
+respect de l'environnement.
+Consultez le site https://esg.asus.com/Compliance.htm pour plus d'informations sur les normes 
+auxquelles les produits ASUS sont conformes
+UE REACH et Article 33
+En accord avec le cadre réglementaire REACH (Enregistrement, Evaluation, Autorisation, et 
+Restriction des produits chimiques), nous publions la liste des substances chimiques contenues 
+dans nos produits sur le site ASUS REACH : https://esg.asus.com/Compliance.htm.
+UE RoHS
+Cet appareil est conforme à la directive UE RoHS. Pour plus de détails, consultez : 
+https://esg.asus.com/Compliance.htm
+
+ROG MAXIMUS Z790 HERO EVA-02
+65
+Annexes
+Services de reprise et de recyclage
+Les programmes de recyclage et de reprise d’ASUS découlent de nos exigences en terme de 
+standards élevés de respect de l’environnement. Nous souhaitons apporter à nos clients des solutions 
+permettant de recycler de manière responsable nos produits, batteries et autres composants ainsi que 
+nos emballages. Veuillez consulter le site https://esg.asus.com/en/Takeback.htm pour plus de détails 
+sur les conditions de recyclage en vigueur dans votre pays.
+La directive relative aux déchets d’équipements électriques et électroniques (DEEE) — Directive 
+2012/19/UE — est une loi de l’Union européenne visant à réduire l’impact environnemental des 
+équipements électriques et électroniques. Elle impose aux producteurs de prendre en charge la 
+gestion de fin de vie de leurs produits, en favorisant la collecte, le traitement et le recyclage afin de 
+minimiser les déchets et encourager la récupération des ressources.
+Ne jetez pas vos équipements électriques et électroniques avec les déchets ménagers. 
+Le symbole de la poubelle barrée, présent sur le produit ou son emballage, indique que ce produit (y 
+compris les piles qu’il peut contenir) ne doit pas être éliminé avec les ordures ménagères. 
+Pour éviter tout risque pour l’environnement et la santé humaine, un système de collecte adapté doit 
+être utilisé pour le retour, le recyclage et la valorisation des déchets d’équipements électriques et 
+électroniques (DEEE). Ce produit a été conçu pour permettre la réutilisation de certaines pièces et 
+faciliter le recyclage de certains matériaux.
+Une élimination incorrecte peut présenter des risques en raison de la présence de substances 
+dangereuses dans les équipements électriques et électroniques, telles que le plomb, les retardateurs 
+de flamme bromés (BFR) et d’autres composants nocifs.
+Renseignez-vous sur les services de recyclage électronique disponibles dans votre région. 
+(https://esg.asus.com/en/circular-economy/resource-regeneration/global-take-back-service)
+Ne jetez PAS la pile bouton au lithium avec les déchets ménagers. Le symbole représentant une 
+benne barrée d’une croix indique que la batterie ne doit pas être jetée avec les déchets ménagers.
+Consultez et scannez le code ci-dessous pour obtenir des informations en plusieurs langues sur la 
+directive DEEE et l’élimination des batteries.
+Informations sur le tri et le recyclage en France
+Points de collecte sur www.quefairedemesdechets.fr
+Privilégiez la réparaƟon ou le don de votre appareil !
+À DÉPOSER
+EN MAGASIN
+À DÉPOSER
+EN DÉCHÈTERIE
+OU 
+FR
+Cet appareil
+et ses accessoires
+se recyclent
+
+66
+Annexes
+Annexes
+Déclaration de conformité d'Innovation, Sciences et Développement 
+économique du Canada (ISDE)
+Le présent appareil est conforme aux CNR d'Innovation, Sciences et Développement économique 
+du Canada applicables aux appareils radio exempts de licence. Son utilisation est sujette aux 
+deux conditions suivantes : (1) cet appareil ne doit pas créer d'interférences et (2) cet appareil doit 
+tolérer tout type d'interférences, y compris celles susceptibles de provoquer un fonctionnement non 
+souhaité de l'appareil.
+La bande 5150–5250 MHz est réservée uniquement pour une utilisation à l’intérieur afin de réduire les 
+risques de brouillage préjudiciable aux systèmes de satellites mobiles utilisant les mêmes canaux.
+CAN ICES(B)/NMB(B)
+Déclaration de ISDE pour la plage 5,925-7,125 GHz (appareils RLAN)
+•	
+Les dispositifs ne doivent pas être utilisés pour commander des systèmes d’aéronef sans pilote 
+ni pour communiquer avec de tels systèmes;
+•	
+Les dispositifs ne doivent pas être utilisés sur les plateformes de forage pétrolier;
+•	
+Les dispositifs ne doivent pas être utilisés dans les aéronefs, à l’exception des points d’accès 
+intérieurs de faible puissance, des dispositifs subordonnés intérieurs, des dispositifs clients 
+de faible puissance et des dispositifs de très faible puissance fonctionnant dans la bande de 
+5925 à 6425 MHz, qui peuvent être utilisés dans les gros aéronefs tel qu’il est défini dans le 
+Règlement de l’aviation canadien, et ce, lorsqu’ils volent à une altitude supérieure à 3048 mètres 
+(10000 pieds).
+•	
+Les dispositifs ne doivent pas être utilisés dans les automobiles;
+•	
+Les dispositifs ne doivent pas être utilisés dans les trains;
+•	
+Les dispositifs ne doivent pas être utilisés sur les navires maritimes.
+Précautions d’emploi de l’appareil :
+a.	
+Soyez particulièrement vigilant quant à votre sécurité lors de l’utilisation de cet appareil 
+dans certains lieux (les avions, les aéroports, les hôpitaux, les stations-service et les garages 
+professionnels).
+b.	
+Évitez d’utiliser cet appareil à proximité de dispositifs médicaux implantés. Si vous portez 
+un implant électronique (stimulateurs cardiaques, pompes à insuline, neurostimulateurs…), 
+veuillez impérativement respecter une distance minimale de 15 centimètres entre cet appareil 
+et l’implant pour réduire les risques d’interférence.
+c.	
+Utilisez cet appareil dans de bonnes conditions de réception pour minimiser le niveau de 
+rayonnement. Ce n’est pas toujours le cas dans certaines zones ou situations, notamment 
+dans les parkings souterrains, dans les ascenseurs, en train ou en voiture ou tout simplement 
+dans un secteur mal couvert par le réseau.
+d.	
+Tenez cet appareil à distance du ventre des femmes enceintes et du bas-ventre des 
+adolescents. 
+Note sur l’exposition aux radiofréquences
+Cet appareil doit être installé et utilisé en accord avec les instructions fournies et les antennes 
+utilisées pour cet émetteur doivent être installées à au moins 20 cm de distance de toute personne et 
+ne pas être situées près de ou utilisées conjointement avec une autre antenne ou un autre émetteur. 
+Les instructions d’installation de l’antenne ainsi que les conditions de fonctionnement de l’émetteur 
+doivent être fournies aux utilisateurs et aux installateurs pour satisfaire aux normes en matière 
+d’exposition aux radiofréquences.
+Avis concernant le modèle avec Wi-Fi
+
+ROG MAXIMUS Z790 HERO EVA-02
+67
+Annexes
+Déclaration simplifiée de conformité de l’UE
+ASUSTek Computer Inc. déclare par la présente que cet appareil est conforme aux critères essentiels et 
+autres clauses pertinentes de la directive 2014/53/EU. La déclaration de conformité de l’UE peut être 
+téléchargée à partir du site internet suivant : https://www.asus.com/fr/support/.
+Dans la plage de fréquence 5150-5350 MHz, le Wi-Fi est restreint à une utilisation en intérieur dans les pays 
+listés dans le tableau ci-dessous:
+a.	Pour les appareils WiFi LPI (Low Power Indoor) dans la plage 5,945-6,425 GHz : 
+L'appareil est limité à une utilisation en intérieur uniquement lorsqu'il fonctionne dans la plage de 
+fréquences 5945-6425 MHz en Autriche (AT), Belgique (BE), Bulgarie (BG), Chypre (CY), République 
+tchèque (CZ), Estonie (EE), France (FR), Allemagne (DE), Islande (IS), Irlande (IE) , Lettonie (LV), 
+Luxembourg (LU), Pays-Bas (NL), Norvège (NO), Roumanie (RO), Slovaquie (SK), Slovénie (SI), 
+Espagne (ES), Suisse (CH).
+b.	Pour les appareils portables WiFi VLP (Very Low Power) dans la plage 5,945-6,425 GHz : 
+L'appareil n'est pas autorisé à être utilisé sur des systèmes d'aéronefs sans pilote (UAS) lorsqu'il 
+fonctionne dans la plage de fréquences 5945-6425 MHz en Autriche (AT), Belgique (BE), Bulgarie 
+(BG), Chypre (CY), République tchèque (CZ), Estonie (EE), France (FR), Allemagne (DE), Islande 
+(IS), Irlande (IE), Lettonie (LV), Luxembourg (LU), Pays-Bas (NL), Norvège (NO), Roumanie (RO), 
+Slovaquie (SK), Slovénie (SI), Espagne (ES), Suisse (CH).
+AT
+BE
+BG
+CZ
+DK
+EE
+FR
+DE
+IS
+IE
+IT
+EL
+ES
+CY
+LV
+LI
+LT
+LU
+HU
+MT
+NL
+NO
+PL
+PT
+RO
+SI
+SK
+TR
+FI
+SE
+CH
+HR
+UK(NI)
+Tableau de sortie de fréquence radio RED (Directive 2014/53/EU)
+Modèle : MT7902 (MT7927)
+Fonction
+Fréquence
+Puissance de sortie maximale 
+(P.I.R.E) (mW)
+WiFi
+2,4 - 2,4835 GHz
+<100
+5,15 - 5,35 GHz
+<200
+5,47 - 5,725 GHz
+<200
+5,725 - 5,875 GHz*
+<25
+5,925 - 6,425 GHz
+<200
+Bluetooth
+2,4 - 2,4835 GHz
+<100
+Récepteur de catégorie 1
+* Modules non Intel : 5,725 - 5,85 GHz
+
+68
+Annexes
+Annexes
+Garantie	
+Garantie ASUS
+•	 ASUS fournit une garantie commerciale en tant que garantie volontaire du 
+fabricant.
+•	 ASUS se réserve le droit d'interpréter et de clarifier les informations relatives à 
+la garantie commerciale ASUS.
+•	 Cette garantie commerciale ASUS est fournie indépendamment et 
+parallèlement à la garantie légale, elle n'affecte ou ne limite d'aucune façon les 
+droits acquis par la garantie légale.
+Pour plus d'informations sur la garantie, consultez le site :
+https://www.asus.com/fr/support/.
+Carte de garantie (en ligne)
+
+ROG MAXIMUS Z790 HERO EVA-02
+69
+Annexes
+Service et assistance
+Visitez notre site multilingue d'assistance en ligne sur https://www.asus.com/fr/support.
+Informations de contact ASUS
+ASUSTeK COMPUTER INC.
+Adresse : 1F, No. 15, Lide Rd., Beitou Dist., Taipei City 112
+https://qr.asus.com/ProductSafety
+ASUS COMPUTER INTERNATIONAL (Amérique)
+Adresse : 48720 Kato Rd., Fremont, CA 94538, USA
+ASUS COMPUTER GmbH (Allemagne et Autriche)
+Adresse : Harkortstrasse 21-23, 40880 Ratingen, Allemagne
+ASUSTeK (UK) LIMITED
+Adresse : 1st Floor, Sackville House, 143-149 Fenchurch Street, London, EC3M 6BL, Angleterre, 
+Royaume-Uni
+ASUS GLOBAL PTE. LTD.
+Adresse : 10 Changi Business Park Central 2 #02-01 Hansapoint Singapore 486030
+https://qr.asus.com/ProductSafety
+Enregistrer le produit
+Connectez-vous et enregistrez votre appareil pour obtenir un meilleur support technique.
