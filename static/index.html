@@ -381,15 +381,20 @@
   // ─── アフィリエイト設定 ────────────────────────────────────────────────
   // Amazon アソシエイトタグ（サーバー側の環境変数 AMAZON_TAG から注入される）
   const AMAZON_TAG = '__AMAZON_TAG__';
-  // 楽天アフィリエイトID（取得後に設定: 'xxxxxxxx.xxxxxxxx' 形式）
-  const RAKUTEN_AFFILIATE_ID = '';
+  // 楽天アフィリエイト（サーバー側の環境変数から注入される）
+  // RAKUTEN_A_ID: アフィリエイトID（例: '1a234567.89012345'）
+  // RAKUTEN_L_ID: リンクID/サイトID（例: '0b234567.89012345'）
+  const RAKUTEN_A_ID = '__RAKUTEN_A_ID__';
+  const RAKUTEN_L_ID = '__RAKUTEN_L_ID__';
 
   function buildBuyUrls(partName) {
     const q = encodeURIComponent(partName);
     const amazon = `https://www.amazon.co.jp/s?k=${q}&tag=${AMAZON_TAG}`;
-    const rakuten = RAKUTEN_AFFILIATE_ID
-      ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_AFFILIATE_ID}/?pc=${encodeURIComponent('https://search.rakuten.co.jp/search/mall/' + q + '/')}`
-      : `https://search.rakuten.co.jp/search/mall/${q}/`;
+    // 楽天検索URL（pcパラメータ用）— q は1回だけエンコード済みなのでそのまま使用
+    const rakutenSearch = `https://search.rakuten.co.jp/search/mall/${q}/`;
+    const rakuten = (RAKUTEN_A_ID && RAKUTEN_L_ID)
+      ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_A_ID}/${RAKUTEN_L_ID}/?pc=${encodeURIComponent(rakutenSearch)}`
+      : rakutenSearch;
     const kakaku = `https://kakaku.com/search_results/${q}/`;
     return { amazon, rakuten, kakaku };
   }

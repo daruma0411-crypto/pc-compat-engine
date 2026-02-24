@@ -328,6 +328,21 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
 
 
 # ================================================================
+# アフィリエイトタグ注入ヘルパー
+# ================================================================
+
+def _inject_affiliate_tags(html: str) -> str:
+    """HTMLのプレースホルダーに環境変数のアフィリエイトIDを注入する。"""
+    amazon_tag   = os.environ.get('AMAZON_TAG',    'pccompat-22')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID',  '')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID',  '')
+    html = html.replace("'__AMAZON_TAG__'",   f"'{amazon_tag}'")
+    html = html.replace("'__RAKUTEN_A_ID__'", f"'{rakuten_a_id}'")
+    html = html.replace("'__RAKUTEN_L_ID__'", f"'{rakuten_l_id}'")
+    return html
+
+
+# ================================================================
 # Flask ルート
 # ================================================================
 
@@ -337,15 +352,13 @@ def index():
     html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
-    # 環境変数 AMAZON_TAG をプレースホルダーに注入（未設定時はデフォルト値）
-    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
-    html = html.replace("'__AMAZON_TAG__'", f"'{amazon_tag}'")
+    html = _inject_affiliate_tags(html)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
 @app.route('/<path:filename>')
 def static_pages(filename):
-    """ガイド・構成例・ブログ等の静的HTMLページを配信（AMAZON_TAG注入付き）"""
+    """ガイド・構成例・ブログ等の静的HTMLページを配信（アフィリエイトタグ注入付き）"""
     static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
     if not filename.endswith('.html'):
         return send_from_directory(static_dir, filename)
@@ -354,8 +367,7 @@ def static_pages(filename):
         return 'Not Found', 404
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
-    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
-    html = html.replace('__AMAZON_TAG__', amazon_tag)
+    html = _inject_affiliate_tags(html)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
