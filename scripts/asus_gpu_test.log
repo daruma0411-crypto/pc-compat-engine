@@ -1,0 +1,52 @@
+[1/2] SeriesFilterResult API から5製品取得中...
+  → 5 件取得
+[1/5] ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition...
+       URL: https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-cod-bo7/
+  spec_url: https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-cod-bo7/techspec/
+  取得キー数: 20
+    サイズ: 330 x 140 x 62.5 mm13 x 5.5 x 2.5 inch
+    推奨PSU: 850W
+    電源コネクタ: 8ピン×3
+    スロット: 3.125 Slot
+[2/5] ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7...
+       URL: https://www.asus.com/jp/motherboards-components/graphics-cards/dual/dual-rtx5060-o8g-white/
+  spec_url: https://www.asus.com/jp/motherboards-components/graphics-cards/dual/dual-rtx5060-o8g-white/techspec/
+  取得キー数: 20
+    サイズ: 228 x 123 x 50 mm8.98 x 4.84 x 1.97 inches
+    推奨PSU: 550W
+    電源コネクタ: 1 x 8-pin
+    スロット: 2.5 Slot
+[3/5] ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards ...
+       URL: https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-matrix/rog-matrix-rtx5090-p32g-30th/
+  spec_url: https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-matrix/rog-matrix-rtx5090-p32g-30th/spec/
+  取得キー数: 23
+    サイズ: 370.3 x 150.5 x 77.3 mm14.58 x 5.92 x 3.04 inches
+    推奨PSU: 1200W+
+    電源コネクタ: 1 x 16-pin, Graphics card high-power (GC-HPWR) gold finger
+    Slot: 3.9 slot
+[4/5] ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDIT...
+       URL: https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-hatsune-miku-edition/
+  spec_url: https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-hatsune-miku-edition/spec/
+  取得キー数: 21
+    サイズ: 357.6 x 149.3 x 76 mm 14.1 x 5.9 x 3 inch
+    電源コネクタ: 1 x 16-pin
+    Slot: 3.8 Slot
+[5/5] ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7...
+       URL: https://www.asus.com/jp/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/
+  spec_url: https://www.asus.com/jp/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/techspec/
+  取得キー数: 21
+    サイズ: 304 x 126 x 50 mm12 x 5 x 2 inch
+    推奨PSU: 850W
+    電源コネクタ: 1 x 16-pin
+    スロット: 2.5 Slot
+
+============================================================
+JSONL OUTPUT:
+============================================================
+
+[サマリー]
+  ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special | length=330 mm | psu=850 W | slot=3.125 | conn=8pinx3
+  ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB G | length=228 mm | psu=550 W | slot=2.5 | conn=1x8-pin
+  ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graph | length=370 mm | psu=1200 W | slot=3.9 | conn=1x16-pin,Graphicscardhigh-power(GC-HPWR)goldfinger
+  ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE | length=357 mm | psu=None W | slot=3.8 | conn=1x16-pin
+  ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7  | length=304 mm | psu=850 W | slot=2.5 | conn=1x16-pin

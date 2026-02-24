@@ -1,0 +1,20 @@
+製品名: DUAL-RTX5060-O8G-WHITE
+グラフィックスエンジン: NVIDIA® GeForce RTX™ 5060
+AI Performance: 614 TOPs
+バスインターフェース: PCI Express 5.0
+OpenGL: OpenGL®4.6
+ビデオメモリ: 8GB GDDR7
+コアクロック: OC mode: 2565MHz Default mode: 2535MHz (Boost Clock)
+CUDAコア: 3840
+メモリスピード: 28 Gbps
+メモリインターフェース: 128-bit
+解像度: Digital Max Resolution 7680 x 4320
+インターフェース: Yes x 1 (Native HDMI 2.1b)Yes x 3 (Native DisplayPort 2.1b)HDCP Support Yes (2.3)
+最大ディスプレイサポート: 4
+アクセサリ: 1 x Speedsetup Manual1 x Thank You Card
+ソフトウェア: ASUS GPU Tweak III & MuseTree & GeForce Game Ready Driver & Studio Driver: please download all software from the support site.
+サイズ: 228 x 123 x 50 mm8.98 x 4.84 x 1.97 inches
+推奨PSU: 550W
+電源コネクタ: 1 x 8-pin
+スロット: 2.5 Slot
+その他: * Our wattage recommendation is based on a fully overclocked GPU and CPU system configuration. For a more tailored suggestion, please use the “Choose By Wattage” feature on our PSU product page: https://rog.asus.com/event/PSU/ASUS-Power-Supply-Units/index.html* All specifications are subject to change without notice. Please check with your supplier for exact offers. Products may not be available in all markets. If you do not use the latest and current specifications of ASUS products, you shall be liable for all loss and damage claimed by third party to ASUS based on false advertising or any other issues caused from using false specifications of ASUS products.

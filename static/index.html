@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC パーツ互換チェッカー</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --c-ok:      #16a34a;
+    --c-ok-bg:   #f0fdf4;
+    --c-warn:    #ca8a04;
+    --c-warn-bg: #fefce8;
+    --c-ng:      #dc2626;
+    --c-ng-bg:   #fef2f2;
+    --c-unk:     #6b7280;
+    --c-unk-bg:  #f9fafb;
+    --c-primary: #4f46e5;
+    --c-surface: #ffffff;
+    --c-border:  #e5e7eb;
+    --c-text:    #111827;
+    --c-muted:   #6b7280;
+    --radius:    12px;
+    --shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
+    background: #f3f4f6;
+    color: var(--c-text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── ヘッダー ── */
+  header {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: #fff;
+    padding: 32px 20px 28px;
+    text-align: center;
+  }
+  header h1 { font-size: clamp(20px, 5vw, 28px); font-weight: 700; letter-spacing: -.02em; }
+  header p  { margin-top: 6px; font-size: 14px; opacity: .85; }
+
+  /* ── コンテナ ── */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ── 入力カード ── */
+  .input-card {
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .input-card label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .input-card textarea {
+    width: 100%;
+    border: 1.5px solid var(--c-border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.6;
+    color: var(--c-text);
+    transition: border-color .15s;
+    font-family: inherit;
+  }
+  .input-card textarea:focus {
+    outline: none;
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+  }
+  .hint {
+    font-size: 12px;
+    color: var(--c-muted);
+    margin-top: 6px;
+  }
+  .btn-diagnose {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+    letter-spacing: .02em;
+  }
+  .btn-diagnose:hover  { opacity: .9; }
+  .btn-diagnose:active { transform: scale(.98); }
+  .btn-diagnose:disabled { opacity: .5; cursor: not-allowed; }
+
+  /* ── ローディング ── */
+  .loading {
+    display: none;
+    text-align: center;
+    padding: 32px 0;
+    color: var(--c-muted);
+    font-size: 14px;
+  }
+  .loading.show { display: block; }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--c-border);
+    border-top-color: var(--c-primary);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── 結果エリア ── */
+  #result { display: none; margin-top: 20px; }
+  #result.show { display: block; }
+
+  /* 総合判定バナー */
+  .verdict-banner {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .verdict-banner.OK      { background: var(--c-ok);   color: #fff; }
+  .verdict-banner.WARNING { background: var(--c-warn); color: #fff; }
+  .verdict-banner.NG      { background: var(--c-ng);   color: #fff; }
+  .verdict-banner.UNKNOWN { background: var(--c-unk);  color: #fff; }
+  .verdict-icon { font-size: 28px; flex-shrink: 0; }
+  .verdict-text h2 { font-size: 20px; font-weight: 700; }
+  .verdict-text p  { font-size: 13px; opacity: .9; margin-top: 2px; }
+
+  /* チェック一覧カード */
+  .checks-card {
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .checks-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid var(--c-border);
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--c-border);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: .04em;
+  }
+  .badge-OK      { background: var(--c-ok-bg);   color: var(--c-ok);   border: 1px solid #bbf7d0; }
+  .badge-WARNING { background: var(--c-warn-bg); color: var(--c-warn); border: 1px solid #fde68a; }
+  .badge-NG      { background: var(--c-ng-bg);   color: var(--c-ng);   border: 1px solid #fecaca; }
+  .badge-UNKNOWN { background: var(--c-unk-bg);  color: var(--c-unk);  border: 1px solid #e5e7eb; }
+  .check-body {}
+  .check-item-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .check-detail    { font-size: 13px; color: var(--c-muted); line-height: 1.5; }
+
+  /* サマリー */
+  .summary-card {
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #374151;
+    border-left: 4px solid var(--c-primary);
+  }
+
+  /* 購入リンク枠 */
+  .buy-card {
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .buy-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid var(--c-border);
+  }
+  .buy-list {
+    padding: 12px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .buy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #f9fafb;
+    border: 1.5px solid var(--c-border);
+    color: var(--c-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .1s, border-color .1s;
+  }
+  .buy-btn:hover { background: #f3f4f6; border-color: #d1d5db; }
+  .buy-btn .arrow { color: var(--c-muted); font-size: 11px; }
+  .buy-note {
+    font-size: 11px;
+    color: var(--c-muted);
+    padding: 6px 18px 14px;
+    text-align: center;
+  }
+
+  /* エラー */
+  .error-box {
+    background: var(--c-ng-bg);
+    border: 1px solid #fecaca;
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    color: var(--c-ng);
+    font-size: 14px;
+    margin-top: 20px;
+    display: none;
+  }
+  .error-box.show { display: block; }
+
+  /* フッター */
+  footer {
+    text-align: center;
+    color: var(--c-muted);
+    font-size: 12px;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 24px 16px 20px; }
+    .input-card { padding: 18px; }
+    .buy-list { gap: 6px; }
+    .buy-btn  { font-size: 12px; padding: 7px 11px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PC パーツ互換チェッカー</h1>
+  <p>GPU・ケース・マザーボード・CPUクーラー・電源の互換性を瞬時に診断</p>
+</header>
+
+<div class="container">
+
+  <div class="input-card">
+    <label for="parts-input">パーツ型番（カンマ区切り）</label>
+    <textarea
+      id="parts-input"
+      placeholder="例: ROG Matrix RTX 5090 30th, NZXT H9 Flow, X870E Taichi, NH-D15 G2, DARK POWER 14 1200W"
+    ></textarea>
+    <p class="hint">GPU・ケース・マザーボード・CPUクーラー・電源を入力してください（最大20パーツ）</p>
+    <button class="btn-diagnose" id="btn-diagnose" onclick="runDiagnose()">診断する</button>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    AIが互換性を解析中...
+  </div>
+
+  <div class="error-box" id="error-box"></div>
+
+  <div id="result">
+    <div class="verdict-banner" id="verdict-banner">
+      <div class="verdict-icon" id="verdict-icon"></div>
+      <div class="verdict-text">
+        <h2 id="verdict-label"></h2>
+        <p id="verdict-sub"></p>
+      </div>
+    </div>
+
+    <div class="summary-card" id="summary-card"></div>
+
+    <div class="checks-card">
+      <h3>チェック詳細</h3>
+      <div id="checks-list"></div>
+    </div>
+
+    <div class="buy-card">
+      <h3>購入リンク（アフィリエイト設定予定）</h3>
+      <div class="buy-list" id="buy-list"></div>
+      <p class="buy-note">※ 購入リンクは準備中です。クリックして最安値を探してみてください。</p>
+    </div>
+  </div>
+
+  <footer>PC Compatibility Checker &mdash; Powered by AI</footer>
+
+</div>
+
+<script>
+  const VERDICT_MAP = {
+    OK:      { label: 'OK — 互換性あり',         sub: 'すべての互換性チェックを通過しました',        icon: '✓', cls: 'OK'      },
+    WARNING: { label: 'WARNING — 要注意',         sub: '一部に互換性リスクがあります。購入前に確認を', icon: '!', cls: 'WARNING' },
+    NG:      { label: 'NG — 非互換',              sub: '組み立て不可能な組み合わせが含まれています',   icon: '✕', cls: 'NG'      },
+    UNKNOWN: { label: 'UNKNOWN — 判定不能',       sub: 'スペック情報が不足しています',                icon: '?', cls: 'UNKNOWN' },
+  };
+
+  const STATUS_LABEL = { OK: 'OK', WARNING: 'WARN', NG: 'NG', UNKNOWN: '?' };
+
+  // アフィリエイトURLプレースホルダー
+  // TODO: 商品名 → Amazon/楽天URLへのマッピングをここに設定
+  function buildBuyUrl(partName) {
+    const q = encodeURIComponent(partName);
+    return `https://www.amazon.co.jp/s?k=${q}&tag=YOURTAG-22`;
+  }
+
+  async function runDiagnose() {
+    const textarea = document.getElementById('parts-input');
+    const raw = textarea.value.trim();
+    if (!raw) { showError('パーツ型番を入力してください'); return; }
+
+    const parts = raw.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length === 0) { showError('有効なパーツ型番が入力されていません'); return; }
+    if (parts.length > 20) { showError('パーツは最大20件まで入力できます'); return; }
+
+    setLoading(true);
+    hideError();
+    hideResult();
+
+    try {
+      const res = await fetch('/api/diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ parts }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json();
+      renderResult(data, parts);
+
+    } catch (e) {
+      showError('診断中にエラーが発生しました: ' + e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function renderResult(data, parts) {
+    const verdict = data.verdict || 'UNKNOWN';
+    const checks  = data.checks  || [];
+    const summary = data.summary || '';
+
+    // 総合判定バナー
+    const vm = VERDICT_MAP[verdict] || VERDICT_MAP.UNKNOWN;
+    const banner = document.getElementById('verdict-banner');
+    banner.className = `verdict-banner ${vm.cls}`;
+    document.getElementById('verdict-icon').textContent  = vm.icon;
+    document.getElementById('verdict-label').textContent = vm.label;
+    document.getElementById('verdict-sub').textContent   = vm.sub;
+
+    // サマリー
+    document.getElementById('summary-card').textContent = summary;
+
+    // チェック一覧
+    const list = document.getElementById('checks-list');
+    list.innerHTML = '';
+    checks.forEach(c => {
+      const status = c.status || 'UNKNOWN';
+      const div = document.createElement('div');
+      div.className = 'check-item';
+      div.innerHTML = `
+        <span class="check-badge badge-${status}">${STATUS_LABEL[status] || status}</span>
+        <div class="check-body">
+          <div class="check-item-name">${escHtml(c.item || '')}</div>
+          <div class="check-detail">${escHtml(c.detail || '')}</div>
+        </div>
+      `;
+      list.appendChild(div);
+    });
+
+    // 購入リンク枠（入力パーツ分を生成）
+    const buyList = document.getElementById('buy-list');
+    buyList.innerHTML = '';
+    parts.forEach(part => {
+      const a = document.createElement('a');
+      a.className = 'buy-btn';
+      a.href   = buildBuyUrl(part);
+      a.target = '_blank';
+      a.rel    = 'noopener noreferrer';
+      a.setAttribute('data-part', part);
+      a.innerHTML = `${escHtml(shortName(part))} <span class="arrow">&#x2197;</span>`;
+      buyList.appendChild(a);
+    });
+
+    showResult();
+  }
+
+  // ── ユーティリティ ──
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function shortName(s) {
+    return s.length > 28 ? s.slice(0, 26) + '…' : s;
+  }
+
+  function setLoading(on) {
+    document.getElementById('loading').classList.toggle('show', on);
+    document.getElementById('btn-diagnose').disabled = on;
+  }
+  function showError(msg)  {
+    const box = document.getElementById('error-box');
+    box.textContent = msg;
+    box.classList.add('show');
+  }
+  function hideError()  { document.getElementById('error-box').classList.remove('show'); }
+  function showResult() { document.getElementById('result').classList.add('show'); }
+  function hideResult() { document.getElementById('result').classList.remove('show'); }
+
+  // Enter キーで診断
+  document.getElementById('parts-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) runDiagnose();
+  });
+</script>
+
+</body>
+</html>

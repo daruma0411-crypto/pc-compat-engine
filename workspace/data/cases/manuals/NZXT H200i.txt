@@ -1,0 +1,9 @@
+=== NZXT H200i ===
+Maker: NZXT
+Category: Case
+
+--- Existing Specs ---
+  max_gpu_length_mm: 328
+  max_cpu_cooler_height_mm: 167
+  form_factor: Mini-ITX
+  max_psu_length_mm: 130

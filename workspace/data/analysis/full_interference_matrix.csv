@@ -1,0 +1,126 @@
+﻿matrix_type,component_category,component_maker,component_name,component_mm,component_extra,case_model,case_maker,case_form_factor,case_limit_mm,margin_mm,verdict
+GPU×ケース,gpu,asus,ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards 30th Anniversary Edition,370,"TDP:1200W conn:1x16-pin,Graphicscardhigh-power(GC-HPWR)goldfinger",NZXT H510,nzxt,ATX,381,11,WARNING
+GPU×ケース,gpu,asus,ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards 30th Anniversary Edition,370,"TDP:1200W conn:1x16-pin,Graphicscardhigh-power(GC-HPWR)goldfinger",NZXT H200i,nzxt,Mini-ITX,328,-42,NG
+GPU×ケース,gpu,asus,ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards 30th Anniversary Edition,370,"TDP:1200W conn:1x16-pin,Graphicscardhigh-power(GC-HPWR)goldfinger",NZXT H9 Flow,nzxt,ATX,385,15,WARNING
+GPU×ケース,gpu,asus,ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards 30th Anniversary Edition,370,"TDP:1200W conn:1x16-pin,Graphicscardhigh-power(GC-HPWR)goldfinger",NZXT H3 Flow,nzxt,ATX,380,10,WARNING
+GPU×ケース,gpu,asus,ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards 30th Anniversary Edition,370,"TDP:1200W conn:1x16-pin,Graphicscardhigh-power(GC-HPWR)goldfinger",NZXT H2 Flow,nzxt,Mini-ITX,340,-30,NG
+GPU×ケース,gpu,asus,ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDITION,357,TDP:NoneW conn:1x16-pin,NZXT H510,nzxt,ATX,381,24,WARNING
+GPU×ケース,gpu,asus,ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDITION,357,TDP:NoneW conn:1x16-pin,NZXT H200i,nzxt,Mini-ITX,328,-29,NG
+GPU×ケース,gpu,asus,ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDITION,357,TDP:NoneW conn:1x16-pin,NZXT H9 Flow,nzxt,ATX,385,28,WARNING
+GPU×ケース,gpu,asus,ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDITION,357,TDP:NoneW conn:1x16-pin,NZXT H3 Flow,nzxt,ATX,380,23,WARNING
+GPU×ケース,gpu,asus,ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDITION,357,TDP:NoneW conn:1x16-pin,NZXT H2 Flow,nzxt,Mini-ITX,340,-17,NG
+GPU×ケース,gpu,asus,ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition,330,TDP:850W conn:8pinx3,NZXT H510,nzxt,ATX,381,51,OK
+GPU×ケース,gpu,asus,ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition,330,TDP:850W conn:8pinx3,NZXT H200i,nzxt,Mini-ITX,328,-2,NG
+GPU×ケース,gpu,asus,ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition,330,TDP:850W conn:8pinx3,NZXT H9 Flow,nzxt,ATX,385,55,OK
+GPU×ケース,gpu,asus,ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition,330,TDP:850W conn:8pinx3,NZXT H3 Flow,nzxt,ATX,380,50,OK
+GPU×ケース,gpu,asus,ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition,330,TDP:850W conn:8pinx3,NZXT H2 Flow,nzxt,Mini-ITX,340,10,WARNING
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 INFINITY 32G,330,TDP:1000W conn:16Pin*1,NZXT H510,nzxt,ATX,381,51,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 INFINITY 32G,330,TDP:1000W conn:16Pin*1,NZXT H200i,nzxt,Mini-ITX,328,-2,NG
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 INFINITY 32G,330,TDP:1000W conn:16Pin*1,NZXT H9 Flow,nzxt,ATX,385,55,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 INFINITY 32G,330,TDP:1000W conn:16Pin*1,NZXT H3 Flow,nzxt,ATX,380,50,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 INFINITY 32G,330,TDP:1000W conn:16Pin*1,NZXT H2 Flow,nzxt,Mini-ITX,340,10,WARNING
+GPU×ケース,gpu,asus,ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7,304,TDP:850W conn:1x16-pin,NZXT H510,nzxt,ATX,381,77,OK
+GPU×ケース,gpu,asus,ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7,304,TDP:850W conn:1x16-pin,NZXT H200i,nzxt,Mini-ITX,328,24,WARNING
+GPU×ケース,gpu,asus,ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7,304,TDP:850W conn:1x16-pin,NZXT H9 Flow,nzxt,ATX,385,81,OK
+GPU×ケース,gpu,asus,ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7,304,TDP:850W conn:1x16-pin,NZXT H3 Flow,nzxt,ATX,380,76,OK
+GPU×ケース,gpu,asus,ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7,304,TDP:850W conn:1x16-pin,NZXT H2 Flow,nzxt,Mini-ITX,340,36,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5070 Ti 16G VENTUS 3X PZ OC,303,TDP:300W conn:16pinx1,NZXT H510,nzxt,ATX,381,78,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5070 Ti 16G VENTUS 3X PZ OC,303,TDP:300W conn:16pinx1,NZXT H200i,nzxt,Mini-ITX,328,25,WARNING
+GPU×ケース,gpu,msi,GeForce RTX™ 5070 Ti 16G VENTUS 3X PZ OC,303,TDP:300W conn:16pinx1,NZXT H9 Flow,nzxt,ATX,385,82,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5070 Ti 16G VENTUS 3X PZ OC,303,TDP:300W conn:16pinx1,NZXT H3 Flow,nzxt,ATX,380,77,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5070 Ti 16G VENTUS 3X PZ OC,303,TDP:300W conn:16pinx1,NZXT H2 Flow,nzxt,Mini-ITX,340,37,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.1),267,TDP:750W conn:16pin*1,NZXT H510,nzxt,ATX,381,114,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.1),267,TDP:750W conn:16pin*1,NZXT H200i,nzxt,Mini-ITX,328,61,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.1),267,TDP:750W conn:16pin*1,NZXT H9 Flow,nzxt,ATX,385,118,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.1),267,TDP:750W conn:16pin*1,NZXT H3 Flow,nzxt,ATX,380,113,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.1),267,TDP:750W conn:16pin*1,NZXT H2 Flow,nzxt,Mini-ITX,340,73,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.0),267,TDP:750W conn:16pin*1,NZXT H510,nzxt,ATX,381,114,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.0),267,TDP:750W conn:16pin*1,NZXT H200i,nzxt,Mini-ITX,328,61,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.0),267,TDP:750W conn:16pin*1,NZXT H9 Flow,nzxt,ATX,385,118,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.0),267,TDP:750W conn:16pin*1,NZXT H3 Flow,nzxt,ATX,380,113,OK
+GPU×ケース,gpu,gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.0),267,TDP:750W conn:16pin*1,NZXT H2 Flow,nzxt,Mini-ITX,340,73,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5090 32G LIGHTNING Z,260,TDP:800W conn:16pinx2,NZXT H510,nzxt,ATX,381,121,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5090 32G LIGHTNING Z,260,TDP:800W conn:16pinx2,NZXT H200i,nzxt,Mini-ITX,328,68,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5090 32G LIGHTNING Z,260,TDP:800W conn:16pinx2,NZXT H9 Flow,nzxt,ATX,385,125,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5090 32G LIGHTNING Z,260,TDP:800W conn:16pinx2,NZXT H3 Flow,nzxt,ATX,380,120,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5090 32G LIGHTNING Z,260,TDP:800W conn:16pinx2,NZXT H2 Flow,nzxt,Mini-ITX,340,80,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 XTREME WATERFORCE 32G,245,TDP:1000W conn:16pin*1,NZXT H510,nzxt,ATX,381,136,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 XTREME WATERFORCE 32G,245,TDP:1000W conn:16pin*1,NZXT H200i,nzxt,Mini-ITX,328,83,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 XTREME WATERFORCE 32G,245,TDP:1000W conn:16pin*1,NZXT H9 Flow,nzxt,ATX,385,140,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 XTREME WATERFORCE 32G,245,TDP:1000W conn:16pin*1,NZXT H3 Flow,nzxt,ATX,380,135,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5090 XTREME WATERFORCE 32G,245,TDP:1000W conn:16pin*1,NZXT H2 Flow,nzxt,Mini-ITX,340,95,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5060 Ti 8G VENTUS 2X OC CLASSIC,241,TDP:180W conn:8pinx1,NZXT H510,nzxt,ATX,381,140,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5060 Ti 8G VENTUS 2X OC CLASSIC,241,TDP:180W conn:8pinx1,NZXT H200i,nzxt,Mini-ITX,328,87,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5060 Ti 8G VENTUS 2X OC CLASSIC,241,TDP:180W conn:8pinx1,NZXT H9 Flow,nzxt,ATX,385,144,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5060 Ti 8G VENTUS 2X OC CLASSIC,241,TDP:180W conn:8pinx1,NZXT H3 Flow,nzxt,ATX,380,139,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5060 Ti 8G VENTUS 2X OC CLASSIC,241,TDP:180W conn:8pinx1,NZXT H2 Flow,nzxt,Mini-ITX,340,99,OK
+GPU×ケース,gpu,asus,ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7,228,TDP:550W conn:1x8-pin,NZXT H510,nzxt,ATX,381,153,OK
+GPU×ケース,gpu,asus,ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7,228,TDP:550W conn:1x8-pin,NZXT H200i,nzxt,Mini-ITX,328,100,OK
+GPU×ケース,gpu,asus,ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7,228,TDP:550W conn:1x8-pin,NZXT H9 Flow,nzxt,ATX,385,157,OK
+GPU×ケース,gpu,asus,ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7,228,TDP:550W conn:1x8-pin,NZXT H3 Flow,nzxt,ATX,380,152,OK
+GPU×ケース,gpu,asus,ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7,228,TDP:550W conn:1x8-pin,NZXT H2 Flow,nzxt,Mini-ITX,340,112,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5080 XTREME WATERFORCE 16G,220,TDP:850W conn:16pin*1,NZXT H510,nzxt,ATX,381,161,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5080 XTREME WATERFORCE 16G,220,TDP:850W conn:16pin*1,NZXT H200i,nzxt,Mini-ITX,328,108,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5080 XTREME WATERFORCE 16G,220,TDP:850W conn:16pin*1,NZXT H9 Flow,nzxt,ATX,385,165,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5080 XTREME WATERFORCE 16G,220,TDP:850W conn:16pin*1,NZXT H3 Flow,nzxt,ATX,380,160,OK
+GPU×ケース,gpu,gigabyte,AORUS GeForce RTX™ 5080 XTREME WATERFORCE 16G,220,TDP:850W conn:16pin*1,NZXT H2 Flow,nzxt,Mini-ITX,340,120,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5050 8G VENTUS 2X OC,197,TDP:130W conn:8pinx1,NZXT H510,nzxt,ATX,381,184,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5050 8G VENTUS 2X OC,197,TDP:130W conn:8pinx1,NZXT H200i,nzxt,Mini-ITX,328,131,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5050 8G VENTUS 2X OC,197,TDP:130W conn:8pinx1,NZXT H9 Flow,nzxt,ATX,385,188,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5050 8G VENTUS 2X OC,197,TDP:130W conn:8pinx1,NZXT H3 Flow,nzxt,ATX,380,183,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 5050 8G VENTUS 2X OC,197,TDP:130W conn:8pinx1,NZXT H2 Flow,nzxt,Mini-ITX,340,143,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 3050 LP E 6G OC,174,TDP:70W conn:,NZXT H510,nzxt,ATX,381,207,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 3050 LP E 6G OC,174,TDP:70W conn:,NZXT H200i,nzxt,Mini-ITX,328,154,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 3050 LP E 6G OC,174,TDP:70W conn:,NZXT H9 Flow,nzxt,ATX,385,211,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 3050 LP E 6G OC,174,TDP:70W conn:,NZXT H3 Flow,nzxt,ATX,380,206,OK
+GPU×ケース,gpu,msi,GeForce RTX™ 3050 LP E 6G OC,174,TDP:70W conn:,NZXT H2 Flow,nzxt,Mini-ITX,340,166,OK
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2,168,fan:140mm,NZXT H510,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2,168,fan:140mm,NZXT H200i,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2,168,fan:140mm,NZXT H9 Flow,nzxt,ATX,185,17,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2,168,fan:140mm,NZXT H3 Flow,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2,168,fan:140mm,NZXT H2 Flow,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2 chromax.black,168,fan:140mm,NZXT H510,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2 chromax.black,168,fan:140mm,NZXT H200i,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2 chromax.black,168,fan:140mm,NZXT H9 Flow,nzxt,ATX,185,17,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2 chromax.black,168,fan:140mm,NZXT H3 Flow,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 G2 chromax.black,168,fan:140mm,NZXT H2 Flow,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15,168,fan:140mm,NZXT H510,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15,168,fan:140mm,NZXT H200i,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15,168,fan:140mm,NZXT H9 Flow,nzxt,ATX,185,17,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15,168,fan:140mm,NZXT H3 Flow,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15,168,fan:140mm,NZXT H2 Flow,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 chromax.black,168,fan:140mm,NZXT H510,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 chromax.black,168,fan:140mm,NZXT H200i,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 chromax.black,168,fan:140mm,NZXT H9 Flow,nzxt,ATX,185,17,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 chromax.black,168,fan:140mm,NZXT H3 Flow,nzxt,ATX,165,-3,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-D15 chromax.black,168,fan:140mm,NZXT H2 Flow,nzxt,Mini-ITX,167,-1,NG
+CPUクーラー×ケース,cpu_cooler,noctua,NH-U12A,158,fan:120mm,NZXT H510,nzxt,ATX,165,7,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-U12A,158,fan:120mm,NZXT H200i,nzxt,Mini-ITX,167,9,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-U12A,158,fan:120mm,NZXT H9 Flow,nzxt,ATX,185,27,OK
+CPUクーラー×ケース,cpu_cooler,noctua,NH-U12A,158,fan:120mm,NZXT H3 Flow,nzxt,ATX,165,7,WARNING
+CPUクーラー×ケース,cpu_cooler,noctua,NH-U12A,158,fan:120mm,NZXT H2 Flow,nzxt,Mini-ITX,167,9,WARNING
+電源×ケース,psu,bequiet,DARK POWER 14 | 1200 W,175,1200W Titanium,NZXT H510,nzxt,ATX,200,25,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 1200 W,175,1200W Titanium,NZXT H200i,nzxt,Mini-ITX,130,-45,NG
+電源×ケース,psu,bequiet,DARK POWER 14 | 1200 W,175,1200W Titanium,NZXT H9 Flow,nzxt,ATX,220,45,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 1200 W,175,1200W Titanium,NZXT H3 Flow,nzxt,ATX,200,25,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 1200 W,175,1200W Titanium,NZXT H2 Flow,nzxt,Mini-ITX,130,-45,NG
+電源×ケース,psu,bequiet,DARK POWER 14 | 1000 W,175,1000W Titanium,NZXT H510,nzxt,ATX,200,25,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 1000 W,175,1000W Titanium,NZXT H200i,nzxt,Mini-ITX,130,-45,NG
+電源×ケース,psu,bequiet,DARK POWER 14 | 1000 W,175,1000W Titanium,NZXT H9 Flow,nzxt,ATX,220,45,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 1000 W,175,1000W Titanium,NZXT H3 Flow,nzxt,ATX,200,25,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 1000 W,175,1000W Titanium,NZXT H2 Flow,nzxt,Mini-ITX,130,-45,NG
+電源×ケース,psu,bequiet,DARK POWER 14 | 850 W,175,850W Titanium,NZXT H510,nzxt,ATX,200,25,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 850 W,175,850W Titanium,NZXT H200i,nzxt,Mini-ITX,130,-45,NG
+電源×ケース,psu,bequiet,DARK POWER 14 | 850 W,175,850W Titanium,NZXT H9 Flow,nzxt,ATX,220,45,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 850 W,175,850W Titanium,NZXT H3 Flow,nzxt,ATX,200,25,OK
+電源×ケース,psu,bequiet,DARK POWER 14 | 850 W,175,850W Titanium,NZXT H2 Flow,nzxt,Mini-ITX,130,-45,NG
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1200 W,160,1200W Platinum,NZXT H510,nzxt,ATX,200,40,OK
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1200 W,160,1200W Platinum,NZXT H200i,nzxt,Mini-ITX,130,-30,NG
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1200 W,160,1200W Platinum,NZXT H9 Flow,nzxt,ATX,220,60,OK
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1200 W,160,1200W Platinum,NZXT H3 Flow,nzxt,ATX,200,40,OK
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1200 W,160,1200W Platinum,NZXT H2 Flow,nzxt,Mini-ITX,130,-30,NG
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1000W,160,1000W Platinum,NZXT H510,nzxt,ATX,200,40,OK
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1000W,160,1000W Platinum,NZXT H200i,nzxt,Mini-ITX,130,-30,NG
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1000W,160,1000W Platinum,NZXT H9 Flow,nzxt,ATX,220,60,OK
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1000W,160,1000W Platinum,NZXT H3 Flow,nzxt,ATX,200,40,OK
+電源×ケース,psu,bequiet,POWER ZONE 2 | 1000W,160,1000W Platinum,NZXT H2 Flow,nzxt,Mini-ITX,130,-30,NG

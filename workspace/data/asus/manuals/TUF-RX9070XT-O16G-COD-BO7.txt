@@ -1,0 +1,20 @@
+製品名: TUF-RX9070XT-O16G-COD-BO7
+グラフィックスエンジン: AMD Radeon™ RX 9070 XT
+バスインターフェース: PCI Express 5.0
+OpenGL: OpenGL®4.6
+ビデオメモリ: 16GB GDDR6
+コアクロック: OC mode(GPU Tweak III): up to 3080 MHz (Boost Clock)/up to 2540 MHz (Game Clock)Default mode: up to 3060 MHz (Boost Clock)/up to 2520 MHz (Game Clock)
+Stream Processors: 4096
+メモリスピード: 20 Gbps​
+メモリインターフェース: 256-bit
+解像度: Digital Max Resolution 7680 x 4320
+インターフェース: Yes x 1 (Native HDMI 2.1b)Yes x 3 (Native DisplayPort 2.1a)HDCP Support Yes (2.3)
+最大ディスプレイサポート: 4
+アクセサリ: 1 x TUF certificate of Reliability1 x TUF COD Card Holder1 x TUF Fridge Magnet1 x TUF Velcro Hook & Loop1 x Redemption Instruction Card1 x Thank you card1 x Speedsetup Manual
+ソフトウェア: ASUS GPU Tweak III & Drivers: please download all software from the support site.
+サイズ: 330 x 140 x 62.5 mm13 x 5.5 x 2.5 inch
+推奨PSU: 850W
+電源コネクタ: 8ピン×3
+スロット: 3.125 Slot
+AURA SYNC: ARGB
+その他: * Our wattage recommendation is based on a fully overclocked GPU and CPU system configuration. For a more tailored suggestion, please use the “Choose By Wattage” feature on our PSU product page: https://rog.asus.com/event/PSU/ASUS-Power-Supply-Units/index.html* All specifications are subject to change without notice. Please check with your supplier for exact offers. Products may not be available in all markets. If you do not use the latest and current specifications of ASUS products, you shall be liable for all loss and damage claimed by third party to ASUS based on false advertising or any other issues caused from using false specifications of ASUS products. * ‘Game Clock’ is the expected GPU clock when running typical gaming applications, set to typical TGP (Total Graphics Power). Actual individual game clock results may vary.* ‘Boost Clock’ is the maximum frequency achievable on the GPU running a bursty workload. Boost clock achievability, frequency, and sustainability will vary based on several factors, including but not limited to: thermal conditions and variation in applications and workloads.

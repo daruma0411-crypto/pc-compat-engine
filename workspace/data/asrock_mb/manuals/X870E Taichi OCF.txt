@@ -1,0 +1,12 @@
+DescriptionLanguageDownload
+User ManualEnglish Global China
+User Manual日本語 (Japanese) Global China
+User ManualKorean Global China
+User Manual繁體中文 (T.Chinese) Global China
+User Manual简体中文 (S.Chinese) Global China
+Software/BIOS Setup GuideEnglish Global China
+Software/BIOS Setup Guide日本語 (Japanese) Global China
+Software/BIOS Setup Guide繁體中文 (T.Chinese) Global China
+Software/BIOS Setup Guide简体中文 (S.Chinese) Global China
+Regulatory NoticesEnglish Global China
+Quick Installation GuideEnglish Global China

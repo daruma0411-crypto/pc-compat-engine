@@ -1,0 +1,16 @@
+﻿maker,GPU名,length_mm,マージン_NZXT H510,判定_NZXT H510,マージン_NZXT H200i,判定_NZXT H200i
+asus,ROG Matrix Platinum GeForce RTX™ 5090 - ASUS Graphics Cards 30th Anniversary Edition,370,11,WARNING,-42,NG
+asus,ROG Astral GeForce RTX™ 5080 16GB GDDR7 OC HATSUNE MIKU EDITION,357,24,OK,-29,NG
+asus,ASUS TUF Gaming Radeon™ RX 9070 XT COD BO7 Special Edition,330,51,OK,-2,NG
+gigabyte,AORUS GeForce RTX™ 5090 INFINITY 32G,330,51,OK,-2,NG
+asus,ProArt GeForce RTX™ 5070 Ti OC Edition 16GB GDDR7,304,77,OK,24,OK
+msi,GeForce RTX™ 5070 Ti 16G VENTUS 3X PZ OC,303,78,OK,25,OK
+gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.1),267,114,OK,61,OK
+gigabyte,Radeon™ AI PRO R9700 AI TOP 32G  (Rev. 1.0),267,114,OK,61,OK
+msi,GeForce RTX™ 5090 32G LIGHTNING Z,260,121,OK,68,OK
+gigabyte,AORUS GeForce RTX™ 5090 XTREME WATERFORCE 32G,245,136,OK,83,OK
+msi,GeForce RTX™ 5060 Ti 8G VENTUS 2X OC CLASSIC,241,140,OK,87,OK
+asus,ASUS Dual GeForce RTX™ 5060 White OC Edition 8GB GDDR7,228,153,OK,100,OK
+gigabyte,AORUS GeForce RTX™ 5080 XTREME WATERFORCE 16G,220,161,OK,108,OK
+msi,GeForce RTX™ 5050 8G VENTUS 2X OC,197,184,OK,131,OK
+msi,GeForce RTX™ 3050 LP E 6G OC,174,207,OK,154,OK
