@@ -377,12 +377,17 @@
     setSending(true);
     const typingEl = appendTyping();
 
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 65000);
+
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: msg, history: history.slice(-10) }),
+        signal: controller.signal,
       });
+      clearTimeout(timer);
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
@@ -398,8 +403,13 @@
         appendAIBubble(data.reply || '少し詳しく教えてください。');
       }
     } catch (e) {
+      clearTimeout(timer);
       typingEl.remove();
-      appendAIBubble('⚠️ エラーが発生しました: ' + e.message);
+      if (e.name === 'AbortError') {
+        appendAIBubble('⏱️ サーバーが起動中のため時間がかかっています。\nもう一度送信してください（2回目以降は速くなります）。');
+      } else {
+        appendAIBubble('⚠️ エラーが発生しました: ' + e.message);
+      }
     } finally {
       setSending(false);
     }
