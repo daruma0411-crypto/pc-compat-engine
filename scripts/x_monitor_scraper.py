@@ -34,6 +34,8 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
@@ -148,7 +150,8 @@ def call_diagnose(parts: list[str]) -> dict:
         resp = requests.post(
             COMPAT_API_URL,
             json={"parts": parts},
-            timeout=60,
+            timeout=90,
+            verify=False,  # 企業プロキシのSSLインスペクション対策
         )
         resp.raise_for_status()
         return resp.json()
