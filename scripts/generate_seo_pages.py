@@ -356,6 +356,67 @@ def case_index_page(case: dict, results: list) -> str:
 </html>"""
 
 
+# ── ハブページ生成 ───────────────────────────────────────────
+
+def _generate_hub_page(gpus: list, cases: list):
+    """static/compat/index.html を生成する"""
+    def item_li(name, url):
+        return f'<li><a href="{esc(url)}">{esc(name)}</a></li>'
+
+    gpu_items = ''.join(
+        item_li(g.get('name', ''), f'/compat/gpu/{slugify(g.get("name",""))}.html')
+        for g in sorted(gpus, key=lambda x: x.get('name', ''))
+    )
+    case_items = ''.join(
+        item_li(c.get('name', ''), f'/compat/case/{slugify(c.get("name",""))}.html')
+        for c in sorted(cases, key=lambda x: x.get('name', ''))
+    )
+
+    html = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCパーツ互換性チェック一覧 | GPU×ケース対応表</title>
+<meta name="description" content="GPU全{len(gpus)}種×PCケース全{len(cases)}種の互換性チェック結果一覧。RTX 4090・RX 9070などの最新GPUがどのケースに入るか数値で確認できます。">
+{_CSS}
+<style>
+.grid{{columns:2;column-gap:24px}}
+@media(min-width:640px){{.grid{{columns:3}}}}
+@media(min-width:900px){{.grid{{columns:4}}}}
+li{{list-style:none;margin-bottom:6px;break-inside:avoid}}
+li a{{color:#4f46e5;text-decoration:none;font-size:.9rem}}
+li a:hover{{text-decoration:underline}}
+</style>
+</head>
+<body>
+<header>
+  <a href="/">← PC互換チェッカー トップ</a>
+  <h1>PCパーツ互換性チェック一覧</h1>
+</header>
+<div class="wrap">
+  <div class="card">
+    <p class="section-title">GPUから探す（{len(gpus)}種）</p>
+    <ul class="grid">{gpu_items}</ul>
+  </div>
+  <div class="card">
+    <p class="section-title">PCケースから探す（{len(cases)}種）</p>
+    <ul class="grid">{case_items}</ul>
+  </div>
+  <div class="cta">
+    <p>GPU・CPU・電源・ケースをまとめて互換性診断できます</p>
+    <p style="margin-top:8px"><a href="/">チャットで一括診断する →</a></p>
+  </div>
+</div>
+</body>
+</html>"""
+
+    out_path = os.path.join(_OUTPUT_DIR, 'index.html')
+    with open(out_path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f'  → {out_path}')
+
+
 # ── sitemap.xml 生成 ─────────────────────────────────────────
 
 _BASE_URL = 'https://pc-compat-engine.onrender.com'
@@ -465,6 +526,10 @@ def main():
     n_gpu_idx  = len(gpus)
     n_case_idx = len(cases)
     n_total    = n_individual + n_gpu_idx + n_case_idx
+
+    # ハブページ（/compat/index.html）生成
+    print('ハブページ生成中...')
+    _generate_hub_page(gpus, cases)
 
     # sitemap.xml 生成
     print('sitemap.xml 生成中...')
