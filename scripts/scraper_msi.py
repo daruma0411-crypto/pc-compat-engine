@@ -155,10 +155,17 @@ def _parse_mem_type(mem_str: str) -> str:
 
 
 def _parse_socket_mb(cpu_str: str) -> str:
+    # "1700" や "1851" のように数字のみの場合（MSI独自フォーマット）
+    m_num = re.match(r"^\s*(\d{4})\s*$", cpu_str)
+    if m_num:
+        num = m_num.group(1)
+        if num in {"1851", "1700", "1200", "1150", "1151", "1155", "1156"}:
+            return f"LGA{num}"
+    # AM4/AM5 は数字でないのでそのまま
     for token in ["LGA1851", "LGA1700", "LGA1200", "AM5", "AM4"]:
         if token in cpu_str.upper().replace(" ", ""):
             return token
-    # LGA 1851 など空白あり
+    # "LGA 1851" など空白あり
     m = re.search(r"LGA\s*(\d{3,4})", cpu_str, re.I)
     if m:
         return f"LGA{m.group(1)}"
@@ -193,9 +200,10 @@ def _parse_sata(storage_str: str) -> int | None:
 
 JS_SPEC = """
 () => {
-    // MSI spec page: .pdtb .td > li.specName + テキストノード
-    const tds = document.querySelectorAll('.pdtb .td');
     const result = {};
+
+    // パターン1: .pdtb .td > li.specName + テキストノード（GPU・一部MB）
+    const tds = document.querySelectorAll('.pdtb .td');
     tds.forEach(td => {
         const labelEl = td.querySelector('li.specName');
         if (!labelEl) return;
@@ -206,7 +214,6 @@ JS_SPEC = """
                 valueTexts.push(node.textContent.trim());
             }
         });
-        // ul 内のテキストも収集（MB の場合 li にデータが入ることがある）
         td.querySelectorAll('ul li:not(.specName)').forEach(li => {
             const t = li.textContent.trim();
             if (t) valueTexts.push(t);
@@ -214,6 +221,27 @@ JS_SPEC = """
         const value = [...new Set(valueTexts)].join(' / ');
         if (label && value) result[label] = value;
     });
+    if (Object.keys(result).length > 0) return result;
+
+    // パターン2: .specification-item / .spec-item （一部MB）
+    document.querySelectorAll('.specification-item, .spec-item, .specGroup').forEach(item => {
+        const label = item.querySelector('.title, .spec-title, .specName, h4, h5')?.textContent.trim();
+        const value = item.querySelector('.content, .spec-content, .specContent, p')?.textContent.trim();
+        if (label && value) result[label] = value;
+    });
+    if (Object.keys(result).length > 0) return result;
+
+    // パターン3: 汎用 table th/td（クラス不問）
+    document.querySelectorAll('table tr').forEach(tr => {
+        const th = tr.querySelector('th');
+        const td = tr.querySelector('td');
+        if (th && td) {
+            const label = th.textContent.trim();
+            const value = td.textContent.trim();
+            if (label && value) result[label] = value;
+        }
+    });
+
     return result;
 }
 """
@@ -310,12 +338,12 @@ def build_mb_record(product: dict, spec: dict) -> dict:
     link = product["link"]
     name = product["name"]
 
-    cpu_str     = _find(spec, "CPU", "対応CPU", "Supported Processors")
-    chip_str    = _find(spec, "チップセット", "Chipset")
+    cpu_str     = _find(spec, "CPUソケット", "CPU", "対応CPU", "Supported Processors", "CPU Compatibility")
+    chip_str    = _find(spec, "チップセット", "Chipset", "CHIPSET", "Chip Set")
     mem_str     = _find(spec, "メモリ", "メモリー", "Memory")
     storage_str = _find(spec, "ストレージ", "Storage", "M.2")
-    ff_str      = _find(spec, "フォームファクター", "Form Factor", "サイズ")
-    pwr_str     = _find(spec, "電源コネクタ", "Power Connector", "ATX電源")
+    ff_str      = _find(spec, "フォームファクター", "Form Factor", "サイズ", "PCB Info")
+    pwr_str     = _find(spec, "電源コネクタ", "Power Connector", "ATX電源", "Internal IO")
 
     socket      = _parse_socket_mb(cpu_str)
     chipset     = _parse_chipset(chip_str)
