@@ -461,7 +461,10 @@ def static_pages(filename):
 
 @app.route('/api/health')
 def health():
-    return jsonify({'status': 'ok'})
+    return jsonify({
+        'status': 'ok',
+        'api_key_set': bool(CLAUDE_API_KEY),
+    })
 
 
 @app.route('/api/diagnose', methods=['POST'])
