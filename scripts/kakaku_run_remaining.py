@@ -2,7 +2,15 @@
 MB完了後、残り4カテゴリを順次実行（Windowsデタッチプロセス対応版）
 """
 import sys, os, subprocess, time, json
-sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
+# ログファイルに出力（バックグラウンド実行対応）
+_log_path = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    'kakaku_run.log'
+)
+_log_fh = open(_log_path, 'w', encoding='utf-8', buffering=1)
+sys.stdout = _log_fh
+sys.stderr = _log_fh
 
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_ROOT  = os.path.join(BASE_DIR, 'workspace', 'data')
