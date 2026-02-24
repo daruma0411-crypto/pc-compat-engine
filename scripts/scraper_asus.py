@@ -425,21 +425,71 @@ def _normalize_ids(records: list[dict]) -> list[dict]:
     return records
 
 
+# ─── シード URL（手動定義 + 既存データから動的補完） ──────────────────────────
+
+# www.asus.com の一覧ページはCSRのため製品URLを取得できない。
+# ROGサイトはBot対策でブロックされる場合がある。
+# そのため、既知の製品URLをシードとして定義し、既存 products.jsonl と合わせて処理する。
+
+_GPU_SEED_URLS = [
+    # RTX 5090
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5090-o32g-gaming/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/proart/proart-rtx5090-o32g/",
+    # RTX 5080
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/dual/dual-rtx5080-o16g/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/proart/proart-rtx5080-o16g/",
+    # RTX 5070 Ti
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/dual/dual-rtx5070ti-o16g/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/",
+    # RTX 5070
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/dual/dual-rtx5070-o12g/",
+    # RTX 5060
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/dual/dual-rtx5060-o8g-white/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o8g-gaming/",
+    # RTX 4090 / 4080S
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4090-o24g-gaming/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4080s-o16g-gaming/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4070tis-o16g-gaming/",
+    # AMD RX 9070 XT
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-cod-bo7/",
+    "https://www.asus.com/jp/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g/",
+    # ROG（Bot対策でスキップされる場合あり）
+    "https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx5090-o32g-gaming/",
+    "https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx5080-o16g-gaming/",
+    "https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-gaming/",
+    "https://rog.asus.com/jp/graphics-cards/graphics-cards/rog-matrix/rog-matrix-rtx5090-p32g-30th/",
+]
+
+_MB_SEED_URLS = [
+    # Z890 (Intel LGA1851)
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog-maximus/rog-maximus-z890-extreme/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog-strix/rog-strix-z890-e-gaming-wifi/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/tuf-gaming/tuf-gaming-z890-plus-wifi/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/prime/prime-z890-p/",
+    # B860
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog-strix/rog-strix-b860-f-gaming-wifi/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b860m-plus-wifi/",
+    # X870E / X870 (AMD AM5)
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog-crosshair/rog-crosshair-x870e-hero/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog-strix/rog-strix-x870-f-gaming-wifi/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/tuf-gaming/tuf-gaming-x870-plus-wifi/",
+    # B760 / Z790
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog/rog-maximus-z790-hero/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/rog-strix/rog-strix-z790-f-gaming-wifi/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b760m-plus-wifi/",
+    "https://www.asus.com/jp/motherboards-components/motherboards/prime/prime-b760m-a/",
+    # ROG（Bot対策でスキップされる場合あり）
+    "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-apex/",
+    "https://rog.asus.com/motherboards/rog-strix/rog-strix-z890-f-gaming-wifi/",
+]
+
+
 # ─── メインスクレイパークラス ──────────────────────────────────────────────────
 
 class AsusScraper:
-
-    # GPU 一覧ページ
-    GPU_LIST_PAGES = [
-        ("https://www.asus.com/jp/motherboards-components/graphics-cards/all-series/", "www"),
-        ("https://rog.asus.com/jp/graphics-cards/graphics-cards/all-series/", "rog"),
-    ]
-
-    # MB 一覧ページ
-    MB_LIST_PAGES = [
-        ("https://rog.asus.com/jp/motherboards/all-series/", "rog"),
-        ("https://www.asus.com/jp/motherboards-components/motherboards/all-series/", "www"),
-    ]
 
     def __init__(self, limit: int = 30, headless: bool = True):
         self.limit = limit
@@ -473,64 +523,25 @@ class AsusScraper:
         if self._pw:
             self._pw.stop()
 
-    # ── 一覧ページから製品 URL を収集 ─────────────────────────────────────────────
+    # ── URL リスト生成（シード + 既存 JSONL の source_url） ─────────────────────
 
-    def _collect_links(self, page: Page, list_url: str, js_extract: str,
-                       click_more_max: int = 5) -> list[str]:
-        """一覧ページを開き、「もっと見る」をクリックして製品 URL を収集する"""
-        print(f"  [一覧] {list_url}", file=sys.stderr)
-        try:
-            page.goto(list_url, wait_until="domcontentloaded", timeout=30000)
-        except Exception as e:
-            print(f"  [WARN] ページ遷移エラー: {e}", file=sys.stderr)
-            return []
-        time.sleep(3)
-
-        # 「もっと見る」ボタンをクリックして全件ロード
-        for _ in range(click_more_max):
-            clicked = False
-            for btn_text in ["もっと見る", "MORE", "Load More", "Show More", "さらに表示"]:
-                try:
-                    btn = page.get_by_text(btn_text, exact=False)
-                    if btn.count() > 0 and btn.first.is_visible():
-                        btn.first.click()
-                        time.sleep(2)
-                        clicked = True
-                        break
-                except Exception:
-                    pass
-            if not clicked:
-                break
-
-        links: list[str] = page.evaluate(js_extract)
-        print(f"  [一覧] {len(links)} 件の製品 URL を取得", file=sys.stderr)
-        return links
-
-    def scrape_gpu_urls(self, page: Page) -> list[str]:
-        """GPU 一覧ページから製品 URL リストを収集する"""
-        all_links: list[str] = []
+    def _build_url_list(self, seed_urls: list[str], existing: list[dict]) -> list[str]:
+        """シードURL + 既存レコードのsource_urlを重複排除して返す"""
         seen: set[str] = set()
-        for list_url, site_type in self.GPU_LIST_PAGES:
-            js = JS_GPU_LINKS_WWW if site_type == "www" else JS_GPU_LINKS_ROG
-            links = self._collect_links(page, list_url, js)
-            for lnk in links:
-                if lnk not in seen:
-                    seen.add(lnk)
-                    all_links.append(lnk)
-        return all_links
-
-    def scrape_mb_urls(self, page: Page) -> list[str]:
-        """MB 一覧ページから製品 URL リストを収集する"""
-        all_links: list[str] = []
-        seen: set[str] = set()
-        for list_url, site_type in self.MB_LIST_PAGES:
-            js = JS_MB_LINKS_ROG if site_type == "rog" else JS_MB_LINKS_WWW
-            links = self._collect_links(page, list_url, js)
-            for lnk in links:
-                if lnk not in seen:
-                    seen.add(lnk)
-                    all_links.append(lnk)
-        return all_links
+        result: list[str] = []
+        for url in seed_urls:
+            url = url.rstrip("/")
+            if url not in seen:
+                seen.add(url)
+                result.append(url)
+        for rec in existing:
+            url = (rec.get("source_url") or "").rstrip("/")
+            if not url or not re.search(r'\d', url.split("/")[-1]):
+                continue  # 無効URL（カテゴリページなど）をスキップ
+            if url not in seen:
+                seen.add(url)
+                result.append(url)
+        return result
 
     # ── スペックページからテキストを取得 ──────────────────────────────────────────
 
@@ -589,18 +600,16 @@ class AsusScraper:
         print("\n[GPU] スクレイプ開始\n", file=sys.stderr)
         existing = _load_jsonl(_GPU_JSONL)
         existing = _normalize_ids(existing)
-        by_url: dict[str, dict] = {r["source_url"]: r for r in existing if r.get("source_url")}
+        by_url: dict[str, dict] = {r["source_url"].rstrip("/"): r for r in existing if r.get("source_url")}
 
         page = self._new_page()
 
-        # Phase 1: 製品 URL 収集
-        product_urls = self.scrape_gpu_urls(page)
-        if not product_urls:
-            print("[GPU] 製品 URL を取得できませんでした", file=sys.stderr)
-            return 0
+        # Phase 1: シード URL + 既存 URL からリスト生成
+        product_urls = self._build_url_list(_GPU_SEED_URLS, existing)
+        print(f"[GPU] 対象 URL: {len(product_urls)} 件 (limit={self.limit})", file=sys.stderr)
 
         target_urls = product_urls[: self.limit]
-        print(f"\n[GPU] 対象: {len(target_urls)} / {len(product_urls)} 件\n", file=sys.stderr)
+        print(f"[GPU] 処理対象: {len(target_urls)} 件\n", file=sys.stderr)
 
         # Phase 2: 各スペックページをスクレイプ
         updated = 0
@@ -618,11 +627,13 @@ class AsusScraper:
                 specs = _extract_gpu_specs(text)
                 name = self._fetch_product_name(page, purl)
 
-                if purl in by_url:
+                key = purl.rstrip("/")
+                if key in by_url:
                     # 既存レコード更新
-                    rec = by_url[purl]
+                    rec = by_url[key]
                     rec["specs"].update({k: v for k, v in specs.items() if v is not None})
-                    rec["name"] = name or rec["name"]
+                    if name and len(name) > 5:
+                        rec["name"] = name
                     updated += 1
                     print(f"  UPDATE: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
                 else:
@@ -639,7 +650,7 @@ class AsusScraper:
                         "created_at": _TS,
                         "specs": specs,
                     }
-                    by_url[purl] = rec
+                    by_url[key] = rec
                     added += 1
                     print(f"  ADD: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
 
@@ -665,18 +676,16 @@ class AsusScraper:
         print("\n[MB] スクレイプ開始\n", file=sys.stderr)
         existing = _load_jsonl(_MB_JSONL)
         existing = _normalize_ids(existing)
-        by_url: dict[str, dict] = {r["source_url"]: r for r in existing if r.get("source_url")}
+        by_url: dict[str, dict] = {r["source_url"].rstrip("/"): r for r in existing if r.get("source_url")}
 
         page = self._new_page()
 
-        # Phase 1: 製品 URL 収集
-        product_urls = self.scrape_mb_urls(page)
-        if not product_urls:
-            print("[MB] 製品 URL を取得できませんでした", file=sys.stderr)
-            return 0
+        # Phase 1: シード URL + 既存 URL からリスト生成
+        product_urls = self._build_url_list(_MB_SEED_URLS, existing)
+        print(f"[MB] 対象 URL: {len(product_urls)} 件 (limit={self.limit})", file=sys.stderr)
 
         target_urls = product_urls[: self.limit]
-        print(f"\n[MB] 対象: {len(target_urls)} / {len(product_urls)} 件\n", file=sys.stderr)
+        print(f"[MB] 処理対象: {len(target_urls)} 件\n", file=sys.stderr)
 
         # Phase 2: 各スペックページをスクレイプ
         updated = 0
@@ -694,10 +703,12 @@ class AsusScraper:
                 specs = _extract_mb_specs(text)
                 name = self._fetch_product_name(page, purl)
 
-                if purl in by_url:
-                    rec = by_url[purl]
+                key = purl.rstrip("/")
+                if key in by_url:
+                    rec = by_url[key]
                     rec["specs"].update({k: v for k, v in specs.items() if v is not None})
-                    rec["name"] = name or rec["name"]
+                    if name and len(name) > 5:
+                        rec["name"] = name
                     updated += 1
                     print(f"  UPDATE: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
                 else:
@@ -713,7 +724,7 @@ class AsusScraper:
                         "created_at": _TS,
                         "specs": specs,
                     }
-                    by_url[purl] = rec
+                    by_url[key] = rec
                     added += 1
                     print(f"  ADD: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
 
