@@ -1,0 +1,1294 @@
+{
+  "existing_count": 62,
+  "shops": {
+    "PC工房(GPU系列)": [
+      "RTX 2000 Ada",
+      "RTX 3050",
+      "RTX 3050 6GB",
+      "RTX 4000 Ada",
+      "RTX 4050",
+      "RTX 4050 Laptop GPU",
+      "RTX 4060",
+      "RTX 4060 Laptop GPU",
+      "RTX 4060 Ti 16GB",
+      "RTX 4060 Ti 8GB",
+      "RTX 4070",
+      "RTX 4070 SUPER",
+      "RTX 4070 Ti SUPER",
+      "RTX 4080",
+      "RTX 4080 Laptop GPU",
+      "RTX 4080 SUPER",
+      "RTX 4090",
+      "RTX 5000 Ada",
+      "RTX 5050",
+      "RTX 5050 Laptop GPU",
+      "RTX 5060",
+      "RTX 5060 Laptop GPU",
+      "RTX 5060 Ti 16GB",
+      "RTX 5060 Ti 8GB",
+      "RTX 5070",
+      "RTX 5070 Laptop GPU",
+      "RTX 5070 Ti",
+      "RTX 5070 Ti Laptop GPU",
+      "RTX 5080",
+      "RTX 5080 Laptop GPU",
+      "RTX 5090",
+      "RTX 5090 Laptop GPU",
+      "RTX 6000 Ada",
+      "Radeon RX 6500 XT",
+      "Radeon RX 6600",
+      "Radeon RX 6650 XT",
+      "Radeon RX 6700 XT",
+      "Radeon RX 6750 XT",
+      "Radeon RX 6800 XT",
+      "Radeon RX 6900 XT",
+      "Radeon RX 7600",
+      "Radeon RX 7600 XT",
+      "Radeon RX 7700 XT",
+      "Radeon RX 7800 XT",
+      "Radeon RX 7900 XTX",
+      "Radeon RX 9060",
+      "Radeon RX 9060 XT 16GB",
+      "Radeon RX 9060 XT 8GB",
+      "Radeon RX 9070",
+      "Radeon RX 9070 XT"
+    ],
+    "ツクモ": [
+      "A750 CL SE 8GO （Intel Arc A750 Challenger SE 8GB OC）",
+      "A770 CL SE 16GO （Intel Arc A770 Challenger SE 16GB OC）",
+      "Arc A770 16GB （21P01J00BA）",
+      "Dual GeForce RTX 5060 8GB GDDR7 OC Edition DUAL-RTX5060-O8G",
+      "Dual GeForce RTX 5060 Ti 16GB GDDR7 White OC Edition DUAL-RTX5060TI-O16G-WHITE",
+      "Dual GeForce RTX 5070 12GB GDDR7 OC Edition DUAL-RTX5070-O12G",
+      "Dual Radeon RX 9060 XT 16GB GDDR6 DUAL-RX9060XT-16G",
+      "GG-RTX5060Ti-E16GB/Lineage II",
+      "GG-RTX5060Ti-E8GB/OC/DF/V2",
+      "GK-RTX5060Ti-E8GB/WHITE/DF/V2",
+      "Gainward GeForce RTX 5070 PHOENIX 12GB GDDR7 192bit 3-DP HDMI NE75070019K9-GB2050X ※箱破損品",
+      "GeForce RTX 5050 OC Low Profile 8G GV-N5050OC-8GL",
+      "GeForce RTX 5060 8G VENTUS 2X OC WHITE",
+      "GeForce RTX 5060 Ti 8G VENTUS 2X OC WHITE PLUS",
+      "GeForce RTX 5070 12G VENTUS 2X OC",
+      "GeForce RTX 5070 Ti 16G GAMING TRIO OC",
+      "GeForce RTX 5070 Ti 16G GAMING TRIO OC WHITE",
+      "GeForce RTX 5070 Ti EAGLE OC SFF 16G GV-N507TEAGLE OC-16GD",
+      "GeForce RTX 5080 16G GAMING TRIO OC",
+      "GeForce RTX 5080 16GB GDDR7 Noctua OC Edition RTX5080-O16G-NOCTUA",
+      "Intel Arc A310 ECO SA310C-4G",
+      "Intel Arc A380 GENIE SA380G-6G",
+      "Intel Arc A770 Phantom Gaming D 8GB OC A770 PGD 8GO",
+      "Intel Arc B570 GUARDIAN Luna OC SB570GW-10GOC",
+      "Intel Arc B570 GUARDIAN OC SB570G-10GOC",
+      "Intel Arc B580 ROC Luna OC SB580RW-12GOC",
+      "Intel Arc B580 TITAN Luna OC SB580TW-12GOC",
+      "Intel Arc B580 TITAN OC SB580T-12GOC",
+      "NITRO+ Radeon RX 9060 XT GAMING OC 16GB NITRORX9060XT16GB/11350-01-20G",
+      "PNY GeForce RTX 5060 8GB Overclocked Dualfan VCG50608DFXPB1-O",
+      "PNY GeForce RTX 5060 Ti 16GB Overclocked Dualfan VCG5060T16DFXPB1-O",
+      "PNY GeForce RTX 5070 12GB Overclocked TripleFan VCG507012TFXPB1-O",
+      "PRIME GeForce RTX 5070 12GB GDDR7 OC Edition PRIME-RTX5070-O12G",
+      "PRIME GeForce RTX 5070 Ti 16GB GDDR7 OC Edition PRIME-RTX5070TI-O16G",
+      "PRIME GeForce RTX 5080 16GB GDDR7 OC Edition PRIME-RTX5080-O16G",
+      "PULSE Radeon RX 9060 XT GAMING OC 16GB PULSERX9060XT16GB/11350-03-20G",
+      "PULSE Radeon RX 9060 XT GAMING OC 8GB PULSERX9060XT8GB/11350-04-20G",
+      "PULSE Radeon RX 9070 GAMING 16GB PULSERX907016GB/11349-03-20G",
+      "PULSE Radeon RX 9070 XT GAMING 16GB PULSERX9070XT16GB/11348-03-20G",
+      "PURE Radeon RX 9060 XT GAMING OC 16GB PURERX9060XT16GB/11350-02-20G",
+      "PURE Radeon RX 9070 XT GAMING OC 16GB GDDR6 PURERX9070XT16GB/11348-02-20G",
+      "Prime Radeon RX 9060 XT 16GB GDDR6 OC Edition PRIME-RX9060XT-O16G",
+      "Prime Radeon RX 9070 XT OC Edition 16GB GDDR6 PRIME-RX9070XT-O16G",
+      "Radeon RX 9060 XT Challenger 16GB OC RX9060XT CL 16GO",
+      "Radeon RX 9060 XT GAMING OC 16G GV-R9060XTGAMING OC-16GD",
+      "Radeon RX 9060 XT GAMING OC 8G GV-R9060XTGAMING OC-8GD",
+      "Radeon RX 9060 XT Hellhound 16GB GDDR6 RX9060XT 16G-L/OC",
+      "Radeon RX 9060 XT Hellhound Spectral White 16GB OC RX9060XT 16G-L/OC/WHITE",
+      "Radeon RX 9060 XT Steel Legend 8GB OC RX9060XT SL 8GO",
+      "Radeon RX 9070 Challenger 16G RX9070 CL 16G",
+      "Radeon RX 9070 Steel Legend 16GB OC RX9070 SL 16GO",
+      "Radeon RX 9070XT Challenger 16G RX9070XT CL 16G",
+      "Radeon RX 9070XT Steel Legend 16G RX9070XT SL 16G",
+      "Radeon RX 9070XT Steel Legend DARK 16G RX9070XT SLD 16G",
+      "Red Devil Spectral White AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-E/OC/WHITE",
+      "SPARKLE Intel Arc A380 ELF",
+      "SPARKLE Intel Arc A750 TITAN OC Edition",
+      "SPARKLE Intel Arc Pro B60 24GB Blower SBP60W-24G",
+      "TUF Gaming GeForce RTX 5080 16GB GDDR7 OC Edition TUF-RTX5080-O16G-GAMING",
+      "TUF Gaming Radeon RX 9060 XT 16GB GDDR6 OC Edition TUF-RX9060XT-O16G-GAMING",
+      "TUF Gaming Radeon RX 9070 OC Edition 16GB GDDR6 TUF-RX9070-O16G-GAMING",
+      "ZOTAC GAMING GeForce RTX 5080 SOLID CORE OC 16GB GDDR7 RTX5080SOLIDCOC16G/ZT-B50800J"
+    ],
+    "ドスパラ": [
+      "AMD Radeon RX 9070 XT",
+      "ASRock AMD Radeon RX 9060 XT Challenger 16GB (RX9060XT CL 16G) ドスパラ限定モデル",
+      "ASRock AMD Radeon RX 9070 XT Challenger 16GB (RX9070XT CL 16G)",
+      "ASRock Radeon AI PRO R9700 Creator 32GB (R9700 CT 32G)",
+      "ASRock Radeon RX 7600 Challenger 8GB OC (RX7600 CL 8GO)",
+      "ASRock Radeon RX 9060 XT Steel Legend 16GB OC (RX9060XT SL 16GO)",
+      "ASRock Radeon RX 9070 XT Steel Legend 16GB (RX9070XT SL 16G)",
+      "ASRock Radeon RX 9070 XT Steel Legend Dark 16GB (RX9070XT SLD 16G)",
+      "ASRock Radeon RX 9070 XT Taichi 16GB OC (RX9070XT TC 16GO)",
+      "ASRock Radeon RX 9070 XT Taichi White 16GB OC (RX9070XT TCW 16GO)",
+      "ASUS DUAL-RTX5070-O12G (GeForce RTX 5070 12GB)",
+      "ASUS DUAL-RX9060XT-16G (Radeon RX 9060 XT 16GB)",
+      "ASUS DUAL-RX9060XT-16G-WHITE (Radeon RX 9060 XT 16GB) ドスパラ限定モデル",
+      "ASUS GT710-SL-2GD5-BRK-EVO (GeForce GT 710 2GB)",
+      "ASUS GT730-4H-SL-2GD5 (GeForce GT 730 2GB)",
+      "ASUS PRIME-RTX5070TI-16G (GeForce RTX 5070 Ti 16GB)",
+      "ASUS PRIME-RTX5080-O16G (GeForce RTX 5080 16GB)",
+      "ASUS PRIME-RX9060XT-O16G (Radeon RX 9060 XT 16GB)",
+      "ASUS PRIME-RX9070XT-O16G (Radeon RX 9070 XT 16GB)",
+      "ASUS RTX5080-O16G-NOCTUA (GeForce RTX 5080 16GB)",
+      "ASUS TUF-RX9070XT-O16G-COD-BO7 (Radeon RX 9070 XT 16GB)",
+      "ASUS TUF-RX9070XT-O16G-GAMING (Radeon RX 9070 XT 16GB)",
+      "GG-RTX5060Ti-E16GB/Lineage II (GeForce RTX 5060 Ti 16GB)",
+      "GG-RTX5060Ti-E8GB/OC/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "GIGABYTE GV-N3050WF2OCV2-6GD (GeForce RTX 3050 6GB)",
+      "GIGABYTE GV-N5050GAMING OC-8GD (GeForce RTX 5050 8GB)",
+      "GIGABYTE GV-N5050OC-8GL (GeForce RTX 5050 8GB)",
+      "GIGABYTE GV-N5050WF2OC-8GD (GeForce RTX 5050 8GB)",
+      "GIGABYTE GV-N5060WF2MAX OC-8GD (GeForce RTX 5060 8GB)",
+      "GIGABYTE GV-N506TWF2MAX OC-16GD (GeForce RTX 5060 Ti 16GB)",
+      "GIGABYTE GV-N5070AERO OC-12GD (GeForce RTX 5070 12GB)",
+      "GIGABYTE GV-N5070EAGLE OC-12GD (GeForce RTX 5070 12GB)",
+      "GIGABYTE GV-N5070GAMING OC-12GD (GeForce RTX 5070 12GB)",
+      "GIGABYTE GV-N5080AERO OC-16GD (GeForce RTX 5080 16GB)",
+      "GIGABYTE GV-N5080AORUS M-16GD (GeForce RTX 5080 16GB)",
+      "GIGABYTE GV-N5080GAMING OC-16GD (GeForce RTX 5080 16GB)",
+      "GIGABYTE GV-R9060XTGAMING OC-16GD (Radeon RX 9060 XT 16GB)",
+      "GIGABYTE GV-R9070GAMING OC-16GD (Radeon RX 9070 16GB)",
+      "GK-RTX5060Ti-E8GB/WHITE/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "GeForce RTX 3000シリーズ",
+      "GeForce RTX 3000シリーズ製品一覧",
+      "GeForce RTX 3050",
+      "GeForce RTX 3050 6GB)",
+      "GeForce RTX 3050 StormX 6GB)",
+      "GeForce RTX 4000シリーズ製品一覧",
+      "GeForce RTX 5050",
+      "GeForce RTX 5050 8GB)",
+      "GeForce RTX 5060",
+      "GeForce RTX 5060 8GB)",
+      "GeForce RTX 5060 Dual 8GB)",
+      "GeForce RTX 5060 Ti",
+      "GeForce RTX 5060 Ti 16GB)",
+      "GeForce RTX 5060 Ti Dual 8GB)",
+      "GeForce RTX 5060 Ti Infinity 3 16GB)",
+      "GeForce RTX 5060 Ti Infinity 3 OC 16GB)",
+      "GeForce RTX 5060 Ti White OC 16GB)",
+      "GeForce RTX 5060 Ti White OC 8GB)",
+      "GeForce RTX 5060 WHITE OC 8GB)",
+      "GeForce RTX 5070",
+      "GeForce RTX 5070 12GB)",
+      "GeForce RTX 5070 Infinity 3 12GB)",
+      "GeForce RTX 5070 Infinity 3 OC 12GB)",
+      "GeForce RTX 5070 Ti",
+      "GeForce RTX 5070 Ti GamingPro-S 16GB)",
+      "GeForce RTX 5070 Ti GamingPro-S OC 16GB)",
+      "GeForce RTX 5070 White OC 12GB)",
+      "GeForce RTX 5080",
+      "GeForce RTX 5080 16GB)",
+      "GeForce RTX 5080 GamingPro 16GB)",
+      "GeForce RTX 5080 GamingPro OC 16GB)",
+      "GeForce RTX 5090",
+      "GeForce RTX 5090 GameRock 32GB)",
+      "GeForce RTX 5090 GameRock OC 32GB)",
+      "Intel Arc A310",
+      "MSI GT 1030 2GD4 LP OC (GeForce GT1030 2GB)",
+      "MSI GT 710 2GD3H 4HDMI (GeForce GT710 2GB)",
+      "MSI GT710 2GD3H LP (GeForce GT710 2GB)",
+      "MSI GeForce RTX 3050 LP E 6G OC (GeForce RTX 3050 6GB)",
+      "MSI GeForce RTX 3050 VENTUS 2X E 6G OC (GeForce RTX 3050 6GB)",
+      "MSI GeForce RTX 5050 8G VENTUS 2X OC (GeForce RTX 5050 8GB)",
+      "MSI GeForce RTX 5060 8G VENTUS 2X OC (GeForce RTX 5060 8GB)",
+      "MSI GeForce RTX 5060 8G VENTUS 2X OC WHITE (GeForce RTX 5060 8GB)",
+      "MSI GeForce RTX 5060 Ti 16G VENTUS 2X OC WHITE PLUS (GeForce RTX 5060 Ti 16GB)",
+      "MSI GeForce RTX 5060 Ti 8G VENTUS 2X OC WHITE PLUS (GeForce RTX 5060 Ti 8GB)",
+      "MSI GeForce RTX 5070 12G VENTUS 2X OC (GeForce RTX 5070 12GB)",
+      "MSI GeForce RTX 5070 12G VENTUS 2X OC WHITE (GeForce RTX 5070 12GB)",
+      "MSI GeForce RTX 5070 Ti 16G GAMING TRIO OC (GeForce RTX 5070 Ti 16GB)",
+      "MSI GeForce RTX 5070 Ti 16G VENTUS 3X OC (GeForce RTX 5070 Ti 16GB)",
+      "MSI GeForce RTX 5080 16G GAMING TRIO OC (GeForce RTX 5080 16GB)",
+      "NVIDIA GeForce",
+      "NVIDIA GeForce GT1030",
+      "NVIDIA GeForce GT710",
+      "NVIDIA GeForce GT730",
+      "NVIDIA GeForce RTX 3050",
+      "NVIDIA GeForce RTX 40 シリーズ特集ページ",
+      "NVIDIA GeForce RTX 5050",
+      "NVIDIA GeForce RTX 5060",
+      "NVIDIA GeForce RTX 5060 Ti",
+      "NVIDIA GeForce RTX 5070",
+      "NVIDIA GeForce RTX 5070 Ti",
+      "NVIDIA GeForce RTX 5080",
+      "NVIDIA GeForce RTX 5090",
+      "NVIDIA GeForce RTX3050",
+      "NVIDIA GeForce RTX® 40 シリーズ特集ページ",
+      "NVIDIA GeForce RTX™ 40 シリーズ特集ページ",
+      "NVIDIA GeForce RTX™ 50 シリーズ特集ページ",
+      "Palit NE63050018JE-1072F (GeForce RTX 3050 StormX 6GB)",
+      "Palit NE75060019P1-GB2063D (GeForce RTX 5060 Dual 8GB)",
+      "Palit NE75060U19P1-GB2063M (GeForce RTX 5060 WHITE OC 8GB)",
+      "Palit NE7506T019P1-GB2062D (GeForce RTX 5060 Ti Dual 8GB)",
+      "Palit NE7506T019T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 16GB)",
+      "Palit NE7506TS19T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 OC 16GB)",
+      "Palit NE7506TU19P1-GB2062M (GeForce RTX 5060 Ti White OC 8GB)",
+      "Palit NE7506TU19T1-GB2061M (GeForce RTX 5060 Ti White OC 16GB)",
+      "Palit NE75070019K9-GB2050S (GeForce RTX 5070 Infinity 3 12GB)",
+      "Palit NE75070S19K9-GB2050S (GeForce RTX 5070 Infinity 3 OC 12GB)",
+      "Palit NE75070U19K9-GB2050W (GeForce RTX 5070 White OC 12GB)",
+      "Palit NE7507T019T2-GB2031U (GeForce RTX 5070 Ti GamingPro-S 16GB)",
+      "Palit NE7507TS19T2-GB2031U (GeForce RTX 5070 Ti GamingPro-S OC 16GB)",
+      "Palit NE75080019T2-GB2031A (GeForce RTX 5080 GamingPro 16GB)",
+      "Palit NE75080S19T2-GB2031A (GeForce RTX 5080 GamingPro OC 16GB)",
+      "Palit NE75090019R5-GB2020G (GeForce RTX 5090 GameRock 32GB)",
+      "Palit NE75090S19R5-GB2020G (GeForce RTX 5090 GameRock OC 32GB)",
+      "Radeon RX 6400",
+      "Radeon RX 6400 4GB)",
+      "Radeon RX 7600",
+      "Radeon RX 9060 XT",
+      "Radeon RX 9060 XT 16GB)",
+      "Radeon RX 9060 XT 16GB) ドスパラ限定モデル",
+      "Radeon RX 9070",
+      "Radeon RX 9070 16GB)",
+      "Radeon RX 9070 XT",
+      "Radeon RX 9070 XT 16GB)",
+      "SPARKLE Intel Arc A310 ECO SA310C-4G (Intel Arc A310 4GB)",
+      "玄人志向 GF-GT710-E1GB/HS (GeForce GT 710 1GB)",
+      "玄人志向 GG-RTX5060Ti-E16GB/Lineage II (GeForce RTX 5060 Ti 16GB)",
+      "玄人志向 GG-RTX5060Ti-E8GB/OC/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "玄人志向 GK-RTX5060Ti-E8GB/WHITE/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "玄人志向 RD-RX6400-E4GB/LP (Radeon RX 6400 4GB)",
+      "玄人志向 RD-RX9070XT-E16GB/TP (Radeon RX 9070 XT 16GB)"
+    ]
+  },
+  "new_gpus": [
+    {
+      "name": "A750 CL SE 8GO （Intel Arc A750 Challenger SE 8GB OC）",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "A770 CL SE 16GO （Intel Arc A770 Challenger SE 16GB OC）",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "AMD Radeon RX 9070 XT",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock AMD Radeon RX 9060 XT Challenger 16GB (RX9060XT CL 16G) ドスパラ限定モデル",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock AMD Radeon RX 9070 XT Challenger 16GB (RX9070XT CL 16G)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon AI PRO R9700 Creator 32GB (R9700 CT 32G)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon RX 7600 Challenger 8GB OC (RX7600 CL 8GO)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon RX 9060 XT Steel Legend 16GB OC (RX9060XT SL 16GO)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon RX 9070 XT Steel Legend 16GB (RX9070XT SL 16G)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon RX 9070 XT Steel Legend Dark 16GB (RX9070XT SLD 16G)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon RX 9070 XT Taichi 16GB OC (RX9070XT TC 16GO)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASRock Radeon RX 9070 XT Taichi White 16GB OC (RX9070XT TCW 16GO)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS DUAL-RX9060XT-16G (Radeon RX 9060 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS DUAL-RX9060XT-16G-WHITE (Radeon RX 9060 XT 16GB) ドスパラ限定モデル",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS GT710-SL-2GD5-BRK-EVO (GeForce GT 710 2GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS GT730-4H-SL-2GD5 (GeForce GT 730 2GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS PRIME-RTX5070TI-16G (GeForce RTX 5070 Ti 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS PRIME-RTX5080-O16G (GeForce RTX 5080 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS PRIME-RX9060XT-O16G (Radeon RX 9060 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS PRIME-RX9070XT-O16G (Radeon RX 9070 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS RTX5080-O16G-NOCTUA (GeForce RTX 5080 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "ASUS TUF-RX9070XT-O16G-GAMING (Radeon RX 9070 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Arc A770 16GB （21P01J00BA）",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Dual Radeon RX 9060 XT 16GB GDDR6 DUAL-RX9060XT-16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GG-RTX5060Ti-E16GB/Lineage II",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GG-RTX5060Ti-E16GB/Lineage II (GeForce RTX 5060 Ti 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GG-RTX5060Ti-E8GB/OC/DF/V2",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GG-RTX5060Ti-E8GB/OC/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N3050WF2OCV2-6GD (GeForce RTX 3050 6GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5050GAMING OC-8GD (GeForce RTX 5050 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5050OC-8GL (GeForce RTX 5050 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5050WF2OC-8GD (GeForce RTX 5050 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5060WF2MAX OC-8GD (GeForce RTX 5060 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N506TWF2MAX OC-16GD (GeForce RTX 5060 Ti 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5070AERO OC-12GD (GeForce RTX 5070 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5070EAGLE OC-12GD (GeForce RTX 5070 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5070GAMING OC-12GD (GeForce RTX 5070 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5080AERO OC-16GD (GeForce RTX 5080 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5080AORUS M-16GD (GeForce RTX 5080 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-N5080GAMING OC-16GD (GeForce RTX 5080 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-R9060XTGAMING OC-16GD (Radeon RX 9060 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GIGABYTE GV-R9070GAMING OC-16GD (Radeon RX 9070 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GK-RTX5060Ti-E8GB/WHITE/DF/V2",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GK-RTX5060Ti-E8GB/WHITE/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Gainward GeForce RTX 5070 PHOENIX 12GB GDDR7 192bit 3-DP HDMI NE75070019K9-GB2050X ※箱破損品",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 3000シリーズ",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 3000シリーズ製品一覧",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 3050",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 3050 6GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 3050 StormX 6GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 4000シリーズ製品一覧",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5050",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5050 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5050 OC Low Profile 8G GV-N5050OC-8GL",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 Dual 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 Ti",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 Ti 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 Ti Dual 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 Ti Infinity 3 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5060 Ti Infinity 3 OC 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070 Infinity 3 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070 Infinity 3 OC 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070 Ti",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070 Ti EAGLE OC SFF 16G GV-N507TEAGLE OC-16GD",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5070 Ti GamingPro-S 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5080",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5080 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5080 GamingPro 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5090",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5090 GameRock 32GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "GeForce RTX 5090 GameRock OC 32GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Intel Arc A310",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Intel Arc A310 ECO SA310C-4G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc A380 GENIE SA380G-6G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc A770 Phantom Gaming D 8GB OC A770 PGD 8GO",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc B570 GUARDIAN Luna OC SB570GW-10GOC",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc B570 GUARDIAN OC SB570G-10GOC",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc B580 ROC Luna OC SB580RW-12GOC",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc B580 TITAN Luna OC SB580TW-12GOC",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Intel Arc B580 TITAN OC SB580T-12GOC",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "MSI GT 1030 2GD4 LP OC (GeForce GT1030 2GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "MSI GT 710 2GD3H 4HDMI (GeForce GT710 2GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "MSI GT710 2GD3H LP (GeForce GT710 2GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "MSI GeForce RTX 3050 VENTUS 2X E 6G OC (GeForce RTX 3050 6GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "MSI GeForce RTX 5070 12G VENTUS 2X OC WHITE (GeForce RTX 5070 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NITRO+ Radeon RX 9060 XT GAMING OC 16GB NITRORX9060XT16GB/11350-01-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce GT1030",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce GT710",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce GT730",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 3050",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 40 シリーズ特集ページ",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5050",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5060",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5060 Ti",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5070",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5080",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX3050",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX® 40 シリーズ特集ページ",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX™ 40 シリーズ特集ページ",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "NVIDIA GeForce RTX™ 50 シリーズ特集ページ",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "PNY GeForce RTX 5060 8GB Overclocked Dualfan VCG50608DFXPB1-O",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PNY GeForce RTX 5060 Ti 16GB Overclocked Dualfan VCG5060T16DFXPB1-O",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PNY GeForce RTX 5070 12GB Overclocked TripleFan VCG507012TFXPB1-O",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PULSE Radeon RX 9060 XT GAMING OC 16GB PULSERX9060XT16GB/11350-03-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PULSE Radeon RX 9060 XT GAMING OC 8GB PULSERX9060XT8GB/11350-04-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PULSE Radeon RX 9070 GAMING 16GB PULSERX907016GB/11349-03-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PULSE Radeon RX 9070 XT GAMING 16GB PULSERX9070XT16GB/11348-03-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PURE Radeon RX 9060 XT GAMING OC 16GB PURERX9060XT16GB/11350-02-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "PURE Radeon RX 9070 XT GAMING OC 16GB GDDR6 PURERX9070XT16GB/11348-02-20G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Palit NE63050018JE-1072F (GeForce RTX 3050 StormX 6GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75060019P1-GB2063D (GeForce RTX 5060 Dual 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75060U19P1-GB2063M (GeForce RTX 5060 WHITE OC 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7506T019P1-GB2062D (GeForce RTX 5060 Ti Dual 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7506T019T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7506TS19T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 OC 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7506TU19P1-GB2062M (GeForce RTX 5060 Ti White OC 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7506TU19T1-GB2061M (GeForce RTX 5060 Ti White OC 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75070019K9-GB2050S (GeForce RTX 5070 Infinity 3 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75070S19K9-GB2050S (GeForce RTX 5070 Infinity 3 OC 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75070U19K9-GB2050W (GeForce RTX 5070 White OC 12GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7507T019T2-GB2031U (GeForce RTX 5070 Ti GamingPro-S 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE7507TS19T2-GB2031U (GeForce RTX 5070 Ti GamingPro-S OC 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75080019T2-GB2031A (GeForce RTX 5080 GamingPro 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75080S19T2-GB2031A (GeForce RTX 5080 GamingPro OC 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75090019R5-GB2020G (GeForce RTX 5090 GameRock 32GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Palit NE75090S19R5-GB2020G (GeForce RTX 5090 GameRock OC 32GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Prime Radeon RX 9060 XT 16GB GDDR6 OC Edition PRIME-RX9060XT-O16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Prime Radeon RX 9070 XT OC Edition 16GB GDDR6 PRIME-RX9070XT-O16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 6400",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 6400 4GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 7600",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT 16GB) ドスパラ限定モデル",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT Challenger 16GB OC RX9060XT CL 16GO",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT GAMING OC 16G GV-R9060XTGAMING OC-16GD",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT GAMING OC 8G GV-R9060XTGAMING OC-8GD",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT Hellhound 16GB GDDR6 RX9060XT 16G-L/OC",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT Hellhound Spectral White 16GB OC RX9060XT 16G-L/OC/WHITE",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9060 XT Steel Legend 8GB OC RX9060XT SL 8GO",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070 Challenger 16G RX9070 CL 16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070 Steel Legend 16GB OC RX9070 SL 16GO",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070 XT",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070XT Challenger 16G RX9070XT CL 16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070XT Steel Legend 16G RX9070XT SL 16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Radeon RX 9070XT Steel Legend DARK 16G RX9070XT SLD 16G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "Red Devil Spectral White AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-E/OC/WHITE",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "SPARKLE Intel Arc A310 ECO SA310C-4G (Intel Arc A310 4GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "SPARKLE Intel Arc A380 ELF",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "SPARKLE Intel Arc A750 TITAN OC Edition",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "SPARKLE Intel Arc Pro B60 24GB Blower SBP60W-24G",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "TUF Gaming Radeon RX 9060 XT 16GB GDDR6 OC Edition TUF-RX9060XT-O16G-GAMING",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "TUF Gaming Radeon RX 9070 OC Edition 16GB GDDR6 TUF-RX9070-O16G-GAMING",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "ZOTAC GAMING GeForce RTX 5080 SOLID CORE OC 16GB GDDR7 RTX5080SOLIDCOC16G/ZT-B50800J",
+      "shops": [
+        "ツクモ"
+      ]
+    },
+    {
+      "name": "玄人志向 GF-GT710-E1GB/HS (GeForce GT 710 1GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "玄人志向 GG-RTX5060Ti-E16GB/Lineage II (GeForce RTX 5060 Ti 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "玄人志向 GG-RTX5060Ti-E8GB/OC/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "玄人志向 GK-RTX5060Ti-E8GB/WHITE/DF/V2 (GeForce RTX 5060 Ti 8GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "玄人志向 RD-RX6400-E4GB/LP (Radeon RX 6400 4GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    },
+    {
+      "name": "玄人志向 RD-RX9070XT-E16GB/TP (Radeon RX 9070 XT 16GB)",
+      "shops": [
+        "ドスパラ"
+      ]
+    }
+  ],
+  "summary_by_category": {
+    "Intel Arc": 16,
+    "Radeon RX 9070系": 25,
+    "Radeon RX 9060系": 22,
+    "Radeon AI PRO": 1,
+    "その他": 28,
+    "RTX 50xx": 76,
+    "RTX 40xx": 2
+  }
+}
