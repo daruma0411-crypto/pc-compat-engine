@@ -332,6 +332,7 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
 # ================================================================
 
 @app.route('/')
+@app.route('/compat')
 def index():
     html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
