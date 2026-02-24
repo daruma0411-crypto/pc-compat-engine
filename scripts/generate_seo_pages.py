@@ -356,6 +356,57 @@ def case_index_page(case: dict, results: list) -> str:
 </html>"""
 
 
+# ── sitemap.xml 生成 ─────────────────────────────────────────
+
+_BASE_URL = 'https://pc-compat-engine.onrender.com'
+
+
+def _generate_sitemap(gpus: list, cases: list, n_total: int):
+    """static/sitemap.xml を生成する"""
+    from datetime import datetime
+    today = datetime.utcnow().strftime('%Y-%m-%d')
+
+    urls = [f'<url><loc>{_BASE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>']
+
+    # 個別ページ
+    for gpu in gpus:
+        g_slug = slugify(gpu.get('name', ''))
+        for case in cases:
+            c_slug = slugify(case.get('name', ''))
+            urls.append(
+                f'<url><loc>{_BASE_URL}/compat/{g_slug}-vs-{c_slug}.html</loc>'
+                f'<lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>'
+            )
+
+    # GPU別インデックス
+    for gpu in gpus:
+        g_slug = slugify(gpu.get('name', ''))
+        urls.append(
+            f'<url><loc>{_BASE_URL}/compat/gpu/{g_slug}.html</loc>'
+            f'<lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>'
+        )
+
+    # ケース別インデックス
+    for case in cases:
+        c_slug = slugify(case.get('name', ''))
+        urls.append(
+            f'<url><loc>{_BASE_URL}/compat/case/{c_slug}.html</loc>'
+            f'<lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>'
+        )
+
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + '\n'.join(urls)
+        + '\n</urlset>\n'
+    )
+
+    out_path = os.path.join(_ROOT, 'static', 'sitemap.xml')
+    with open(out_path, 'w', encoding='utf-8') as f:
+        f.write(sitemap)
+    print(f'  → {out_path} ({len(urls):,}件)')
+
+
 # ── メイン処理 ────────────────────────────────────────────────
 
 def main():
@@ -415,15 +466,20 @@ def main():
     n_case_idx = len(cases)
     n_total    = n_individual + n_gpu_idx + n_case_idx
 
+    # sitemap.xml 生成
+    print('sitemap.xml 生成中...')
+    _generate_sitemap(gpus, cases, n_total)
+
     print(f'\n完了!')
-    print(f'  個別ページ:         {n_individual:,}件')
-    print(f'  GPU別インデックス:  {n_gpu_idx:,}件')
+    print(f'  個別ページ:           {n_individual:,}件')
+    print(f'  GPU別インデックス:    {n_gpu_idx:,}件')
     print(f'  ケース別インデックス: {n_case_idx:,}件')
-    print(f'  合計:               {n_total:,}件')
+    print(f'  合計:                 {n_total:,}件')
+    print(f'  sitemap.xml:          {n_total + 1}件 (トップ含む)')
     print(f'\n出力先: {_OUTPUT_DIR}')
     print('\n次のステップ:')
-    print('  git add static/compat/')
-    print('  git commit -m "feat: SEOページ生成 {n_total}件"')
+    print(f'  git add static/compat/ static/sitemap.xml')
+    print(f'  git commit -m "feat: SEOページ生成 {n_total}件"')
     print('  git push origin main')
 
 
