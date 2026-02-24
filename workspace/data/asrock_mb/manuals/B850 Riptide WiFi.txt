@@ -1,0 +1,1965 @@
+
+Contact Information
+If you need to contact ASRock or want to know more about ASRock, you’re 
+welcome to visit ASRock’s website at http://www.asrock.com; or you may contact 
+your dealer for further information. For technical questions, please submit a 
+support request form at https://event.asrock.com/tsd.asp
+ASRock Incorporation
+e-mail: info@asrock.com.tw
+ASRock EUROPE B.V.
+e-mail: sales@asrock.nl
+ASRock America, Inc.
+e-mail: sales@asrockamerica.com
+Scan the QR code to view more manuals and documents.
+
+Contents
+Chapter  1  Introduction 
+1
+1.1   
+Package Contents  
+1
+1.2   
+Speciications  
+2
+1.3  
+Motherboard Layout 
+7
+1.4   
+I/O Panel 
+9
+1.5   
+Block Diagram 
+11
+1.6   
+802.11be Wi-Fi 7 Module and ASRock WiFi 2.4/5/6 GHz  
+         
+Antennas 
+12
+Chapter  2  Installation 
+14
+2.1   
+Installing the CPU 
+15
+2.2   
+Installing the CPU Fan and Heatsink 
+18
+2.3   
+Installing Memory Modules (DIMM)  
+27
+2.4   
+Connecting the Front Panel Header 
+29
+2.5   
+Installing the Motherboard 
+30
+2.6   
+Installing SATA Drives 
+31
+2.7   
+Installing a Graphics Card 
+33
+2.8   
+Connecting Peripheral Devices 
+36
+2.9   
+Connecting the Power Connectors 
+37
+2.10   Power On 
+38
+2.11   Jumpers Setup 
+39
+2.12   Onboard Headers and Connectors   
+40
+2.13   Smart Button 
+53
+
+2.14   Post Status Checker 
+55
+2.15   M.2 SSD Installation Guide (M2_1) 
+56
+2.16   M.2 SSD Installation Guide (M2_2) 
+59
+2.17   M.2 SSD Installation Guide (M2_3) 
+62
+2.18   M.2 SSD Installation Guide (M2_4) 
+65
+
+1
+B850 Riptide WiFi
+English
+Chapter  1  Introduction
+hank you for purchasing ASRock B850 Riptide WiFi motherboard, a reliable 
+motherboard produced under ASRock’s consistently stringent quality control. 
+It delivers excellent performance with robust design conforming to ASRock’s 
+commitment to quality and endurance.
+1.1  Package Contents 
+• ASRock B850 Riptide WiFi Motherboard (ATX Form Factor)
+• 2 x Serial ATA (SATA) Data Cables (Optional)
+• 2 x ASRock WiFi 2.4/5/6 GHz Antennas (Optional)
+• 1 x ARGB Splitter Cable (Optional)
+• 1 x hermistor Cable (Optional)
+Because the motherboard speciications and the BIOS sotware might be updated, the 
+content of this documentation will be subject to change without notice. In case any 
+modiications of this documentation occur, the updated version will be available on 
+ASRock’s website without further notice. If you require technical support related to 
+this motherboard, please visit our website for speciic information about the model 
+you are using. You may ind the latest VGA cards and CPU support list on ASRock’s 
+website as well. ASRock website  http://www.asrock.com.
+
+2
+English
+1.2  Speciications 
+Platform
+• ATX Form Factor
+• 8 Layer PCB
+CPU
+• Supports AMD Socket AM5 Ryzen
+TM 9000, 8000 and 7000 
+Series Processors*
+* he availability of expansion slots may vary by CPU. Please 
+refer to PCIe/M.2 Bandwidth Table for details. (http://www.
+asrock.com/)
+Chipset
+• AMD B850
+Memory
+• Dual Channel DDR5 Memory Technology
+• 4 x DDR5 DIMM Slots
+• Supports DDR5 ECC/non-ECC, un-bufered memory up to 
+8000+(OC)*
+• Max. capacity of system memory: 256GB
+• Supports Extreme Memory Proile (XMP) and EXTended 
+Proiles for Overclocking (EXPO) memory modules
+* Please refer to Memory Support List on ASRock's website for 
+more information. (http://www.asrock.com/)
+Expansion  
+Slot
+ CPU: 
+• 1 x PCIe 5.0 x16 Slot (PCIE1), supports x16 mode*
+• 
+ Chipset: 
+• 1 x PCIe 4.0 x16 Slot (PCIE2), supports x4 mode* 
+• 1 x Vertical M.2 Socket (Key E), supports type 2230 WiFi/
+BT PCIe WiFi module 
+* PCIE1 will run at Gen5x16 with 9000 and 7000 series 
+processors, Gen4x8 with 8000 (Phoenix 1) series processors and 
+Gen4x4 with 8000 (Phoenix 2) series processors.  
+* If M2_4 is occupied, PCIE2 will be disabled.
+* Supports NVMe SSD as boot disks
+• 15μ Gold Contact in VGA PCIe Slot (PCIE1)
+
+3
+B850 Riptide WiFi
+English
+ Graphics
+• Integrated AMD RDNA
+TM graphics (Actual support may 
+vary by CPU)
+• 1 x HDMI 2.1 TMDS/FRL 8G Compatible, supports HDR, 
+HDCP 2.3 and max. resolution up to 4K 120Hz
+Audio
+• 7.1 CH HD Audio with Content Protection (Realtek 
+ALC4082 Audio Codec)  
+• Individual PCB Layers for R/L Audio Channel
+• Direct Drive Technology on Front headphone port (Supports 
+up to 600 Ohm headsets)
+• Nahimic Audio
+LAN
+• 2.5 Gigabit LAN 10/100/1000/2500 Mb/s
+• Killer® E3100G
+• Supports Killer LAN Sotware
+Wireless 
+LAN
+• 802.11be 2x2 Wi-Fi 7 Module
+• Supports IEEE 802.11a/b/g/n/ac/ax/axe/be
+• Supports 2.4GHz/5GHz/6GHz* frequency band
+• Supports 160MHz channel bandwidth with 6GHz* frequen-
+cy band
+* Wi-Fi 7 (6GHz band) will be supported by Microsot® Win-
+dows® 11. he availability will depend on the diferent regula-
+tion status of each country and region. It will be activated (for 
+supported countries) through Windows Update and sotware 
+updates once available.
+• 1 antenna to support 2 (Transmit) x 2 (Receive) diversity 
+technology 
+• Supports Bluetooth 5.4
+• Supports MU-MIMO
+USB
+ CPU: 
+• 2 x USB 3.2 Gen2 Type-C (Rear)
+• 1 x USB 3.2 Gen2 Type-A (Rear (USB32_3))
+• 1 x USB 3.2 Gen1 Type-A (Rear (USB32_1))
+ Chipset:
+• 1 x USB 3.2 Gen2x2 Type-C (Front)
+• 1 x USB 3.2 Gen2 Type-A (Rear (USB32_4))
+
+4
+English
+• 6 x USB 3.2 Gen1 Type-A (2 Rear (USB32_2 and USB32_5), 
+4 Front)
+• 8 x USB 2.0 (4 Rear, 4 Front)
+* All USB ports support ESD Protection
+Rear Panel 
+I/O
+• 2 x Antenna Ports
+• 1 x HDMI Port
+• 1 x Optical SPDIF Out Port
+• 2 x USB 3.2 Gen2 Type-C Ports (10 Gb/s)
+• 3 x USB 3.2 Gen1 Type-A Ports* 
+• 2 x USB 3.2 Gen2 Type-A Ports (10 Gb/s)**
+• 4 x USB 2.0 Ports 
+• 1 x RJ-45 LAN Port 
+• 1 x BIOS Flashback Button
+• 1 x Line Out Jack (Gold Audio Jack)
+• 1 x Microphone Input Jack (Gold Audio Jack)
+* USB32_12 are Lightning Gaming Ports. 
+** USB32_34 supports Ultra USB Power.
+Storage
+ CPU: 
+• 1 x Blazing M.2 Socket (M2_1, Key M), supports type 2280 
+PCIe Gen5x4 (128 Gb/s) mode*
+• 1 x Hyper M.2 Socket (M2_2, Key M), supports type 
+2260/2280 PCIe Gen4x4 (64 Gb/s) mode*
+ Chipset: 
+• 1 x Hyper M.2 Socket (M2_3, Key M), supports type 
+2230/2260/2280 PCIe Gen4x4 (64 Gb/s) mode* 
+• 1 x Hyper M.2 Socket (M2_4, Key M), supports type 
+2260/2280 PCIe Gen4x4 (64 Gb/s) mode* 
+ ASMedia ASM1061: 
+• 4 x SATA3 6.0 Gb/s Connectors
+* Supports NVMe SSD as boot disks
+* M2_1 is the irst priority for M.2 installation.
+* M2_1 will run at Gen5x4 with 9000 and 7000 series proces-
+sors and Gen4x4 with 8000 (Phoenix 1 and Phoenix 2) series 
+processors.  
+* M2_2 will run at Gen4x2 with 8000 (Phoenix 2) series proces-
+sors.  
+* If M2_4 is occupied, PCIE2 will be disabled.
+
+5
+B850 Riptide WiFi
+English
+RAID
+• Supports RAID 0, RAID 1 and RAID 10 for M.2 NVMe 
+storage devices
+Connector
+• 1 x SPI TPM Header 
+• 1 x hermistor Cable Header
+• 1 x Power LED and Speaker Header
+• 1 x RGB LED Header*
+• 3 x Addressable LED Headers**
+• 2 x CPU Fan Connectors (4-pin) (Smart Fan Speed Con-
+trol)*** 
+• 3 x Chassis Fan Connectors (4-pin) (Smart Fan Speed Con-
+trol)*** 
+• 1 x AIO Pump Fan Connector (4-pin) (Smart Fan Speed 
+Control)*** 
+• 1 x 24 pin ATX Power Connector (Hi-Density Power Con-
+nector)
+• 2 x 8 pin 12V Power Connectors (Hi-Density Power Con-
+nector)
+• 1 x Front Panel Audio Connector 
+• 2 x USB 2.0 Headers (Support 4 USB 2.0 ports)
+• 2 x USB 3.2 Gen1 Headers (Support 4 USB 3.2 Gen1 ports)
+• 1 x Front Panel Type C USB 3.2 Gen2x2 Header (20 Gb/s) 
+* Supports in total up to 12V/3A, 36W LED Strip
+** Support in total up to 5V/3A, 15W LED Strip 
+*** CPU_FAN1 supports the fan power up to 1A (12W). 
+*** CPU_FAN2, CHA_FAN1~3 and AIO_PUMP support the 
+fan power up to 3A (36W). 
+*** CPU_FAN2, CHA_FAN1~3 and AIO_PUMP can auto 
+detect if 3-pin or 4-pin fan is in use.
+BIOS  
+Feature
+• AMI UEFI Legal BIOS with GUI support
+OS
+• Microsot® Windows® 10 64-bit / 11 64-bit
+Certiica-
+tions
+• FCC, CE
+• ErP/EuP ready (ErP/EuP ready power supply is required)
+
+6
+English
+Please realize that there is a certain risk involved with overclocking, including 
+adjusting the setting in the BIOS, applying Untied Overclocking Technology, or using 
+third-party overclocking tools. Overclocking may afect your system’s stability, or 
+even cause damage to the components and devices of your system. It should be done 
+at your own risk and expense. We are not responsible for possible damage caused by 
+overclocking.
+ * For detailed product information, please visit our website: http://www.asrock.com
+
+7
+B850 Riptide WiFi
+English
+1.3 Motherboard Layout
+ATXPWR1
+PCIE1
+HDLED   RESET
+PLED  PWRBTN
+PANEL1
+1
+SPK_PLED1
+USB_5_6
+1
+CPU_FAN1
+BIOS
+ROM
+ATX12V1
+HD_AUDIO1
+1
+1
+DDR5_A2 (64 bit, 288-pin module)
+DDR5_A1 (64 bit, 288-pin module)
+DDR5_B2 (64 bit, 288-pin module)
+DDR5_B1 (64 bit, 288-pin module)
+ATX12V2
+SATA3_A4
+SATA3_A3
+CMOS
+Battery
+CLRCMOS1
+1
+AUDIO
+CODEC
+LAN
+Top:
+MIC  IN
+Center:
+Line Out
+Bottom:
+Optical
+SPDIF
+ADDR_LED2
+M2_1
+AMD
+B850
+DRAM
+CPU
+VGA
+BOOT
+CPU_FAN2
+1
+ADDR_LED3
+1
+ADDR_LED1
+1
+RGB_LED1
+1
+USB_7_8
+1
+CHA_FAN1
+1
+SPI_TPM_J1
+CHA_FAN3
+USB 3.2 Gen1:
+USB32_5
+RoHS
+PCIE2
+SATA3_A2
+SATA3_A1
+CHA_FAN2
+1
+T_SENSOR1
+USB32_TC3
+USB32_8_9
+1
+AIO_PUMP
+USB32_6_7
+M2_4
+M2_3
+HDMI1
+Top:
+RJ-45
+USB 3.2 Gen2:
+USB32_4
+USB 3.2 Gen2:
+USB32_3
+USB 3.2 Gen1:
+USB32_2
+USB 3.2 Gen1:
+USB32_1
+M2_WIFI1
+USB 2.0:
+USB_1
+USB 2.0:
+USB_2
+USB 2.0:
+USB_3
+USB 2.0:
+USB_4
+10
+12
+14
+13
+16
+17
+18
+20
+1
+11
+3
+21
+2
+6
+4
+22
+5
+7
+15
+19
+23
+24
+25
+26
+27
+28
+29
+8
+9
+M2_2
+USB 3.2 Gen2:
+USB32_TC1
+USB 3.2 Gen2:
+USB32_TC2
+S    1
+W
+
+8
+English
+No.
+Description
+1
+ATX 12V Power Connector (ATX12V1)
+2
+ATX 12V Power Connector (ATX12V2)
+3
+2 x 288-pin DDR5 DIMM Slots (DDR5_A1, DDR5_B1)
+4
+CPU Fan Connector (CPU_FAN1)
+5
+CPU Fan Connector (CPU_FAN2)
+6
+AIO Pump Fan Connector (AIO_PUMP)
+7
+2 x 288-pin DDR5 DIMM Slots (DDR5_A2, DDR5_B2)
+8
+Post Status Checker (PSC)
+9
+Addressable LED Header (ADDR_LED3)
+10
+Addressable LED Header (ADDR_LED2)
+11
+ATX Power Connector (ATXPWR1)
+12
+USB 3.2 Gen1 Header (USB32_8_9)
+13
+Front Panel Type C USB 3.2 Gen2x2 Header (USB32_TC3)
+14
+SPI TPM Header (SPI_TPM_J1)
+15
+USB 3.2 Gen1 Header (USB32_6_7)
+16
+SATA3 Connectors (SATA3_A4)(Upper), (SATA3_A3)(Lower)
+17
+SATA3 Connectors (SATA3_A2)(Upper), (SATA3_A1)(Lower)
+18
+System Panel Header (PANEL1)
+19
+Power LED and Speaker Header (SPK_PLED1)
+20
+USB 2.0 Header (USB_7_8)
+21
+USB 2.0 Header (USB_5_6)
+22
+Clear CMOS Jumper (CLRCMOS1)
+23
+Chassis Fan Connector (CHA_FAN1)
+24
+Chassis Fan Connector (CHA_FAN2)
+25
+Addressable LED Header (ADDR_LED1)
+26
+RGB LED Header (RGB_LED1)
+27
+hermistor Cable Header (T_SENSOR1)
+28
+Front Panel Audio Header (HD_AUDIO1)
+29
+Chassis Fan Connector (CHA_FAN3)
+
+9
+B850 Riptide WiFi
+English
+1.4  I/O Panel
+ACT/LINK LED
+SPEED LED
+LAN Port
+** here are two LEDs on each LAN port. Please refer to the table below for the LAN port LED indications.
+Activity / Link LED
+Speed LED
+Status
+Description
+Status
+Description
+Of
+No Link
+Of
+10Mbps connection
+Blinking
+Data Activity
+Orange
+100Mbps/1Gbps connection
+On
+Link
+Green
+2.5Gbps connection
+* USB32_34 support Ultra USB Power.
+No.
+Description
+No.
+Description
+1
+USB 3.2 Gen2 Type-A Ports (USB32_34)*
+8
+USB 3.2 Gen2 Type-C Port (USB32_TC1)
+2
+2.5G LAN RJ-45 Port**
+9
+USB 3.2 Gen1 Ports (USB32_12)****
+3
+Microphone Input Jack***
+10
+USB 2.0 Ports (USB_1234)
+4
+Line Out Jack***
+11
+BIOS Flashback Button
+5
+Optical SPDIF Out Port
+12
+Antenna Ports
+6
+USB 3.2 Gen1 Port (USB32_5)
+13
+HDMI Port
+7
+USB 3.2 Gen2 Type-C Port (USB32_TC2)
+12
+13
+2
+4
+3
+5
+11
+10
+1
+9
+8
+7
+6
+
+10
+English
+**** USB32_12 are Lightning Gaming Ports.
+*** Function of the Audio Ports in 2, 4, 5.1 or 7.1-channel Coniguration:
+Channel
+Port
+Function
+2ch
+Line Out Jack  
+(Rear Panel)
+Front speaker out
+4ch
+Pink-Mic  
+(Front Panel)
+Rear speaker out
+5.1ch
+Microphone Input Jack  
+(Rear Panel)
+Central/Subwoofer speaker out
+7.1ch
+Lime-Headphone 
+(Front Panel)
+Side Speaker out
+
+11
+B850 Riptide WiFi
+English
+1.5  Block Diagram
+Channel B
+Channel A
+DDR5 Slot x2
+DDR5 Slot x2
+SPI
+eSPI
+SIO NCT6686D
+Flash ROM 256Mb
+PCIE1 Gen5 x16  (X16 slot)
+Gen5 x4 
+M.2_1(PCIe Gen5 x4)
+PCIe Gen4 x4 BUS
+AMD PROM21
+Chipset
+AMD AM5
+Processor
+LGA1718
+20Gb/s
+DP0
+HDMI Port
+Gen5 x16 
+5Gb/s
+Rear USB 3.2 Gen2 Type A *1 port
+10Gb/s
+Gen4 x4 
+M.2_3(PCIe Gen4 x4)
+Gen4 x4
+Front USB 3.2 Gen2x2 Type C *1 port
+5Gb/s
+Rear USB 3.2 Gen1 Type A *2 port
+ReDriver
+Rear USB 3.2 Gen1 Type A *1 port
+Gen4 x4
+Quick  SWITCH
+M.2_4(PCIe Gen4 x4)
+5Gb/s
+Killer E3100G 2.5G LAN
+Gen3 x1
+Gen3 x1
+WiFi 6E RZ717 ( PCIE )
+ASM1074
+USB3.0 HUB
+480Mb/s
+Front USB 3.2 Gen1 *4 port
+    GL852
+USB2.0 HUB
+Front USB 2.0 *4 port
+480Mb/s
+480Mb/s
+Rear USB 2.0 *4 port
+CPU FAN1
+CPU FAN2/WP
+NCT3961S
+NCT3961S
+AIO_PUMP
+CHA FAN1/WP
+CHA FAN2/WP
+CHA FAN3/WP
+ReDriver
+Flashback 
+1 port
+NCT3961S
+NCT3961S
+NCT3961S
+Audio Codec ALC 4082 (2+1 jack)
+Gen3 x1
+ASM1061
+SATA contoller
+Gen3 x1
+SATA3 * 2 port
+PCIE2 Gen4 x4  (X16 slot)
+SATA3 * 2 port
+ASM1061
+SATA contoller
+Rear USB 3.2 Gen2 Type A *1 port
+ReDriver
+10Gb/s
+ReDriver
+10Gb/s
+10Gb/s
+M.2_2(PCIe Gen4 x4)
+Rear USB3.2 Gen2 Type C *2 port
+
+12
+English
+1.6  802.11be Wi-Fi 7 Module and ASRock WiFi 2.4/5/6 GHz  
+        Antennas
+802.11be Wi-Fi 7 + BT Module
+his motherboard comes with an exclusive 802.11 a/b/g/n/ac/ax/axe/be Wi-Fi 7 + BT 
+v5.4 module that ofers support for 802.11 a/b/g/n/ac/ax/axe/be Wi-Fi 7 connectivity 
+standards and Bluetooth v5.4. Wi-Fi 7 + BT module is an easy-to-use wireless local 
+area network (WLAN) adapter to support Wi-Fi 7 + BT. Bluetooth v5.4 standard 
+features Smart Ready technology that adds a whole new class of functionality into the 
+mobile devices.
+* he transmission speed may vary according to the environment. 
+* Wi-Fi 7 (6GHz band) will be supported by Microsot® Windows® 11. he availability 
+will depend on the diferent regulation status of each country and region. It will be 
+activated (for supported countries) through Windows Update and sotware updates 
+once available.
+
+13
+B850 Riptide WiFi
+English
+WiFi Antennas Installation Guide
+Step 1 
+Prepare the WiFi 2.4/5/6 GHz Antennas that 
+come with the package. 
+Step 2 
+Connect the two WiFi 2.4/5/6 GHz Antennas 
+to the antenna connectors. Turn the antenna 
+clockwise until it is securely connected.  
+Step 3
+Set the WiFi 2.4/5/6 GHz Antenna as shown in 
+the illustration.
+*You may need to adjust the direction of        
+  the antenna for a stronger signal. 
+
+14
+English
+his is an ATX form factor motherboard. Before you install the motherboard, study 
+the coniguration of your chassis to ensure that the motherboard its into it.
+Pre-installation Precautions
+Take note of the following precautions before you install motherboard components 
+or change any motherboard settings.
+• Make sure to unplug the power cord before installing or removing the motherboard 
+components. Failure to do so may cause physical injuries and damages to motherboard 
+components.
+• In order to avoid damage from static electricity to the motherboard’s components, 
+NEVER place your motherboard directly on a carpet. Also remember to use a 
+grounded wrist strap or touch a safety grounded object before you handle the 
+components.
+• Hold components by the edges and do not touch the ICs.
+• Whenever you uninstall any components, place them on a grounded anti-static pad or 
+in the bag that comes with the components.
+• When placing screws to secure the motherboard to the chassis, please do not over-
+tighten the screws! Doing so may damage the motherboard.
+Chapter  2  Installation
+
+15
+B850 Riptide WiFi
+English
+2.1  Installing the CPU
+1. Before you insert the 1718-Pin CPU into the socket, please check if the PnP cap 
+is on the socket, if the CPU surface is unclean, or if there are any bent pins in the 
+socket. Do not force to insert the CPU into the socket if above situation is found. 
+Otherwise, the CPU will be seriously damaged.
+2. Unplug all power cables before installing the CPU.
+Tutorial Video
+Turn your CPU to the correct orientation before opening 
+the CPU socket cover.
+
+16
+English
+Carefully place the CPU in as lat as 
+possible. Do not drop it.
+4
+1
+2
+A
+B
+3
+
+17
+B850 Riptide WiFi
+English
+6
+7
+5
+Please save the cover if the processor is removed. he cover must be placed if you wish 
+to return the motherboard for ater service.
+Make sure the black cover plate  
+is always in place until it pops of  
+when closing the socket lever.
+Make sure the CPU is aligned with the 
+socket before locking it into place. 
+
+18
+English
+2.2  Installing the CPU Fan and Heatsink
+Ater you install the CPU into this motherboard, it is necessary to install a larger 
+heatsink and cooling fan to dissipate heat. You also need to spray thermal grease 
+between the CPU and the heatsink to improve heat dissipation. Make sure that the 
+CPU and the heatsink are securely fastened and in good contact with each other. 
+Installing the CPU Cooler (Type 1)
+Please turn of the power or remove the power cord before changing a CPU or heatsink.
+2
+1
+
+19
+B850 Riptide WiFi
+English
+4
+3
+CPU_FAN1
+
+20
+English
+Installing the CPU Cooler (Type 2)
+2
+1
+
+21
+B850 Riptide WiFi
+English
+3
+4
+CPU_FAN1
+
+22
+English
+5
+CPU_FAN1
+RGB_LED1
+*he illustrations shown here are for reference purposes only and may not exactly match 
+the model you purchase.
++12V
+
+23
+B850 Riptide WiFi
+English
+Installing the CPU Cooler (Type 3)
+2
+1
+
+24
+English
+4
+3
+
+25
+B850 Riptide WiFi
+English
+5
+CPU_FAN1
+
+26
+English
+6
+CPU_FAN1
+RGB_LED1
+CPU_FAN1
+RGB_LED1
+USB_1_2
+Please note that only one cable should be used at a time in this step.  
+If you select RGB_LED1, please install ASRock utility "ASRock Polychrome SYNC". 
+If you select USB connector, please install AMD utility "SR3 Settings Sotware".
+*he illustrations shown here are for reference purposes only and may not exactly match 
+the model you purchase.
++12V
+or
+
+27
+B850 Riptide WiFi
+English
+2.3  Installing Memory Modules (DIMM) 
+his motherboard provides four 288-pin DDR5 (Double Data Rate 5) DIMM slots, 
+and supports Dual Channel Memory Technology. 
+Recommended Memory Coniguration
+1 DIMM
+2 DIMMs
+4 DIMMs
+A1 
+A2
+B1 
+B2 
+V
+A1 
+A2
+B1 
+B2 
+V
+V
+A1 
+A2
+B1 
+B2 
+V
+V
+V
+V
+1. For dual channel coniguration, you always need to install identical (the same 
+brand, speed, size and chip-type) DDR5 DIMM pairs. 
+2. It is unable to activate Dual Channel Memory Technology with only one or three 
+memory module installed.
+3. It is not allowed to install a DDR, DDR2 , DDR3 or DDR4 memory module into a 
+DDR5 slot; otherwise, this motherboard and DIMM may be damaged.
+4. he DIMM only its in one correct orientation. It will cause permanent damage to 
+the motherboard and the DIMM if you force the DIMM into the slot at incorrect 
+orientation.
+
+28
+English
+1
+2
+3
+
+29
+B850 Riptide WiFi
+English
+2.4  Connecting the Front Panel Header
+A
+B
+C
+D
+1
+2
+32:(56:
+5(6(76:
+32:(5/('
+32:(5/('
++''/('
+3$1(/
+Power SW (-)
+RESET SW (+)
+HDD LED (-)
+HDD LED (+)
+1
+2
+9
+10
+RESET SW (-)
+Power SW (+)
+Power LED (-)
+Power LED (+)
+A
+B
+C
+D
+PANEL1
+HDD LED
+RESET SW
+System Panel Header
+Front Panel Wires
+
+30
+English
+2.5  Installing the Motherboard
+
+31
+B850 Riptide WiFi
+English
+2.6  Installing SATA Drives
+1
+2
+Optical Drive
+SATA Drive
+SATA Data Cable
+
+32
+English
+3
+4
+SATA Power Connector
+SATA Data Connector
+
+33
+B850 Riptide WiFi
+English
+2.7  Installing a Graphics Card
+1
+1
+CLICK!
+2
+3
+4
+
+34
+English
+Removing a Graphics Card from PCIE1 Slot
+Please follow the steps below to release the PCIe slot latch on PCIE1 and remove the 
+graphics card. 
+1
+1. Press down the latch to release the graphics card from the PCIe slot. 
+2
+2. You can now easily remove the graphics card from the PCIe slot. 
+*Please ensure that the system power cable is removed when removing the graphics 
+card.
+
+35
+B850 Riptide WiFi
+English
+Expansion Slots (PCIe Slots)
+here are 2 PCI Express slots on the motherboard.
+PCIe slots: 
+PCIE1 (PCIe 5.0 x16 slot) is used for PCIe x16 lane width graphics cards.   
+PCIE2 (PCIe 4.0 x16 slot) is used for PCIe x4 lane width graphics cards. 
+* PCIE1 will run at Gen5x16 with 9000 and 7000 series processors, Gen4x8 with 
+8000 (Phoenix 1) series processors and Gen4x4 with 8000 (Phoenix 2) series 
+processors.  
+* If M2_4 is occupied, PCIE2 will be disabled. 
+Before installing an expansion card, please make sure that the power supply is 
+switched of or the power cord is unplugged. Please read the documentation of the 
+expansion card and make necessary hardware settings for the card before you start 
+the installation.
+
+36
+English
+2.8  Connecting Peripheral Devices
+
+37
+B850 Riptide WiFi
+English
+2.9  Connecting the Power Connectors
+$7;3:5
+$7;9
+
+38
+English
+2.10  Power On
+2
+3
+4
+1
+
+39
+B850 Riptide WiFi
+English
+2.11  Jumpers Setup
+he illustration shows how jumpers are setup. When the jumper cap is placed on 
+the pins, the jumper is “Short”. If no jumper cap is placed on the pins, the jumper is 
+“Open”. 
+Clear CMOS Jumper 
+(CLRCMOS1) (see p.7, No. 22)
+CLRCMOS1 allows you to clear the data in CMOS. he data in CMOS includes 
+system setup information such as system password, date, time, and system setup 
+parameters. To clear and reset the system parameters to default setup, please 
+turn of the computer and unplug the power cord, then use a jumper cap to short 
+the pins on CLRCMOS1 for 3 seconds. Please remember to remove the jumper 
+cap ater clearing the CMOS. If you need to clear the CMOS when you just inish 
+updating the BIOS, you must boot up the system irst, and then shut it down 
+before you do the clear-CMOS action.
+CLRCMOS1
+2-pin Jumper
+Short: Clear CMOS 
+Open: Default
+
+40
+English
+2.12  Onboard Headers and Connectors  
+ 
+System Panel Header
+(9-pin PANEL1) (see p.7, No. 18)
+Connect the power button, reset button and system status indicator on the chassis 
+to this header according to the pin assignments below. Note the positive and 
+negative pins before connecting the cables.
+GND
+RESET#
+PWRBTN#
+PLED-
+PLED+
+GND
+HDLED-
+HDLED+
+1
+GND
+PANEL1
+Onboard headers and connectors are NOT jumpers. Do NOT place jumper caps over 
+these headers and connectors. Placing jumper caps over the headers and connectors 
+will cause permanent damage to the motherboard.
+PWRBTN (Power Button): 
+Connect to the power button on the chassis front panel. You may conigure the way 
+to turn of your system using the power button.
+RESET (Reset Button): 
+Connect to the reset button on the chassis front panel. Press the reset button to 
+restart the computer if the computer freezes and fails to perform a normal restart.
+PLED (System Power LED): 
+Connect to the power status indicator on the chassis front panel. he LED is on when 
+the system is operating. he LED keeps blinking when the system is in S1/S3 sleep 
+state. he LED is of when the system is in S4 sleep state or powered of (S5).
+HDLED (Hard Drive Activity LED): 
+Connect to the hard drive activity LED on the chassis front panel. he LED is on 
+when the hard drive is reading or writing data.
+he front panel design may difer by chassis. A front panel module mainly consists 
+of power button, reset button, power LED, hard drive activity LED, speaker and etc. 
+When connecting your chassis front panel module to this header, make sure the wire 
+assignments and the pin assignments are matched correctly.
+
+41
+B850 Riptide WiFi
+English
+Power LED and Speaker Header
+(7-pin SPK_PLED1) (see p.7, No. 19)
+Please connect the chassis power LED and the chassis speaker to this header.
+Serial ATA3 Connectors
+Right Angle:
+(SATA3_A1) (see p.7, No. 17) (Lower) 
+(SATA3_A2) (see p.7, No. 17) (Upper)
+(SATA3_A3) (see p.7, No. 16) (Lower) 
+(SATA3_A4) (see p.7, No. 16) (Upper)
+hese four SATA3 connectors support SATA data cables for internal storage 
+devices with up to 6.0 Gb/s data transfer rate.
+1
++5V
+DUMMY
+PLED+
+PLED+
+PLED-
+DUMMY
+SPEAKER
+SPK_PLED1
+SATA3_A1
+SATA3_A3
+SATA3_A2
+SATA3_A4
+
+42
+English
+USB 2.0 Headers
+(9-pin USB_5_6) (see p.7, No. 21)
+(9-pin USB_7_8) (see p.7, No. 20)
+here are two headers on this motherboard. Each USB 2.0 header can support 
+two ports.
+USB 3.2 Gen1 Headers
+Right Angle:
+(19-pin USB32_6_7) (see p.7, No. 15) 
+Vertical:
+(19-pin USB32_8_9) (see p.7, No. 12) 
+here are two headers on this motherboard. Each USB 3.2 Gen1 header can 
+support two ports.
+USB_5_6
+USB_7_8
+DUMMY
+GND
+GND
++B
+-B
+USB_PWR
++A
+-A
+USB_PWR
+1
+DUMMY
+GND
+GND
++B
+-B
+USB_PWR
++A
+-A
+USB_PWR
+1
+1
+IntA_PB_D+
+Dummy
+IntA_PB_D-
+GND
+IntA_PB_SSTX+
+GND
+IntA_PB_SSTX-
+IntA_PB_SSRX+
+IntA_PB_SSRX-
+Vbus
+Vbus
+Vbus
+IntA_PA_SSRX-
+IntA_PA_SSRX+
+GND
+IntA_PA_SSTX-
+IntA_PA_SSTX+
+GND
+IntA_PA_D-
+IntA_PA_D+
+USB32_8_9
+USB32_6_7
+1
+IntA_PB_D+
+Dummy
+IntA_PB_D-
+GND
+IntA_PB_SSTX+
+GND
+IntA_PB_SSTX-
+IntA_PB_SSRX+
+IntA_PB_SSRX-
+Vbus
+Vbus
+IntA_PA_SSRX-
+IntA_PA_SSRX+
+GND
+IntA_PA_SSTX-
+IntA_PA_SSTX+
+GND
+IntA_PA_D-
+IntA_PA_D+
+
+43
+B850 Riptide WiFi
+English
+Front Panel Type C USB 3.2 Gen2x2 Header
+(20-pin USB32_TC3) (see p.7, No. 13) 
+here is one Front Panel Type C USB 3.2 Gen2x2 Header on this motherboard. 
+his header is used for connecting a USB 3.2 Gen2x2 module for additional USB 
+3.2 Gen2x2 ports.
+Front Panel Audio Header
+(9-pin HD_AUDIO1) (see p.7, No. 28)
+his header is for connecting audio devices to the front audio panel.
+USB32_TC3
+USB Type-C Cable
+HD_AUDIO1
+High Deinition Audio supports Jack Sensing, but the panel wire on the chassis must 
+support HDA to function correctly. Please follow the instructions in our manual and 
+chassis manual to install your system.
+J_SENSE
+OUT2_L
+1
+MIC_RET
+PRESENCE#
+GND
+OUT2_R
+MIC2_R
+MIC2_L
+OUT_RET
+
+44
+English
+Chassis Fan Connectors
+(4-pin CHA_FAN1) (see p.7, No. 23)
+(4-pin CHA_FAN2) (see p.7, No. 24)
+(4-pin CHA_FAN3) (see p.7, No. 29)
+his header allows you to connect Case or Radiator fan. If you plan to connect a 
+3-pin fan, please connect it to Pin 1-3.
+CHA_FAN3
+CHA_FAN1
+CHA_FAN2
+GND
+CHA_FAN_SPEED
+FAN_SPEED_CONTROL
+FAN_VOLTAGE
+1     2     3    4
+GND
+CHA_FAN_SPEED
+FAN_SPEED_CONTROL
+FAN_VOLTAGE
+1     2     3    4
+GND
+FAN_VOLTAGE
+CHA_FAN_SPEED
+FAN_SPEED_CONTROL
+
+45
+B850 Riptide WiFi
+English
+CPU Fan Connector 
+(4-pin CPU_FAN1) (see p.7, No. 4)
+his header allows you to connect CPU fan. If you plan to connect a 3-pin fan, 
+please connect it to Pin 1-3.
+CPU Fan Connector
+(4-pin CPU_FAN2) (see p.7, No. 5)
+his header allows you to connect CPU fan or Water Pump. If you plan to connect 
+a 3-pin fan, please connect it to Pin 1-3.
+CPU_FAN1
+CPU_FAN2
+CPU_F
+FAN_VOLTAGE
+GND
+AN_SPEED
+FAN_SPEED_CONTROL
+4     3     2    1
+CPU_F
++12V
+GND
+AN_SPEED
+FAN_SPEED_CONTROL
+4     3     2    1
+
+46
+English
+AIO Pump Fan Connector 
+(4-pin AIO_PUMP) (see p.7, No. 6)
+his header allows you to connect AIO (All-in-One) pump or fan. If you plan to 
+connect a 3-pin AIO cooler fan, please connect it to Pin 1-3.
+AIO_PUMP
+FAN_VOLTAGE
+GND
+AIO_PUMP_SPEED
+FAN_SPEED_CONTROL
+4     3     2    1
+
+47
+B850 Riptide WiFi
+English
+ATX Power Connector
+(24-pin ATXPWR1) (see p.7, No. 11)
+his motherboard provides a 24-pin ATX power connector. To use a 20-pin ATX 
+power supply, please plug it along Pin 1 and Pin 13.
+ATX 12V Power Connectors
+(8-pin ATX12V1) (see p.7, No. 1)
+(8-pin ATX12V2) (see p.7, No. 2)
+his motherboard provides two 8-pin ATX 12V power connectors. To use a 4-pin 
+ATX power supply, please plug it along Pin 1 and Pin 5. 
+*Connecting an ATX 12V 8-pin cable to ATX12V2 is optional. 
+*Warning: Please make sure that the power cable connected is for the CPU and 
+not the graphics card. Do not plug the PCIe power cable to this  
+connector.
+ATXPWR1
+12 
+ 1
+24
+13
+ATX12V2
+4                            1
+8                            5
+ATX12V1
+4                            1
+8                            5
+
+48
+English
+SPI TPM Header
+(13-pin SPI_TPM_J1) (see p.7, No. 14)
+his connector supports SPI Trusted Platform Module (TPM) system, which can 
+securely store keys, digital certiicates, passwords, and data. A TPM system also 
+helps enhance network security, protects digital  identities, and ensures platform 
+integrity.
+SPI_TPM_J1
+1
+SPI_DQ3
+SPI_PWR
+SPI_DQ2
+SPI_CS0
+Dummy
+CLK
+SPI_MISO
+SPI_MOSI
+GND
+SPI_TPM_CS#
+RST#
+RSMRST#
+TPM_PIRQ
+
+49
+B850 Riptide WiFi
+English
+hermistor Cable Header
+(2-pin T_SENSOR1) (see p.7, No. 27)
+he hermistor Cable Headers are used to connect thermistor cables to monitor the
+temperature of the critical components. Plug the thermistor cables that come with the 
+package to these headers, and then attach the sensor ends to the components to detect 
+their temperature.
+T_SENSOR1
+Connect your hermistor Cables to the 
+hermistor Cable Header (T_SENSOR1) on 
+the motherboard.
+T_SENSOR
+SENSOR IN
+GND
+1
+
+50
+English
+RGB LED Header
+(4-pin RGB_LED1) (see p.7, No. 26)
+his RGB header is used to connect RGB LED extension cable which allow users to 
+choose from various LED lighting  efects. 
+Caution: Never install the RGB LED cable in the wrong orientation; otherwise, the 
+cable may be damaged.
+1. Never install the RGB LED cable in the wrong orientation; otherwise, the cable 
+may be damaged.
+2. Before installing or removing your RGB LED cable, please power of your system 
+and unplug the power cord from the power supply. Failure to do so may cause dam-
+ages to motherboard components.
+1. Please note that the RGB LED strip does not come with the package.
+2. he RGB LED header supports standard 5050 RGB LED strip (12V/G/R/B), with a 
+maximum power rating of 3A (12V) and length within 2 meters.
+12V    G    R     B
+1
+RGB_LED1
++12V G
+R
+B
+1
+Connect your RGB LED strip to the RGB 
+LED Header (RGB_LED1) on the mother-
+board. 
+
+51
+B850 Riptide WiFi
+English
+Addressable LED Headers
+(3-pin ADDR_LED1) (see p.7, No. 25)
+(3-pin ADDR_LED2) (see p.7, No. 10)
+(3-pin ADDR_LED3) (see p.7, No. 9)
+hese headers are used to connect Addressable LED extension cables which allow users 
+to choose from various LED lighting  efects.  
+Caution: Never install the Addressable LED cable in the wrong orientation; otherwise, 
+the cable may be damaged.
+ADDR_LED3
+ADDR_LED2
+          
+   
+1
+Connect your Addressable RGB LED strips 
+to the Addressable LED Headers (ADDR_
+LED1 / ADDR_LED2 / ADDR_LED3) on 
+the motherboard. 
+VOUT
+DO_ADDR
+GND
+1
+ADDR_LED1
+
+52
+English
+1. Never install the Addressable LED cable in the wrong orientation; otherwise, the 
+cable may be damaged.
+2. Before installing or removing your Addressable LED cable, please power of your 
+system and unplug the power cord from the power supply. Failure to do so may 
+cause damages to motherboard components.
+1. Please note that the Addressable LED strips do not come with the package.
+2. he Addressable LED header supports WS2812B addressable RGB LED strip (5V/
+Data/GND), with a maximum power rating of 3A (5V) and length within 2 meters.
+he ARGB Splitter Cable that comes with the package allows you to extend and connect
+various addressable RGB LED strips or devices through a single 3-pin Addressable
+LED Header on the motherboard.
+1
+D
+D
+D
+D
+
+53
+B850 Riptide WiFi
+English
+2.13  Smart Button
+he motherboard has one smart button: BIOS Flashback Button, allowing users to 
+lash the BIOS.
+BIOS Flashback Button  
+(SW1) (see p.9, No. 11)
+BIOS Flashback Button allows users to lash the BIOS.
+SW1
+USB BIOS Flashback port
+
+54
+English
+ASRock BIOS Flashback feature allows you to update BIOS without powering on the system, 
+even without CPU. 
+To use the USB BIOS Flashback function, Please follow the steps below.
+1.  Download the latest BIOS ile from ASRock's website : http://www.asrock.com. 
+2.  Copy the BIOS ile to your USB lash drive. Please make sure the ile system of  
+     your USB lash drive must be FAT32. 
+3.  Extract BIOS ile from the zip ile. 
+4.  Rename the ile to “creative.rom” and save it to the root directory of X: USB lash drive. 
+5.  Plug the 24 pin power connector to the motherboard. hen turn on the power supply's AC  
+     switch.  
+     *here is no need to power on the system.  
+6.  hen plug your USB drive to the USB BIOS Flashback port. 
+7.  Press the BIOS Flashback Switch for about three seconds. hen the LED starts to blink.  
+8.  Wait until the LED stops blinking, indicating that BIOS lashing has been completed.  
+    *If the LED light turns solid green, this means that the BIOS Flashback is not  
+     operating properly. Please make sure that you plug the USB drive to the USB BIOS Flashback  
+     port. 
+    **If the LED does not light up at all then please disconnect power from the system and            
+    remove/disconnect the CMOS battery from the motherboard for several minutes. Reconnect   
+    power and battery and try again.
+Before using the BIOS Flashback function, please suspend BitLocker and any encryp-
+tion or security relying on the TPM. Make sure that you have already stored and 
+backup-ed the recovery key. If the recovery key is missing while encryption is active, 
+the data will stay encrypted and the system will not boot into the operating system. It 
+is recommended to disable fTPM before updating the BIOS. Otherwise an unpredict-
+able failure may occur.
+
+55
+B850 Riptide WiFi
+English
+It is normal for the DRAM status LED to blink during memory training. his indi-
+cates the system is working properly.
+Tutorial Video
+2.14  Post Status Checker
+Post Status Checker (PSC) diagnoses the computer when users power on the machine.  
+he LEDs light up to show what component is running into an issue. hey emit red, yel-
+low, white and yellow-green lights to indicate, respectively, the CPU, memory, VGA and 
+storage are not detected or fail. hey will remain lit until the issue is ixed. he lights go 
+of if the four mentioned above are functioning normally. 
+Component
+LED Indicator
+Status
+CPU
+Solid Red
+indicates CPU is dysfunctional.
+DRAM
+Solid Yellow
+indicates DRAM is dysfunctional.
+VGA
+Solid White
+indicates GPU is dysfunctional.
+BOOT
+Solid Yellow-Green
+indicates boot device is dysfunctional.
+
+56
+English
+2.15  M.2 SSD Installation Guide (M2_1)
+he M.2 is a small size and versatile card edge connector that aims to replace mPCIe and 
+mSATA. he Blazing M.2 Socket (M2_1, Key M) supports type 2280 PCIe Gen5x4 (128 
+Gb/s) mode.
+* M2_1 is the irst priority for M.2 installation.
+* M2_1 will run at Gen5x4 with 9000 and 7000 series processors and Gen4x4 with 8000 
+(Phoenix 1 and Phoenix 2) series processors.  
+Installing the M.2 SSD
+Step 1
+Prepare a M.2 SSD.
+Step 2
+Depending on the PCB type and 
+length of your M.2 SSD, ind the 
+corresponding nut location to be 
+used.
+No.
+1
+Nut Location
+A
+PCB Length
+8cm
+Module Type
+Type 2280
+A
+
+57
+B850 Riptide WiFi
+English
+Step 3
+Push the button on the M.2 heatsink 
+in the direction shown (A). hen lit 
+up the heatsink (B) and move it in 
+the direction shown (C).
+*Please remove the protective ilms 
+on the bottom side of the M.2 
+heatsink before you install a
+M.2 SSD.
+Step 4
+Align and gently insert the M.2 SSD 
+into the M.2 slot. Please be aware 
+that the M.2 SSD only its in one 
+orientation.
+Step 5
+Ensure that the notch at the end of 
+the M.2 SSD aligns with the nut. 
+hen secure the M.2 SSD by turning 
+the nut lock clockwise to its locked 
+position.
+20o
+C
+A
+B
+
+58
+English
+Step 6
+Hook the tab of the M.2 heatsink 
+back onto the standof.
+Step 7
+Press the M.2 heatsink down into 
+place.
+*Be sure not to press down the 
+button on the M.2 heatsink.
+Step 8
+Complete.
+For the latest updates of M.2 SSD support list, please visit our website for details: http://
+www.asrock.com
+
+59
+B850 Riptide WiFi
+English
+2.16  M.2 SSD Installation Guide (M2_2)
+he M.2 is a small size and versatile card edge connector that aims to replace mPCIe and 
+mSATA. he Hyper M.2 Socket (M2_2, Key M), supports type 2260/2280 PCIe Gen4x4 (64 
+Gb/s) mode.
+* M2_2 will run at Gen4x2 with 8000 (Phoenix 2) series processors.  
+Installing the M.2 SSD
+Step 1
+Prepare a M.2 SSD.
+Step 2
+Depending on the PCB type and 
+length of your M.2 SSD, ind the 
+corresponding nut location to be 
+used.
+No.
+1
+2
+Nut Location
+A
+B
+PCB Length
+6cm
+8cm
+Module Type
+Type 2260
+Type 2280
+1
+2
+A
+B
+
+60
+English
+A
+B
+Step 3
+Use a screwdriver to remove the 
+standof.
+Skip Step 3 if your M.2 SSD is
+Type 2280.
+A
+B
+Step 4
+Peel of the yellow protective ilm on
+the nut to be used. Tighten the 
+standof into the desired nut 
+location on the motherboard with a 
+screwdriver.
+Skip Step 4 if your M.2 SSD is
+Type 2280.
+20o
+Step 5
+Align and gently insert the M.2 SSD 
+into the M.2 slot. Please be aware 
+that the M.2 SSD only its in one 
+orientation.
+
+61
+B850 Riptide WiFi
+English
+Step 6
+Ensure that the notch at the end of 
+the M.2 SSD aligns with the nut. 
+hen secure the M.2 SSD by turning 
+the nut lock clockwise to its locked 
+position.
+For the latest updates of M.2 SSD support list, please visit our website for details: http://
+www.asrock.com
+
+62
+English
+2.17  M.2 SSD Installation Guide (M2_3)
+he M.2 is a small size and versatile card edge connector that aims to replace mPCIe and 
+mSATA. he Hyper M.2 Socket (M2_3, Key M), supports type 2230/2260/2280 PCIe 
+Gen4x4 (64 Gb/s) mode.
+Installing the M.2 SSD
+Step 1
+Prepare a M.2 SSD.
+Step 2
+Depending on the PCB type and 
+length of your M.2 SSD, ind the 
+corresponding nut location to be 
+used.
+2
+1
+3
+A
+B
+C
+No.
+1
+2
+3
+Nut Location
+A
+B
+C
+PCB Length
+3cm
+6cm
+8cm
+Module Type
+Type 2230
+Type 2260
+Type 2280
+
+63
+B850 Riptide WiFi
+English
+Step 3
+Before installing a M.2 SSD, please 
+loosen the screws to remove the M.2 
+heatsink. 
+*Please remove the protective ilms 
+on the bottom side of the M.2 
+heatsink before you install a M.2 
+SSD.
+B
+C
+A
+Step 4
+Use a screwdriver to remove the 
+standof.
+Skip Step 4 if your M.2 SSD is
+Type 2280.
+B
+C
+A
+Step 5
+Peel of the yellow protective ilm on
+the nut to be used. Tighten the 
+standof into the desired nut 
+location on the motherboard with a 
+screwdriver.
+Skip Step 5 if your M.2 SSD is
+Type 2280.
+2
+1
+1
+
+64
+English
+Step 6
+Align and gently insert the M.2 SSD 
+into the M.2 slot. Please be aware 
+that the M.2 SSD only its in one 
+orientation.
+Step 7
+Ensure that the notch at the end of 
+the M.2 SSD aligns with the nut. 
+hen secure the M.2 SSD by turning 
+the nut lock clockwise to its locked 
+position.
+Step 8
+Tighten the screws with a 
+screwdriver to secure the M.2 
+heatsink into place. Please do not 
+overtighten the screw as this might 
+damage the M.2 SSD and M.2 
+heatsink.
+20o
+For the latest updates of M.2 SSD support list, please visit our website for details: http://
+www.asrock.com
+1
+2
+2
+
+65
+B850 Riptide WiFi
+English
+2.18  M.2 SSD Installation Guide (M2_4)
+he M.2 is a small size and versatile card edge connector that aims to replace mPCIe and 
+mSATA. he Hyper M.2 Socket (M2_4, Key M) supports type 2260/2280 PCIe Gen4x4 (64 
+Gb/s) mode.
+* If M2_4 is occupied, PCIE2 will be disabled.
+Installing the M.2 SSD
+Step 1
+Prepare a M.2 SSD.
+Step 2
+Depending on the PCB type and 
+length of your M.2 SSD, ind the 
+corresponding nut location to be 
+used.
+No.
+1
+2
+Nut Location
+A
+B
+PCB Length
+6cm
+8cm
+Module Type
+Type 2260
+Type 2280
+1
+2
+A
+B
+
+66
+English
+Step 3
+Before installing a M.2 SSD, please 
+loosen the screws to remove the M.2 
+heatsink. 
+*Please remove the protective ilms 
+on the bottom side of the M.2 
+heatsink before you install a M.2 
+SSD.
+A
+B
+Step 4
+Use a screwdriver to remove the 
+standof.
+Skip Step 4 if your M.2 SSD is
+Type 2280.
+A
+B
+Step 5
+Peel of the yellow protective ilm on
+the nut to be used. Tighten the 
+standof into the desired nut 
+location on the motherboard with a 
+screwdriver.
+Skip Step 5 if your M.2 SSD is
+Type 2280.
+2
+1
+1
+
+67
+B850 Riptide WiFi
+English
+Step 6
+Align and gently insert the M.2 SSD 
+into the M.2 slot. Please be aware 
+that the M.2 SSD only its in one 
+orientation.
+Step 7
+Ensure that the notch at the end of 
+the M.2 SSD aligns with the nut. 
+hen secure the M.2 SSD by turning 
+the nut lock clockwise to its locked 
+position.
+Step 8
+Tighten the screws with a 
+screwdriver to secure the M.2 
+heatsink into place. Please do not 
+overtighten the screw as this might 
+damage the M.2 SSD and M.2 
+heatsink.
+20o
+For the latest updates of M.2 SSD support list, please visit our website for details: http://
+www.asrock.com
+1
+2
+2
+
+Version 1.0 
+Published November 2024
+Copyright©2024 ASRock INC. All rights reserved.
+Copyright Notice:
+No part of this documentation may be reproduced, transcribed, transmitted, or 
+translated in any language, in any form or by any means, except duplication of 
+documentation by the purchaser for backup purpose, without written consent of 
+ASRock Inc.
+Products and corporate names appearing in this documentation may or may not 
+be registered trademarks or copyrights of their respective companies, and are used 
+only for identiication or explanation and to the owners’ beneit, without intent to 
+infringe. 
+Disclaimer:
+Speciications and information contained in this documentation are furnished for 
+informational use only and subject to change without notice, and should not be 
+constructed as a commitment by ASRock. ASRock assumes no responsibility for 
+any errors or omissions that may appear in this documentation.  
+To the extent permitted by law, with respect to the contents of this documentation, 
+ASRock does not provide warranty of any kind, either expressed or implied, 
+including but not limited to the implied warranties or conditions of 
+merchantability or itness for a particular purpose. In no event shall ASRock, 
+its directors, oicers, employees, or agents be liable for any indirect, special, 
+incidental, or consequential damages (including damages for loss of proits, loss 
+of business, loss of data, interruption of business and the like), even if ASRock has 
+been advised of the possibility of such damages arising from any defect or error in 
+the documentation or product.
+
+FCC Compliance Statement
+his device complies with Part 15 of the FCC Rules. Operation is subject to the following 
+two conditions: 
+(1) this device may not cause harmful interference, and 
+(2) this device must accept any interference received, including interference that  
+may cause undesired operation.
+his equipment has been tested and found to comply with the limits for a Class B digital
+device, pursuant to part 15 of the FCC Rules. hese limits are designed to provide
+reasonable protection against harmful interference in a residential installation. his
+equipment generates, uses and can radiate radio frequency energy and, if not installed
+and used in accordance with the instructions, may cause harmful interference to radio
+communications. However, there is no guarantee that interference will not occur in a
+particular installation. If this equipment does cause harmful interference to radio or 
+television reception, which can be determined by turning the equipment of and on, the 
+user is encouraged to try to correct the interference by one or more of the following 
+measures:
+- Reorient or relocate the receiving antenna.
+- Increase the separation between the equipment and receiver.
+- Connect the equipment into an outlet on a circuit diferent from that to which the
+   receiver is connected.
+- Consult the dealer or an experienced radio/TV technician for help.
+Button Battery Safety Notice
+- Remove and immediately recycle or dispose of used batteries according to local  
+   regulations and keep away from children. Do NOT dispose of batteries in household        
+   trash or incinerate.
+- Even used batteries may cause severe injury or death.
+- Call a local poison control center for treatment information.
+- Battery type: CR2032 
+- Battery voltage: 3V 
+- Non-rechargeable batteries are not to be recharged.
+- Do not force discharge, recharge, disassemble, heat above (manufacturer's speciied     
+   temperature rating) or incinerate. Doing so may result in injury due to venting, leakage  
+   or explosion resulting in chemical burns.
+- his product contains an irreplaceable battery. 
+- his icon indicates that a swallowed button battery can cause serious injury or death.          
+   Please keep batteries out of sight or reach of children.
+WARNING
+ • INGESTION HAZARD: This product contains a button cell or 
+coin battery.
+ • DEATH or serious injury can occur if ingested.
+ • A swallowed button cell or coin battery can cause Internal 
+Chemical Burns in as little as 2 hours.
+ • KEEP new and used batteries OUT OF REACH of CHILDREN
+ • Seek immediate medical attention if a battery is suspected to 
+be swallowed or inserted inside any part of the body.
+
+CALIFORNIA, USA ONLY
+he Lithium battery adopted on this motherboard contains Perchlorate, a toxic substance 
+controlled in Perchlorate Best Management Practices (BMP) regulations passed by the 
+California Legislature. When you discard the Lithium battery in California, USA, please 
+follow the related regulations in advance.
+“Perchlorate Material-special handling may apply, see www.dtsc.ca.gov/hazardouswaste/
+perchlorate”
+CALIFORNIA, USA ONLY
+WARNING: Cancer and Reproductive Harm
+www.P65Warnings.ca.gov
+CE Conformity
+ASRock INC. hereby declares that this device is in compliance with the essential require-
+ments and other relevant provisions of related Directives. Full text of EU declaration of 
+conformity is available at: http://www.asrock.com
+ASRock follows the green design concept to design and manufacture our products, and
+makes sure that each stage of the product life cycle of ASRock product is in line with 
+global environmental regulations. In addition, ASRock disclose the relevant information 
+based on regulation requirements.
+Please refer to https://www.asrock.com/general/about.asp?cat=Responsibility for informa-
+tion disclosure based on regulation requirements ASRock is complied with. 
+UKCA Conformity
+ASRock INC. hereby declares that this device is in compliance with the essential require-
+ments and other relevant provisions of related UKCA Directives. Full text of UKCA 
+declaration of conformity is available at: http://www.asrock.com
+
+Consumer Limited Warranty - Australia
+Our goods come with guarantees that cannot be excluded under the Australian Consumer 
+Law. You are entitled to a replacement or refund for a major failure and compensation for 
+any other reasonably foreseeable loss or damage caused by our goods. You are also entitled 
+to have the goods repaired or replaced if the goods fail to be of acceptable quality and the 
+failure does not amount to a major failure. If you require assistance please call ASRock Tel 
+: +886-2-28965588 ext.123 (Standard International call charges apply)
+WARNING
+THIS PRODUCT CONTAINS A BUTTOON BATTERY
+If swallowed, a button battery can cause serious injury or death.
+Please keep batteries out of sight or reach of children.
+Proper Disposal
+DO NOT throw the motherboard in municipal waste. his product has been 
+designed to enable proper reuse of parts and recycling. his symbol of the 
+crossed out wheeled bin indicates that the product (electrical and electronic 
+equipment) should not be placed in municipal waste. Check local regulations 
+for disposal of electronic products. 
+Class B ITE
+この装置は、クラスＢ情報技術装置です。この装置は、家庭環境で使用することを目的と
+していますが、この装置がラジオやテレビジョン受信機に近接して使用されると、受信障
+害を引き起こすことがあります。取扱説明書に従って正しい取り扱いをして下さい。
+Trademark Information
+he terms HDMI® and HDMI High-Deinition Multimedia Interface, and the HDMI 
+logo are trademarks or registered trademarks of HDMI Licensing LLC in the United 
+States and other countries.
+
+European Community Radio Equipment Directive Compliance  
+Statement
+his device complies with directive 2014/53/EU issued by the Commision of the 
+European Community. his equipment complies with EU radiation exposure limits 
+set forth for an uncontrolled environment.
+his equipment should be installed and operated with minimum distance 20cm 
+between the radiator & your body.
+Operations in the 5.15-5.35/6GHz band are restricted to indoor usage only.
+Radio Frequency Bands and Maximum Power Levels
+• 
+Features : Wi-Fi 6E, BT, Wi-Fi 7
+• 
+Frequency Range : 2.4 GHz: 2400-2485MHz; 5 GHz: 5150-5350MHz, 5470-5725MHz,  
+5725-5850MHz; 6 GHz: 5955-6415MHz
+• 
+Max Power Level : 2.4 GHz: 20dBm; 5 GHz: 23dBm; 6 GHz: 23dBm
+Compliance Statement of Innovation, Science and Economic  
+Development Canada (ISED) 
+his device complies with with Innovation, Science and Economic Development 
+Canada’s licence-exempt RSS(s). Operation is subject to the following two 
+conditions: (1) this device may not cause interference, and (2) this device must 
+accept any interference, including interference that may cause undesired operation 
+of the device. Operation in the band 5150-5250 MHz is only for indoor use to 
+reduce the potential for harmful interference to co-channel mobile satellite 
+systems. CAN ICES-003(B)/NMB-003(B)
+NCC 無線設備警告聲明
+經型式認證合格之低功率射頻電機，非經許可，公司、商號或使用者均不得擅自變更頻率、 
+加大功率或變更原設計之特性及功能。 低功率射頻電機之使用不得影響飛航安全及干擾合
+法通信；經發現有干擾現象時，應立即停用，並改善至無干擾時方得繼續使用。前項合法
+通信，指依電信法規定作業之無線電通信。低功率射頻電機須忍受合法通信或工業、科學
+及醫療用電波輻射性電機設備之干擾。
+ 
+
