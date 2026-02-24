@@ -341,7 +341,7 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
         }
 
     _SKIP_KEYS = {'source', 'part_no', 'product_id', 'product_url', 'size_raw',
-                  'psu_raw', 'connector_raw', 'slot_raw', 'boost_clock',
+                  'connector_raw', 'slot_raw', 'boost_clock',
                   'display_output', 'bus_interface', 'm1_id'}
     specs_lines = []
     for part in parts:
