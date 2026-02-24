@@ -586,6 +586,9 @@ class AsusScraper:
             }
             """)
             if name and len(name) > 3:
+                # 全角「｜」を含む場合はカテゴリページへのリダイレクト→最初のセグメントのみ使用
+                if "｜" in name:
+                    name = name.split("｜")[0].strip()
                 return name
         except Exception:
             pass
@@ -637,6 +640,10 @@ class AsusScraper:
                     updated += 1
                     print(f"  UPDATE: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
                 else:
+                    # specs 空 = 存在しない URL（カテゴリページへのリダイレクト等）→スキップ
+                    if not specs:
+                        print(f"  SKIP: specs空のため新規追加スキップ（URL不在の可能性）", file=sys.stderr)
+                        continue
                     # 新規レコード
                     rec = {
                         "id": _make_id(name),
@@ -712,6 +719,10 @@ class AsusScraper:
                     updated += 1
                     print(f"  UPDATE: {name[:50]} | specs={list(specs.keys())}", file=sys.stderr)
                 else:
+                    # specs 空 = 存在しない URL（カテゴリページへのリダイレクト等）→スキップ
+                    if not specs:
+                        print(f"  SKIP: specs空のため新規追加スキップ（URL不在の可能性）", file=sys.stderr)
+                        continue
                     rec = {
                         "id": _make_id(name),
                         "name": name,
