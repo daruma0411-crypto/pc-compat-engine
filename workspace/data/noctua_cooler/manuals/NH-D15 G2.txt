@@ -1,0 +1,45 @@
+Socket compatibilityAM5, AM4, LGA1700, LGA1851, LGA1954, LGA1156, LGA1155, LGA1150, LGA1151, LGA1200
+Total height168 mm
+Fan configuration2x 140x140x25mm (round)
+NSPR228
+ColourBrown
+Warranty6 years
+Size (Form factor)140 x 140 x 25 mm (round)
+Speed range0 – 1500 rpm
+Airflow (max.)155.6 m³/h (91.58 CFM)
+Acoustical noise (max.)24.8 dB(A)
+Static pressure (max.)2.56 mm H₂O
+Rated voltage12 V
+Connector4-pin
+ColourBrown
+Warranty6 years
+Height with fan(s)168 mm
+Height without fan(s)168 mm
+Width with fan(s)150 mm
+Width without fan(s)150 mm
+Depth with fan(s)152 mm
+Depth without fan(s)127 mm
+Weight with fan(s)1525 g
+Weight without fan(s)1180 g
+Material: heatsink baseCopper, nickel plated
+Material: heatsink finsAluminium, nickel plated
+Material: heatpipesCopper, nickel plated
+Interface heatpipes/heatsink finsSoldered
+Base convexityStandard
+Measurements & clearance
+ColourBrown
+Number of heatpipes8
+Heatpipe diameter6 mm
+Fin count58
+Mounting hole pitch78 mm
+Rack unit compatibility5U
+Base size44.6 x 51.6 mm
+NSPR228
+CPU Performancesee compatibility tab
+Packaging dimensions239 x 188 x 188 mm
+Packaging weight (including product)2460 g
+EAN9010018000405
+UPC841501100406
+Packaging unit8 pcs
+Packaging unit dimensions515 x 400 x 400 mm
+Packaging unit weight21 kg

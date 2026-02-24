@@ -1,0 +1,43 @@
+Socket compatibilityAM5, AM4, LGA1700, LGA1851, LGA1954, LGA1156, LGA1155, LGA1150, LGA1151, LGA1200
+Total height158 mm
+Fan configuration2x 120x120x25mm (square)
+NSPR169
+ColourBrown
+Warranty6 years
+Size (Form factor)120 x 120 x 25 mm (square)
+Speed range0 – 2000 rpm
+Airflow (max.)102.1 m³/h (60.09 CFM)
+Acoustical noise (max.)22.6 dB(A)
+Static pressure (max.)2.34 mm H₂O
+Rated voltage12 V
+Input power (typical)1.2 W
+Connector4-pin
+ColourBrown
+Warranty6 years
+Height with fan(s)158 mm
+Height without fan(s)158 mm
+Width with fan(s)125 mm
+Width without fan(s)125 mm
+Depth with fan(s)112 mm
+Depth without fan(s)58 mm
+Weight with fan(s)1220 g
+Weight without fan(s)760 g
+Material: heatsink baseCopper, nickel plated
+Material: heatsink finsAluminium, nickel plated
+Material: heatpipesCopper, nickel plated
+Interface heatpipes/heatsink finsSoldered
+ColourBrown
+Number of heatpipes7
+Heatpipe diameter6 mm
+Fin count50
+Mounting hole pitch78 mm
+Rack unit compatibility5U
+Base size44.1 x 44.1 mm
+NSPR169
+Packaging dimensions168 x 216 x 175 mm
+Packaging weight (including product)1800 g
+EAN9010018000160
+UPC841501100161
+Packaging unit8 pcs
+Packaging unit dimensions376 x 465 x 375 mm
+Packaging unit weight15.5 kg

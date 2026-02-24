@@ -272,9 +272,9 @@ def run(limit: int = 5, headless: bool = True) -> None:
                 name = prod.get("name", "")[:60]
                 print(f"[{i}/{len(targets)}] {name}", file=sys.stderr)
 
-                purl = prod.get("product_url", "")
+                purl = prod.get("product_url") or prod.get("source_url", "")
                 if not purl:
-                    print("  SKIP: product_url なし", file=sys.stderr)
+                    print("  SKIP: product_url / source_url なし", file=sys.stderr)
                     failed += 1
                     continue
 
