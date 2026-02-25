@@ -1,42 +1,16 @@
-# PC互換性判定エンジン + エージェント群 Dependencies
-# =====================================================
+# PC互換性判定エンジン — Render デプロイ用 Dependencies
+# app.py で実際に使用するパッケージのみ
 
-# ── Web Framework (Render デプロイ用) ─────────────────
+# ── Web Framework ─────────────────────────────────────
 flask>=3.0.0
 gunicorn>=22.0.0
 
-# ── LLM Providers ────────────────────────────────────
+# ── LLM Provider ─────────────────────────────────────
 anthropic>=0.40.0
-openai>=1.50.0
-
-# ── Data / Storage ───────────────────────────────────
-google-cloud-bigquery>=3.25.0
-chromadb>=0.5.0
-
-# ── HTTP Client ──────────────────────────────────────
-# PageIndex API 呼び出し
-httpx>=0.27.0
-# x_monitor_scraper: 診断API呼び出し
-requests>=2.32.0
-# ManualCollectorAgent: PDF非同期ダウンロード
-aiohttp>=3.10.0
-
-# ── X (Twitter) API ──────────────────────────────────
-# XMonitorAgent / XReplyAgent: FilteredStream + リプライ送信
-tweepy>=4.14.0
-
-# ── Browser Automation ───────────────────────────────
-# PCPartsScraperAgent: JS描画ページのスペック収集
-# インストール後に `playwright install chromium` も必要
-playwright>=1.47.0
-
-# ── PDF Parser ───────────────────────────────────────
-# ManualCollectorAgent: TOC検出・テキスト抽出
-pdfplumber>=0.11.0
 
 # ── HTML Parser ──────────────────────────────────────
-# steam_parser: Steam PC要件HTMLパース
 beautifulsoup4>=4.12.0
 
 # ── Utilities ────────────────────────────────────────
 python-dotenv>=1.0.0
+requests>=2.32.0
