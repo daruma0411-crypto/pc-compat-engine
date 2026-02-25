@@ -419,6 +419,7 @@
   }
   .mode-card {
     flex: 1;
+    min-width: 120px;
     background: var(--bg-card);
     border: 1px solid var(--c-border);
     border-left: 3px solid transparent;
@@ -431,6 +432,7 @@
     font-weight: 600;
     color: var(--c-sub);
     line-height: 1.5;
+    white-space: nowrap;
   }
   .mode-card:hover {
     background: var(--bg-active);
@@ -590,9 +592,12 @@
     if (historyFirstSaved) return;
     historyFirstSaved = true;
     const items = loadStoredHistory();
+    const shortTitle = title.slice(0, 40);
+    // 直近エントリと同じ内容なら重複保存しない
+    if (items.length && items[0].title === shortTitle && items[0].mode === mode) return;
     items.unshift({
       id: Date.now(),
-      title: title.slice(0, 40),
+      title: shortTitle,
       date: new Date().toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' }),
       mode,
     });
@@ -613,7 +618,7 @@
         '<span class="drawer-item-date">'  + escHtml(it.date)  + '</span>' +
       '</div>'
     ).join('');
-    list.innerHTML = '<div class="drawer-section-title">Recent</div>' + rows;
+    list.innerHTML = '<div class="drawer-section-title">最近の履歴</div>' + rows;
   }
 
   function toggleDrawer() {
@@ -636,10 +641,10 @@
     const cardsHtml =
       '<div class="mode-cards">' +
         '<div class="mode-card" onclick="selectMode(\'game\')">' +
-          '<span class="mode-card-icon">🎮</span>ゲームを<br>快適に遊びたい' +
+          '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい' +
         '</div>' +
         '<div class="mode-card" onclick="selectMode(\'compat\')">' +
-          '<span class="mode-card-icon">🔧</span>パーツの<br>互換性を確認' +
+          '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
         '</div>' +
       '</div>';
     appendAIBubble('まず何をしたいか教えてください', cardsHtml);

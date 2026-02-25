@@ -124,9 +124,21 @@ def _lookup_pc_specs(parts: list) -> dict:
                     matched = True
                 elif len(part_tok) >= 2 and part_tok.issubset(c_tok):
                     matched = True
-                if matched and extra < best_extra:
-                    best_extra = extra
-                    best_product = product
+                if matched:
+                    # GPU は extra 同値のとき length_mm 最大（最も長い＝最も制約厳しい）を優先
+                    def _gpu_len(p):
+                        if p is None or p.get('category') != 'gpu':
+                            return 0
+                        l = (p.get('specs') or {}).get('length_mm') or p.get('length_mm')
+                        try:
+                            return float(str(l)) if l else 0
+                        except (ValueError, TypeError):
+                            return 0
+                    if extra < best_extra or (
+                        extra == best_extra and _gpu_len(product) > _gpu_len(best_product)
+                    ):
+                        best_extra = extra
+                        best_product = product
                     break
 
         if best_product is not None:
