@@ -490,7 +490,7 @@
   }
   .build-name   { font-weight: 600; font-size: 13px; color: var(--c-text); }
   .build-reason { font-size: 12px; color: var(--c-muted); }
-  .build-price  { font-size: 12px; font-weight: 600; color: var(--c-ok); }
+  .build-price  { font-size: 11px; color: var(--c-muted); }
   .build-links  { display: flex; gap: 6px; margin-top: 4px; }
   .build-total {
     margin-top: 10px;
@@ -509,6 +509,27 @@
     border-radius: 8px;
     padding: 8px 10px;
   }
+
+  /* ── モード切り替えボタン ── */
+  .btn-mode-switch {
+    margin-left: auto;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--bg-input);
+    border: 1px solid var(--c-border);
+    color: var(--c-sub);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: background .15s, border-color .15s;
+    display: none;
+  }
+  .btn-mode-switch:hover { background: var(--bg-active); border-color: var(--c-primary); }
+
+  /* ── build-card 左寄せラッパー ── */
+  .build-card-wrap { padding: 2px 0; }
 
   @media (max-width: 480px) {
     .alt-grid { grid-template-columns: 1fr; }
@@ -538,9 +559,9 @@
     <button class="btn-menu" onclick="toggleDrawer()" title="履歴を開く">☰</button>
     <div class="header-logo">🖥️</div>
     <div class="header-title">
-      <h1>何がしたい？</h1>
-      <p>ゲーム・動画編集・作業PC、用途から最適なPCを提案します</p>
+      <h1>ゲーム・動画編集・作業PC、用途から最適なPCを提案します</h1>
     </div>
+    <button class="btn-mode-switch" id="btn-mode-switch" onclick="switchMode()" title="モードを切り替え"></button>
   </header>
 
   <div class="chat-area" id="chat-area"></div>
@@ -664,6 +685,32 @@
       gameMode = false;
       document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
       appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
+    }
+    updateModeIndicator();
+  }
+
+  function switchMode() {
+    gameMode = !gameMode;
+    updateModeIndicator();
+    if (gameMode) {
+      document.getElementById('chat-input').placeholder = '例: モンハンワイルズを60fpsで遊びたい。予算15万';
+      appendAIBubble('🎮 ゲームモードに切り替えました。\nどのゲームを、どんな目標でプレイしたいですか？予算も教えてください。');
+    } else {
+      document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
+      appendAIBubble('🔧 互換チェックモードに切り替えました。\nどんな組み合わせを確認したいですか？');
+    }
+  }
+
+  function updateModeIndicator() {
+    const btn = document.getElementById('btn-mode-switch');
+    if (!btn) return;
+    btn.style.display = (gameMode !== null && gameMode !== undefined) ? '' : 'none';
+    if (gameMode) {
+      btn.textContent = '🔧 互換チェックへ';
+      btn.title = '互換チェックモードに切り替え';
+    } else {
+      btn.textContent = '🎮 ゲームモードへ';
+      btn.title = 'ゲームモードに切り替え';
     }
   }
 
@@ -900,7 +947,7 @@
           '<span class="build-name">'     + escHtml(item.name     || '') + '</span>' +
         '</div>' +
         '<div class="build-reason">' + escHtml(item.reason     || '') + '</div>' +
-        '<div class="build-price">'  + escHtml(item.price_range || '') + '</div>' +
+        (item.price_range ? '<div class="build-price">参考価格: ' + escHtml(item.price_range) + '</div>' : '') +
         '<div class="build-links">' +
           '<a class="buy-btn buy-btn-amazon"  href="' + escHtml(amazonUrl)  + '" target="_blank" rel="noopener">🛒 Amazon</a>' +
           '<a class="buy-btn buy-btn-rakuten" href="' + escHtml(rakutenUrl) + '" target="_blank" rel="noopener">🛍 楽天</a>' +
@@ -922,9 +969,13 @@
         totalHtml + tipHtml +
       '</div>';
 
-    const msgWrap = appendAIBubble(reply, cardHtml);
+    appendAIBubble(reply || '');
+    const cardWrap = mkEl('div', 'build-card-wrap');
+    cardWrap.innerHTML = cardHtml;
+    chat().appendChild(cardWrap);
+    scrollBottom();
     setTimeout(() => {
-      if (msgWrap) msgWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      cardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
   }
 
