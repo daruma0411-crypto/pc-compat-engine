@@ -1,4 +1,23 @@
+# robots.txt for pc-compat-engine
+
 User-agent: *
 Allow: /
 
-Sitemap: https://pc-compat-engine.onrender.com/sitemap-index.xml
+# AI Crawlers (AIO最適化)
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://pc-compat-engine.onrender.com/sitemap.xml

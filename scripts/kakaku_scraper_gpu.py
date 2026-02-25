@@ -39,16 +39,18 @@ def build_gpu_entry(raw: dict, price: int | None) -> dict | None:
 
     maker = normalize_maker(raw['maker_raw']) if raw['maker_raw'] else normalize_maker(name)
 
-    # GPU チップ
-    chip = (sr.get('GPUチップ', '') or sr.get('グラフィックスプロセッサー', '')
+    # GPU チップ（実際のkakakuフィールド名: 搭載チップ）
+    chip = (sr.get('搭載チップ', '') or sr.get('GPUチップ', '')
+            or sr.get('グラフィックスプロセッサー', '')
             or sr.get('グラフィックスチップ', '')).strip() or None
 
-    # VRAM
-    vram_raw = sr.get('ビデオメモリ', '') or sr.get('VRAM', '') or sr.get('メモリ容量', '')
-    vram_gb = parse_vram(vram_raw)
+    # VRAM（実際のkakakuフィールド名: メモリ、名前フォールバック "[PCIExp 16GB]"）
+    vram_raw = (sr.get('メモリ', '') or sr.get('ビデオメモリ', '')
+                or sr.get('VRAM', '') or sr.get('メモリ容量', ''))
+    vram_gb = parse_vram(vram_raw) or parse_vram(name)
 
-    # TDP / 消費電力
-    tdp_raw = (sr.get('TDP', '') or sr.get('消費電力', '')
+    # TDP / 消費電力（実際のkakakuフィールド名: 消費電力）
+    tdp_raw = (sr.get('消費電力', '') or sr.get('TDP', '')
                or sr.get('最大消費電力', '') or sr.get('推奨電源容量', ''))
     tdp_w = parse_int(tdp_raw)
 

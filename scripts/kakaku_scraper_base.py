@@ -203,16 +203,19 @@ def make_id(prefix: str, code: str) -> str:
 def extract_min_price(html: str) -> int | None:
     """kakaku.com ページ HTML から最安値（円）を抽出する"""
     patterns = [
-        r'class="priceNum"[^>]*>\s*([\d,]+)',
-        r'最安値[^¥\d]*([\d,]+)',
-        r'最安価格[：:]\s*¥?\s*([\d,]+)',
-        r'"lowPrice":\s*"?([\d,]+)"?',
+        r"price\s*:\s*'(\d{4,7})'",          # JS変数 price : '54790'
+        r'最安価格[^:：]*[：:][^0-9]*([\d,]{4,})',  # og:description の最安価格(税込)：54,790円
+        r'class="priceNum"[^>]*>\s*([\d,]{4,})',
+        r'最安値[^¥\d]*([\d,]{4,})',
+        r'"lowPrice":\s*"?([\d,]{4,})"?',
     ]
     for pat in patterns:
         m = re.search(pat, html)
         if m:
             try:
-                return int(m.group(1).replace(',', ''))
+                price = int(m.group(1).replace(',', ''))
+                if price >= 1000:   # 1000円未満は誤マッチとして除外
+                    return price
             except Exception:
                 pass
     return None
