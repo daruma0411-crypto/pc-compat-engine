@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -528,8 +529,37 @@
   }
   .btn-mode-switch:hover { background: var(--bg-active); border-color: var(--c-primary); }
 
-  /* ── build-card 左寄せラッパー ── */
+  /* ── build-card 左寄せラッパー & レーダーチャート横並び ── */
   .build-card-wrap { padding: 2px 0; }
+  .build-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .build-row .build-card { flex: 1; min-width: 280px; }
+  .radar-wrap {
+    flex: 0 0 260px;
+    background: var(--bg-card);
+    border: 1px solid var(--c-border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .radar-title {
+    font-size: 11px;
+    color: var(--c-muted);
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 600px) {
+    .build-row { flex-direction: column; }
+    .radar-wrap { flex: 0 0 auto; width: 100%; }
+  }
 
   @media (max-width: 480px) {
     .alt-grid { grid-template-columns: 1fr; }
@@ -962,11 +992,23 @@
       ? '<div class="build-tip">💡 ' + escHtml(tip) + '</div>'
       : '';
 
+    const scores = data.radar_scores;
+    const radarId = 'radar-' + Date.now();
+    const radarHtml = scores
+      ? '<div class="radar-wrap">' +
+          '<div class="radar-title">性能バランス</div>' +
+          '<canvas id="' + radarId + '" width="236" height="236"></canvas>' +
+        '</div>'
+      : '';
+
     const cardHtml =
-      '<div class="build-card">' +
-        '<div class="build-game-title">🎮 ' + escHtml(game.name || 'ゲーム') + ' 推奨構成</div>' +
-        '<div class="build-items">' + itemsHtml + '</div>' +
-        totalHtml + tipHtml +
+      '<div class="build-row">' +
+        '<div class="build-card">' +
+          '<div class="build-game-title">🎮 ' + escHtml(game.name || 'ゲーム') + ' 推奨構成</div>' +
+          '<div class="build-items">' + itemsHtml + '</div>' +
+          totalHtml + tipHtml +
+        '</div>' +
+        radarHtml +
       '</div>';
 
     appendAIBubble(reply || '');
@@ -975,8 +1017,50 @@
     chat().appendChild(cardWrap);
     scrollBottom();
     setTimeout(() => {
+      if (scores) renderRadarChart(radarId, scores);
       cardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
+  }
+
+  // ─── レーダーチャート描画 ────────────────────────────────────────────────
+  const _radarInstances = {};
+  function renderRadarChart(canvasId, scores) {
+    if (!scores || typeof Chart === 'undefined') return;
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    if (_radarInstances[canvasId]) {
+      _radarInstances[canvasId].destroy();
+    }
+    _radarInstances[canvasId] = new Chart(canvas, {
+      type: 'radar',
+      data: {
+        labels: ['CPU', 'GPU', 'VRAM', 'RAM', 'コスパ'],
+        datasets: [{
+          data: [scores.cpu, scores.gpu, scores.vram, scores.ram, scores.value],
+          backgroundColor: 'rgba(158,207,255,0.2)',
+          borderColor: '#9ECFFF',
+          borderWidth: 2,
+          pointBackgroundColor: '#9ECFFF',
+          pointRadius: 3,
+        }],
+      },
+      options: {
+        responsive: false,
+        scales: {
+          r: {
+            min: 0, max: 10, stepSize: 2,
+            ticks: { display: false },
+            grid: { color: 'rgba(96,105,117,0.4)' },
+            angleLines: { color: 'rgba(96,105,117,0.4)' },
+            pointLabels: {
+              color: '#BBC2CA',
+              font: { size: 11, family: 'Inter, sans-serif' },
+            },
+          },
+        },
+        plugins: { legend: { display: false } },
+      },
+    });
   }
 
   function buildAmazonUrl(name) {

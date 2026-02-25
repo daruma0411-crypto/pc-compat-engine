@@ -798,6 +798,111 @@ def _load_steam_games():
     return games
 
 
+def _compute_radar_scores(recommended_build: list, all_products: list, total_estimate_str: str) -> dict:
+    """推奨構成からレーダーチャートスコア(1-10)を計算する"""
+
+    gpu_item = next((x for x in recommended_build if x.get('category', '').upper() == 'GPU'), None)
+    cpu_item = next((x for x in recommended_build if x.get('category', '').upper() == 'CPU'), None)
+    ram_item = next((x for x in recommended_build if x.get('category', '').upper() == 'RAM'), None)
+
+    # CPU スコア（キーワードマッチ）
+    cpu_name = (cpu_item.get('name', '') if cpu_item else '').lower()
+    if any(k in cpu_name for k in ['i9', 'ryzen 9', 'core ultra 9', 'threadripper']):
+        cpu_score = 10
+    elif any(k in cpu_name for k in ['i7', 'ryzen 7', 'core ultra 7']):
+        cpu_score = 8
+    elif any(k in cpu_name for k in ['i5', 'ryzen 5', 'core ultra 5']):
+        cpu_score = 6
+    elif any(k in cpu_name for k in ['i3', 'ryzen 3']):
+        cpu_score = 4
+    elif any(k in cpu_name for k in ['celeron', 'pentium', 'athlon']):
+        cpu_score = 2
+    else:
+        cpu_score = 5
+
+    # GPU スペックを all_products から名前の部分マッチで検索
+    gpu_specs = {}
+    if gpu_item:
+        gpu_name_q = gpu_item.get('name', '').lower()
+        q_words = set(re.sub(r'[^a-z0-9]', ' ', gpu_name_q).split())
+        best_match = None
+        best_score = 0
+        for p in all_products:
+            if p.get('category') == 'gpu':
+                p_words = set(re.sub(r'[^a-z0-9]', ' ', p.get('name', '').lower()).split())
+                common = len(q_words & p_words)
+                if common > best_score:
+                    best_score = common
+                    best_match = p
+        if best_match and best_score >= 2:
+            gpu_specs = best_match.get('specs', {}) or {}
+
+    # GPU スコア（TDP ベース）
+    tdp_w = gpu_specs.get('tdp_w')
+    if tdp_w is None:
+        gpu_score = 5
+    elif tdp_w >= 350:
+        gpu_score = 10
+    elif tdp_w >= 280:
+        gpu_score = 9
+    elif tdp_w >= 200:
+        gpu_score = 7
+    elif tdp_w >= 150:
+        gpu_score = 6
+    elif tdp_w >= 75:
+        gpu_score = 4
+    else:
+        gpu_score = 3
+
+    # VRAM スコア
+    vram_gb = gpu_specs.get('vram_gb')
+    vram_map = {24: 10, 16: 9, 12: 8, 8: 6, 6: 5, 4: 3}
+    if vram_gb in vram_map:
+        vram_score = vram_map[vram_gb]
+    elif vram_gb and vram_gb > 24:
+        vram_score = 10
+    else:
+        vram_score = 5
+
+    # RAM スコア（名前から容量を抽出）
+    ram_name = (ram_item.get('name', '') if ram_item else '')
+    ram_match = re.search(r'(\d+)\s*GB', ram_name, re.IGNORECASE)
+    ram_gb = int(ram_match.group(1)) if ram_match else None
+    if ram_gb is None:
+        ram_score = 5
+    elif ram_gb >= 64:
+        ram_score = 10
+    elif ram_gb >= 32:
+        ram_score = 8
+    elif ram_gb >= 16:
+        ram_score = 6
+    elif ram_gb >= 8:
+        ram_score = 4
+    else:
+        ram_score = 3
+
+    # コスパ スコア（万円単位の価格と平均性能から算出）
+    value_score = 5
+    price_matches = re.findall(r'([\d.]+)万', total_estimate_str or '')
+    if price_matches:
+        try:
+            prices = [float(x) for x in price_matches]
+            budget_man = sum(prices) / len(prices)
+            perf = (gpu_score + cpu_score) / 2
+            if budget_man > 0:
+                value_score = min(10, max(1, round(perf / (budget_man / 15) * 5)))
+        except Exception:
+            pass
+
+    return {
+        'cpu': cpu_score,
+        'gpu': gpu_score,
+        'vram': vram_score,
+        'ram': ram_score,
+        'value': value_score,
+    }
+
+
 def _search_game(query: str, games: list):
     q = query.lower().strip()
     for g in games:
@@ -983,6 +1088,7 @@ def recommend():
             return f'¥{lo_str}万〜¥{hi_str}万'
 
         total_estimate = _calc_total(recommended_build)
+        radar_scores   = _compute_radar_scores(recommended_build, all_products, total_estimate)
 
         return jsonify({
             'type': 'recommendation',
@@ -994,6 +1100,7 @@ def recommend():
             'required_specs':    spec,
             'recommended_build': recommended_build,
             'total_estimate':    total_estimate,
+            'radar_scores':      radar_scores,
             'reply':             build_data.get('reply', ''),
             'tip':               build_data.get('tip', ''),
         })
