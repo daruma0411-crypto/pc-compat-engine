@@ -11,3 +11,6 @@ logs/
 # 一時スクレイプログ
 kakaku_*.log
 seo_gen*.log
+
+# Steam raw データ（容量大）
+workspace/data/steam/raw/

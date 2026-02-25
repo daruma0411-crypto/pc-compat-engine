@@ -34,5 +34,9 @@ playwright>=1.47.0
 # ManualCollectorAgent: TOC検出・テキスト抽出
 pdfplumber>=0.11.0
 
+# ── HTML Parser ──────────────────────────────────────
+# steam_parser: Steam PC要件HTMLパース
+beautifulsoup4>=4.12.0
+
 # ── Utilities ────────────────────────────────────────
 python-dotenv>=1.0.0
