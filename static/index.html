@@ -491,10 +491,17 @@
         altBtnsHtml +
       '</div>';
 
-    appendAIBubble(
+    const msgWrap = appendAIBubble(
       escHtml(reply || parts.length + '件のパーツを診断しました。'),
       diagHtml
     );
+    // NG/WARNING の場合、代替ボタンが画面外に出やすいので自動スクロール
+    if (showAlt) {
+      setTimeout(() => {
+        const btnEl = msgWrap && msgWrap.querySelector('.alt-btns');
+        if (btnEl) btnEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 150);
+    }
   }
 
   // ─── 代替品取得 ────────────────────────────────────────────────────────
@@ -546,10 +553,14 @@
         '</div>';
     }).join('');
 
-    appendAIBubble(
+    const altWrap = appendAIBubble(
       label + 'の候補です（' + items.length + '件）：',
       '<div class="alt-grid">' + cardsHtml + '</div>'
     );
+    // 代替品リストの先頭が見えるようにスクロール
+    setTimeout(() => {
+      if (altWrap) altWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
   }
 
   function buildSpecStr(category, specs) {
