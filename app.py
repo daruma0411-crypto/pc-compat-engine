@@ -60,6 +60,16 @@ _PC_DIAGNOSIS_SYSTEM_PROMPT = """\
 - 「事前計算済みチェック」が提供された場合、その数値・判定を最優先で使用すること
 - GPU長・ケース対応長のマージン判定は事前計算値を使い、AI自身で再計算せずそのまま採用すること
 
+## power_connectorフィールドの解釈（重要）
+- MBの`power_connector`フィールド（例: "2 x 8 pin"）はCPU補助電源コネクタ（EPS/ATX12V）であり、GPUとは無関係
+- GPUの`power_connector`フィールドはGPU補助電源コネクタ（PCIe 6pin/8pin/12VHPWR等）
+- 両者を混同して「マザーボードのGPU電源コネクタ」等の誤表現をしないこと
+
+## フォームファクター判定（重要）
+- ATX: 305×244mm（最も一般的。Z690/Z790/Z890 AORUS MASTER等は全てATX）
+- E-ATX: 305×330mm（AORUS XTREME等の最上位モデル）
+- DBの値を使用し、ATXとE-ATXを混同しないこと
+
 ## 出力形式（JSONのみ、説明文・マークダウン不要）
 {
   "verdict": "NG" | "WARNING" | "OK" | "UNKNOWN",
@@ -345,13 +355,13 @@ def _compute_prechecks(parts: list, specs: dict) -> list:
             lines.append(
                 f"- MB制約情報: {mb_part}: {rule.get('m2_slot', '?')}使用時は"
                 f"{rule.get('affects', '?')}が{rule.get('effect', '?')}"
-                f" = WARNING（M.2使用時は要確認、未使用なら問題なし）"
+                f" = WARNING（M.2 SSD使用時はPCIe帯域共有の制限あり、使用スロット選択に注意）"
             )
         for rule in constraints.get('m2_sata_sharing', []):
             lines.append(
                 f"- MB制約情報: {mb_part}: {rule.get('m2_slot', '?')}使用時は"
                 f"SATA {rule.get('affects', '?')}が{rule.get('effect', '?')}"
-                f" = WARNING（M.2使用時はSATA本数減少、未使用なら問題なし）"
+                f" = WARNING（M.2 SSD使用時はSATAポート数が減少、HDDをSATAで接続する場合は注意）"
             )
 
     return lines
@@ -381,9 +391,16 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
                 f"**{part}** (maker={maker}, category={p.get('category', '')})"
             )
             nested = p.get('specs', {})
+            cat = p.get('category', '')
             if nested:
                 for k, v in nested.items():
-                    specs_lines.append(f"  {k}: {v}")
+                    # MBのpower_connectorはCPU補助電源、GPUのpower_connectorはGPU補助電源であることを明示
+                    if k == 'power_connector' and cat in ('motherboard', 'mb'):
+                        specs_lines.append(f"  cpu_aux_power_connector (CPU補助電源): {v}")
+                    elif k == 'power_connector' and cat == 'gpu':
+                        specs_lines.append(f"  gpu_aux_power_connector (GPU補助電源): {v}")
+                    else:
+                        specs_lines.append(f"  {k}: {v}")
             else:
                 for k, v in p.items():
                     if k not in _SKIP_KEYS and v is not None and v != '':
@@ -633,7 +650,7 @@ def _load_all_products() -> list:
     return products
 
 
-def _suggest_build_with_claude(parts: list, message: str) -> dict:
+def _suggest_build_with_claude(parts: list, message: str, history: list = None) -> dict:
     """
     確定済みパーツ（GPU/ケース等）とユーザーメッセージ（予算・用途）から
     残りのパーツを含む全構成を提案する。
@@ -671,6 +688,8 @@ def _suggest_build_with_claude(parts: list, message: str) -> dict:
     }
     confirmed_gpu  = next((s for s in confirmed_specs.values() if s.get('category') == 'gpu'), None)
     confirmed_case = next((s for s in confirmed_specs.values() if s.get('category') == 'case'), None)
+    confirmed_mb   = next((s for s in confirmed_specs.values() if s.get('category') in ('motherboard', 'mb')), None)
+    confirmed_cpu  = next((s for s in confirmed_specs.values() if s.get('category') == 'cpu'), None)
 
     # GPU/ケース互換チェック情報
     compat_info = ''
@@ -725,7 +744,7 @@ def _suggest_build_with_claude(parts: list, message: str) -> dict:
         extra_str = ' / '.join(extras)
         return f'- {p["name"]}' + (f' ({extra_str})' if extra_str else '')
 
-    # 確定GPU情報をCPU/MB選定の参考として渡す
+    # 確定パーツ情報をCPU/MB選定の参考として渡す
     confirmed_info = ''
     if confirmed_gpu:
         s = confirmed_gpu.get('specs') or {}
@@ -733,6 +752,26 @@ def _suggest_build_with_claude(parts: list, message: str) -> dict:
     if confirmed_case:
         s = confirmed_case.get('specs') or {}
         confirmed_info += f'確定ケース: {confirmed_case["name"]} (max GPU {s.get("max_gpu_length_mm","?")}mm)\n'
+    if confirmed_mb:
+        s = confirmed_mb.get('specs') or {}
+        mb_socket   = s.get('socket', '')
+        mb_chipset  = s.get('chipset', '')
+        mb_mem_type = s.get('memory_type', '')
+        mb_sata     = s.get('sata_ports', '')
+        mb_m2       = s.get('m2_slots', '')
+        mb_ff       = s.get('form_factor', '')
+        confirmed_info += (
+            f'確定MB: {confirmed_mb["name"]} ('
+            f'ソケット: {mb_socket}, チップセット: {mb_chipset}, '
+            f'メモリ規格: {mb_mem_type}, フォームファクター: {mb_ff}'
+            + (f', SATAポート: {mb_sata}本' if mb_sata else '')
+            + (f', M.2スロット: {mb_m2}本' if mb_m2 else '')
+            + ')\n'
+        )
+    else:
+        mb_socket = ''
+    if confirmed_cpu:
+        confirmed_info += f'確定CPU: {confirmed_cpu["name"]}\n'
 
     # 必要なカテゴリのみDB候補リストを構築
     db_sections = ''
@@ -743,7 +782,17 @@ def _suggest_build_with_claude(parts: list, message: str) -> dict:
         case_cands = [p for p in all_products if p.get('category') == 'case'][:4]
         db_sections += '## ケース候補\n' + '\n'.join(fmt_p(p) for p in case_cands) + '\n\n'
     if need_cpu:
-        cpu_cands = [p for p in all_products if p.get('category') == 'cpu'][:4]
+        cpu_cands = [p for p in all_products if p.get('category') == 'cpu']
+        # MBのソケットが判明している場合、Intel/AMDで候補を絞り込む
+        if mb_socket.startswith('LGA'):
+            intel_cands = [p for p in cpu_cands if any(k in p.get('name', '') for k in ['Core', 'Xeon', 'Pentium', 'Celeron'])]
+            if intel_cands:
+                cpu_cands = intel_cands
+        elif mb_socket.startswith('AM') or mb_socket.startswith('TR'):
+            amd_cands = [p for p in cpu_cands if any(k in p.get('name', '') for k in ['Ryzen', 'Athlon', 'Threadripper', 'EPYC'])]
+            if amd_cands:
+                cpu_cands = amd_cands
+        cpu_cands = cpu_cands[:4]
         db_sections += '## CPU候補\n' + '\n'.join(fmt_p(p) for p in cpu_cands) + '\n\n'
     if need_psu:
         psu_cands = [p for p in all_products if p.get('category') in ('psu', 'power_supply')][:4]
@@ -766,8 +815,12 @@ def _suggest_build_with_claude(parts: list, message: str) -> dict:
         + db_sections
         + '## 指示\n'
         + '- 上記DB候補から互換性・予算を考慮して不足パーツのみ選定すること\n'
-        + '- CPU/MB のソケット一致・PSU容量（GPU TDP+CPU TDP+システム50W）を必ず確認すること\n'
-        + '- 予算の記載があれば合計がその範囲に収まるよう選定すること\n\n'
+        + (f'- 【必須】確定MBのソケットは「{mb_socket}」。LGA系ならIntel CPU、AM系ならAMD CPUのみ提案すること。絶対に別ソケットのCPUを選ばないこと\n' if mb_socket else '- CPU/MBのソケット一致を必ず確認すること\n')
+        + '- 電源容量: GPU TDP×1.2 + CPU TDP + ストレージ本数×15W + システム100Wの合計以上を選定（例: RTX 4090 450W + i9 253W = 最低1000W必要）\n'
+        + '- ユーザーが言及していない用途（VR/動画編集/ゲーミング等）を勝手に追加しないこと\n'
+        + '- 予算の記載があれば合計がその範囲に収まるよう選定すること\n'
+        + '- ユーザーメッセージにHDD台数（例: HDD 3台・3.5インチ2本）が含まれる場合、HDDカテゴリを構成リストに必ず追加し、確定MBのSATAポート数・ケースの3.5インチベイ数も考慮すること\n'
+        + '- ユーザーメッセージにNVMe/SSD台数が含まれる場合、NVMe SSDカテゴリを構成リストに必ず追加し、確定MBのM.2スロット数を考慮すること\n\n'
         + '以下のJSON形式だけで返してください（説明不要）:\n'
         '{"reply":"2〜3文の提案コメント（日本語・フレンドリー）",'
         '"recommended_build":[' + ','.join(needed_items) + '],'
@@ -831,8 +884,9 @@ def chat():
     """自然言語メッセージを受け取り、型番抽出→互換性診断を行う。"""
     try:
         data = request.get_json(force=True) or {}
-        message = str(data.get('message', '')).strip()
-        history = data.get('history', [])
+        message         = str(data.get('message', '')).strip()
+        history         = data.get('history', [])
+        confirmed_parts = data.get('confirmed_parts', [])  # フロントから引き継いだ確定パーツ名リスト
 
         if not message:
             return jsonify({'error': 'message が空です'}), 400
@@ -843,13 +897,17 @@ def chat():
         intent = extracted.get('intent', 'diagnose')
         reply  = extracted.get('reply', '')
 
+        # 今回のメッセージに型番がなければ、前ターンで確定したパーツを引き継ぐ
+        if not parts and confirmed_parts:
+            parts = confirmed_parts
+
         # ── 提案モード ────────────────────────────────────────────────
         if intent == 'suggest':
             # history に AI のターンが1回以上あれば（＝予算等を1度聞いた後）→ 提案実行
             ai_turns = sum(1 for h in history if h.get('role') == 'assistant')
             if ai_turns >= 1 or len(parts) >= 1:
                 # 確定パーツ + ユーザーの全会話を元に構成提案
-                suggest_result = _suggest_build_with_claude(parts, message)
+                suggest_result = _suggest_build_with_claude(parts, message, history)
                 return jsonify(suggest_result)
             else:
                 # 初回かつ parts が0件 → 1回だけ質問

@@ -629,6 +629,7 @@
   let lastDiagnosis = null;
   let gameMode = false;
   let historyFirstSaved = false;
+  let confirmedParts = [];  // ターン間で引き継ぐ確定パーツ名リスト
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
   const HISTORY_KEY = 'pc_compat_history';
@@ -703,6 +704,7 @@
   });
 
   function selectMode(mode) {
+    confirmedParts = [];  // モード切替時に確定パーツをリセット
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
       c.style.opacity = '0.4';
@@ -776,7 +778,7 @@
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, history: history.slice(-10) }),
+        body: JSON.stringify({ message: msg, history: history.slice(-10), confirmed_parts: confirmedParts }),
         signal: controller.signal,
       });
       clearTimeout(timer);
@@ -789,6 +791,11 @@
       history.push({ role: 'assistant', content: data.reply || '' });
 
       if (data.type === 'recommendation' || data.type === 'suggestion') {
+        // 確定パーツ（confirmed=true）の名前をターン間引き継ぎ用に保存
+        const newConfirmed = (data.recommended_build || [])
+          .filter(b => b.confirmed)
+          .map(b => b.name);
+        if (newConfirmed.length > 0) confirmedParts = newConfirmed;
         appendRecommendationMessage(data);
       } else if (data.type === 'diagnosis') {
         lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
@@ -864,7 +871,15 @@
         '</div>';
     }).join('');
 
-    const showAlt = verdict === 'NG' || verdict === 'WARNING';
+    // GPU/ケースに直接関係するチェックがNG/WARNINGの場合のみ代替案を表示
+    const gpuNgWarn = checks.some(c =>
+      (c.status === 'NG' || c.status === 'WARNING') &&
+      /gpu|GPU|グラフィック|干渉マージン/i.test(c.item)
+    );
+    const caseNgWarn = checks.some(c =>
+      (c.status === 'NG' || c.status === 'WARNING') &&
+      /ケース|case|フォームファクター/i.test(c.item)
+    );
 
     const diagHtml =
       '<div class="diag-card">' +
@@ -883,10 +898,8 @@
       diagHtml
     );
 
-    if (showAlt) {
-      fetchAlternatives('gpu');
-      fetchAlternatives('case');
-    }
+    if (gpuNgWarn) fetchAlternatives('gpu');
+    if (caseNgWarn) fetchAlternatives('case');
   }
 
   // ─── 代替品取得 ────────────────────────────────────────────────────────
