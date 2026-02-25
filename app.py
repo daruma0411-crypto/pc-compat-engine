@@ -144,10 +144,25 @@ def _lookup_pc_specs(parts: list) -> dict:
                             return float(str(l)) if l else 0
                         except (ValueError, TypeError):
                             return 0
-                    if extra < best_extra or (
-                        extra == best_extra and _gpu_len(product) > _gpu_len(best_product)
+                    # GPU ティアミスマッチペナルティ
+                    # "RTX 4070" が "DUAL-RTX4070TIS-O16G" に substring マッチする場合など
+                    # part_tok がトークン集合に含まれない（ハイフン結合）ケースを検出
+                    effective_extra = extra
+                    if product.get('category') == 'gpu':
+                        # ケース1: part_tok が c_tok に subset でないが substring マッチした
+                        #   → "rtx4070" が "rtx4070tis" の prefix としてマッチ（ティアアップ）
+                        if not part_tok.issubset(c_tok):
+                            effective_extra += 100
+                        else:
+                            # ケース2: トークンベースマッチだが、ティア識別子が余分にある
+                            _TIER_TOKENS = {'ti', 'super', 'xt', 'xtx', 'plus'}
+                            tier_extra = _TIER_TOKENS & (c_tok - part_tok)
+                            if tier_extra:
+                                effective_extra += 100
+                    if effective_extra < best_extra or (
+                        effective_extra == best_extra and _gpu_len(product) > _gpu_len(best_product)
                     ):
-                        best_extra = extra
+                        best_extra = effective_extra
                         best_product = product
                     break
 
@@ -952,6 +967,10 @@ def chat():
             'type': 'diagnosis',
             'reply': reply or f'{len(parts)}件のパーツを診断しました。',
             'parts': parts,
+            'parts_with_category': [  # フロントのconfirmedParts.category用
+                {'name': p, 'category': specs.get(p, {}).get('category', '')}
+                for p in parts
+            ],
             'not_found': not_found,
             'user_specified_parts': user_specified_parts,  # フロントがsource判定に使用
             'diagnosis': {
@@ -1437,6 +1456,8 @@ def recommend():
         game_name  = extracted.get('game_name', '') or ''
         budget_yen = extracted.get('budget_yen')
         fps_target = extracted.get('fps_target') or '60fps'
+        # Phase 2-4: 予算未指定時はミドル帯（15〜20万）をデフォルト目安として使用
+        effective_budget = budget_yen if budget_yen else 175000
 
         # Step2: games.jsonlからゲーム検索
         games_list = _load_steam_games()
@@ -1444,21 +1465,26 @@ def recommend():
 
         # Step3: 推奨スペック取得
         if game_data:
-            spec     = game_data.get('recommended') or game_data.get('minimum') or {}
+            # Phase 2-1: 予算ティアに応じてスペックを選択（低予算=最低スペック参考）
+            if effective_budget < 200000:
+                spec      = game_data.get('minimum') or game_data.get('recommended') or {}
+                spec_tier = '最低'
+            else:
+                spec      = game_data.get('recommended') or game_data.get('minimum') or {}
+                spec_tier = '推奨'
             rec_gpus = spec.get('gpu', []) or []
             rec_cpus = spec.get('cpu', []) or []
             rec_ram  = spec.get('ram_gb')
             rec_storage = spec.get('storage_gb')
             game_info = (
                 f'ゲーム名: {game_data["name"]}\n'
-                f'推奨GPU: {", ".join(rec_gpus[:2]) if rec_gpus else "不明"}\n'
-                f'推奨CPU: {", ".join(rec_cpus[:2]) if rec_cpus else "不明"}\n'
-                f'推奨RAM: {rec_ram}GB\n'
-                f'推奨ストレージ: {rec_storage}GB'
+                f'参考スペック（{spec_tier}）: GPU {", ".join(rec_gpus[:2]) if rec_gpus else "不明"} / '
+                f'CPU {", ".join(rec_cpus[:2]) if rec_cpus else "不明"} / RAM {rec_ram}GB\n'
+                f'※このDB値のみを参考に構成を提案すること。独自にスペック値を生成・変更しないこと'
             )
         else:
             spec = {}
-            game_info = f'ゲーム名: {game_name}（Steamデータ未収録）'
+            game_info = f'ゲーム名: {game_name}（Steamデータ未収録）\n※推奨スペックが不明なため、公式サイトで確認するよう提案コメントに添えること'
 
         # Step4: DB内のGPU/CPU候補を取得
         jsonl_paths = glob_module.glob(
@@ -1482,8 +1508,21 @@ def recommend():
             s = p.get('specs') or {}
             return f'- {p["name"]}: {s.get("length_mm","?")}mm / TDP {s.get("tdp_w","?")}W'
 
+        def fmt_cpu(p):
+            # Phase 2-2: コア数/スレッド数をDBから注入（Claude推測を防ぐ）
+            s = p.get('specs') or {}
+            detail = []
+            if s.get('cores'):   detail.append(f'{s["cores"]}コア')
+            if s.get('threads'): detail.append(f'{s["threads"]}スレッド')
+            return f'- {p["name"]}' + (f' ({", ".join(detail)})' if detail else '')
+
+        # Phase 2-4: 予算未指定時はミドル帯（15〜20万）をデフォルト提案
         # Step5: Claude APIで構成提案生成
-        budget_str = f'予算{budget_yen:,}円' if budget_yen else '予算未指定'
+        if budget_yen:
+            budget_str = f'予算{budget_yen:,}円'
+        else:
+            budget_str = '予算未指定（デフォルト: ミドルレンジ15〜20万円を目安に提案すること）'
+
         build_prompt = (
             'PCゲームの推奨パーツ構成を提案してください。\n\n'
             f'## ユーザー要求\n{message}\n{budget_str}、{fps_target}目標\n\n'
@@ -1491,8 +1530,12 @@ def recommend():
             f'## DBにある主なGPU候補\n' +
             '\n'.join(fmt_gpu(p) for p in gpu_candidates) +
             '\n\n## DBにある主なCPU候補\n' +
-            '\n'.join(f'- {p["name"]}' for p in cpu_candidates) +
-            '\n\n以下のJSON形式だけで返してください（説明不要）:\n'
+            '\n'.join(fmt_cpu(p) for p in cpu_candidates) +
+            '\n\n## 指示\n'
+            '- CPUのコア数・スレッド数はDB値（上記）をそのまま使用。独自に変更・生成しないこと\n'
+            '- ゲームスペックのRAM値は上記DB値のみ参照。独自に生成しないこと\n'
+            '- ユーザーが言及していない用途を勝手に追加しないこと\n'
+            '\n以下のJSON形式だけで返してください（説明不要）:\n'
             '{"reply":"2〜3文の提案コメント（日本語・フレンドリー）",'
             '"recommended_build":['
             '{"category":"GPU","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
@@ -1504,6 +1547,7 @@ def recommend():
         build_body = json.dumps({
             'model': 'claude-haiku-4-5-20251001',
             'max_tokens': 800,
+            'temperature': 0.3,  # Phase 2-3: 再現性向上（ブレを抑制）
             'messages': [{'role': 'user', 'content': build_prompt}]
         }).encode('utf-8')
         req2 = urllib.request.Request(

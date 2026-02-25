@@ -647,7 +647,7 @@
   let lastDiagnosis = null;
   let gameMode = false;
   let historyFirstSaved = false;
-  let confirmedParts = [];  // ターン間で引き継ぐ確定パーツ名リスト
+  let confirmedParts = [];  // [{name: string, category: string, source: 'user_specified'|'ai_accepted'|'ai_pending'}]
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
   const HISTORY_KEY = 'pc_compat_history';
@@ -760,7 +760,7 @@
   function transferToCompatCheck(build) {
     // ユーザーが「この構成で互換チェック」ボタンを押した = 推奨構成の承認とみなす
     // → ai_accepted として登録（変更提案なし、ケースや追加パーツのみ補完対象）
-    confirmedParts = build.map(b => ({ name: b.name, source: 'ai_accepted' }));
+    confirmedParts = build.map(b => ({ name: b.name, category: (b.category || '').toLowerCase(), source: 'ai_accepted' }));
     // ゲームモードを解除（switchMode より先に confirmedParts をセットするため手動でフラグ変更）
     gameMode = false;
     updateModeIndicator();
@@ -842,6 +842,7 @@
         // confirmed=false パーツ → ai_pending（次のメッセージ送信時に昇格）
         const newParts = (data.recommended_build || []).map(b => ({
           name: b.name,
+          category: (b.category || '').toLowerCase(),
           source: b.confirmed ? 'ai_accepted' : 'ai_pending',
         }));
         if (newParts.length > 0) {
@@ -857,10 +858,15 @@
       } else if (data.type === 'diagnosis') {
         lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
         // 診断時: バックエンドが返した user_specified_parts を source: 'user_specified' で登録
+        // parts_with_category を使ってcategoryも付与
+        const partsWithCat = {};
+        for (const pc of (data.parts_with_category || [])) {
+          partsWithCat[pc.name] = pc.category || '';
+        }
         const userSpecifiedNames = data.user_specified_parts || data.parts || [];
         for (const name of userSpecifiedNames) {
           if (!confirmedParts.some(p => p.name === name)) {
-            confirmedParts.push({ name, source: 'user_specified' });
+            confirmedParts.push({ name, category: partsWithCat[name] || '', source: 'user_specified' });
           }
         }
         appendDiagnosisMessage(data);
