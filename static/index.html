@@ -788,7 +788,7 @@
       typingEl.remove();
       history.push({ role: 'assistant', content: data.reply || '' });
 
-      if (data.type === 'recommendation') {
+      if (data.type === 'recommendation' || data.type === 'suggestion') {
         appendRecommendationMessage(data);
       } else if (data.type === 'diagnosis') {
         lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
@@ -1004,7 +1004,7 @@
     const cardHtml =
       '<div class="build-row">' +
         '<div class="build-card">' +
-          '<div class="build-game-title">🎮 ' + escHtml(game.name || 'ゲーム') + ' 推奨構成</div>' +
+          '<div class="build-game-title">' + (game.appid === null && game.name === '推奨構成' ? '🔧 ' : '🎮 ') + escHtml(game.name || 'ゲーム') + (game.appid === null && game.name === '推奨構成' ? '' : ' 推奨構成') + '</div>' +
           '<div class="build-items">' + itemsHtml + '</div>' +
           totalHtml + tipHtml +
         '</div>' +
