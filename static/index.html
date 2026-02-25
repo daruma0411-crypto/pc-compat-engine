@@ -176,31 +176,6 @@
   .check-name   { font-weight: 600; margin-bottom: 2px; }
   .check-detail { color: var(--c-muted); line-height: 1.4; }
 
-  /* 代替品ボタン */
-  .alt-btns {
-    display: flex;
-    gap: 8px;
-    padding: 11px 13px;
-    background: #f9fafb;
-    border-top: 1px solid var(--c-border);
-    flex-wrap: wrap;
-  }
-  .btn-alt {
-    flex: 1;
-    min-width: 110px;
-    padding: 8px 10px;
-    border: 1.5px solid var(--c-primary);
-    color: var(--c-primary);
-    background: #fff;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .15s, color .15s;
-    text-align: center;
-  }
-  .btn-alt:hover { background: var(--c-primary); color: #fff; }
-
   /* ── 代替品カードグリッド ── */
   .alt-grid {
     display: grid;
@@ -300,10 +275,41 @@
   .btn-send:active { transform: scale(.94); }
   .btn-send:disabled { opacity: .4; cursor: not-allowed; }
 
+  /* ── 起動時カード ── */
+  .mode-cards {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .mode-card {
+    flex: 1;
+    background: var(--c-surface);
+    border: 1.5px solid var(--c-border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s, transform .1s;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .mode-card:hover {
+    border-color: var(--c-primary);
+    box-shadow: 0 2px 8px rgba(79,70,229,.15);
+    transform: translateY(-2px);
+  }
+  .mode-card-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
   @media (max-width: 480px) {
     .alt-grid { grid-template-columns: 1fr; }
     .diag-card, .alt-grid { width: calc(100vw - 70px); }
     .chat-area { padding: 14px 12px 6px; }
+    .mode-cards { flex-direction: column; }
   }
 </style>
 </head>
@@ -312,8 +318,8 @@
 <div class="app">
 
   <header>
-    <h1>🖥️ PC 互換性チェッカー</h1>
-    <p>自然言語でパーツを入力するだけで互換性を診断</p>
+    <h1>何がしたい？</h1>
+    <p>ゲーム・動画編集・作業PC、用途から最適なPCを提案します</p>
   </header>
 
   <div class="chat-area" id="chat-area"></div>
@@ -352,9 +358,31 @@
 
   // ─── 初期メッセージ ─────────────────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
-    appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
+    const cardsHtml =
+      '<div class="mode-cards">' +
+        '<div class="mode-card" onclick="selectMode(\'game\')">' +
+          '<span class="mode-card-icon">🎮</span>ゲームを<br>快適に遊びたい' +
+        '</div>' +
+        '<div class="mode-card" onclick="selectMode(\'compat\')">' +
+          '<span class="mode-card-icon">🔧</span>パーツの<br>互換性を確認' +
+        '</div>' +
+      '</div>';
+    appendAIBubble('まず何をしたいか教えてください', cardsHtml);
     adjustHeight();
   });
+
+  function selectMode(mode) {
+    // カードを無効化（2度押し防止）
+    document.querySelectorAll('.mode-card').forEach(c => {
+      c.style.pointerEvents = 'none';
+      c.style.opacity = '0.5';
+    });
+    if (mode === 'game') {
+      appendAIBubble('🎮 ゲームモードは近日公開予定です！\nまずはパーツの互換性確認をお試しください。');
+    } else {
+      appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
+    }
+  }
 
   // ─── イベント ──────────────────────────────────────────────────────────
   document.getElementById('btn-send').addEventListener('click', sendMessage);
@@ -471,12 +499,6 @@
     }).join('');
 
     const showAlt = verdict === 'NG' || verdict === 'WARNING';
-    const altBtnsHtml = showAlt
-      ? '<div class="alt-btns">' +
-        '<button class="btn-alt" onclick="fetchAlternatives(\'gpu\')">🔄 GPUを変える</button>' +
-        '<button class="btn-alt" onclick="fetchAlternatives(\'case\')">🔄 ケースを変える</button>' +
-        '</div>'
-      : '';
 
     const diagHtml =
       '<div class="diag-card">' +
@@ -488,19 +510,17 @@
           '</div>' +
         '</div>' +
         '<div class="checks-list">' + checksHtml + '</div>' +
-        altBtnsHtml +
       '</div>';
 
-    const msgWrap = appendAIBubble(
+    appendAIBubble(
       escHtml(reply || parts.length + '件のパーツを診断しました。'),
       diagHtml
     );
-    // NG/WARNING の場合、代替ボタンが画面外に出やすいので自動スクロール
+
+    // NG/WARNING の場合、自動で代替品を両方取得して表示
     if (showAlt) {
-      setTimeout(() => {
-        const btnEl = msgWrap && msgWrap.querySelector('.alt-btns');
-        if (btnEl) btnEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 150);
+      fetchAlternatives('gpu');
+      fetchAlternatives('case');
     }
   }
 
@@ -533,9 +553,9 @@
   }
 
   function renderAlternatives(category, items) {
-    const label = category === 'gpu' ? '対応GPU' : '対応ケース';
+    const label = category === 'gpu' ? 'GPU変更案' : 'ケース変更案';
     if (!items.length) {
-      appendAIBubble('該当する' + label + 'が見つかりませんでした。');
+      appendAIBubble('該当する' + (category === 'gpu' ? 'GPU' : 'ケース') + 'が見つかりませんでした。');
       return;
     }
     const cardsHtml = items.map(it => {
@@ -554,7 +574,7 @@
     }).join('');
 
     const altWrap = appendAIBubble(
-      label + 'の候補です（' + items.length + '件）：',
+      '💡 代わりにこれはどうですか？ ' + label + '（' + items.length + '件）',
       '<div class="alt-grid">' + cardsHtml + '</div>'
     );
     // 代替品リストの先頭が見えるようにスクロール
