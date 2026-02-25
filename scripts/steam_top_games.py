@@ -37,7 +37,9 @@ INTERVAL    = 1.0
 
 
 def fetch_page(filter_type: str, start: int) -> list[int]:
-    """Steam 検索 API から appid リストを取得"""
+    """Steam 検索 API から appid リストを取得
+    レスポンス: {"items": [{"name": "...", "logo": ".../apps/{appid}/..."}]}
+    """
     url = (
         f'https://store.steampowered.com/search/results/'
         f'?filter={filter_type}&hidef2p=1&json=1'
@@ -47,8 +49,13 @@ def fetch_page(filter_type: str, start: int) -> list[int]:
         req = urllib.request.Request(url, headers=HEADERS)
         with urllib.request.urlopen(req, timeout=15) as r:
             data = json.loads(r.read().decode('utf-8'))
-        html = data.get('results_html', '')
-        return [int(a) for a in re.findall(r'data-ds-appid="(\d+)"', html)]
+        appids = []
+        for item in data.get('items', []):
+            logo = item.get('logo', '')
+            m = re.search(r'/apps/(\d+)/', logo)
+            if m:
+                appids.append(int(m.group(1)))
+        return appids
     except Exception as e:
         print(f'  [WARN] filter={filter_type} start={start} error={e}')
         return []

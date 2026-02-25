@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 _LABEL_MAP = [
     ('os',               re.compile(r'^OS$', re.IGNORECASE)),
     ('cpu',              re.compile(r'^(Processor|プロセッサー)$', re.IGNORECASE)),
-    ('gpu',              re.compile(r'^(Graphics|グラフィックス)$', re.IGNORECASE)),
+    ('gpu',              re.compile(r'^(Graphics|グラフィック(?:ス)?)$', re.IGNORECASE)),
     ('ram',              re.compile(r'^(Memory|メモリ[ー]?)$', re.IGNORECASE)),
     ('storage',          re.compile(r'^(Storage|ストレージ)$', re.IGNORECASE)),
     ('directx',          re.compile(r'^DirectX$', re.IGNORECASE)),
