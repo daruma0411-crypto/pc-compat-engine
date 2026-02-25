@@ -491,7 +491,7 @@
   }
   .build-name   { font-weight: 600; font-size: 13px; color: var(--c-text); }
   .build-reason { font-size: 12px; color: var(--c-muted); }
-  .build-price  { font-size: 11px; color: var(--c-muted); }
+  .build-total-note { font-size: 10px; color: var(--c-muted); margin-left: 8px; opacity: .7; }
   .build-links  { display: flex; gap: 6px; margin-top: 4px; }
   .build-total {
     margin-top: 10px;
@@ -977,7 +977,6 @@
           '<span class="build-name">'     + escHtml(item.name     || '') + '</span>' +
         '</div>' +
         '<div class="build-reason">' + escHtml(item.reason     || '') + '</div>' +
-        (item.price_range ? '<div class="build-price">参考価格: ' + escHtml(item.price_range) + '</div>' : '') +
         '<div class="build-links">' +
           '<a class="buy-btn buy-btn-amazon"  href="' + escHtml(amazonUrl)  + '" target="_blank" rel="noopener">🛒 Amazon</a>' +
           '<a class="buy-btn buy-btn-rakuten" href="' + escHtml(rakutenUrl) + '" target="_blank" rel="noopener">🛍 楽天</a>' +
@@ -986,7 +985,7 @@
     }).join('');
 
     const totalHtml = total
-      ? '<div class="build-total">💰 合計目安: ' + escHtml(total) + '</div>'
+      ? '<div class="build-total">💰 予算目安: ' + escHtml(total) + '<span class="build-total-note">※実勢価格はAmazon/楽天でご確認ください</span></div>'
       : '';
     const tipHtml = tip
       ? '<div class="build-tip">💡 ' + escHtml(tip) + '</div>'
