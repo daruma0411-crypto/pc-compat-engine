@@ -31,7 +31,7 @@ HEADERS = {
 }
 
 CATEGORIES  = ['topsellers', 'popularnew']
-PAGES       = 10
+PAGES       = 20
 PAGE_SIZE   = 25
 INTERVAL    = 1.0
 
