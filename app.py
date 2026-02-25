@@ -942,9 +942,35 @@ def recommend():
         json_match2 = re.search(r'\{.*\}', build_text, re.DOTALL)
         build_data = json.loads(json_match2.group()) if json_match2 else {}
 
-        for item in build_data.get('recommended_build', []):
+        recommended_build = build_data.get('recommended_build', [])
+        for item in recommended_build:
             item['amazon_url']  = make_amazon_url(item.get('name', ''))
             item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
+
+        # price_range から数値を抽出して合計を計算（Claudeの誤算を防ぐ）
+        def _calc_total(build):
+            lo_sum = hi_sum = 0
+            for item in build:
+                nums = re.findall(r'[\d,]+', item.get('price_range', ''))
+                vals = []
+                for n in nums:
+                    try:
+                        vals.append(int(n.replace(',', '')))
+                    except ValueError:
+                        pass
+                if len(vals) >= 2:
+                    lo_sum += vals[0]; hi_sum += vals[1]
+                elif len(vals) == 1:
+                    lo_sum += vals[0]; hi_sum += vals[0]
+            if lo_sum == 0:
+                return build_data.get('total_estimate', '')
+            lo_man = round(lo_sum / 10000, 1)
+            hi_man = round(hi_sum / 10000, 1)
+            lo_str = str(int(lo_man)) if lo_man == int(lo_man) else str(lo_man)
+            hi_str = str(int(hi_man)) if hi_man == int(hi_man) else str(hi_man)
+            return f'¥{lo_str}万〜¥{hi_str}万'
+
+        total_estimate = _calc_total(recommended_build)
 
         return jsonify({
             'type': 'recommendation',
@@ -954,8 +980,8 @@ def recommend():
                 'screenshot': game_data.get('screenshot') if game_data else None,
             },
             'required_specs':    spec,
-            'recommended_build': build_data.get('recommended_build', []),
-            'total_estimate':    build_data.get('total_estimate', ''),
+            'recommended_build': recommended_build,
+            'total_estimate':    total_estimate,
             'reply':             build_data.get('reply', ''),
             'tip':               build_data.get('tip', ''),
         })
