@@ -903,6 +903,89 @@ def _compute_radar_scores(recommended_build: list, all_products: list, total_est
     }
 
 
+def _compute_game_req_scores(spec: dict) -> dict:
+    """ゲームの推奨スペックをレーダーチャートスコア(1-10)に変換する"""
+
+    # GPU モデル名 Tier テーブル（新→旧順）
+    _GPU_TIERS = [
+        (10, ['rtx 5090', 'rtx 4090', 'rx 9900 xt']),
+        (9,  ['rtx 5080', 'rtx 4080', 'rx 7900 xtx', 'rx 9070 xt']),
+        (8,  ['rtx 5070', 'rtx 4070 ti', 'rtx 4070 super', 'rx 7900 xt', 'rx 9070']),
+        (7,  ['rtx 4070', 'rtx 3080', 'rx 7800 xt', 'rx 6800 xt', 'rx 9060 xt']),
+        (6,  ['rtx 4060 ti', 'rtx 3070', 'rtx 2080', 'rx 7700 xt', 'rx 6700 xt']),
+        (5,  ['rtx 4060', 'rtx 3060 ti', 'rtx 2070', 'rx 7600', 'rx 6600 xt', 'gtx 1080 ti', 'gtx 1080']),
+        (4,  ['rtx 3060', 'rtx 2060', 'rx 6600', 'rx 5700 xt', 'gtx 1070 ti', 'gtx 1070']),
+        (3,  ['rtx 3050', 'rx 6500 xt', 'rx 5600 xt', 'gtx 1060', 'gtx 980 ti', 'gtx 980']),
+        (2,  ['gtx 1050 ti', 'gtx 1050', 'gtx 970', 'gtx 960', 'rx 580', 'rx 480']),
+    ]
+
+    # CPU スコア（キーワードマッチ）
+    cpu_names = spec.get('cpu', []) or []
+    cpu_text = ' '.join(cpu_names).lower()
+    if any(k in cpu_text for k in ['i9', 'ryzen 9', 'core ultra 9', 'threadripper']):
+        cpu_score = 10
+    elif any(k in cpu_text for k in ['i7', 'ryzen 7', 'core ultra 7']):
+        cpu_score = 8
+    elif any(k in cpu_text for k in ['i5', 'ryzen 5', 'core ultra 5']):
+        cpu_score = 6
+    elif any(k in cpu_text for k in ['i3', 'ryzen 3']):
+        cpu_score = 4
+    elif any(k in cpu_text for k in ['celeron', 'pentium', 'athlon']):
+        cpu_score = 2
+    else:
+        cpu_score = 5 if cpu_text else 0
+
+    # GPU スコア（Tier テーブルマッチ）
+    gpu_names = spec.get('gpu', []) or []
+    gpu_text = ' '.join(gpu_names).lower()
+    gpu_score = 0
+    for score, keywords in _GPU_TIERS:
+        if any(k in gpu_text for k in keywords):
+            gpu_score = score
+            break
+
+    # VRAM スコア（GPU名からVRAMを推定）
+    _VRAM_HINTS = [
+        (10, ['24gb', '20gb']),
+        (9,  ['16gb']),
+        (8,  ['12gb']),
+        (6,  ['8gb']),
+        (5,  ['6gb']),
+        (3,  ['4gb']),
+    ]
+    vram_score = 0
+    for score, hints in _VRAM_HINTS:
+        if any(h in gpu_text for h in hints):
+            vram_score = score
+            break
+    # VRAM が不明な場合は GPU スコアから推定
+    if vram_score == 0 and gpu_score > 0:
+        vram_score = max(3, gpu_score - 2)
+
+    # RAM スコア
+    ram_gb = spec.get('ram_gb')
+    if ram_gb is None:
+        ram_score = 0
+    elif ram_gb >= 64:
+        ram_score = 10
+    elif ram_gb >= 32:
+        ram_score = 8
+    elif ram_gb >= 16:
+        ram_score = 6
+    elif ram_gb >= 8:
+        ram_score = 4
+    else:
+        ram_score = 3
+
+    return {
+        'cpu':   cpu_score,
+        'gpu':   gpu_score,
+        'vram':  vram_score,
+        'ram':   ram_score,
+        'value': None,  # ゲーム要件にコスパは非適用
+    }
+
+
 def _search_game(query: str, games: list):
     q = query.lower().strip()
     for g in games:
@@ -1087,8 +1170,9 @@ def recommend():
             hi_str = str(int(hi_man)) if hi_man == int(hi_man) else str(hi_man)
             return f'¥{lo_str}万〜¥{hi_str}万'
 
-        total_estimate = _calc_total(recommended_build)
-        radar_scores   = _compute_radar_scores(recommended_build, all_products, total_estimate)
+        total_estimate   = _calc_total(recommended_build)
+        radar_scores     = _compute_radar_scores(recommended_build, all_products, total_estimate)
+        game_req_scores  = _compute_game_req_scores(spec) if spec else None
 
         return jsonify({
             'type': 'recommendation',
@@ -1101,6 +1185,7 @@ def recommend():
             'recommended_build': recommended_build,
             'total_estimate':    total_estimate,
             'radar_scores':      radar_scores,
+            'game_req_scores':   game_req_scores,
             'reply':             build_data.get('reply', ''),
             'tip':               build_data.get('tip', ''),
         })

@@ -992,7 +992,8 @@
       ? '<div class="build-tip">💡 ' + escHtml(tip) + '</div>'
       : '';
 
-    const scores = data.radar_scores;
+    const scores    = data.radar_scores;
+    const reqScores = data.game_req_scores || null;
     const radarId = 'radar-' + Date.now();
     const radarHtml = scores
       ? '<div class="radar-wrap">' +
@@ -1017,32 +1018,50 @@
     chat().appendChild(cardWrap);
     scrollBottom();
     setTimeout(() => {
-      if (scores) renderRadarChart(radarId, scores);
+      if (scores) renderRadarChart(radarId, scores, reqScores);
       cardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
   }
 
   // ─── レーダーチャート描画 ────────────────────────────────────────────────
   const _radarInstances = {};
-  function renderRadarChart(canvasId, scores) {
-    if (!scores || typeof Chart === 'undefined') return;
+  function renderRadarChart(canvasId, buildScores, reqScores) {
+    if (!buildScores || typeof Chart === 'undefined') return;
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     if (_radarInstances[canvasId]) {
       _radarInstances[canvasId].destroy();
     }
+
+    const toData = s => [s.cpu, s.gpu, s.vram, s.ram, s.value == null ? null : s.value];
+    const datasets = [{
+      label: '提案構成',
+      data: toData(buildScores),
+      backgroundColor: 'rgba(158,207,255,0.18)',
+      borderColor: '#9ECFFF',
+      borderWidth: 2,
+      pointBackgroundColor: '#9ECFFF',
+      pointRadius: 3,
+    }];
+
+    if (reqScores) {
+      datasets.push({
+        label: 'ゲーム推奨',
+        data: toData(reqScores),
+        backgroundColor: 'transparent',
+        borderColor: '#FFB347',
+        borderWidth: 2,
+        borderDash: [5, 4],
+        pointBackgroundColor: '#FFB347',
+        pointRadius: 3,
+      });
+    }
+
     _radarInstances[canvasId] = new Chart(canvas, {
       type: 'radar',
       data: {
         labels: ['CPU', 'GPU', 'VRAM', 'RAM', 'コスパ'],
-        datasets: [{
-          data: [scores.cpu, scores.gpu, scores.vram, scores.ram, scores.value],
-          backgroundColor: 'rgba(158,207,255,0.2)',
-          borderColor: '#9ECFFF',
-          borderWidth: 2,
-          pointBackgroundColor: '#9ECFFF',
-          pointRadius: 3,
-        }],
+        datasets,
       },
       options: {
         responsive: false,
@@ -1058,7 +1077,18 @@
             },
           },
         },
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: {
+            display: !!reqScores,
+            position: 'bottom',
+            labels: {
+              color: '#BBC2CA',
+              font: { size: 10, family: 'Inter, sans-serif' },
+              boxWidth: 12,
+              padding: 8,
+            },
+          },
+        },
       },
     });
   }
