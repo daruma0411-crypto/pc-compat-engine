@@ -704,7 +704,7 @@
   });
 
   function selectMode(mode) {
-    confirmedParts = [];  // モード切替時に確定パーツをリセット
+    confirmedParts = [];  // モード切替時: 確定パーツ（全状態）をリセット
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
       c.style.opacity = '0.4';
@@ -760,6 +760,11 @@
     const msg = input.value.trim();
     if (!msg) return;
 
+    // ── ai_pending → ai_accepted 昇格（ユーザーが次のメッセージを送った = 前の提案に異議なし）
+    confirmedParts = confirmedParts.map(p =>
+      p.source === 'ai_pending' ? { ...p, source: 'ai_accepted' } : p
+    );
+
     // 最初のユーザーメッセージを localStorage に保存
     saveToHistory(msg, gameMode ? 'game' : 'compat');
 
@@ -778,7 +783,8 @@
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, history: history.slice(-10), confirmed_parts: confirmedParts }),
+        // バックエンドには名前の配列で渡す（後方互換性を維持）
+        body: JSON.stringify({ message: msg, history: history.slice(-10), confirmed_parts: confirmedParts.map(p => p.name) }),
         signal: controller.signal,
       });
       clearTimeout(timer);
@@ -791,14 +797,31 @@
       history.push({ role: 'assistant', content: data.reply || '' });
 
       if (data.type === 'recommendation' || data.type === 'suggestion') {
-        // 確定パーツ（confirmed=true）の名前をターン間引き継ぎ用に保存
-        const newConfirmed = (data.recommended_build || [])
-          .filter(b => b.confirmed)
-          .map(b => b.name);
-        if (newConfirmed.length > 0) confirmedParts = newConfirmed;
+        // confirmed=true パーツ → ai_accepted（ユーザー指定として扱う）
+        // confirmed=false パーツ → ai_pending（次のメッセージ送信時に昇格）
+        const newParts = (data.recommended_build || []).map(b => ({
+          name: b.name,
+          source: b.confirmed ? 'ai_accepted' : 'ai_pending',
+        }));
+        if (newParts.length > 0) {
+          // 既存の user_specified は保持し、AI提案パーツを追加・更新
+          const userSpecified = confirmedParts.filter(p => p.source === 'user_specified');
+          const merged = [...userSpecified];
+          for (const np of newParts) {
+            if (!merged.some(p => p.name === np.name)) merged.push(np);
+          }
+          confirmedParts = merged;
+        }
         appendRecommendationMessage(data);
       } else if (data.type === 'diagnosis') {
         lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
+        // 診断時: バックエンドが返した user_specified_parts を source: 'user_specified' で登録
+        const userSpecifiedNames = data.user_specified_parts || data.parts || [];
+        for (const name of userSpecifiedNames) {
+          if (!confirmedParts.some(p => p.name === name)) {
+            confirmedParts.push({ name, source: 'user_specified' });
+          }
+        }
         appendDiagnosisMessage(data);
       } else {
         appendAIBubble(data.reply || '少し詳しく教えてください。');
