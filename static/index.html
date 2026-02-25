@@ -305,9 +305,69 @@
     margin-bottom: 6px;
   }
 
+  /* ── ゲームモード 推奨構成カード ── */
+  .build-card {
+    background: var(--c-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+    margin-top: 10px;
+    width: min(460px, 75vw);
+  }
+  .build-game-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .build-items { display: flex; flex-direction: column; gap: 8px; }
+  .build-item {
+    background: #f8f9ff;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .build-item-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .build-category {
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--c-primary);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+  .build-name   { font-weight: 600; font-size: 13px; }
+  .build-reason { font-size: 12px; color: var(--c-muted); }
+  .build-price  { font-size: 12px; font-weight: 600; color: var(--c-ok); }
+  .build-links  { display: flex; gap: 6px; margin-top: 4px; }
+  .build-total {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--c-border);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .build-tip {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--c-warn);
+    background: var(--c-warn-bg);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+
   @media (max-width: 480px) {
     .alt-grid { grid-template-columns: 1fr; }
-    .diag-card, .alt-grid { width: calc(100vw - 70px); }
+    .diag-card, .alt-grid, .build-card { width: calc(100vw - 70px); }
     .chat-area { padding: 14px 12px 6px; }
     .mode-cards { flex-direction: column; }
   }
@@ -355,6 +415,7 @@
   let history = [];          // { role, content }[]
   let sending = false;
   let lastDiagnosis = null;  // { parts, diagnosis }
+  let gameMode = false;      // ゲームモードフラグ
 
   // ─── 初期メッセージ ─────────────────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
@@ -372,14 +433,17 @@
   });
 
   function selectMode(mode) {
-    // カードを無効化（2度押し防止）
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
       c.style.opacity = '0.5';
     });
     if (mode === 'game') {
-      appendAIBubble('🎮 ゲームモードは近日公開予定です！\nまずはパーツの互換性確認をお試しください。');
+      gameMode = true;
+      document.getElementById('chat-input').placeholder = '例: モンハンワイルズを60fpsで遊びたい。予算15万';
+      appendAIBubble('🎮 どのゲームを、どんな目標でプレイしたいですか？\n予算も教えていただけると、より正確な構成を提案できます。\n\n例: モンハンワイルズを60fpsで遊びたい。予算15万円');
     } else {
+      gameMode = false;
+      document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
       appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
     }
   }
@@ -409,7 +473,8 @@
     const timer = setTimeout(() => controller.abort(), 65000);
 
     try {
-      const res = await fetch('/api/chat', {
+      const endpoint = gameMode ? '/api/recommend' : '/api/chat';
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: msg, history: history.slice(-10) }),
@@ -424,7 +489,9 @@
       typingEl.remove();
       history.push({ role: 'assistant', content: data.reply || '' });
 
-      if (data.type === 'diagnosis') {
+      if (data.type === 'recommendation') {
+        appendRecommendationMessage(data);
+      } else if (data.type === 'diagnosis') {
         lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
         appendDiagnosisMessage(data);
       } else {
@@ -594,6 +661,52 @@
       if (specs.form_factor)       parts.push(specs.form_factor);
     }
     return parts.join(' / ');
+  }
+
+  // ─── ゲームモード 推奨構成メッセージ ──────────────────────────────────
+  function appendRecommendationMessage(data) {
+    const game  = data.game  || {};
+    const build = data.recommended_build || [];
+    const total = data.total_estimate || '';
+    const tip   = data.tip   || '';
+    const reply = data.reply || '';
+
+    // パーツカード HTML
+    const itemsHtml = build.map(item => {
+      const amazonUrl  = item.amazon_url  || buildAmazonUrl(item.name || '');
+      const rakutenUrl = item.rakuten_url || buildRakutenUrl(item.name || '');
+      return '<div class="build-item">' +
+        '<div class="build-item-header">' +
+          '<span class="build-category">' + escHtml(item.category || '') + '</span>' +
+          '<span class="build-name">'     + escHtml(item.name     || '') + '</span>' +
+        '</div>' +
+        '<div class="build-reason">' + escHtml(item.reason     || '') + '</div>' +
+        '<div class="build-price">'  + escHtml(item.price_range || '') + '</div>' +
+        '<div class="build-links">' +
+          '<a class="buy-btn buy-btn-amazon"  href="' + escHtml(amazonUrl)  + '" target="_blank" rel="noopener">🛒 Amazon</a>' +
+          '<a class="buy-btn buy-btn-rakuten" href="' + escHtml(rakutenUrl) + '" target="_blank" rel="noopener">🛍 楽天</a>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+
+    const totalHtml = total
+      ? '<div class="build-total">💰 合計目安: ' + escHtml(total) + '</div>'
+      : '';
+    const tipHtml = tip
+      ? '<div class="build-tip">💡 ' + escHtml(tip) + '</div>'
+      : '';
+
+    const cardHtml =
+      '<div class="build-card">' +
+        '<div class="build-game-title">🎮 ' + escHtml(game.name || 'ゲーム') + ' 推奨構成</div>' +
+        '<div class="build-items">' + itemsHtml + '</div>' +
+        totalHtml + tipHtml +
+      '</div>';
+
+    const msgWrap = appendAIBubble(reply, cardHtml);
+    setTimeout(() => {
+      if (msgWrap) msgWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
   }
 
   function buildAmazonUrl(name) {

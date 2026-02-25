@@ -763,6 +763,207 @@ def alternatives():
         return jsonify({'error': str(e)}), 500
 
 
+# ================================================================
+# ゲームモード（/api/recommend）
+# ================================================================
+
+_STEAM_GAMES_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    'workspace', 'data', 'steam', 'games.jsonl'
+)
+
+
+def _load_steam_games():
+    games = []
+    try:
+        with open(_STEAM_GAMES_PATH, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    games.append(json.loads(line))
+    except Exception:
+        pass
+    return games
+
+
+def _search_game(query: str, games: list):
+    q = query.lower().strip()
+    for g in games:
+        if g['name'].lower() == q:
+            return g
+    for g in games:
+        if q in g['name'].lower() or g['name'].lower() in q:
+            return g
+    words = [w for w in q.split() if len(w) > 2]
+    for g in games:
+        name_lower = g['name'].lower()
+        if words and all(w in name_lower for w in words):
+            return g
+    return None
+
+
+@app.route('/api/recommend', methods=['POST'])
+def recommend():
+    """ゲームのやりたいことからPC構成を提案する。"""
+    try:
+        data = request.get_json(force=True)
+        message = data.get('message', '')
+
+        amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
+        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
+        def make_amazon_url(name):
+            q = urllib.parse.quote(name)
+            return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+
+        def make_rakuten_url(name):
+            q = urllib.parse.quote(name)
+            if rakuten_a_id and rakuten_l_id:
+                return (
+                    f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                    f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1'
+                )
+            return f'https://search.rakuten.co.jp/search/mall/{q}/'
+
+        # Step1: ゲーム名・予算をClaude Haikuで抽出
+        extract_prompt = (
+            'ユーザーの入力からゲーム名と予算を抽出してください。\n'
+            f'入力: {message}\n'
+            '以下のJSON形式だけで返してください（説明不要）:\n'
+            '{"game_name":"ゲーム名","budget_yen":予算数値またはnull,"fps_target":"60fps"または"144fps"またはnull}'
+        )
+        extract_body = json.dumps({
+            'model': 'claude-haiku-4-5-20251001',
+            'max_tokens': 200,
+            'messages': [{'role': 'user', 'content': extract_prompt}]
+        }).encode('utf-8')
+        req = urllib.request.Request(
+            'https://api.anthropic.com/v1/messages',
+            data=extract_body,
+            headers={
+                'x-api-key': CLAUDE_API_KEY,
+                'anthropic-version': '2023-06-01',
+                'content-type': 'application/json',
+            },
+            method='POST'
+        )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            extract_result = json.loads(resp.read())
+        extracted_text = extract_result['content'][0]['text'].strip()
+        json_match = re.search(r'\{.*\}', extracted_text, re.DOTALL)
+        extracted = json.loads(json_match.group()) if json_match else {}
+
+        game_name  = extracted.get('game_name', '') or ''
+        budget_yen = extracted.get('budget_yen')
+        fps_target = extracted.get('fps_target') or '60fps'
+
+        # Step2: games.jsonlからゲーム検索
+        games_list = _load_steam_games()
+        game_data  = _search_game(game_name, games_list) if game_name else None
+
+        # Step3: 推奨スペック取得
+        if game_data:
+            spec     = game_data.get('recommended') or game_data.get('minimum') or {}
+            rec_gpus = spec.get('gpu', []) or []
+            rec_cpus = spec.get('cpu', []) or []
+            rec_ram  = spec.get('ram_gb')
+            rec_storage = spec.get('storage_gb')
+            game_info = (
+                f'ゲーム名: {game_data["name"]}\n'
+                f'推奨GPU: {", ".join(rec_gpus[:2]) if rec_gpus else "不明"}\n'
+                f'推奨CPU: {", ".join(rec_cpus[:2]) if rec_cpus else "不明"}\n'
+                f'推奨RAM: {rec_ram}GB\n'
+                f'推奨ストレージ: {rec_storage}GB'
+            )
+        else:
+            spec = {}
+            game_info = f'ゲーム名: {game_name}（Steamデータ未収録）'
+
+        # Step4: DB内のGPU/CPU候補を取得
+        jsonl_paths = glob_module.glob(
+            os.path.join(_PC_WORKSPACE_DIR, 'data', '*', 'products.jsonl')
+        )
+        all_products = []
+        for path in jsonl_paths:
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        line = line.strip()
+                        if line:
+                            all_products.append(json.loads(line))
+            except Exception:
+                pass
+
+        gpu_candidates = [p for p in all_products if p.get('category') == 'gpu'][:4]
+        cpu_candidates = [p for p in all_products if p.get('category') == 'cpu'][:3]
+
+        def fmt_gpu(p):
+            s = p.get('specs') or {}
+            return f'- {p["name"]}: {s.get("length_mm","?")}mm / TDP {s.get("tdp_w","?")}W'
+
+        # Step5: Claude APIで構成提案生成
+        budget_str = f'予算{budget_yen:,}円' if budget_yen else '予算未指定'
+        build_prompt = (
+            'PCゲームの推奨パーツ構成を提案してください。\n\n'
+            f'## ユーザー要求\n{message}\n{budget_str}、{fps_target}目標\n\n'
+            f'## Steamの推奨スペック\n{game_info}\n\n'
+            f'## DBにある主なGPU候補\n' +
+            '\n'.join(fmt_gpu(p) for p in gpu_candidates) +
+            '\n\n## DBにある主なCPU候補\n' +
+            '\n'.join(f'- {p["name"]}' for p in cpu_candidates) +
+            '\n\n以下のJSON形式だけで返してください（説明不要）:\n'
+            '{"reply":"2〜3文の提案コメント（日本語・フレンドリー）",'
+            '"recommended_build":['
+            '{"category":"GPU","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"CPU","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"RAM","name":"DDR5 32GB など","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"}'
+            '],"total_estimate":"¥XX万〜¥XX万",'
+            '"tip":"追加アドバイス1文"}'
+        )
+        build_body = json.dumps({
+            'model': 'claude-haiku-4-5-20251001',
+            'max_tokens': 800,
+            'messages': [{'role': 'user', 'content': build_prompt}]
+        }).encode('utf-8')
+        req2 = urllib.request.Request(
+            'https://api.anthropic.com/v1/messages',
+            data=build_body,
+            headers={
+                'x-api-key': CLAUDE_API_KEY,
+                'anthropic-version': '2023-06-01',
+                'content-type': 'application/json',
+            },
+            method='POST'
+        )
+        with urllib.request.urlopen(req2, timeout=30) as resp2:
+            build_result = json.loads(resp2.read())
+        build_text = build_result['content'][0]['text'].strip()
+        json_match2 = re.search(r'\{.*\}', build_text, re.DOTALL)
+        build_data = json.loads(json_match2.group()) if json_match2 else {}
+
+        for item in build_data.get('recommended_build', []):
+            item['amazon_url']  = make_amazon_url(item.get('name', ''))
+            item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
+
+        return jsonify({
+            'type': 'recommendation',
+            'game': {
+                'name':       game_data['name'] if game_data else game_name,
+                'appid':      game_data.get('appid') if game_data else None,
+                'screenshot': game_data.get('screenshot') if game_data else None,
+            },
+            'required_specs':    spec,
+            'recommended_build': build_data.get('recommended_build', []),
+            'total_estimate':    build_data.get('total_estimate', ''),
+            'reply':             build_data.get('reply', ''),
+            'tip':               build_data.get('tip', ''),
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e), 'type': 'error'}), 500
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
