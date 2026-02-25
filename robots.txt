@@ -1,0 +1,27 @@
+# Allow all crawlers including AI
+User-agent: *
+Allow: /
+
+# AI Crawlers
+User-agent: CCBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://pc-compat-engine.onrender.com/sitemap.xml

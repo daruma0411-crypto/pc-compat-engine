@@ -24,9 +24,15 @@ def parse_int(s: str):
 
 
 def parse_vram(s: str) -> int | None:
-    """'8 GB', '12GB GDDR6' などから GB 数値を返す"""
-    m = re.search(r'(\d+)\s*GB', str(s), re.IGNORECASE)
-    return int(m.group(1)) if m else None
+    """'8 GB', '12GB GDDR6', '[PCIExp 16GB]' などから GB 数値を返す
+    'GDDR616GB' のようなスペースなし連結対策: 空白または行頭の後の数値のみ取得"""
+    # スペースまたは行頭の後にある数値＋GB を優先
+    m = re.search(r'(?:^|[\s\[\(])(\d{1,3})\s*GB', str(s), re.IGNORECASE)
+    if m:
+        v = int(m.group(1))
+        if 1 <= v <= 128:  # 妥当なVRAM容量のみ
+            return v
+    return None
 
 
 def build_gpu_entry(raw: dict, price: int | None) -> dict | None:
