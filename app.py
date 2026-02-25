@@ -798,6 +798,30 @@ def _load_steam_games():
     return games
 
 
+def _lookup_kakaku_price(name: str, category: str, all_products: list) -> int | None:
+    """
+    all_products から category に一致し name が部分マッチするエントリの
+    最安 price_min を返す。見つからなければ None。
+    """
+    if not name:
+        return None
+    q_words = set(re.sub(r'[^a-z0-9]', ' ', name.lower()).split())
+    best_price = None
+    best_score = 0
+    for p in all_products:
+        if p.get('category') != category:
+            continue
+        price = p.get('price_min')
+        if not price:
+            continue
+        p_words = set(re.sub(r'[^a-z0-9]', ' ', p.get('name', '').lower()).split())
+        common = len(q_words & p_words)
+        if common > best_score or (common == best_score and price < (best_price or 10**9)):
+            best_score = common
+            best_price = price
+    return best_price if best_score >= 2 else None
+
+
 def _compute_radar_scores(recommended_build: list, all_products: list, total_estimate_str: str) -> dict:
     """推奨構成からレーダーチャートスコア(1-10)を計算する"""
 
@@ -881,18 +905,34 @@ def _compute_radar_scores(recommended_build: list, all_products: list, total_est
     else:
         ram_score = 3
 
-    # コスパ スコア（万円単位の価格と平均性能から算出）
+    # コスパ スコア
+    # 1. kakaku 実価格から合計を算出（price_min あり優先）
+    gpu_name = gpu_item.get('name', '') if gpu_item else ''
+    cpu_name_full = cpu_item.get('name', '') if cpu_item else ''
+    ram_name_full = ram_item.get('name', '') if ram_item else ''
+
+    gpu_price = _lookup_kakaku_price(gpu_name, 'gpu', all_products)
+    cpu_price = _lookup_kakaku_price(cpu_name_full, 'cpu', all_products)
+    ram_price = _lookup_kakaku_price(ram_name_full, 'ram', all_products)
+
+    actual_total = None
+    if gpu_price or cpu_price or ram_price:
+        actual_total = (gpu_price or 0) + (cpu_price or 0) + (ram_price or 0)
+
+    # 2. 実価格が得られなければ total_estimate の文字列から推定
+    if not actual_total:
+        price_matches = re.findall(r'([\d.]+)万', total_estimate_str or '')
+        if price_matches:
+            try:
+                prices = [float(x) for x in price_matches]
+                actual_total = int(sum(prices) / len(prices) * 10000)
+            except Exception:
+                pass
+
     value_score = 5
-    price_matches = re.findall(r'([\d.]+)万', total_estimate_str or '')
-    if price_matches:
-        try:
-            prices = [float(x) for x in price_matches]
-            budget_man = sum(prices) / len(prices)
-            perf = (gpu_score + cpu_score) / 2
-            if budget_man > 0:
-                value_score = min(10, max(1, round(perf / (budget_man / 15) * 5)))
-        except Exception:
-            pass
+    if actual_total and actual_total > 0:
+        perf = (gpu_score + cpu_score) / 2
+        value_score = min(10, max(1, round(perf / (actual_total / 150000) * 5)))
 
     return {
         'cpu': cpu_score,

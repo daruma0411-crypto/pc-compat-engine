@@ -198,3 +198,68 @@ def save_entry(jsonl_path: str, entry: dict):
 
 def make_id(prefix: str, code: str) -> str:
     return f'{prefix}_{code}'
+
+
+def extract_min_price(html: str) -> int | None:
+    """kakaku.com ページ HTML から最安値（円）を抽出する"""
+    patterns = [
+        r'class="priceNum"[^>]*>\s*([\d,]+)',
+        r'最安値[^¥\d]*([\d,]+)',
+        r'最安価格[：:]\s*¥?\s*([\d,]+)',
+        r'"lowPrice":\s*"?([\d,]+)"?',
+    ]
+    for pat in patterns:
+        m = re.search(pat, html)
+        if m:
+            try:
+                return int(m.group(1).replace(',', ''))
+            except Exception:
+                pass
+    return None
+
+
+def update_prices_in_jsonl(jsonl_path: str, today: str):
+    """
+    既存 JSONL ファイルの各エントリに price_min / price_updated_at を追記・上書きする。
+    source_url から K0xxx コードを抽出して価格を取得。
+    """
+    if not os.path.exists(jsonl_path):
+        print(f'  [SKIP] ファイルなし: {jsonl_path}')
+        return 0
+
+    entries = []
+    with open(jsonl_path, encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    entries.append(json.loads(line))
+                except Exception:
+                    pass
+
+    updated = 0
+    for entry in entries:
+        # すでに今日更新済みならスキップ
+        if entry.get('price_updated_at') == today:
+            continue
+        url = entry.get('source_url', '')
+        code_m = re.search(r'(K0\d{9})', url)
+        if not code_m:
+            continue
+        code = code_m.group(1)
+        html = fetch(f'https://kakaku.com/item/{code}/spec/', delay_range=(1.0, 2.0))
+        if not html:
+            continue
+        price = extract_min_price(html)
+        if price and price > 0:
+            entry['price_min'] = price
+            entry['price_updated_at'] = today
+            updated += 1
+
+    # 全件書き直し
+    with open(jsonl_path, 'w', encoding='utf-8') as f:
+        for entry in entries:
+            f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+
+    print(f'  価格更新: {updated}件 / {len(entries)}件 ({jsonl_path})')
+    return updated
