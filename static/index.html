@@ -4,31 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC パーツ互換チェッカー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --c-ok:      #16a34a;
-    --c-ok-bg:   #f0fdf4;
-    --c-warn:    #ca8a04;
-    --c-warn-bg: #fefce8;
-    --c-ng:      #dc2626;
-    --c-ng-bg:   #fef2f2;
-    --c-unk:     #6b7280;
-    --c-unk-bg:  #f9fafb;
-    --c-primary: #4f46e5;
-    --c-surface: #ffffff;
-    --c-border:  #e5e7eb;
-    --c-text:    #111827;
-    --c-muted:   #6b7280;
+    /* 背景レイヤー */
+    --bg-outer:  #1D2229;
+    --bg-main:   #232930;
+    --bg-card:   #303740;
+    --bg-input:  #3D454F;
+    --bg-active: #444C57;
+
+    /* 状態色（Figma パレット） */
+    --c-ok:      #78FFCB;
+    --c-ok-bg:   #1a3d31;
+    --c-warn:    #FFD978;
+    --c-warn-bg: #3d3620;
+    --c-ng:      #FF9178;
+    --c-ng-bg:   #3d2420;
+    --c-unk:     #BBC2CA;
+    --c-unk-bg:  #2A3038;
+
+    /* テキスト */
+    --c-text:    #EAECEF;
+    --c-sub:     #CDD2D8;
+    --c-muted:   #BBC2CA;
+
+    /* アクセント */
+    --c-primary: #9ECFFF;
+    --c-surface: #303740;
+    --c-border:  #606975;
     --radius:    12px;
-    --shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+    --shadow:    0 4px 16px rgba(0,0,0,.35);
   }
 
   html, body {
     height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
-    background: #f3f4f6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
+    background: var(--bg-outer);
     color: var(--c-text);
   }
 
@@ -39,20 +55,126 @@
     height: 100vh;
     max-width: 720px;
     margin: 0 auto;
-    background: #f3f4f6;
+    background: var(--bg-outer);
   }
 
   /* ── ヘッダー ── */
   header {
     flex-shrink: 0;
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    color: #fff;
-    padding: 16px 20px 14px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(79,70,229,.3);
+    background: var(--bg-main);
+    color: var(--c-text);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--c-border);
   }
-  header h1 { font-size: clamp(15px, 4vw, 20px); font-weight: 700; letter-spacing: -.02em; }
-  header p  { margin-top: 3px; font-size: 12px; opacity: .8; }
+
+  .btn-menu {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: none;
+    border: 1px solid var(--c-border);
+    color: var(--c-muted);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background .15s;
+  }
+  .btn-menu:hover { background: var(--bg-active); }
+
+  .header-logo {
+    width: 36px; height: 36px;
+    border-radius: 12px;
+    background: radial-gradient(100% 100% at 50% 100%, #0059B2 0%, #008AB0 100%);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .header-title { flex: 1; }
+  .header-title h1 { font-size: clamp(13px, 3.5vw, 17px); font-weight: 700; color: var(--c-sub); }
+  .header-title p  { font-size: 11px; color: var(--c-muted); margin-top: 2px; }
+
+  /* ── ドロワー ── */
+  .drawer-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 100;
+  }
+  .drawer-overlay.open { display: block; }
+
+  .drawer {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 300px;
+    background: var(--bg-main);
+    border-right: 1px solid var(--c-border);
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform .22s ease;
+  }
+  .drawer-overlay.open .drawer { transform: translateX(0); }
+
+  .drawer-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--c-border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .drawer-header h2 { font-size: 14px; font-weight: 700; color: var(--c-sub); }
+
+  .btn-drawer-close {
+    background: none; border: none;
+    color: var(--c-muted); font-size: 18px; cursor: pointer;
+    line-height: 1;
+  }
+
+  .btn-new-chat {
+    margin: 12px 16px;
+    padding: 10px 16px;
+    background: var(--bg-active);
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    color: var(--c-text);
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    transition: background .15s;
+    font-family: inherit;
+    width: calc(100% - 32px);
+  }
+  .btn-new-chat:hover { background: var(--bg-input); }
+
+  .drawer-list {
+    flex: 1; overflow-y: auto;
+    padding: 4px 8px 16px;
+  }
+  .drawer-list::-webkit-scrollbar { width: 4px; }
+  .drawer-list::-webkit-scrollbar-thumb { background: #606975; border-radius: 2px; }
+
+  .drawer-section-title {
+    font-size: 10px; font-weight: 700; color: var(--c-muted);
+    padding: 10px 12px 4px;
+    letter-spacing: .06em; text-transform: uppercase;
+  }
+  .drawer-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: default;
+    font-size: 13px; color: var(--c-sub);
+    border-left: 2px solid transparent;
+    transition: background .1s;
+  }
+  .drawer-item:hover { background: var(--bg-active); border-left-color: var(--c-primary); }
+  .drawer-item-icon  { font-size: 14px; flex-shrink: 0; }
+  .drawer-item-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .drawer-item-date  { font-size: 10px; color: var(--c-muted); flex-shrink: 0; }
+  .drawer-empty { padding: 20px 16px; font-size: 12px; color: var(--c-muted); }
 
   /* ── チャット欄 ── */
   .chat-area {
@@ -63,6 +185,9 @@
     flex-direction: column;
     gap: 16px;
   }
+  .chat-area::-webkit-scrollbar { width: 6px; }
+  .chat-area::-webkit-scrollbar-track { background: transparent; }
+  .chat-area::-webkit-scrollbar-thumb { background: #606975; border-radius: 3px; }
 
   /* ── メッセージバブル ── */
   .msg {
@@ -84,25 +209,26 @@
     flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     font-size: 15px;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    background: radial-gradient(100% 100% at 50% 100%, #0059B2 0%, #008AB0 100%);
     color: #fff;
   }
-  .msg.user .msg-avatar { background: #d1d5db; }
+  .msg.user .msg-avatar { background: var(--bg-active); }
 
   .msg-bubble {
-    background: var(--c-surface);
+    background: var(--bg-card);
+    border: 1px solid var(--c-border);
     border-radius: 16px;
     padding: 10px 14px;
     font-size: 14px;
     line-height: 1.6;
     box-shadow: var(--shadow);
     word-break: break-word;
+    color: var(--c-text);
   }
   .msg.ai   .msg-bubble { border-bottom-left-radius: 4px; }
   .msg.user .msg-bubble {
     border-bottom-right-radius: 4px;
-    background: var(--c-primary);
-    color: #fff;
+    background: var(--bg-input);
   }
 
   /* タイピングアニメーション */
@@ -114,7 +240,7 @@
   }
   .typing-indicator span {
     width: 7px; height: 7px;
-    background: var(--c-muted);
+    background: var(--c-primary);
     border-radius: 50%;
     animation: bounce .9s infinite;
   }
@@ -127,7 +253,8 @@
 
   /* ── 診断カード ── */
   .diag-card {
-    background: var(--c-surface);
+    background: var(--bg-card);
+    border: 1px solid var(--c-border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     overflow: hidden;
@@ -140,15 +267,20 @@
     display: flex;
     align-items: center;
     gap: 11px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
   }
-  .verdict-banner.OK      { background: var(--c-ok);   color: #fff; }
-  .verdict-banner.WARNING { background: var(--c-warn); color: #fff; }
-  .verdict-banner.NG      { background: var(--c-ng);   color: #fff; }
-  .verdict-banner.UNKNOWN { background: var(--c-unk);  color: #fff; }
+  .verdict-banner.OK      { background: var(--c-ok-bg); }
+  .verdict-banner.WARNING { background: var(--c-warn-bg); }
+  .verdict-banner.NG      { background: var(--c-ng-bg); }
+  .verdict-banner.UNKNOWN { background: var(--bg-active); }
 
   .verdict-icon { font-size: 22px; flex-shrink: 0; line-height: 1; }
   .verdict-text h2 { font-size: 16px; font-weight: 700; }
-  .verdict-text p  { font-size: 12px; opacity: .9; margin-top: 2px; }
+  .verdict-text h2.OK      { color: var(--c-ok); }
+  .verdict-text h2.WARNING { color: var(--c-warn); }
+  .verdict-text h2.NG      { color: var(--c-ng); }
+  .verdict-text h2.UNKNOWN { color: var(--c-unk); }
+  .verdict-text p  { font-size: 12px; color: var(--c-muted); margin-top: 2px; }
 
   .checks-list { padding: 4px 0; }
   .check-item {
@@ -156,7 +288,7 @@
     align-items: flex-start;
     gap: 9px;
     padding: 9px 13px;
-    border-bottom: 1px solid var(--c-border);
+    border-bottom: 1px solid rgba(255,255,255,.05);
     font-size: 13px;
   }
   .check-item:last-child { border-bottom: none; }
@@ -169,11 +301,11 @@
     margin-top: 1px;
     letter-spacing: .04em;
   }
-  .badge-OK      { background: var(--c-ok-bg);   color: var(--c-ok);   border: 1px solid #bbf7d0; }
-  .badge-WARNING { background: var(--c-warn-bg); color: var(--c-warn); border: 1px solid #fde68a; }
-  .badge-NG      { background: var(--c-ng-bg);   color: var(--c-ng);   border: 1px solid #fecaca; }
-  .badge-UNKNOWN { background: var(--c-unk-bg);  color: var(--c-unk);  border: 1px solid #e5e7eb; }
-  .check-name   { font-weight: 600; margin-bottom: 2px; }
+  .badge-OK      { background: var(--c-ok-bg);   color: var(--c-ok);   border: 1px solid #2a6347; }
+  .badge-WARNING { background: var(--c-warn-bg); color: var(--c-warn); border: 1px solid #6b5e30; }
+  .badge-NG      { background: var(--c-ng-bg);   color: var(--c-ng);   border: 1px solid #6b3e30; }
+  .badge-UNKNOWN { background: var(--c-unk-bg);  color: var(--c-unk);  border: 1px solid var(--c-border); }
+  .check-name   { font-weight: 600; margin-bottom: 2px; color: var(--c-text); }
   .check-detail { color: var(--c-muted); line-height: 1.4; }
 
   /* ── 代替品カードグリッド ── */
@@ -185,7 +317,8 @@
     width: min(460px, 75vw);
   }
   .alt-product {
-    background: var(--c-surface);
+    background: var(--bg-card);
+    border: 1px solid var(--c-border);
     border-radius: 10px;
     box-shadow: var(--shadow);
     padding: 11px 12px;
@@ -193,6 +326,7 @@
   .alt-name {
     font-weight: 700;
     font-size: 13px;
+    color: var(--c-text);
     margin-bottom: 4px;
     line-height: 1.3;
   }
@@ -229,7 +363,7 @@
   /* ── フッター入力欄 ── */
   .chat-footer {
     flex-shrink: 0;
-    background: var(--c-surface);
+    background: var(--bg-main);
     border-top: 1px solid var(--c-border);
     padding: 10px 14px;
     display: flex;
@@ -238,8 +372,8 @@
   }
   .chat-input {
     flex: 1;
-    border: 1.5px solid var(--c-border);
-    border-radius: 22px;
+    border: 1px solid #87909C;
+    border-radius: 10px;
     padding: 10px 16px;
     font-size: 14px;
     font-family: inherit;
@@ -249,20 +383,21 @@
     max-height: 120px;
     overflow-y: auto;
     transition: border-color .15s;
-    background: #fff;
+    background: var(--bg-input);
+    color: var(--c-text);
   }
   .chat-input:focus {
     border-color: var(--c-primary);
-    box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+    box-shadow: 0 0 0 3px rgba(158,207,255,.15);
   }
   .chat-input::placeholder { color: var(--c-muted); }
-  .chat-input:disabled { background: #f9fafb; }
+  .chat-input:disabled { opacity: .5; }
 
   .btn-send {
     width: 42px; height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    color: #fff;
+    border-radius: 10px;
+    background: var(--c-primary);
+    color: #1D2229;
     border: none;
     font-size: 18px;
     cursor: pointer;
@@ -270,10 +405,11 @@
     display: flex; align-items: center; justify-content: center;
     transition: opacity .15s, transform .1s;
     line-height: 1;
+    font-weight: 700;
   }
   .btn-send:hover  { opacity: .9; }
   .btn-send:active { transform: scale(.94); }
-  .btn-send:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-send:disabled { opacity: .3; cursor: not-allowed; }
 
   /* ── 起動時カード ── */
   .mode-cards {
@@ -283,20 +419,22 @@
   }
   .mode-card {
     flex: 1;
-    background: var(--c-surface);
-    border: 1.5px solid var(--c-border);
-    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--c-border);
+    border-left: 3px solid transparent;
+    border-radius: 8px;
     padding: 16px 12px;
     text-align: center;
     cursor: pointer;
-    transition: border-color .15s, box-shadow .15s, transform .1s;
+    transition: background .15s, border-color .15s, transform .1s;
     font-size: 13px;
     font-weight: 600;
+    color: var(--c-sub);
     line-height: 1.5;
   }
   .mode-card:hover {
-    border-color: var(--c-primary);
-    box-shadow: 0 2px 8px rgba(79,70,229,.15);
+    background: var(--bg-active);
+    border-left-color: var(--c-primary);
     transform: translateY(-2px);
   }
   .mode-card-icon {
@@ -307,7 +445,8 @@
 
   /* ── ゲームモード 推奨構成カード ── */
   .build-card {
-    background: var(--c-surface);
+    background: var(--bg-card);
+    border: 1px solid var(--c-border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 14px 16px;
@@ -325,8 +464,9 @@
   }
   .build-items { display: flex; flex-direction: column; gap: 8px; }
   .build-item {
-    background: #f8f9ff;
+    background: var(--bg-input);
     border-radius: 8px;
+    border-left: 2px solid var(--c-primary);
     padding: 10px 12px;
     display: flex;
     flex-direction: column;
@@ -340,27 +480,30 @@
   .build-category {
     font-size: 10px;
     font-weight: 700;
-    background: var(--c-primary);
-    color: #fff;
+    background: rgba(158,207,255,.15);
+    color: var(--c-primary);
     padding: 2px 7px;
     border-radius: 999px;
+    border: 1px solid rgba(158,207,255,.3);
   }
-  .build-name   { font-weight: 600; font-size: 13px; }
+  .build-name   { font-weight: 600; font-size: 13px; color: var(--c-text); }
   .build-reason { font-size: 12px; color: var(--c-muted); }
   .build-price  { font-size: 12px; font-weight: 600; color: var(--c-ok); }
   .build-links  { display: flex; gap: 6px; margin-top: 4px; }
   .build-total {
     margin-top: 10px;
     padding-top: 8px;
-    border-top: 1px solid var(--c-border);
+    border-top: 1px solid rgba(255,255,255,.07);
     font-weight: 700;
     font-size: 14px;
+    color: var(--c-text);
   }
   .build-tip {
     margin-top: 8px;
     font-size: 12px;
     color: var(--c-warn);
     background: var(--c-warn-bg);
+    border: 1px solid rgba(255,217,120,.2);
     border-radius: 8px;
     padding: 8px 10px;
   }
@@ -375,11 +518,27 @@
 </head>
 <body>
 
+<!-- ── 履歴ドロワー ── -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer(event)">
+  <div class="drawer">
+    <div class="drawer-header">
+      <h2>📋 履歴</h2>
+      <button class="btn-drawer-close" onclick="toggleDrawer()">✕</button>
+    </div>
+    <button class="btn-new-chat" onclick="newChat()">＋ 新しいチャット</button>
+    <div class="drawer-list" id="drawer-list"></div>
+  </div>
+</div>
+
 <div class="app">
 
   <header>
-    <h1>何がしたい？</h1>
-    <p>ゲーム・動画編集・作業PC、用途から最適なPCを提案します</p>
+    <button class="btn-menu" onclick="toggleDrawer()" title="履歴を開く">☰</button>
+    <div class="header-logo">🖥️</div>
+    <div class="header-title">
+      <h1>何がしたい？</h1>
+      <p>ゲーム・動画編集・作業PC、用途から最適なPCを提案します</p>
+    </div>
   </header>
 
   <div class="chat-area" id="chat-area"></div>
@@ -412,10 +571,65 @@
   const STATUS_LABEL = { OK: 'OK', WARNING: 'WARN', NG: 'NG', UNKNOWN: '?' };
 
   // ─── 状態管理 ──────────────────────────────────────────────────────────
-  let history = [];          // { role, content }[]
+  let history = [];
   let sending = false;
-  let lastDiagnosis = null;  // { parts, diagnosis }
-  let gameMode = false;      // ゲームモードフラグ
+  let lastDiagnosis = null;
+  let gameMode = false;
+  let historyFirstSaved = false;
+
+  // ─── localStorage 履歴 ─────────────────────────────────────────────────
+  const HISTORY_KEY = 'pc_compat_history';
+  const MAX_HISTORY = 20;
+
+  function loadStoredHistory() {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  function saveToHistory(title, mode) {
+    if (historyFirstSaved) return;
+    historyFirstSaved = true;
+    const items = loadStoredHistory();
+    items.unshift({
+      id: Date.now(),
+      title: title.slice(0, 40),
+      date: new Date().toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' }),
+      mode,
+    });
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, MAX_HISTORY)));
+  }
+
+  function renderDrawer() {
+    const list = document.getElementById('drawer-list');
+    const items = loadStoredHistory();
+    if (!items.length) {
+      list.innerHTML = '<div class="drawer-empty">まだ履歴がありません</div>';
+      return;
+    }
+    const rows = items.map(it =>
+      '<div class="drawer-item">' +
+        '<span class="drawer-item-icon">' + (it.mode === 'game' ? '🎮' : '🔧') + '</span>' +
+        '<span class="drawer-item-title">' + escHtml(it.title) + '</span>' +
+        '<span class="drawer-item-date">'  + escHtml(it.date)  + '</span>' +
+      '</div>'
+    ).join('');
+    list.innerHTML = '<div class="drawer-section-title">Recent</div>' + rows;
+  }
+
+  function toggleDrawer() {
+    const overlay = document.getElementById('drawer-overlay');
+    overlay.classList.toggle('open');
+    if (overlay.classList.contains('open')) renderDrawer();
+  }
+
+  function closeDrawer(e) {
+    if (e.target === e.currentTarget) toggleDrawer();
+  }
+
+  function newChat() {
+    toggleDrawer();
+    setTimeout(() => location.reload(), 200);
+  }
 
   // ─── 初期メッセージ ─────────────────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
@@ -435,7 +649,7 @@
   function selectMode(mode) {
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
-      c.style.opacity = '0.5';
+      c.style.opacity = '0.4';
     });
     if (mode === 'game') {
       gameMode = true;
@@ -461,6 +675,9 @@
     const input = document.getElementById('chat-input');
     const msg = input.value.trim();
     if (!msg) return;
+
+    // 最初のユーザーメッセージを localStorage に保存
+    saveToHistory(msg, gameMode ? 'game' : 'compat');
 
     appendUserBubble(msg);
     history.push({ role: 'user', content: msg });
@@ -572,7 +789,7 @@
         '<div class="verdict-banner ' + vm.cls + '">' +
           '<span class="verdict-icon">' + vm.icon + '</span>' +
           '<div class="verdict-text">' +
-            '<h2>' + vm.label + '</h2>' +
+            '<h2 class="' + vm.cls + '">' + vm.label + '</h2>' +
             '<p>' + escHtml(summary || vm.sub) + '</p>' +
           '</div>' +
         '</div>' +
@@ -584,7 +801,6 @@
       diagHtml
     );
 
-    // NG/WARNING の場合、自動で代替品を両方取得して表示
     if (showAlt) {
       fetchAlternatives('gpu');
       fetchAlternatives('case');
@@ -644,7 +860,6 @@
       '💡 代わりにこれはどうですか？ ' + label + '（' + items.length + '件）',
       '<div class="alt-grid">' + cardsHtml + '</div>'
     );
-    // 代替品リストの先頭が見えるようにスクロール
     setTimeout(() => {
       if (altWrap) altWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
@@ -671,7 +886,6 @@
     const tip   = data.tip   || '';
     const reply = data.reply || '';
 
-    // パーツカード HTML
     const itemsHtml = build.map(item => {
       const amazonUrl  = item.amazon_url  || buildAmazonUrl(item.name || '');
       const rakutenUrl = item.rakuten_url || buildRakutenUrl(item.name || '');
