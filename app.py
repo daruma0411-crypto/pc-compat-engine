@@ -1526,6 +1526,7 @@ def recommend():
         for item in recommended_build:
             item['amazon_url']  = make_amazon_url(item.get('name', ''))
             item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
+            item['confirmed']   = False  # ゲーム推奨はユーザー未承認なので ai_pending 扱い
 
         # price_range から数値を抽出して合計を計算（Claudeの誤算を防ぐ）
         def _calc_total(build):

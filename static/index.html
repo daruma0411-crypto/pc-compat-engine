@@ -529,6 +529,24 @@
   }
   .btn-mode-switch:hover { background: var(--bg-active); border-color: var(--c-primary); }
 
+  /* ── 互換チェック引き渡しボタン ── */
+  .btn-transfer-compat {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--c-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity .15s;
+  }
+  .btn-transfer-compat:hover { opacity: .85; }
+
   /* ── build-card 左寄せラッパー & レーダーチャート横並び ── */
   .build-card-wrap { padding: 2px 0; }
   .build-row {
@@ -723,6 +741,11 @@
 
   function switchMode() {
     gameMode = !gameMode;
+    if (!gameMode) {
+      // 手動切り替え（引き渡しボタン経由でない）→ confirmedParts をリセット
+      // ※ transferToCompatCheck() 経由の場合は先に confirmedParts が上書きされているため問題なし
+      confirmedParts = [];
+    }
     updateModeIndicator();
     if (gameMode) {
       document.getElementById('chat-input').placeholder = '例: モンハンワイルズを60fpsで遊びたい。予算15万';
@@ -731,6 +754,24 @@
       document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
       appendAIBubble('🔧 互換チェックモードに切り替えました。\nどんな組み合わせを確認したいですか？');
     }
+  }
+
+  // ─── ゲーム推奨構成 → 互換チェックへの引き渡し ───────────────────────────
+  function transferToCompatCheck(build) {
+    // ユーザーが「この構成で互換チェック」ボタンを押した = 推奨構成の承認とみなす
+    // → ai_accepted として登録（変更提案なし、ケースや追加パーツのみ補完対象）
+    confirmedParts = build.map(b => ({ name: b.name, source: 'ai_accepted' }));
+    // ゲームモードを解除（switchMode より先に confirmedParts をセットするため手動でフラグ変更）
+    gameMode = false;
+    updateModeIndicator();
+    document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
+    const partNames = build.map(b => b.name).join('、');
+    appendAIBubble(
+      '🔧 推奨構成を引き継ぎました。\n' +
+      '確定パーツ: ' + partNames + '\n\n' +
+      'ケースや追加パーツを入力してください。\n例: Lancool 216に入れたい'
+    );
+    scrollBottom();
   }
 
   function updateModeIndicator() {
@@ -1037,12 +1078,19 @@
         '</div>'
       : '';
 
+    // ゲームモード時のみ「互換チェックへ引き継ぐ」ボタンを表示
+    const transferBtnId = 'btn-transfer-' + Date.now();
+    const transferBtnHtml = gameMode
+      ? '<button class="btn-transfer-compat" id="' + transferBtnId + '">🔧 この構成で互換チェックを始める</button>'
+      : '';
+
     const cardHtml =
       '<div class="build-row">' +
         '<div class="build-card">' +
           '<div class="build-game-title">' + (game.appid === null && game.name === '推奨構成' ? '🔧 ' : '🎮 ') + escHtml(game.name || 'ゲーム') + (game.appid === null && game.name === '推奨構成' ? '' : ' 推奨構成') + '</div>' +
           '<div class="build-items">' + itemsHtml + '</div>' +
           totalHtml + tipHtml +
+          transferBtnHtml +
         '</div>' +
         radarHtml +
       '</div>';
@@ -1054,6 +1102,11 @@
     scrollBottom();
     setTimeout(() => {
       if (scores) renderRadarChart(radarId, scores, reqScores);
+      // 引き渡しボタンにイベントを設定（build をクロージャで保持）
+      if (gameMode) {
+        const btn = document.getElementById(transferBtnId);
+        if (btn) btn.addEventListener('click', () => transferToCompatCheck(build));
+      }
       cardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
   }
