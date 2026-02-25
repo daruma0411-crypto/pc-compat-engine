@@ -505,6 +505,41 @@ def index():
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/game/<game_name>')
+def game_page(game_name):
+    """ゲーム個別ページ（SEO/AIO最適化済み）"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
+    html_path = os.path.join(static_dir, f'{game_name}.html')
+    if not os.path.isfile(html_path):
+        return 'Game page not found', 404
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    html = _inject_affiliate_tags(html)
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@app.route('/sitemap.xml')
+def sitemap():
+    """SEO用サイトマップ"""
+    sitemap_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sitemap.xml')
+    if not os.path.isfile(sitemap_path):
+        return 'Sitemap not found', 404
+    with open(sitemap_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    return content, 200, {'Content-Type': 'application/xml; charset=utf-8'}
+
+
+@app.route('/robots.txt')
+def robots():
+    """クローラー制御用robots.txt"""
+    robots_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'robots.txt')
+    if not os.path.isfile(robots_path):
+        return 'robots.txt not found', 404
+    with open(robots_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    return content, 200, {'Content-Type': 'text/plain; charset=utf-8'}
+
+
 @app.route('/<path:filename>')
 def static_pages(filename):
     """ガイド・構成例・ブログ等の静的HTMLページを配信（アフィリエイトタグ注入付き）"""
