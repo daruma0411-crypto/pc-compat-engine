@@ -14,6 +14,7 @@
   let gameMode = false;
   let historyFirstSaved = false;
   let confirmedParts = [];  // [{name: string, category: string, source: 'user_specified'|'ai_accepted'|'ai_pending'}]
+  let budgetYen = null;     // ユーザーが指定した予算（数値）
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
   const HISTORY_KEY = 'pc_compat_history';
@@ -426,41 +427,76 @@
   // ─── 構成サマリーカード ─────────────────────────────────────────────────
   const CATEGORY_ORDER = ['GPU', 'CPU', 'RAM', 'MB', 'PSU', 'CASE'];
 
-  function renderSummaryCard(build, gameName) {
+  // 日本語カテゴリ名 → 英語正規化（バックエンドが日本語で返す場合に対応）
+  function normalizeCat(cat) {
+    const map = {
+      'ケース': 'CASE', '電源': 'PSU', 'マザーボード': 'MB',
+      'CPUクーラー': 'COOLER', 'cpuクーラー': 'COOLER',
+      'MOTHERBOARD': 'MB', 'POWER_SUPPLY': 'PSU',
+    };
+    const trimmed = (cat || '').trim();
+    return map[trimmed] || map[trimmed.toUpperCase()] || trimmed.toUpperCase();
+  }
+
+  function renderSummaryCard(build, gameName, budget) {
     // 全カテゴリを常に表示（未選択はグレーアウト）
     const catMap = {};
     for (const item of build) {
-      const cat = (item.category || '').toUpperCase();
+      const cat = normalizeCat(item.category);
       catMap[cat] = item;
     }
 
     const rowsHtml = CATEGORY_ORDER.map(cat => {
       const item = catMap[cat];
       const hasItem = !!item;
-      const price = item && item.price_low ? '¥' + Number(item.price_low).toLocaleString() + '〜' : '—';
+      let priceStr = '—';
+      if (hasItem) {
+        if (item.price_min || item.price_low) {
+          priceStr = '¥' + Number(item.price_min || item.price_low).toLocaleString();
+        } else if (item.price_range && item.price_range !== '') {
+          priceStr = item.price_range;
+        } else if (item.name) {
+          priceStr = '価格調査中';
+        }
+      }
       const statusIcon = hasItem ? '✅' : '⚠️';
       return '<div class="summary-row">' +
         '<span class="summary-cat">' + cat + '</span>' +
         '<span class="summary-name' + (hasItem ? '' : ' summary-name--empty') + '">' +
           escHtml(hasItem ? (item.name || '') : '（未選択）') +
         '</span>' +
-        '<span class="summary-price">' + (hasItem ? escHtml(price) : '—') + '</span>' +
+        '<span class="summary-price">' + escHtml(priceStr) + '</span>' +
         '<span class="summary-status">' + statusIcon + '</span>' +
       '</div>';
     }).join('');
 
-    // 合計金額計算
-    const totalMin = build.reduce((sum, it) => sum + (it.price_low || 0), 0);
+    // 合計金額計算（price_min 優先、なければ price_low）
+    const totalMin = build.reduce((sum, it) => sum + (it.price_min || it.price_low || 0), 0);
     const confirmedCount = CATEGORY_ORDER.filter(c => catMap[c]).length;
-    const totalStr = totalMin > 0 ? '¥' + totalMin.toLocaleString() + '〜' : '—';
+    const totalStr = totalMin > 0 ? '¥' + totalMin.toLocaleString() : '—';
+
+    // 予算差額
+    let budgetLine = '';
+    if (budget && totalMin > 0) {
+      const diff = totalMin - budget;
+      if (diff > 5000) {
+        budgetLine = '<div class="summary-budget-warn">⚠️ 予算を約¥' + diff.toLocaleString() + ' 超過しています</div>';
+      } else if (diff < -5000) {
+        budgetLine = '<div class="summary-budget-ok">✅ 予算内（余裕 ¥' + Math.abs(diff).toLocaleString() + '）</div>';
+      } else {
+        budgetLine = '<div class="summary-budget-ok">✅ ほぼ予算通り</div>';
+      }
+    }
 
     const html = '<div class="summary-card">' +
       '<div class="summary-title">📋 構成サマリー</div>' +
       '<div class="summary-rows">' + rowsHtml + '</div>' +
       '<div class="summary-footer">' +
         '<span class="summary-total-label">合計: ' + escHtml(totalStr) + '</span>' +
+        (budget ? '<span class="summary-budget-label">予算: ¥' + Number(budget).toLocaleString() + '</span>' : '') +
         '<span class="summary-count">' + confirmedCount + '/6 パーツ確定</span>' +
       '</div>' +
+      budgetLine +
     '</div>';
 
     const cardWrap = mkEl('div', 'build-card-wrap');
@@ -477,9 +513,12 @@
     const tip   = data.tip   || '';
     const reply = data.reply || '';
 
+    // 予算を更新（バックエンドが返した budget_yen を優先）
+    if (data.budget_yen) budgetYen = data.budget_yen;
+
     // 構成サマリーカードを先に表示
     if (build && build.length > 0) {
-      renderSummaryCard(build, game.name || '');
+      renderSummaryCard(build, game.name || '', budgetYen);
     }
 
     const itemsHtml = build.map(item => {

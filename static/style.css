@@ -630,6 +630,28 @@
     font-size: 11px;
     color: var(--c-muted);
   }
+  .summary-budget-label {
+    font-size: 12px;
+    color: var(--c-muted);
+  }
+  .summary-budget-warn {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: rgba(255, 100, 80, 0.12);
+    border-left: 3px solid #ff6450;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #ff9a8c;
+  }
+  .summary-budget-ok {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: rgba(80, 200, 120, 0.10);
+    border-left: 3px solid #50c878;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #7de0a0;
+  }
 
   /* ── カードサイズ傾斜 ── */
   .build-item--lg {
