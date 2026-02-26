@@ -5,8 +5,8 @@ workspace/data/**/*.bak
 __pycache__/
 *.pyc
 .pytest_cache/
-# ランタイム生成ファイル（認証情報・ログ）
-logs/
+# ランタイム生成ファイル（スクレイプログ等）
+/logs/
 
 # 一時スクレイプログ
 kakaku_*.log
@@ -14,3 +14,14 @@ seo_gen*.log
 
 # Steam raw データ（容量大）
 workspace/data/steam/raw/
+
+# SEO互換性ページ（161,577件 ~1GB、Renderではオンデマンド生成想定）
+static/compat/
+
+# 一時スクリプト
+tmp_*.py
+tmp_*.ps1
+tmp_*.json
+tmp_*.txt
+tmp_*.bat
+tmp_*.html
