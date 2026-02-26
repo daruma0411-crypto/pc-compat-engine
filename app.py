@@ -1299,32 +1299,6 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     deduped_suggested = [i for i in suggested_build if i.get('category') not in confirmed_cat_labels]
     recommended_build = prefixed_build + deduped_suggested
 
-    # category を英語キーに正規化（フロントの CATEGORY_ORDER と合わせる）
-    _CAT_NORMALIZE = {
-        'ケース': 'CASE', 'case': 'CASE', 'Case': 'CASE',
-        'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB',
-        '電源': 'PSU', 'power_supply': 'PSU',
-        'クーラー': 'COOLER', 'cpu_cooler': 'COOLER', 'cooler': 'COOLER',
-        'memory': 'RAM',
-    }
-    for item in recommended_build:
-        cat = item.get('category', '')
-        item['category'] = _CAT_NORMALIZE.get(cat, cat.upper() if cat else cat)
-
-    # kakaku 実価格を各 item に付加
-    _CAT_TO_KAKAKU = {
-        'GPU': 'gpu', 'CPU': 'cpu', 'RAM': 'ram',
-        'MB': 'mb', 'PSU': 'psu', 'CASE': 'case', 'COOLER': 'cooler',
-    }
-    for item in recommended_build:
-        if not item.get('price_low'):
-            cat_key = _CAT_TO_KAKAKU.get(item.get('category', ''), '')
-            if cat_key:
-                price = _lookup_kakaku_price(item.get('name', ''), cat_key, all_products)
-                if price:
-                    item['price_min'] = price
-                    item['price_low'] = price  # フロントの renderSummaryCard が参照
-
     total_estimate = _calc_total_estimate(recommended_build, build_data.get('total_estimate', ''))
     radar_scores   = _compute_radar_scores(recommended_build, all_products, total_estimate)
 
@@ -1334,7 +1308,6 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
         'reply':             build_data.get('reply', '構成を提案します。'),
         'recommended_build': recommended_build,
         'total_estimate':    total_estimate or build_data.get('total_estimate', ''),
-        'budget_yen':        int(budget_from_history.replace('万円', '')) * 10000 if budget_from_history else None,
         'tip':               build_data.get('tip', ''),
         'radar_scores':      radar_scores,
         'game_req_scores':   None,
@@ -2083,22 +2056,6 @@ def recommend():
             item['amazon_url']  = make_amazon_url(item.get('name', ''))
             item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
             item['confirmed']   = False  # ゲーム推奨はユーザー未承認なので ai_pending 扱い
-            # category を英語キーに正規化
-            _CN = {'ケース': 'CASE', 'case': 'CASE', 'マザーボード': 'MB',
-                   'motherboard': 'MB', '電源': 'PSU', 'power_supply': 'PSU',
-                   'クーラー': 'COOLER', 'memory': 'RAM'}
-            cat = item.get('category', '')
-            item['category'] = _CN.get(cat, cat.upper() if cat else cat)
-            # kakaku 実価格を付加
-            _CK = {'GPU': 'gpu', 'CPU': 'cpu', 'RAM': 'ram', 'MB': 'mb',
-                   'PSU': 'psu', 'CASE': 'case', 'COOLER': 'cooler'}
-            if not item.get('price_low'):
-                ck = _CK.get(item.get('category', ''), '')
-                if ck:
-                    pr = _lookup_kakaku_price(item.get('name', ''), ck, all_products)
-                    if pr:
-                        item['price_min'] = pr
-                        item['price_low'] = pr  # フロントの renderSummaryCard が参照
 
         # price_range から数値を抽出して合計を計算（Claudeの誤算を防ぐ）
         def _calc_total(build):
@@ -2137,7 +2094,6 @@ def recommend():
             'required_specs':    spec,
             'recommended_build': recommended_build,
             'total_estimate':    total_estimate,
-            'budget_yen':        budget_yen,
             'radar_scores':      radar_scores,
             'game_req_scores':   game_req_scores,
             'reply':             build_data.get('reply', ''),
