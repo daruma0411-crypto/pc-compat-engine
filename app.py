@@ -1668,6 +1668,22 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     """ユーザー条件でフィルタしてから渡す（本物のRAG設計）"""
     results = {}
     
+    # 発売年フィルタ: 2022年以前は除外
+    from datetime import datetime
+    def is_recent_product(product):
+        created_at = product.get('created_at', '')
+        if not created_at:
+            return True  # 日付不明なら許可（フィルタスキップ）
+        try:
+            # ISO 8601形式をパース
+            created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+            return created_date.year >= 2022
+        except:
+            return True  # パース失敗なら許可
+    
+    # 2022年以降の製品のみに絞る
+    all_products = [p for p in all_products if is_recent_product(p)]
+    
     # 予算配分（合計100%）
     budget_allocation = {
         'gpu': 0.35,   # 35%
@@ -1682,14 +1698,17 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     # 1. GPU: ゲーム推奨スペック + 予算でフィルタ
     gpu_budget = budget * budget_allocation['gpu']
     
-    # 2020年以降の世代のみ（RTX 20xx以降、RX 5xxx以降）
+    # 2024-2026年に推奨できるGPUのみ（GTX系は全除外）
     def is_modern_gpu(name):
         name_lower = name.lower()
-        # NVIDIA: RTX 2000/3000/4000/5000系
-        if any(x in name_lower for x in ['rtx 20', 'rtx 30', 'rtx 40', 'rtx 50', 'rtx 2060', 'rtx 2070', 'rtx 2080']):
+        # NVIDIA: RTX 30xx/40xx/50xx系のみ（GTX系・RTX 20xx系は除外）
+        if any(x in name_lower for x in ['rtx 30', 'rtx 40', 'rtx 50']):
             return True
-        # AMD: RX 5xxx/6xxx/7xxx/9xxx
-        if any(x in name_lower for x in ['rx 5', 'rx 6', 'rx 7', 'rx 9', 'radeon rx 5', 'radeon rx 6', 'radeon rx 7', 'radeon rx 9']):
+        # AMD: RX 6000/7000/9000シリーズのみ
+        if any(x in name_lower for x in ['rx 6', 'rx 7', 'rx 9', 'radeon rx 6', 'radeon rx 7', 'radeon rx 9']):
+            return True
+        # Intel: Arc A7xx以降
+        if any(x in name_lower for x in ['arc a7', 'arc a8']):
             return True
         return False
     
@@ -1697,7 +1716,7 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
         p for p in all_products 
         if p.get('category') == 'gpu' 
         and is_modern_gpu(p.get('name', ''))
-        and p.get('price_min', 0) >= 10000  # 最低1万円以上
+        and p.get('price_min', 0) >= 20000  # 最低2万円以上（エントリーGPUの現実的な価格）
     ]
     # 価格でソート（安い順）
     gpu_candidates.sort(key=lambda x: x.get('price_min', 999999))
@@ -1707,14 +1726,14 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     # 2. CPU: 予算でフィルタ
     cpu_budget = budget * budget_allocation['cpu']
     
-    # 2020年以降の世代のみ
+    # DDR5/PCIe 5.0対応世代以降のみ
     def is_modern_cpu(name):
         name_lower = name.lower()
-        # AMD: Ryzen 5000/7000/9000シリーズ
+        # AMD: Ryzen 5000シリーズ以降（Zen3以降）
         if any(x in name_lower for x in ['ryzen 5 5', 'ryzen 7 5', 'ryzen 9 5', 'ryzen 5 7', 'ryzen 7 7', 'ryzen 9 7', 'ryzen 5 9', 'ryzen 7 9', 'ryzen 9 9']):
             return True
-        # Intel: 第10世代以降（10xxx, 11xxx, 12xxx, 13xxx, 14xxx）
-        if any(x in name_lower for x in ['i3-10', 'i5-10', 'i7-10', 'i9-10', 'i3-11', 'i5-11', 'i7-11', 'i9-11', 'i3-12', 'i5-12', 'i7-12', 'i9-12', 'i3-13', 'i5-13', 'i7-13', 'i9-13', 'i3-14', 'i5-14', 'i7-14', 'i9-14']):
+        # Intel: 第12世代以降（Alder Lake以降）
+        if any(x in name_lower for x in ['i3-12', 'i5-12', 'i7-12', 'i9-12', 'i3-13', 'i5-13', 'i7-13', 'i9-13', 'i3-14', 'i5-14', 'i7-14', 'i9-14', 'i3-15', 'i5-15', 'i7-15', 'i9-15']):
             return True
         # Intel Core Ultra
         if 'core ultra' in name_lower:
@@ -1725,27 +1744,85 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
         p for p in all_products 
         if p.get('category') == 'cpu'
         and is_modern_cpu(p.get('name', ''))
-        and p.get('price_min', 0) >= 5000  # 最低5千円以上
+        and p.get('price_min', 0) >= 10000  # 最低1万円以上（現実的な価格帯）
     ]
     cpu_candidates.sort(key=lambda x: x.get('price_min', 999999))
     results['cpu'] = [p for p in cpu_candidates if (p.get('price_min', 999999) <= cpu_budget)][:5]
     
-    # 3. マザーボード: 予算でフィルタ
+    # 3. マザーボード: 予算でフィルタ（現代的なチップセットのみ）
     mb_budget = budget * budget_allocation['mb']
+    
+    def is_modern_motherboard(name):
+        name_lower = name.lower()
+        # Intel: B660/Z690以降（600/700/800シリーズ）
+        if any(x in name_lower for x in ['b660', 'h670', 'z690', 'b760', 'h770', 'z790', 'b860', 'z890']):
+            return True
+        # AMD: B550/X570以降（500/600/700シリーズ）
+        if any(x in name_lower for x in ['b550', 'x570', 'b650', 'x670', 'b850', 'x870']):
+            return True
+        # AM5ソケット（Ryzen 7000/9000対応）
+        if 'am5' in name_lower:
+            return True
+        # LGA1700ソケット（Intel 12/13/14世代対応）
+        if 'lga1700' in name_lower or 'lga 1700' in name_lower:
+            return True
+        return False
+    
     mb_candidates = [
         p for p in all_products 
         if p.get('category') in ('mb', 'motherboard')
-        and p.get('price_min', 0) >= 5000  # 最低5千円以上
+        and is_modern_motherboard(p.get('name', ''))
+        and p.get('price_min', 0) >= 8000  # 最低8千円以上（現実的な価格帯）
     ]
     mb_candidates.sort(key=lambda x: x.get('price_min', 999999))
     results['mb'] = [p for p in mb_candidates if (p.get('price_min', 999999) <= mb_budget)][:5]
     
-    # 4. その他: RAM/PSU/CASE/SSD各3件
-    for cat_key, cat_name in [('ram', 'ram'), ('psu', 'psu'), ('case', 'case'), ('ssd', 'ssd')]:
-        cat_budget = budget * budget_allocation[cat_key]
-        candidates = [p for p in all_products if p.get('category') in (cat_name, cat_key)]
-        candidates.sort(key=lambda x: x.get('price_min', 999999))
-        results[cat_key] = [p for p in candidates if (p.get('price_min', 999999) <= cat_budget)][:3]
+    # 4. RAM: DDR5優先、デスクトップ用のみ（SODIMMは除外）
+    ram_budget = budget * budget_allocation['ram']
+    ram_candidates = [
+        p for p in all_products 
+        if p.get('category') == 'ram'
+        and 'sodimm' not in p.get('name', '').lower()  # ノートPC用SODIMMを除外
+        and p.get('price_min', 0) >= 3000  # 最低3千円以上
+    ]
+    # DDR5を優先（名前にDDR5が含まれるものを先に）
+    ram_ddr5 = [p for p in ram_candidates if 'ddr5' in p.get('name', '').lower()]
+    ram_ddr4 = [p for p in ram_candidates if 'ddr4' in p.get('name', '').lower()]
+    # DDR5を優先的に並べる
+    ram_sorted = sorted(ram_ddr5, key=lambda x: x.get('price_min', 999999)) + sorted(ram_ddr4, key=lambda x: x.get('price_min', 999999))
+    results['ram'] = [p for p in ram_sorted if (p.get('price_min', 999999) <= ram_budget)][:3]
+    
+    # 5. PSU: ATX 3.0 / 12VHPWR対応を優先
+    psu_budget = budget * budget_allocation['psu']
+    psu_candidates = [
+        p for p in all_products 
+        if p.get('category') == 'psu'
+        and p.get('price_min', 0) >= 5000  # 最低5千円以上（信頼性確保）
+    ]
+    # ATX 3.0 / 12VHPWR対応を優先（名前に含まれるものを先に）
+    psu_modern = [p for p in psu_candidates if any(kw in p.get('name', '').lower() for kw in ['atx 3.0', '12vhpwr', 'pcie 5.0'])]
+    psu_standard = [p for p in psu_candidates if p not in psu_modern]
+    psu_sorted = sorted(psu_modern, key=lambda x: x.get('price_min', 999999)) + sorted(psu_standard, key=lambda x: x.get('price_min', 999999))
+    results['psu'] = [p for p in psu_sorted if (p.get('price_min', 999999) <= psu_budget)][:3]
+    
+    # 6. CASE / SSD: 価格フィルタ
+    case_budget = budget * budget_allocation['case']
+    case_candidates = [
+        p for p in all_products 
+        if p.get('category') == 'case'
+        and p.get('price_min', 0) >= 3000  # 最低3千円以上
+    ]
+    case_candidates.sort(key=lambda x: x.get('price_min', 999999))
+    results['case'] = [p for p in case_candidates if (p.get('price_min', 999999) <= case_budget)][:3]
+    
+    ssd_budget = budget * budget_allocation['ssd']
+    ssd_candidates = [
+        p for p in all_products 
+        if p.get('category') == 'ssd'
+        and p.get('price_min', 0) >= 3000  # 最低3千円以上
+    ]
+    ssd_candidates.sort(key=lambda x: x.get('price_min', 999999))
+    results['ssd'] = [p for p in ssd_candidates if (p.get('price_min', 999999) <= ssd_budget)][:3]
     
     # 辞書のまま返す（カテゴリ別に整理）
     return results
