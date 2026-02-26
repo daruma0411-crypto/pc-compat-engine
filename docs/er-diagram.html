@@ -75,7 +75,7 @@
 <body>
 
 <h1>PC互換チェッカー データベース ER図</h1>
-<p class="subtitle">pc-compat-engine / workspace/data — 2026-02-26 時点 | 全テーブル共通スキーマ: products.jsonl</p>
+<p class="subtitle">pc-compat-engine / workspace/data — 2026-02-26 時点 | 全テーブル共通スキーマ: products.jsonl（Steamゲーム4段階スキーマ対応版）</p>
 
 <!-- ====== Section 1: 論理ER図（互換チェック関係） ====== -->
 <div class="section">
@@ -108,6 +108,7 @@ erDiagram
         int     m2_slots
         int     sata_ports
         string  power_connector "24pin+8pin etc"
+        object  constraints  "m2_pcie_sharing / m2_sata_sharing"
     }
 
     GPU {
@@ -170,8 +171,18 @@ erDiagram
         string  name
         string  genres
         int     metacritic_score
-        object  minimum      "ram_gb / gpu / cpu"
-        object  recommended  "ram_gb / gpu / cpu"
+        object  specs        "4段階: minimum/recommended/high/ultra"
+        string  release_date
+        string  header_image
+    }
+    GAME_SPEC_TIER {
+        string  tier         "minimum/recommended/high/ultra"
+        int     ram_gb
+        string  cpu          "推奨CPU名"
+        string  gpu          "推奨GPU名"
+        int     vram_gb
+        string  resolution   "1080p/1440p/4K"
+        string  fps_target   "60fps/高fps等"
     }
 
     CPU         ||--o{ MOTHERBOARD      : "socket一致"
@@ -182,9 +193,10 @@ erDiagram
     CPU_COOLER  ||--o{ CASE             : "height_mm <= max_cpu_cooler_height_mm"
     GPU         ||--o{ PSU              : "tdp_w → wattage_w試算"
     CPU         ||--o{ PSU              : "tdp_w → wattage_w試算"
-    STEAM_GAME  ||--o{ GPU              : "recommended.gpu 参照"
-    STEAM_GAME  ||--o{ CPU              : "recommended.cpu 参照"
-    STEAM_GAME  ||--o{ RAM              : "recommended.ram_gb 参照"
+    STEAM_GAME  ||--|{ GAME_SPEC_TIER   : "specs内4段階"
+    STEAM_GAME  ||--o{ GPU              : "tier.gpu 参照"
+    STEAM_GAME  ||--o{ CPU              : "tier.cpu 参照"
+    STEAM_GAME  ||--o{ RAM              : "tier.ram_gb 参照"
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#58a6ff"></div> ||--o{ : 互換チェックの結合条件（名前またはスペック値の照合）</div>
@@ -312,8 +324,14 @@ erDiagram
         int    metacritic_score
         string screenshot
         string scraped_at
-        object minimum
-        object recommended
+        object specs         "4段階スキーマ(2026-02-26移行)"
+    }
+
+    GAME_SPECS_DETAIL {
+        object minimum       "ram_gb/cpu/gpu/vram_gb"
+        object recommended   "ram_gb/cpu/gpu/vram_gb"
+        object high          "1440p高fps向け"
+        object ultra         "4K/最高画質向け"
     }
 
     PRODUCTS_BASE ||--|| CPU_SPECS     : "specs (category=cpu)"
@@ -323,6 +341,7 @@ erDiagram
     PRODUCTS_BASE ||--|| COOLER_SPECS  : "specs (category=cpu_cooler)"
     PRODUCTS_BASE ||--|| CASE_SPECS    : "specs (category=case)"
     PRODUCTS_BASE ||--|| PSU_SPECS     : "specs (category=psu)"
+    STEAM_GAME_TABLE ||--|| GAME_SPECS_DETAIL : "specs内4段階"
   </div>
 </div>
 
@@ -456,7 +475,7 @@ erDiagram
       <span class="cat cat-steam">Steam</span>
       <div><strong>steam_games</strong></div>
       <div class="files">steam/games.jsonl</div>
-      <div class="count">~200件 ★別スキーマ</div>
+      <div class="count">445件 ★4段階スキーマ(2026-02-26移行)</div>
     </div>
 
   </div>
@@ -525,6 +544,95 @@ graph LR
     style COOLER fill:#2a1f4d,color:#bc8cff,stroke:#6e3fb5
     style CASE fill:#2a2a2a,color:#d2a8ff,stroke:#555
     style PSU fill:#1f3a3a,color:#39d0d8,stroke:#2a7a7a
+  </div>
+</div>
+
+<!-- ====== Section 5: ゲームスペック4段階スキーマ ====== -->
+<div class="section">
+  <h2>5. Steamゲームスペック — 4段階スキーマ（2026-02-26 移行）</h2>
+  <div class="mermaid">
+graph TD
+    subgraph GAME["STEAM_GAME（games.jsonl）"]
+      G_id["appid (PK)"]
+      G_name["name"]
+      G_specs["specs{}"]
+    end
+
+    subgraph SPECS["specs 内 4段階"]
+      T1["minimum\n最低動作\nram_gb/cpu/gpu/vram_gb"]
+      T2["recommended\n推奨（60fps/1080p）\nram_gb/cpu/gpu/vram_gb"]
+      T3["high\n高設定（60+fps/1440p）\nram_gb/cpu/gpu/vram_gb"]
+      T4["ultra\n最高設定（4K/最高fps）\nram_gb/cpu/gpu/vram_gb"]
+    end
+
+    subgraph BUDGET["app.py 予算→段階マッピング _select_spec_tier()"]
+      B1["〜10万円 → minimum"]
+      B2["10〜15万円 → recommended"]
+      B3["15〜25万円 → high"]
+      B4["25万円〜 → ultra"]
+    end
+
+    subgraph GPU_MAP["GPU TDPベース選出"]
+      D1["ultra → 280W以上のGPU"]
+      D2["high → 200〜279W"]
+      D3["recommended → 120〜199W"]
+      D4["minimum → 119W以下"]
+    end
+
+    G_specs --> T1
+    G_specs --> T2
+    G_specs --> T3
+    G_specs --> T4
+
+    T1 -->|"参照"| B1
+    T2 -->|"参照"| B2
+    T3 -->|"参照"| B3
+    T4 -->|"参照"| B4
+
+    B1 --> D4
+    B2 --> D3
+    B3 --> D2
+    B4 --> D1
+
+    style GAME fill:#1f1f3a,color:#a5a5ff,stroke:#4040a0
+    style SPECS fill:#161b22,color:#e6edf3,stroke:#30363d
+    style BUDGET fill:#1f3a3a,color:#39d0d8,stroke:#2a7a7a
+    style GPU_MAP fill:#4d1f2f,color:#ff7b72,stroke:#9e3050
+  </div>
+</div>
+
+<!-- ====== Section 6: MBconstraints 詳細 ====== -->
+<div class="section">
+  <h2>6. マザーボード制約（MB constraints）スキーマ</h2>
+  <div class="mermaid">
+erDiagram
+    MOTHERBOARD {
+        string id PK
+        string socket
+        string chipset
+        string form_factor
+        object constraints "制約情報"
+    }
+
+    MB_M2_PCIE_SHARING {
+        string m2_slot    "制約対象M2スロット名"
+        string affects    "影響を受けるPCIeスロット"
+        string effect     "制約内容 (例: x2モードに制限)"
+    }
+
+    MB_M2_SATA_SHARING {
+        string m2_slot    "制約対象M2スロット名"
+        string affects    "影響を受けるSATAポート"
+        string effect     "制約内容 (例: SATA無効化)"
+    }
+
+    MOTHERBOARD ||--o{ MB_M2_PCIE_SHARING : "constraints.m2_pcie_sharing[]"
+    MOTHERBOARD ||--o{ MB_M2_SATA_SHARING  : "constraints.m2_sata_sharing[]"
+  </div>
+  <div class="legend" style="margin-top:12px">
+    <div class="legend-item" style="font-size:0.8rem;color:#8b949e">
+      ※ M2スロットにSSDを挿すとPCIeレーン数が減少、またはSATAポートが無効化されるケースを記録。診断時にWARNING表示の根拠データとして参照。
+    </div>
   </div>
 </div>
 
