@@ -438,8 +438,8 @@ header {
   padding: 10px 14px;
   border-radius: 12px;
   max-width: 85%;
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .bubble.user {
