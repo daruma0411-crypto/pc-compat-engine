@@ -65,8 +65,14 @@
       
       <!-- 入力エリア -->
       <div class="chat-input-area">
-        <textarea id="chat-input" placeholder="例: RTX 4070とLancool 216の互換性は？" rows="1"></textarea>
-        <button id="btn-send" aria-label="送信">▶</button>
+        <div class="chat-examples">
+          <span class="chat-example" onclick="fillExample('モンハンワイルズを60fpsでやってみたい')">💬 モンハンワイルズを60fpsでやってみたい</span>
+          <span class="chat-example" onclick="fillExample('RTX 5070とRyzen 7 9700Xで組みたい')">🔧 RTX 5070とRyzen 7 9700Xで組みたい</span>
+        </div>
+        <div class="chat-input-row">
+          <textarea id="chat-input" placeholder="用途や予算、パーツ名など..." rows="1"></textarea>
+          <button id="btn-send" aria-label="送信">▶</button>
+        </div>
       </div>
     </div>
 

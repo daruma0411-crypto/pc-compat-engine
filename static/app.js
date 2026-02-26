@@ -13,9 +13,8 @@
   let lastDiagnosis = null;
   let gameMode = false;
   let historyFirstSaved = false;
-  let confirmedParts = [];  // [{name: string, category: string, source: 'user_specified'|'ai_accepted'|'ai_pending'}]
+  let confirmedParts = [];  // [{name: string, category: string}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
-  let currentPhase = 'A';   // Phase A/B/C を管理
   let currentImageGenerated = false;  // 画像生成済みフラグ
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
@@ -129,10 +128,9 @@
 
   // ─── ゲーム推奨構成 → 互換チェックへの引き渡し ───────────────────────────
   function transferToCompatCheck(build) {
-    // ユーザーが「この構成で互換チェック」ボタンを押した = 推奨構成の承認とみなす
-    // → ai_accepted として登録（変更提案なし、ケースや追加パーツのみ補完対象）
-    confirmedParts = build.map(b => ({ name: b.name, category: (b.category || '').toLowerCase(), source: 'ai_accepted' }));
-    // ゲームモードを解除（switchMode より先に confirmedParts をセットするため手動でフラグ変更）
+    // ユーザーが「この構成で互換チェック」ボタンを押した = 推奨構成を引き継ぐ
+    confirmedParts = build.map(b => ({ name: b.name, category: (b.category || '').toLowerCase() }));
+    // ゲームモードを解除
     gameMode = false;
     updateModeIndicator();
     document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
@@ -180,17 +178,19 @@
   });
   document.getElementById('chat-input').addEventListener('input', adjustHeight);
 
+  // ─── 例文を入力欄に挿入 ────────────────────────────────────────────────────
+  function fillExample(text) {
+    const input = document.getElementById('chat-input');
+    input.value = text;
+    input.focus();
+  }
+
   // ─── メッセージ送信 ────────────────────────────────────────────────────
   async function sendMessage() {
     if (sending) return;
     const input = document.getElementById('chat-input');
     const msg = input.value.trim();
     if (!msg) return;
-
-    // ── ai_pending → ai_accepted 昇格（ユーザーが次のメッセージを送った = 前の提案に異議なし）
-    confirmedParts = confirmedParts.map(p =>
-      p.source === 'ai_pending' ? { ...p, source: 'ai_accepted' } : p
-    );
 
     // 最初のユーザーメッセージを localStorage に保存
     saveToHistory(msg, gameMode ? 'game' : 'compat');
@@ -210,8 +210,7 @@
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // バックエンドには名前の配列で渡す（後方互換性を維持）
-        body: JSON.stringify({ message: msg, history: history.slice(-10), confirmed_parts: confirmedParts.map(p => p.name) }),
+        body: JSON.stringify({ message: msg, history: history.slice(-10) }),
         signal: controller.signal,
       });
       clearTimeout(timer);
@@ -221,79 +220,33 @@
       }
       const data = await res.json();
       typingEl.remove();
-      history.push({ role: 'assistant', content: data.reply || '' });
+      history.push({ role: 'assistant', content: data.message || data.reply || '' });
 
-      if (data.type === 'recommendation' || data.type === 'suggestion') {
-        // confirmed=true パーツ → ai_accepted（ユーザー指定として扱う）
-        // confirmed=false パーツ → ai_pending（次のメッセージ送信時に昇格）
-        const newParts = (data.recommended_build || []).map(b => ({
-          name: b.name,
-          category: (b.category || '').toLowerCase(),
-          source: b.confirmed ? 'ai_accepted' : 'ai_pending',
-        }));
-        if (newParts.length > 0) {
-          // 既存の user_specified は保持し、AI提案パーツを追加・更新
-          const userSpecified = confirmedParts.filter(p => p.source === 'user_specified');
-          const merged = [...userSpecified];
-          for (const np of newParts) {
-            if (!merged.some(p => p.name === np.name)) merged.push(np);
-          }
-          confirmedParts = merged;
-        }
+      // ゲームモード: 推奨構成を表示
+      if (gameMode && data.recommended_build) {
         appendRecommendationMessage(data);
-      } else if (data.type === 'diagnosis') {
-        lastDiagnosis = { parts: data.parts, diagnosis: data.diagnosis };
-        // 診断時: バックエンドが返した user_specified_parts を source: 'user_specified' で登録
-        // parts_with_category を使ってcategoryも付与
-        const partsWithCat = {};
-        for (const pc of (data.parts_with_category || [])) {
-          partsWithCat[pc.name] = pc.category || '';
-        }
-        const userSpecifiedNames = data.user_specified_parts || data.parts || [];
-        for (const name of userSpecifiedNames) {
-          if (!confirmedParts.some(p => p.name === name)) {
-            confirmedParts.push({ name, category: partsWithCat[name] || '', source: 'user_specified' });
-          }
-        }
-        appendDiagnosisMessage(data);
-        
-        // 診断後もパーツテーブルを更新（互換チェックモードでも画像生成可能に）
-        const buildForTable = confirmedParts.map(p => ({
-          category: normalizeCat(p.category),
-          name: p.name,
-          price_min: null, // 診断モードでは価格情報なし
-        }));
-        updatePhase();
-        updatePartsTable(buildForTable, budgetYen);
-      } else {
-        appendAIBubble(data.reply || '少し詳しく教えてください。', null, data.hearing_questions);
-      }
-      
-      // dashboard_update を処理（バックエンドから返された場合）
-      if (data.dashboard_update) {
-        const du = data.dashboard_update;
-        if (du.parts) {
-          for (const part of du.parts) {
-            const existing = confirmedParts.find(p => p.name === part.name);
-            if (existing) {
-              existing.source = part.status || existing.source;
-            } else {
-              confirmedParts.push({
-                name: part.name,
-                category: part.category,
-                source: part.status || 'ai_pending',
-              });
-            }
-          }
-        }
-        if (du.budget != null) budgetYen = du.budget;
-        updatePhase();
-        const buildForTable = confirmedParts.map(p => ({
-          category: normalizeCat(p.category),
-          name: p.name,
-          price_min: 0,
-        }));
-        updatePartsTable(buildForTable, budgetYen);
+      } 
+      // 互換チェックモード: 構成提案があれば表示、なければテキストのみ
+      else if (!gameMode && data.recommended_parts && data.recommended_parts.length > 0) {
+        // recommended_parts を recommended_build 形式に変換して表示
+        const buildData = {
+          game: { name: '推奨構成', appid: null, screenshot: null },
+          recommended_build: data.recommended_parts.map(p => ({
+            category: p.category,
+            name: p.name,
+            reason: p.reason || '',
+            price_range: '',
+            amazon_url: buildAmazonUrl(p.name),
+            rakuten_url: buildRakutenUrl(p.name),
+          })),
+          reply: data.message || '',
+        };
+        appendRecommendationMessage(buildData);
+        updateDashboardFromConfirmedParts();
+      } 
+      // テキストのみの応答
+      else {
+        appendAIBubble(data.message || '少し詳しく教えてください。');
       }
     } catch (e) {
       clearTimeout(timer);
@@ -318,59 +271,20 @@
     scrollBottom();
   }
 
-  function appendAIBubble(text, extraHtml, hearingQuestions) {
+  function appendAIBubble(text, extraHtml) {
     const wrap = mkEl('div', 'msg ai');
     const inner = mkEl('div');
     const bubble = mkEl('div', 'msg-bubble');
     bubble.innerHTML = text.replace(/\n/g, '<br>');
     if (extraHtml) bubble.insertAdjacentHTML('beforeend', extraHtml);
     
-    // hearing_questions のボタン表示
-    if (hearingQuestions && hearingQuestions.length > 0) {
-      const questionsHtml = hearingQuestions.map(q => {
-        const optionsHtml = q.options.map(opt => 
-          `<button class="hearing-option-btn" data-question-id="${escHtml(q.id)}" data-value="${escHtml(opt.value)}">
-            ${escHtml(opt.label)}
-          </button>`
-        ).join('');
-        return `<div class="hearing-question">
-          <div class="hearing-question-label">${escHtml(q.label)}</div>
-          <div class="hearing-options">${optionsHtml}</div>
-        </div>`;
-      }).join('');
-      bubble.insertAdjacentHTML('beforeend', questionsHtml);
-    }
-    
     inner.appendChild(bubble);
     wrap.innerHTML = '<div class="msg-avatar">🤖</div>';
     wrap.appendChild(inner);
     chat().appendChild(wrap);
     
-    // hearing_questionsのボタンにイベントリスナーを追加
-    if (hearingQuestions && hearingQuestions.length > 0) {
-      wrap.querySelectorAll('.hearing-option-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const questionId = btn.dataset.questionId;
-          const value = btn.dataset.value;
-          const label = btn.textContent;
-          handleHearingAnswer(questionId, value, label);
-          // クリック後、ボタンを無効化
-          btn.disabled = true;
-          btn.style.opacity = '0.5';
-        });
-      });
-    }
-    
     scrollBottom();
     return wrap;
-  }
-  
-  function handleHearingAnswer(questionId, value, label) {
-    // ユーザーの選択を送信
-    const message = `${questionId}: ${label}`;
-    appendUserBubble(`「${label}」を選択`);
-    history.push({ role: 'user', content: message });
-    // 次のメッセージ送信はsendMessage経由で行われる
   }
 
   function appendTyping() {
@@ -798,21 +712,7 @@
     dashboard.classList.toggle('open');
   }
   
-  // フェーズ判定と更新
-  function updatePhase() {
-    const CATEGORY_ORDER = ['GPU', 'CPU', 'RAM', 'MB', 'PSU', 'CASE'];
-    const confirmedCount = CATEGORY_ORDER.filter(cat => 
-      confirmedParts.some(p => normalizeCat(p.category) === cat)
-    ).length;
-    
-    if (currentImageGenerated) {
-      currentPhase = 'C';  // 完成イメージ生成済み
-    } else if (confirmedCount === CATEGORY_ORDER.length) {
-      currentPhase = 'B';  // 全パーツ確定
-    } else {
-      currentPhase = 'A';  // ヒアリング・構成中
-    }
-  }
+
 
   // confirmedPartsから右パネルを更新するヘルパー
   function updateDashboardFromConfirmedParts() {
@@ -890,9 +790,8 @@
     
     let ctaHtml = '';
     
-    // Phase判定に基づいた表示切り替え
-    if (currentPhase === 'C') {
-      // Phase C: 画像生成済み - 完成メッセージ + 購入ボタン
+    // 画像生成済みかどうかで表示切り替え
+    if (currentImageGenerated) {
       ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
         <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:8px;">✨ 構成完成＆イメージ生成済み！</div>
         <div style="font-size:12px;color:var(--c-sub);margin-bottom:12px;">右の「完成イメージを見る」ボタンで画像を確認できます。</div>
@@ -901,8 +800,8 @@
       document.getElementById('btn-generate-image').style.display = 'none';
       document.getElementById('generated-image-container').style.display = 'block';
       document.getElementById('purchase-area').style.display = 'block';
-    } else if (currentPhase === 'B' || (currentPhase === 'A' && confirmedCount === CATEGORY_ORDER.length)) {
-      // Phase B: 全パーツ確定、画像未生成
+    } else if (confirmedCount === CATEGORY_ORDER.length) {
+      // 全パーツ確定、画像未生成
       ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
         <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:8px;">🎉 構成完成！</div>
         <div style="font-size:12px;color:var(--c-sub);margin-bottom:12px;">右の「完成イメージを見る」ボタンで完成イメージを生成できます。</div>
@@ -912,21 +811,14 @@
       document.getElementById('generated-image-container').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
     } else {
-      // Phase A: 構成途中
+      // 構成途中
       const remaining = CATEGORY_ORDER.filter(c => !catMap[c]);
-      const pendingCount = confirmedParts.filter(p => p.source === 'ai_pending').length;
-      let phaseMsg = '';
-      if (pendingCount > 0) {
-        phaseMsg = `⏳ ${pendingCount}件のAI提案が同意待ちです。続けてメッセージを送ると自動承認されます。`;
-      } else if (remaining.length > 0) {
-        phaseMsg = `🔧 残り ${remaining.length} カテゴリを選定中...`;
-      }
       ctaHtml = `<div class="parts-progress">
         <div class="progress-bar"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
         <div style="margin-top:6px;font-size:12px;color:var(--c-muted);">
           ${confirmedCount}/6 パーツ確定 | 残り: ${remaining.join(', ')}
         </div>
-        ${phaseMsg ? `<div style="margin-top:8px;font-size:12px;color:var(--c-sub);">${phaseMsg}</div>` : ''}
+        <div style="margin-top:8px;font-size:12px;color:var(--c-sub);">🔧 残り ${remaining.length} カテゴリを選定中...</div>
       </div>`;
       document.getElementById('image-area').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
@@ -1021,7 +913,6 @@
   // 画像生成完了時に個別リンクも生成
   function onImageGenerationComplete() {
     currentImageGenerated = true;
-    updatePhase();
     updateDashboardFromConfirmedParts();
     renderIndividualLinks();
   }

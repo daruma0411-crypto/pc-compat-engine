@@ -124,13 +124,44 @@ header {
   text-decoration: underline;
 }
 
+.chat-examples {
+  display: flex;
+  gap: 12px;
+  padding: 0 0 8px 0;
+  flex-wrap: wrap;
+}
+
+.chat-example {
+  font-size: 12px;
+  color: var(--c-text-muted);
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--c-bg-light);
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.chat-example:hover {
+  opacity: 1;
+  background: var(--c-primary-light);
+  color: var(--c-primary);
+}
+
 .chat-input-area {
   display: flex;
+  flex-direction: column;
   gap: 8px;
   padding: 12px 16px;
   background: var(--bg-main);
   border-top: 1px solid var(--c-border);
   flex-shrink: 0;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 8px;
 }
 
 #chat-input {
@@ -424,49 +455,7 @@ header {
   color: var(--c-ok);
 }
 
-/* ── ヒアリング質問UI ── */
-.hearing-question {
-  margin-top: 16px;
-  padding: 12px;
-  background: var(--bg-main);
-  border: 1px solid var(--c-border);
-  border-radius: 8px;
-}
 
-.hearing-question-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--c-text);
-  margin-bottom: 10px;
-}
-
-.hearing-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.hearing-option-btn {
-  padding: 8px 16px;
-  background: var(--bg-outer);
-  border: 1px solid var(--c-border);
-  color: var(--c-text);
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s;
-}
-
-.hearing-option-btn:hover:not(:disabled) {
-  background: var(--c-primary);
-  color: #fff;
-  border-color: var(--c-primary);
-}
-
-.hearing-option-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 
 /* ── モバイル対応 ── */
 @media (max-width: 1023px) {
