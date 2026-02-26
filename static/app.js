@@ -702,10 +702,108 @@
     ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
   }
 
-  // ─── 注目ゲームセクション折りたたみ ─────────────────────────────────────
-  function toggleFeaturedGames() {
-    // デスクトップ幅では無効
-    if (window.innerWidth >= 1024) return;
-    const section = document.getElementById('featured-games');
-    section.classList.toggle('collapsed');
+  // ─── v2 UI: 新機能 ─────────────────────────────────────────────────────
+  
+  // 注目ゲーム選択
+  function selectGame(gameName) {
+    const input = document.getElementById('chat-input');
+    input.value = `${gameName}で60fpsで遊びたい、予算15万円`;
+    input.focus();
+  }
+  
+  // モバイル: ダッシュボードボトムシート切り替え
+  function toggleMobileDashboard() {
+    const dashboard = document.getElementById('dashboard');
+    dashboard.classList.toggle('open');
+  }
+  
+  // 右パネル: パーツ一覧テーブル更新
+  function updatePartsTable(build, budgetYen) {
+    const CATEGORY_ORDER = ['GPU', 'CPU', 'RAM', 'MB', 'PSU', 'CASE'];
+    const catMap = {};
+    
+    for (const item of (build || [])) {
+      const cat = normalizeCat(item.category);
+      catMap[cat] = item;
+    }
+    
+    let rowsHtml = '';
+    let confirmedCount = 0;
+    let totalPrice = 0;
+    
+    CATEGORY_ORDER.forEach(cat => {
+      const item = catMap[cat];
+      const hasItem = !!item;
+      if (hasItem) confirmedCount++;
+      
+      const priceVal = item && (item.price_min || item.price_low);
+      const priceText = priceVal ? '¥' + Number(priceVal).toLocaleString() : '—';
+      if (priceVal) totalPrice += Number(priceVal);
+      
+      const statusIcon = hasItem ? '✅' : '⬜';
+      const nameText = hasItem ? escHtml(item.name || '') : '（未選択）';
+      const nameClass = hasItem ? 'parts-name' : 'parts-name parts-name--empty';
+      
+      rowsHtml += `<div class="parts-row">
+        <span class="parts-category">${cat}</span>
+        <span class="${nameClass}">${nameText}</span>
+        <span class="parts-price">${priceText}</span>
+        <span class="parts-status">${statusIcon}</span>
+      </div>`;
+    });
+    
+    const totalText = totalPrice > 0 ? '¥' + totalPrice.toLocaleString() : '—';
+    const progressPercent = (confirmedCount / CATEGORY_ORDER.length) * 100;
+    
+    let budgetHtml = '';
+    if (budgetYen && totalPrice > 0) {
+      const diff = budgetYen - totalPrice;
+      const diffAbs = Math.abs(diff);
+      if (diff < -10000) {
+        budgetHtml = `<div class="budget-warn">⚠️ 予算を ¥${diffAbs.toLocaleString()} 超過</div>`;
+      } else if (diff > 10000) {
+        budgetHtml = `<div class="budget-ok">✅ 予算内 ¥${diffAbs.toLocaleString()} の余裕</div>`;
+      } else {
+        budgetHtml = `<div class="budget-ok">✅ 予算ぴったり</div>`;
+      }
+    }
+    
+    let ctaHtml = '';
+    if (confirmedCount === CATEGORY_ORDER.length) {
+      // 状態B: 全パーツ確定
+      ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
+        <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:12px;">🎉 構成完成！</div>
+      </div>`;
+      document.getElementById('image-area').style.display = 'block';
+      document.getElementById('btn-generate-image').style.display = 'block';
+      document.getElementById('generated-image-container').style.display = 'none';
+      document.getElementById('purchase-area').style.display = 'none';
+    } else {
+      // 状態A: 構成途中
+      const remaining = CATEGORY_ORDER.filter(c => !catMap[c]);
+      ctaHtml = `<div class="parts-progress">
+        <div class="progress-bar"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
+        <div style="margin-top:6px;font-size:12px;color:var(--c-muted);">
+          ${confirmedCount}/6 パーツ確定 | 残り: ${remaining.join(', ')}
+        </div>
+      </div>`;
+      document.getElementById('image-area').style.display = 'none';
+      document.getElementById('purchase-area').style.display = 'none';
+    }
+    
+    document.getElementById('parts-list-content').innerHTML = rowsHtml + 
+      `<div class="parts-total">合計: ${totalText}${budgetYen ? ' / 予算 ¥' + budgetYen.toLocaleString() : ''}</div>` +
+      budgetHtml + ctaHtml;
+  }
+  
+  // FLUX画像生成（後で実装）
+  function generateImage() {
+    alert('画像生成機能は実装中です');
+    // TODO: FLUX MCP連携
+  }
+  
+  // 一括購入処理（後で実装）
+  function handleBulkPurchase() {
+    alert('一括購入機能は実装中です');
+    // TODO: Amazon Cart Add URL生成
   }

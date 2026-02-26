@@ -1230,8 +1230,33 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
                 cpu_cands = amd_cands
         cpu_cands = cpu_cands[:4]
         db_sections += '## CPU候補\n' + '\n'.join(fmt_p(p) for p in cpu_cands) + '\n\n'
+    # 確定GPU/CPUのTDPから推奨PSU容量を算出
+    _gpu_tdp = 0
+    _cpu_tdp = 0
+    if confirmed_gpu:
+        _gpu_tdp = (confirmed_gpu.get('specs') or {}).get('tdp_w') or 0
+    if confirmed_cpu:
+        _cpu_tdp = (confirmed_cpu.get('specs') or {}).get('tdp_w') or 0
+    _total_draw = _gpu_tdp + _cpu_tdp + 100  # system overhead 100W
+    _psu_target = max(_total_draw + 200, 550)  # 200Wヘッドルーム、最低550W
+    _PSU_STEPS = [450, 550, 650, 750, 850, 1000, 1200, 1600]
+    _recommended_psu_w = _PSU_STEPS[-1]  # フォールバック: 最大
+    for step in _PSU_STEPS:
+        if step >= _psu_target:
+            _recommended_psu_w = step
+            break
+    if _gpu_tdp == 0 and _cpu_tdp == 0:
+        _recommended_psu_w = 650  # TDP不明時はミドル帯デフォルト
+
     if need_psu:
-        psu_cands = [p for p in all_products if p.get('category') in ('psu', 'power_supply')][:4]
+        # 推奨容量付近のPSUのみ候補に渡す（過剰な大容量を除外）
+        _psu_lo = _recommended_psu_w - 100
+        _psu_hi = _recommended_psu_w + 200
+        psu_cands = [p for p in all_products
+                     if p.get('category') in ('psu', 'power_supply')
+                     and _psu_lo <= ((p.get('specs') or {}).get('wattage_w') or 0) <= _psu_hi][:4]
+        if not psu_cands:
+            psu_cands = [p for p in all_products if p.get('category') in ('psu', 'power_supply')][:4]
         db_sections += '## 電源候補\n' + '\n'.join(fmt_p(p) for p in psu_cands) + '\n\n'
 
     # 提案が必要なカテゴリのJSON指示を構築
@@ -1252,7 +1277,7 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
         + '## 指示\n'
         + '- 上記DB候補から互換性・予算を考慮して不足パーツのみ選定すること\n'
         + (f'- 【必須】確定MBのソケットは「{mb_socket}」。LGA系ならIntel CPU、AM系ならAMD CPUのみ提案すること。絶対に別ソケットのCPUを選ばないこと\n' if mb_socket else '- CPU/MBのソケット一致を必ず確認すること\n')
-        + '- 電源容量: GPU TDP×1.2 + CPU TDP + ストレージ本数×15W + システム100Wの合計以上を選定（例: RTX 4090 450W + i9 253W = 最低1000W必要）\n'
+        + f'- 【電源容量】推奨{_recommended_psu_w}W。計算式: (GPU TDP + CPU TDP + 100W) × 1.5。候補リストから{_recommended_psu_w}Wを選ぶこと。必要以上に大容量（例: 合計500W未満の構成に850W）を選ばないこと\n'
         + '- ユーザーが言及していない用途（VR/動画編集/ゲーミング等）を勝手に追加しないこと\n'
         + (f'- 【必須・厳守】予算は{budget_from_history}。確定パーツ込みの合計がこの範囲に収まるよう残りのパーツを選定すること。絶対に超えないこと\n' if budget_from_history else '- 予算の記載があれば合計がその範囲に収まるよう選定すること\n')
         + '- ユーザーメッセージにHDD台数（例: HDD 3台・3.5インチ2本）が含まれる場合、HDDカテゴリを構成リストに必ず追加し、確定MBのSATAポート数・ケースの3.5インチベイ数も考慮すること\n'

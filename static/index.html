@@ -46,67 +46,93 @@
     <button class="btn-mode-switch" id="btn-mode-switch" onclick="switchMode()" title="モードを切り替え"></button>
   </header>
 
-  <!-- 注目の新作ゲーム -->
-  <section class="featured-games" id="featured-games">
-    <h2 class="featured-title" onclick="toggleFeaturedGames()">
-      <span>🎮 注目の新作ゲーム - 推奨スペック</span>
-      <span class="toggle-icon">▼</span>
-    </h2>
-    <div class="game-cards">
-      <a href="/game/monster-hunter-wilds" class="game-card featured">
-        <div class="game-badge">🔥 2/28発売</div>
-        <h3>Monster Hunter Wilds</h3>
-        <p class="game-date">2025年2月28日発売</p>
-        <p class="game-spec">RTX 2070 Super / RTX 4060 以上推奨</p>
-      </a>
-      <a href="/game/ghost-of-tsushima-directors-cut" class="game-card">
-        <div class="game-badge">NEW</div>
-        <h3>Ghost of Tsushima</h3>
-        <p class="game-date">2025年3月14日発売</p>
-        <p class="game-spec">RTX 2070 / RX 6700 XT 以上推奨</p>
-      </a>
-      <a href="/game/elden-ring-shadow-of-the-erdtree" class="game-card">
-        <div class="game-badge">DLC</div>
-        <h3>Elden Ring DLC</h3>
-        <p class="game-date">2025年3月予定</p>
-        <p class="game-spec">GTX 1070 / RX Vega 56 以上推奨</p>
-      </a>
-      <a href="/game/grand-theft-auto-vi" class="game-card">
-        <div class="game-badge">予約受付中</div>
-        <h3>Grand Theft Auto VI</h3>
-        <p class="game-date">2025年秋予定</p>
-        <p class="game-spec">RTX 4070 / RX 7800 XT 以上推奨</p>
-      </a>
-      <a href="/game/palworld" class="game-card">
-        <div class="game-badge">人気</div>
-        <h3>Palworld</h3>
-        <p class="game-date">好評発売中</p>
-        <p class="game-spec">RTX 2070 / RX 5700 XT 以上推奨</p>
-      </a>
+  <!-- メインコンテナ: 左右2パネル -->
+  <div class="main-container">
+    
+    <!-- 左パネル: チャット -->
+    <div class="chat-panel">
+      <div class="chat-messages" id="chat"></div>
+      
+      <!-- 注目ゲーム（テキストリンク） -->
+      <div class="featured-games-links">
+        🎮 注目: 
+        <a href="#" onclick="selectGame('Monster Hunter Wilds'); return false;">モンハンワイルズ</a> | 
+        <a href="#" onclick="selectGame('Elden Ring'); return false;">Elden Ring</a> | 
+        <a href="#" onclick="selectGame('GTA VI'); return false;">GTA VI</a> | 
+        <a href="#" onclick="selectGame('Palworld'); return false;">Palworld</a>
+      </div>
+      
+      <!-- 入力エリア -->
+      <div class="chat-input-area">
+        <textarea id="chat-input" placeholder="例: RTX 4070とLancool 216の互換性は？" rows="1"></textarea>
+        <button id="btn-send" aria-label="送信">▶</button>
+      </div>
     </div>
-  </section>
 
-  <div class="chat-area" id="chat-area"></div>
+    <!-- 右パネル: ダッシュボード -->
+    <div class="dashboard-panel" id="dashboard">
+      
+      <!-- パーツ一覧テーブル -->
+      <div class="dashboard-section parts-table" id="parts-table">
+        <h2 class="dashboard-title">📋 構成パーツ</h2>
+        <div id="parts-list-content">
+          <!-- 動的に生成 -->
+        </div>
+      </div>
 
-  <div class="chat-footer">
-    <textarea
-      class="chat-input"
-      id="chat-input"
-      placeholder="例: RTX 4070をLancool 216に入れたい"
-      rows="1"
-    ></textarea>
-    <button class="btn-send" id="btn-send" title="送信">&#9658;</button>
+      <!-- レーダーチャート（ゲームモード時） -->
+      <div class="dashboard-section radar-chart" id="radar-chart-section" style="display: none;">
+        <h2 class="dashboard-title">📊 性能バランス</h2>
+        <canvas id="radar-chart" width="300" height="300"></canvas>
+      </div>
+
+      <!-- 互換性ステータス（互換チェックモード時） -->
+      <div class="dashboard-section compat-status" id="compat-status-section" style="display: none;">
+        <h2 class="dashboard-title">🔧 互換性チェック</h2>
+        <div id="compat-status-content">
+          <!-- 動的に生成 -->
+        </div>
+      </div>
+
+      <!-- 完成イメージエリア -->
+      <div class="dashboard-section image-area" id="image-area" style="display: none;">
+        <!-- 状態B: 画像生成ボタン -->
+        <button class="btn-generate-image" id="btn-generate-image" onclick="generateImage()">
+          🖼️ 完成イメージを見る
+        </button>
+        
+        <!-- 状態C: 生成済み画像 -->
+        <div id="generated-image-container" style="display: none;">
+          <img id="generated-image" alt="完成イメージ" />
+          <p class="image-note">※AI生成イメージです。実際の外観と異なる場合があります</p>
+        </div>
+      </div>
+
+      <!-- 購入エリア（状態C時のみ表示） -->
+      <div class="dashboard-section purchase-area" id="purchase-area" style="display: none;">
+        <button class="btn-purchase-main" onclick="handleBulkPurchase()">
+          🛒 この構成をまとめて購入
+        </button>
+        
+        <details class="purchase-details">
+          <summary>▼ 個別リンク</summary>
+          <div id="individual-links">
+            <!-- 動的に生成 -->
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- モバイル: ダッシュボードボトムシート -->
+  <div class="mobile-dashboard-toggle" id="mobile-dashboard-toggle" onclick="toggleMobileDashboard()">
+    📊 構成を見る ▲
   </div>
 
 </div>
 
-<!-- アフィリエイト設定（サーバー側プレースホルダー注入） -->
-<script>
-  const AMAZON_TAG   = '__AMAZON_TAG__';
-  const RAKUTEN_A_ID = '__RAKUTEN_A_ID__';
-  const RAKUTEN_L_ID = '__RAKUTEN_L_ID__';
-</script>
 <script src="/static/app.js"></script>
-
 </body>
 </html>
