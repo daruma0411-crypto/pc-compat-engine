@@ -435,10 +435,10 @@ header {
 /* ── チャットバブル ── */
 .bubble {
   margin-bottom: 16px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 12px;
   max-width: 85%;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
