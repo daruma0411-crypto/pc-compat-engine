@@ -636,6 +636,200 @@ erDiagram
   </div>
 </div>
 
+<!-- ====== Section 7: RAGアーキテクチャ全体フロー ====== -->
+<div class="section">
+  <h2>7. RAGアーキテクチャ — 全体フロー</h2>
+  <div class="mermaid">
+flowchart TD
+    USER["👤 ユーザー入力\n（チャット・型番・ゲーム名・予算）"]
+
+    subgraph RETRIEVE["🔍 RETRIEVE層 — DBからのデータ取得"]
+      R1["games.jsonl\nSteamゲームDB検索\n（部分マッチ）"]
+      R2["workspace/data/*/products.jsonl\n全パーツDB検索\n（_lookup_pc_specs）"]
+      R3["kakaku_*/products.jsonl\n価格データ参照\n（_lookup_kakaku_price）"]
+      R4["_compute_prechecks()\n事前計算チェック\n（数値比較・NG/WARNING判定）"]
+    end
+
+    subgraph AUGMENT["🧩 AUGMENT層 — コンテキスト構築"]
+      A1["ゲーム推奨スペック注入\n## Steamの推奨スペック"]
+      A2["GPU/CPU候補リスト注入\n## DBにある主な候補"]
+      A3["互換チェック結果注入\n## 事前計算済みチェック\n（この数値を最優先使用すること）"]
+      A4["確定パーツ情報注入\n確定GPU/MB/ケース スペック明示"]
+      A5["価格データ注入\nprice_min → コスパスコア算出"]
+    end
+
+    subgraph GENERATE["⚡ GENERATE層 — Claude Haiku 生成"]
+      G1["Step1: 入力解析\nゲーム名・予算・FPS抽出\nmax_tokens: 200"]
+      G2["Step2: 型番抽出\n部品カテゴリ・intent判定\nmax_tokens: 800"]
+      G3["Step3: PC構成提案\nrecommended_build JSON生成\nmax_tokens: 800-1000"]
+      G4["Step4: 互換性診断\nverdict/checks/summary生成\nmax_tokens: 800"]
+    end
+
+    subgraph POST["📊 POST処理層 — アプリケーション側計算"]
+      P1["price_range パース\n合計金額推定（¥○万〜¥○万）"]
+      P2["レーダースコア算出\nCPU/GPU/RAM/コスパ 1-10点"]
+      P3["compat/ 動的ページ生成\nGPU×ケース互換HTML"]
+    end
+
+    USER --> G1
+    G1 -->|"game_name, budget, fps"| R1
+    R1 -->|"推奨スペック取得"| A1
+
+    USER --> G2
+    G2 -->|"型番リスト"| R2
+    R2 -->|"specs辞書"| R4
+    R4 -->|"事前計算済みチェック"| A3
+    R2 -->|"GPU/CPU候補"| A2
+    R2 -->|"確定パーツスペック"| A4
+    R3 -->|"price_min"| A5
+
+    A1 --> G3
+    A2 --> G3
+    A4 --> G3
+
+    A3 --> G4
+    A2 --> G4
+
+    G3 --> P1
+    G3 --> P2
+    A5 --> P2
+
+    R2 --> P3
+
+    style RETRIEVE fill:#1a2a1a,color:#56d364,stroke:#2d6ca2
+    style AUGMENT fill:#1a1a2a,color:#a5a5ff,stroke:#4040a0
+    style GENERATE fill:#2a1a1a,color:#ff7b72,stroke:#9e3050
+    style POST fill:#1a2a2a,color:#39d0d8,stroke:#2a7a7a
+  </div>
+</div>
+
+<!-- ====== Section 8: エンドポイント別RAGフロー ====== -->
+<div class="section">
+  <h2>8. エンドポイント別 RAGフロー詳細</h2>
+  <div class="mermaid">
+flowchart LR
+    subgraph EP1["/api/recommend — ゲーム中心提案"]
+      direction TB
+      E1_1["①入力解析\n（Haiku: ゲーム名/予算/FPS抽出）"]
+      E1_2["②games.jsonl検索\n（部分マッチ）"]
+      E1_3["③_select_spec_tier()\n（予算→段階マッピング）\n〜10万:minimum\n10〜15万:recommended\n15〜25万:high\n25万〜:ultra"]
+      E1_4["④TDPティア別GPU選出\n（all_products から最大6件）"]
+      E1_5["⑤Haiku: 構成提案JSON生成\n（recommended_build配列）"]
+      E1_6["⑥price_range→合計金額\nレーダースコア算出"]
+      E1_1 --> E1_2 --> E1_3 --> E1_4 --> E1_5 --> E1_6
+    end
+
+    subgraph EP2["/api/chat diagnose — 互換性診断"]
+      direction TB
+      E2_1["①型番抽出\n（Haiku: intent=diagnose）"]
+      E2_2["②_lookup_pc_specs()\n3段階マッチング\nSubstring→トークン→GPUペナルティ"]
+      E2_3["③_compute_prechecks()\n7項目事前計算\nGPU干渉/ソケット/メモリ規格\n/クーラー/PSU/FF/MB制約"]
+      E2_4["④Haiku: 診断JSON生成\nverdict/checks/summary\n（事前計算値を最優先使用）"]
+      E2_1 --> E2_2 --> E2_3 --> E2_4
+    end
+
+    subgraph EP3["/api/chat suggest — インクリメンタル提案"]
+      direction TB
+      E3_1["①確定パーツ確認\n（前ターン引き継ぎ）"]
+      E3_2["②不足カテゴリ判定\n（GPU/CPU/MB/PSU/Case）"]
+      E3_3["③カテゴリ別DB候補構築\n（不足カテゴリのみ抽出）"]
+      E3_4["④MB socket検出\n（Intel/AMD候補絞り込み）"]
+      E3_5["⑤Haiku: 不足パーツ提案\n（確定パーツ+候補リストで生成）"]
+      E3_1 --> E3_2 --> E3_3 --> E3_4 --> E3_5
+    end
+  </div>
+</div>
+
+<!-- ====== Section 9: マッチング戦略詳細 ====== -->
+<div class="section">
+  <h2>9. _lookup_pc_specs() — 3段階マッチング戦略</h2>
+  <div class="mermaid">
+flowchart TD
+    INPUT["入力: 部品名リスト\n例: RTX 4070 / Lancool 216"]
+
+    subgraph SEARCH["全 products.jsonl を走査（workspace/data 配下）"]
+      S1["Level 1: Substring マッチ\nnormalize(入力) ⊆ normalize(候補名)\n例: rtx4070 in rtx4070tioced"]
+      S2["Level 2: トークンセット マッチ\ntokens(入力) ⊆ tokens(候補名)\n例: rtx+4070 ⊆ rtx+4070+ti+asus"]
+      S3["Level 3: GPU ティアペナルティ\n余分なティア識別子 Ti/Super/XT 等\n→ effective_extra += 100\n（NH-D15がNH-D15 G2に誤マッチ防止）"]
+      SCORE["スコア計算\nextra_tokens が最小のものを採用"]
+      S1 --> S2 --> S3 --> SCORE
+    end
+
+    subgraph OUTPUT["戻り値: specs辞書"]
+      O1["category: gpu/cpu/case/psu..."]
+      O2["specs.length_mm / tdp_w / socket..."]
+      O3["price_min: kakakuデータのみ存在"]
+    end
+
+    INPUT --> SEARCH --> OUTPUT
+  </div>
+  <div class="legend" style="margin-top:12px">
+    <div class="legend-item" style="font-size:0.8rem;color:#8b949e">
+      ※ kakaku_* データは件数が多い（GPU:913件、CPU:3933件）ため、スペックデータ付きのメーカー直販データ（asus/, gigabyte/等）も並行検索。スペック充実度はメーカー直販 &gt; kakakuデータ。
+    </div>
+  </div>
+</div>
+
+<!-- ====== Section 10: RAGコンテキスト注入テンプレート ====== -->
+<div class="section">
+  <h2>10. Claude へのコンテキスト注入テンプレート</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px">
+
+    <div class="source-card" style="font-size:0.78rem">
+      <span class="cat cat-gpu" style="margin-bottom:6px;display:inline-block">診断モード（/api/diagnose・/api/chat）</span>
+      <pre style="color:#e6edf3;white-space:pre-wrap;line-height:1.6">以下のPC部品の互換性を診断してください。
+
+## 部品リスト
+- RTX 4070
+- Core i7-13700K
+- ASUS ROG STRIX Z790-E
+
+## 取得済みスペック
+[_lookup_pc_specs() の結果]
+
+## 事前計算済みチェック
+（この数値・判定を最優先で使用すること）
+- GPU干渉マージン: RTX4070(245mm)
+  vs Lancool216(310mm) = OK（65mm）
+- CPUソケット: LGA1700 = OK（一致）
+- RAM規格: DDR5 = OK（一致）
+- PSU: 450W + 125W + 100W = 675W
+  → 850W電源でOK（余裕175W）
+
+JSON形式のみで返してください。</pre>
+    </div>
+
+    <div class="source-card" style="font-size:0.78rem">
+      <span class="cat cat-steam" style="margin-bottom:6px;display:inline-block">提案モード（/api/recommend）</span>
+      <pre style="color:#e6edf3;white-space:pre-wrap;line-height:1.6">PCゲームの推奨パーツ構成を提案してください。
+
+## ユーザー要求
+Monster Hunter Wildsを快適にプレイしたい
+予算20万円、60fps目標
+
+## Steamの推奨スペック
+[_select_spec_tier() の結果]
+推奨GPU: RTX 2070 Super以上
+推奨CPU: Core i5-4460以上
+推奨RAM: 16GB
+
+## DBにある主なGPU候補
+[TDPティア別 最大6件]
+- ASUS RTX 4070 (200W, 245mm, ¥89,800)
+- MSI RTX 4070 Ti (285W, 336mm, ¥112,000)
+
+## DBにある主なCPU候補
+[全件先頭3件]
+- Core i7-13700K (125W, LGA1700)
+
+## 指示
+- CPUのコア数・スレッド数はDB値をそのまま使用
+- ゲームスペックのRAM値はDB値のみ参照</pre>
+    </div>
+
+  </div>
+</div>
+
 <script>
   mermaid.initialize({
     startOnLoad: true,
