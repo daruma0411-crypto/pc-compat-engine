@@ -14,6 +14,7 @@
   let gameMode = false;
   let historyFirstSaved = false;
   let confirmedParts = [];  // [{name: string, category: string, source: 'user_specified'|'ai_accepted'|'ai_pending'}]
+  let budgetYen = null;     // ユーザーが指定した予算（数値）
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
   const HISTORY_KEY = 'pc_compat_history';
@@ -151,6 +152,15 @@
       btn.textContent = '🎮 ゲームモードへ';
       btn.title = 'ゲームモードに切り替え';
     }
+  }
+
+  // ─── カテゴリ正規化 ────────────────────────────────────────────────────
+  function normalizeCat(cat) {
+    const map = {
+      'ケース': 'CASE', '電源': 'PSU', 'マザーボード': 'MB',
+      'case': 'CASE', 'psu': 'PSU', 'mb': 'MB', 'motherboard': 'MB',
+    };
+    return map[cat] || cat.toUpperCase();
   }
 
   // ─── イベント ──────────────────────────────────────────────────────────
@@ -430,14 +440,16 @@
     // 全カテゴリを常に表示（未選択はグレーアウト）
     const catMap = {};
     for (const item of build) {
-      const cat = (item.category || '').toUpperCase();
+      const cat = normalizeCat(item.category);
       catMap[cat] = item;
     }
 
     const rowsHtml = CATEGORY_ORDER.map(cat => {
       const item = catMap[cat];
       const hasItem = !!item;
-      const price = item && item.price_low ? '¥' + Number(item.price_low).toLocaleString() + '〜' : '—';
+      // price_min優先、なければprice_rangeフォールバック
+      const priceVal = item && (item.price_min || item.price_low);
+      const price = priceVal ? '¥' + Number(priceVal).toLocaleString() + (item.price_min ? '' : '〜') : '—';
       const statusIcon = hasItem ? '✅' : '⚠️';
       return '<div class="summary-row">' +
         '<span class="summary-cat">' + cat + '</span>' +
@@ -449,10 +461,24 @@
       '</div>';
     }).join('');
 
-    // 合計金額計算
-    const totalMin = build.reduce((sum, it) => sum + (it.price_low || 0), 0);
+    // 合計金額計算（price_min優先）
+    const totalMin = build.reduce((sum, it) => sum + (it.price_min || it.price_low || 0), 0);
     const confirmedCount = CATEGORY_ORDER.filter(c => catMap[c]).length;
-    const totalStr = totalMin > 0 ? '¥' + totalMin.toLocaleString() + '〜' : '—';
+    const totalStr = totalMin > 0 ? '¥' + totalMin.toLocaleString() : '—';
+
+    // 予算差額表示
+    let budgetHtml = '';
+    if (budgetYen && totalMin > 0) {
+      const diff = budgetYen - totalMin;
+      const diffAbs = Math.abs(diff);
+      if (diff < -10000) {
+        budgetHtml = '<div class="summary-budget-warn">⚠️ 予算超過: ' + diffAbs.toLocaleString() + '円オーバー</div>';
+      } else if (diff > 10000) {
+        budgetHtml = '<div class="summary-budget-ok">✅ 予算内: ' + diffAbs.toLocaleString() + '円の余裕</div>';
+      } else {
+        budgetHtml = '<div class="summary-budget-ok">✅ 予算ぴったり</div>';
+      }
+    }
 
     const html = '<div class="summary-card">' +
       '<div class="summary-title">📋 構成サマリー</div>' +
@@ -461,6 +487,7 @@
         '<span class="summary-total-label">合計: ' + escHtml(totalStr) + '</span>' +
         '<span class="summary-count">' + confirmedCount + '/6 パーツ確定</span>' +
       '</div>' +
+      budgetHtml +
     '</div>';
 
     const cardWrap = mkEl('div', 'build-card-wrap');
@@ -476,6 +503,9 @@
     const total = data.total_estimate || '';
     const tip   = data.tip   || '';
     const reply = data.reply || '';
+
+    // 予算を更新（バックエンドから返されたbudget_yenを優先）
+    if (data.budget_yen) budgetYen = data.budget_yen;
 
     // 構成サマリーカードを先に表示
     if (build && build.length > 0) {
