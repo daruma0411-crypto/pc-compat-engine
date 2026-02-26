@@ -2152,7 +2152,7 @@ def recommend():
         )
         build_body = json.dumps({
             'model': 'claude-haiku-4-5-20251001',
-            'max_tokens': 800,
+            'max_tokens': 1500,  # 8カテゴリフル構成対応（元800→1500）
             'temperature': 0.3,  # Phase 2-3: 再現性向上（ブレを抑制）
             'messages': [{'role': 'user', 'content': build_prompt}]
         }).encode('utf-8')
