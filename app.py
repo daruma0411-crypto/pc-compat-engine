@@ -952,6 +952,11 @@ def diagnose():
 
 _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPCショップの店員です。
 
+【重要】製品リストについて
+- 下に表示される製品は、既にお客様の予算・用途でフィルタ済み
+- GPU 5件、CPU 5件、MB 5件、RAM/PSU/CASE/SSD 各3件（合計30件前後）
+- この中から選ぶだけでOK。無理に全部使わなくてもいい
+
 【会話ステップ（この順番で必ず進めること）】
 
 ステップ1: ゲーム名を受け取ったら
@@ -976,11 +981,8 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPCショップの店員です。
 ステップ4: GPU確定後
 → CPUを1つ提案。同じ形式。「これでいいですか？」で終える。
 
-ステップ5: CPU確定後
-→ マザーボードを提案。
-
-ステップ6〜8: 同様に
-→ メモリ→ケース→電源の順に1つずつ提案。
+ステップ5〜8: 同様に
+→ マザーボード→メモリ→ケース→電源の順に1つずつ提案。
 
 【絶対ルール】
 - 「少し詳しく教えてください」は禁止
@@ -1441,10 +1443,60 @@ def _load_all_pc_products():
     return all_products
 
 
+def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all_products=[]):
+    """ユーザー条件でフィルタしてから渡す（本物のRAG設計）"""
+    results = {}
+    
+    # 予算配分（合計100%）
+    budget_allocation = {
+        'gpu': 0.35,   # 35%
+        'cpu': 0.25,   # 25%
+        'mb': 0.15,    # 15%
+        'ram': 0.10,   # 10%
+        'psu': 0.08,   # 8%
+        'case': 0.05,  # 5%
+        'ssd': 0.02,   # 2%
+    }
+    
+    # 1. GPU: ゲーム推奨スペック + 予算でフィルタ
+    gpu_budget = budget * budget_allocation['gpu']
+    gpu_candidates = [p for p in all_products if p.get('category') == 'gpu']
+    # 価格でソート（安い順）
+    gpu_candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
+    # 予算内で5件
+    results['gpu'] = [p for p in gpu_candidates if (p.get('specs', {}).get('price', 999999) <= gpu_budget)][:5]
+    
+    # 2. CPU: 予算でフィルタ
+    cpu_budget = budget * budget_allocation['cpu']
+    cpu_candidates = [p for p in all_products if p.get('category') == 'cpu']
+    cpu_candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
+    results['cpu'] = [p for p in cpu_candidates if (p.get('specs', {}).get('price', 999999) <= cpu_budget)][:5]
+    
+    # 3. マザーボード: 予算でフィルタ
+    mb_budget = budget * budget_allocation['mb']
+    mb_candidates = [p for p in all_products if p.get('category') in ('mb', 'motherboard')]
+    mb_candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
+    results['mb'] = [p for p in mb_candidates if (p.get('specs', {}).get('price', 999999) <= mb_budget)][:5]
+    
+    # 4. その他: RAM/PSU/CASE/SSD各3件
+    for cat_key, cat_name in [('ram', 'ram'), ('psu', 'psu'), ('case', 'case'), ('ssd', 'ssd')]:
+        cat_budget = budget * budget_allocation[cat_key]
+        candidates = [p for p in all_products if p.get('category') in (cat_name, cat_key)]
+        candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
+        results[cat_key] = [p for p in candidates if (p.get('specs', {}).get('price', 999999) <= cat_budget)][:3]
+    
+    # フラットなリストに変換（合計30件前後）
+    filtered_products = []
+    for cat_products in results.values():
+        filtered_products.extend(cat_products)
+    
+    return filtered_products
+
+
 def _format_products_for_claude(products):
     """製品リストをClaude用に簡潔に整形する"""
     lines = []
-    for p in products[:100]:  # 最大100件まで
+    for p in products:  # 既にフィルタ済みの製品リストを全て使う
         cat = p.get('category', '')
         name = p.get('name', '')
         specs = p.get('specs', {}) or {}
@@ -1573,7 +1625,26 @@ def chat():
         if is_hearing:
             system_prompt = _SHOP_CLERK_SYSTEM_PROMPT
         else:
-            products_summary = _format_products_for_claude(all_products)
+            # 予算を抽出
+            budget_yen = 150000  # デフォルト15万円
+            for ui in user_inputs:
+                # 「20万」「15万円」などから数字を抽出
+                import re
+                match = re.search(r'(\d+)\s*万', ui)
+                if match:
+                    budget_yen = int(match.group(1)) * 10000
+                    break
+            
+            # RAG: ユーザー条件でフィルタしてから製品を取得（30件前後）
+            filtered_products = retrieve_parts(
+                budget=budget_yen,
+                game_name=None,  # TODO: ゲーム名を抽出
+                resolution='FHD',  # TODO: 解像度を抽出
+                quality='high',
+                all_products=all_products
+            )
+            
+            products_summary = _format_products_for_claude(filtered_products)
             system_prompt = _SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary
         
         # Claudeに投げる（シンプル）
