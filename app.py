@@ -1299,8 +1299,40 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     deduped_suggested = [i for i in suggested_build if i.get('category') not in confirmed_cat_labels]
     recommended_build = prefixed_build + deduped_suggested
 
+    # カテゴリを英語キーに正規化（フロントのCATEGORY_ORDERと合わせる）
+    _CAT_NORMALIZE = {
+        'ケース': 'CASE', 'case': 'CASE', 'Case': 'CASE',
+        'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB',
+        '電源': 'PSU', 'power_supply': 'PSU',
+    }
+    for item in recommended_build:
+        cat = item.get('category', '')
+        item['category'] = _CAT_NORMALIZE.get(cat, cat.upper() if cat else cat)
+
+    # kakaku実価格を各itemに付加
+    _CAT_TO_KAKAKU = {
+        'GPU': 'gpu', 'CPU': 'cpu', 'RAM': 'ram',
+        'MB': 'mb', 'PSU': 'psu', 'CASE': 'case', 'COOLER': 'cooler',
+    }
+    for item in recommended_build:
+        if not item.get('price_low'):
+            cat_key = _CAT_TO_KAKAKU.get(item.get('category', ''), '')
+            if cat_key:
+                price = _lookup_kakaku_price(item.get('name', ''), cat_key, all_products)
+                if price:
+                    item['price_min'] = price
+                    item['price_low'] = price  # フロントのrenderSummaryCardが参照
+
     total_estimate = _calc_total_estimate(recommended_build, build_data.get('total_estimate', ''))
     radar_scores   = _compute_radar_scores(recommended_build, all_products, total_estimate)
+
+    # 予算を数値化（try-exceptで安全に処理）
+    budget_numeric = None
+    if budget_from_history:
+        try:
+            budget_numeric = int(budget_from_history.replace('万円', '')) * 10000
+        except (ValueError, AttributeError):
+            pass  # 予算パース失敗時はNoneのまま
 
     return {
         'type':              'recommendation',
@@ -1308,6 +1340,7 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
         'reply':             build_data.get('reply', '構成を提案します。'),
         'recommended_build': recommended_build,
         'total_estimate':    total_estimate or build_data.get('total_estimate', ''),
+        'budget_yen':        budget_numeric,
         'tip':               build_data.get('tip', ''),
         'radar_scores':      radar_scores,
         'game_req_scores':   None,
@@ -1850,6 +1883,23 @@ def _select_spec_tier(budget_yen: int, game_data: dict) -> tuple:
     else:
         spec = game_data.get('recommended') or game_data.get('minimum') or {}
         return spec, '推奨'
+
+
+def _lookup_kakaku_price(name: str, category: str, all_products: list) -> int | None:
+    """
+    all_productsからcategoryに一致＆nameが部分一致するエントリの
+    最小price_minを返す。見つからなければNone。
+    """
+    candidates = []
+    for p in all_products:
+        if p.get('category') != category:
+            continue
+        p_name = p.get('name', '')
+        if name.lower() in p_name.lower() or p_name.lower() in name.lower():
+            price = p.get('price_min')
+            if price and isinstance(price, (int, float)):
+                candidates.append(int(price))
+    return min(candidates) if candidates else None
 
 
 @app.route('/api/recommend', methods=['POST'])
