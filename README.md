@@ -1,57 +1,166 @@
-# 🏗️ PIM-RAG Engine: Plan-and-Execute Architecture for Building Materials
+# 🖥️ PC互換性チェッカー
 
-建材カタログPIM化のための、Plan-and-Execute型RAGエンジン。
-BigQuery（構造化データ）× PageIndex（階層型文書検索）× Vector DB（曖昧検索）を
-LLMの推論で統合的に制御する。
+ゲーム・動画編集・作業PC、用途から最適なPCを提案するWebアプリケーション。
 
-## Architecture
+**本番環境**: https://pc-compat-engine.onrender.com/
+
+---
+
+## ⚠️ 開発者への重要な警告
+
+**Claude Codeで作業する前に、必ず以下を実行してください：**
 
 ```
-ユーザー
-  ↓
-Planner（LLM + 建材ドメインプロンプト）
-  ↓ 検索計画JSON
-Executor（並列ツール実行）
-  ├→ BigQuery（品番・寸法・スペック）
-  ├→ PageIndex（マニュアル・仕様書PDF）
-  └→ Vector DB（FAQ・過去問い合わせ）
-  ↓ 結果集約
-Validator（LLM）
-  ├→ 情報十分 → Synthesizer → 最終回答
-  └→ 情報不足 → Plannerに差し戻し（再計画）
+@claude.md を読んでから作業を開始してください。
 ```
 
-## Quick Start
+**📄 `claude.md` には以下の重要情報があります：**
+- 🚨 絶対にやってはいけないこと（バックグラウンド実行禁止など）
+- 📋 プロジェクト現状
+- ⚠️ 過去に発生した問題と解決方法
+- ✅ 開発時の推奨フロー
+- 📞 緊急時の対応マニュアル
 
+**`claude.md` を読まずに作業すると、重大な問題が発生する可能性があります。**
+
+---
+
+## 🚀 クイックスタート
+
+### ローカル開発
 ```bash
+# 依存関係インストール
 pip install -r requirements.txt
-cp .env.example .env  # API keys設定
-python -m src.main "AX-900を水回りに使えるか？"
+
+# 開発サーバー起動（フォアグラウンド）
+python app.py
+
+# ブラウザで確認
+# http://127.0.0.1:5000
+
+# 停止: Ctrl+C
 ```
 
-## Project Structure
+### 本番デプロイ
+```bash
+git add -A
+git commit -m "feat: 新機能追加"
+git push origin main
+# → Renderが自動デプロイ
+```
+
+---
+
+## 📁 プロジェクト構成
 
 ```
-src/
-├── main.py              # エントリーポイント
-├── config/
-│   ├── settings.py      # 設定管理
-│   └── domain_rules.py  # 建材ドメインルール
-├── planner/
-│   ├── planner.py       # 検索計画生成
-│   └── prompts.py       # ドメインプロンプト
-├── executor/
-│   ├── executor.py      # 並列ツール実行
-│   └── registry.py      # ツール登録管理
-├── tools/
-│   ├── base.py          # ツール基底クラス
-│   ├── bigquery_tool.py # BigQuery検索
-│   ├── pageindex_tool.py# PageIndex検索
-│   └── vector_tool.py   # Vector DB検索
-├── validator/
-│   └── validator.py     # 結果検証・再計画判定
-examples/
-│   └── asahi_woodtec.py # 朝日ウッドテックPoC
-tests/
-    └── test_planner.py  # テスト
+pc-compat-engine/
+├── app.py                    # Flaskアプリ（メイン）
+├── requirements.txt          # Python依存関係
+├── static/
+│   ├── index.html           # トップページ
+│   ├── style.css            # スタイル
+│   ├── app.js               # フロントエンドJS
+│   └── game/                # 415ゲームページ
+├── workspace/data/          # パーツデータ（JSONL）
+├── marketing-materials.md   # マーケティング素材
+├── claude.md                # ⚠️ 開発者必読
+└── README.md                # このファイル
 ```
+
+---
+
+## 🛠️ 技術スタック
+
+- **Backend**: Flask + gunicorn
+- **Frontend**: Vanilla JS（フレームワークなし）
+- **API**: Claude Anthropic（推奨構成生成）
+- **Hosting**: Render（Standard $25/月）
+- **Analytics**: Google Analytics 4
+- **SEO**: Google Search Console, Bing Webmaster Tools
+
+---
+
+## 📊 データ
+
+- **ゲーム情報**: 447タイトル（Steam公式データ）
+- **パーツデータ**: 10,000+点（価格.com等）
+- **互換性ページ**: 14,000ページ
+- **ゲームページ**: 415ページ
+- **合計**: 417ページ配信中
+
+---
+
+## 🎯 機能
+
+1. **互換性チェック**
+   - GPU/CPU/ケース/クーラー/PSUの互換性診断
+   - 物理干渉チェック（GPU長、クーラー高さ）
+
+2. **ゲーム推奨スペック**
+   - 447ゲームの推奨/最低スペック
+   - 予算別の最適PC構成提案
+
+3. **AIアシスタント**
+   - Claude APIで自然言語対応
+   - 「予算10万円でモンハン」→ 最適構成提案
+
+---
+
+## 🚨 重要な注意事項（再掲）
+
+### 絶対にやってはいけないこと
+
+1. ❌ **バックグラウンド実行禁止**
+   ```bash
+   # NG例
+   python app.py &
+   ```
+
+2. ❌ **VBSスクリプト作成禁止**
+   ```vbs
+   ' これを作るとプロセスがゾンビ化します
+   Set oShell = CreateObject("WScript.Shell")
+   oShell.Run "python app.py", 0, False
+   ```
+
+3. ❌ **一時ファイル削除忘れ禁止**
+   ```bash
+   # テスト後は必ず削除
+   rm tmp_*.py
+   ```
+
+**詳細は `claude.md` を必ず読んでください。**
+
+---
+
+## 📞 トラブルシューティング
+
+### サイトがダウンした
+
+1. [Renderログ確認](https://dashboard.render.com/web/srv-d6elsr5m5p6s739ufkj0/logs)
+2. エラーメッセージ確認
+3. 必要なら `git revert HEAD && git push`
+
+### プロセスが暴走した
+
+```powershell
+# 全プロセス停止
+Stop-Process -Name bash,python,node -Force
+```
+
+---
+
+## 📝 ライセンス
+
+Private（個人プロジェクト）
+
+---
+
+## 👤 作成者
+
+daruma0411-crypto
+
+---
+
+**最終更新**: 2026-02-26
