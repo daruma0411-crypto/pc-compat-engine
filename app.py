@@ -1083,6 +1083,28 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
 
     all_products = _load_all_products()
 
+    # historyからユーザーの予算を抽出（ゲームモードからの引き継ぎ等）
+    _BUDGET_PAT = re.compile(r'予算\s*(\d+)\s*万')
+    budget_from_history = ''
+    for h in (history or []):
+        if h.get('role') == 'user':
+            m = _BUDGET_PAT.search(h.get('content', ''))
+            if m:
+                budget_from_history = f'{m.group(1)}万円'
+    # 今回のmessageにも予算があれば上書き
+    m = _BUDGET_PAT.search(message)
+    if m:
+        budget_from_history = f'{m.group(1)}万円'
+
+    # コラボ・限定品モデルをDB候補から除外するキーワード
+    _COLLAB_KEYWORDS = [
+        'HATSUNE MIKU', '初音ミク', 'GUNDAM', 'ガンダム', 'EVANGELION', 'エヴァ',
+        'EVANGELION', 'LIMITED EDITION', 'Evangelion', 'CAPCOM', 'ANNIVERSARY',
+    ]
+    def _is_collab(name: str) -> bool:
+        n = name.upper()
+        return any(kw.upper() in n for kw in _COLLAB_KEYWORDS)
+
     # 確定パーツのスペックをDBから取得
     confirmed_specs = _lookup_pc_specs(parts) if parts else {}
 
@@ -1190,7 +1212,7 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     # 必要なカテゴリのみDB候補リストを構築
     db_sections = ''
     if need_gpu:
-        gpu_cands = [p for p in all_products if p.get('category') == 'gpu'][:5]
+        gpu_cands = [p for p in all_products if p.get('category') == 'gpu' and not _is_collab(p.get('name', ''))][:5]
         db_sections += '## GPU候補\n' + '\n'.join(fmt_p(p) for p in gpu_cands) + '\n\n'
     if need_case:
         case_cands = [p for p in all_products if p.get('category') == 'case'][:4]
@@ -1232,7 +1254,7 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
         + (f'- 【必須】確定MBのソケットは「{mb_socket}」。LGA系ならIntel CPU、AM系ならAMD CPUのみ提案すること。絶対に別ソケットのCPUを選ばないこと\n' if mb_socket else '- CPU/MBのソケット一致を必ず確認すること\n')
         + '- 電源容量: GPU TDP×1.2 + CPU TDP + ストレージ本数×15W + システム100Wの合計以上を選定（例: RTX 4090 450W + i9 253W = 最低1000W必要）\n'
         + '- ユーザーが言及していない用途（VR/動画編集/ゲーミング等）を勝手に追加しないこと\n'
-        + '- 予算の記載があれば合計がその範囲に収まるよう選定すること\n'
+        + (f'- 【必須・厳守】予算は{budget_from_history}。確定パーツ込みの合計がこの範囲に収まるよう残りのパーツを選定すること。絶対に超えないこと\n' if budget_from_history else '- 予算の記載があれば合計がその範囲に収まるよう選定すること\n')
         + '- ユーザーメッセージにHDD台数（例: HDD 3台・3.5インチ2本）が含まれる場合、HDDカテゴリを構成リストに必ず追加し、確定MBのSATAポート数・ケースの3.5インチベイ数も考慮すること\n'
         + '- ユーザーメッセージにNVMe/SSD台数が含まれる場合、NVMe SSDカテゴリを構成リストに必ず追加し、確定MBのM.2スロット数を考慮すること\n\n'
         + '以下のJSON形式だけで返してください（説明不要）:\n'
@@ -1313,11 +1335,21 @@ def chat():
         intent               = extracted.get('intent', 'diagnose')
         reply                = extracted.get('reply', '')
 
-        # 今回のメッセージに型番がなければ、前ターンで確定したパーツを引き継ぐ
-        if not parts and confirmed_parts:
-            parts = confirmed_parts
-            # 前ターン引き継ぎの場合は user_specified_parts はなし（ユーザーが今回指定したわけでない）
-            user_specified_parts = []
+        # confirmed_partsを常にmerge（今回のpartsがあっても引き継ぎパーツを保持）
+        # 例:「Lancool 216に入れたい」→ parts=['Lancool 216'] + confirmed=['RTX 5070',...]
+        merged_parts = list(confirmed_parts)
+        for p in parts:
+            if p not in merged_parts:
+                merged_parts.append(p)
+        parts = merged_parts
+
+        # confirmed_partsは変更禁止として扱う（前ターンでユーザーが承認済み）
+        if confirmed_parts:
+            protected = list(confirmed_parts)
+            for p in (user_specified_parts or []):
+                if p not in protected:
+                    protected.append(p)
+            user_specified_parts = protected
 
         # ── 提案モード ────────────────────────────────────────────────
         if intent == 'suggest':
