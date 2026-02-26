@@ -1890,7 +1890,39 @@ def recommend():
             except Exception:
                 pass
 
-        gpu_candidates = [p for p in all_products if p.get('category') == 'gpu'][:4]
+        # 予算ティアに応じたGPU候補を選出（TDPベースで性能帯を分類）
+        all_gpus = [p for p in all_products if p.get('category') == 'gpu']
+        _TDP_TIERS = [
+            ('ultra',       280, 999),   # RTX 4080 SUPER / RX 7900 XTX 相当
+            ('high',        200, 279),   # RTX 4070 Ti / RX 7800 XT 相当
+            ('recommended', 120, 199),   # RTX 3060 / RX 6600 相当
+            ('minimum',       0, 119),   # GTX 1660 / RX 5500 XT 相当
+        ]
+        # 選択されたスペック段階 + 1段上を候補に含める
+        tier_order = ['minimum', 'recommended', 'high', 'ultra']
+        selected_tier = spec_tier if game_data else '推奨'
+        tier_map = {'最低': 'minimum', '推奨': 'recommended', '高': 'high', 'ウルトラ': 'ultra'}
+        current_tier = tier_map.get(selected_tier, 'recommended')
+        current_idx = tier_order.index(current_tier) if current_tier in tier_order else 1
+        target_tiers = set(tier_order[max(0, current_idx):min(len(tier_order), current_idx + 2)])
+
+        gpu_candidates = []
+        seen_models = set()
+        for tier_name, tdp_lo, tdp_hi in _TDP_TIERS:
+            if tier_name not in target_tiers:
+                continue
+            for p in all_gpus:
+                tdp = (p.get('specs') or {}).get('tdp_w') or 0
+                if tdp_lo <= tdp <= tdp_hi:
+                    # モデル名の重複排除（同一GPU型番の異メーカー版は1つだけ）
+                    model_key = re.sub(r'(ASRock|ASUS|MSI|Gigabyte|ZOTAC|玄人志向|Palit|Gainward|PNY|Sapphire|PowerColor|Sparkle)\s*', '', p.get('name', ''), flags=re.IGNORECASE).strip()[:30]
+                    if model_key not in seen_models:
+                        seen_models.add(model_key)
+                        gpu_candidates.append(p)
+            if len(gpu_candidates) >= 6:
+                break
+        gpu_candidates = gpu_candidates[:6]
+
         cpu_candidates = [p for p in all_products if p.get('category') == 'cpu'][:3]
 
         def fmt_gpu(p):
