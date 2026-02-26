@@ -27,6 +27,13 @@ app = Flask(__name__, static_folder='static')
 _PC_WORKSPACE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace')
 
 # ================================================================
+# セッションストレージ（メモリ内）
+# ================================================================
+# セッションIDまたはchat_idをキーとして、各セッションの状態を保持
+# 構造: {session_id: {'confirmed_parts': {...}, 'history': [...]}}
+_SESSIONS = {}
+
+# ================================================================
 # 診断ロジック（proxy_server.py から移植）
 # ================================================================
 
@@ -1541,6 +1548,43 @@ def validate_parts(parts, all_products):
     return {'ok': True}
 
 
+def get_or_create_session(session_id):
+    """セッションを取得または作成する"""
+    if session_id not in _SESSIONS:
+        _SESSIONS[session_id] = {
+            'confirmed_parts': {},  # {category: part_name} の形式
+            'history': []           # 会話履歴（直近10メッセージのみ保持）
+        }
+    return _SESSIONS[session_id]
+
+
+def format_confirmed_parts(confirmed_parts):
+    """confirmed_partsを構造化テキストとしてフォーマット（約500トークン）"""
+    if not confirmed_parts:
+        return "## 確定済みパーツ\n（まだ選択されていません）\n"
+    
+    lines = ["## 確定済みパーツ"]
+    for category, part_name in confirmed_parts.items():
+        lines.append(f"- {category.upper()}: {part_name}")
+    
+    return "\n".join(lines) + "\n"
+
+
+def format_history(history):
+    """会話履歴を整形（直近10メッセージのみ）"""
+    if not history:
+        return ""
+    
+    lines = ["## 直近の会話"]
+    for msg in history[-10:]:
+        role = msg.get('role', 'user')
+        content = msg.get('content', '')
+        prefix = "ユーザー" if role == 'user' else "AI"
+        lines.append(f"{prefix}: {content}")
+    
+    return "\n".join(lines) + "\n"
+
+
 def call_claude_chat(system, messages):
     """Claude APIを呼び出してチャット応答を取得する"""
     req_body = json.dumps({
@@ -1587,21 +1631,29 @@ def parse_claude_json_response(text):
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    """シンプルな会話チャットエンドポイント"""
+    """シンプルな会話チャットエンドポイント（セッション管理付き）"""
     try:
         data = request.get_json(force=True) or {}
         message = str(data.get('message', '')).strip()
-        history = data.get('history', [])
+        
+        # セッションIDを取得（Web: session_id, Telegram: chat_id）
+        session_id = data.get('session_id') or data.get('chat_id') or 'default'
         
         if not message:
             return jsonify({'error': 'message が空です'}), 400
         
+        # セッションを取得または作成
+        session = get_or_create_session(session_id)
+        
         # 製品DBロード
         all_products = _load_all_pc_products()
         
-        # 会話履歴を構築（直近10ターンのみ）
+        # 1. 構造化データ（confirmed_parts）を常に先頭に注入（500トークン固定）
+        confirmed_parts_text = format_confirmed_parts(session['confirmed_parts'])
+        
+        # 2. 会話履歴を構築（直近10メッセージのみ）
         messages = []
-        for h in history[-10:]:
+        for h in session['history'][-10:]:
             if h.get('role') in ('user', 'assistant'):
                 messages.append({'role': h['role'], 'content': h['content']})
         messages.append({'role': 'user', 'content': message})
@@ -1609,7 +1661,8 @@ def chat():
         # ヒアリング中か提案段階かを判定
         # 予算・解像度・画質の3つが揃ったら提案段階に入る
         is_hearing = True
-        user_inputs = [h.get('content', '') for h in history[-10:] if h.get('role') == 'user']
+        user_inputs = [h.get('content', '') for h in session['history'][-10:] if h.get('role') == 'user']
+        user_inputs.append(message)  # 現在のメッセージも含める
         all_user_text = ' '.join(user_inputs).lower()
         
         # 3つの条件をチェック
@@ -1623,19 +1676,19 @@ def chat():
         
         # ヒアリング中はシンプルなプロンプト、提案段階は製品リスト付き
         if is_hearing:
-            system_prompt = _SHOP_CLERK_SYSTEM_PROMPT
+            # ヒアリング段階: confirmed_partsのみ注入（製品リストなし）
+            system_prompt = confirmed_parts_text + "\n" + _SHOP_CLERK_SYSTEM_PROMPT
         else:
             # 予算を抽出
             budget_yen = 150000  # デフォルト15万円
             for ui in user_inputs:
                 # 「20万」「15万円」などから数字を抽出
-                import re
                 match = re.search(r'(\d+)\s*万', ui)
                 if match:
                     budget_yen = int(match.group(1)) * 10000
                     break
             
-            # RAG: ユーザー条件でフィルタしてから製品を取得（30件前後）
+            # 3. フィルタ済みパーツDB（提案段階のみ、約10Kトークン）
             filtered_products = retrieve_parts(
                 budget=budget_yen,
                 game_name=None,  # TODO: ゲーム名を抽出
@@ -1645,9 +1698,9 @@ def chat():
             )
             
             products_summary = _format_products_for_claude(filtered_products)
-            system_prompt = _SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary
+            system_prompt = confirmed_parts_text + "\n" + _SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary
         
-        # Claudeに投げる（シンプル）
+        # Claudeに投げる
         claude_response = call_claude_chat(
             system=system_prompt,
             messages=messages
@@ -1664,6 +1717,21 @@ def chat():
                     'message': validated['error_message'],
                     'recommended_parts': []
                 })
+            
+            # confirmed_partsを更新（新しく推奨されたパーツを追加）
+            for part in response_data['recommended_parts']:
+                category = part.get('category', '').upper()
+                part_name = part.get('name', '')
+                if category and part_name:
+                    session['confirmed_parts'][category] = part_name
+        
+        # 会話履歴を更新（直近10メッセージのみ保持）
+        session['history'].append({'role': 'user', 'content': message})
+        session['history'].append({'role': 'assistant', 'content': response_data.get('message', '')})
+        
+        # 10メッセージを超えたら古いものを削除
+        if len(session['history']) > 10:
+            session['history'] = session['history'][-10:]
         
         return jsonify(response_data)
 

@@ -8,7 +8,7 @@
   const STATUS_LABEL = { OK: 'OK', WARNING: 'WARN', NG: 'NG', UNKNOWN: '?' };
 
   // ─── 状態管理 ──────────────────────────────────────────────────────────
-  let history = [];
+  let sessionId = null;     // セッションID（サーバー側で会話履歴を管理）
   let sending = false;
   let lastDiagnosis = null;
   let gameMode = false;
@@ -16,6 +16,16 @@
   let confirmedParts = [];  // [{name: string, category: string}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
   let currentImageGenerated = false;  // 画像生成済みフラグ
+  
+  // セッションIDを生成（初回またはリセット時）
+  function generateSessionId() {
+    return 'web_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  }
+  
+  // 初回セッションID生成
+  if (!sessionId) {
+    sessionId = generateSessionId();
+  }
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
   const HISTORY_KEY = 'pc_compat_history';
@@ -194,7 +204,6 @@
     saveToHistory(msg, gameMode ? 'game' : 'compat');
 
     appendUserBubble(msg);
-    history.push({ role: 'user', content: msg });
     input.value = '';
     adjustHeight();
     setSending(true);
@@ -208,7 +217,7 @@
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, history: history.slice(-10) }),
+        body: JSON.stringify({ message: msg, session_id: sessionId }),
         signal: controller.signal,
       });
       clearTimeout(timer);
@@ -218,7 +227,6 @@
       }
       const data = await res.json();
       typingEl.remove();
-      history.push({ role: 'assistant', content: data.message || data.reply || '' });
 
       // ゲームモード: 推奨構成を表示
       if (gameMode && data.recommended_build) {
