@@ -547,12 +547,334 @@ def static_pages(filename):
     if not filename.endswith('.html'):
         return send_from_directory(static_dir, filename)
     html_path = os.path.join(static_dir, filename)
-    if not os.path.isfile(html_path):
-        return 'Not Found', 404
-    with open(html_path, 'r', encoding='utf-8') as f:
-        html = f.read()
-    html = _inject_affiliate_tags(html)
-    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+    if os.path.isfile(html_path):
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        html = _inject_affiliate_tags(html)
+        return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+    # compat/ ページを動的生成（static/compat/ が存在しない環境用）
+    if filename.startswith('compat/'):
+        html = _generate_compat_page(filename[len('compat/'):])
+        if html:
+            html = _inject_affiliate_tags(html)
+            return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+    return 'Not Found', 404
+
+
+# ── compat/ 動的ページ生成 ──────────────────────────────────────
+
+_COMPAT_CACHE: dict = {}
+
+_COMPAT_CSS = """<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;
+  background:#f3f4f6;color:#111827;line-height:1.6}
+.wrap{max-width:800px;margin:0 auto;padding:24px 16px}
+.breadcrumb{padding:8px 16px;background:#f5f5f5;border-bottom:1px solid #ddd;font-size:.875rem}
+.breadcrumb a{color:#4f46e5;text-decoration:none}
+.breadcrumb .sep{margin:0 6px;color:#9ca3af}
+header{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);
+  color:#fff;padding:16px 20px;margin-bottom:24px}
+header a{color:#fff;text-decoration:none;font-size:.9rem;opacity:.8}
+header h1{font-size:1rem;margin-top:4px;opacity:.9}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.verdict{font-size:1.8rem;font-weight:700;margin-bottom:16px}
+.verdict.ok{color:#16a34a}.verdict.warning{color:#ca8a04}.verdict.ng{color:#dc2626}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #e5e7eb}
+th{background:#f9fafb;font-weight:600;font-size:.9rem;color:#374151}
+.buy-wrap{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.buy-btn{display:inline-block;padding:10px 20px;border-radius:8px;
+  color:#fff;font-weight:600;text-decoration:none;font-size:.95rem}
+.buy-amazon{background:#FF9900}.buy-rakuten{background:#BF0000}
+.links{display:flex;flex-direction:column;gap:8px}
+.links a{color:#4f46e5;text-decoration:none;font-size:.95rem}
+.cta{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);
+  color:#fff;border-radius:12px;padding:20px 24px;text-align:center;margin-top:24px}
+.cta a{color:#fff;font-weight:600;text-decoration:underline}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.item-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.item-card.ok{border-left:4px solid #16a34a}
+.item-card.warning{border-left:4px solid #ca8a04}
+.item-card.ng{border-left:4px solid #dc2626}
+.item-name{font-weight:600;margin-bottom:6px}
+.item-detail{font-size:.85rem;color:#6b7280;margin-bottom:10px}
+.section-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;color:#374151}
+</style>"""
+
+_BASE_URL = 'https://pc-compat-engine.onrender.com'
+
+
+def _slugify(name: str) -> str:
+    s = name.lower()
+    s = re.sub(r'[^a-z0-9]+', '-', s)
+    return s.strip('-')
+
+
+def _esc(text: str) -> str:
+    return (str(text).replace('&', '&amp;').replace('<', '&lt;')
+            .replace('>', '&gt;').replace('"', '&quot;'))
+
+
+def _load_compat_products():
+    if 'gpus' in _COMPAT_CACHE:
+        return _COMPAT_CACHE['gpus'], _COMPAT_CACHE['cases']
+    gpus, cases = [], []
+    data_dir = os.path.join(_PC_WORKSPACE_DIR, 'data')
+    for path in glob_module.glob(os.path.join(data_dir, '*', 'products.jsonl')):
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        d = json.loads(line)
+                    except Exception:
+                        continue
+                    cat = d.get('category', '')
+                    if cat == 'gpu':
+                        length = (d.get('specs') or {}).get('length_mm') or d.get('length_mm')
+                        if length is not None:
+                            try:
+                                d['_length_mm'] = float(str(length).replace('mm', '').strip())
+                                d['_slug'] = _slugify(d.get('name', ''))
+                                gpus.append(d)
+                            except (ValueError, TypeError):
+                                pass
+                    elif cat == 'case':
+                        max_len = ((d.get('specs') or {}).get('max_gpu_length_mm')
+                                   or d.get('max_gpu_length_mm'))
+                        if max_len is not None:
+                            try:
+                                d['_max_gpu_mm'] = float(str(max_len).replace('mm', '').strip())
+                                d['_slug'] = _slugify(d.get('name', ''))
+                                cases.append(d)
+                            except (ValueError, TypeError):
+                                pass
+        except Exception:
+            pass
+    _COMPAT_CACHE['gpus'] = gpus
+    _COMPAT_CACHE['cases'] = cases
+    return gpus, cases
+
+
+def _calc_compat_verdict(margin: float):
+    if margin <= 0:
+        return 'NG', '❌ 入りません', 'ng'
+    elif margin <= 20:
+        return 'WARNING', '⚠️ 注意あり', 'warning'
+    else:
+        return 'OK', '✅ 入ります', 'ok'
+
+
+def _amazon_compat_url(name: str) -> str:
+    q = urllib.parse.quote(name)
+    tag = os.environ.get('AMAZON_ASSOCIATE_TAG', '__AMAZON_TAG__')
+    return f'https://www.amazon.co.jp/s?k={q}&tag={tag}'
+
+
+def _generate_compat_page(path: str):
+    try:
+        gpus, cases = _load_compat_products()
+        if not gpus or not cases:
+            return None
+        # GPU index: gpu/{slug}.html
+        if path.startswith('gpu/') and path.endswith('.html'):
+            gpu_slug = path[4:-5]
+            gpu = next((g for g in gpus if g['_slug'] == gpu_slug), None)
+            if not gpu:
+                return None
+            results = []
+            for case in cases:
+                margin = case['_max_gpu_mm'] - gpu['_length_mm']
+                v, badge, css = _calc_compat_verdict(margin)
+                results.append({'case': case, 'margin': margin, 'verdict': v, 'badge': badge, 'css': css})
+            return _render_gpu_index_page(gpu, results)
+        # Case index: case/{slug}.html
+        if path.startswith('case/') and path.endswith('.html'):
+            case_slug = path[5:-5]
+            case = next((c for c in cases if c['_slug'] == case_slug), None)
+            if not case:
+                return None
+            results = []
+            for gpu in gpus:
+                margin = case['_max_gpu_mm'] - gpu['_length_mm']
+                v, badge, css = _calc_compat_verdict(margin)
+                results.append({'gpu': gpu, 'margin': margin, 'verdict': v, 'badge': badge, 'css': css})
+            return _render_case_index_page(case, results)
+        # Individual: {gpu-slug}-vs-{case-slug}.html
+        if path.endswith('.html') and '-vs-' in path:
+            slug_part = path[:-5]
+            vs_idx = slug_part.index('-vs-')
+            gpu_slug = slug_part[:vs_idx]
+            case_slug = slug_part[vs_idx + 4:]
+            gpu = next((g for g in gpus if g['_slug'] == gpu_slug), None)
+            case = next((c for c in cases if c['_slug'] == case_slug), None)
+            if not gpu or not case:
+                return None
+            margin = case['_max_gpu_mm'] - gpu['_length_mm']
+            v, badge, css = _calc_compat_verdict(margin)
+            return _render_individual_compat(gpu, case, margin, v, badge, css)
+    except Exception:
+        pass
+    return None
+
+
+def _render_individual_compat(gpu, case, margin, verdict, badge, css_class) -> str:
+    gn, cn = gpu.get('name', ''), case.get('name', '')
+    gl, cm = gpu['_length_mm'], case['_max_gpu_mm']
+    gs, cs = gpu['_slug'], case['_slug']
+    detail = (f'マージン {margin:.0f}mm（余裕あり）' if verdict == 'OK'
+              else f'マージン {margin:.0f}mm（ケーブル干渉リスク）' if verdict == 'WARNING'
+              else f'{abs(margin):.0f}mmオーバー')
+    canonical = f'{_BASE_URL}/compat/{_esc(gs)}-vs-{_esc(cs)}.html'
+    bl = json.dumps({
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": f"{_BASE_URL}/"},
+            {"@type": "ListItem", "position": 2, "name": f"{gn}対応ケース一覧",
+             "item": f"{_BASE_URL}/compat/gpu/{gs}.html"},
+            {"@type": "ListItem", "position": 3, "name": f"{gn} × {cn}"},
+        ]
+    }, ensure_ascii=False)
+    return f"""<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{_esc(gn)}は{_esc(cn)}に入る？互換性チェック結果</title>
+<meta name="description" content="{_esc(gn)}（{gl:.0f}mm）が{_esc(cn)}（最大{cm:.0f}mm）に入るか計算した結果：{badge}。マージン{margin:.0f}mm。">
+<link rel="canonical" href="{canonical}">
+<script type="application/ld+json">{bl}</script>
+{_COMPAT_CSS}</head>
+<body>
+<nav aria-label="breadcrumb" class="breadcrumb">
+  <a href="/">ホーム</a><span class="sep">&rsaquo;</span>
+  <a href="/compat/gpu/{_esc(gs)}.html">{_esc(gn)}</a><span class="sep">&rsaquo;</span>
+  <span>{_esc(gn)} × {_esc(cn)}</span>
+</nav>
+<header><a href="/">← PC互換チェッカー トップ</a>
+  <h1>{_esc(gn)} × {_esc(cn)} 互換性チェック</h1></header>
+<div class="wrap">
+  <div class="card">
+    <h2 style="font-size:1.3rem;margin-bottom:12px">{_esc(gn)}は{_esc(cn)}に入りますか？</h2>
+    <div class="verdict {css_class}">{badge}</div>
+    <table><tr><th>項目</th><th>値</th></tr>
+      <tr><td>GPU全長</td><td>{gl:.0f} mm</td></tr>
+      <tr><td>ケース最大GPU長</td><td>{cm:.0f} mm</td></tr>
+      <tr><td>マージン</td><td>{margin:.0f} mm</td></tr>
+      <tr><td>判定</td><td>{badge}　{detail}</td></tr>
+    </table>
+    <div class="buy-wrap">
+      <a class="buy-btn buy-amazon" href="{_esc(_amazon_compat_url(gn))}" target="_blank" rel="noopener">🛒 Amazonで{_esc(gn)}を見る</a>
+    </div>
+  </div>
+  <div class="card"><p class="section-title">関連ページ</p>
+    <div class="links">
+      <a href="/compat/gpu/{_esc(gs)}.html">▶ {_esc(gn)}が入る他のケース一覧</a>
+      <a href="/compat/case/{_esc(cs)}.html">▶ {_esc(cn)}に入る他のGPU一覧</a>
+    </div>
+  </div>
+  <div class="cta"><p>CPU・電源・マザーボードも含めてまとめて互換性診断できます</p>
+    <p style="margin-top:8px"><a href="/">複数パーツを一括診断する →</a></p>
+  </div>
+</div></body></html>"""
+
+
+def _render_gpu_index_page(gpu, results) -> str:
+    gn, gl, gs = gpu.get('name', ''), gpu['_length_mm'], gpu['_slug']
+    ok = [r for r in results if r['verdict'] == 'OK']
+    warn = [r for r in results if r['verdict'] == 'WARNING']
+    ng = [r for r in results if r['verdict'] == 'NG']
+
+    def items_html(lst):
+        if not lst:
+            return '<p style="color:#6b7280;font-size:.9rem">該当なし</p>'
+        h = '<div class="grid">'
+        for r in sorted(lst, key=lambda x: x['margin'], reverse=True):
+            c, cslug = r['case'], r['case']['_slug']
+            h += (f'<div class="item-card {r["css"]}">'
+                  f'<div class="item-name">{_esc(c.get("name",""))}</div>'
+                  f'<div class="item-detail">最大{c["_max_gpu_mm"]:.0f}mm　マージン{r["margin"]:.0f}mm　{r["badge"]}</div>'
+                  f'<a href="/compat/{_esc(gs)}-vs-{_esc(cslug)}.html" style="color:#4f46e5;font-size:.85rem">詳細を見る →</a></div>')
+        return h + '</div>'
+
+    bl = json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": f"{_BASE_URL}/"},
+            {"@type": "ListItem", "position": 2, "name": f"{gn}対応ケース一覧",
+             "item": f"{_BASE_URL}/compat/gpu/{gs}.html"},
+        ]}, ensure_ascii=False)
+    return f"""<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{_esc(gn)}が入るケース一覧（{len(ok)}件OK）</title>
+<meta name="description" content="{_esc(gn)}（全長{gl:.0f}mm）が搭載できるPCケース一覧。OK {len(ok)}件、注意あり {len(warn)}件、NG {len(ng)}件。">
+<script type="application/ld+json">{bl}</script>
+{_COMPAT_CSS}</head>
+<body>
+<nav aria-label="breadcrumb" class="breadcrumb">
+  <a href="/">ホーム</a><span class="sep">&rsaquo;</span><span>{_esc(gn)}</span>
+</nav>
+<header><a href="/">← PC互換チェッカー トップ</a>
+  <h1>{_esc(gn)}（{gl:.0f}mm）対応ケース一覧</h1></header>
+<div class="wrap">
+  <div class="card"><p>{_esc(gn)}の全長は <strong>{gl:.0f}mm</strong> です。<br>
+    OK: {len(ok)}件　⚠ 注意: {len(warn)}件　❌ NG: {len(ng)}件</p></div>
+  <p class="section-title">✅ 搭載可能なケース（{len(ok)}件）</p>{items_html(ok)}
+  <p class="section-title">⚠️ 注意あり（{len(warn)}件）</p>{items_html(warn)}
+  <p class="section-title">❌ 搭載不可（{len(ng)}件）</p>{items_html(ng)}
+  <div class="cta"><p>CPU・電源も含めてまとめて互換性診断できます</p>
+    <p style="margin-top:8px"><a href="/">複数パーツを一括診断する →</a></p></div>
+</div></body></html>"""
+
+
+def _render_case_index_page(case, results) -> str:
+    cn, cm, cs = case.get('name', ''), case['_max_gpu_mm'], case['_slug']
+    ok = [r for r in results if r['verdict'] == 'OK']
+    warn = [r for r in results if r['verdict'] == 'WARNING']
+    ng = [r for r in results if r['verdict'] == 'NG']
+
+    def items_html(lst):
+        if not lst:
+            return '<p style="color:#6b7280;font-size:.9rem">該当なし</p>'
+        h = '<div class="grid">'
+        for r in sorted(lst, key=lambda x: x['margin'], reverse=True):
+            g, gslug = r['gpu'], r['gpu']['_slug']
+            h += (f'<div class="item-card {r["css"]}">'
+                  f'<div class="item-name">{_esc(g.get("name",""))}</div>'
+                  f'<div class="item-detail">全長{g["_length_mm"]:.0f}mm　マージン{r["margin"]:.0f}mm　{r["badge"]}</div>'
+                  f'<a href="/compat/{_esc(gslug)}-vs-{_esc(cs)}.html" style="color:#4f46e5;font-size:.85rem">詳細を見る →</a></div>')
+        return h + '</div>'
+
+    bl = json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": f"{_BASE_URL}/"},
+            {"@type": "ListItem", "position": 2, "name": f"{cn}対応GPU一覧",
+             "item": f"{_BASE_URL}/compat/case/{cs}.html"},
+        ]}, ensure_ascii=False)
+    return f"""<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{_esc(cn)}に入るGPU一覧（最大{cm:.0f}mm）</title>
+<meta name="description" content="{_esc(cn)}（最大GPU長{cm:.0f}mm）に搭載できるグラフィックカード一覧。OK {len(ok)}件。">
+<script type="application/ld+json">{bl}</script>
+{_COMPAT_CSS}</head>
+<body>
+<nav aria-label="breadcrumb" class="breadcrumb">
+  <a href="/">ホーム</a><span class="sep">&rsaquo;</span><span>{_esc(cn)}</span>
+</nav>
+<header><a href="/">← PC互換チェッカー トップ</a>
+  <h1>{_esc(cn)}（最大{cm:.0f}mm）対応GPU一覧</h1></header>
+<div class="wrap">
+  <div class="card"><p>{_esc(cn)}のGPU最大搭載長は <strong>{cm:.0f}mm</strong> です。<br>
+    OK: {len(ok)}件　⚠ 注意: {len(warn)}件　❌ NG: {len(ng)}件</p></div>
+  <p class="section-title">✅ 搭載可能なGPU（{len(ok)}件）</p>{items_html(ok)}
+  <p class="section-title">⚠️ 注意あり（{len(warn)}件）</p>{items_html(warn)}
+  <p class="section-title">❌ 搭載不可（{len(ng)}件）</p>{items_html(ng)}
+  <div class="cta"><p>CPU・電源も含めてまとめて互換性診断できます</p>
+    <p style="margin-top:8px"><a href="/">複数パーツを一括診断する →</a></p></div>
+</div></body></html>"""
 
 
 @app.route('/api/health')
@@ -1436,6 +1758,38 @@ def _search_game(query: str, games: list):
     return None
 
 
+def _select_spec_tier(budget_yen: int, game_data: dict) -> tuple:
+    """予算からスペック段階を選択する。"""
+    specs = game_data.get('specs', {})
+
+    # 新スキーマ対応
+    if specs:
+        tiers = [
+            ('ultra', 250000, 'ウルトラ'),
+            ('high', 150000, '高'),
+            ('recommended', 100000, '推奨'),
+            ('minimum', 0, '最低'),
+        ]
+        for tier_key, threshold, tier_label in tiers:
+            if budget_yen >= threshold and tier_key in specs:
+                spec = specs[tier_key]
+                return spec, spec.get('label', tier_label)
+        # フォールバック: 存在する最低段階
+        for tier_key in ['minimum', 'recommended', 'high', 'ultra']:
+            if tier_key in specs:
+                spec = specs[tier_key]
+                return spec, spec.get('label', tier_key)
+        return {}, '不明'
+
+    # 旧スキーマ互換（移行中のフォールバック）
+    if budget_yen < 200000:
+        spec = game_data.get('minimum') or game_data.get('recommended') or {}
+        return spec, '最低'
+    else:
+        spec = game_data.get('recommended') or game_data.get('minimum') or {}
+        return spec, '推奨'
+
+
 @app.route('/api/recommend', methods=['POST'])
 def recommend():
     """ゲームのやりたいことからPC構成を提案する。"""
@@ -1500,22 +1854,22 @@ def recommend():
 
         # Step3: 推奨スペック取得
         if game_data:
-            # Phase 2-1: 予算ティアに応じてスペックを選択（低予算=最低スペック参考）
-            if effective_budget < 200000:
-                spec      = game_data.get('minimum') or game_data.get('recommended') or {}
-                spec_tier = '最低'
-            else:
-                spec      = game_data.get('recommended') or game_data.get('minimum') or {}
-                spec_tier = '推奨'
+            spec, spec_tier = _select_spec_tier(effective_budget, game_data)
             rec_gpus = spec.get('gpu', []) or []
             rec_cpus = spec.get('cpu', []) or []
             rec_ram  = spec.get('ram_gb')
             rec_storage = spec.get('storage_gb')
+            rec_vram = spec.get('gpu_vram_gb')
+            target_desc = spec.get('target', '')
             game_info = (
                 f'ゲーム名: {game_data["name"]}\n'
-                f'参考スペック（{spec_tier}）: GPU {", ".join(rec_gpus[:2]) if rec_gpus else "不明"} / '
-                f'CPU {", ".join(rec_cpus[:2]) if rec_cpus else "不明"} / RAM {rec_ram}GB\n'
-                f'※このDB値のみを参考に構成を提案すること。独自にスペック値を生成・変更しないこと'
+                f'対応段階: {spec_tier}（{target_desc}）\n'
+                f'参考スペック: GPU {", ".join(rec_gpus[:3]) if rec_gpus else "不明"} / '
+                f'CPU {", ".join(rec_cpus[:3]) if rec_cpus else "不明"} / '
+                f'RAM {rec_ram}GB / VRAM {rec_vram}GB\n'
+                f'※このDB値のみを参考に構成を提案すること。独自にスペック値を生成・変更しないこと\n'
+                f'※上記の推奨GPUと同等以上の性能を持つ現行製品を選定すること\n'
+                f'※予算内で推奨GPUより上位の製品が買える場合は、そちらを優先すること'
             )
         else:
             spec = {}
@@ -1570,6 +1924,8 @@ def recommend():
             '- CPUのコア数・スレッド数はDB値（上記）をそのまま使用。独自に変更・生成しないこと\n'
             '- ゲームスペックのRAM値は上記DB値のみ参照。独自に生成しないこと\n'
             '- ユーザーが言及していない用途を勝手に追加しないこと\n'
+            '- 推奨スペックは公式発表データであり、変更・省略しないこと\n'
+            '- 「推奨スペック未公開」とは絶対に言わないこと（DBに存在する）\n'
             '\n以下のJSON形式だけで返してください（説明不要）:\n'
             '{"reply":"2〜3文の提案コメント（日本語・フレンドリー）",'
             '"recommended_build":['

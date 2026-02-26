@@ -36,11 +36,18 @@ def format_cpu_list(cpu_list):
         return ", ".join(cpu_list[:2])
     return str(cpu_list)
 
+def _get_specs(game):
+    """新旧スキーマ両対応でスペックを取得"""
+    specs = game.get('specs', {})
+    if specs:
+        return specs.get('recommended', {}), specs.get('minimum', {})
+    return game.get('recommended', {}), game.get('minimum', {})
+
+
 def generate_faq(game):
     """FAQセクションを生成"""
     name = game['name']
-    rec = game.get('recommended', {})
-    min_spec = game.get('minimum', {})
+    rec, min_spec = _get_specs(game)
     
     faqs = []
     
@@ -87,7 +94,7 @@ def generate_faq(game):
 
 def generate_structured_data(game):
     """構造化データ（JSON-LD）を生成"""
-    rec = game.get('recommended', {})
+    rec, _ = _get_specs(game)
     
     return json.dumps({
         "@context": "https://schema.org",
@@ -109,9 +116,8 @@ def generate_page(game):
     """1ゲーム分のHTMLページを生成"""
     name = game['name']
     slug = game['slug']
-    rec = game.get('recommended') or {}
-    min_spec = game.get('minimum') or {}
-    
+    rec, min_spec = _get_specs(game)
+
     # 推奨スペック
     rec_gpu = format_gpu_list(rec.get('gpu', ['不明']))
     rec_cpu = format_cpu_list(rec.get('cpu', ['不明']))
@@ -324,7 +330,8 @@ def main():
     skipped = 0
     for i, game in enumerate(games, 1):
         # recommendedがないゲームはスキップ
-        if not game.get('recommended'):
+        rec, _ = _get_specs(game)
+        if not rec:
             skipped += 1
             continue
         

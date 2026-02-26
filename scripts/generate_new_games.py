@@ -35,8 +35,14 @@ def generate_game_page(game):
         print(f"[SKIP] {slug} (already exists)")
         return False
     
-    min_spec = game.get('minimum', {})
-    rec_spec = game.get('recommended', {})
+    # 新旧スキーマ両対応
+    specs = game.get('specs', {})
+    if specs:
+        min_spec = specs.get('minimum', {})
+        rec_spec = specs.get('recommended', {})
+    else:
+        min_spec = game.get('minimum', {})
+        rec_spec = game.get('recommended', {})
     
     # Build HTML
     html = f'''<!DOCTYPE html>

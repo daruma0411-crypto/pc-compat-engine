@@ -111,30 +111,79 @@ def build_entry(appid: int, data: dict) -> dict | None:
     genres      = [g['description'] for g in d.get('genres', [])]
     screenshot  = d.get('screenshots', [{}])[0].get('path_thumbnail') if d.get('screenshots') else None
 
+    # 新スキーマ: specs 配下に minimum/recommended を格納
+    specs = {}
+    if minimum:
+        minimum.pop('os', None)
+        minimum.pop('directx', None)
+        if minimum.get('additional_notes'):
+            minimum['notes'] = minimum.pop('additional_notes')
+        else:
+            minimum.pop('additional_notes', None)
+        minimum['label'] = '最低'
+        minimum['target'] = '最低設定'
+        specs['minimum'] = minimum
+    if recommended:
+        recommended.pop('os', None)
+        recommended.pop('directx', None)
+        if recommended.get('additional_notes'):
+            recommended['notes'] = recommended.pop('additional_notes')
+        else:
+            recommended.pop('additional_notes', None)
+        recommended['label'] = '推奨'
+        recommended['target'] = '推奨設定'
+        specs['recommended'] = recommended
+
     return {
         'appid':             appid,
         'name':              d.get('name', ''),
+        'source':            'steam_official',
+        'scraped_at':        datetime.now(timezone.utc).isoformat(),
         'short_description': d.get('short_description', ''),
         'genres':            genres,
         'release_date':      release,
         'metacritic_score':  metacritic,
         'screenshot':        screenshot,
-        'minimum':           minimum or None,
-        'recommended':       recommended or None,
-        'scraped_at':        datetime.now(timezone.utc).isoformat(),
+        'specs':             specs,
     }
+
+
+def _load_existing_entries() -> dict[int, dict]:
+    """games.jsonl から既存エントリを appid → entry の辞書で返す。"""
+    entries = {}
+    if not os.path.exists(GAMES_JSONL):
+        return entries
+    with open(GAMES_JSONL, encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                entry = json.loads(line)
+                entries[entry['appid']] = entry
+            except Exception:
+                pass
+    return entries
+
+
+def _save_all_entries(entries: dict[int, dict]):
+    """全エントリを appid 昇順で games.jsonl に書き出す。"""
+    with open(GAMES_JSONL, 'w', encoding='utf-8') as f:
+        for appid in sorted(entries.keys()):
+            f.write(json.dumps(entries[appid], ensure_ascii=False) + '\n')
 
 
 def main():
     os.makedirs(RAW_DIR, exist_ok=True)
 
     appids    = load_appids()
-    processed = load_processed_appids()
+    existing  = _load_existing_entries()
+    processed = set(existing.keys())
     pending   = [a for a in appids if a not in processed]
 
     print(f'対象: {len(appids)}件 / 処理済: {len(processed)}件 / 未処理: {len(pending)}件')
 
-    success = skipped = failed = 0
+    success = skipped = failed = updated = 0
 
     for i, appid in enumerate(pending, 1):
         raw_path = os.path.join(RAW_DIR, f'{appid}.json')
@@ -158,18 +207,29 @@ def main():
         if entry is None:
             skipped += 1
         else:
-            with open(GAMES_JSONL, 'a', encoding='utf-8') as f:
-                f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+            # upsert: 既存エントリがあれば上書き（手動補完の high/ultra は保持）
+            if appid in existing:
+                old_specs = existing[appid].get('specs', {})
+                new_specs = entry.get('specs', {})
+                # 手動補完された high/ultra を保持
+                for tier in ('high', 'ultra'):
+                    if tier in old_specs and tier not in new_specs:
+                        new_specs[tier] = old_specs[tier]
+                entry['specs'] = new_specs
+                updated += 1
+            existing[appid] = entry
             success += 1
 
         if i % CHECKPOINT_INTERVAL == 0:
+            _save_all_entries(existing)
             print(
                 f'[チェックポイント] {i}/{len(pending)} 完了 '
-                f'| 成功:{success} スキップ:{skipped} 失敗:{failed}'
+                f'| 成功:{success} 更新:{updated} スキップ:{skipped} 失敗:{failed}'
             )
 
-    print(f'\n完了: 成功={success} スキップ={skipped} 失敗={failed}')
-    print(f'→ {GAMES_JSONL}')
+    _save_all_entries(existing)
+    print(f'\n完了: 成功={success} 更新={updated} スキップ={skipped} 失敗={failed}')
+    print(f'→ {GAMES_JSONL} ({len(existing)}件)')
 
 
 if __name__ == '__main__':
