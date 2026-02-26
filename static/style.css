@@ -298,6 +298,23 @@ header {
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
 
+.btn-generate-image:disabled {
+  cursor: not-allowed;
+  opacity: 0.6 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ── ローディングアニメーション ── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.btn-generate-image:disabled {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* ── 画像エリア ── */
 #generated-image {
   width: 100%;
@@ -327,6 +344,54 @@ header {
   color: var(--c-primary);
 }
 
+.individual-link-item {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: var(--bg-outer);
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+}
+
+.link-item-name {
+  display: block;
+  font-size: 13px;
+  color: var(--c-text);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.link-item-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.buy-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 12px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.buy-btn-amazon {
+  background: #ff9900;
+  color: #fff;
+}
+
+.buy-btn-amazon:hover {
+  background: #e88800;
+}
+
+.buy-btn-rakuten {
+  background: #bf0000;
+  color: #fff;
+}
+
+.buy-btn-rakuten:hover {
+  background: #a00000;
+}
+
 /* ── チャットバブル ── */
 .bubble {
   margin-bottom: 16px;
@@ -348,6 +413,50 @@ header {
 
 .bubble.ai strong {
   color: var(--c-ok);
+}
+
+/* ── ヒアリング質問UI ── */
+.hearing-question {
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--bg-main);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+}
+
+.hearing-question-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin-bottom: 10px;
+}
+
+.hearing-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hearing-option-btn {
+  padding: 8px 16px;
+  background: var(--bg-outer);
+  border: 1px solid var(--c-border);
+  color: var(--c-text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.hearing-option-btn:hover:not(:disabled) {
+  background: var(--c-primary);
+  color: #fff;
+  border-color: var(--c-primary);
+}
+
+.hearing-option-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* ── モバイル対応 ── */

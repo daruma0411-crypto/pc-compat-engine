@@ -74,7 +74,9 @@ pc-compat-engine/
 
 - **Backend**: Flask + gunicorn
 - **Frontend**: Vanilla JS（フレームワークなし）
-- **API**: Claude Anthropic（推奨構成生成）
+- **API**: 
+  - Claude Anthropic（推奨構成生成）
+  - Replicate（FLUX.1-schnell 画像生成） 🆕
 - **Hosting**: Render（Standard $25/月）
 - **Analytics**: Google Analytics 4
 - **SEO**: Google Search Console, Bing Webmaster Tools
@@ -104,6 +106,11 @@ pc-compat-engine/
 3. **AIアシスタント**
    - Claude APIで自然言語対応
    - 「予算10万円でモンハン」→ 最適構成提案
+
+4. **完成イメージ画像生成** 🆕
+   - FLUX.1-schnell（Replicate API）で構成の完成イメージをAI生成
+   - 構成確定後、ダッシュボードから「🖼️ 完成イメージを見る」ボタンで生成
+   - 約30秒で高品質な16:9画像を生成
 
 ---
 

@@ -15,6 +15,8 @@
   let historyFirstSaved = false;
   let confirmedParts = [];  // [{name: string, category: string, source: 'user_specified'|'ai_accepted'|'ai_pending'}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
+  let currentPhase = 'A';   // Phase A/B/C を管理
+  let currentImageGenerated = false;  // 画像生成済みフラグ
 
   // ─── localStorage 履歴 ─────────────────────────────────────────────────
   const HISTORY_KEY = 'pc_compat_history';
@@ -254,8 +256,44 @@
           }
         }
         appendDiagnosisMessage(data);
+        
+        // 診断後もパーツテーブルを更新（互換チェックモードでも画像生成可能に）
+        const buildForTable = confirmedParts.map(p => ({
+          category: normalizeCat(p.category),
+          name: p.name,
+          price_min: null, // 診断モードでは価格情報なし
+        }));
+        updatePhase();
+        updatePartsTable(buildForTable, budgetYen);
       } else {
-        appendAIBubble(data.reply || '少し詳しく教えてください。');
+        appendAIBubble(data.reply || '少し詳しく教えてください。', null, data.hearing_questions);
+      }
+      
+      // dashboard_update を処理（バックエンドから返された場合）
+      if (data.dashboard_update) {
+        const du = data.dashboard_update;
+        if (du.parts) {
+          for (const part of du.parts) {
+            const existing = confirmedParts.find(p => p.name === part.name);
+            if (existing) {
+              existing.source = part.status || existing.source;
+            } else {
+              confirmedParts.push({
+                name: part.name,
+                category: part.category,
+                source: part.status || 'ai_pending',
+              });
+            }
+          }
+        }
+        if (du.budget != null) budgetYen = du.budget;
+        updatePhase();
+        const buildForTable = confirmedParts.map(p => ({
+          category: normalizeCat(p.category),
+          name: p.name,
+          price_min: 0,
+        }));
+        updatePartsTable(buildForTable, budgetYen);
       }
     } catch (e) {
       clearTimeout(timer);
@@ -280,18 +318,59 @@
     scrollBottom();
   }
 
-  function appendAIBubble(text, extraHtml) {
+  function appendAIBubble(text, extraHtml, hearingQuestions) {
     const wrap = mkEl('div', 'msg ai');
     const inner = mkEl('div');
     const bubble = mkEl('div', 'msg-bubble');
     bubble.innerHTML = text.replace(/\n/g, '<br>');
     if (extraHtml) bubble.insertAdjacentHTML('beforeend', extraHtml);
+    
+    // hearing_questions のボタン表示
+    if (hearingQuestions && hearingQuestions.length > 0) {
+      const questionsHtml = hearingQuestions.map(q => {
+        const optionsHtml = q.options.map(opt => 
+          `<button class="hearing-option-btn" data-question-id="${escHtml(q.id)}" data-value="${escHtml(opt.value)}">
+            ${escHtml(opt.label)}
+          </button>`
+        ).join('');
+        return `<div class="hearing-question">
+          <div class="hearing-question-label">${escHtml(q.label)}</div>
+          <div class="hearing-options">${optionsHtml}</div>
+        </div>`;
+      }).join('');
+      bubble.insertAdjacentHTML('beforeend', questionsHtml);
+    }
+    
     inner.appendChild(bubble);
     wrap.innerHTML = '<div class="msg-avatar">🤖</div>';
     wrap.appendChild(inner);
     chat().appendChild(wrap);
+    
+    // hearing_questionsのボタンにイベントリスナーを追加
+    if (hearingQuestions && hearingQuestions.length > 0) {
+      wrap.querySelectorAll('.hearing-option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const questionId = btn.dataset.questionId;
+          const value = btn.dataset.value;
+          const label = btn.textContent;
+          handleHearingAnswer(questionId, value, label);
+          // クリック後、ボタンを無効化
+          btn.disabled = true;
+          btn.style.opacity = '0.5';
+        });
+      });
+    }
+    
     scrollBottom();
     return wrap;
+  }
+  
+  function handleHearingAnswer(questionId, value, label) {
+    // ユーザーの選択を送信
+    const message = `${questionId}: ${label}`;
+    appendUserBubble(`「${label}」を選択`);
+    history.push({ role: 'user', content: message });
+    // 次のメッセージ送信はsendMessage経由で行われる
   }
 
   function appendTyping() {
@@ -518,6 +597,8 @@
     // 構成サマリーカードを先に表示
     if (build && build.length > 0) {
       renderSummaryCard(build, game.name || '');
+      // ダッシュボードのパーツテーブルも更新
+      updatePartsTable(build, budgetYen);
     }
 
     const itemsHtml = build.map(item => {
@@ -673,7 +754,7 @@
   }
 
   // ─── ユーティリティ ────────────────────────────────────────────────────
-  function chat() { return document.getElementById('chat-area'); }
+  function chat() { return document.getElementById('chat'); }
   function mkEl(tag, cls) {
     const el = document.createElement(tag);
     if (cls) el.className = cls;
@@ -717,6 +798,32 @@
     dashboard.classList.toggle('open');
   }
   
+  // フェーズ判定と更新
+  function updatePhase() {
+    const CATEGORY_ORDER = ['GPU', 'CPU', 'RAM', 'MB', 'PSU', 'CASE'];
+    const confirmedCount = CATEGORY_ORDER.filter(cat => 
+      confirmedParts.some(p => normalizeCat(p.category) === cat)
+    ).length;
+    
+    if (currentImageGenerated) {
+      currentPhase = 'C';  // 完成イメージ生成済み
+    } else if (confirmedCount === CATEGORY_ORDER.length) {
+      currentPhase = 'B';  // 全パーツ確定
+    } else {
+      currentPhase = 'A';  // ヒアリング・構成中
+    }
+  }
+
+  // confirmedPartsから右パネルを更新するヘルパー
+  function updateDashboardFromConfirmedParts() {
+    const buildForTable = confirmedParts.map(p => ({
+      category: normalizeCat(p.category),
+      name: p.name,
+      price_min: 0,
+    }));
+    updatePartsTable(buildForTable, budgetYen);
+  }
+
   // 右パネル: パーツ一覧テーブル更新
   function updatePartsTable(build, budgetYen) {
     const CATEGORY_ORDER = ['GPU', 'CPU', 'RAM', 'MB', 'PSU', 'CASE'];
@@ -740,7 +847,20 @@
       const priceText = priceVal ? '¥' + Number(priceVal).toLocaleString() : '—';
       if (priceVal) totalPrice += Number(priceVal);
       
-      const statusIcon = hasItem ? '✅' : '⬜';
+      // 状態アイコン: 🔒 user_specified / ✅ ai_accepted / ⏳ ai_pending
+      let statusIcon = '⬜';
+      if (hasItem) {
+        const partEntry = confirmedParts.find(p => p.name === item.name);
+        if (partEntry) {
+          if (partEntry.source === 'user_specified') statusIcon = '🔒';
+          else if (partEntry.source === 'ai_accepted') statusIcon = '✅';
+          else if (partEntry.source === 'ai_pending') statusIcon = '⏳';
+          else statusIcon = '✅';
+        } else {
+          statusIcon = '✅';
+        }
+      }
+      
       const nameText = hasItem ? escHtml(item.name || '') : '（未選択）';
       const nameClass = hasItem ? 'parts-name' : 'parts-name parts-name--empty';
       
@@ -748,7 +868,7 @@
         <span class="parts-category">${cat}</span>
         <span class="${nameClass}">${nameText}</span>
         <span class="parts-price">${priceText}</span>
-        <span class="parts-status">${statusIcon}</span>
+        <span class="parts-status" title="${statusIcon === '🔒' ? 'ユーザー指定(変更不可)' : statusIcon === '✅' ? 'AI提案(同意済み)' : statusIcon === '⏳' ? 'AI提案(同意待ち)' : '未選択'}">${statusIcon}</span>
       </div>`;
     });
     
@@ -769,23 +889,44 @@
     }
     
     let ctaHtml = '';
-    if (confirmedCount === CATEGORY_ORDER.length) {
-      // 状態B: 全パーツ確定
+    
+    // Phase判定に基づいた表示切り替え
+    if (currentPhase === 'C') {
+      // Phase C: 画像生成済み - 完成メッセージ + 購入ボタン
       ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
-        <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:12px;">🎉 構成完成！</div>
+        <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:8px;">✨ 構成完成＆イメージ生成済み！</div>
+        <div style="font-size:12px;color:var(--c-sub);margin-bottom:12px;">右の「完成イメージを見る」ボタンで画像を確認できます。</div>
+      </div>`;
+      document.getElementById('image-area').style.display = 'block';
+      document.getElementById('btn-generate-image').style.display = 'none';
+      document.getElementById('generated-image-container').style.display = 'block';
+      document.getElementById('purchase-area').style.display = 'block';
+    } else if (currentPhase === 'B' || (currentPhase === 'A' && confirmedCount === CATEGORY_ORDER.length)) {
+      // Phase B: 全パーツ確定、画像未生成
+      ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
+        <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:8px;">🎉 構成完成！</div>
+        <div style="font-size:12px;color:var(--c-sub);margin-bottom:12px;">右の「完成イメージを見る」ボタンで完成イメージを生成できます。</div>
       </div>`;
       document.getElementById('image-area').style.display = 'block';
       document.getElementById('btn-generate-image').style.display = 'block';
       document.getElementById('generated-image-container').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
     } else {
-      // 状態A: 構成途中
+      // Phase A: 構成途中
       const remaining = CATEGORY_ORDER.filter(c => !catMap[c]);
+      const pendingCount = confirmedParts.filter(p => p.source === 'ai_pending').length;
+      let phaseMsg = '';
+      if (pendingCount > 0) {
+        phaseMsg = `⏳ ${pendingCount}件のAI提案が同意待ちです。続けてメッセージを送ると自動承認されます。`;
+      } else if (remaining.length > 0) {
+        phaseMsg = `🔧 残り ${remaining.length} カテゴリを選定中...`;
+      }
       ctaHtml = `<div class="parts-progress">
         <div class="progress-bar"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
         <div style="margin-top:6px;font-size:12px;color:var(--c-muted);">
           ${confirmedCount}/6 パーツ確定 | 残り: ${remaining.join(', ')}
         </div>
+        ${phaseMsg ? `<div style="margin-top:8px;font-size:12px;color:var(--c-sub);">${phaseMsg}</div>` : ''}
       </div>`;
       document.getElementById('image-area').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
@@ -796,14 +937,91 @@
       budgetHtml + ctaHtml;
   }
   
-  // FLUX画像生成（後で実装）
-  function generateImage() {
-    alert('画像生成機能は実装中です');
-    // TODO: FLUX MCP連携
+  // FLUX画像生成
+  async function generateImage() {
+    const btn = document.getElementById('btn-generate-image');
+    const container = document.getElementById('generated-image-container');
+    const img = document.getElementById('generated-image');
+    
+    if (!confirmedParts || confirmedParts.length === 0) {
+      alert('構成パーツが確定していません');
+      return;
+    }
+    
+    // confirmedParts を API用に変換
+    const parts = confirmedParts.map(p => ({
+      category: p.category.toUpperCase(),
+      name: p.name,
+    }));
+    
+    // ローディング状態
+    btn.disabled = true;
+    btn.textContent = '🎨 画像生成中...（30秒ほどかかります）';
+    btn.style.opacity = '0.6';
+    
+    try {
+      const res = await fetch('/api/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ parts }),
+      });
+      
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'HTTP ' + res.status);
+      }
+      
+      const data = await res.json();
+      
+      // 画像表示
+      img.src = data.image_url;
+      img.onload = () => {
+        container.style.display = 'block';
+        btn.style.display = 'none';
+        // 購入エリアも表示
+        document.getElementById('purchase-area').style.display = 'block';
+        // Phase C に移行 + 個別リンク生成
+        onImageGenerationComplete();
+      };
+      
+    } catch (e) {
+      alert('⚠️ 画像生成エラー: ' + e.message);
+      btn.disabled = false;
+      btn.textContent = '🖼️ 完成イメージを見る';
+      btn.style.opacity = '1';
+    }
   }
   
   // 一括購入処理（後で実装）
   function handleBulkPurchase() {
     alert('一括購入機能は実装中です');
     // TODO: Amazon Cart Add URL生成
+  }
+  
+  // 個別リンク生成
+  function renderIndividualLinks() {
+    const container = document.getElementById('individual-links');
+    if (!container) return;
+    
+    const linksHtml = confirmedParts.map(p => {
+      const amazonUrl = buildAmazonUrl(p.name);
+      const rakutenUrl = buildRakutenUrl(p.name);
+      return `<div class="individual-link-item">
+        <span class="link-item-name">${escHtml(p.name)}</span>
+        <div class="link-item-buttons">
+          <a class="buy-btn buy-btn-amazon" href="${escHtml(amazonUrl)}" target="_blank" rel="noopener">🛒 Amazon</a>
+          <a class="buy-btn buy-btn-rakuten" href="${escHtml(rakutenUrl)}" target="_blank" rel="noopener">🛍 楽天</a>
+        </div>
+      </div>`;
+    }).join('');
+    
+    container.innerHTML = linksHtml;
+  }
+  
+  // 画像生成完了時に個別リンクも生成
+  function onImageGenerationComplete() {
+    currentImageGenerated = true;
+    updatePhase();
+    updateDashboardFromConfirmedParts();
+    renderIndividualLinks();
   }

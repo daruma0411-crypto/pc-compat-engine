@@ -8,6 +8,9 @@ gunicorn>=22.0.0
 # ── LLM Provider ─────────────────────────────────────
 anthropic>=0.40.0
 
+# ── AI Image Generation ──────────────────────────────
+replicate>=1.0.0
+
 # ── HTML Parser ──────────────────────────────────────
 beautifulsoup4>=4.12.0
 
