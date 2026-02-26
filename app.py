@@ -14,7 +14,15 @@ import urllib.request
 
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory
-import replicate
+
+# Replicate の import を try-except でラップ（Python 3.14 互換性）
+try:
+    import replicate
+    REPLICATE_AVAILABLE = True
+except Exception as e:
+    print(f"Warning: replicate import failed: {e}")
+    replicate = None
+    REPLICATE_AVAILABLE = False
 
 load_dotenv()
 
@@ -2935,6 +2943,11 @@ def generate_image():
     レスポンス: {"image_url": "https://...", "prompt": "..."}
     """
     try:
+        if not REPLICATE_AVAILABLE:
+            return jsonify({
+                'error': '画像生成機能は現在利用できません（Python 3.14 互換性の問題）'
+            }), 503
+        
         if not REPLICATE_API_TOKEN:
             return jsonify({
                 'error': 'REPLICATE_API_TOKEN が設定されていません。.env に追加してください。'
