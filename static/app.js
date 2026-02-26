@@ -92,7 +92,7 @@
   });
 
   function selectMode(mode) {
-    confirmedParts = [];  // モード切替時: 確定パーツ（全状態）をリセット
+    confirmedParts = [];  // モード切替時: 確定パーツをリセット
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
       c.style.opacity = '0.4';
@@ -112,9 +112,7 @@
   function switchMode() {
     gameMode = !gameMode;
     if (!gameMode) {
-      // 手動切り替え（引き渡しボタン経由でない）→ confirmedParts をリセット
-      // ※ transferToCompatCheck() 経由の場合は先に confirmedParts が上書きされているため問題なし
-      confirmedParts = [];
+      confirmedParts = [];  // 互換チェックモードに切り替え時はリセット
     }
     updateModeIndicator();
     if (gameMode) {
@@ -747,19 +745,9 @@
       const priceText = priceVal ? '¥' + Number(priceVal).toLocaleString() : '—';
       if (priceVal) totalPrice += Number(priceVal);
       
-      // 状態アイコン: 🔒 user_specified / ✅ ai_accepted / ⏳ ai_pending
-      let statusIcon = '⬜';
-      if (hasItem) {
-        const partEntry = confirmedParts.find(p => p.name === item.name);
-        if (partEntry) {
-          if (partEntry.source === 'user_specified') statusIcon = '🔒';
-          else if (partEntry.source === 'ai_accepted') statusIcon = '✅';
-          else if (partEntry.source === 'ai_pending') statusIcon = '⏳';
-          else statusIcon = '✅';
-        } else {
-          statusIcon = '✅';
-        }
-      }
+      // 状態アイコン: ✅ 確定 / ⬜ 未選択
+      const statusIcon = hasItem ? '✅' : '⬜';
+      const statusTitle = hasItem ? '確定' : '未選択';
       
       const nameText = hasItem ? escHtml(item.name || '') : '（未選択）';
       const nameClass = hasItem ? 'parts-name' : 'parts-name parts-name--empty';
@@ -768,7 +756,7 @@
         <span class="parts-category">${cat}</span>
         <span class="${nameClass}">${nameText}</span>
         <span class="parts-price">${priceText}</span>
-        <span class="parts-status" title="${statusIcon === '🔒' ? 'ユーザー指定(変更不可)' : statusIcon === '✅' ? 'AI提案(同意済み)' : statusIcon === '⏳' ? 'AI提案(同意待ち)' : '未選択'}">${statusIcon}</span>
+        <span class="parts-status" title="${statusTitle}">${statusIcon}</span>
       </div>`;
     });
     

@@ -947,150 +947,42 @@ def diagnose():
 
 
 # ================================================================
-# 会話フローシステムプロンプト
+# シンプルな会話システムプロンプト
 # ================================================================
 
-_CONVERSATION_FLOW_SYSTEM_PROMPT = """\
-あなたはPC自作の相談員です。初心者からベテランまで、最適なPC構成を一緒に考えます。
+_SHOP_CLERK_SYSTEM_PROMPT = """
+あなたは親切なPCショップの店員です。
+お客さんと自然に会話して、最適なPC構成を提案してください。
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ 会話の基本原則
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【絶対厳守ルール】
+1. 製品名は必ずDBから選ぶこと（存在しない製品を創作禁止）
+2. スペック値もDB値のみ使用（推測・想像禁止）
+3. 不明な場合は「在庫データにございません」と正直に答える
+4. 14,000件の互換性確認済みデータを活用する
 
-1. ユーザーが納得するまで壁打ちに付き合う。3ターンで答えを出す必要はない。
-2. パーツを1つずつ提案し、理由を説明し、ユーザーの合意を得てから次に進む。
-3. ユーザーが指定したパーツは絶対に変更提案しない（🔒マーク付きで確定）。
-4. 常に「次に何を決めるか」を明示し、ユーザーが迷わないようにする。
-5. 予算との差額を意識し、超過する場合は事前に伝える。
-6. ユーザーが言及していない用途（VR等）を勝手に追加しない。
+【会話の進め方】
+1. 用途を聞く（ゲーム？動画編集？）
+2. 予算を聞く（最重要）
+3. 環境を聞く（モニター解像度など）
+4. こだわりを聞く（光る、静音、Intel派など）
+5. 構成を提案する
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ 会話フロー
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【提案のコツ】
+- 1つずつ丁寧に聞く
+- わからない人には「一般的には〜」と提案
+- こだわりがあれば深掘り（RGB、静音など）
+- 自然に会話する（フォーマル過ぎない）
 
-会話は3つのフェーズで進行する。
-
-【Phase A】ヒアリング
-【Phase B】構成提案＆壁打ち
-【Phase C】確定＆仕上げ
-
-（詳細はdocs/pc-compat-conversation-flow-prompt.mdを参照）
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ Phase A: ヒアリング
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-ゲーム名を含む入力の場合、以下を確認する（未提供の項目のみ質問）:
-
-Q1. モニター解像度 → [FHD] [WQHD] [4K] [わからない]
-Q2. 画質設定 → [最高] [高] [標準] [おまかせ]
-Q3. レイトレーシング → [ON] [OFF] [わからない]
-Q4. フレーム生成 → [使う] [使わない] [わからない]
-Q5. 予算 → [〜10万] [10〜15万] [15〜20万] [20〜25万] [25万〜] [特になし]
-
-「わからない」の場合のデフォルト:
-- 解像度 → FHD
-- 画質 → 推奨
-- レイトレ → OFF
-- フレーム生成 → 使う
-- 予算 → 15〜20万
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ Phase B: 構成提案＆壁打ち
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-パーツを提案していく順序:
-1. GPU（最重要）
-2. CPU
-3. マザーボード
-4. メモリ
-5. ケース
-6. 電源
-7. CPUクーラー
-8. ストレージ
-
-各パーツ提案のテンプレート:
-「[パーツ]ですが、[製品名]はいかがでしょう。
- [理由1〜2文]。
- 
- もし[条件]なら[代替案]もあります（+¥[差額]）。
- どちらがいいですか？」
-
-壁打ちルール:
-- 同意 → ai_accepted として確定、次へ
-- 代替要望 → 新提案
-- 迷い → 比較表
-- 関係ない質問 → 答えてから戻す
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ Phase C: 確定＆仕上げ
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-全6カテゴリ（GPU/CPU/MB/RAM/CASE/PSU）確定後:
-
-「🎉 構成が完成しました！
-
- [構成サマリー]
- 合計: ¥[金額]（予算に対して¥[差額][超過/余裕]）
-
- 右の「完成イメージを見る」ボタンで、AI画像で完成イメージを生成できます。
-
- 構成の変更はいつでも言ってください。」
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ confirmed_parts の状態管理
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-各パーツの3状態:
-1. user_specified: ユーザー指定。変更提案しない。🔒
-2. ai_accepted: AI提案、ユーザー同意。変更可能。✅
-3. ai_pending: AI提案、同意待ち。⏳
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ 応答JSON構造
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
+【レスポンス形式】
+推奨構成を決めたら、recommended_parts に製品リストを含める：
 {
-  "message": "チャットテキスト",
-  "dashboard_update": {
-    "parts": [{
-      "category": "gpu",
-      "name": "RTX 5070",
-      "price": 72800,
-      "status": "ai_accepted",
-      "tdp": 250,
-      "note": "WQHD最高画質60fps安定"
-    }],
-    "total_price": 175100,
-    "budget": 150000,
-    "budget_diff": -25100,
-    "progress": "4/6"
-  },
-  "hearing_questions": [{
-    "id": "resolution",
-    "label": "モニター解像度は？",
-    "options": [
-      {"value": "FHD", "label": "FHD(1080p)"},
-      {"value": "WQHD", "label": "WQHD(1440p)"},
-      {"value": "4K", "label": "4K(2160p)"},
-      {"value": "unknown", "label": "わからない"}
-    ]
-  }],
-  "phase": "A|B|C",
-  "next_category": "gpu|cpu|..."
+  "message": "会話テキスト",
+  "recommended_parts": [
+    {"category": "GPU", "name": "製品名（DB内のもの）", "reason": "選定理由"}
+  ]
 }
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ 口調
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-- 親切なPCショップ店員のように
-- 専門用語は初出時に説明
-- 押し付けない「〜はいかがでしょう」
-- 予算オーバーは正直に伝える
-- 迷いには背中を押す「私なら〜にします」
-- 余計な前置き不要、すぐ本題
-
+※まだヒアリング中の場合は recommended_parts は空配列でOK
 """
 
 # ================================================================
@@ -1526,261 +1418,159 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     }
 
 
+def _load_all_pc_products():
+    """全カテゴリの products.jsonl を読み込んで製品リストを返す"""
+    jsonl_paths = glob_module.glob(
+        os.path.join(_PC_WORKSPACE_DIR, 'data', '*', 'products.jsonl')
+    )
+    all_products = []
+    for path in jsonl_paths:
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        all_products.append(json.loads(line))
+        except Exception:
+            pass
+    return all_products
+
+
+def _format_products_for_claude(products):
+    """製品リストをClaude用に簡潔に整形する"""
+    lines = []
+    for p in products[:100]:  # 最大100件まで
+        cat = p.get('category', '')
+        name = p.get('name', '')
+        specs = p.get('specs', {}) or {}
+        
+        # カテゴリ別に重要スペックのみ抽出
+        if cat == 'gpu':
+            tdp = specs.get('tdp_w', '?')
+            length = specs.get('length_mm', '?')
+            lines.append(f'- {name} (TDP {tdp}W, {length}mm)')
+        elif cat == 'cpu':
+            cores = specs.get('cores', '?')
+            threads = specs.get('threads', '?')
+            lines.append(f'- {name} ({cores}コア{threads}スレッド)')
+        elif cat in ('motherboard', 'mb'):
+            socket = specs.get('socket', '?')
+            chipset = specs.get('chipset', '?')
+            lines.append(f'- {name} ({socket}, {chipset})')
+        elif cat == 'case':
+            max_gpu = specs.get('max_gpu_length_mm', '?')
+            ff = specs.get('form_factor', '?')
+            lines.append(f'- {name} (GPU最大{max_gpu}mm, {ff})')
+        elif cat in ('psu', 'power_supply'):
+            wattage = specs.get('wattage_w', '?')
+            lines.append(f'- {name} ({wattage}W)')
+        else:
+            lines.append(f'- {name}')
+    
+    return '\n'.join(lines)
+
+
+def validate_parts(parts, all_products):
+    """AIが提案した製品がDBに存在するか検証（ハルシネーション対策）"""
+    db_names = {p['name'] for p in all_products}
+    
+    for part in parts:
+        if part['name'] not in db_names:
+            return {
+                'ok': False,
+                'error_message': f'申し訳ございません、{part["name"]}は当店の在庫データにございません。別の製品をご提案いたします。'
+            }
+    
+    return {'ok': True}
+
+
+def call_claude_chat(system, messages):
+    """Claude APIを呼び出してチャット応答を取得する"""
+    req_body = json.dumps({
+        'model': 'claude-haiku-4-5-20251001',
+        'max_tokens': 1024,
+        'system': system,
+        'messages': messages,
+    }).encode('utf-8')
+    
+    req = urllib.request.Request(
+        'https://api.anthropic.com/v1/messages',
+        data=req_body,
+        headers={
+            'Content-Type': 'application/json',
+            'X-API-Key': CLAUDE_API_KEY,
+            'anthropic-version': '2023-06-01',
+        },
+        method='POST',
+    )
+    
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        resp_data = json.loads(resp.read().decode('utf-8'))
+    
+    content = resp_data.get('content', [{}])[0].get('text', '{}')
+    return content
+
+
+def parse_claude_json_response(text):
+    """ClaudeのJSON応答をパースする（markdown包みに対応）"""
+    # ```json ... ``` の包みを除去
+    json_match = re.search(r'```json\s*(.*?)\s*```', text, re.DOTALL)
+    if json_match:
+        text = json_match.group(1)
+    
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        # パース失敗時はデフォルト値を返す
+        return {
+            'message': '少し詳しく教えてください。',
+            'recommended_parts': []
+        }
+
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    """会話フロー対応チャットエンドポイント（Phase A/B/C）"""
+    """シンプルな会話チャットエンドポイント"""
     try:
         data = request.get_json(force=True) or {}
-        message         = str(data.get('message', '')).strip()
-        history         = data.get('history', [])
-        # confirmed_parts: フロントから引き継いだ確定パーツオブジェクトリスト
-        # [{"name":"RTX 5070","category":"gpu","status":"ai_accepted","price":72800}]
-        confirmed_parts_data = data.get('confirmed_parts', [])
-        hearing_state   = data.get('hearing_state', {})  # ヒアリング回答状態
-
+        message = str(data.get('message', '')).strip()
+        history = data.get('history', [])
+        
         if not message:
             return jsonify({'error': 'message が空です'}), 400
-
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # Phase 判定
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         
-        def _contains_game_keyword(msg):
-            """ゲーム名・用途キーワードを含むか"""
-            game_keywords = ['遊びたい', 'やりたい', 'プレイ', 'ゲーム', '動画編集', '配信', 'AI画像', '3DCG']
-            return any(kw in msg for kw in game_keywords)
+        # 製品DBロード
+        all_products = _load_all_pc_products()
         
-        def _contains_part_names(msg, history_msgs):
-            """型番が含まれているか（抽出してチェック）"""
-            extract = _extract_parts_with_claude(msg, history_msgs)
-            return len(extract.get('parts', [])) > 0
+        # 製品リストをClaude用に整形（簡潔に）
+        products_summary = _format_products_for_claude(all_products)
         
-        # confirmed_parts から確定カテゴリを抽出
-        confirmed_categories = set()
-        for p in confirmed_parts_data:
-            if p.get('status') in ('user_specified', 'ai_accepted'):
-                cat = p.get('category', '').lower()
-                if cat in ('mb', 'motherboard'):
-                    cat = 'mb'
-                confirmed_categories.add(cat)
+        # 会話履歴を構築（直近10ターンのみ）
+        messages = []
+        for h in history[-10:]:
+            if h.get('role') in ('user', 'assistant'):
+                messages.append({'role': h['role'], 'content': h['content']})
+        messages.append({'role': 'user', 'content': message})
         
-        # 必須カテゴリ（GPU/CPU/MB/RAM/CASE/PSU）
-        required_categories = {'gpu', 'cpu', 'mb', 'ram', 'case', 'psu'}
-        all_confirmed = required_categories.issubset(confirmed_categories)
+        # Claudeに投げる（シンプル）
+        claude_response = call_claude_chat(
+            system=_SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary,
+            messages=messages
+        )
         
-        # ヒアリング完了判定
-        hearing_complete = bool(hearing_state.get('resolution') or hearing_state.get('budget'))
+        # レスポンスから recommended_parts を抽出
+        response_data = parse_claude_json_response(claude_response)
         
-        # Phase 決定
-        if all_confirmed:
-            phase = 'C'  # 全パーツ確定 → 仕上げフェーズ
-        elif _contains_game_keyword(message) and not hearing_complete:
-            phase = 'A'  # ゲーム名あり＆ヒアリング未完了 → ヒアリングフェーズ
-        elif _contains_part_names(message, history) and not _contains_game_keyword(message):
-            phase = 'B'  # パーツ名のみ → 構成提案フェーズ（ヒアリングスキップ）
-        elif hearing_complete or confirmed_parts_data:
-            phase = 'B'  # ヒアリング完了 or 既に構成提案中 → 壁打ちフェーズ
-        else:
-            phase = 'A'  # デフォルト → ヒアリング
-        
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # Phase A: ヒアリング
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        if phase == 'A':
-            # ゲーム名を含む初回入力 → ヒアリング質問を生成
-            hearing_questions = []
-            
-            if not hearing_state.get('resolution'):
-                hearing_questions.append({
-                    'id': 'resolution',
-                    'label': 'モニター解像度は？',
-                    'options': [
-                        {'value': 'FHD', 'label': 'FHD (1080p)'},
-                        {'value': 'WQHD', 'label': 'WQHD (1440p)'},
-                        {'value': '4K', 'label': '4K (2160p)'},
-                        {'value': 'unknown', 'label': 'わからない'},
-                    ]
+        # 製品名がDBに存在するか検証（ハルシネーション対策）
+        if response_data.get('recommended_parts'):
+            validated = validate_parts(response_data['recommended_parts'], all_products)
+            if not validated['ok']:
+                return jsonify({
+                    'message': validated['error_message'],
+                    'recommended_parts': []
                 })
-            
-            if not hearing_state.get('quality'):
-                hearing_questions.append({
-                    'id': 'quality',
-                    'label': '画質設定は？',
-                    'options': [
-                        {'value': 'ultra', 'label': '最高画質'},
-                        {'value': 'high', 'label': '高画質'},
-                        {'value': 'medium', 'label': '標準画質'},
-                        {'value': 'auto', 'label': 'おまかせ'},
-                    ]
-                })
-            
-            if not hearing_state.get('raytracing'):
-                hearing_questions.append({
-                    'id': 'raytracing',
-                    'label': 'レイトレーシングは？',
-                    'options': [
-                        {'value': 'on', 'label': 'ON'},
-                        {'value': 'off', 'label': 'OFF'},
-                        {'value': 'unknown', 'label': 'わからない'},
-                    ]
-                })
-            
-            if not hearing_state.get('framegen'):
-                hearing_questions.append({
-                    'id': 'framegen',
-                    'label': 'フレーム生成（DLSS/FSR）は？',
-                    'options': [
-                        {'value': 'on', 'label': '使う'},
-                        {'value': 'off', 'label': '使わない'},
-                        {'value': 'unknown', 'label': 'わからない'},
-                    ]
-                })
-            
-            if not hearing_state.get('budget'):
-                hearing_questions.append({
-                    'id': 'budget',
-                    'label': '予算は？',
-                    'options': [
-                        {'value': 'under_10', 'label': '〜10万'},
-                        {'value': '10_15', 'label': '10〜15万'},
-                        {'value': '15_20', 'label': '15〜20万'},
-                        {'value': '20_25', 'label': '20〜25万'},
-                        {'value': 'over_25', 'label': '25万〜'},
-                        {'value': 'none', 'label': '特になし'},
-                    ]
-                })
-            
-            return jsonify({
-                'phase': 'A',
-                'message': 'いくつか教えてください。',
-                'hearing_questions': hearing_questions,
-                'dashboard_update': None,
-                'next_category': None,
-            })
         
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # Phase B: 構成提案＆壁打ち
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        if phase == 'B':
-            # 会話フローシステムプロンプトを使ってClaude呼び出し
-            # confirmed_parts をコンテキストとして渡す
-            confirmed_parts_text = ''
-            if confirmed_parts_data:
-                lines = []
-                for p in confirmed_parts_data:
-                    status_icon = '🔒' if p.get('status') == 'user_specified' else '✅' if p.get('status') == 'ai_accepted' else '⏳'
-                    lines.append(f'{status_icon} {p.get("category", "").upper()}: {p.get("name", "")} (¥{p.get("price", 0):,})')
-                confirmed_parts_text = '\n'.join(lines)
-            
-            # ヒアリング情報を文字列化
-            hearing_text = ''
-            if hearing_state:
-                items = []
-                if hearing_state.get('resolution'):
-                    items.append(f'解像度: {hearing_state["resolution"]}')
-                if hearing_state.get('quality'):
-                    items.append(f'画質: {hearing_state["quality"]}')
-                if hearing_state.get('raytracing'):
-                    items.append(f'レイトレ: {hearing_state["raytracing"]}')
-                if hearing_state.get('framegen'):
-                    items.append(f'フレーム生成: {hearing_state["framegen"]}')
-                if hearing_state.get('budget'):
-                    items.append(f'予算: {hearing_state["budget"]}')
-                hearing_text = ' / '.join(items) if items else ''
-            
-            # 次に提案すべきカテゴリを判定
-            category_order = ['gpu', 'cpu', 'mb', 'ram', 'case', 'psu', 'cooler', 'ssd']
-            next_category = None
-            for cat in category_order:
-                if cat not in confirmed_categories:
-                    next_category = cat
-                    break
-            
-            # Claudeプロンプト構築
-            user_prompt = (
-                f'ユーザーメッセージ: {message}\n\n'
-                + (f'ヒアリング情報: {hearing_text}\n\n' if hearing_text else '')
-                + (f'確定済みパーツ:\n{confirmed_parts_text}\n\n' if confirmed_parts_text else '')
-                + f'次に提案すべきカテゴリ: {next_category or "なし（全確定済み）"}\n\n'
-                + '上記を踏まえて、会話フロープロンプトの指示に従って応答してください。\n'
-                + '応答は以下のJSON形式で返してください:\n'
-                + '{"message":"ユーザーへのチャットメッセージ（日本語・1〜3文）",'
-                + '"dashboard_update":{"parts":[{"category":"gpu","name":"RTX 5070","price":72800,"status":"ai_pending","note":"理由"}],"total_price":72800,"budget":150000,"progress":"1/6"},'
-                + '"next_category":"cpu"}'
-            )
-            
-            # Claude API 呼び出し
-            chat_body = json.dumps({
-                'model': 'claude-haiku-4-5-20251001',
-                'max_tokens': 1000,
-                'system': _CONVERSATION_FLOW_SYSTEM_PROMPT,
-                'messages': [{'role': 'user', 'content': user_prompt}],
-            }).encode('utf-8')
-            
-            req = urllib.request.Request(
-                'https://api.anthropic.com/v1/messages',
-                data=chat_body,
-                headers={
-                    'Content-Type': 'application/json',
-                    'X-API-Key': CLAUDE_API_KEY,
-                    'anthropic-version': '2023-06-01',
-                },
-                method='POST',
-            )
-            
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                chat_result = json.loads(resp.read().decode('utf-8'))
-            
-            chat_text = chat_result.get('content', [{}])[0].get('text', '{}')
-            json_match = re.search(r'\{.*\}', chat_text, re.DOTALL)
-            chat_data = _safe_parse_claude_json(json_match.group()) if json_match else {}
-            
-            return jsonify({
-                'phase': 'B',
-                'message': chat_data.get('message', '構成を提案します。'),
-                'dashboard_update': chat_data.get('dashboard_update'),
-                'next_category': chat_data.get('next_category'),
-                'hearing_questions': None,
-            })
-        
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # Phase C: 確定＆仕上げ
-        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        if phase == 'C':
-            # 全パーツ確定済み → 仕上げメッセージ
-            total = sum(p.get('price', 0) for p in confirmed_parts_data)
-            budget_val = hearing_state.get('budget_yen', 150000)
-            diff = total - budget_val
-            diff_str = f'¥{abs(diff):,} {"超過" if diff > 0 else "余裕"}'
-            
-            parts_summary = '\n'.join([
-                f'{p.get("category", "").upper()}: {p.get("name", "")} (¥{p.get("price", 0):,})'
-                for p in confirmed_parts_data
-            ])
-            
-            message_text = (
-                f'🎉 構成が完成しました！\n\n'
-                f'{parts_summary}\n\n'
-                f'合計: ¥{total:,}（予算¥{budget_val:,}に対して {diff_str}）\n\n'
-                f'右の「完成イメージを見る」ボタンで、AI画像で完成イメージを生成できます。\n\n'
-                f'構成の変更はいつでも言ってください。'
-            )
-            
-            return jsonify({
-                'phase': 'C',
-                'message': message_text,
-                'dashboard_update': {
-                    'parts': confirmed_parts_data,
-                    'total_price': total,
-                    'budget': budget_val,
-                    'progress': '6/6',
-                },
-                'next_category': None,
-                'hearing_questions': None,
-            })
+        return jsonify(response_data)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
