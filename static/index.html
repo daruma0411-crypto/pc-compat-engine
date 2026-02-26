@@ -10,6 +10,112 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="/static/style.css">
+<style>
+/* 注目の新作ゲームセクション */
+.featured-games {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #232930 0%, #1D2229 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.featured-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #78FFCB;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.game-card {
+  position: relative;
+  background: #303740;
+  border-radius: 10px;
+  padding: 20px;
+  text-decoration: none;
+  color: #eee;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  overflow: hidden;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: #78FFCB;
+  box-shadow: 0 8px 25px rgba(120, 255, 203, 0.2);
+}
+
+.game-card.featured {
+  border-color: #FFD978;
+  background: linear-gradient(135deg, #3d3620 0%, #303740 100%);
+}
+
+.game-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #78FFCB;
+  color: #1a1a2e;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.game-card.featured .game-badge {
+  background: #FFD978;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.game-card h3 {
+  font-size: 1.1rem;
+  margin: 10px 0 8px 0;
+  color: #78FFCB;
+}
+
+.game-date {
+  font-size: 0.85rem;
+  color: #BBC2CA;
+  margin-bottom: 8px;
+}
+
+.game-spec {
+  font-size: 0.8rem;
+  color: #FFD978;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #3D454F;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .featured-games {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .game-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .featured-title {
+    font-size: 1.2rem;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -35,6 +141,43 @@
     </div>
     <button class="btn-mode-switch" id="btn-mode-switch" onclick="switchMode()" title="モードを切り替え"></button>
   </header>
+
+  <!-- 注目の新作ゲーム -->
+  <section class="featured-games">
+    <h2 class="featured-title">🎮 注目の新作ゲーム - 推奨スペック</h2>
+    <div class="game-cards">
+      <a href="/game/monster-hunter-wilds" class="game-card featured">
+        <div class="game-badge">🔥 2/28発売</div>
+        <h3>Monster Hunter Wilds</h3>
+        <p class="game-date">2025年2月28日発売</p>
+        <p class="game-spec">RTX 2070 Super / RTX 4060 以上推奨</p>
+      </a>
+      <a href="/game/ghost-of-tsushima-directors-cut" class="game-card">
+        <div class="game-badge">NEW</div>
+        <h3>Ghost of Tsushima</h3>
+        <p class="game-date">2025年3月14日発売</p>
+        <p class="game-spec">RTX 2070 / RX 6700 XT 以上推奨</p>
+      </a>
+      <a href="/game/elden-ring-shadow-of-the-erdtree" class="game-card">
+        <div class="game-badge">DLC</div>
+        <h3>Elden Ring DLC</h3>
+        <p class="game-date">2025年3月予定</p>
+        <p class="game-spec">GTX 1070 / RX Vega 56 以上推奨</p>
+      </a>
+      <a href="/game/grand-theft-auto-vi" class="game-card">
+        <div class="game-badge">予約受付中</div>
+        <h3>Grand Theft Auto VI</h3>
+        <p class="game-date">2025年秋予定</p>
+        <p class="game-spec">RTX 4070 / RX 7800 XT 以上推奨</p>
+      </a>
+      <a href="/game/palworld" class="game-card">
+        <div class="game-badge">人気</div>
+        <h3>Palworld</h3>
+        <p class="game-date">好評発売中</p>
+        <p class="game-spec">RTX 2070 / RX 5700 XT 以上推奨</p>
+      </a>
+    </div>
+  </section>
 
   <div class="chat-area" id="chat-area"></div>
 
