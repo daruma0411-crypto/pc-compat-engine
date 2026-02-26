@@ -663,3 +663,11 @@
     ta.style.height = 'auto';
     ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
   }
+
+  // ─── 注目ゲームセクション折りたたみ ─────────────────────────────────────
+  function toggleFeaturedGames() {
+    // デスクトップ幅では無効
+    if (window.innerWidth >= 1024) return;
+    const section = document.getElementById('featured-games');
+    section.classList.toggle('collapsed');
+  }
