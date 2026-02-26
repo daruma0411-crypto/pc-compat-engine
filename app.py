@@ -1193,6 +1193,24 @@ AI画像生成:   GPU(VRAM 12GB以上) > RAM(32GB) > SSD
 - 専門用語は初出時にカッコ内で説明
 - 余計な前置きなし。すぐ本題
 - 1ターンで全パーツを一気に出さない
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■ 重要: レスポンス形式
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**あなたの返答は必ず以下のJSON形式で返してください:**
+
+```json
+{
+  "message": "（ユーザーへのメッセージ。ここで会話する）",
+  "recommended_parts": []
+}
+```
+
+- `message` にはあなたの通常の会話内容を書く
+- `recommended_parts` は後で実装予定なので、常に空配列 `[]` でOK
+- **JSON以外のテキストは一切書かない**
+- markdown の ```json ブロックで囲むこと
 """
 
 # ================================================================
@@ -1663,69 +1681,110 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     
     # 1. GPU: ゲーム推奨スペック + 予算でフィルタ
     gpu_budget = budget * budget_allocation['gpu']
-    gpu_candidates = [p for p in all_products if p.get('category') == 'gpu']
+    
+    # 2020年以降の世代のみ（RTX 20xx以降、RX 5xxx以降）
+    def is_modern_gpu(name):
+        name_lower = name.lower()
+        # NVIDIA: RTX 2000/3000/4000/5000系
+        if any(x in name_lower for x in ['rtx 20', 'rtx 30', 'rtx 40', 'rtx 50', 'rtx 2060', 'rtx 2070', 'rtx 2080']):
+            return True
+        # AMD: RX 5xxx/6xxx/7xxx/9xxx
+        if any(x in name_lower for x in ['rx 5', 'rx 6', 'rx 7', 'rx 9', 'radeon rx 5', 'radeon rx 6', 'radeon rx 7', 'radeon rx 9']):
+            return True
+        return False
+    
+    gpu_candidates = [
+        p for p in all_products 
+        if p.get('category') == 'gpu' 
+        and is_modern_gpu(p.get('name', ''))
+        and p.get('price_min', 0) >= 10000  # 最低1万円以上
+    ]
     # 価格でソート（安い順）
-    gpu_candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
+    gpu_candidates.sort(key=lambda x: x.get('price_min', 999999))
     # 予算内で5件
-    results['gpu'] = [p for p in gpu_candidates if (p.get('specs', {}).get('price', 999999) <= gpu_budget)][:5]
+    results['gpu'] = [p for p in gpu_candidates if (p.get('price_min', 999999) <= gpu_budget)][:5]
     
     # 2. CPU: 予算でフィルタ
     cpu_budget = budget * budget_allocation['cpu']
-    cpu_candidates = [p for p in all_products if p.get('category') == 'cpu']
-    cpu_candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
-    results['cpu'] = [p for p in cpu_candidates if (p.get('specs', {}).get('price', 999999) <= cpu_budget)][:5]
+    
+    # 2020年以降の世代のみ
+    def is_modern_cpu(name):
+        name_lower = name.lower()
+        # AMD: Ryzen 5000/7000/9000シリーズ
+        if any(x in name_lower for x in ['ryzen 5 5', 'ryzen 7 5', 'ryzen 9 5', 'ryzen 5 7', 'ryzen 7 7', 'ryzen 9 7', 'ryzen 5 9', 'ryzen 7 9', 'ryzen 9 9']):
+            return True
+        # Intel: 第10世代以降（10xxx, 11xxx, 12xxx, 13xxx, 14xxx）
+        if any(x in name_lower for x in ['i3-10', 'i5-10', 'i7-10', 'i9-10', 'i3-11', 'i5-11', 'i7-11', 'i9-11', 'i3-12', 'i5-12', 'i7-12', 'i9-12', 'i3-13', 'i5-13', 'i7-13', 'i9-13', 'i3-14', 'i5-14', 'i7-14', 'i9-14']):
+            return True
+        # Intel Core Ultra
+        if 'core ultra' in name_lower:
+            return True
+        return False
+    
+    cpu_candidates = [
+        p for p in all_products 
+        if p.get('category') == 'cpu'
+        and is_modern_cpu(p.get('name', ''))
+        and p.get('price_min', 0) >= 5000  # 最低5千円以上
+    ]
+    cpu_candidates.sort(key=lambda x: x.get('price_min', 999999))
+    results['cpu'] = [p for p in cpu_candidates if (p.get('price_min', 999999) <= cpu_budget)][:5]
     
     # 3. マザーボード: 予算でフィルタ
     mb_budget = budget * budget_allocation['mb']
-    mb_candidates = [p for p in all_products if p.get('category') in ('mb', 'motherboard')]
-    mb_candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
-    results['mb'] = [p for p in mb_candidates if (p.get('specs', {}).get('price', 999999) <= mb_budget)][:5]
+    mb_candidates = [
+        p for p in all_products 
+        if p.get('category') in ('mb', 'motherboard')
+        and p.get('price_min', 0) >= 5000  # 最低5千円以上
+    ]
+    mb_candidates.sort(key=lambda x: x.get('price_min', 999999))
+    results['mb'] = [p for p in mb_candidates if (p.get('price_min', 999999) <= mb_budget)][:5]
     
     # 4. その他: RAM/PSU/CASE/SSD各3件
     for cat_key, cat_name in [('ram', 'ram'), ('psu', 'psu'), ('case', 'case'), ('ssd', 'ssd')]:
         cat_budget = budget * budget_allocation[cat_key]
         candidates = [p for p in all_products if p.get('category') in (cat_name, cat_key)]
-        candidates.sort(key=lambda x: x.get('specs', {}).get('price', 999999))
-        results[cat_key] = [p for p in candidates if (p.get('specs', {}).get('price', 999999) <= cat_budget)][:3]
+        candidates.sort(key=lambda x: x.get('price_min', 999999))
+        results[cat_key] = [p for p in candidates if (p.get('price_min', 999999) <= cat_budget)][:3]
     
-    # フラットなリストに変換（合計30件前後）
-    filtered_products = []
-    for cat_products in results.values():
-        filtered_products.extend(cat_products)
-    
-    return filtered_products
+    # 辞書のまま返す（カテゴリ別に整理）
+    return results
 
 
-def _format_products_for_claude(products):
-    """製品リストをClaude用に簡潔に整形する"""
+def _format_products_for_claude(products_dict):
+    """製品辞書をClaude用に簡潔に整形する"""
     lines = []
-    for p in products:  # 既にフィルタ済みの製品リストを全て使う
-        cat = p.get('category', '')
-        name = p.get('name', '')
-        specs = p.get('specs', {}) or {}
-        
-        # カテゴリ別に重要スペックのみ抽出
-        if cat == 'gpu':
-            tdp = specs.get('tdp_w', '?')
-            length = specs.get('length_mm', '?')
-            lines.append(f'- {name} (TDP {tdp}W, {length}mm)')
-        elif cat == 'cpu':
-            cores = specs.get('cores', '?')
-            threads = specs.get('threads', '?')
-            lines.append(f'- {name} ({cores}コア{threads}スレッド)')
-        elif cat in ('motherboard', 'mb'):
-            socket = specs.get('socket', '?')
-            chipset = specs.get('chipset', '?')
-            lines.append(f'- {name} ({socket}, {chipset})')
-        elif cat == 'case':
-            max_gpu = specs.get('max_gpu_length_mm', '?')
-            ff = specs.get('form_factor', '?')
-            lines.append(f'- {name} (GPU最大{max_gpu}mm, {ff})')
-        elif cat in ('psu', 'power_supply'):
-            wattage = specs.get('wattage_w', '?')
-            lines.append(f'- {name} ({wattage}W)')
-        else:
-            lines.append(f'- {name}')
+    for category, products in products_dict.items():
+        lines.append(f'\n## {category.upper()}')
+        for p in products:
+            name = p.get('name', '')
+            price = p.get('price_min', None)
+            specs = p.get('specs', {}) or {}
+            
+            # 価格表示
+            price_str = f'¥{price:,}' if price else '価格不明'
+            
+            # カテゴリ別に重要スペックのみ抽出
+            if category == 'gpu':
+                vram = specs.get('vram_gb', '?')
+                lines.append(f'- {name} ({price_str}, VRAM {vram}GB)')
+            elif category == 'cpu':
+                cores = specs.get('cores', '?')
+                threads = specs.get('threads', '?')
+                lines.append(f'- {name} ({price_str}, {cores}コア{threads}スレッド)')
+            elif category in ('motherboard', 'mb'):
+                socket = specs.get('socket', '?')
+                chipset = specs.get('chipset', '?')
+                lines.append(f'- {name} ({price_str}, {socket}, {chipset})')
+            elif category == 'case':
+                max_gpu = specs.get('max_gpu_length_mm', '?')
+                ff = specs.get('form_factor', '?')
+                lines.append(f'- {name} ({price_str}, GPU最大{max_gpu}mm, {ff})')
+            elif category in ('psu', 'power_supply'):
+                wattage = specs.get('wattage_w', '?')
+                lines.append(f'- {name} ({price_str}, {wattage}W)')
+            else:
+                lines.append(f'- {name} ({price_str})')
     
     return '\n'.join(lines)
 
@@ -1749,7 +1808,11 @@ def get_or_create_session(session_id):
     if session_id not in _SESSIONS:
         _SESSIONS[session_id] = {
             'confirmed_parts': {},  # {category: part_name} の形式
-            'history': []           # 会話履歴（直近10メッセージのみ保持）
+            'history': [],          # 会話履歴（直近10メッセージのみ保持）
+            'stage': 'hearing',     # 'hearing' or 'recommending'
+            'budget_yen': None,     # 抽出した予算
+            'resolution': None,     # 抽出した解像度
+            'quality': None         # 抽出した画質
         }
     return _SESSIONS[session_id]
 
@@ -1785,7 +1848,7 @@ def call_claude_chat(system, messages):
     """Claude APIを呼び出してチャット応答を取得する"""
     req_body = json.dumps({
         'model': 'claude-haiku-4-5-20251001',
-        'max_tokens': 1024,
+        'max_tokens': 2000,
         'system': system,
         'messages': messages,
     }).encode('utf-8')
@@ -1828,6 +1891,9 @@ def parse_claude_json_response(text):
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """シンプルな会話チャットエンドポイント（セッション管理付き）"""
+    # デバッグログパス定義
+    debug_log_path = 'C:\\Users\\iwashita.AKGNET\\.openclaw\\workspace\\debug_log.txt'
+    
     try:
         data = request.get_json(force=True) or {}
         message = str(data.get('message', '')).strip()
@@ -1844,6 +1910,13 @@ def chat():
         # 製品DBロード
         all_products = _load_all_pc_products()
         
+        with open(debug_log_path, 'a', encoding='utf-8') as f:
+            f.write(f"[DEBUG] all_products count: {len(all_products)}\n")
+            if all_products:
+                sample = all_products[0]
+                f.write(f"[DEBUG] sample product keys: {list(sample.keys())}\n")
+                f.write(f"[DEBUG] sample product: {sample}\n")
+        
         # 1. 構造化データ（confirmed_parts）を常に先頭に注入（500トークン固定）
         confirmed_parts_text = format_confirmed_parts(session['confirmed_parts'])
         
@@ -1855,34 +1928,61 @@ def chat():
         messages.append({'role': 'user', 'content': message})
         
         # ヒアリング中か提案段階かを判定
-        # 予算・解像度・画質の3つが揃ったら提案段階に入る
-        is_hearing = True
+        # 予算・解像度・画質の3つが揃ったら提案段階に入る（一度入ったら戻らない）
         user_inputs = [h.get('content', '') for h in session['history'][-10:] if h.get('role') == 'user']
         user_inputs.append(message)  # 現在のメッセージも含める
         all_user_text = ' '.join(user_inputs).lower()
         
-        # 3つの条件をチェック
-        has_budget = any(kw in all_user_text for kw in ['万', '円'])
-        has_resolution = any(kw in all_user_text for kw in ['1080', '1440', '2160', '4k', 'wqhd', 'fhd'])
-        has_quality = any(kw in all_user_text for kw in ['最高', '高画質', '標準', 'フレーム', 'fps'])
-        
-        # 3つすべて揃ったら提案段階
-        if has_budget and has_resolution and has_quality:
+        # セッションステージが既にrecommendingなら、ヒアリングに戻らない
+        if session['stage'] == 'recommending':
             is_hearing = False
+            with open(debug_log_path, 'a', encoding='utf-8') as f:
+                f.write(f"[DEBUG] Session stage is already 'recommending', staying in recommending mode\n")
+        else:
+            # まだhearing段階の場合、3つの条件をチェック
+            has_budget = any(kw in all_user_text for kw in ['万', '円'])
+            has_resolution = any(kw in all_user_text for kw in ['1080', '1440', '2160', '4k', 'wqhd', 'fhd', 'ふるhd', '①', '②', '③'])
+            has_quality = any(kw in all_user_text for kw in ['最高', '高画質', '標準', 'フレーム', 'fps', 'おまかせ', '①', '②', '③'])
+            
+            with open(debug_log_path, 'a', encoding='utf-8') as f:
+                f.write(f"[DEBUG] has_budget={has_budget}, has_resolution={has_resolution}, has_quality={has_quality}\n")
+                f.write(f"[DEBUG] all_user_text: {all_user_text[:200]}\n")
+                f.write(f"[DEBUG] current message: {message}\n")
+                f.write(f"[DEBUG] session_history length: {len(session['history'])}\n")
+            
+            # 3つすべて揃ったら提案段階に移行
+            if has_budget and has_resolution and has_quality:
+                is_hearing = False
+                session['stage'] = 'recommending'
+                with open(debug_log_path, 'a', encoding='utf-8') as f:
+                    f.write(f"[DEBUG] Moving to 'recommending' stage\n")
+            else:
+                is_hearing = True
+                with open(debug_log_path, 'a', encoding='utf-8') as f:
+                    f.write(f"[DEBUG] Staying in 'hearing' stage\n")
         
         # ヒアリング中はシンプルなプロンプト、提案段階は製品リスト付き
         if is_hearing:
             # ヒアリング段階: confirmed_partsのみ注入（製品リストなし）
             system_prompt = confirmed_parts_text + "\n" + _SHOP_CLERK_SYSTEM_PROMPT
+            with open(debug_log_path, 'a', encoding='utf-8') as f:
+                f.write(f"[DEBUG] HEARING mode: system_prompt length = {len(system_prompt)} chars\n")
         else:
-            # 予算を抽出
-            budget_yen = 150000  # デフォルト15万円
-            for ui in user_inputs:
-                # 「20万」「15万円」などから数字を抽出
-                match = re.search(r'(\d+)\s*万', ui)
-                if match:
-                    budget_yen = int(match.group(1)) * 10000
-                    break
+            # 予算を抽出（セッションに保存済みならそれを使う）
+            if session['budget_yen'] is None:
+                budget_yen = 150000  # デフォルト15万円
+                for ui in user_inputs:
+                    # 「20万」「15万円」などから数字を抽出
+                    match = re.search(r'(\d+)\s*万', ui)
+                    if match:
+                        budget_yen = int(match.group(1)) * 10000
+                        session['budget_yen'] = budget_yen  # セッションに保存
+                        break
+            else:
+                budget_yen = session['budget_yen']
+            
+            with open(debug_log_path, 'a', encoding='utf-8') as f:
+                f.write(f"[DEBUG] RECOMMENDING mode: budget_yen = {budget_yen}\n")
             
             # 3. フィルタ済みパーツDB（提案段階のみ、約10Kトークン）
             filtered_products = retrieve_parts(
@@ -1893,14 +1993,36 @@ def chat():
                 all_products=all_products
             )
             
+            with open(debug_log_path, 'a', encoding='utf-8') as f:
+                if isinstance(filtered_products, dict):
+                    total = sum(len(prods) for prods in filtered_products.values())
+                    f.write(f"[DEBUG] filtered_products total count = {total}\n")
+                    for cat, prods in filtered_products.items():
+                        f.write(f"[DEBUG]   {cat}: {len(prods)} items\n")
+                        if prods:
+                            f.write(f"[DEBUG]     first: {prods[0].get('name', '?')}, price={prods[0].get('price_min', '?')}\n")
+                else:
+                    f.write(f"[DEBUG] filtered_products is not a dict! type={type(filtered_products)}\n")
+            
             products_summary = _format_products_for_claude(filtered_products)
             system_prompt = confirmed_parts_text + "\n" + _SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary
+            
+            with open(debug_log_path, 'a', encoding='utf-8') as f:
+                f.write(f"[DEBUG] system_prompt length = {len(system_prompt)} chars\n")
+                f.write(f"[DEBUG] products_summary length = {len(products_summary)} chars\n")
+                f.write(f"[DEBUG] _SHOP_CLERK_SYSTEM_PROMPT first 500 chars:\n{_SHOP_CLERK_SYSTEM_PROMPT[:500]}\n")
+                f.write(f"[DEBUG] system_prompt includes 店長: {'店長' in system_prompt}\n")
+                f.write(f"[DEBUG] system_prompt includes 少し詳しく: {'少し詳しく' in system_prompt}\n")
         
         # Claudeに投げる
         claude_response = call_claude_chat(
             system=system_prompt,
             messages=messages
         )
+        
+        with open(debug_log_path, 'a', encoding='utf-8') as f:
+            f.write(f"[DEBUG] claude_response length: {len(claude_response)} chars\n")
+            f.write(f"[DEBUG] claude_response first 500 chars:\n{claude_response[:500]}\n")
         
         # レスポンスから recommended_parts を抽出
         response_data = parse_claude_json_response(claude_response)
@@ -2763,14 +2885,31 @@ def generate_image():
             }
         )
         
-        # output は画像URLのリスト
-        image_url = output[0] if output else None
+        # output は画像URLのリスト or FileOutput オブジェクト
+        if isinstance(output, list):
+            # リストの場合、各要素を文字列化
+            if output:
+                first_item = output[0]
+                # FileOutput オブジェクトの場合、url 属性またはstr()で取得
+                if hasattr(first_item, 'url'):
+                    image_url = first_item.url
+                else:
+                    image_url = str(first_item)
+            else:
+                image_url = None
+        else:
+            # 単体のFileOutput オブジェクトの場合
+            if hasattr(output, 'url'):
+                image_url = output.url
+            else:
+                image_url = str(output) if output else None
         
         if not image_url:
             return jsonify({'error': '画像生成に失敗しました'}), 500
         
+        # 文字列として返す（JSONシリアライズ可能）
         return jsonify({
-            'image_url': image_url,
+            'image_url': str(image_url),
             'prompt': prompt,
         })
     
