@@ -1886,7 +1886,7 @@ def validate_parts(parts, all_products):
         if part['name'] not in db_names:
             return {
                 'ok': False,
-                'error_message': f'申し訳ございません、{part["name"]}は当店の在庫データにございません。別の製品をご提案いたします。'
+                'error_message': f'申し訳ございません、{part["name"]}は現在取り扱っておりません。別の製品をご提案いたします。'
             }
     
     return {'ok': True}
