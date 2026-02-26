@@ -962,10 +962,18 @@ _SHOP_CLERK_SYSTEM_PROMPT = """
 
 【会話の王道（PCショップのセオリー）】
 1. **予算を最初に確認**（最重要！構成の大枠が決まる）
-2. 用途を聞く（ゲーム名、動画編集、AI生成など）
-3. 環境を聞く（モニター解像度、既存パーツなど）
-4. こだわりを聞く（光る、静音、Intel派など）
-5. 構成を提案する（1パーツずつ、理由付きで）
+   → 予算が分かったら、必ず「モニター解像度」を聞く
+2. 解像度を確認（FHD/WQHD/4K）
+   → 解像度が分かったら、「画質設定」を聞く
+3. 画質設定を確認（最高画質/標準/フレームレート重視）
+   → ここまで揃ったら、構成を提案開始
+4. 構成を提案（GPU→CPU→MB→RAM→PSU→CASE→SSD→Cooler）
+5. 追加のこだわりを聞く（光る、静音、Intel派など）
+
+【絶対禁止】
+- 「少し詳しく教えてください」のような曖昧な質問
+- 「いくつか教えてください」のような不明瞭な返答
+- 必ず具体的に聞くこと（例：「モニター解像度は？」「画質は？」）
 
 【会話例】
 客: 「モンハンワイルズを60fpsでやってみたい」
@@ -1563,16 +1571,18 @@ def chat():
         messages.append({'role': 'user', 'content': message})
         
         # ヒアリング中か提案段階かを判定
-        # 予算・解像度・画質などの情報が揃ったら提案段階に入る
+        # 予算・解像度・画質の3つが揃ったら提案段階に入る
         is_hearing = True
-        user_inputs = [h.get('content', '') for h in history[-5:] if h.get('role') == 'user']
+        user_inputs = [h.get('content', '') for h in history[-10:] if h.get('role') == 'user']
         all_user_text = ' '.join(user_inputs).lower()
         
-        # 予算と解像度（または用途）が揃っていたら提案段階
+        # 3つの条件をチェック
         has_budget = any(kw in all_user_text for kw in ['万', '円'])
-        has_resolution_or_use = any(kw in all_user_text for kw in ['1080', '1440', '4k', 'wqhd', 'fhd', 'ゲーム', '編集', '配信'])
+        has_resolution = any(kw in all_user_text for kw in ['1080', '1440', '2160', '4k', 'wqhd', 'fhd'])
+        has_quality = any(kw in all_user_text for kw in ['最高', '高画質', '標準', 'フレーム', 'fps'])
         
-        if has_budget and has_resolution_or_use:
+        # 3つすべて揃ったら提案段階
+        if has_budget and has_resolution and has_quality:
             is_hearing = False
         
         # ヒアリング中はシンプルなプロンプト、提案段階は製品リスト付き
