@@ -1555,9 +1555,6 @@ def chat():
         # 製品DBロード
         all_products = _load_all_pc_products()
         
-        # 製品リストをClaude用に整形（簡潔に）
-        products_summary = _format_products_for_claude(all_products)
-        
         # 会話履歴を構築（直近10ターンのみ）
         messages = []
         for h in history[-10:]:
@@ -1565,9 +1562,29 @@ def chat():
                 messages.append({'role': h['role'], 'content': h['content']})
         messages.append({'role': 'user', 'content': message})
         
+        # ヒアリング中か提案段階かを判定
+        # 予算・解像度・画質などの情報が揃ったら提案段階に入る
+        is_hearing = True
+        user_inputs = [h.get('content', '') for h in history[-5:] if h.get('role') == 'user']
+        all_user_text = ' '.join(user_inputs).lower()
+        
+        # 予算と解像度（または用途）が揃っていたら提案段階
+        has_budget = any(kw in all_user_text for kw in ['万', '円'])
+        has_resolution_or_use = any(kw in all_user_text for kw in ['1080', '1440', '4k', 'wqhd', 'fhd', 'ゲーム', '編集', '配信'])
+        
+        if has_budget and has_resolution_or_use:
+            is_hearing = False
+        
+        # ヒアリング中はシンプルなプロンプト、提案段階は製品リスト付き
+        if is_hearing:
+            system_prompt = _SHOP_CLERK_SYSTEM_PROMPT
+        else:
+            products_summary = _format_products_for_claude(all_products)
+            system_prompt = _SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary
+        
         # Claudeに投げる（シンプル）
         claude_response = call_claude_chat(
-            system=_SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary,
+            system=system_prompt,
             messages=messages
         )
         
