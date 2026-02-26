@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>PC互換チェッカー DB ER図</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    padding: 24px;
+  }
+  h1 { font-size: 1.4rem; margin-bottom: 6px; color: #58a6ff; }
+  .subtitle { font-size: 0.8rem; color: #8b949e; margin-bottom: 24px; }
+  .section { margin-bottom: 40px; }
+  .section h2 {
+    font-size: 1rem;
+    color: #f0883e;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #21262d;
+  }
+  .mermaid {
+    background: #161b22;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 16px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; color: #8b949e;
+  }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 2px;
+  }
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .source-card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+  }
+  .source-card .cat {
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+  .source-card .files { color: #8b949e; margin-top: 4px; }
+  .source-card .count { color: #3fb950; font-weight: bold; }
+  .cat-cpu    { background: #1f4e79; color: #79c0ff; }
+  .cat-mb     { background: #1f3d1f; color: #56d364; }
+  .cat-gpu    { background: #4d1f2f; color: #ff7b72; }
+  .cat-ram    { background: #3d2f00; color: #e3b341; }
+  .cat-cooler { background: #2a1f4d; color: #bc8cff; }
+  .cat-case   { background: #2a2a2a; color: #d2a8ff; }
+  .cat-psu    { background: #1f3a3a; color: #39d0d8; }
+  .cat-steam  { background: #1f1f3a; color: #a5a5ff; }
+</style>
+</head>
+<body>
+
+<h1>PC互換チェッカー データベース ER図</h1>
+<p class="subtitle">pc-compat-engine / workspace/data — 2026-02-26 時点 | 全テーブル共通スキーマ: products.jsonl</p>
+
+<!-- ====== Section 1: 論理ER図（互換チェック関係） ====== -->
+<div class="section">
+  <h2>1. 論理ER図 — 互換性チェックの結合キー</h2>
+  <div class="mermaid">
+erDiagram
+    CPU {
+        string  id PK
+        string  name
+        string  maker
+        string  socket       "AM5 / LGA1851 / LGA1700"
+        int     cores
+        int     threads
+        float   tdp_w
+        string  memory_type  "DDR5 / DDR4"
+        int     max_memory_gb
+        string  pcie_version
+    }
+
+    MOTHERBOARD {
+        string  id PK
+        string  name
+        string  maker
+        string  socket       "AM5 / LGA1851 / LGA1700"
+        string  chipset
+        string  form_factor  "ATX / mATX / Mini-ITX / E-ATX"
+        string  memory_type  "DDR5 / DDR4"
+        int     max_memory_gb
+        int     memory_slots
+        int     m2_slots
+        int     sata_ports
+        string  power_connector "24pin+8pin etc"
+    }
+
+    GPU {
+        string  id PK
+        string  name
+        string  maker
+        string  gpu_chip
+        string  vram         "16GB GDDR7 etc"
+        int     length_mm
+        int     tdp_w
+        float   slot_width
+        string  power_connector "8pin / 16pin 12VHPWR"
+    }
+
+    RAM {
+        string  id PK
+        string  name
+        string  maker
+        string  memory_type  "DDR5 / DDR4"
+        int     capacity_gb
+        int     speed_mhz
+        bool    xmp
+        bool    expo
+    }
+
+    CPU_COOLER {
+        string  id PK
+        string  name
+        string  maker
+        string  type         "air / aio"
+        int     height_mm
+        array   socket_support "対応ソケット一覧"
+        int     tdp_rating_w
+        int     fan_size_mm
+    }
+
+    CASE {
+        string  id PK
+        string  name
+        string  maker
+        string  form_factor  "ATX / mATX / Mini-ITX"
+        int     max_gpu_length_mm
+        int     max_cpu_cooler_height_mm
+        int     max_psu_length_mm
+    }
+
+    PSU {
+        string  id PK
+        string  name
+        string  maker
+        int     wattage_w
+        string  form_factor  "ATX / SFX"
+        string  efficiency_rating "80+ Gold etc"
+        int     connector_12vhpwr
+        int     connector_8pin_pcie
+    }
+
+    STEAM_GAME {
+        int     appid PK
+        string  name
+        string  genres
+        int     metacritic_score
+        object  minimum      "ram_gb / gpu / cpu"
+        object  recommended  "ram_gb / gpu / cpu"
+    }
+
+    CPU         ||--o{ MOTHERBOARD      : "socket一致"
+    CPU         ||--o{ RAM              : "memory_type一致"
+    CPU         ||--o{ CPU_COOLER       : "socket_support含む"
+    MOTHERBOARD ||--o{ CASE             : "form_factor一致"
+    GPU         ||--o{ CASE             : "length_mm <= max_gpu_length_mm"
+    CPU_COOLER  ||--o{ CASE             : "height_mm <= max_cpu_cooler_height_mm"
+    GPU         ||--o{ PSU              : "tdp_w → wattage_w試算"
+    CPU         ||--o{ PSU              : "tdp_w → wattage_w試算"
+    STEAM_GAME  ||--o{ GPU              : "recommended.gpu 参照"
+    STEAM_GAME  ||--o{ CPU              : "recommended.cpu 参照"
+    STEAM_GAME  ||--o{ RAM              : "recommended.ram_gb 参照"
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#58a6ff"></div> ||--o{ : 互換チェックの結合条件（名前またはスペック値の照合）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3fb950"></div> STEAM_GAME → パーツ : 推奨スペック参照（名前マッチング）</div>
+  </div>
+</div>
+
+<!-- ====== Section 2: 物理テーブル詳細 ====== -->
+<div class="section">
+  <h2>2. 物理テーブル構成 — データソース別</h2>
+  <div class="mermaid">
+erDiagram
+
+    PRODUCTS_BASE {
+        string id PK    "maker_name-slug"
+        string name
+        string maker
+        string category "cpu/motherboard/gpu/ram/cpu_cooler/case/psu"
+        string source_url
+        string manual_url
+        string manual_path
+        string manual_scraped_at
+        string created_at
+        object specs
+        int    price_min     "kakakuデータのみ"
+        string price_updated_at "kakakuデータのみ"
+    }
+
+    CPU_SPECS {
+        string model
+        string socket
+        int    cores
+        int    p_cores    "Intelのみ"
+        int    e_cores    "Intelのみ"
+        int    threads
+        float  base_clock_ghz
+        float  boost_clock_ghz
+        float  tdp_w
+        int    max_turbo_power_w
+        array  memory_type
+        int    max_memory_speed_mhz
+        int    max_memory_gb
+        bool   integrated_gpu
+        string igpu_model
+        string pcie_version
+        int    l3_cache_mb
+    }
+
+    MB_SPECS {
+        string socket
+        string chipset
+        string form_factor
+        int    m2_slots
+        int    max_memory_gb
+        string memory_type
+        int    memory_slots
+        int    sata_ports
+        string power_connector
+        object manual_specs  "マニュアル抽出データ"
+        object constraints   "追加制約"
+    }
+
+    GPU_SPECS {
+        string part_no
+        string gpu_chip
+        string vram
+        string bus_interface
+        int    length_mm
+        int    tdp_w
+        float  slot_width
+        string power_connector
+        string display_output
+        string boost_clock
+    }
+
+    RAM_SPECS {
+        string memory_type
+        int    capacity_gb
+        int    kit_count
+        int    per_stick_gb
+        int    speed_mhz
+        int    cas_latency
+        string timings
+        float  voltage_v
+        string form_factor
+        bool   xmp
+        bool   expo
+        int    height_mm
+    }
+
+    COOLER_SPECS {
+        string type
+        int    height_mm
+        array  socket_support
+        int    fan_size_mm
+        int    tdp_rating_w
+        int    side_clearance_mm
+        int    radiator_size_mm
+    }
+
+    CASE_SPECS {
+        string form_factor
+        int    max_gpu_length_mm
+        int    max_cpu_cooler_height_mm
+        int    max_psu_length_mm
+        bool   psu_included
+    }
+
+    PSU_SPECS {
+        int    wattage_w
+        string form_factor
+        string efficiency_rating
+        bool   modular
+        int    depth_mm
+        int    connector_12vhpwr
+        int    connector_8pin_pcie
+    }
+
+    STEAM_GAME_TABLE {
+        int    appid PK
+        string name
+        string short_description
+        array  genres
+        string release_date
+        int    metacritic_score
+        string screenshot
+        string scraped_at
+        object minimum
+        object recommended
+    }
+
+    PRODUCTS_BASE ||--|| CPU_SPECS     : "specs (category=cpu)"
+    PRODUCTS_BASE ||--|| MB_SPECS      : "specs (category=motherboard)"
+    PRODUCTS_BASE ||--|| GPU_SPECS     : "specs (category=gpu)"
+    PRODUCTS_BASE ||--|| RAM_SPECS     : "specs (category=ram)"
+    PRODUCTS_BASE ||--|| COOLER_SPECS  : "specs (category=cpu_cooler)"
+    PRODUCTS_BASE ||--|| CASE_SPECS    : "specs (category=case)"
+    PRODUCTS_BASE ||--|| PSU_SPECS     : "specs (category=psu)"
+  </div>
+</div>
+
+<!-- ====== Section 3: データソース一覧 ====== -->
+<div class="section">
+  <h2>3. データソース一覧（JSONLファイル → 論理エンティティのマッピング）</h2>
+  <div class="sources-grid">
+
+    <div class="source-card">
+      <span class="cat cat-cpu">CPU</span>
+      <div><strong>amd_cpu</strong></div>
+      <div class="files">amd_cpu/products.jsonl</div>
+      <div class="count">20件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-cpu">CPU</span>
+      <div><strong>intel_cpu</strong></div>
+      <div class="files">intel/products.jsonl, intel_cpu/</div>
+      <div class="count">~20件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-cpu">CPU</span>
+      <div><strong>kakaku_cpu</strong></div>
+      <div class="files">kakaku_cpu/products.jsonl</div>
+      <div class="count">3,933件 ★価格付き</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-mb">MB</span>
+      <div><strong>asus_mb</strong></div>
+      <div class="files">asus_mb/products.jsonl</div>
+      <div class="count">14件 ★マニュアル収集済み</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-mb">MB</span>
+      <div><strong>msi_mb</strong></div>
+      <div class="files">msi_mb/products.jsonl</div>
+      <div class="count">22件 ★マニュアル収集済み</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-mb">MB</span>
+      <div><strong>gigabyte_mb</strong></div>
+      <div class="files">gigabyte_mb/products.jsonl</div>
+      <div class="count">~20件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-mb">MB</span>
+      <div><strong>asrock_mb</strong></div>
+      <div class="files">asrock_mb/products.jsonl</div>
+      <div class="count">5件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-mb">MB</span>
+      <div><strong>kakaku_mb</strong></div>
+      <div class="files">kakaku_mb/products.jsonl</div>
+      <div class="count">2,975件 ★価格付き</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-gpu">GPU</span>
+      <div><strong>asus / gigabyte / msi</strong></div>
+      <div class="files">asus/ gigabyte/ msi/</div>
+      <div class="count">32 / ~50 / 27件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-gpu">GPU</span>
+      <div><strong>palit / sapphire / sparkle 等</strong></div>
+      <div class="files">palit/ sapphire/ sparkle/ asrock/ pny/ powercolor/ gainward/ zotac/ kuroutoshikou/</div>
+      <div class="count">合計~80件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-gpu">GPU</span>
+      <div><strong>kakaku_gpu</strong></div>
+      <div class="files">kakaku_gpu/products.jsonl</div>
+      <div class="count">913件 ★価格付き</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-ram">RAM</span>
+      <div><strong>corsair / g.skill / crucial / kingston / teamgroup</strong></div>
+      <div class="files">corsair_ram/ gskill_ram/ 等 (DDR4/DDR5)</div>
+      <div class="count">各5〜10件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-ram">RAM</span>
+      <div><strong>kakaku_ram</strong></div>
+      <div class="files">kakaku_ram/products.jsonl</div>
+      <div class="count">2,488件 ★価格付き</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-cooler">Cooler</span>
+      <div><strong>noctua / corsair / bequiet / deepcool</strong></div>
+      <div class="files">noctua_cooler/ corsair_cooler/ bequiet_cooler/ deepcool_cooler/</div>
+      <div class="count">各5件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-cooler">Cooler</span>
+      <div><strong>kakaku_cooler</strong></div>
+      <div class="files">kakaku_cooler/products.jsonl</div>
+      <div class="count">928件</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-case">Case</span>
+      <div><strong>cases / coolermaster / fractal</strong></div>
+      <div class="files">cases/ coolermaster_cases/ fractal_cases/</div>
+      <div class="count">21 / 5 / 5件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-case">Case</span>
+      <div><strong>kakaku_case</strong></div>
+      <div class="files">kakaku_case/products.jsonl</div>
+      <div class="count">1,171件</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-psu">PSU</span>
+      <div><strong>corsair / bequiet / seasonic / silverstone</strong></div>
+      <div class="files">corsair_psu/ bequiet_psu/ seasonic_psu/ silverstone_psu/</div>
+      <div class="count">各5〜15件</div>
+    </div>
+    <div class="source-card">
+      <span class="cat cat-psu">PSU</span>
+      <div><strong>kakaku_psu</strong></div>
+      <div class="files">kakaku_psu/products.jsonl</div>
+      <div class="count">533件 ★価格付き</div>
+    </div>
+
+    <div class="source-card">
+      <span class="cat cat-steam">Steam</span>
+      <div><strong>steam_games</strong></div>
+      <div class="files">steam/games.jsonl</div>
+      <div class="count">~200件 ★別スキーマ</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ====== Section 4: 互換チェック関係の整理 ====== -->
+<div class="section">
+  <h2>4. 互換性チェックロジック — フィールド対応表</h2>
+  <div class="mermaid">
+graph LR
+    subgraph CPU["CPU"]
+      CPU_socket["socket\n(AM5/LGA1851)"]
+      CPU_mem["memory_type\n(DDR5/DDR4)"]
+      CPU_tdp["tdp_w"]
+    end
+
+    subgraph MB["MOTHERBOARD"]
+      MB_socket["socket\n(AM5/LGA1851)"]
+      MB_mem["memory_type"]
+      MB_ff["form_factor\n(ATX/mATX/Mini-ITX)"]
+    end
+
+    subgraph GPU["GPU"]
+      GPU_len["length_mm"]
+      GPU_tdp["tdp_w"]
+      GPU_conn["power_connector"]
+    end
+
+    subgraph COOLER["CPU COOLER"]
+      COL_sock["socket_support[]"]
+      COL_h["height_mm"]
+      COL_tdp["tdp_rating_w"]
+    end
+
+    subgraph CASE["CASE"]
+      CASE_ff["form_factor"]
+      CASE_gpu["max_gpu_length_mm"]
+      CASE_col["max_cpu_cooler_height_mm"]
+      CASE_psu["max_psu_length_mm"]
+    end
+
+    subgraph PSU["PSU"]
+      PSU_w["wattage_w"]
+      PSU_ff["form_factor\n(ATX/SFX)"]
+      PSU_conn["connector_12vhpwr\nconnector_8pin_pcie"]
+    end
+
+    CPU_socket  -->|"== MB_socket"| MB_socket
+    CPU_mem     -->|"== MB_mem"| MB_mem
+    CPU_socket  -->|"in COL_sock"| COL_sock
+    CPU_tdp     -->|"<= COL_tdp"| COL_tdp
+
+    MB_ff       -->|"<= CASE_ff"| CASE_ff
+    GPU_len     -->|"<= CASE_gpu"| CASE_gpu
+    COL_h       -->|"<= CASE_col"| CASE_col
+
+    CASE_psu    -->|"<= PSU_len"| PSU_ff
+
+    GPU_tdp     -->|"加算 → PSU_w"| PSU_w
+    CPU_tdp     -->|"加算 → PSU_w"| PSU_w
+    GPU_conn    -->|"コネクタ数確認"| PSU_conn
+
+    style CPU fill:#1f4e79,color:#79c0ff,stroke:#2d6ca2
+    style MB fill:#1f3d1f,color:#56d364,stroke:#2d6ca2
+    style GPU fill:#4d1f2f,color:#ff7b72,stroke:#9e3050
+    style COOLER fill:#2a1f4d,color:#bc8cff,stroke:#6e3fb5
+    style CASE fill:#2a2a2a,color:#d2a8ff,stroke:#555
+    style PSU fill:#1f3a3a,color:#39d0d8,stroke:#2a7a7a
+  </div>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      primaryColor: '#1f6feb',
+      primaryTextColor: '#e6edf3',
+      primaryBorderColor: '#30363d',
+      lineColor: '#58a6ff',
+      secondaryColor: '#161b22',
+      tertiaryColor: '#0d1117',
+      background: '#0d1117',
+      mainBkg: '#161b22',
+      nodeBorder: '#30363d',
+      clusterBkg: '#161b22',
+      titleColor: '#e6edf3',
+      edgeLabelBackground: '#161b22',
+      attributeBackgroundColorEven: '#1c2128',
+      attributeBackgroundColorOdd: '#161b22',
+    },
+    er: {
+      diagramPadding: 20,
+      layoutDirection: 'TB',
+      minEntityWidth: 100,
+      minEntityHeight: 75,
+      entityPadding: 15,
+      useMaxWidth: true,
+    }
+  });
+</script>
+</body>
+</html>

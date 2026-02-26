@@ -19,10 +19,11 @@ TODAY = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 
 # 価格更新対象ディレクトリ（既存スペックデータあり）
 PRICE_UPDATE_TARGETS = [
-    os.path.join(DATA_ROOT, 'kakaku_cpu',  'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_mb',   'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_psu',  'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_case', 'products.jsonl'),
+    os.path.join(DATA_ROOT, 'kakaku_cpu',     'products.jsonl'),
+    os.path.join(DATA_ROOT, 'kakaku_mb',      'products.jsonl'),
+    os.path.join(DATA_ROOT, 'kakaku_psu',     'products.jsonl'),
+    os.path.join(DATA_ROOT, 'kakaku_case',    'products.jsonl'),
+    os.path.join(DATA_ROOT, 'kakaku_cooler',  'products.jsonl'),
 ]
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,7 +82,7 @@ def git_commit_and_push():
         print('[WARN] git commit 失敗')
         return
 
-    rc = run(['git', 'push', 'origin', 'main'])
+    rc = run(['git', 'push', 'origin', 'master'])
     if rc != 0:
         print('[WARN] git push 失敗')
     else:

@@ -12,7 +12,7 @@ from kakaku_scraper_base import (
 )
 from datetime import datetime, timezone
 
-LIST_URL = 'https://kakaku.com/pc/dram/itemlist.aspx'
+LIST_URL = 'https://kakaku.com/pc/pc-memory/itemlist.aspx'
 DIR_NAME = 'kakaku_ram'
 NOW      = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+00:00')
 TODAY    = datetime.now(timezone.utc).strftime('%Y-%m-%d')

@@ -1,0 +1,8 @@
+﻿
+LineNumber Line                                                               
+---------- ----                                                               
+       844         const newParts = (data.recommended_build || []).map(b => ({
+      1050     const build = data.recommended_build || [];                    
+      1051     const total = data.total_estimate || '';                       
+
+

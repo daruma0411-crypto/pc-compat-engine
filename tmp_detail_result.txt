@@ -1,0 +1,29 @@
+﻿=== 繝・せ繝・ 繝輔Ν繝ｬ繧ｹ繝昴Φ繧ｹ ===
+type: recommendation
+
+[reply]
+Z890 HERO縺ｨRTX 4080 SUPER縺ｮ邨・∩蜷医ｏ縺帙↑繧峨・ｫ俶ｧ閭ｽ縺ｪCore Ultra 9 285K縺ｧ繝上う繧ｨ繝ｳ繝臼C螳梧・・・崕貅舌・1000W莉･荳翫〒螳牙ｮ壻ｾ帷ｵｦ縺ｧ縺阪∪縺吶・
+
+[compat_info]
+GPU(GeForce RTX 4080 Super 16G GAMING X SLIM: 267mm) 縺ｯ 4000D Airflow(max 360mm) 縺ｫ蜿弱∪繧翫∪縺呻ｼ医・繝ｼ繧ｸ繝ｳ 93mm OK・峨・
+
+[tip]
+Core Ultra 9 285K縺ｯLGA1851遒ｺ螳壹〒Z890螳悟・蟇ｾ蠢懊ヽOG MAXIMUS Z890 HERO縺ｮ莉伜ｱ朞.2繝偵・繝医す繝ｳ繧ｯ縺ｧ蜀ｷ蜊ｴ諤ｧ繧や落縺ｧ縺吶・
+
+[total_estimate]
+ﾂ･11.8荳・慊･15.7荳・
+
+[recommended_build] (7莉ｶ):
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=ASUS%20ROG%20MAXIMUS%20Z890%20HERO&tag=pccompat-22', 'category': '繝槭じ繝ｼ繝懊・繝・, 'confirmed': True, 'name': 'ASUS ROG MAXIMUS Z890 HERO', 'price_range': '', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/ASUS%20ROG%20MAXIMUS%20Z890%20HERO/', 'reason': '・医Θ繝ｼ繧ｶ繝ｼ謖・ｮ壽ｸ医∩・・}
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=GeForce%20RTX%204080%20Super%2016G%20GAMING%20X%20SLIM&tag=pccompat-22', 'category': 'GPU', 'confirmed': True, 'name': 'GeForce RTX 4080 Super 16G GAMING X SLIM', 'price_range': '', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/GeForce%20RTX%204080%20Super%2016G%20GAMING%20X%20SLIM/', 'reason': '・医Θ繝ｼ繧ｶ繝ｼ謖・ｮ壽ｸ医∩・・窶・267mm / TDP 320W'}
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=4000D%20Airflow&tag=pccompat-22', 'category': '繧ｱ繝ｼ繧ｹ', 'confirmed': True, 'name': '4000D Airflow', 'price_range': '', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/4000D%20Airflow/', 'reason': '・医Θ繝ｼ繧ｶ繝ｼ謖・ｮ壽ｸ医∩・・}
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=Intel%20Core%20Ultra%209%20285K&tag=pccompat-22', 'category': 'CPU', 'name': 'Intel Core Ultra 9 285K', 'price_range': 'ﾂ･70,000縲慊･85,000', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/Intel%20Core%20Ultra%209%20285K/', 'reason': 'LGA1851蟇ｾ蠢懊〒譛鬮俶ｧ閭ｽ縲〇890 HERO縺ｮ讖溯・繧呈怙螟ｧ髯先ｴｻ縺九○繧九・}
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=DARK%20POWER%2014%201000W&tag=pccompat-22', 'category': '髮ｻ貅・, 'name': 'DARK POWER 14 1000W', 'price_range': 'ﾂ･25,000縲慊･32,000', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/DARK%20POWER%2014%201000W/', 'reason': 'GPU 384W + CPU 125W + 縺昴・莉悶〒蠢・ｦ∝ｮｹ驥上ｒ貅縺溘＠縲∽ｽ呵｣輔ｒ謖√▲縺滄°逕ｨ縺悟庄閭ｽ縲・}
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=DDR5%2032GB%EF%BC%8816GB%C3%972%EF%BC%89&tag=pccompat-22', 'category': '繝｡繝｢繝ｪ', 'name': 'DDR5 32GB・・6GBﾃ・・・, 'price_range': 'ﾂ･15,000縲慊･25,000', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/DDR5%2032GB%EF%BC%8816GB%C3%972%EF%BC%89/', 'reason': 'Z890 HERO縺ｯDDR5蟇ｾ蠢懊〒譛譁ｰ隕乗ｼ縲，ore Ultra 9 285K縺ｮ諤ｧ閭ｽ繧貞ｼ輔″蜃ｺ縺吶↑繧・2GB縺梧ｨ呎ｺ悶・}
+  {'amazon_url': 'https://www.amazon.co.jp/s?k=NVMe%20SSD%201TB%EF%BC%88M.2%20PCIe%204.0/5.0%EF%BC%89&tag=pccompat-22', 'category': '繧ｹ繝医Ξ繝ｼ繧ｸ', 'name': 'NVMe SSD 1TB・・.2 PCIe 4.0/5.0・・, 'price_range': 'ﾂ･8,000縲慊･15,000', 'rakuten_url': 'https://search.rakuten.co.jp/search/mall/NVMe%20SSD%201TB%EF%BC%88M.2%20PCIe%204.0/5.0%EF%BC%89/', 'reason': 'Z890謳ｭ霈峨・M.2繧ｹ繝ｭ繝・ヨ6譛ｬ繧呈ｴｻ逕ｨ縺ｧ縺阪・ｫ倬欅S襍ｷ蜍輔・繧｢繝励Μ隱ｭ縺ｿ霎ｼ縺ｿ蟇ｾ蠢懊・}
+
+[game]: {'appid': None, 'name': '謗ｨ螂ｨ讒区・', 'screenshot': None}
+
+[game_req_scores]: None
+
+[radar_scores]: {'cpu': 10, 'gpu': 9, 'ram': 5, 'value': 10, 'vram': 9}

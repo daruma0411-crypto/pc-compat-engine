@@ -1,0 +1,49 @@
+{
+  "game": {
+    "appid": null,
+    "name": "",
+    "screenshot": null
+  },
+  "game_req_scores": null,
+  "radar_scores": {
+    "cpu": 10,
+    "gpu": 6,
+    "ram": 8,
+    "value": 10,
+    "vram": 5
+  },
+  "recommended_build": [
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=ASRock%20Radeon%20RX%209060%20XT%20Steel%20Legend%2016GB%20OC&tag=pccompat-22",
+      "category": "GPU",
+      "confirmed": false,
+      "name": "ASRock Radeon RX 9060 XT Steel Legend 16GB OC",
+      "price_range": "¥75,000〜¥85,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/ASRock%20Radeon%20RX%209060%20XT%20Steel%20Legend%2016GB%20OC/",
+      "reason": "16GBのVRAMはAI画像生成に必須で、ゲーミング性能と配信時のエンコード性能も十分です。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=AMD%20Ryzen%209%209900X&tag=pccompat-22",
+      "category": "CPU",
+      "confirmed": false,
+      "name": "AMD Ryzen 9 9900X",
+      "price_range": "¥65,000〜¥75,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/AMD%20Ryzen%209%209900X/",
+      "reason": "12コア24スレッドで配信エンコードとゲーム処理を同時処理でき、AI生成タスクにも対応できます。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=DDR5%2032GB&tag=pccompat-22",
+      "category": "RAM",
+      "confirmed": false,
+      "name": "DDR5 32GB",
+      "price_range": "¥18,000〜¥25,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/DDR5%2032GB/",
+      "reason": "AI画像生成とゲーム・配信の同時実行に必要なメモリ容量です。"
+    }
+  ],
+  "reply": "ゲーム・配信・AI画像生成の3つの用途なら、マルチコアCPUと高VRAM GPUの組み合わせがおすすめです。予算15〜20万円でバランスの取れた構成を提案します。",
+  "required_specs": {},
+  "tip": "マザーボード・電源・クーラーなどの周辺パーツも別途必要になるため、実際の購入時は各ゲームの推奨スペックを公式サイトで確認してください。",
+  "total_estimate": "¥15.8万〜¥18.5万",
+  "type": "recommendation"
+}

@@ -1,0 +1,72 @@
+{
+  "compat_info": "※注意: GPU(GeForce RTX 4090 24G GAMING X TRIO: 336mm) は NZXT H1 V2(max 326mm) に入りません（10mmオーバー）。",
+  "game": {
+    "appid": null,
+    "name": "推奨構成",
+    "screenshot": null
+  },
+  "game_req_scores": null,
+  "radar_scores": {
+    "cpu": 10,
+    "gpu": 10,
+    "ram": 8,
+    "value": 10,
+    "vram": 5
+  },
+  "recommended_build": [
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=NZXT%20H1%20V2&tag=pccompat-22",
+      "category": "ケース",
+      "confirmed": true,
+      "name": "NZXT H1 V2",
+      "price_range": "",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/NZXT%20H1%20V2/",
+      "reason": "（ユーザー指定済み）"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=GeForce%20RTX%204090%2024G%20GAMING%20X%20TRIO&tag=pccompat-22",
+      "category": "GPU",
+      "confirmed": true,
+      "name": "GeForce RTX 4090 24G GAMING X TRIO",
+      "price_range": "",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/GeForce%20RTX%204090%2024G%20GAMING%20X%20TRIO/",
+      "reason": "（ユーザー指定済み） ― 336mm / TDP 450W"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=AMD%20Ryzen%209%209900X&tag=pccompat-22",
+      "category": "CPU",
+      "name": "AMD Ryzen 9 9900X",
+      "price_range": "¥65,000〜¥75,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/AMD%20Ryzen%209%209900X/",
+      "reason": "450W GPU + 120W CPU + 100W = 670W基本負荷のため電源容量に余裕が生まれ、高性能と安定性のバランスが優れている。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=ASUS%20ROG%20STRIX%20X870-E-E%20GAMING%20WIFI&tag=pccompat-22",
+      "category": "マザーボード",
+      "name": "ASUS ROG STRIX X870-E-E GAMING WIFI",
+      "price_range": "¥70,000〜¥85,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/ASUS%20ROG%20STRIX%20X870-E-E%20GAMING%20WIFI/",
+      "reason": "AM5ソケット対応でRyzen 9900Xと完全互換、RTX 4090級の高性能GPU対応の充実したPCIe 5.0サポート。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=DARK%20POWER%2014%201000W&tag=pccompat-22",
+      "category": "電源",
+      "name": "DARK POWER 14 1000W",
+      "price_range": "¥25,000〜¥32,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/DARK%20POWER%2014%201000W/",
+      "reason": "RTX 4090(450W×1.2=540W) + CPU(120W) + システム(100W) = 760W以上必要のため、1000Wで十分な余裕を確保できる。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=DDR5%2032GB%20%2816GB%C3%972%29&tag=pccompat-22",
+      "category": "RAM",
+      "name": "DDR5 32GB (16GB×2)",
+      "price_range": "¥18,000〜¥25,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/DDR5%2032GB%20%2816GB%C3%972%29/",
+      "reason": "Ryzen 9900X及びX870-E マザーボード対応のDDR5規格、ハイエンド構成に適切な容量。"
+    }
+  ],
+  "reply": "RTX 4090 GAMING X TRIOはNZXT H1 V2の最大対応長326mmに対して336mmあるため、物理的に収納できません。ケースの改造や別製品への変更をご検討ください。以下は仮の構成提案です。",
+  "tip": "【重要】GPU長336mmはケース最大326mmに10mmオーバーするため、物理的に装着不可です。ケースの改造またはGPU・ケースの変更を強く推奨します。",
+  "total_estimate": "¥17.8万〜¥21.7万",
+  "type": "recommendation"
+}

@@ -1,0 +1,6 @@
+﻿
+pc-compat-engine\app.py:84:def _lookup_pc_specs(parts: list) -> dict:
+pc-compat-engine\app.py:1121:def _lookup_kakaku_price(name: str, category: str, all_products: list) -> int | None:
+pc-compat-engine\app.py:1373:def _search_game(query: str, games: list):
+
+

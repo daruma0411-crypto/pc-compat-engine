@@ -1,0 +1,67 @@
+{
+  "game": {
+    "appid": null,
+    "name": "",
+    "screenshot": null
+  },
+  "game_req_scores": null,
+  "radar_scores": {
+    "cpu": 10,
+    "gpu": 6,
+    "ram": 10,
+    "value": 10,
+    "vram": 5
+  },
+  "recommended_build": [
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=ASRock%20Radeon%20RX%209060%20XT%20Steel%20Legend%208GB%20OC&tag=pccompat-22",
+      "category": "GPU",
+      "confirmed": false,
+      "name": "ASRock Radeon RX 9060 XT Steel Legend 8GB OC",
+      "price_range": "¥45,000〜¥55,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/ASRock%20Radeon%20RX%209060%20XT%20Steel%20Legend%208GB%20OC/",
+      "reason": "4K編集に必要な16GBより8GBで十分な場合が多く、TDP 160Wの低消費電力で静音性を確保できます。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=AMD%20Ryzen%209%209950X&tag=pccompat-22",
+      "category": "CPU",
+      "confirmed": false,
+      "name": "AMD Ryzen 9 9950X",
+      "price_range": "¥75,000〜¥85,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/AMD%20Ryzen%209%209950X/",
+      "reason": "16コア32スレッドでAfter Effectsのマルチスレッド処理と4K動画エンコードを高速化します。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=DDR5%2064GB%EF%BC%8832GB%C3%972%EF%BC%89&tag=pccompat-22",
+      "category": "RAM",
+      "confirmed": false,
+      "name": "DDR5 64GB（32GB×2）",
+      "price_range": "¥35,000〜¥45,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/DDR5%2064GB%EF%BC%8832GB%C3%972%EF%BC%89/",
+      "reason": "4K編集とAfter Effectsの複雑なプロジェクトは64GB以上推奨で、スムーズなプレビューと書き出しが可能になります。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=850W%2080%2B%20Gold%20%E9%9D%99%E9%9F%B3%E5%9E%8B&tag=pccompat-22",
+      "category": "電源",
+      "confirmed": false,
+      "name": "850W 80+ Gold 静音型",
+      "price_range": "¥15,000〜¥20,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/850W%2080%2B%20Gold%20%E9%9D%99%E9%9F%B3%E5%9E%8B/",
+      "reason": "安定供給と静音性を両立させるため、余裕のある容量と高効率電源を選定します。"
+    },
+    {
+      "amazon_url": "https://www.amazon.co.jp/s?k=%E5%A4%A7%E5%9E%8B%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%B3%E3%83%88%E3%82%B1%E3%83%BC%E3%82%B9%EF%BC%88Fractal%20Design%E7%AD%89%EF%BC%89&tag=pccompat-22",
+      "category": "ケース",
+      "confirmed": false,
+      "name": "大型サイレントケース（Fractal Design等）",
+      "price_range": "¥12,000〜¥18,000",
+      "rakuten_url": "https://search.rakuten.co.jp/search/mall/%E5%A4%A7%E5%9E%8B%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%B3%E3%83%88%E3%82%B1%E3%83%BC%E3%82%B9%EF%BC%88Fractal%20Design%E7%AD%89%EF%BC%89/",
+      "reason": "エアフロー確保と防音材で、低回転ファンでも静かに冷却できます。"
+    }
+  ],
+  "reply": "4K動画編集とAfter Effectsは高いマルチスレッド性能が必須なので、16コアのRyzen 9 9950Xがおすすめです。静音性重視ならTDP低めのRX 9060 XT 8GB版を選び、大型サイレントケースと高品質電源で組めば快適に動作します。",
+  "required_specs": {},
+  "tip": "After Effectsは16GB以上のVRAM推奨の場合もあるため、予算に余裕があればRX 9060 XT 16GB版への変更も検討してください。",
+  "total_estimate": "¥18.2万〜¥22.3万",
+  "type": "recommendation"
+}

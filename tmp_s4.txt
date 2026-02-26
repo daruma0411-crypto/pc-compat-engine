@@ -1,0 +1,23 @@
+﻿
+LineNumber Line                                                                                                        
+---------- ----                                                                                                        
+       721     appendAIBubble('まず何をしたいか教えてください', cardsHtml);                                                           
+       734       appendAIBubble('🎮 どのゲームを、どんな目標でプレイしたいですか？\n予算も教えていただけると、より正確な構成を提案できます。\n\n例: モンハンワイルズを60fpsで遊びたい。...
+       738       appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');                                   
+       753       appendAIBubble('🎮 ゲームモードに切り替えました。\nどのゲームを、どんな目標でプレイしたいですか？予算も教えてください。');                             
+       756       appendAIBubble('🔧 互換チェックモードに切り替えました。\nどんな組み合わせを確認したいですか？');                                          
+       770     appendAIBubble(                                                                                         
+       841       if (data.type === 'recommendation' || data.type === 'suggestion') {                                   
+       858         appendRecommendationMessage(data);                                                                  
+       875         appendAIBubble(data.reply || '少し詳しく教えてください。');                                                      
+       881         appendAIBubble('⏱️ サーバーが起動中のため時間がかかっています。\nもう一度送信してください（2回目以降は速くなります）。');                           
+       883         appendAIBubble('⚠️ エラーが発生しました: ' + e.message);                                                      
+       900   function appendAIBubble(text, extraHtml) {                                                                
+       967     appendAIBubble(                                                                                         
+      1000       appendAIBubble('⚠️ 代替品の取得に失敗しました: ' + e.message);                                                     
+      1007       appendAIBubble('該当する' + (category === 'gpu' ? 'GPU' : 'ケース') + 'が見つかりませんでした。');                       
+      1025     const altWrap = appendAIBubble(                                                                         
+      1048   function appendRecommendationMessage(data) {                                                              
+      1105     appendAIBubble(reply || '');                                                                            
+
+
