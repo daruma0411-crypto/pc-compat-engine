@@ -1372,6 +1372,24 @@ def chat():
         intent               = extracted.get('intent', 'diagnose')
         reply                = extracted.get('reply', '')
 
+        # ── 新しい構成検出で confirmed_parts 自動リセット ────────────────
+        # 今回のメッセージに新しいコアパーツ（GPU/CPU/MB）が含まれていて、
+        # 既存のconfirmed_partsと異なる場合はリセット
+        if confirmed_parts and parts:
+            core_categories = {'GPU', 'CPU', 'MB', 'マザーボード'}
+            specs_all = _lookup_pc_specs(parts + confirmed_parts)
+            
+            # 今回のpartsの中にコアパーツがあるか
+            new_core_parts = [p for p in parts if specs_all.get(p, {}).get('category', '').upper() in core_categories]
+            # confirmed_partsの中にコアパーツがあるか
+            old_core_parts = [p for p in confirmed_parts if specs_all.get(p, {}).get('category', '').upper() in core_categories]
+            
+            # 両方にコアパーツがあって、異なる場合 → リセット
+            if new_core_parts and old_core_parts:
+                # 名前が完全一致しない場合はリセット
+                if not any(nc in old_core_parts for nc in new_core_parts):
+                    confirmed_parts = []
+
         # confirmed_partsを常にmerge（今回のpartsがあっても引き継ぎパーツを保持）
         # 例:「Lancool 216に入れたい」→ parts=['Lancool 216'] + confirmed=['RTX 5070',...]
         merged_parts = list(confirmed_parts)

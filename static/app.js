@@ -69,6 +69,8 @@
   }
 
   function newChat() {
+    confirmedParts = [];  // 確定パーツをリセット
+    budgetYen = null;     // 予算もリセット
     toggleDrawer();
     setTimeout(() => location.reload(), 200);
   }
