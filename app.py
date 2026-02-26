@@ -606,6 +606,36 @@ th{background:#f9fafb;font-weight:600;font-size:.9rem;color:#374151}
 _BASE_URL = 'https://pc-compat-engine.onrender.com'
 
 
+def _safe_parse_claude_json(text: str, fallback: dict | None = None) -> dict:
+    """ClaudeのJSON出力を安全にパース。末尾カンマや切り捨て等の不正JSONを修復して返す。"""
+    if fallback is None:
+        fallback = {}
+    if not text:
+        return fallback
+    # まずそのままパース
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    # 末尾カンマを除去して再試行
+    cleaned = re.sub(r',\s*([}\]])', r'\1', text)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+    # 最後の完全なオブジェクト/配列を切り出して再試行
+    for end in ('}', ']'):
+        idx = text.rfind(end)
+        if idx != -1:
+            candidate = text[:idx + 1]
+            candidate = re.sub(r',\s*([}\]])', r'\1', candidate)
+            try:
+                return json.loads(candidate)
+            except json.JSONDecodeError:
+                pass
+    return fallback
+
+
 def _slugify(name: str) -> str:
     s = name.lower()
     s = re.sub(r'[^a-z0-9]+', '-', s)
@@ -1231,7 +1261,7 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
         build_result = json.loads(resp.read())
     build_text = build_result['content'][0]['text'].strip()
     json_match = re.search(r'\{.*\}', build_text, re.DOTALL)
-    build_data = json.loads(json_match.group()) if json_match else {}
+    build_data = _safe_parse_claude_json(json_match.group()) if json_match else {}
 
     # 確定パーツを先頭に固定し、Claude提案の不足パーツを追加
     suggested_build = build_data.get('recommended_build', [])
@@ -1840,7 +1870,7 @@ def recommend():
             extract_result = json.loads(resp.read())
         extracted_text = extract_result['content'][0]['text'].strip()
         json_match = re.search(r'\{.*\}', extracted_text, re.DOTALL)
-        extracted = json.loads(json_match.group()) if json_match else {}
+        extracted = _safe_parse_claude_json(json_match.group()) if json_match else {}
 
         game_name  = extracted.get('game_name', '') or ''
         budget_yen = extracted.get('budget_yen')
@@ -1987,7 +2017,7 @@ def recommend():
             build_result = json.loads(resp2.read())
         build_text = build_result['content'][0]['text'].strip()
         json_match2 = re.search(r'\{.*\}', build_text, re.DOTALL)
-        build_data = json.loads(json_match2.group()) if json_match2 else {}
+        build_data = _safe_parse_claude_json(json_match2.group()) if json_match2 else {}
 
         recommended_build = build_data.get('recommended_build', [])
         for item in recommended_build:
