@@ -156,9 +156,15 @@
 
   // ─── カテゴリ正規化 ────────────────────────────────────────────────────
   function normalizeCat(cat) {
+    if (!cat) return '';
     const map = {
-      'ケース': 'CASE', '電源': 'PSU', 'マザーボード': 'MB',
-      'case': 'CASE', 'psu': 'PSU', 'mb': 'MB', 'motherboard': 'MB',
+      'ケース': 'CASE', 'case': 'CASE', 'Case': 'CASE',
+      'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB', 'mb': 'MB', 'MB': 'MB',
+      '電源': 'PSU', 'psu': 'PSU', 'Psu': 'PSU', 'PSU': 'PSU', 'power_supply': 'PSU',
+      'cpu': 'CPU', 'Cpu': 'CPU', 'CPU': 'CPU',
+      'gpu': 'GPU', 'Gpu': 'GPU', 'GPU': 'GPU',
+      'ram': 'RAM', 'Ram': 'RAM', 'RAM': 'RAM', 'メモリ': 'RAM',
+      'cooler': 'COOLER', 'Cooler': 'COOLER', 'COOLER': 'COOLER', 'クーラー': 'COOLER',
     };
     return map[cat] || cat.toUpperCase();
   }

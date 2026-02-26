@@ -1301,13 +1301,17 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
 
     # カテゴリを英語キーに正規化（フロントのCATEGORY_ORDERと合わせる）
     _CAT_NORMALIZE = {
-        'ケース': 'CASE', 'case': 'CASE', 'Case': 'CASE',
-        'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB',
-        '電源': 'PSU', 'power_supply': 'PSU',
+        'ケース': 'CASE', 'case': 'CASE', 'Case': 'CASE', 'CASE': 'CASE',
+        'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB', 'mb': 'MB', 'MB': 'MB',
+        '電源': 'PSU', 'power_supply': 'PSU', 'psu': 'PSU', 'Psu': 'PSU', 'PSU': 'PSU',
+        'cpu': 'CPU', 'Cpu': 'CPU', 'CPU': 'CPU',
+        'gpu': 'GPU', 'Gpu': 'GPU', 'GPU': 'GPU',
+        'ram': 'RAM', 'Ram': 'RAM', 'RAM': 'RAM', 'メモリ': 'RAM',
+        'cooler': 'COOLER', 'Cooler': 'COOLER', 'COOLER': 'COOLER', 'クーラー': 'COOLER',
     }
     for item in recommended_build:
         cat = item.get('category', '')
-        item['category'] = _CAT_NORMALIZE.get(cat, cat.upper() if cat else cat)
+        item['category'] = _CAT_NORMALIZE.get(cat, cat.upper() if cat else '')
 
     # kakaku実価格を各itemに付加
     _CAT_TO_KAKAKU = {
@@ -1890,15 +1894,32 @@ def _lookup_kakaku_price(name: str, category: str, all_products: list) -> int | 
     all_productsからcategoryに一致＆nameが部分一致するエントリの
     最小price_minを返す。見つからなければNone。
     """
+    import re
+    
+    # 名前を正規化（空白・記号除去で寛容なマッチング）
+    def normalize_name(s):
+        s = s.lower()
+        s = re.sub(r'[\s\-_　]+', '', s)  # 空白・ハイフン・アンダースコア除去
+        s = re.sub(r'[（）()]', '', s)    # 括弧除去
+        return s
+    
+    name_norm = normalize_name(name)
+    if not name_norm or len(name_norm) < 3:  # 短すぎる名前はスキップ
+        return None
+    
     candidates = []
     for p in all_products:
         if p.get('category') != category:
             continue
         p_name = p.get('name', '')
-        if name.lower() in p_name.lower() or p_name.lower() in name.lower():
+        p_name_norm = normalize_name(p_name)
+        
+        # 部分一致判定（より寛容に）
+        if name_norm in p_name_norm or p_name_norm in name_norm:
             price = p.get('price_min')
-            if price and isinstance(price, (int, float)):
+            if price and isinstance(price, (int, float)) and price > 0:
                 candidates.append(int(price))
+    
     return min(candidates) if candidates else None
 
 
