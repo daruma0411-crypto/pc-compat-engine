@@ -1,15 +1,10 @@
 services:
   - type: web
     name: pc-compat-engine
-    env: python
-    buildCommand: pip install -r requirements_render.txt
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
-      - key: ANTHROPIC_API_KEY
-        sync: false   # Renderダッシュボードで手動設定してください
-      - key: AMAZON_TAG
-        sync: false   # Amazonアソシエイト承認後に設定（例: yourname-22）
-      - key: RAKUTEN_A_ID
-        sync: false   # 楽天アフィリエイトID（例: 1a234567.89012345）
-      - key: RAKUTEN_L_ID
-        sync: false   # 楽天リンクID/サイトID（例: 0b234567.89012345）
+      - key: PYTHON_VERSION
+        value: 3.11.9
