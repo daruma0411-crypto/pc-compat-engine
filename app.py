@@ -1215,12 +1215,19 @@ AI画像生成:   GPU(VRAM 12GB以上) > RAM(32GB) > SSD
 ```json
 {
   "message": "（ユーザーへのメッセージ。ここで会話する）",
-  "recommended_parts": []
+  "recommended_parts": [
+    {"category": "GPU", "name": "ASUS TUF Gaming RTX 5070 12GB", "reason": "選んだ理由", "price_range": "¥85,000"}
+  ]
 }
 ```
 
-- `message` にはあなたの通常の会話内容を書く
-- `recommended_parts` は後で実装予定なので、常に空配列 `[]` でOK
+- `message`: あなたの通常の会話内容
+- `recommended_parts`: **このターンまでにユーザーが確認・承認した全パーツ（累積リスト）**
+  - ユーザーが「それで」「OKです」「お願いします」「確定」「〜でお願い」等で承認したパーツのみ含める
+  - まだ提案中・検討中のパーツは含めない（ユーザーが「どちらにしますか？」等で迷っている場合も含めない）
+  - 直前ターン以前に確定済みのパーツも必ず含める（累積リスト）
+  - カテゴリは必ず次のいずれか: GPU / CPU / MB / RAM / PSU / CASE / SSD / COOLER
+  - 未確定の場合は `[]`（空配列）
 - **JSON以外のテキストは一切書かない**
 - markdown の ```json ブロックで囲むこと
 """
@@ -2147,22 +2154,25 @@ def chat():
         
         # レスポンスから recommended_parts を抽出
         response_data = parse_claude_json_response(claude_response)
-        
-        # 製品名がDBに存在するか検証（ハルシネーション対策）
+
+        # confirmed_partsを更新（shop clerk モードではDB照合なしで受け入れ）
+        # 購入リンクはAmazon/楽天の検索URLで対応するため、厳密な製品名照合は不要
         if response_data.get('recommended_parts'):
-            validated = validate_parts(response_data['recommended_parts'], all_products)
-            if not validated['ok']:
-                return jsonify({
-                    'message': validated['error_message'],
-                    'recommended_parts': []
-                })
-            
-            # confirmed_partsを更新（新しく推奨されたパーツを追加）
             for part in response_data['recommended_parts']:
                 category = part.get('category', '').upper()
                 part_name = part.get('name', '')
                 if category and part_name:
                     session['confirmed_parts'][category] = part_name
+
+        # セッションのconfirmed_partsもレスポンスに含める（クライアントのダッシュボード更新用）
+        if session['confirmed_parts'] and not response_data.get('recommended_parts'):
+            # Claudeが recommended_parts を返さなかった場合でも、
+            # セッション側の確定済みパーツを返す（前ターンの確定分を維持）
+            response_data['confirmed_parts_session'] = [
+                {'category': cat, 'name': name}
+                for cat, name in session['confirmed_parts'].items()
+                if name
+            ]
         
         # 会話履歴を更新（直近10メッセージのみ保持）
         session['history'].append({'role': 'user', 'content': message})

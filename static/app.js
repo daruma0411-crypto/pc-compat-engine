@@ -231,28 +231,38 @@
       // ゲームモード: 推奨構成を表示
       if (gameMode && data.recommended_build) {
         appendRecommendationMessage(data);
-      } 
-      // 互換チェックモード: 構成提案があれば表示、なければテキストのみ
-      else if (!gameMode && data.recommended_parts && data.recommended_parts.length > 0) {
-        // recommended_parts を recommended_build 形式に変換して表示
-        const buildData = {
-          game: { name: '推奨構成', appid: null, screenshot: null },
-          recommended_build: data.recommended_parts.map(p => ({
-            category: p.category,
-            name: p.name,
-            reason: p.reason || '',
-            price_range: '',
-            amazon_url: buildAmazonUrl(p.name),
-            rakuten_url: buildRakutenUrl(p.name),
-          })),
-          reply: data.message || '',
-        };
-        appendRecommendationMessage(buildData);
-        updateDashboardFromConfirmedParts();
-      } 
-      // テキストのみの応答
-      else {
+      }
+      // 互換チェックモード（shop clerk）: チャットバブル表示 + ダッシュボード更新
+      else if (!gameMode) {
+        // 常にメッセージをチャットバブルとして表示
         appendAIBubble(data.message || '少し詳しく教えてください。');
+
+        // confirmed partsをマージしてダッシュボード更新
+        const newParts = data.recommended_parts || [];
+        const sessionParts = data.confirmed_parts_session || [];
+        const allParts = newParts.length > 0 ? newParts : sessionParts;
+
+        if (allParts.length > 0) {
+          allParts.forEach(p => {
+            const cat = normalizeCat(p.category);
+            if (!cat || !p.name) return;
+            const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === cat);
+            const entry = {
+              name: p.name,
+              category: p.category,
+              reason: p.reason || '',
+              price_range: p.price_range || '',
+              amazon_url: buildAmazonUrl(p.name),
+              rakuten_url: buildRakutenUrl(p.name),
+            };
+            if (idx >= 0) {
+              confirmedParts[idx] = entry;
+            } else {
+              confirmedParts.push(entry);
+            }
+          });
+          updateDashboardFromConfirmedParts();
+        }
       }
     } catch (e) {
       clearTimeout(timer);
