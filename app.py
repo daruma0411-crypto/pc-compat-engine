@@ -1659,7 +1659,9 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
 
 
 def _load_all_pc_products():
-    """全カテゴリの products.jsonl を読み込んで製品リストを返す"""
+    """全カテゴリの products.jsonl を読み込んで製品リストを返す（2022年以降のみ）"""
+    from datetime import datetime
+    
     jsonl_paths = glob_module.glob(
         os.path.join(_PC_WORKSPACE_DIR, 'data', '*', 'products.jsonl')
     )
@@ -1673,6 +1675,20 @@ def _load_all_pc_products():
                         all_products.append(json.loads(line))
         except Exception:
             pass
+    
+    # 2022年以降の製品のみに絞る
+    def is_recent_product(product):
+        created_at = product.get('created_at', '')
+        if not created_at:
+            return True  # 日付不明なら許可
+        try:
+            created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+            return created_date.year >= 2022
+        except:
+            return True  # パース失敗なら許可
+    
+    all_products = [p for p in all_products if is_recent_product(p)]
+    
     return all_products
 
 
