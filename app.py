@@ -2174,12 +2174,30 @@ def chat():
 
         # confirmed_partsを更新（shop clerk モードではDB照合なしで受け入れ）
         # 購入リンクはAmazon/楽天の検索URLで対応するため、厳密な製品名照合は不要
+        amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
+        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+        def _make_amzn(name):
+            q = urllib.parse.quote(name)
+            return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+        def _make_raku(name):
+            q = urllib.parse.quote(name)
+            if rakuten_a_id and rakuten_l_id:
+                return (f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                        f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
+            return f'https://search.rakuten.co.jp/search/mall/{q}/'
+
         if response_data.get('recommended_parts'):
             for part in response_data['recommended_parts']:
                 category = part.get('category', '').upper()
                 part_name = part.get('name', '')
                 if category and part_name:
                     session['confirmed_parts'][category] = part_name
+                    # クライアント側でAMAZON_TAGが不要になるよう、サーバー側でURLを生成
+                    if not part.get('amazon_url'):
+                        part['amazon_url'] = _make_amzn(part_name)
+                    if not part.get('rakuten_url'):
+                        part['rakuten_url'] = _make_raku(part_name)
 
         # セッションのconfirmed_partsもレスポンスに含める（クライアントのダッシュボード更新用）
         if session['confirmed_parts'] and not response_data.get('recommended_parts'):

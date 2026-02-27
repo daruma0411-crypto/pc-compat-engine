@@ -672,11 +672,14 @@
   }
 
   function buildAmazonUrl(name) {
-    return 'https://www.amazon.co.jp/s?k=' + encodeURIComponent(name) + '&tag=' + AMAZON_TAG;
+    // AMAZON_TAGはindex.htmlでFlaskが注入（未定義時はフォールバック）
+    const tag = (typeof AMAZON_TAG !== 'undefined' && !String(AMAZON_TAG).startsWith('__'))
+      ? AMAZON_TAG : 'pccompat-22';
+    return 'https://www.amazon.co.jp/s?k=' + encodeURIComponent(name) + '&tag=' + tag;
   }
   function buildRakutenUrl(name) {
     const search = 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(name) + '/';
-    if (RAKUTEN_A_ID && !RAKUTEN_A_ID.startsWith('__')) {
+    if (typeof RAKUTEN_A_ID !== 'undefined' && RAKUTEN_A_ID && !RAKUTEN_A_ID.startsWith('__')) {
       return 'https://hb.afl.rakuten.co.jp/hgc/' + RAKUTEN_A_ID + '/' + RAKUTEN_L_ID +
              '/?pc=' + encodeURIComponent(search);
     }
