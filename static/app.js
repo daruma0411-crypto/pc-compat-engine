@@ -735,11 +735,19 @@
 
   // confirmedPartsから右パネルを更新するヘルパー
   function updateDashboardFromConfirmedParts() {
-    const buildForTable = confirmedParts.map(p => ({
-      category: normalizeCat(p.category),
-      name: p.name,
-      price_min: 0,
-    }));
+    const buildForTable = confirmedParts.map(p => {
+      // price_rangeの文字列から数値を取得（例: "¥68,000" → 68000）
+      let price_min = 0;
+      if (p.price_range) {
+        const m = String(p.price_range).replace(/,/g, '').match(/\d+/);
+        if (m) price_min = parseInt(m[0]);
+      }
+      return {
+        category: normalizeCat(p.category),
+        name: p.name,
+        price_min,
+      };
+    });
     updatePartsTable(buildForTable, budgetYen);
   }
 
