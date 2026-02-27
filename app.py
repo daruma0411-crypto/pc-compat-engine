@@ -15,18 +15,13 @@ import urllib.request
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory
 
-# Replicate の import を一時無効化（Python 3.14 互換性問題）
-# try:
-#     import replicate
-#     REPLICATE_AVAILABLE = True
-# except Exception as e:
-#     print(f"Warning: replicate import failed: {e}")
-#     replicate = None
-#     REPLICATE_AVAILABLE = False
-
-# 画像生成機能を一時的に無効化
-replicate = None
-REPLICATE_AVAILABLE = False
+try:
+    import replicate
+    REPLICATE_AVAILABLE = True
+except Exception as e:
+    print(f"Warning: replicate import failed: {e}")
+    replicate = None
+    REPLICATE_AVAILABLE = False
 
 load_dotenv()
 
