@@ -159,6 +159,26 @@ header {
   flex-shrink: 0;
 }
 
+.chat-reset-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+}
+
+#btn-reset-all {
+  background: none;
+  border: 1px solid var(--c-border);
+  color: var(--c-muted);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#btn-reset-all:hover {
+  color: var(--c-text);
+  border-color: var(--c-primary);
+}
+
 .chat-input-row {
   display: flex;
   gap: 8px;
@@ -258,6 +278,20 @@ header {
   width: 30px;
   text-align: center;
   font-size: 16px;
+}
+
+.parts-change-link {
+  width: 32px;
+  font-size: 11px;
+  color: var(--c-primary);
+  cursor: pointer;
+  text-align: right;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+.parts-change-link:hover {
+  opacity: 1;
+  text-decoration: underline;
 }
 
 .parts-total {

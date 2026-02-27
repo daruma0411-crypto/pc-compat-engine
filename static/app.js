@@ -807,12 +807,17 @@
       
       const nameText = hasItem ? escHtml(item.name || '') : '（未選択）';
       const nameClass = hasItem ? 'parts-name' : 'parts-name parts-name--empty';
-      
+      // 確定済みパーツに「変更する」リンク
+      const changeLink = hasItem
+        ? `<span class="parts-change-link" onclick="resetPart('${cat.toLowerCase()}')" title="${escHtml(cat)}を変更する">変更</span>`
+        : '';
+
       rowsHtml += `<div class="parts-row">
         <span class="parts-category">${cat}</span>
         <span class="${nameClass}">${nameText}</span>
         <span class="parts-price">${priceText}</span>
         <span class="parts-status" title="${statusTitle}">${statusIcon}</span>
+        ${changeLink}
       </div>`;
     });
     
@@ -928,6 +933,54 @@
     }
   }
   
+  // ================================================================
+  // 修正7: リセット機能
+  // ================================================================
+
+  // カテゴリ名を正規化（大文字 → app.py の category キーに対応）
+  const RESET_CAT_MAP = {
+    'GPU': 'gpu', 'CPU': 'cpu', 'MB': 'motherboard',
+    'RAM': 'ram', 'CASE': 'case', 'PSU': 'psu', 'COOLER': 'cooler',
+  };
+
+  async function resetAll() {
+    const res = await fetch('/api/reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'full', session_id: sessionId }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      // クライアント側の confirmedParts をクリア
+      confirmedParts = [];
+      updateDashboardFromConfirmedParts();
+      // AIからのメッセージをチャットに追加
+      appendMessage('assistant', data.ai_message);
+    }
+  }
+
+  async function resetPart(catDisplay) {
+    // catDisplay は 'gpu' / 'cpu' / 'mb' などの小文字
+    const category = RESET_CAT_MAP[catDisplay.toUpperCase()] || catDisplay.toLowerCase();
+    const res = await fetch('/api/reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'partial', category, session_id: sessionId }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      // リセット対象カテゴリを confirmedParts から除去
+      for (const resetCat of (data.reset_categories || [])) {
+        const idx = confirmedParts.findIndex(
+          cp => normalizeCat(cp.category) === normalizeCat(resetCat)
+        );
+        if (idx >= 0) confirmedParts.splice(idx, 1);
+      }
+      updateDashboardFromConfirmedParts();
+      appendMessage('assistant', data.ai_message);
+    }
+  }
+
   // 一括購入処理（後で実装）
   function handleBulkPurchase() {
     alert('一括購入機能は実装中です');

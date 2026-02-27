@@ -2149,6 +2149,97 @@ def filter_compatible_parts(products_dict, current_build):
     return result
 
 
+# ================================================================
+# 修正7-2: 迷走検知
+# ================================================================
+
+def _detect_stagnation(session):
+    """5往復以上で構成が半分以上未確定の場合Trueを返す"""
+    history_len = len(session.get('history', []))
+    turns = history_len // 2
+    if turns < 5:
+        return False
+    total     = len(session['current_build'])
+    confirmed = sum(1 for v in session['current_build'].values() if v is not None)
+    return confirmed < (total / 2)
+
+
+# ================================================================
+# 修正7-1: リセット処理
+# ================================================================
+
+def _reset_full(session):
+    """全リセット: current_buildを全てNullに。チャット履歴は保持。"""
+    for key in session['current_build']:
+        session['current_build'][key] = None
+    session['confirmed_parts'] = {}
+    session['recheck_flags']   = []
+    session['stage']           = 'hearing'
+    session['budget_yen']      = None
+    session['resolution']      = None
+    session['quality']         = None
+
+    return {
+        'success': True,
+        'reset_categories': list(session['current_build'].keys()),
+        'current_build': {k: None for k in session['current_build']},
+        'ai_message': (
+            'まっさらな気持ちで行きましょう！\n'
+            '何に使うPCを組みたいですか？ゲーム？動画編集？'
+            '予算もあれば教えてもらえると助かります。'
+        ),
+    }
+
+
+def _reset_partial(session, category):
+    """
+    個別リセット: 指定カテゴリと依存カテゴリをリセット。
+    依存関係マップ（socket_reset / memtype_reset）に従って連動リセット。
+    """
+    norm_cat = category.lower()
+    if norm_cat == 'mb':
+        norm_cat = 'motherboard'
+
+    if norm_cat not in session['current_build']:
+        return {'success': False, 'error': f'Unknown category: {category}'}
+
+    reset_cats = [norm_cat]
+    for dep_cat, dep_type in _BUILD_DEPENDENCY_MAP.get(norm_cat, []):
+        if dep_type in ('socket_reset', 'memtype_reset'):
+            reset_cats.append(dep_cat)
+
+    for cat in reset_cats:
+        session['current_build'][cat] = None
+        session['confirmed_parts'].pop(cat.upper(), None)
+        session['confirmed_parts'].pop(cat, None)
+
+    part_labels = {
+        'cpu': 'CPU', 'gpu': 'GPU', 'motherboard': 'マザーボード',
+        'ram': 'メモリ', 'case': 'ケース', 'psu': '電源', 'cooler': 'CPUクーラー',
+    }
+    reset_names = [part_labels.get(c, c) for c in reset_cats]
+
+    if len(reset_cats) == 1:
+        msg = f'{reset_names[0]}をリセットしました。新しい{reset_names[0]}を一緒に選びましょう！'
+    else:
+        main = reset_names[0]
+        deps = '・'.join(reset_names[1:])
+        msg = (
+            f'{main}を変更しますね。'
+            f'連動して{deps}も選び直す必要があります。一緒に決めていきましょう！'
+        )
+
+    return {
+        'success': True,
+        'reset_categories': reset_cats,
+        'current_build': {
+            cat: ({'name': p['name']} if p else None)
+            for cat, p in session['current_build'].items()
+        },
+        'ai_message': msg,
+    }
+
+
 def update_current_build(session, category, part_name, all_products, user_specified=False):
     """
     current_buildを更新し、依存関係チェックを実行する。
@@ -2488,8 +2579,19 @@ def chat():
                 session.get('recheck_flags', [])
             )
 
+            # 修正7-2: 迷走検知（5往復以上で半数以上未確定）
+            stagnation_hint = ''
+            if _detect_stagnation(session):
+                stagnation_hint = (
+                    "\n\n💡 ヒント: 会話が長くなっています。ユーザーに"
+                    "「ちょっと整理しましょうか？」と提案してください。"
+                    "今決まっているパーツを示し、"
+                    "「ここから一緒に組み立て直しましょう！」と声をかけてください。"
+                    "上から目線にならないこと。"
+                )
+
             system_prompt = (
-                current_build_text + "\n"
+                current_build_text + stagnation_hint + "\n"
                 + confirmed_parts_text + "\n"
                 + _SHOP_CLERK_SYSTEM_PROMPT
                 + "\n\n利用可能な製品:\n" + products_summary
@@ -2604,6 +2706,37 @@ def chat():
             session['history'] = session['history'][-10:]
         
         return jsonify(response_data)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# ================================================================
+# 修正7-1: /api/reset エンドポイント
+# ================================================================
+
+@app.route('/api/reset', methods=['POST'])
+def api_reset():
+    """
+    構成リセット。
+    {"type": "full"}                         → 全リセット
+    {"type": "partial", "category": "cpu"}  → 個別リセット（依存パーツ連動）
+    """
+    try:
+        data       = request.get_json() or {}
+        reset_type = data.get('type', 'full')
+        session_id = data.get('session_id', 'default')
+        session    = get_or_create_session(session_id)
+
+        if reset_type == 'full':
+            result = _reset_full(session)
+        elif reset_type == 'partial':
+            category = data.get('category', '').lower()
+            result   = _reset_partial(session, category)
+        else:
+            return jsonify({'error': 'Invalid reset type'}), 400
+
+        return jsonify(result)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
