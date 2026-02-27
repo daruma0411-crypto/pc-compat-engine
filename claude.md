@@ -2,7 +2,8 @@
 
 **最終更新**: 2026-02-26 17:30  
 **プロジェクト**: PC互換性チェッカー（pc-compat-engine）  
-**本番環境**: https://pc-compat-engine.onrender.com/
+**本番環境**: https://pc-compat-engine-production.up.railway.app
+**旧Render環境（停止中）**: https://pc-compat-engine-1.onrender.com/
 
 ---
 
