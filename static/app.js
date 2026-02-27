@@ -252,8 +252,8 @@
               category: p.category,
               reason: p.reason || '',
               price_range: p.price_range || '',
-              amazon_url: buildAmazonUrl(p.name),
-              rakuten_url: buildRakutenUrl(p.name),
+              amazon_url: p.amazon_url || buildAmazonUrl(p.name),
+              rakuten_url: p.rakuten_url || buildRakutenUrl(p.name),
             };
             if (idx >= 0) {
               confirmedParts[idx] = entry;
