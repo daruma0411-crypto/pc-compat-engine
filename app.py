@@ -2490,17 +2490,23 @@ def call_claude_chat(system, messages):
 
 def parse_claude_json_response(text):
     """ClaudeのJSON応答をパースする（markdown包みに対応）"""
+    original_text = text
     # ```json ... ``` の包みを除去
     json_match = re.search(r'```json\s*(.*?)\s*```', text, re.DOTALL)
     if json_match:
         text = json_match.group(1)
-    
+
     try:
         return json.loads(text)
-    except json.JSONDecodeError:
-        # パース失敗時はデフォルト値を返す
+    except json.JSONDecodeError as e:
+        # パース失敗時: 原因調査のため生レスポンスをログ出力
+        app.logger.warning(
+            "[parse_claude_json_response] JSON decode failed: %s\n"
+            "--- raw response (first 500 chars) ---\n%s\n---",
+            e, original_text[:500]
+        )
         return {
-            'message': '少し詳しく教えてください。',
+            'message': 'すみません、うまく聞き取れませんでした。もう一度お願いできますか？',
             'recommended_parts': []
         }
 
