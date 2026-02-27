@@ -1676,16 +1676,32 @@ def _load_all_pc_products():
         except Exception:
             pass
     
-    # 2022年以降の製品のみに絞る
+    # 最新世代の製品のみに絞る（製品名から判定）
+    import re
     def is_recent_product(product):
-        created_at = product.get('created_at', '')
-        if not created_at:
-            return True  # 日付不明なら許可
-        try:
-            created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
-            return created_date.year >= 2022
-        except:
-            return True  # パース失敗なら許可
+        name = product.get('name', '').upper()
+        category = product.get('category', '')
+        
+        # GPU: RTX 40xx/50xx, RX 7000/9000シリーズのみ
+        if category == 'gpu':
+            if re.search(r'RTX\s*(?:40[0-9]{2}|50[0-9]{2})', name):  # RTX 4000/5000
+                return True
+            if re.search(r'RX\s*(?:7[0-9]{3}|9[0-9]{3})', name):  # RX 7000/9000
+                return True
+            if re.search(r'ARC\s*[AB][0-9]{3}', name):  # Intel Arc
+                return True
+            return False
+        
+        # CPU: Ryzen 7000/9000, Intel 12世代以降のみ
+        if category == 'cpu':
+            if re.search(r'RYZEN\s*[579]\s*(?:7[0-9]{3}|9[0-9]{3})', name):  # Ryzen 7000/9000
+                return True
+            if re.search(r'(?:CORE\s*(?:ULTRA|I[3579])[- ](?:1[2-9]|[2-9][0-9])|(?:1[2-9]|[2-9][0-9])TH\s*GEN)', name):  # Intel 12世代以降
+                return True
+            return False
+        
+        # その他のカテゴリは全て許可（マザボ、メモリ、SSDなど）
+        return True
     
     all_products = [p for p in all_products if is_recent_product(p)]
     
