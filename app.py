@@ -15,13 +15,8 @@ import urllib.request
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory
 
-try:
-    import replicate
-    REPLICATE_AVAILABLE = True
-except Exception as e:
-    print(f"Warning: replicate import failed: {e}")
-    replicate = None
-    REPLICATE_AVAILABLE = False
+# replicate SDK は使わず requests で直接 Replicate API を呼び出す
+REPLICATE_AVAILABLE = True
 
 load_dotenv()
 
@@ -3019,66 +3014,78 @@ def generate_image():
     レスポンス: {"image_url": "https://...", "prompt": "..."}
     """
     try:
-        if not REPLICATE_AVAILABLE:
-            return jsonify({
-                'error': '画像生成機能は現在利用できません（Python 3.14 互換性の問題）'
-            }), 503
-        
         if not REPLICATE_API_TOKEN:
             return jsonify({
-                'error': 'REPLICATE_API_TOKEN が設定されていません。.env に追加してください。'
+                'error': 'REPLICATE_API_TOKEN が設定されていません。'
             }), 500
-        
+
         data = request.get_json(force=True) or {}
         parts = data.get('parts', [])
-        
+
         if not parts:
             return jsonify({'error': 'parts が空です'}), 400
-        
+
         # プロンプト生成
         prompt = _translate_parts_to_english_prompt(parts)
-        
-        # FLUX.1-schnell モデルで画像生成（高速・低コスト）
-        # https://replicate.com/black-forest-labs/flux-schnell
-        output = replicate.run(
-            "black-forest-labs/flux-schnell",
-            input={
-                "prompt": prompt,
-                "num_outputs": 1,
-                "aspect_ratio": "16:9",  # 横長（PC構成画像に適している）
-                "output_format": "webp",
-                "output_quality": 80,
-            }
+
+        # FLUX.1-schnell モデルで画像生成（requests で直接呼び出し）
+        import time
+        pred_res = urllib.request.urlopen(
+            urllib.request.Request(
+                'https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions',
+                data=json.dumps({
+                    "input": {
+                        "prompt": prompt,
+                        "num_outputs": 1,
+                        "aspect_ratio": "16:9",
+                        "output_format": "webp",
+                        "output_quality": 80,
+                    }
+                }).encode('utf-8'),
+                headers={
+                    'Authorization': f'Bearer {REPLICATE_API_TOKEN}',
+                    'Content-Type': 'application/json',
+                    'Prefer': 'wait',  # 完了まで待機（最大60秒）
+                },
+                method='POST',
+            ),
+            timeout=90,
         )
-        
-        # output は画像URLのリスト or FileOutput オブジェクト
-        if isinstance(output, list):
-            # リストの場合、各要素を文字列化
-            if output:
-                first_item = output[0]
-                # FileOutput オブジェクトの場合、url 属性またはstr()で取得
-                if hasattr(first_item, 'url'):
-                    image_url = first_item.url
-                else:
-                    image_url = str(first_item)
+        pred_data = json.loads(pred_res.read().decode('utf-8'))
+
+        # status が succeeded になるまでポーリング（Prefer:wait で通常は即完了）
+        for _ in range(30):
+            status = pred_data.get('status')
+            if status == 'succeeded':
+                break
+            if status in ('failed', 'canceled'):
+                return jsonify({'error': f'画像生成失敗: {pred_data.get("error", "unknown")}'}), 500
+            if status in ('starting', 'processing'):
+                time.sleep(2)
+                poll_url = pred_data.get('urls', {}).get('get', '')
+                if poll_url:
+                    poll_res = urllib.request.urlopen(
+                        urllib.request.Request(
+                            poll_url,
+                            headers={'Authorization': f'Bearer {REPLICATE_API_TOKEN}'},
+                        ),
+                        timeout=30,
+                    )
+                    pred_data = json.loads(poll_res.read().decode('utf-8'))
             else:
-                image_url = None
-        else:
-            # 単体のFileOutput オブジェクトの場合
-            if hasattr(output, 'url'):
-                image_url = output.url
-            else:
-                image_url = str(output) if output else None
-        
+                break
+
+        output = pred_data.get('output')
+        image_url = output[0] if isinstance(output, list) and output else (output or None)
+
         if not image_url:
             return jsonify({'error': '画像生成に失敗しました'}), 500
-        
-        # 文字列として返す（JSONシリアライズ可能）
+
         return jsonify({
             'image_url': str(image_url),
             'prompt': prompt,
         })
-    
+
     except Exception as e:
         return jsonify({'error': f'画像生成エラー: {str(e)}'}), 500
 

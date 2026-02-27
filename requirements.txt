@@ -9,7 +9,7 @@ gunicorn>=22.0.0
 anthropic>=0.40.0
 
 # ── AI Image Generation ──────────────────────────────
-replicate>=1.0.0
+# replicate SDK 不使用（requests で直接 API 呼び出し）
 
 # ── HTML Parser ──────────────────────────────────────
 beautifulsoup4>=4.12.0
