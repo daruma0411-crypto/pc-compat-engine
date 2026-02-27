@@ -1735,17 +1735,25 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     # 2022年以降の製品のみに絞る
     all_products = [p for p in all_products if is_recent_product(p)]
     
+    # 解像度別GPU予算比率（高解像度ほどGPUに多く配分）
+    resolution_gpu_ratio = {
+        '4K': 0.50,
+        'WQHD': 0.45,
+        'FHD': 0.40,
+    }
+    gpu_ratio = resolution_gpu_ratio.get(resolution, 0.40)
+
     # 予算配分（合計100%）
     budget_allocation = {
-        'gpu': 0.35,   # 35%
-        'cpu': 0.25,   # 25%
-        'mb': 0.15,    # 15%
-        'ram': 0.10,   # 10%
-        'psu': 0.08,   # 8%
-        'case': 0.05,  # 5%
-        'ssd': 0.02,   # 2%
+        'gpu': gpu_ratio,
+        'cpu': 0.25,
+        'mb': 0.15,
+        'ram': 0.10,
+        'psu': 0.07,
+        'case': 0.05,
+        'ssd': 0.02,
     }
-    
+
     # 1. GPU: ゲーム推奨スペック + 予算でフィルタ
     gpu_budget = budget * budget_allocation['gpu']
     
@@ -1769,10 +1777,11 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
         and is_modern_gpu(p.get('name', ''))
         and p.get('price_min', 0) >= 20000  # 最低2万円以上（エントリーGPUの現実的な価格）
     ]
-    # 価格でソート（安い順）
-    gpu_candidates.sort(key=lambda x: x.get('price_min', 999999))
-    # 予算内で5件
-    results['gpu'] = [p for p in gpu_candidates if (p.get('price_min', 999999) <= gpu_budget)][:5]
+    # 予算内（+20%の余裕あり）で高い順にソート→高性能GPUを優先的にClaudeに提示
+    gpu_budget_relaxed = gpu_budget * 1.20  # 予算の20%超えまで許容（Claudeが最終判断）
+    within_budget = [p for p in gpu_candidates if p.get('price_min', 999999) <= gpu_budget_relaxed]
+    within_budget.sort(key=lambda x: x.get('price_min', 0), reverse=True)
+    results['gpu'] = within_budget[:5]
     
     # 2. CPU: 予算でフィルタ
     cpu_budget = budget * budget_allocation['cpu']
@@ -2112,11 +2121,19 @@ def chat():
             with open(debug_log_path, 'a', encoding='utf-8') as f:
                 f.write(f"[DEBUG] RECOMMENDING mode: budget_yen = {budget_yen}\n")
             
+            # 解像度を会話テキストから抽出
+            if any(kw in all_user_text for kw in ['4k', '2160', 'uhd', '4kゲーム']):
+                detected_resolution = '4K'
+            elif any(kw in all_user_text for kw in ['1440', 'wqhd', 'qhd', '2k', 'wqhd']):
+                detected_resolution = 'WQHD'
+            else:
+                detected_resolution = 'FHD'
+
             # 3. フィルタ済みパーツDB（提案段階のみ、約10Kトークン）
             filtered_products = retrieve_parts(
                 budget=budget_yen,
-                game_name=None,  # TODO: ゲーム名を抽出
-                resolution='FHD',  # TODO: 解像度を抽出
+                game_name=None,
+                resolution=detected_resolution,
                 quality='high',
                 all_products=all_products
             )
