@@ -2150,6 +2150,43 @@ def filter_compatible_parts(products_dict, current_build):
 
 
 # ================================================================
+# 修正4: 互換フィルタ後0件時のフォールバック情報生成
+# ================================================================
+
+def _generate_fallback_info(current_build, amazon_tag):
+    """
+    互換パーツが0件の場合、Amazonの検索URLをフォールバックとして生成する。
+    AIには「DBに該当製品がない」ことを明示し、Amazon検索を案内させる。
+    """
+    lines = ["⚠️ データベースに互換性のある製品が見つかりませんでした。"]
+    lines.append("以下のAmazon検索リンクをユーザーに案内してください：")
+    lines.append("")
+
+    cpu = current_build.get('cpu')  or {}
+    mb  = current_build.get('motherboard') or {}
+    gpu = current_build.get('gpu')  or {}
+
+    if not current_build.get('motherboard') and cpu.get('socket'):
+        q = urllib.parse.quote(f"{cpu['socket']} マザーボード")
+        lines.append(f"- マザーボード: https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}")
+
+    if not current_build.get('ram') and mb.get('memory_type'):
+        q = urllib.parse.quote(f"{mb['memory_type']} メモリ 16GB")
+        lines.append(f"- メモリ: https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}")
+
+    if not current_build.get('case') and gpu.get('length_mm'):
+        q = urllib.parse.quote(f"PCケース GPU {gpu['length_mm']}mm以上対応")
+        lines.append(f"- ケース: https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}")
+
+    lines.append("")
+    lines.append(
+        "「データベースにはぴったりの製品がなかったので、"
+        "Amazonで探してみましょう」という形で案内してください。"
+    )
+    return "\n".join(lines)
+
+
+# ================================================================
 # 修正7-2: 迷走検知
 # ================================================================
 
@@ -2572,7 +2609,13 @@ def chat():
             # 修正1: 互換性フィルタ（RAGフィルタ後にさらにコードで絞り込む）
             filtered_products = filter_compatible_parts(filtered_products, session['current_build'])
 
-            products_summary = _format_products_for_claude(filtered_products)
+            # 修正4: フィルタ後に全カテゴリ0件の場合はフォールバック
+            total_compatible = sum(len(v) for v in filtered_products.values())
+            if total_compatible == 0:
+                amazon_tag_fb    = os.environ.get('AMAZON_TAG', 'pccompat-22')
+                products_summary = _generate_fallback_info(session['current_build'], amazon_tag_fb)
+            else:
+                products_summary = _format_products_for_claude(filtered_products)
 
             current_build_text = format_current_build_for_claude(
                 session['current_build'],
