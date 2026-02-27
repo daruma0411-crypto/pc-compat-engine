@@ -2066,6 +2066,89 @@ _BUILD_DEPENDENCY_MAP = {
 }
 
 
+# ================================================================
+# 修正1: RAG取得後の互換性フィルタ
+# ================================================================
+
+def _is_form_factor_compatible(mb_form_factor, case_form_factor):
+    """マザーボードがケースに物理的に入るか判定（MB <= ケースサイズならOK）"""
+    FF_SIZE_ORDER = {
+        'mini-itx': 1, 'mitx': 1,
+        'micro-atx': 2, 'matx': 2, 'm-atx': 2,
+        'atx': 3,
+        'e-atx': 4, 'eatx': 4,
+    }
+    mb_size   = FF_SIZE_ORDER.get(mb_form_factor.lower().replace(' ', '-'), 0)
+    case_size = FF_SIZE_ORDER.get(case_form_factor.lower().replace(' ', '-'), 0)
+    if mb_size == 0 or case_size == 0:
+        return True  # 不明な場合は通す
+    return mb_size <= case_size
+
+
+def filter_compatible_parts(products_dict, current_build):
+    """
+    RAGで取得した製品辞書から、current_buildと互換性のないものを除外する。
+    AIに渡す前にコードで絞り込むことでハルシネーションと無駄な提案を防ぐ。
+
+    products_dict: {category: [product, ...]} 形式
+    """
+    cpu_part  = current_build.get('cpu')  or {}
+    mb_part   = current_build.get('motherboard') or {}
+    case_part = current_build.get('case') or {}
+    gpu_part  = current_build.get('gpu')  or {}
+
+    result = {}
+    for cat, products in products_dict.items():
+        filtered = []
+        for p in products:
+            specs = p.get('specs', {}) or {}
+            keep  = True
+
+            # マザーボード → CPUソケットと一致するもののみ
+            if cat in ('motherboard', 'mb') and cpu_part.get('socket'):
+                mb_sock = specs.get('socket')
+                if mb_sock and mb_sock != cpu_part['socket']:
+                    keep = False
+
+            # RAM → マザーボードのDDRタイプと一致するもののみ
+            if cat == 'ram' and mb_part.get('memory_type'):
+                ram_type = specs.get('memory_type')
+                # specs.memory_typeがない場合は名前から判定
+                if not ram_type:
+                    name_up = p.get('name', '').upper()
+                    if 'DDR5' in name_up:
+                        ram_type = 'DDR5'
+                    elif 'DDR4' in name_up:
+                        ram_type = 'DDR4'
+                if ram_type and ram_type != mb_part['memory_type']:
+                    keep = False
+
+            # GPU → ケースのmax_gpu_length_mmに収まるもののみ
+            if cat == 'gpu' and case_part.get('max_gpu_length_mm'):
+                gpu_len = specs.get('length_mm')
+                if gpu_len and gpu_len >= case_part['max_gpu_length_mm']:
+                    keep = False
+
+            # ケース → GPUが入るサイズのもののみ
+            if cat == 'case' and gpu_part.get('length_mm'):
+                case_max = specs.get('max_gpu_length_mm')
+                if case_max and case_max <= gpu_part['length_mm']:
+                    keep = False
+
+            # マザーボード → ケースのFFに適合するもののみ
+            if cat in ('motherboard', 'mb') and case_part.get('form_factor'):
+                mb_ff = specs.get('form_factor')
+                if mb_ff and not _is_form_factor_compatible(mb_ff, case_part['form_factor']):
+                    keep = False
+
+            if keep:
+                filtered.append(p)
+
+        result[cat] = filtered
+
+    return result
+
+
 def update_current_build(session, category, part_name, all_products, user_specified=False):
     """
     current_buildを更新し、依存関係チェックを実行する。
@@ -2395,11 +2478,16 @@ def chat():
                 else:
                     f.write(f"[DEBUG] filtered_products is not a dict! type={type(filtered_products)}\n")
             
+            # 修正1: 互換性フィルタ（RAGフィルタ後にさらにコードで絞り込む）
+            filtered_products = filter_compatible_parts(filtered_products, session['current_build'])
+
             products_summary = _format_products_for_claude(filtered_products)
+
             current_build_text = format_current_build_for_claude(
                 session['current_build'],
                 session.get('recheck_flags', [])
             )
+
             system_prompt = (
                 current_build_text + "\n"
                 + confirmed_parts_text + "\n"
@@ -2444,6 +2532,24 @@ def chat():
 
         all_reset_parts = []
         all_recheck_parts = []
+
+        # 修正2: DB存在チェック（ハルシネーション防止）
+        if response_data.get('recommended_parts'):
+            validated_parts    = []
+            hallucinated_parts = []
+            for part in response_data['recommended_parts']:
+                part_name_chk = part.get('name', '')
+                cat_chk       = part.get('category', '').lower()
+                db_match = _get_part_specs_from_db(part_name_chk, cat_chk, all_products)
+                if db_match.get('id'):
+                    validated_parts.append(part)
+                else:
+                    hallucinated_parts.append(part)
+            response_data['recommended_parts'] = validated_parts
+            if hallucinated_parts:
+                names   = [p.get('name', '?') for p in hallucinated_parts]
+                warning = f"\n\n※ 以下の製品はデータベースに登録がないため、正確な情報を保証できません: {', '.join(names)}"
+                response_data['message'] = response_data.get('message', '') + warning
 
         if response_data.get('recommended_parts'):
             for part in response_data['recommended_parts']:
