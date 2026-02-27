@@ -136,6 +136,16 @@ GPU_CHIP_REFERENCE = {
     'RX 5600 XT':        {'length_mm': 235, 'tdp_w': 150, 'vram_gb': 6},
     'RX 5700':           {'length_mm': 264, 'tdp_w': 180, 'vram_gb': 8},
     'RX 5700 XT':        {'length_mm': 264, 'tdp_w': 225, 'vram_gb': 8},
+    # NVIDIA RTX PRO / Quadro系
+    'RTX PRO 6000':      {'length_mm': 310, 'tdp_w': 250, 'vram_gb': 24},
+    'RTX A6000':         {'length_mm': 267, 'tdp_w': 300, 'vram_gb': 48},
+    'RTX A5000':         {'length_mm': 267, 'tdp_w': 230, 'vram_gb': 24},
+    'RTX A4000':         {'length_mm': 241, 'tdp_w': 140, 'vram_gb': 16},
+    # Intel Arc
+    'ARC B580':          {'length_mm': 275, 'tdp_w': 190, 'vram_gb': 12},
+    'ARC B570':          {'length_mm': 267, 'tdp_w': 150, 'vram_gb': 10},
+    'ARC A770':          {'length_mm': 267, 'tdp_w': 225, 'vram_gb': 16},
+    'ARC A750':          {'length_mm': 267, 'tdp_w': 225, 'vram_gb': 8},
 }
 
 MAKER_GPU_DIRS = [
@@ -298,7 +308,19 @@ def extract_gpu_chip(name: str, gpu_chip_field: str = '') -> str | None:
     for text in [gpu_chip_field, name]:
         if not text:
             continue
-        # NVIDIA RTX（スペースなし/ハイフン区切りも対応）
+        # RTX PRO NNNN（通常のRTX NNNNより先にチェック）
+        m = re.search(r'RTX[\s\-]?PRO[\s\-]?(\d{4})', text, re.IGNORECASE)
+        if m:
+            return f"RTX PRO {m.group(1)}"
+        # RTX ANNNN（Quadro/プロ向け: RTX A4000 等）
+        m = re.search(r'RTX[\s\-]?A(\d{4})', text, re.IGNORECASE)
+        if m:
+            return f"RTX A{m.group(1)}"
+        # Intel Arc [AB]NNN
+        m = re.search(r'Arc[\s\-]?([AB]\d{3})', text, re.IGNORECASE)
+        if m:
+            return f"ARC {m.group(1).upper()}"
+        # NVIDIA RTX NNNN（スペースなし/ハイフン区切りも対応）
         m = re.search(
             r'RTX[\s\-]?(\d{4})[\s\-]?(Ti[\s\-]?SUPER|Ti|SUPER)?',
             text, re.IGNORECASE
@@ -311,7 +333,7 @@ def extract_gpu_chip(name: str, gpu_chip_field: str = '') -> str | None:
             if suffix:
                 chip += f" {suffix}"
             return chip
-        # AMD RX（XTX, GRE, XT にも対応）
+        # AMD RX NNNN（XTX, GRE, XT にも対応）
         m = re.search(
             r'RX[\s\-]?(\d{4})[\s\-]?(XTX|GRE|XT)?',
             text, re.IGNORECASE
