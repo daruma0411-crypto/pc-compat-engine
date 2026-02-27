@@ -1005,6 +1005,14 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 4. 限定品・コラボモデルは候補から除外
 5. 「少し詳しく教えてください」は絶対に言わない。常に具体的な質問をする
 6. 毎回の返答は必ず「具体的な質問」か「具体的な提案」で終える
+7. ⚠️ 【製品DB制約】「利用可能な製品」リストに明記された製品のみ提案すること。
+   リスト外の製品名を絶対に作り出さない（ハルシネーション厳禁）
+8. ⚠️ 【互換性必須チェック】提案前に以下を必ずコードレベルで確認すること:
+   - GPU length_mm < ケース max_gpu_length_mm（GPU物理サイズ）
+   - CPUソケット == マザーボードソケット（AM5/LGA1700等）
+   - マザーボードのDDRタイプ == RAMのDDRタイプ（DDR4/DDR5）
+   - GPU TDP×1.3 + CPU TDP×1.1 < 電源容量W（電源余裕）
+   上記のいずれかに違反する組み合わせは絶対に提案しない
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ■ 会話の進め方
@@ -1855,15 +1863,18 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     psu_sorted = sorted(psu_modern, key=lambda x: x.get('price_min', 999999)) + sorted(psu_standard, key=lambda x: x.get('price_min', 999999))
     results['psu'] = [p for p in psu_sorted if (p.get('price_min', 999999) <= psu_budget)][:3]
     
-    # 6. CASE / SSD: 価格フィルタ
+    # 6. CASE / SSD: 価格フィルタ（price_minが未設定のケースも含める）
     case_budget = budget * budget_allocation['case']
     case_candidates = [
-        p for p in all_products 
+        p for p in all_products
         if p.get('category') == 'case'
-        and p.get('price_min', 0) >= 3000  # 最低3千円以上
+        and (p.get('price_min') is None or p.get('price_min', 0) >= 3000)
     ]
-    case_candidates.sort(key=lambda x: x.get('price_min', 999999))
-    results['case'] = [p for p in case_candidates if (p.get('price_min', 999999) <= case_budget)][:3]
+    case_candidates.sort(key=lambda x: x.get('price_min') or 0)
+    results['case'] = [
+        p for p in case_candidates
+        if (p.get('price_min') is None or p.get('price_min', 999999) <= case_budget * 3)
+    ][:3]
     
     ssd_budget = budget * budget_allocation['ssd']
     ssd_candidates = [
@@ -1874,6 +1885,41 @@ def retrieve_parts(budget, game_name=None, resolution='FHD', quality='high', all
     ssd_candidates.sort(key=lambda x: x.get('price_min', 999999))
     results['ssd'] = [p for p in ssd_candidates if (p.get('price_min', 999999) <= ssd_budget)][:3]
     
+    # 候補0件時フォールバック: 予算制限を緩和して再フィルタ（修正4）
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+
+    _FALLBACK_QUERIES = {
+        'gpu':  'RTX グラフィックボード',
+        'cpu':  'Ryzen AMD CPU プロセッサ',
+        'mb':   'ATX マザーボード',
+        'ram':  'DDR5 メモリ 32GB デスクトップ',
+        'psu':  '電源ユニット ATX 650W',
+        'case': 'ATX ミドルタワー PCケース',
+        'ssd':  'NVMe M.2 SSD 1TB',
+    }
+
+    for cat in list(results.keys()):
+        if not results[cat]:
+            # 予算2倍で再試行
+            candidates = [p for p in all_products if p.get('category') == cat]
+            budget_for_cat = budget * budget_allocation.get(cat, 0.10) * 2
+            relaxed = [p for p in candidates if p.get('price_min', 999999) <= budget_for_cat]
+            if relaxed:
+                relaxed.sort(key=lambda x: x.get('price_min', 0), reverse=(cat == 'gpu'))
+                results[cat] = relaxed[:3]
+            else:
+                # それでも0件ならAmazon検索フォールバックプレースホルダーを挿入
+                query = _FALLBACK_QUERIES.get(cat, cat)
+                q = urllib.parse.quote(query)
+                results[cat] = [{
+                    'name': f'[予算内で見つかりませんでした - Amazon で {query} を検索]',
+                    'category': cat,
+                    'price_min': None,
+                    'specs': {},
+                    'amazon_url': f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}',
+                    '_fallback': True,
+                }]
+
     # 辞書のまま返す（カテゴリ別に整理）
     return results
 
@@ -1891,22 +1937,39 @@ def _format_products_for_claude(products_dict):
             # 価格表示
             price_str = f'¥{price:,}' if price else '価格不明'
             
-            # カテゴリ別に重要スペックのみ抽出
+            # カテゴリ別に重要スペックのみ抽出（互換チェックに必要な情報を必ず含める）
             if category == 'gpu':
                 vram = specs.get('vram_gb', '?')
-                lines.append(f'- {name} ({price_str}, VRAM {vram}GB)')
+                length = specs.get('length_mm', '?')
+                tdp = specs.get('tdp_w', '?')
+                lines.append(f'- {name} ({price_str}, VRAM {vram}GB, 長さ{length}mm, TDP {tdp}W)')
             elif category == 'cpu':
                 cores = specs.get('cores', '?')
                 threads = specs.get('threads', '?')
-                lines.append(f'- {name} ({price_str}, {cores}コア{threads}スレッド)')
+                socket = specs.get('socket', '?')
+                tdp = specs.get('tdp_w', '?')
+                lines.append(f'- {name} ({price_str}, {cores}コア{threads}スレッド, ソケット:{socket}, TDP {tdp}W)')
             elif category in ('motherboard', 'mb'):
                 socket = specs.get('socket', '?')
                 chipset = specs.get('chipset', '?')
-                lines.append(f'- {name} ({price_str}, {socket}, {chipset})')
+                mem_type = specs.get('memory_type', '?')
+                lines.append(f'- {name} ({price_str}, ソケット:{socket}, {chipset}, メモリ:{mem_type})')
+            elif category == 'ram':
+                capacity = specs.get('capacity_gb', '?')
+                mem_type = specs.get('memory_type', p.get('name', ''))
+                # メモリタイプをname文字列から抽出（DDR5/DDR4）
+                name_upper = p.get('name', '').upper()
+                if 'DDR5' in name_upper:
+                    mem_label = 'DDR5'
+                elif 'DDR4' in name_upper:
+                    mem_label = 'DDR4'
+                else:
+                    mem_label = str(mem_type)
+                lines.append(f'- {name} ({price_str}, {mem_label}, {capacity}GB)')
             elif category == 'case':
                 max_gpu = specs.get('max_gpu_length_mm', '?')
                 ff = specs.get('form_factor', '?')
-                lines.append(f'- {name} ({price_str}, GPU最大{max_gpu}mm, {ff})')
+                lines.append(f'- {name} ({price_str}, GPU最大{max_gpu}mm, 対応:{ff})')
             elif category in ('psu', 'power_supply'):
                 wattage = specs.get('wattage_w', '?')
                 lines.append(f'- {name} ({price_str}, {wattage}W)')
@@ -1935,6 +1998,17 @@ def get_or_create_session(session_id):
     if session_id not in _SESSIONS:
         _SESSIONS[session_id] = {
             'confirmed_parts': {},  # {category: part_name} の形式
+            # current_build: スペック付きの現在構成（依存関係チェック用）
+            'current_build': {
+                'cpu':         None,  # {name, socket, tdp_w, user_specified}
+                'gpu':         None,  # {name, length_mm, tdp_w, user_specified}
+                'motherboard': None,  # {name, socket, memory_type, form_factor, user_specified}
+                'ram':         None,  # {name, memory_type, capacity_gb, user_specified}
+                'case':        None,  # {name, max_gpu_length_mm, form_factor, user_specified}
+                'psu':         None,  # {name, wattage_w, user_specified}
+                'cooler':      None,  # {name, user_specified}
+            },
+            'recheck_flags': [],    # 再チェックが必要なカテゴリ
             'history': [],          # 会話履歴（直近10メッセージのみ保持）
             'stage': 'hearing',     # 'hearing' or 'recommending'
             'budget_yen': None,     # 抽出した予算
@@ -1944,15 +2018,197 @@ def get_or_create_session(session_id):
     return _SESSIONS[session_id]
 
 
+def _get_part_specs_from_db(part_name, category, all_products):
+    """DBから製品名でスペック情報を取得する（current_build用）"""
+    cat_aliases = {
+        'cpu': ('cpu',),
+        'gpu': ('gpu',),
+        'motherboard': ('motherboard', 'mb'),
+        'mb': ('motherboard', 'mb'),
+        'ram': ('ram',),
+        'case': ('case',),
+        'psu': ('psu', 'power_supply'),
+        'cooler': ('cooler', 'cpu_cooler'),
+    }
+    target_cats = cat_aliases.get(category.lower(), (category.lower(),))
+
+    name_lower = part_name.lower()
+    for p in all_products:
+        if p.get('category', '').lower() in target_cats:
+            if p.get('name', '').lower() == name_lower:
+                specs = p.get('specs', {}) or {}
+                return {
+                    'name': p['name'],
+                    'id': p.get('id'),
+                    'socket':           specs.get('socket'),
+                    'memory_type':      specs.get('memory_type'),
+                    'form_factor':      specs.get('form_factor'),
+                    'length_mm':        specs.get('length_mm'),
+                    'tdp_w':            specs.get('tdp_w'),
+                    'wattage_w':        specs.get('wattage_w'),
+                    'max_gpu_length_mm': specs.get('max_gpu_length_mm'),
+                    'capacity_gb':      specs.get('capacity_gb'),
+                    'vram_gb':          specs.get('vram_gb'),
+                }
+    # DBに見つからなかった場合は名前だけ返す
+    return {'name': part_name}
+
+
+# 依存関係マップ: {変更カテゴリ: [(影響カテゴリ, チェック種別), ...]}
+_BUILD_DEPENDENCY_MAP = {
+    'cpu':         [('motherboard', 'socket_reset'), ('ram', 'socket_reset'), ('cooler', 'recheck'), ('psu', 'recheck')],
+    'gpu':         [('case', 'recheck'), ('psu', 'recheck')],
+    'motherboard': [('ram', 'memtype_reset'), ('case', 'recheck')],
+    'ram':         [],
+    'case':        [],
+    'psu':         [],
+    'cooler':      [],
+}
+
+
+def update_current_build(session, category, part_name, all_products, user_specified=False):
+    """
+    current_buildを更新し、依存関係チェックを実行する。
+    戻り値: {'reset_parts': [...], 'recheck_parts': [...]}
+    """
+    norm_cat = category.lower()
+    if norm_cat == 'mb':
+        norm_cat = 'motherboard'
+
+    old_part = session['current_build'].get(norm_cat) or {}
+    new_part = _get_part_specs_from_db(part_name, norm_cat, all_products)
+    new_part['user_specified'] = user_specified
+    session['current_build'][norm_cat] = new_part
+
+    reset_parts = []
+    recheck_parts = []
+
+    for dep_cat, dep_type in _BUILD_DEPENDENCY_MAP.get(norm_cat, []):
+        if dep_type == 'socket_reset':
+            # CPUソケットが変わった → MB・RAMをリセット
+            if norm_cat == 'cpu':
+                old_socket = old_part.get('socket')
+                new_socket = new_part.get('socket')
+                if old_socket and new_socket and old_socket != new_socket:
+                    session['current_build'][dep_cat] = None
+                    session['confirmed_parts'].pop(dep_cat.upper(), None)
+                    session['confirmed_parts'].pop(dep_cat, None)
+                    reset_parts.append(dep_cat)
+        elif dep_type == 'memtype_reset':
+            # MBのDDRタイプが変わった → RAMをリセット
+            old_mem = old_part.get('memory_type')
+            new_mem = new_part.get('memory_type')
+            if old_mem and new_mem and old_mem != new_mem:
+                session['current_build']['ram'] = None
+                session['confirmed_parts'].pop('RAM', None)
+                session['confirmed_parts'].pop('ram', None)
+                reset_parts.append('ram')
+        elif dep_type == 'recheck':
+            recheck_parts.append(dep_cat)
+
+    # 電源の必要容量チェック（GPUとCPUのTDPから計算）
+    gpu_part = session['current_build'].get('gpu') or {}
+    cpu_part = session['current_build'].get('cpu') or {}
+    psu_part = session['current_build'].get('psu') or {}
+    gpu_tdp = gpu_part.get('tdp_w') or 0
+    cpu_tdp = cpu_part.get('tdp_w') or 0
+    psu_w   = psu_part.get('wattage_w') or 0
+    required_w = (gpu_tdp * 1.3) + (cpu_tdp * 1.1) + 50
+    if psu_w > 0 and psu_w < required_w and 'psu' not in recheck_parts:
+        recheck_parts.append('psu')
+
+    # GPU長さとケースのチェック
+    case_part = session['current_build'].get('case') or {}
+    gpu_len = gpu_part.get('length_mm') or 0
+    case_max = case_part.get('max_gpu_length_mm') or 9999
+    if gpu_len > 0 and gpu_len >= case_max and 'case' not in recheck_parts:
+        recheck_parts.append('case')
+
+    session['recheck_flags'] = list(set(session.get('recheck_flags', []) + recheck_parts))
+
+    return {'reset_parts': reset_parts, 'recheck_parts': recheck_parts}
+
+
+def format_current_build_for_claude(current_build, recheck_flags=None):
+    """current_buildの構造化情報をAIへのプロンプトとして整形する"""
+    if recheck_flags is None:
+        recheck_flags = []
+
+    part_labels = {
+        'cpu':         'CPU',
+        'gpu':         'GPU',
+        'motherboard': 'マザーボード',
+        'ram':         'RAM',
+        'case':        'ケース',
+        'psu':         '電源',
+        'cooler':      'CPUクーラー',
+    }
+
+    lines = ["## 現在の構成（コード管理・確定済み）"]
+    pending = []
+
+    for key, label in part_labels.items():
+        part = current_build.get(key)
+        if part:
+            name = part.get('name', '?')
+            details = []
+            if part.get('socket'):
+                details.append(f"ソケット:{part['socket']}")
+            if part.get('memory_type'):
+                details.append(f"メモリ:{part['memory_type']}")
+            if part.get('form_factor'):
+                details.append(f"FF:{part['form_factor']}")
+            if part.get('length_mm'):
+                details.append(f"長さ:{part['length_mm']}mm")
+            if part.get('tdp_w'):
+                details.append(f"TDP:{part['tdp_w']}W")
+            if part.get('wattage_w'):
+                details.append(f"容量:{part['wattage_w']}W")
+            if part.get('max_gpu_length_mm'):
+                details.append(f"GPU最大:{part['max_gpu_length_mm']}mm")
+
+            status = '🔒' if part.get('user_specified') else '✅'
+            recheck_note = ' ⚠️要再確認' if key in recheck_flags else ''
+            detail_str = f" ({', '.join(details)})" if details else ''
+            lines.append(f"{status} {label}: {name}{detail_str}{recheck_note}")
+        else:
+            pending.append(label)
+
+    if pending:
+        lines.append(f"\n⏳ 未決定（次に提案すべき）: {', '.join(pending)}")
+
+    # 電源チェックサマリー
+    gpu_p = current_build.get('gpu') or {}
+    cpu_p = current_build.get('cpu') or {}
+    psu_p = current_build.get('psu') or {}
+    if gpu_p.get('tdp_w') and cpu_p.get('tdp_w'):
+        req_w = int(gpu_p['tdp_w'] * 1.3 + cpu_p['tdp_w'] * 1.1 + 50)
+        lines.append(f"\n📊 必要電源容量: {req_w}W以上（GPU {gpu_p['tdp_w']}W × 1.3 + CPU {cpu_p['tdp_w']}W × 1.1 + 50W）")
+        if psu_p.get('wattage_w'):
+            margin = psu_p['wattage_w'] - req_w
+            status_icon = '✅' if margin >= 0 else '❌'
+            lines.append(f"   {status_icon} 現在の電源: {psu_p['wattage_w']}W（余裕: {margin:+d}W）")
+
+    # GPUとケースの物理適合チェック
+    if gpu_p.get('length_mm') and current_build.get('case', {}) and current_build['case'].get('max_gpu_length_mm'):
+        gpu_len = gpu_p['length_mm']
+        case_max = current_build['case']['max_gpu_length_mm']
+        margin = case_max - gpu_len
+        status_icon = '✅' if margin > 0 else '❌'
+        lines.append(f"   {status_icon} GPU物理適合: GPU {gpu_len}mm / ケース上限 {case_max}mm（余裕: {margin:+d}mm）")
+
+    return "\n".join(lines) + "\n"
+
+
 def format_confirmed_parts(confirmed_parts):
     """confirmed_partsを構造化テキストとしてフォーマット（約500トークン）"""
     if not confirmed_parts:
         return "## 確定済みパーツ\n（まだ選択されていません）\n"
-    
+
     lines = ["## 確定済みパーツ"]
     for category, part_name in confirmed_parts.items():
         lines.append(f"- {category.upper()}: {part_name}")
-    
+
     return "\n".join(lines) + "\n"
 
 
@@ -2140,7 +2396,16 @@ def chat():
                     f.write(f"[DEBUG] filtered_products is not a dict! type={type(filtered_products)}\n")
             
             products_summary = _format_products_for_claude(filtered_products)
-            system_prompt = confirmed_parts_text + "\n" + _SHOP_CLERK_SYSTEM_PROMPT + "\n\n利用可能な製品:\n" + products_summary
+            current_build_text = format_current_build_for_claude(
+                session['current_build'],
+                session.get('recheck_flags', [])
+            )
+            system_prompt = (
+                current_build_text + "\n"
+                + confirmed_parts_text + "\n"
+                + _SHOP_CLERK_SYSTEM_PROMPT
+                + "\n\n利用可能な製品:\n" + products_summary
+            )
             
             with open(debug_log_path, 'a', encoding='utf-8') as f:
                 f.write(f"[DEBUG] system_prompt length = {len(system_prompt)} chars\n")
@@ -2177,10 +2442,14 @@ def chat():
                         f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
             return f'https://search.rakuten.co.jp/search/mall/{q}/'
 
+        all_reset_parts = []
+        all_recheck_parts = []
+
         if response_data.get('recommended_parts'):
             for part in response_data['recommended_parts']:
                 category = part.get('category', '').upper()
                 part_name = part.get('name', '')
+                user_specified = part.get('user_specified', False)
                 if category and part_name:
                     session['confirmed_parts'][category] = part_name
                     # クライアント側でAMAZON_TAGが不要になるよう、サーバー側でURLを生成
@@ -2188,6 +2457,24 @@ def chat():
                         part['amazon_url'] = _make_amzn(part_name)
                     if not part.get('rakuten_url'):
                         part['rakuten_url'] = _make_raku(part_name)
+                    # current_buildを更新し、依存関係チェックを実行
+                    dep_result = update_current_build(
+                        session, category.lower(), part_name, all_products, user_specified
+                    )
+                    all_reset_parts.extend(dep_result['reset_parts'])
+                    all_recheck_parts.extend(dep_result['recheck_parts'])
+
+        # リセット・再確認情報をレスポンスに含める（フロントエンドのUI更新用）
+        if all_reset_parts:
+            response_data['reset_parts'] = list(set(all_reset_parts))
+        if all_recheck_parts:
+            response_data['recheck_parts'] = list(set(all_recheck_parts))
+
+        # current_buildをレスポンスに含める（右パネルリアルタイム更新用）
+        response_data['current_build'] = {
+            cat: ({'name': p['name'], 'user_specified': p.get('user_specified', False)} if p else None)
+            for cat, p in session['current_build'].items()
+        }
 
         # セッションのconfirmed_partsもレスポンスに含める（クライアントのダッシュボード更新用）
         if session['confirmed_parts'] and not response_data.get('recommended_parts'):
@@ -2198,11 +2485,14 @@ def chat():
                 for cat, name in session['confirmed_parts'].items()
                 if name
             ]
-        
+
+        # recheck_flagsをクリア（今回の応答で通知済み）
+        session['recheck_flags'] = []
+
         # 会話履歴を更新（直近10メッセージのみ保持）
         session['history'].append({'role': 'user', 'content': message})
         session['history'].append({'role': 'assistant', 'content': response_data.get('message', '')})
-        
+
         # 10メッセージを超えたら古いものを削除
         if len(session['history']) > 10:
             session['history'] = session['history'][-10:]

@@ -263,6 +263,33 @@
           });
           updateDashboardFromConfirmedParts();
         }
+
+        // 修正6: reset_parts処理（互換性が破れたパーツをリセット）
+        const resetParts = data.reset_parts || [];
+        if (resetParts.length > 0) {
+          resetParts.forEach(cat => {
+            const normCat = normalizeCat(cat);
+            const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === normCat);
+            if (idx >= 0) confirmedParts.splice(idx, 1);
+          });
+          updateDashboardFromConfirmedParts();
+          const resetLabels = resetParts.map(c => {
+            const m = { motherboard: 'マザーボード', ram: 'RAM', psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
+            return m[c.toLowerCase()] || c.toUpperCase();
+          });
+          appendAIBubble(`⚠️ パーツ変更により <b>${resetLabels.join('・')}</b> の互換性が変わりました。これらは再選択が必要です。`);
+        }
+
+        // recheck_parts: 要確認通知
+        const recheckParts = data.recheck_parts || [];
+        if (recheckParts.length > 0 && resetParts.length === 0) {
+          const recheckLabels = recheckParts.map(c => {
+            const m = { psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
+            return m[c.toLowerCase()] || c.toUpperCase();
+          });
+          // チャットには表示せず、次のターンでAIが自然に対応
+          console.info('[build] recheck:', recheckLabels);
+        }
       }
     } catch (e) {
       clearTimeout(timer);
