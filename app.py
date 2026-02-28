@@ -2281,9 +2281,23 @@ def handle_search_parts(params, all_products, session=None):
     """AIからのツール呼び出しを処理してDB検索結果を返す。"""
     category = params['category']
 
+    # ── 前のカテゴリが未確定なら拒否（confirm_part呼び忘れ防止）──
+    _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+    cb = (session or {}).get('current_build') or {}
+    if category in _PART_ORDER:
+        cat_idx = _PART_ORDER.index(category)
+        for prev_cat in _PART_ORDER[:cat_idx]:
+            if cb.get(prev_cat) is None:
+                return {
+                    'results': [],
+                    'error': f'⚠️ {prev_cat}がまだconfirm_partで確定されていません。'
+                             f'先にconfirm_part(category="{prev_cat}", product_id="...")を呼んでから'
+                             f'{category}を検索してください。',
+                    'action_required': f'confirm_part for {prev_cat}'
+                }
+
     # ── current_build からの自動補完 ──
     # AIがフィルタ条件を付け忘れても互換性を担保する
-    cb = (session or {}).get('current_build') or {}
 
     if category == 'motherboard' and not params.get('socket'):
         cpu = cb.get('cpu') or {}
@@ -2317,11 +2331,16 @@ def handle_search_parts(params, all_products, session=None):
     else:
         candidates = [p for p in all_products if p.get('category') == category]
 
-    # RAM: SODIMM（ノートPC用）を除外、2枚組を優先
+    # RAM: SODIMM除外 + 8GB以上のみ + 2枚組を優先
     if category == 'ram':
         candidates = [p for p in candidates
                       if 'sodimm' not in p.get('name', '').lower()
                       and 'so-dimm' not in p.get('name', '').lower()]
+        # ゲーム用: 8GB以上のモジュールのみ（4GB単体は除外）
+        candidates = [p for p in candidates
+                      if ((p.get('specs') or {}).get('capacity_gb') or 0) >= 8
+                      or '16GB' in p.get('name', '') or '32GB' in p.get('name', '')
+                      or '8GB' in p.get('name', '')]
         # 2枚組を先に、1枚売りを後ろに
         kit_2 = [p for p in candidates if '2枚' in p.get('name', '')]
         kit_1 = [p for p in candidates if '2枚' not in p.get('name', '')]
