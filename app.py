@@ -2061,7 +2061,8 @@ def get_or_create_session(session_id):
                 'cooler':      None,  # {name, user_specified}
             },
             'recheck_flags': [],    # 再チェックが必要なカテゴリ
-            'history': [],          # 会話履歴（直近10メッセージのみ保持）
+            'last_search_results': [],  # 直近のsearch_parts結果（product_id保持用）
+            'history': [],          # 会話履歴（直近100メッセージを保持）
             'stage': 'hearing',     # 'hearing' or 'recommending'
             'budget_yen': None,     # 抽出した予算
             'resolution': None,     # 抽出した解像度
@@ -3048,6 +3049,12 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                 })
                 print(f"[TOOL_CALL] {block['name']} params={json.dumps(block['input'], ensure_ascii=False)}", flush=True, file=sys.stderr)
                 result = execute_tool(block['name'], block['input'], session, all_products)
+                # search_partsの結果をセッションに保存（次のターンでproduct_id参照用）
+                if block['name'] == 'search_parts' and isinstance(result, dict) and 'results' in result:
+                    session['last_search_results'] = [
+                        {'product_id': r.get('product_id', ''), 'name': r.get('name', ''), 'price_min': r.get('price_min')}
+                        for r in result.get('results', [])[:10]
+                    ]
                 # ツール結果のサマリーをログ出力
                 log_entry = {'tool': block['name'], 'params': block['input']}
                 if isinstance(result, dict) and 'results' in result:
@@ -3219,8 +3226,18 @@ def chat():
         if ctx_parts:
             context_hint = "\n\n🎮 ユーザーの要件: " + " / ".join(ctx_parts) + "\n"
 
+        # 直近のsearch_parts結果（product_id参照用）
+        last_search_hint = ''
+        if session.get('last_search_results'):
+            lines = ["\n## 前回の検索結果（confirm_part用のproduct_idリスト）"]
+            for i, r in enumerate(session['last_search_results'][:5]):
+                price_str = f"¥{int(r['price_min']):,}" if r.get('price_min') else '価格不明'
+                lines.append(f"{i+1}. product_id=\"{r['product_id']}\" → {r['name']} ({price_str})")
+            lines.append("ユーザーが上記のどれかを選んだら、該当するproduct_idでconfirm_partを呼ぶこと。")
+            last_search_hint = "\n".join(lines) + "\n"
+
         system_prompt = (
-            current_build_text + stagnation_hint + budget_hint + context_hint + "\n"
+            current_build_text + last_search_hint + stagnation_hint + budget_hint + context_hint + "\n"
             + _SHOP_CLERK_SYSTEM_PROMPT
         )
 
