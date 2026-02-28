@@ -1076,13 +1076,16 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 ★ パターンAなら max_price=予算×40% で検索。
 
 提案の型:
-  「[製品名]（¥XX,XXX）をおすすめします。
+  「[検索結果1番目の製品名]（¥XX,XXX）をおすすめします。
    [なぜこれがいいか: 1〜2文]
-   代替案: [製品名]（¥XX,XXX）[差額と理由]
+   代替案: [検索結果2番目の製品名]（¥XX,XXX）[差額と理由]
    どちらにしますか？」
 
-★ユーザーが選んだら、必ずconfirm_part(category="gpu", product_id="...")を呼ぶこと。
-  confirm_partを呼ばないと構成に登録されない。呼ばずに次へ進むのは禁止。
+⚠️ 【product_id正確性ルール】
+  - 提案する製品はsearch_resultsの結果の1番目(おすすめ)と2番目(代替案)を使うこと
+  - ユーザーが承認したら、その製品のresults内のproduct_idをそのままconfirm_partに渡すこと
+  - product_idを自分で推測・作成するのは禁止。必ず検索結果からコピーすること
+  - confirm_partを呼ばないと構成に登録されない。呼ばずに次へ進むのは禁止
 
 【ステップ3: CPUを提案する】
 
@@ -1310,16 +1313,19 @@ GPU → CPU → マザーボード → メモリ → ケース → 電源 → SS
 
 各ステップで：
 1. search_partsで候補を検索（互換性条件を含める）
-2. 結果からおすすめを提案（理由付き、結果の製品名と価格をそのまま使う）
-3. ユーザーが選んだらconfirm_partで確定 ← ★これを絶対にスキップしない★
+2. 結果の1番目をおすすめ、2番目を代替案として提案（理由付き、製品名と価格はそのまま使う）
+3. ユーザーが承認したらconfirm_partで確定 ← ★これを絶対にスキップしない★
 4. 次のパーツへ
 
-⚠️ 【最重要ルール: confirm_part必須】
+⚠️ 【最重要ルール: confirm_part必須 + product_id正確性】
 - ユーザーが「OK」「それで」「いいよ」「最初のやつ」等で承認したら、
   必ずconfirm_partツールを呼んで確定すること
 - confirm_partを呼ばずに次のカテゴリに進んではいけない
 - confirm_partなしで提案→承認→提案→承認を繰り返すのは禁止（永遠ループになる）
-- product_idはsearch_partsの結果から正確にコピーすること
+- ⚠️ confirm_partのproduct_idは、search_partsの結果のproduct_idフィールドを
+  一字一句正確にコピーすること。自分でIDを推測・作成するのは絶対禁止
+- ⚠️ おすすめした製品と違う製品のproduct_idを渡さないこと。
+  提案時に「この製品のproduct_idはXXX」と内部的にメモし、confirm_part時にそれを使うこと
 
 ■ 重要: 応答形式
 - 通常の日本語テキストで返答する（JSON不要）
@@ -2392,8 +2398,8 @@ def handle_search_parts(params, all_products, session=None):
     else:
         candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
-    # 件数制限（固定20件。AIに件数を制御させない）
-    candidates = candidates[:20]
+    # 件数制限（5件に絞る。多すぎるとAIが混乱してproduct_idを間違える）
+    candidates = candidates[:5]
 
     # 結果フォーマット
     results = []
@@ -2435,7 +2441,24 @@ def handle_search_parts(params, all_products, session=None):
     if not results:
         return {'results': [], 'message': f'{category}の条件に合う製品が見つかりませんでした。条件を緩めて再検索してください。'}
 
-    return {'results': results, 'count': len(results)}
+    # 各結果にoption番号を付与（AIがproduct_idを間違えないように）
+    for i, r in enumerate(results):
+        if i == 0:
+            r['recommendation'] = 'おすすめ（1番目）'
+        elif i == 1:
+            r['recommendation'] = '代替案（2番目）'
+        else:
+            r['recommendation'] = f'候補{i+1}'
+
+    return {
+        'results': results,
+        'count': len(results),
+        'instruction': (
+            '上記結果の1番目（おすすめ）をユーザーに提案し、2番目を代替案として提示せよ。'
+            'ユーザーが承認したら、その製品のproduct_idをそのままconfirm_partに渡すこと。'
+            'product_idは絶対に自分で作らない。結果のproduct_idをコピーすること。'
+        ),
+    }
 
 
 def handle_confirm_part(params, session, all_products):
@@ -3096,7 +3119,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                 if block['name'] == 'search_parts' and isinstance(result, dict) and 'results' in result:
                     session['last_search_results'] = [
                         {'product_id': r.get('product_id', ''), 'name': r.get('name', ''), 'price_min': r.get('price_min')}
-                        for r in result.get('results', [])[:10]
+                        for r in result.get('results', [])[:5]
                     ]
                 # ツール結果のサマリーをログ出力
                 log_entry = {'tool': block['name'], 'params': block['input']}
@@ -3272,11 +3295,13 @@ def chat():
         # 直近のsearch_parts結果（product_id参照用）
         last_search_hint = ''
         if session.get('last_search_results'):
-            lines = ["\n## 前回の検索結果（confirm_part用のproduct_idリスト）"]
+            lines = ["\n## 前回の検索結果（confirm_partで使うproduct_id一覧）"]
+            labels = ['おすすめ', '代替案', '候補3', '候補4', '候補5']
             for i, r in enumerate(session['last_search_results'][:5]):
                 price_str = f"¥{int(r['price_min']):,}" if r.get('price_min') else '価格不明'
-                lines.append(f"{i+1}. product_id=\"{r['product_id']}\" → {r['name']} ({price_str})")
-            lines.append("ユーザーが上記のどれかを選んだら、該当するproduct_idでconfirm_partを呼ぶこと。")
+                label = labels[i] if i < len(labels) else f'候補{i+1}'
+                lines.append(f"  {label}: product_id=\"{r['product_id']}\" → {r['name']} ({price_str})")
+            lines.append("⚠️ ユーザーが承認した製品のproduct_idをそのままconfirm_partに渡すこと。IDを推測するな。")
             last_search_hint = "\n".join(lines) + "\n"
 
         system_prompt = (
