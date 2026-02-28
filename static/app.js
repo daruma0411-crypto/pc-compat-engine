@@ -252,6 +252,7 @@
               category: p.category,
               reason: p.reason || '',
               price_range: p.price_range || '',
+              price_min: p.price_min || 0,
               amazon_url: p.amazon_url || buildAmazonUrl(p.name),
               rakuten_url: p.rakuten_url || buildRakutenUrl(p.name),
             };
@@ -763,9 +764,9 @@
   // confirmedPartsから右パネルを更新するヘルパー
   function updateDashboardFromConfirmedParts() {
     const buildForTable = confirmedParts.map(p => {
-      // price_rangeの文字列から数値を取得（例: "¥68,000" → 68000）
-      let price_min = 0;
-      if (p.price_range) {
+      // price_min直接値を優先、なければprice_rangeから抽出
+      let price_min = p.price_min || 0;
+      if (!price_min && p.price_range) {
         const m = String(p.price_range).replace(/,/g, '').match(/\d+/);
         if (m) price_min = parseInt(m[0]);
       }
