@@ -1005,16 +1005,15 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 4. 限定品・コラボモデルは候補から除外
 5. 「少し詳しく教えてください」は絶対に言わない。常に具体的な質問をする
 6. 毎回の返答は必ず「具体的な質問」か「具体的な提案」で終える
-7. ⚠️ 【製品DB制約】「利用可能な製品」リストに明記された製品のみ提案すること。
-   リスト外の製品名を絶対に作り出さない（ハルシネーション厳禁）。
-   リストが空または⚠️フォールバック表示の場合は、
-   「データベースに該当製品がないのでAmazonで探しましょう」と案内すること。
-8. ⚠️ 【互換性必須チェック】提案前に以下を必ずコードレベルで確認すること:
-   - GPU length_mm < ケース max_gpu_length_mm（GPU物理サイズ）
-   - CPUソケット == マザーボードソケット（AM5/LGA1700等）
-   - マザーボードのDDRタイプ == RAMのDDRタイプ（DDR4/DDR5）
-   - GPU TDP×1.3 + CPU TDP×1.1 < 電源容量W（電源余裕）
-   上記のいずれかに違反する組み合わせは絶対に提案しない
+7. ⚠️ 【製品DB制約】search_partsツールの検索結果に含まれる製品のみ提案すること。
+   自分の知識で製品名を作り出さない（ハルシネーション厳禁）。
+   検索結果が0件の場合は、条件を緩めて再検索するか、
+   amazon_searchツールでAmazon検索URLを生成して案内すること。
+8. ⚠️ 【互換性必須チェック】search_partsの検索条件で互換性を担保すること:
+   - MB検索時: socketパラメータでCPUソケットを指定
+   - RAM検索時: memory_typeパラメータでDDRタイプを指定
+   - ケース検索時: min_gpu_length_mmでGPU長を指定
+   - PSU検索時: min_wattageで必要ワット数を指定
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ■ 会話の進め方
@@ -1228,29 +1227,38 @@ AI画像生成:   GPU(VRAM 12GB以上) > RAM(32GB) > SSD
    新しいCPU、何かイメージありますか？」
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ 重要: レスポンス形式
+■ ツールの使い方
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**あなたの返答は必ず以下のJSON形式で返してください:**
+あなたは4つのツールを使えます：
 
-```json
-{
-  "message": "（ユーザーへのメッセージ。ここで会話する）",
-  "recommended_parts": [
-    {"category": "GPU", "name": "ASUS TUF Gaming RTX 5070 12GB", "reason": "選んだ理由", "price_range": "¥85,000"}
-  ]
-}
-```
+1. search_parts: パーツを検索する。ユーザーの要望に合わせてフィルタ条件を指定する。
+   - 必ずこのツールで検索してから提案すること
+   - 検索結果に含まれる製品のみ提案できる（自分の知識で製品名を作り出すのは厳禁）
+   - 結果が0件の場合は条件を緩めて再検索する
 
-- `message`: あなたの通常の会話内容
-- `recommended_parts`: **このターンまでにユーザーが確認・承認した全パーツ（累積リスト）**
-  - ユーザーが「それで」「OKです」「お願いします」「確定」「〜でお願い」等で承認したパーツのみ含める
-  - まだ提案中・検討中のパーツは含めない（ユーザーが「どちらにしますか？」等で迷っている場合も含めない）
-  - 直前ターン以前に確定済みのパーツも必ず含める（累積リスト）
-  - カテゴリは必ず次のいずれか: GPU / CPU / MB / RAM / PSU / CASE / SSD / COOLER
-  - 未確定の場合は `[]`（空配列）
-- **JSON以外のテキストは一切書かない**
-- markdown の ```json ブロックで囲むこと
+2. confirm_part: ユーザーが製品を選んだら確定登録する。
+   - product_idはsearch_partsの結果から正確にコピーする
+   - 確定後、依存パーツの互換性が自動チェックされる
+
+3. get_current_build: 今の構成を確認する。
+   - 何が確定済みで何が未確定かを把握する
+   - 次に提案すべきパーツを判断する
+
+4. amazon_search: DB外のパーツ（SSD、CPUクーラー）のAmazon検索URLを生成する。
+
+■ パーツ選定の順序
+GPU → CPU → マザーボード → メモリ → ケース → 電源 → SSD → CPUクーラー
+
+各ステップで：
+1. get_current_buildで状態確認
+2. search_partsで候補を検索（互換性条件を含める）
+3. 結果からおすすめを提案（理由付き）
+4. ユーザーが選んだらconfirm_partで確定
+
+■ 重要: 応答形式
+- 通常の日本語テキストで返答する（JSON不要）
+- ツールで検索・確定を行い、テキストでユーザーと会話する
 """
 
 # ================================================================
@@ -2104,6 +2112,288 @@ _BUILD_DEPENDENCY_MAP = {
 
 
 # ================================================================
+# Function Calling型ツール定義 + ハンドラ
+# ================================================================
+
+SEARCH_PARTS_TOOL = {
+    "name": "search_parts",
+    "description": "PCパーツデータベースを検索する。カテゴリ、スペック条件、価格範囲で絞り込む。結果にはproduct_id、製品名、スペック、価格が含まれる。この結果に含まれる製品のみユーザーに提案できる。",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "category": {
+                "type": "string",
+                "enum": ["gpu", "cpu", "motherboard", "ram", "case", "psu"],
+                "description": "検索するパーツカテゴリ"
+            },
+            "socket": {
+                "type": "string",
+                "description": "CPUソケット（例: AM5, LGA1700）。MB検索時に使用"
+            },
+            "memory_type": {
+                "type": "string",
+                "description": "メモリタイプ（例: DDR5, DDR4）。RAM検索時に使用"
+            },
+            "min_wattage": {
+                "type": "integer",
+                "description": "最小ワット数。PSU検索時に使用"
+            },
+            "min_gpu_length_mm": {
+                "type": "integer",
+                "description": "最小GPU対応長（mm）。ケース検索時に使用"
+            },
+            "max_price": {
+                "type": "integer",
+                "description": "最大価格（円）"
+            },
+            "min_vram_gb": {
+                "type": "integer",
+                "description": "最小VRAM（GB）。GPU検索時に使用"
+            },
+            "form_factor": {
+                "type": "string",
+                "description": "フォームファクター（例: ATX, Micro-ATX）"
+            },
+            "limit": {
+                "type": "integer",
+                "description": "返す最大件数（デフォルト: 5）"
+            }
+        },
+        "required": ["category"]
+    }
+}
+
+CONFIRM_PART_TOOL = {
+    "name": "confirm_part",
+    "description": "ユーザーが選んだパーツを構成に確定登録する。product_idはsearch_partsの結果から取得したものを使うこと。",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "category": {
+                "type": "string",
+                "enum": ["gpu", "cpu", "motherboard", "ram", "case", "psu"]
+            },
+            "product_id": {
+                "type": "string",
+                "description": "search_partsの結果に含まれるproduct_id"
+            }
+        },
+        "required": ["category", "product_id"]
+    }
+}
+
+GET_CURRENT_BUILD_TOOL = {
+    "name": "get_current_build",
+    "description": "現在確定済みの構成を取得する。未確定のパーツも含めて全カテゴリの状態を返す。",
+    "input_schema": {
+        "type": "object",
+        "properties": {}
+    }
+}
+
+AMAZON_SEARCH_TOOL = {
+    "name": "amazon_search",
+    "description": "データベースに候補がないパーツ（SSD、CPUクーラー等）のAmazon検索URLを生成する。",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": "検索クエリ（例: NVMe M.2 SSD 1TB Gen4）"
+            }
+        },
+        "required": ["query"]
+    }
+}
+
+FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL]
+
+
+def handle_search_parts(params, all_products):
+    """AIからのツール呼び出しを処理してDB検索結果を返す。"""
+    category = params['category']
+    # カテゴリエイリアス対応
+    if category == 'motherboard':
+        candidates = [p for p in all_products if p.get('category') in ('motherboard', 'mb')]
+    else:
+        candidates = [p for p in all_products if p.get('category') == category]
+
+    # フィルタ適用
+    if params.get('socket'):
+        candidates = [p for p in candidates
+                      if (p.get('specs') or {}).get('socket') == params['socket']]
+
+    if params.get('memory_type'):
+        mem = params['memory_type'].upper()
+        def _mem_match(p):
+            spec_mem = (p.get('specs') or {}).get('memory_type')
+            if spec_mem:
+                if isinstance(spec_mem, list):
+                    return any(mem in str(m).upper() for m in spec_mem)
+                return mem in str(spec_mem).upper()
+            # specsにない場合は名前から判定
+            return mem in p.get('name', '').upper()
+        candidates = [p for p in candidates if _mem_match(p)]
+
+    if params.get('min_wattage'):
+        candidates = [p for p in candidates
+                      if ((p.get('specs') or {}).get('wattage_w') or 0) >= params['min_wattage']]
+
+    if params.get('min_gpu_length_mm'):
+        candidates = [p for p in candidates
+                      if ((p.get('specs') or {}).get('max_gpu_length_mm') or 0) >= params['min_gpu_length_mm']]
+
+    if params.get('max_price'):
+        candidates = [p for p in candidates
+                      if not p.get('price_min') or p['price_min'] <= params['max_price']]
+
+    if params.get('min_vram_gb'):
+        candidates = [p for p in candidates
+                      if ((p.get('specs') or {}).get('vram_gb') or 0) >= params['min_vram_gb']]
+
+    if params.get('form_factor'):
+        ff = params['form_factor']
+        candidates = [p for p in candidates
+                      if (p.get('specs') or {}).get('form_factor') == ff]
+
+    # ソート: price_min昇順（安い順）
+    candidates.sort(key=lambda p: p.get('price_min') or 999999)
+
+    # 件数制限
+    limit = params.get('limit', 5)
+    candidates = candidates[:limit]
+
+    # 結果フォーマット
+    results = []
+    for p in candidates:
+        specs = p.get('specs', {}) or {}
+        entry = {
+            'product_id': p.get('id', ''),
+            'name': p['name'],
+            'price_min': p.get('price_min'),
+            'specs': {}
+        }
+        # カテゴリ別に重要スペックのみ返す（トークン節約）
+        if category == 'gpu':
+            for k in ('vram_gb', 'length_mm', 'tdp_w', 'chip'):
+                if specs.get(k) is not None:
+                    entry['specs'][k] = specs[k]
+        elif category == 'cpu':
+            for k in ('socket', 'cores', 'threads', 'tdp_w', 'memory_type'):
+                if specs.get(k) is not None:
+                    entry['specs'][k] = specs[k]
+        elif category == 'motherboard':
+            for k in ('socket', 'chipset', 'memory_type', 'form_factor'):
+                if specs.get(k) is not None:
+                    entry['specs'][k] = specs[k]
+        elif category == 'ram':
+            for k in ('memory_type', 'capacity_gb', 'speed_mhz'):
+                if specs.get(k) is not None:
+                    entry['specs'][k] = specs[k]
+        elif category == 'case':
+            for k in ('max_gpu_length_mm', 'form_factor'):
+                if specs.get(k) is not None:
+                    entry['specs'][k] = specs[k]
+        elif category == 'psu':
+            for k in ('wattage_w', 'certification', 'modular'):
+                if specs.get(k) is not None:
+                    entry['specs'][k] = specs[k]
+        results.append(entry)
+
+    if not results:
+        return {'results': [], 'message': f'{category}の条件に合う製品が見つかりませんでした。条件を緩めて再検索してください。'}
+
+    return {'results': results, 'count': len(results)}
+
+
+def handle_confirm_part(params, session, all_products):
+    """AIが確定したパーツをsessionのcurrent_buildに登録する。"""
+    category = params['category']
+    product_id = params['product_id']
+
+    # DBから製品を取得
+    product = next((p for p in all_products if p.get('id') == product_id), None)
+    if not product:
+        return {'success': False, 'error': f'product_id {product_id} が見つかりません'}
+
+    specs = product.get('specs', {}) or {}
+    norm_cat = category if category != 'mb' else 'motherboard'
+
+    # current_buildに登録
+    build_entry = {
+        'name': product['name'],
+        'user_specified': True,
+        'id': product_id,
+    }
+    # カテゴリ別にスペックをコピー
+    for k in ('socket', 'memory_type', 'form_factor', 'length_mm', 'tdp_w',
+              'wattage_w', 'max_gpu_length_mm', 'capacity_gb', 'vram_gb'):
+        if specs.get(k) is not None:
+            build_entry[k] = specs[k]
+    if product.get('price_min'):
+        build_entry['price_min'] = product['price_min']
+
+    session['current_build'][norm_cat] = build_entry
+    session['confirmed_parts'][category.upper()] = product['name']
+
+    # 依存関係チェック（既存のロジック流用）
+    old_part = {}  # 新規登録なので空
+    reset_parts = []
+    recheck_parts = []
+    for dep_cat, dep_type in _BUILD_DEPENDENCY_MAP.get(norm_cat, []):
+        if dep_type == 'socket_reset' and norm_cat == 'cpu':
+            dep_part = session['current_build'].get(dep_cat)
+            if dep_part and dep_part.get('socket') and build_entry.get('socket'):
+                if dep_part['socket'] != build_entry['socket']:
+                    session['current_build'][dep_cat] = None
+                    session['confirmed_parts'].pop(dep_cat.upper(), None)
+                    reset_parts.append(dep_cat)
+        elif dep_type == 'memtype_reset':
+            dep_part = session['current_build'].get(dep_cat)
+            if dep_part and dep_part.get('memory_type') and build_entry.get('memory_type'):
+                if dep_part['memory_type'] != build_entry['memory_type']:
+                    session['current_build'][dep_cat] = None
+                    session['confirmed_parts'].pop(dep_cat.upper(), None)
+                    reset_parts.append(dep_cat)
+        elif dep_type == 'recheck':
+            recheck_parts.append(dep_cat)
+
+    session['recheck_flags'] = list(set(session.get('recheck_flags', []) + recheck_parts))
+
+    return {
+        'success': True,
+        'confirmed': category,
+        'product': product['name'],
+        'price_min': product.get('price_min'),
+        'reset_parts': reset_parts,
+        'recheck_parts': recheck_parts,
+        'current_build_summary': format_current_build_for_claude(session['current_build'], session.get('recheck_flags', []))
+    }
+
+
+def execute_tool(tool_name, tool_input, session, all_products):
+    """ツール名に応じてハンドラを呼び出す"""
+    if tool_name == 'search_parts':
+        return handle_search_parts(tool_input, all_products)
+    elif tool_name == 'confirm_part':
+        return handle_confirm_part(tool_input, session, all_products)
+    elif tool_name == 'get_current_build':
+        return {
+            'current_build': {
+                cat: ({'name': p['name'], 'specs': {k: v for k, v in p.items() if k not in ('name', 'user_specified', 'id')}} if p else None)
+                for cat, p in session['current_build'].items()
+            },
+            'budget_yen': session.get('budget_yen'),
+        }
+    elif tool_name == 'amazon_search':
+        amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+        q = urllib.parse.quote(tool_input['query'])
+        return {'url': f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'}
+    else:
+        return {'error': f'Unknown tool: {tool_name}'}
+
+
+# ================================================================
 # 修正1: RAG取得後の互換性フィルタ
 # ================================================================
 
@@ -2502,6 +2792,99 @@ def call_claude_chat(system, messages):
     return content
 
 
+def call_claude_with_tools(session, user_message, all_products, system_prompt):
+    """
+    Claude Haikuをtool use付きで呼び出す。
+    AIがツールを呼んだら、コード側で処理して結果を返す。ツールを呼ばなくなるまでループ。
+    戻り値: (ai_message, confirmed_in_this_turn)
+      ai_message: AIの最終テキスト応答
+      confirmed_in_this_turn: このターンでconfirm_partされたパーツのリスト
+    """
+    messages = []
+    for h in session['history'][-10:]:
+        if h.get('role') in ('user', 'assistant'):
+            messages.append({'role': h['role'], 'content': h['content']})
+    messages.append({'role': 'user', 'content': user_message})
+
+    confirmed_in_this_turn = []
+    reset_parts_all = []
+    recheck_parts_all = []
+    max_iterations = 10  # 無限ループ防止
+
+    for _ in range(max_iterations):
+        req_body = json.dumps({
+            'model': 'claude-haiku-4-5-20251001',
+            'max_tokens': 2048,
+            'system': system_prompt,
+            'tools': FC_TOOLS,
+            'messages': messages,
+        }).encode('utf-8')
+
+        req = urllib.request.Request(
+            'https://api.anthropic.com/v1/messages',
+            data=req_body,
+            headers={
+                'Content-Type': 'application/json',
+                'X-API-Key': CLAUDE_API_KEY,
+                'anthropic-version': '2023-06-01',
+            },
+            method='POST',
+        )
+
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            resp_data = json.loads(resp.read().decode('utf-8'))
+
+        stop_reason = resp_data.get('stop_reason', '')
+        content_blocks = resp_data.get('content', [])
+
+        # ツール呼び出しがなければ完了
+        if stop_reason != 'tool_use':
+            break
+
+        # ツール呼び出しを処理
+        tool_results = []
+        # assistant応答をシリアライズ可能な形式に変換
+        assistant_content = []
+        for block in content_blocks:
+            if block.get('type') == 'text':
+                assistant_content.append({'type': 'text', 'text': block.get('text', '')})
+            elif block.get('type') == 'tool_use':
+                assistant_content.append({
+                    'type': 'tool_use',
+                    'id': block['id'],
+                    'name': block['name'],
+                    'input': block['input'],
+                })
+                result = execute_tool(block['name'], block['input'], session, all_products)
+                tool_results.append({
+                    'type': 'tool_result',
+                    'tool_use_id': block['id'],
+                    'content': json.dumps(result, ensure_ascii=False)
+                })
+                # confirm_partの結果を追跡
+                if block['name'] == 'confirm_part' and isinstance(result, dict) and result.get('success'):
+                    confirmed_in_this_turn.append({
+                        'category': block['input'].get('category', ''),
+                        'product_id': block['input'].get('product_id', ''),
+                        'name': result.get('product', ''),
+                        'price_min': result.get('price_min'),
+                    })
+                    reset_parts_all.extend(result.get('reset_parts', []))
+                    recheck_parts_all.extend(result.get('recheck_parts', []))
+
+        # 結果をメッセージに追加して再度呼び出し
+        messages.append({'role': 'assistant', 'content': assistant_content})
+        messages.append({'role': 'user', 'content': tool_results})
+
+    # 最終応答テキストを抽出
+    ai_message = ''
+    for block in content_blocks:
+        if block.get('type') == 'text':
+            ai_message += block.get('text', '')
+
+    return ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all
+
+
 def parse_claude_json_response(text):
     """ClaudeのJSON応答をパースする（markdown包みに対応）"""
     original_text = text
@@ -2527,190 +2910,75 @@ def parse_claude_json_response(text):
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    """シンプルな会話チャットエンドポイント（セッション管理付き）"""
-    # デバッグログパス定義
-    debug_log_path = 'C:\\Users\\iwashita.AKGNET\\.openclaw\\workspace\\debug_log.txt'
-    
+    """Function Calling型チャットエンドポイント（セッション管理付き）"""
     try:
         data = request.get_json(force=True) or {}
         message = str(data.get('message', '')).strip()
-        
+
         # セッションIDを取得（Web: session_id, Telegram: chat_id）
         session_id = data.get('session_id') or data.get('chat_id') or 'default'
-        
+
         if not message:
             return jsonify({'error': 'message が空です'}), 400
-        
+
         # セッションを取得または作成
         session = get_or_create_session(session_id)
-        
+
         # 製品DBロード
         all_products = _load_all_pc_products()
-        
-        with open(debug_log_path, 'a', encoding='utf-8') as f:
-            f.write(f"[DEBUG] all_products count: {len(all_products)}\n")
-            if all_products:
-                sample = all_products[0]
-                f.write(f"[DEBUG] sample product keys: {list(sample.keys())}\n")
-                f.write(f"[DEBUG] sample product: {sample}\n")
-        
-        # 1. 構造化データ（confirmed_parts）を常に先頭に注入（500トークン固定）
-        confirmed_parts_text = format_confirmed_parts(session['confirmed_parts'])
-        
-        # 2. 会話履歴を構築（直近10メッセージのみ）
-        messages = []
-        for h in session['history'][-10:]:
-            if h.get('role') in ('user', 'assistant'):
-                messages.append({'role': h['role'], 'content': h['content']})
-        messages.append({'role': 'user', 'content': message})
-        
-        # ヒアリング中か提案段階かを判定
-        # 予算・解像度・画質の3つが揃ったら提案段階に入る（一度入ったら戻らない）
+
+        # 予算抽出（セッションに保存）
         user_inputs = [h.get('content', '') for h in session['history'][-10:] if h.get('role') == 'user']
-        user_inputs.append(message)  # 現在のメッセージも含める
+        user_inputs.append(message)
         all_user_text = ' '.join(user_inputs).lower()
-        
-        # セッションステージが既にrecommendingなら、ヒアリングに戻らない
-        if session['stage'] == 'recommending':
-            is_hearing = False
-            with open(debug_log_path, 'a', encoding='utf-8') as f:
-                f.write(f"[DEBUG] Session stage is already 'recommending', staying in recommending mode\n")
-        else:
-            # まだhearing段階の場合、3つの条件をチェック
-            has_budget = any(kw in all_user_text for kw in ['万', '円'])
-            has_resolution = any(kw in all_user_text for kw in ['1080', '1440', '2160', '4k', 'wqhd', 'fhd', 'ふるhd', '①', '②', '③'])
-            has_quality = any(kw in all_user_text for kw in ['最高', '高画質', '標準', 'フレーム', 'fps', 'おまかせ', '①', '②', '③'])
-            
-            with open(debug_log_path, 'a', encoding='utf-8') as f:
-                f.write(f"[DEBUG] has_budget={has_budget}, has_resolution={has_resolution}, has_quality={has_quality}\n")
-                f.write(f"[DEBUG] all_user_text: {all_user_text[:200]}\n")
-                f.write(f"[DEBUG] current message: {message}\n")
-                f.write(f"[DEBUG] session_history length: {len(session['history'])}\n")
-            
-            # 3つすべて揃ったら提案段階に移行
-            if has_budget and has_resolution and has_quality:
-                is_hearing = False
-                session['stage'] = 'recommending'
-                with open(debug_log_path, 'a', encoding='utf-8') as f:
-                    f.write(f"[DEBUG] Moving to 'recommending' stage\n")
-            else:
-                is_hearing = True
-                with open(debug_log_path, 'a', encoding='utf-8') as f:
-                    f.write(f"[DEBUG] Staying in 'hearing' stage\n")
-        
-        # ヒアリング中はシンプルなプロンプト、提案段階は製品リスト付き
-        if is_hearing:
-            # ヒアリング段階: confirmed_partsのみ注入（製品リストなし）
-            system_prompt = confirmed_parts_text + "\n" + _SHOP_CLERK_SYSTEM_PROMPT
-            with open(debug_log_path, 'a', encoding='utf-8') as f:
-                f.write(f"[DEBUG] HEARING mode: system_prompt length = {len(system_prompt)} chars\n")
-        else:
-            # 予算を抽出（セッションに保存済みならそれを使う）
-            if session['budget_yen'] is None:
-                budget_yen = 150000  # デフォルト15万円
-                for ui in user_inputs:
-                    # 「20万」「15万円」などから数字を抽出
-                    match = re.search(r'(\d+)\s*万', ui)
-                    if match:
-                        budget_yen = int(match.group(1)) * 10000
-                        session['budget_yen'] = budget_yen  # セッションに保存
-                        break
-            else:
-                budget_yen = session['budget_yen']
-            
-            with open(debug_log_path, 'a', encoding='utf-8') as f:
-                f.write(f"[DEBUG] RECOMMENDING mode: budget_yen = {budget_yen}\n")
-            
-            # 解像度を会話テキストから抽出
-            if any(kw in all_user_text for kw in ['4k', '2160', 'uhd', '4kゲーム']):
-                detected_resolution = '4K'
-            elif any(kw in all_user_text for kw in ['1440', 'wqhd', 'qhd', '2k', 'wqhd']):
-                detected_resolution = 'WQHD'
-            else:
-                detected_resolution = 'FHD'
 
-            # 3. フィルタ済みパーツDB（提案段階のみ、約10Kトークン）
-            filtered_products = retrieve_parts(
-                budget=budget_yen,
-                game_name=None,
-                resolution=detected_resolution,
-                quality='high',
-                all_products=all_products
-            )
-            
-            with open(debug_log_path, 'a', encoding='utf-8') as f:
-                if isinstance(filtered_products, dict):
-                    total = sum(len(prods) for prods in filtered_products.values())
-                    f.write(f"[DEBUG] filtered_products total count = {total}\n")
-                    for cat, prods in filtered_products.items():
-                        f.write(f"[DEBUG]   {cat}: {len(prods)} items\n")
-                        if prods:
-                            f.write(f"[DEBUG]     first: {prods[0].get('name', '?')}, price={prods[0].get('price_min', '?')}\n")
-                else:
-                    f.write(f"[DEBUG] filtered_products is not a dict! type={type(filtered_products)}\n")
-            
-            # 修正1: 互換性フィルタ（RAGフィルタ後にさらにコードで絞り込む）
-            filtered_products = filter_compatible_parts(filtered_products, session['current_build'])
+        if session['budget_yen'] is None:
+            for ui in user_inputs:
+                match = re.search(r'(\d+)\s*万', ui)
+                if match:
+                    session['budget_yen'] = int(match.group(1)) * 10000
+                    break
 
-            # 修正4: フィルタ後に全カテゴリ0件の場合はフォールバック
-            total_compatible = sum(len(v) for v in filtered_products.values())
-            if total_compatible == 0:
-                amazon_tag_fb    = os.environ.get('AMAZON_TAG', 'pccompat-22')
-                products_summary = _generate_fallback_info(session['current_build'], amazon_tag_fb)
-            else:
-                products_summary = _format_products_for_claude(filtered_products)
-
-            current_build_text = format_current_build_for_claude(
-                session['current_build'],
-                session.get('recheck_flags', [])
-            )
-
-            # 修正7-2: 迷走検知（5往復以上で半数以上未確定）
-            stagnation_hint = ''
-            if _detect_stagnation(session):
-                stagnation_hint = (
-                    "\n\n💡 ヒント: 会話が長くなっています。ユーザーに"
-                    "「ちょっと整理しましょうか？」と提案してください。"
-                    "今決まっているパーツを示し、"
-                    "「ここから一緒に組み立て直しましょう！」と声をかけてください。"
-                    "上から目線にならないこと。"
-                )
-
-            system_prompt = (
-                current_build_text + stagnation_hint + "\n"
-                + confirmed_parts_text + "\n"
-                + _SHOP_CLERK_SYSTEM_PROMPT
-                + "\n\n利用可能な製品:\n" + products_summary
-            )
-            
-            with open(debug_log_path, 'a', encoding='utf-8') as f:
-                f.write(f"[DEBUG] system_prompt length = {len(system_prompt)} chars\n")
-                f.write(f"[DEBUG] products_summary length = {len(products_summary)} chars\n")
-                f.write(f"[DEBUG] _SHOP_CLERK_SYSTEM_PROMPT first 500 chars:\n{_SHOP_CLERK_SYSTEM_PROMPT[:500]}\n")
-                f.write(f"[DEBUG] system_prompt includes 店長: {'店長' in system_prompt}\n")
-                f.write(f"[DEBUG] system_prompt includes 少し詳しく: {'少し詳しく' in system_prompt}\n")
-        
-        # Claudeに投げる
-        claude_response = call_claude_chat(
-            system=system_prompt,
-            messages=messages
+        # 現在の構成情報をシステムプロンプトに含める
+        current_build_text = format_current_build_for_claude(
+            session['current_build'],
+            session.get('recheck_flags', [])
         )
-        
-        with open(debug_log_path, 'a', encoding='utf-8') as f:
-            f.write(f"[DEBUG] claude_response length: {len(claude_response)} chars\n")
-            f.write(f"[DEBUG] claude_response first 500 chars:\n{claude_response[:500]}\n")
-        
-        # レスポンスから recommended_parts を抽出
-        response_data = parse_claude_json_response(claude_response)
 
-        # confirmed_partsを更新（shop clerk モードではDB照合なしで受け入れ）
-        # 購入リンクはAmazon/楽天の検索URLで対応するため、厳密な製品名照合は不要
-        amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
+        # 迷走検知
+        stagnation_hint = ''
+        if _detect_stagnation(session):
+            stagnation_hint = (
+                "\n\n💡 ヒント: 会話が長くなっています。ユーザーに"
+                "「ちょっと整理しましょうか？」と提案してください。"
+                "今決まっているパーツを示し、"
+                "「ここから一緒に組み立て直しましょう！」と声をかけてください。"
+                "上から目線にならないこと。"
+            )
+
+        # 予算情報
+        budget_hint = ''
+        if session.get('budget_yen'):
+            budget_hint = f"\n\n💰 ユーザーの予算: ¥{session['budget_yen']:,}\n"
+
+        system_prompt = (
+            current_build_text + stagnation_hint + budget_hint + "\n"
+            + _SHOP_CLERK_SYSTEM_PROMPT
+        )
+
+        # Function Calling型でClaude呼び出し
+        ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all = \
+            call_claude_with_tools(session, message, all_products, system_prompt)
+
+        # フロントエンド互換のレスポンス構築
+        amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
         rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
         rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
         def _make_amzn(name):
             q = urllib.parse.quote(name)
             return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+
         def _make_raku(name):
             q = urllib.parse.quote(name)
             if rakuten_a_id and rakuten_l_id:
@@ -2718,157 +2986,58 @@ def chat():
                         f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
             return f'https://search.rakuten.co.jp/search/mall/{q}/'
 
-        all_reset_parts = []
-        all_recheck_parts = []
+        response_data = {
+            'message': ai_message or 'すみません、うまく処理できませんでした。もう一度お願いできますか？',
+        }
 
-        # 修正2: DB存在チェック（ハルシネーション防止）
-        if response_data.get('recommended_parts'):
-            validated_parts    = []
-            hallucinated_parts = []
-            for part in response_data['recommended_parts']:
-                part_name_chk = part.get('name', '')
-                cat_chk       = part.get('category', '').lower()
-                db_match = _get_part_specs_from_db(part_name_chk, cat_chk, all_products)
-                if db_match.get('id'):
-                    validated_parts.append(part)
-                else:
-                    hallucinated_parts.append(part)
-            response_data['recommended_parts'] = validated_parts
-            if hallucinated_parts:
-                names   = [p.get('name', '?') for p in hallucinated_parts]
-                warning = f"\n\n※ 以下の製品はデータベースに登録がないため、正確な情報を保証できません: {', '.join(names)}"
-                response_data['message'] = response_data.get('message', '') + warning
+        # confirm_partで確定されたパーツをrecommended_partsに変換（フロントエンド互換）
+        if confirmed_in_this_turn:
+            response_data['recommended_parts'] = []
+            for part in confirmed_in_this_turn:
+                cat = part.get('category', '').upper()
+                name = part.get('name', '')
+                response_data['recommended_parts'].append({
+                    'category': cat,
+                    'name': name,
+                    'reason': '',
+                    'price_range': f"¥{part['price_min']:,}" if part.get('price_min') else '',
+                    'amazon_url': _make_amzn(name),
+                    'rakuten_url': _make_raku(name),
+                })
 
-        # 修正3: 互換性事後チェック（CPU-MB socket / MB-RAM memory_type / GPU-Case length）
-        if response_data.get('recommended_parts'):
-            def _mem_type_set(val):
-                """memory_type をリスト・文字列どちらでも DDR4/DDR5 の集合に正規化"""
-                if not val:
-                    return set()
-                items = val if isinstance(val, list) else [val]
-                result = set()
-                for v in items:
-                    s = str(v).upper()
-                    if 'DDR5' in s:
-                        result.add('DDR5')
-                    if 'DDR4' in s:
-                        result.add('DDR4')
-                return result
+        # リセット・再確認情報
+        if reset_parts_all:
+            response_data['reset_parts'] = list(set(reset_parts_all))
+        if recheck_parts_all:
+            response_data['recheck_parts'] = list(set(recheck_parts_all))
 
-            # 各パーツのDBスペックを収集
-            _part_specs = {}  # category(lower) -> specs dict
-            for _p in response_data['recommended_parts']:
-                _cat  = _p.get('category', '').lower()
-                _name = _p.get('name', '')
-                _part_specs[_cat] = _get_part_specs_from_db(_name, _cat, all_products)
-
-            _cpu_sp  = _part_specs.get('cpu', {})
-            _mb_sp   = _part_specs.get('mb') or _part_specs.get('motherboard', {})
-            _ram_sp  = _part_specs.get('ram', {})
-            _gpu_sp  = _part_specs.get('gpu', {})
-            _case_sp = _part_specs.get('case', {})
-
-            _compat_warnings   = []
-            _incompat_cats     = set()
-
-            # チェック1: CPU socket != MB socket
-            _cpu_sock = _cpu_sp.get('socket')
-            _mb_sock  = _mb_sp.get('socket')
-            if _cpu_sock and _mb_sock and _cpu_sock != _mb_sock:
-                _compat_warnings.append(
-                    f"⚠️ ソケット不一致: CPU({_cpu_sock}) ≠ MB({_mb_sock})。"
-                    "マザーボードはこのCPUに対応していません。"
-                )
-                _incompat_cats.update({'mb', 'motherboard'})
-
-            # チェック2: MB memory_type と RAM memory_type に共通タイプがない
-            _mb_mem  = _mem_type_set(_mb_sp.get('memory_type'))
-            _ram_mem = _mem_type_set(_ram_sp.get('memory_type'))
-            if _mb_mem and _ram_mem and not (_mb_mem & _ram_mem):
-                _compat_warnings.append(
-                    f"⚠️ メモリタイプ不一致: MB対応({'/'.join(sorted(_mb_mem))}) ≠ "
-                    f"RAM({'/'.join(sorted(_ram_mem))})。このRAMはマザーボードに対応していません。"
-                )
-                _incompat_cats.add('ram')
-
-            # チェック3: GPU length_mm >= Case max_gpu_length_mm
-            _gpu_len  = _gpu_sp.get('length_mm')
-            _case_max = _case_sp.get('max_gpu_length_mm')
-            if _gpu_len and _case_max and _gpu_len >= _case_max:
-                _compat_warnings.append(
-                    f"⚠️ GPU長さ超過: GPU({_gpu_len}mm) ≥ ケース最大({_case_max}mm)。"
-                    "このケースにはGPUが収まらない可能性があります。"
-                )
-                _incompat_cats.add('case')
-
-            # 非互換パーツを除外
-            if _incompat_cats:
-                response_data['recommended_parts'] = [
-                    _p for _p in response_data['recommended_parts']
-                    if _p.get('category', '').lower() not in _incompat_cats
-                ]
-
-            # 警告をメッセージに追記
-            if _compat_warnings:
-                response_data['message'] = (
-                    response_data.get('message', '') + '\n\n' + '\n'.join(_compat_warnings)
-                )
-
-        if response_data.get('recommended_parts'):
-            for part in response_data['recommended_parts']:
-                category = part.get('category', '').upper()
-                part_name = part.get('name', '')
-                user_specified = part.get('user_specified', False)
-                if category and part_name:
-                    session['confirmed_parts'][category] = part_name
-                    # クライアント側でAMAZON_TAGが不要になるよう、サーバー側でURLを生成
-                    if not part.get('amazon_url'):
-                        part['amazon_url'] = _make_amzn(part_name)
-                    if not part.get('rakuten_url'):
-                        part['rakuten_url'] = _make_raku(part_name)
-                    # current_buildを更新し、依存関係チェックを実行
-                    dep_result = update_current_build(
-                        session, category.lower(), part_name, all_products, user_specified
-                    )
-                    all_reset_parts.extend(dep_result['reset_parts'])
-                    all_recheck_parts.extend(dep_result['recheck_parts'])
-
-        # リセット・再確認情報をレスポンスに含める（フロントエンドのUI更新用）
-        if all_reset_parts:
-            response_data['reset_parts'] = list(set(all_reset_parts))
-        if all_recheck_parts:
-            response_data['recheck_parts'] = list(set(all_recheck_parts))
-
-        # current_buildをレスポンスに含める（右パネルリアルタイム更新用）
+        # current_buildをレスポンスに含める（右パネル更新用）
         response_data['current_build'] = {
             cat: ({'name': p['name'], 'user_specified': p.get('user_specified', False)} if p else None)
             for cat, p in session['current_build'].items()
         }
 
-        # セッションのconfirmed_partsもレスポンスに含める（クライアントのダッシュボード更新用）
+        # セッションのconfirmed_partsもレスポンスに含める
         if session['confirmed_parts'] and not response_data.get('recommended_parts'):
-            # Claudeが recommended_parts を返さなかった場合でも、
-            # セッション側の確定済みパーツを返す（前ターンの確定分を維持）
             response_data['confirmed_parts_session'] = [
                 {'category': cat, 'name': name}
                 for cat, name in session['confirmed_parts'].items()
                 if name
             ]
 
-        # recheck_flagsをクリア（今回の応答で通知済み）
+        # recheck_flagsをクリア
         session['recheck_flags'] = []
 
         # 会話履歴を更新（直近10メッセージのみ保持）
         session['history'].append({'role': 'user', 'content': message})
-        session['history'].append({'role': 'assistant', 'content': response_data.get('message', '')})
-
-        # 10メッセージを超えたら古いものを削除
+        session['history'].append({'role': 'assistant', 'content': ai_message or ''})
         if len(session['history']) > 10:
             session['history'] = session['history'][-10:]
-        
+
         return jsonify(response_data)
 
     except Exception as e:
+        app.logger.error(f"[chat] Error: {e}", exc_info=True)
         return jsonify({'error': str(e)}), 500
 
 
