@@ -65,21 +65,8 @@
     <div class="chat-panel">
       <div class="chat-messages" id="chat"></div>
       
-      <!-- 注目ゲーム（テキストリンク） -->
-      <div class="featured-games-links">
-        🎮 注目: 
-        <a href="#" onclick="selectGame('Monster Hunter Wilds'); return false;">モンハンワイルズ</a> | 
-        <a href="#" onclick="selectGame('Elden Ring'); return false;">Elden Ring</a> | 
-        <a href="#" onclick="selectGame('GTA VI'); return false;">GTA VI</a> | 
-        <a href="#" onclick="selectGame('Palworld'); return false;">Palworld</a>
-      </div>
-      
       <!-- 入力エリア -->
       <div class="chat-input-area">
-        <div class="chat-examples">
-          <span class="chat-example" onclick="fillExample('モンハンワイルズを60fpsでやってみたい')">💬 モンハンワイルズを60fpsでやってみたい</span>
-          <span class="chat-example" onclick="fillExample('RTX 5070とRyzen 7 9700Xで組みたい')">🔧 RTX 5070とRyzen 7 9700Xで組みたい</span>
-        </div>
         <div class="chat-reset-row">
           <button id="btn-reset-all" onclick="resetAll()" title="構成をリセットして最初から相談">💡 最初から相談する</button>
         </div>
@@ -91,7 +78,7 @@
     </div>
 
     <!-- 右パネル: ダッシュボード -->
-    <div class="dashboard-panel" id="dashboard">
+    <div class="dashboard-panel" id="dashboard" style="display:none">
       
       <!-- パーツ一覧テーブル -->
       <div class="dashboard-section parts-table" id="parts-table">

@@ -556,6 +556,9 @@
       renderSummaryCard(build, game.name || '');
       // ダッシュボードのパーツテーブルも更新
       updatePartsTable(build, budgetYen);
+      // 右パネルを表示
+      const dash = document.getElementById('dashboard');
+      if (dash) dash.style.display = '';
     }
 
     const itemsHtml = build.map(item => {
@@ -776,6 +779,9 @@
       };
     });
     updatePartsTable(buildForTable, budgetYen);
+    // 右パネルを表示
+    const dash = document.getElementById('dashboard');
+    if (dash) dash.style.display = '';
   }
 
   // 右パネル: パーツ一覧テーブル更新

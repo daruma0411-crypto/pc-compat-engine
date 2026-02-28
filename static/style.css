@@ -263,7 +263,12 @@ header {
 .parts-name {
   flex: 1;
   font-size: 13px;
+  font-weight: 700;
   color: var(--c-text);
+}
+
+.build-name {
+  font-weight: 700;
 }
 
 .parts-name--empty {
@@ -494,7 +499,7 @@ header {
 }
 
 .msg-bubble {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
   line-height: 1.65;
   padding: 10px 14px;
