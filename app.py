@@ -2016,20 +2016,6 @@ def _format_products_for_claude(products_dict):
     return '\n'.join(lines)
 
 
-def validate_parts(parts, all_products):
-    """AIが提案した製品がDBに存在するか検証（ハルシネーション対策）"""
-    db_names = {p['name'] for p in all_products}
-    
-    for part in parts:
-        if part['name'] not in db_names:
-            return {
-                'ok': False,
-                'error_message': f'申し訳ございません、{part["name"]}は現在取り扱っておりません。別の製品をご提案いたします。'
-            }
-    
-    return {'ok': True}
-
-
 def get_or_create_session(session_id):
     """セッションを取得または作成する"""
     if session_id not in _SESSIONS:
@@ -2215,9 +2201,29 @@ AMAZON_SEARCH_TOOL = {
 FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL]
 
 
-def handle_search_parts(params, all_products):
+def handle_search_parts(params, all_products, session=None):
     """AIからのツール呼び出しを処理してDB検索結果を返す。"""
     category = params['category']
+
+    # ── current_build からの自動補完 ──
+    # AIがフィルタ条件を付け忘れても互換性を担保する
+    cb = (session or {}).get('current_build') or {}
+
+    if category == 'motherboard' and not params.get('socket'):
+        cpu = cb.get('cpu') or {}
+        if cpu.get('socket'):
+            params['socket'] = cpu['socket']
+
+    if category == 'ram' and not params.get('memory_type'):
+        mb = cb.get('motherboard') or {}
+        if mb.get('memory_type'):
+            params['memory_type'] = mb['memory_type']
+
+    if category == 'case' and not params.get('min_gpu_length_mm'):
+        gpu = cb.get('gpu') or {}
+        if gpu.get('length_mm'):
+            params['min_gpu_length_mm'] = gpu['length_mm']
+
     # カテゴリエイリアス対応
     if category == 'motherboard':
         candidates = [p for p in all_products if p.get('category') in ('motherboard', 'mb')]
@@ -2380,7 +2386,7 @@ def handle_confirm_part(params, session, all_products):
 def execute_tool(tool_name, tool_input, session, all_products):
     """ツール名に応じてハンドラを呼び出す"""
     if tool_name == 'search_parts':
-        return handle_search_parts(tool_input, all_products)
+        return handle_search_parts(tool_input, all_products, session=session)
     elif tool_name == 'confirm_part':
         return handle_confirm_part(tool_input, session, all_products)
     elif tool_name == 'get_current_build':
@@ -2815,7 +2821,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
     confirmed_in_this_turn = []
     reset_parts_all = []
     recheck_parts_all = []
-    max_iterations = 10  # 無限ループ防止
+    max_iterations = 100  # 無限ループ防止（長い会話でもツール呼び出しが途切れない）
 
     for _ in range(max_iterations):
         req_body = json.dumps({
@@ -2889,29 +2895,6 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
             ai_message += block.get('text', '')
 
     return ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all
-
-
-def parse_claude_json_response(text):
-    """ClaudeのJSON応答をパースする（markdown包みに対応）"""
-    original_text = text
-    # ```json ... ``` の包みを除去
-    json_match = re.search(r'```json\s*(.*?)\s*```', text, re.DOTALL)
-    if json_match:
-        text = json_match.group(1)
-
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError as e:
-        # パース失敗時: 原因調査のため生レスポンスをログ出力
-        app.logger.warning(
-            "[parse_claude_json_response] JSON decode failed: %s\n"
-            "--- raw response (first 500 chars) ---\n%s\n---",
-            e, original_text[:500]
-        )
-        return {
-            'message': 'すみません、うまく聞き取れませんでした。もう一度お願いできますか？',
-            'recommended_parts': []
-        }
 
 
 @app.route('/api/chat', methods=['POST'])
