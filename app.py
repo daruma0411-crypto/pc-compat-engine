@@ -2739,6 +2739,81 @@ def chat():
                 warning = f"\n\n※ 以下の製品はデータベースに登録がないため、正確な情報を保証できません: {', '.join(names)}"
                 response_data['message'] = response_data.get('message', '') + warning
 
+        # 修正3: 互換性事後チェック（CPU-MB socket / MB-RAM memory_type / GPU-Case length）
+        if response_data.get('recommended_parts'):
+            def _mem_type_set(val):
+                """memory_type をリスト・文字列どちらでも DDR4/DDR5 の集合に正規化"""
+                if not val:
+                    return set()
+                items = val if isinstance(val, list) else [val]
+                result = set()
+                for v in items:
+                    s = str(v).upper()
+                    if 'DDR5' in s:
+                        result.add('DDR5')
+                    if 'DDR4' in s:
+                        result.add('DDR4')
+                return result
+
+            # 各パーツのDBスペックを収集
+            _part_specs = {}  # category(lower) -> specs dict
+            for _p in response_data['recommended_parts']:
+                _cat  = _p.get('category', '').lower()
+                _name = _p.get('name', '')
+                _part_specs[_cat] = _get_part_specs_from_db(_name, _cat, all_products)
+
+            _cpu_sp  = _part_specs.get('cpu', {})
+            _mb_sp   = _part_specs.get('mb') or _part_specs.get('motherboard', {})
+            _ram_sp  = _part_specs.get('ram', {})
+            _gpu_sp  = _part_specs.get('gpu', {})
+            _case_sp = _part_specs.get('case', {})
+
+            _compat_warnings   = []
+            _incompat_cats     = set()
+
+            # チェック1: CPU socket != MB socket
+            _cpu_sock = _cpu_sp.get('socket')
+            _mb_sock  = _mb_sp.get('socket')
+            if _cpu_sock and _mb_sock and _cpu_sock != _mb_sock:
+                _compat_warnings.append(
+                    f"⚠️ ソケット不一致: CPU({_cpu_sock}) ≠ MB({_mb_sock})。"
+                    "マザーボードはこのCPUに対応していません。"
+                )
+                _incompat_cats.update({'mb', 'motherboard'})
+
+            # チェック2: MB memory_type と RAM memory_type に共通タイプがない
+            _mb_mem  = _mem_type_set(_mb_sp.get('memory_type'))
+            _ram_mem = _mem_type_set(_ram_sp.get('memory_type'))
+            if _mb_mem and _ram_mem and not (_mb_mem & _ram_mem):
+                _compat_warnings.append(
+                    f"⚠️ メモリタイプ不一致: MB対応({'/'.join(sorted(_mb_mem))}) ≠ "
+                    f"RAM({'/'.join(sorted(_ram_mem))})。このRAMはマザーボードに対応していません。"
+                )
+                _incompat_cats.add('ram')
+
+            # チェック3: GPU length_mm >= Case max_gpu_length_mm
+            _gpu_len  = _gpu_sp.get('length_mm')
+            _case_max = _case_sp.get('max_gpu_length_mm')
+            if _gpu_len and _case_max and _gpu_len >= _case_max:
+                _compat_warnings.append(
+                    f"⚠️ GPU長さ超過: GPU({_gpu_len}mm) ≥ ケース最大({_case_max}mm)。"
+                    "このケースにはGPUが収まらない可能性があります。"
+                )
+                _incompat_cats.add('case')
+
+            # 非互換パーツを除外
+            if _incompat_cats:
+                response_data['recommended_parts'] = [
+                    _p for _p in response_data['recommended_parts']
+                    if _p.get('category', '').lower() not in _incompat_cats
+                ]
+
+            # 警告をメッセージに追記
+            if _compat_warnings:
+                response_data['message'] = (
+                    response_data.get('message', '') + '\n\n' + '\n'.join(_compat_warnings)
+                )
+
         if response_data.get('recommended_parts'):
             for part in response_data['recommended_parts']:
                 category = part.get('category', '').upper()
