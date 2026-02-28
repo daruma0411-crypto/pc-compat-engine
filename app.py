@@ -3055,9 +3055,9 @@ def chat():
         if len(session['history']) > 10:
             session['history'] = session['history'][-10:]
 
-        # デバッグ用ツールログ（tool_logsがあれば含める）
-        if tool_logs:
-            response_data['_debug_tool_logs'] = tool_logs
+        # デバッグ用ツールログ（常に含める）
+        response_data['_debug_tool_logs'] = tool_logs
+        response_data['_code_version'] = 'v2-tool-logs'
 
         return jsonify(response_data)
 
