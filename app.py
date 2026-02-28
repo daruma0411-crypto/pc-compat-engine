@@ -2100,6 +2100,7 @@ def get_or_create_session(session_id):
             },
             'recheck_flags': [],    # 再チェックが必要なカテゴリ
             'last_search_results': [],  # 直近のsearch_parts結果（product_id保持用）
+            'last_search_category': None,  # 直近のsearch_partsカテゴリ（auto-confirm用）
             'history': [],          # 会話履歴（直近100メッセージを保持）
             'stage': 'hearing',     # 'hearing' or 'recommending'
             'budget_yen': None,     # 抽出した予算
@@ -2281,13 +2282,30 @@ def handle_search_parts(params, all_products, session=None):
     """AIからのツール呼び出しを処理してDB検索結果を返す。"""
     category = params['category']
 
-    # ── 前のカテゴリが未確定なら拒否（confirm_part呼び忘れ防止）──
+    # ── 前のカテゴリが未確定ならauto-confirm（confirm_part呼び忘れ救済）──
     _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
     cb = (session or {}).get('current_build') or {}
-    if category in _PART_ORDER:
+    if session and category in _PART_ORDER:
+        import sys
         cat_idx = _PART_ORDER.index(category)
         for prev_cat in _PART_ORDER[:cat_idx]:
             if cb.get(prev_cat) is None:
+                # 前のカテゴリのlast_search_resultsがあればauto-confirm
+                last_cat = (session or {}).get('last_search_category')
+                last_results = (session or {}).get('last_search_results', [])
+                if last_cat == prev_cat and last_results:
+                    pid = last_results[0].get('product_id', '')
+                    if pid:
+                        print(f"[SEARCH_AUTO_CONFIRM] {prev_cat} not confirmed, auto-confirming pid={pid}", flush=True, file=sys.stderr)
+                        auto_result = handle_confirm_part(
+                            {'category': prev_cat, 'product_id': pid},
+                            session, all_products
+                        )
+                        if auto_result.get('success'):
+                            cb = session.get('current_build') or {}
+                            print(f"[SEARCH_AUTO_CONFIRM] OK: {auto_result.get('product','')[:50]}", flush=True, file=sys.stderr)
+                            continue
+                # auto-confirmできなかった場合は拒否
                 return {
                     'results': [],
                     'error': f'⚠️ {prev_cat}がまだconfirm_partで確定されていません。'
@@ -2320,10 +2338,13 @@ def handle_search_parts(params, all_products, session=None):
         if budget:
             _BUDGET_RATIO = {
                 'gpu': 0.45, 'cpu': 0.18, 'motherboard': 0.12, 'mb': 0.12,
-                'ram': 0.10, 'case': 0.10, 'psu': 0.08, 'ssd': 0.10, 'cooler': 0.05,
+                'ram': 0.12, 'case': 0.10, 'psu': 0.08, 'ssd': 0.10, 'cooler': 0.05,
             }
             ratio = _BUDGET_RATIO.get(category, 0.15)
-            params['max_price'] = int(budget * ratio)
+            computed = int(budget * ratio)
+            # 最低max_priceを保証（安すぎると不適切な結果が出る）
+            _MIN_MAX_PRICE = {'ram': 10000, 'case': 8000, 'psu': 6000}
+            params['max_price'] = max(computed, _MIN_MAX_PRICE.get(category, 0))
 
     # カテゴリエイリアス対応
     if category == 'motherboard':
@@ -2408,8 +2429,14 @@ def handle_search_parts(params, all_products, session=None):
     candidates = [p for p in candidates
                   if p.get('price_min') and p['price_min'] >= min_price]
 
-    # ソート: GPUはVRAM降順→価格昇順（高性能＆安い順）、それ以外は価格昇順
-    if category == 'gpu':
+    # ソート
+    # GPU: VRAM降順→価格昇順、RAM: 容量降順→価格昇順、その他: 価格昇順
+    if category == 'ram':
+        candidates.sort(key=lambda p: (
+            -(((p.get('specs') or {}).get('capacity_gb')) or 0),
+            p.get('price_min') or 999999
+        ))
+    elif category == 'gpu':
         candidates.sort(key=lambda p: (
             -(((p.get('specs') or {}).get('vram_gb')) or 0),
             p.get('price_min') or 999999
@@ -3140,6 +3167,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                         {'product_id': r.get('product_id', ''), 'name': r.get('name', ''), 'price_min': r.get('price_min')}
                         for r in result.get('results', [])[:5]
                     ]
+                    session['last_search_category'] = block['input'].get('category', '')
                 # ツール結果のサマリーをログ出力
                 log_entry = {'tool': block['name'], 'params': block['input']}
                 if isinstance(result, dict) and 'results' in result:
@@ -3167,6 +3195,8 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                     })
                     reset_parts_all.extend(result.get('reset_parts', []))
                     recheck_parts_all.extend(result.get('recheck_parts', []))
+                    # confirm成功でlast_search_categoryをクリア（auto-confirm誤発動防止）
+                    session['last_search_category'] = None
 
         # 結果をメッセージに追加して再度呼び出し
         messages.append({'role': 'assistant', 'content': assistant_content})
@@ -3328,9 +3358,46 @@ def chat():
             + _SHOP_CLERK_SYSTEM_PROMPT
         )
 
+        # ── AIがconfirm_partを忘れた場合のauto-confirm準備 ──
+        # ユーザーの承認メッセージを検出
+        _APPROVAL_PATTERNS = (
+            'おすすめ', 'それで', 'いいよ', 'いいです', 'OK', 'ok', 'おk',
+            'いこう', 'でいい', 'お願い', 'はい', 'うん', 'いける',
+            '最初', '1番', '一番', 'そっち', 'それ', '決め', 'いきま',
+        )
+        user_approves = any(pat in message for pat in _APPROVAL_PATTERNS)
+        # auto-confirmの候補カテゴリ（last_search_resultsが存在する場合）
+        auto_confirm_category = session.get('last_search_category')
+        auto_confirm_candidates = session.get('last_search_results', [])
+
         # Function Calling型でClaude呼び出し
         ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs = \
             call_claude_with_tools(session, message, all_products, system_prompt)
+
+        # ── AIがconfirm_partを呼ばなかった場合のauto-confirm ──
+        # 条件: ユーザーが承認 + 前回の検索カテゴリが未確定 + confirm_partがこのターンで呼ばれていない
+        confirm_called = any(t.get('tool') == 'confirm_part' for t in tool_logs)
+        if (user_approves and auto_confirm_category and auto_confirm_candidates
+                and not confirm_called
+                and session['current_build'].get(auto_confirm_category) is None):
+            # auto-confirm: last_search_resultsの1番目（おすすめ）を自動確定
+            top_product = auto_confirm_candidates[0]
+            pid = top_product.get('product_id', '')
+            if pid:
+                import sys
+                print(f"[AUTO_CONFIRM] AI forgot confirm_part for {auto_confirm_category}, auto-confirming pid={pid}", flush=True, file=sys.stderr)
+                auto_result = handle_confirm_part(
+                    {'category': auto_confirm_category, 'product_id': pid},
+                    session, all_products
+                )
+                if auto_result.get('success'):
+                    confirmed_in_this_turn.append({
+                        'category': auto_confirm_category,
+                        'product_id': pid,
+                        'name': auto_result.get('product', ''),
+                        'price_min': auto_result.get('price_min'),
+                    })
+                    print(f"[AUTO_CONFIRM] Success: {auto_result.get('product', '')}", flush=True, file=sys.stderr)
 
         # 全パーツ確定チェック → AIがget_build_summaryを呼ばなかった場合、サーバー側で自動追加
         main_categories = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
