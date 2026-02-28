@@ -2256,8 +2256,14 @@ def handle_search_parts(params, all_products, session=None):
                       if ((p.get('specs') or {}).get('max_gpu_length_mm') or 0) >= params['min_gpu_length_mm']]
 
     if params.get('max_price'):
+        max_p = params['max_price']
         candidates = [p for p in candidates
-                      if not p.get('price_min') or p['price_min'] <= params['max_price']]
+                      if not p.get('price_min') or p['price_min'] <= max_p]
+        # GPU: 安すぎる製品を除外（max_price の 30% を下限とする）
+        if category == 'gpu':
+            floor_price = int(max_p * 0.3)
+            candidates = [p for p in candidates
+                          if p.get('price_min') and p['price_min'] >= floor_price]
 
     if params.get('min_vram_gb'):
         candidates = [p for p in candidates
@@ -2272,7 +2278,7 @@ def handle_search_parts(params, all_products, session=None):
     candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
     # 件数制限
-    limit = params.get('limit', 5)
+    limit = params.get('limit', 20)
     candidates = candidates[:limit]
 
     # 結果フォーマット
