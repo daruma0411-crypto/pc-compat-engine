@@ -782,100 +782,55 @@
   function updatePartsTable(build, budgetYen) {
     const CATEGORY_ORDER = ['GPU', 'CPU', 'RAM', 'MB', 'PSU', 'CASE'];
     const catMap = {};
-    
+
     for (const item of (build || [])) {
       const cat = normalizeCat(item.category);
       catMap[cat] = item;
     }
-    
-    let rowsHtml = '';
-    let confirmedCount = 0;
+
     let totalPrice = 0;
-    
+    let confirmedCount = 0;
+
     CATEGORY_ORDER.forEach(cat => {
       const item = catMap[cat];
-      const hasItem = !!item;
-      if (hasItem) confirmedCount++;
-      
-      const priceVal = item && (item.price_min || item.price_low);
-      const priceText = priceVal ? '¥' + Number(priceVal).toLocaleString() : '—';
-      if (priceVal) totalPrice += Number(priceVal);
-      
-      // 状態アイコン: ✅ 確定 / ⬜ 未選択
-      const statusIcon = hasItem ? '✅' : '⬜';
-      const statusTitle = hasItem ? '確定' : '未選択';
-      
-      const nameText = hasItem ? escHtml(item.name || '') : '（未選択）';
-      const nameClass = hasItem ? 'parts-name' : 'parts-name parts-name--empty';
-      // 確定済みパーツに「変更する」リンク
-      const changeLink = hasItem
-        ? `<span class="parts-change-link" onclick="resetPart('${cat.toLowerCase()}')" title="${escHtml(cat)}を変更する">変更</span>`
-        : '';
+      const valEl = document.getElementById('part-val-' + cat.toLowerCase());
+      const priceEl = document.getElementById('part-price-' + cat.toLowerCase());
+      if (!valEl || !priceEl) return;
 
-      rowsHtml += `<div class="parts-row">
-        <span class="parts-category">${cat}</span>
-        <span class="${nameClass}">${nameText}</span>
-        <span class="parts-price">${priceText}</span>
-        <span class="parts-status" title="${statusTitle}">${statusIcon}</span>
-        ${changeLink}
-      </div>`;
-    });
-    
-    const totalText = totalPrice > 0 ? '¥' + totalPrice.toLocaleString() : '—';
-    const progressPercent = (confirmedCount / CATEGORY_ORDER.length) * 100;
-    
-    let budgetHtml = '';
-    if (budgetYen && totalPrice > 0) {
-      const diff = budgetYen - totalPrice;
-      const diffAbs = Math.abs(diff);
-      if (diff < -10000) {
-        budgetHtml = `<div class="budget-warn">⚠️ 予算を ¥${diffAbs.toLocaleString()} 超過</div>`;
-      } else if (diff > 10000) {
-        budgetHtml = `<div class="budget-ok">✅ 予算内 ¥${diffAbs.toLocaleString()} の余裕</div>`;
+      if (item) {
+        confirmedCount++;
+        valEl.textContent = item.name || '';
+        valEl.className = 'parts-name';
+        const priceVal = item.price_min || item.price_low;
+        priceEl.textContent = priceVal ? '\u00a5' + Number(priceVal).toLocaleString() : '—';
+        if (priceVal) totalPrice += Number(priceVal);
       } else {
-        budgetHtml = `<div class="budget-ok">✅ 予算ぴったり</div>`;
+        valEl.textContent = '—';
+        valEl.className = 'parts-name parts-name--empty';
+        priceEl.textContent = '—';
       }
+    });
+
+    const totalEl = document.getElementById('part-total-price');
+    if (totalEl) {
+      totalEl.textContent = totalPrice > 0 ? '\u00a5' + totalPrice.toLocaleString() : '—';
     }
-    
-    let ctaHtml = '';
-    
-    // 画像生成済みかどうかで表示切り替え
+
+    // 画像生成エリア制御
     if (currentImageGenerated) {
-      ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
-        <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:8px;">✨ 構成完成＆イメージ生成済み！</div>
-        <div style="font-size:12px;color:var(--c-sub);margin-bottom:12px;">右の「完成イメージを見る」ボタンで画像を確認できます。</div>
-      </div>`;
       document.getElementById('image-area').style.display = 'block';
       document.getElementById('btn-generate-image').style.display = 'none';
       document.getElementById('generated-image-container').style.display = 'block';
       document.getElementById('purchase-area').style.display = 'block';
     } else if (confirmedCount === CATEGORY_ORDER.length) {
-      // 全パーツ確定、画像未生成
-      ctaHtml = `<div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--c-border);">
-        <div style="font-size:15px;font-weight:700;color:var(--c-ok);margin-bottom:8px;">🎉 構成完成！</div>
-        <div style="font-size:12px;color:var(--c-sub);margin-bottom:12px;">右の「完成イメージを見る」ボタンで完成イメージを生成できます。</div>
-      </div>`;
       document.getElementById('image-area').style.display = 'block';
       document.getElementById('btn-generate-image').style.display = 'block';
       document.getElementById('generated-image-container').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
     } else {
-      // 構成途中
-      const remaining = CATEGORY_ORDER.filter(c => !catMap[c]);
-      ctaHtml = `<div class="parts-progress">
-        <div class="progress-bar"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
-        <div style="margin-top:6px;font-size:12px;color:var(--c-muted);">
-          ${confirmedCount}/6 パーツ確定 | 残り: ${remaining.join(', ')}
-        </div>
-        <div style="margin-top:8px;font-size:12px;color:var(--c-sub);">🔧 残り ${remaining.length} カテゴリを選定中...</div>
-      </div>`;
       document.getElementById('image-area').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
     }
-    
-    document.getElementById('parts-list-content').innerHTML = rowsHtml + 
-      `<div class="parts-total">合計: ${totalText}${budgetYen ? ' / 予算 ¥' + budgetYen.toLocaleString() : ''}</div>` +
-      budgetHtml + ctaHtml;
   }
   
   // FLUX画像生成
