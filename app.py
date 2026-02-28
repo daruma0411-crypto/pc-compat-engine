@@ -2274,8 +2274,11 @@ def handle_search_parts(params, all_products, session=None):
         candidates = [p for p in candidates
                       if (p.get('specs') or {}).get('form_factor') == ff]
 
-    # ソート: price_min昇順（安い順）
-    candidates.sort(key=lambda p: p.get('price_min') or 999999)
+    # ソート: GPUは予算内で高性能順（price降順）、それ以外は安い順
+    if category == 'gpu':
+        candidates.sort(key=lambda p: p.get('price_min') or 0, reverse=True)
+    else:
+        candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
     # 件数制限
     limit = params.get('limit', 20)
