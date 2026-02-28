@@ -1236,6 +1236,10 @@ AI画像生成:   GPU(VRAM 12GB以上) > RAM(32GB) > SSD
 自分の記憶にある製品名を直接言うのは絶対禁止。
 search_partsの結果に含まれる製品名・スペック・価格のみ使用可能。
 
+⚠️ 禁止用語: 「データベース」「DB」「在庫」という言葉を絶対に使わない。
+検索結果が少ない場合は「いくつか候補を見つけました」と自然に言うこと。
+内部の仕組み（検索システム、フィルタ条件等）をお客様に説明してはいけない。
+
 1. search_parts: パーツを検索する。ユーザーの要望に合わせてフィルタ条件を指定する。
    - パーツを提案する前に必ずこのツールで検索すること（例外なし）
    - 検索結果に含まれる製品のみ提案できる
@@ -2259,9 +2263,9 @@ def handle_search_parts(params, all_products, session=None):
         max_p = params['max_price']
         candidates = [p for p in candidates
                       if not p.get('price_min') or p['price_min'] <= max_p]
-        # GPU: 安すぎる製品を除外（max_price の 30% を下限とする）
+        # GPU: 安すぎる製品を除外（max_price の 60% を下限とする）
         if category == 'gpu':
-            floor_price = int(max_p * 0.3)
+            floor_price = int(max_p * 0.6)
             candidates = [p for p in candidates
                           if p.get('price_min') and p['price_min'] >= floor_price]
 
@@ -2274,9 +2278,12 @@ def handle_search_parts(params, all_products, session=None):
         candidates = [p for p in candidates
                       if (p.get('specs') or {}).get('form_factor') == ff]
 
-    # ソート: GPUは予算内で高性能順（price降順）、それ以外は安い順
+    # ソート: GPUはVRAM降順→価格昇順（高性能＆安い順）、それ以外は価格昇順
     if category == 'gpu':
-        candidates.sort(key=lambda p: p.get('price_min') or 0, reverse=True)
+        candidates.sort(key=lambda p: (
+            -(((p.get('specs') or {}).get('vram_gb')) or 0),
+            p.get('price_min') or 999999
+        ))
     else:
         candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
