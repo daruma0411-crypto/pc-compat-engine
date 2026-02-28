@@ -2149,10 +2149,6 @@ SEARCH_PARTS_TOOL = {
             "form_factor": {
                 "type": "string",
                 "description": "フォームファクター（例: ATX, Micro-ATX）"
-            },
-            "limit": {
-                "type": "integer",
-                "description": "返す最大件数（デフォルト: 5）"
             }
         },
         "required": ["category"]
@@ -2228,11 +2224,25 @@ def handle_search_parts(params, all_products, session=None):
         if gpu.get('length_mm'):
             params['min_gpu_length_mm'] = gpu['length_mm']
 
+    # max_price自動補完: AIが指定し忘れた場合、budget_yenの50%を設定
+    if not params.get('max_price'):
+        budget = (session or {}).get('budget_yen')
+        if budget:
+            params['max_price'] = int(budget * 0.5)
+
     # カテゴリエイリアス対応
     if category == 'motherboard':
         candidates = [p for p in all_products if p.get('category') in ('motherboard', 'mb')]
     else:
         candidates = [p for p in all_products if p.get('category') == category]
+
+    # GPU: 業務用・HPC製品を除外
+    if category == 'gpu':
+        _WORKSTATION_KEYWORDS = ('H100', 'H200', 'A100', 'A800', 'L40',
+                                 'RTX PRO', 'Quadro', 'Tesla', 'FirePro')
+        candidates = [p for p in candidates
+                      if not any(kw in p.get('name', '') for kw in _WORKSTATION_KEYWORDS)
+                      and ((p.get('specs') or {}).get('vram_gb') or 0) <= 24]
 
     # フィルタ適用
     if params.get('socket'):
@@ -2287,9 +2297,8 @@ def handle_search_parts(params, all_products, session=None):
     else:
         candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
-    # 件数制限
-    limit = params.get('limit', 20)
-    candidates = candidates[:limit]
+    # 件数制限（固定20件。AIに件数を制御させない）
+    candidates = candidates[:20]
 
     # 結果フォーマット
     results = []
