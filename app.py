@@ -2264,6 +2264,16 @@ def handle_search_parts(params, all_products, session=None):
     else:
         candidates = [p for p in all_products if p.get('category') == category]
 
+    # RAM: SODIMM（ノートPC用）を除外、2枚組を優先
+    if category == 'ram':
+        candidates = [p for p in candidates
+                      if 'sodimm' not in p.get('name', '').lower()
+                      and 'so-dimm' not in p.get('name', '').lower()]
+        # 2枚組を先に、1枚売りを後ろに
+        kit_2 = [p for p in candidates if '2枚' in p.get('name', '')]
+        kit_1 = [p for p in candidates if '2枚' not in p.get('name', '')]
+        candidates = kit_2 + kit_1
+
     # GPU: 業務用・HPC製品を除外
     if category == 'gpu':
         _WORKSTATION_KEYWORDS = ('H100', 'H200', 'A100', 'A800', 'L40',
@@ -2315,6 +2325,10 @@ def handle_search_parts(params, all_products, session=None):
         ff = params['form_factor']
         candidates = [p for p in candidates
                       if (p.get('specs') or {}).get('form_factor') == ff]
+
+    # 価格データのない製品を除外（価格なし製品は提案不可）
+    # ケース等で price_min=None の製品が混入して異常価格になる問題を防止
+    candidates = [p for p in candidates if p.get('price_min') and p['price_min'] > 0]
 
     # ソート: GPUはVRAM降順→価格昇順（高性能＆安い順）、それ以外は価格昇順
     if category == 'gpu':
@@ -2473,6 +2487,10 @@ def handle_confirm_part(params, session, all_products):
         result['next_category'] = next_category
         result['next_candidates_count'] = next_candidates_count
         result['next_warning'] = next_warning
+    else:
+        # 全主要パーツが確定済み
+        result['all_main_parts_confirmed'] = True
+        result['instruction'] = '全パーツ確定！get_build_summaryツールを呼んでサマリーを表示してください。自分でサマリーを書かないこと。'
 
     return result
 
@@ -2973,7 +2991,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
     reset_parts_all = []
     recheck_parts_all = []
     tool_logs = []  # デバッグ用ツールログ
-    max_iterations = 100  # 無限ループ防止（長い会話でもツール呼び出しが途切れない）
+    max_iterations = 30  # 無限ループ防止（通常5-10回で完了）
 
     for _ in range(max_iterations):
         req_body = json.dumps({
@@ -3200,6 +3218,17 @@ def chat():
         # Function Calling型でClaude呼び出し
         ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs = \
             call_claude_with_tools(session, message, all_products, system_prompt)
+
+        # 全パーツ確定チェック → AIがget_build_summaryを呼ばなかった場合、サーバー側で自動追加
+        main_categories = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+        confirmed_count = sum(1 for cat in main_categories if session['current_build'].get(cat) is not None)
+        already_has_summary = any(t.get('tool') == 'get_build_summary' for t in tool_logs)
+        if confirmed_count >= len(main_categories) and not already_has_summary:
+            # AIがサマリーを呼ばなかった場合、サーバー側で自動生成して追記
+            import sys
+            print(f"[AUTO_SUMMARY] All {confirmed_count} main parts confirmed, auto-generating summary", flush=True, file=sys.stderr)
+            summary = generate_server_side_summary(session)
+            ai_message = (ai_message or '') + "\n\n" + summary
 
         # フロントエンド互換のレスポンス構築
         amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
