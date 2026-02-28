@@ -2838,6 +2838,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
     confirmed_in_this_turn = []
     reset_parts_all = []
     recheck_parts_all = []
+    tool_logs = []  # デバッグ用ツールログ
     max_iterations = 100  # 無限ループ防止（長い会話でもツール呼び出しが途切れない）
 
     for _ in range(max_iterations):
@@ -2887,12 +2888,17 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                 print(f"[TOOL_CALL] {block['name']} params={json.dumps(block['input'], ensure_ascii=False)}", flush=True, file=sys.stderr)
                 result = execute_tool(block['name'], block['input'], session, all_products)
                 # ツール結果のサマリーをログ出力
+                log_entry = {'tool': block['name'], 'params': block['input']}
                 if isinstance(result, dict) and 'results' in result:
-                    names = [r.get('name','')[:40] for r in result['results'][:5]]
-                    print(f"[TOOL_RESULT] {block['name']} count={result.get('count',0)} top5={names}", flush=True, file=sys.stderr)
+                    names = [{'name': r.get('name',''), 'price': r.get('price_min')} for r in result['results'][:10]]
+                    log_entry['result_count'] = result.get('count', 0)
+                    log_entry['top10'] = names
+                    print(f"[TOOL_RESULT] {block['name']} count={result.get('count',0)} top5={[n['name'][:40] for n in names[:5]]}", flush=True, file=sys.stderr)
                 else:
+                    log_entry['result'] = result
                     result_str = json.dumps(result, ensure_ascii=False)
                     print(f"[TOOL_RESULT] {block['name']} result={result_str[:300]}", flush=True, file=sys.stderr)
+                tool_logs.append(log_entry)
                 tool_results.append({
                     'type': 'tool_result',
                     'tool_use_id': block['id'],
@@ -2920,7 +2926,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
             ai_message += block.get('text', '')
 
     print(f"[AI_RESPONSE] len={len(ai_message)} text={ai_message[:200]}", flush=True, file=sys.stderr)
-    return ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all
+    return ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs
 
 
 @app.route('/api/chat', methods=['POST'])
@@ -2982,7 +2988,7 @@ def chat():
         )
 
         # Function Calling型でClaude呼び出し
-        ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all = \
+        ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs = \
             call_claude_with_tools(session, message, all_products, system_prompt)
 
         # フロントエンド互換のレスポンス構築
@@ -3048,6 +3054,10 @@ def chat():
         session['history'].append({'role': 'assistant', 'content': ai_message or ''})
         if len(session['history']) > 10:
             session['history'] = session['history'][-10:]
+
+        # デバッグ用ツールログ（tool_logsがあれば含める）
+        if tool_logs:
+            response_data['_debug_tool_logs'] = tool_logs
 
         return jsonify(response_data)
 
