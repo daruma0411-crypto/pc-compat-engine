@@ -2373,9 +2373,15 @@ def handle_search_parts(params, all_products, session=None):
         candidates = [p for p in candidates
                       if (p.get('specs') or {}).get('form_factor') == ff]
 
-    # 価格データのない製品を除外（価格なし製品は提案不可）
-    # ケース等で price_min=None の製品が混入して異常価格になる問題を防止
-    candidates = [p for p in candidates if p.get('price_min') and p['price_min'] > 0]
+    # 価格データのない製品・異常価格を除外
+    # kakaku_caseデータに「発売年（2014, 2017等）」がprice_minに混入している問題対策
+    _MIN_REASONABLE_PRICE = {
+        'gpu': 15000, 'cpu': 8000, 'motherboard': 5000, 'mb': 5000,
+        'ram': 2000, 'case': 3500, 'psu': 4000, 'cooler': 1000,
+    }
+    min_price = _MIN_REASONABLE_PRICE.get(category, 1000)
+    candidates = [p for p in candidates
+                  if p.get('price_min') and p['price_min'] >= min_price]
 
     # ソート: GPUはVRAM降順→価格昇順（高性能＆安い順）、それ以外は価格昇順
     if category == 'gpu':
