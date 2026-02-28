@@ -83,8 +83,9 @@ def run():
                "motherboard" in reset_cats, str(reset_cats))
     t2d = test("ram がリセット対象に含まれる",
                "ram" in reset_cats, str(reset_cats))
-    t2e = test("cooler がリセット対象に含まれる",
-               "cooler" in reset_cats, str(reset_cats))
+    # cooler は recheck（再確認フラグ）なので _reset_partial では reset_categories に含まれない仕様
+    t2e = test("cooler はリセット対象に含まれない（recheck のみ）",
+               "cooler" not in reset_cats, str(reset_cats))
     t2f = test("ai_message に連動リセット案内が含まれる",
                bool(r2.get("ai_message")), str(r2.get("ai_message")))
     results += [t2a, t2b, t2c, t2d, t2e, t2f]
