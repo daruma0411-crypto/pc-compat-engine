@@ -2056,23 +2056,37 @@ def _get_part_specs_from_db(part_name, category, all_products):
     target_cats = cat_aliases.get(category.lower(), (category.lower(),))
 
     name_lower = part_name.lower()
+    best = None
+    best_diff = None
     for p in all_products:
-        if p.get('category', '').lower() in target_cats:
-            if p.get('name', '').lower() == name_lower:
-                specs = p.get('specs', {}) or {}
-                return {
-                    'name': p['name'],
-                    'id': p.get('id'),
-                    'socket':           specs.get('socket'),
-                    'memory_type':      specs.get('memory_type'),
-                    'form_factor':      specs.get('form_factor'),
-                    'length_mm':        specs.get('length_mm'),
-                    'tdp_w':            specs.get('tdp_w'),
-                    'wattage_w':        specs.get('wattage_w'),
-                    'max_gpu_length_mm': specs.get('max_gpu_length_mm'),
-                    'capacity_gb':      specs.get('capacity_gb'),
-                    'vram_gb':          specs.get('vram_gb'),
-                }
+        if p.get('category', '').lower() not in target_cats:
+            continue
+        db_name = p.get('name', '').lower()
+        if db_name == name_lower:
+            # 完全一致：即返す
+            best = p
+            break
+        # 部分一致：AI名⊆DB名 または DB名⊆AI名
+        if name_lower in db_name or db_name in name_lower:
+            diff = abs(len(db_name) - len(name_lower))
+            if best_diff is None or diff < best_diff:
+                best = p
+                best_diff = diff
+    if best:
+        specs = best.get('specs', {}) or {}
+        return {
+            'name': best['name'],
+            'id': best.get('id'),
+            'socket':            specs.get('socket'),
+            'memory_type':       specs.get('memory_type'),
+            'form_factor':       specs.get('form_factor'),
+            'length_mm':         specs.get('length_mm'),
+            'tdp_w':             specs.get('tdp_w'),
+            'wattage_w':         specs.get('wattage_w'),
+            'max_gpu_length_mm': specs.get('max_gpu_length_mm'),
+            'capacity_gb':       specs.get('capacity_gb'),
+            'vram_gb':           specs.get('vram_gb'),
+        }
     # DBに見つからなかった場合は名前だけ返す
     return {'name': part_name}
 
