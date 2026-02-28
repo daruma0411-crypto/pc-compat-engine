@@ -2499,8 +2499,18 @@ def handle_confirm_part(params, session, all_products):
     if not product:
         return {'success': False, 'error': f'product_id {product_id} が見つかりません'}
 
-    specs = product.get('specs', {}) or {}
+    # カテゴリ一致チェック（PSUのIDでRAMを確定するなどの誤りを防止）
+    product_cat = product.get('category', '')
     norm_cat = category if category != 'mb' else 'motherboard'
+    if product_cat and product_cat not in (category, norm_cat, 'mb' if norm_cat == 'motherboard' else ''):
+        return {
+            'success': False,
+            'error': f'product_id {product_id} は {product_cat} の製品です。'
+                     f'{category} としては確定できません。'
+                     f'{category} 用の製品をsearch_partsで検索してください。'
+        }
+
+    specs = product.get('specs', {}) or {}
 
     # current_buildに登録
     build_entry = {
