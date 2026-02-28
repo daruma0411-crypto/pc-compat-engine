@@ -3109,7 +3109,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
 
     for _ in range(max_iterations):
         req_body = json.dumps({
-            'model': 'claude-haiku-4-5-20251001',
+            'model': 'claude-sonnet-4-5-20250929',
             'max_tokens': 2048,
             'system': system_prompt,
             'tools': FC_TOOLS,
