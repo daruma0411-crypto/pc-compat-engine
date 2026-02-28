@@ -2397,15 +2397,56 @@ def handle_confirm_part(params, session, all_products):
 
     session['recheck_flags'] = list(set(session.get('recheck_flags', []) + recheck_parts))
 
-    return {
+    # ── 次ステップ先読みチェック ──
+    _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+    cb = session['current_build']
+    next_category = None
+    for cat in _PART_ORDER:
+        if not cb.get(cat):
+            next_category = cat
+            break
+
+    next_candidates_count = None
+    next_warning = None
+    if next_category:
+        # 次カテゴリの検索パラメータを自動構築
+        preview_params = {'category': next_category}
+        if next_category == 'motherboard' and cb.get('cpu', {}) and cb['cpu'].get('socket'):
+            preview_params['socket'] = cb['cpu']['socket']
+        elif next_category == 'ram' and cb.get('motherboard', {}) and cb['motherboard'].get('memory_type'):
+            preview_params['memory_type'] = cb['motherboard']['memory_type']
+        elif next_category == 'case' and cb.get('gpu', {}) and cb['gpu'].get('length_mm'):
+            preview_params['min_gpu_length_mm'] = cb['gpu']['length_mm']
+        elif next_category == 'psu' and cb.get('gpu', {}) and cb['gpu'].get('tdp_w'):
+            preview_params['min_wattage'] = cb['gpu']['tdp_w'] + 200
+
+        # budget_yenがあればmax_priceも設定
+        budget = session.get('budget_yen')
+        if budget:
+            preview_params['max_price'] = int(budget * 0.5)
+
+        preview_result = handle_search_parts(preview_params, all_products, session=session)
+        next_candidates_count = preview_result.get('count', 0)
+        if next_candidates_count == 0:
+            next_warning = f'{next_category}の候補が0件です。Amazon検索を案内してください'
+        elif next_candidates_count <= 3:
+            next_warning = f'{next_category}の候補が{next_candidates_count}件しかありません'
+
+    result = {
         'success': True,
         'confirmed': category,
         'product': product['name'],
         'price_min': product.get('price_min'),
         'reset_parts': reset_parts,
         'recheck_parts': recheck_parts,
-        'current_build_summary': format_current_build_for_claude(session['current_build'], session.get('recheck_flags', []))
+        'current_build_summary': format_current_build_for_claude(session['current_build'], session.get('recheck_flags', [])),
     }
+    if next_category:
+        result['next_category'] = next_category
+        result['next_candidates_count'] = next_candidates_count
+        result['next_warning'] = next_warning
+
+    return result
 
 
 def execute_tool(tool_name, tool_input, session, all_products):
