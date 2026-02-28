@@ -2828,6 +2828,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
       ai_message: AIの最終テキスト応答
       confirmed_in_this_turn: このターンでconfirm_partされたパーツのリスト
     """
+    import sys
     messages = []
     for h in session['history'][-10:]:
         if h.get('role') in ('user', 'assistant'):
@@ -2883,7 +2884,15 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                     'name': block['name'],
                     'input': block['input'],
                 })
+                print(f"[TOOL_CALL] {block['name']} params={json.dumps(block['input'], ensure_ascii=False)}", flush=True, file=sys.stderr)
                 result = execute_tool(block['name'], block['input'], session, all_products)
+                # ツール結果のサマリーをログ出力
+                if isinstance(result, dict) and 'results' in result:
+                    names = [r.get('name','')[:40] for r in result['results'][:5]]
+                    print(f"[TOOL_RESULT] {block['name']} count={result.get('count',0)} top5={names}", flush=True, file=sys.stderr)
+                else:
+                    result_str = json.dumps(result, ensure_ascii=False)
+                    print(f"[TOOL_RESULT] {block['name']} result={result_str[:300]}", flush=True, file=sys.stderr)
                 tool_results.append({
                     'type': 'tool_result',
                     'tool_use_id': block['id'],
@@ -2910,6 +2919,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
         if block.get('type') == 'text':
             ai_message += block.get('text', '')
 
+    print(f"[AI_RESPONSE] len={len(ai_message)} text={ai_message[:200]}", flush=True, file=sys.stderr)
     return ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all
 
 
