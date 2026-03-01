@@ -169,7 +169,7 @@
     if (!cat) return '';
     const map = {
       'ケース': 'CASE', 'case': 'CASE', 'Case': 'CASE',
-      'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB', 'mb': 'MB', 'MB': 'MB',
+      'マザーボード': 'MB', 'motherboard': 'MB', 'Motherboard': 'MB', 'MOTHERBOARD': 'MB', 'mb': 'MB', 'MB': 'MB',
       '電源': 'PSU', 'psu': 'PSU', 'Psu': 'PSU', 'PSU': 'PSU', 'power_supply': 'PSU',
       'cpu': 'CPU', 'Cpu': 'CPU', 'CPU': 'CPU',
       'gpu': 'GPU', 'Gpu': 'GPU', 'GPU': 'GPU',
@@ -237,13 +237,12 @@
         // 常にメッセージをチャットバブルとして表示
         appendAIBubble(data.message || '少し詳しく教えてください。');
 
-        // current_buildから右パネルを常に同期（全カテゴリ網羅）
+        // current_buildから右パネルを常に同期（全カテゴリ・毎回再描画）
         const cb = data.current_build || {};
         const CB_CAT_MAP = {
           gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
           ram: 'RAM', case: 'CASE', psu: 'PSU', cooler: 'COOLER',
         };
-        let buildChanged = false;
         for (const [key, val] of Object.entries(cb)) {
           const cat = CB_CAT_MAP[key];
           if (!cat) continue;
@@ -251,7 +250,7 @@
           if (val && val.name) {
             const entry = {
               name: val.name,
-              category: key.toUpperCase(),
+              category: cat,
               reason: '',
               price_range: val.price_min ? ('¥' + Number(val.price_min).toLocaleString()) : '',
               price_min: val.price_min || 0,
@@ -263,16 +262,12 @@
             } else {
               confirmedParts.push(entry);
             }
-            buildChanged = true;
           } else if (idx >= 0) {
             // サーバー側でリセットされたパーツを除去
             confirmedParts.splice(idx, 1);
-            buildChanged = true;
           }
         }
-        if (buildChanged) {
-          updateDashboardFromConfirmedParts();
-        }
+        updateDashboardFromConfirmedParts();
 
         // 修正6: reset_parts処理（互換性が破れたパーツをリセット）
         const resetParts = data.reset_parts || [];

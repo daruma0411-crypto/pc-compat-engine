@@ -1143,6 +1143,7 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 
 【ステップ6: ケースを提案する】
 
+★ 返答の冒頭は必ず「【ケース】」で始めること。例: 「【ケース】おすすめ：...」
 ★ 即座にsearch_parts(min_gpu_length_mm=GPU長さ)で検索→提案。
 ★ max_priceは指定不要（バックエンドが自動設定する）。
 ★ ユーザーが選んだら、必ずconfirm_partを呼ぶこと。
@@ -1368,7 +1369,8 @@ GPU → CPU → マザーボード → メモリ → ケース → 電源 → SS
 - 通常の日本語テキストで返答する（JSON不要）
 - ツールで検索・確定を行い、テキストでユーザーと会話する
 - 提案時は必ずsearch_partsの結果に含まれる製品名と価格を正確に引用する
-- 提案メッセージの冒頭に必ず【カテゴリ名】を付けること（例: 「【ケース】おすすめ：...」「【電源】おすすめ：...」）
+- 提案メッセージの冒頭に必ず【カテゴリ名】を付けること。これは全カテゴリで例外なく必須。
+  GPU→【GPU】、CPU→【CPU】、MB→【マザーボード】、RAM→【メモリ】、ケース→【ケース】、電源→【電源】
 - 自分で合計金額やサマリーテーブルを書かない（get_build_summaryを使う）
 - get_build_summaryの出力は一字一句そのまま使う。書き換え・省略・独自追加は禁止
 """
@@ -3433,8 +3435,18 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
             method='POST',
         )
 
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            resp_data = json.loads(resp.read().decode('utf-8'))
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                resp_data = json.loads(resp.read().decode('utf-8'))
+        except urllib.error.HTTPError as api_err:
+            err_body = api_err.read().decode('utf-8', errors='replace')
+            print(f"[CLAUDE_API_ERROR] HTTP {api_err.code}: {err_body[:500]}", flush=True, file=sys.stderr)
+            try:
+                err_json = json.loads(err_body)
+                err_msg = err_json.get('error', {}).get('message', err_body[:200])
+            except Exception:
+                err_msg = err_body[:200]
+            raise RuntimeError(f"AI API エラー (HTTP {api_err.code}): {err_msg}")
 
         stop_reason = resp_data.get('stop_reason', '')
         content_blocks = resp_data.get('content', [])
