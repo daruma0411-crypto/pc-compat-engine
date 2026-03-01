@@ -14,6 +14,9 @@ anthropic>=0.40.0
 # ── HTML Parser ──────────────────────────────────────
 beautifulsoup4>=4.12.0
 
+# ── Session Store ───────────────────────────────────
+redis>=5.0.0
+
 # ── Utilities ────────────────────────────────────────
 python-dotenv>=1.0.0
 requests>=2.32.0

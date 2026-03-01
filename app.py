@@ -29,10 +29,27 @@ app = Flask(__name__, static_folder='static')
 _PC_WORKSPACE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace')
 
 # ================================================================
-# セッションストレージ（メモリ内）
+# セッションストレージ（Redis / フォールバック: メモリ内）
 # ================================================================
-# セッションIDまたはchat_idをキーとして、各セッションの状態を保持
-# 構造: {session_id: {'confirmed_parts': {...}, 'history': [...]}}
+_SESSION_TTL = 1800  # 30分
+
+import sys as _sys
+
+_redis_client = None
+_REDIS_URL = os.environ.get('REDIS_URL', '')
+if _REDIS_URL:
+    try:
+        import redis
+        _redis_client = redis.from_url(_REDIS_URL, decode_responses=True)
+        _redis_client.ping()
+        print("[SESSION] Redis connected", flush=True, file=_sys.stderr)
+    except Exception as _e:
+        print(f"[SESSION] Redis connect failed: {_e}, falling back to memory", flush=True, file=_sys.stderr)
+        _redis_client = None
+else:
+    print("[SESSION] No REDIS_URL, using in-memory sessions", flush=True, file=_sys.stderr)
+
+# インメモリ フォールバック
 _SESSIONS = {}
 
 # ================================================================
@@ -2083,33 +2100,52 @@ def _format_products_for_claude(products_dict):
     return '\n'.join(lines)
 
 
+def _new_session_dict():
+    """空のセッション辞書を返す"""
+    return {
+        'confirmed_parts': {},
+        'current_build': {
+            'cpu': None, 'gpu': None, 'motherboard': None,
+            'ram': None, 'case': None, 'psu': None, 'cooler': None,
+        },
+        'recheck_flags': [],
+        'last_search_results': [],
+        'last_search_category': None,
+        'history': [],
+        'stage': 'hearing',
+        'budget_yen': None,
+        'resolution': None,
+        'quality': None,
+        'game_name': None,
+        'fps_target': None,
+    }
+
+
 def get_or_create_session(session_id):
-    """セッションを取得または作成する"""
-    if session_id not in _SESSIONS:
-        _SESSIONS[session_id] = {
-            'confirmed_parts': {},  # {category: part_name} の形式
-            # current_build: スペック付きの現在構成（依存関係チェック用）
-            'current_build': {
-                'cpu':         None,  # {name, socket, tdp_w, user_specified}
-                'gpu':         None,  # {name, length_mm, tdp_w, user_specified}
-                'motherboard': None,  # {name, socket, memory_type, form_factor, user_specified}
-                'ram':         None,  # {name, memory_type, capacity_gb, user_specified}
-                'case':        None,  # {name, max_gpu_length_mm, form_factor, user_specified}
-                'psu':         None,  # {name, wattage_w, user_specified}
-                'cooler':      None,  # {name, user_specified}
-            },
-            'recheck_flags': [],    # 再チェックが必要なカテゴリ
-            'last_search_results': [],  # 直近のsearch_parts結果（product_id保持用）
-            'last_search_category': None,  # 直近の検索カテゴリ
-            'history': [],          # 会話履歴（直近100メッセージを保持）
-            'stage': 'hearing',     # 'hearing' or 'recommending'
-            'budget_yen': None,     # 抽出した予算
-            'resolution': None,     # 抽出した解像度
-            'quality': None,        # 抽出した画質
-            'game_name': None,      # 抽出したゲーム名
-            'fps_target': None      # 抽出したFPS目標
-        }
-    return _SESSIONS[session_id]
+    """セッションを取得または作成する（Redis優先、フォールバック: メモリ）"""
+    if _redis_client:
+        key = f'sess:{session_id}'
+        raw = _redis_client.get(key)
+        if raw:
+            session = json.loads(raw)
+            _SESSIONS[session_id] = session  # ローカルキャッシュ
+            return session
+        # 新規作成
+        session = _new_session_dict()
+        _redis_client.setex(key, _SESSION_TTL, json.dumps(session, ensure_ascii=False))
+        _SESSIONS[session_id] = session
+        return session
+    else:
+        if session_id not in _SESSIONS:
+            _SESSIONS[session_id] = _new_session_dict()
+        return _SESSIONS[session_id]
+
+
+def save_session(session_id):
+    """セッションをRedisに書き戻す（TTLリセット）"""
+    if _redis_client and session_id in _SESSIONS:
+        key = f'sess:{session_id}'
+        _redis_client.setex(key, _SESSION_TTL, json.dumps(_SESSIONS[session_id], ensure_ascii=False))
 
 
 def _get_part_specs_from_db(part_name, category, all_products):
@@ -3452,6 +3488,9 @@ def chat():
         response_data['_debug_tool_logs'] = tool_logs
         response_data['_code_version'] = 'v2-tool-logs'
 
+        # セッションをRedisに保存（TTLリセット）
+        save_session(session_id)
+
         return jsonify(response_data)
 
     except Exception as e:
@@ -3483,6 +3522,9 @@ def api_reset():
             result   = _reset_partial(session, category)
         else:
             return jsonify({'error': 'Invalid reset type'}), 400
+
+        # セッションをRedisに保存（TTLリセット）
+        save_session(session_id)
 
         return jsonify(result)
 
