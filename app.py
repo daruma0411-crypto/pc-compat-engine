@@ -2418,6 +2418,15 @@ def handle_search_parts(params, all_products, session=None):
     """AIからのツール呼び出しを処理してDB検索結果を返す。"""
     category = params['category']
 
+    # ── user_specified=true なのに name が未指定なら拒否 ──
+    if params.get('user_specified') and not params.get('name'):
+        return {
+            'results': [],
+            'error': f'⚠️ user_specified=trueの場合、nameパラメータに型番キーワードを指定してください。'
+                     f'例: search_parts(category="{category}", name="7600X", user_specified=true)',
+            'action_required': 'add name parameter'
+        }
+
     # ── 前のカテゴリが未確定なら拒否（confirm_part呼び忘れ防止）──
     # ただし user_specified=true（ユーザーが型番指定）の場合はスキップ
     _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
