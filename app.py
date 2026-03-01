@@ -1052,10 +1052,11 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 ヒアリングで「予算」と「こだわり（画質/fps等）」の両方を把握する。
 
 パターンA: 予算が先に決まった場合（例:「モンハン、20万」）
-→ 予算配分で各パーツの上限を決めてからsearch_partsを呼ぶ
-→ GPU: 40%, CPU: 15%, MB: 10%, RAM: 7%, Case: 8%, PSU: 5%, SSD: 8%, Cooler: 3%
-→ search_partsのmax_priceに配分額を指定して検索
+→ search_partsをmax_price指定なしで呼ぶ（バックエンドが予算ティア別に自動計算する）
+→ 確定済みパーツの価格は自動で差し引かれ、残額が未確定パーツに正規化配分される
+→ ⚠️ max_priceを自分で計算して渡さないこと。バックエンドに任せる
 → 候補を出した後に「この予算だとFHD最高画質いけますよ」と教える
+→ ⚠️ 予算を有効活用する: 候補の中から予算帯に見合う高性能な製品を推奨すること。最安ではなくコスパ最適を選ぶ
 
 パターンB: こだわりが先に決まった場合（例:「モンハン4K最高144fps」）
 → 要望スペックを満たすパーツを積み上げる（予算制限なし）
@@ -1094,7 +1095,8 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 【ステップ2: GPUを提案する】
 
 ★ 必ずsearch_partsで検索してから提案する。自分の知識で製品名を出さない。
-★ パターンAなら max_price=予算×40% で検索。
+★ max_priceは指定不要（バックエンドが予算ティア別に自動設定する）。
+★ 検索結果から予算帯に見合う高性能な製品を推奨する（最安ではなくコスパ最適を選ぶ）。
 
 提案の型:
   「[検索結果1番目の製品名]（¥XX,XXX）をおすすめします。
@@ -1111,19 +1113,19 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 【ステップ3: CPUを提案する】
 
 ★ GPUが確定したら、即座にsearch_partsでCPU検索→提案。追加質問は不要。
-★ パターンAなら max_price=予算×15% で検索。
+★ max_priceは指定不要（バックエンドが自動設定する）。
 ★ ユーザーが選んだら、必ずconfirm_partを呼ぶこと。
 
 【ステップ4: マザーボードを提案する】
 
 ★ CPU確定後、即座にsearch_parts(socket=CPUのソケット)で検索→提案。追加質問は不要。
-★ パターンAなら max_price=予算×10% で検索。
+★ max_priceは指定不要（バックエンドが自動設定する）。
 ★ ユーザーが選んだら、必ずconfirm_partを呼ぶこと。
 
 【ステップ5: メモリを提案する】
 
 ★ MB確定後、即座にsearch_parts(memory_type=MBのメモリタイプ)で検索→提案。
-★ パターンAなら max_price=予算×7% で検索。
+★ max_priceは指定不要（バックエンドが自動設定する）。
 ⚠️ デュアルチャネル必須: メモリは必ず2枚組で提案すること（シングル1枚は絶対NG）。
 - ゲーム → 16GB（8GB×2）or 32GB（16GB×2）
 - 動画編集 → 32GB（16GB×2）以上
@@ -1133,7 +1135,7 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 【ステップ6: ケースを提案する】
 
 ★ 即座にsearch_parts(min_gpu_length_mm=GPU長さ)で検索→提案。
-★ パターンAなら max_price=予算×8% で検索。
+★ max_priceは指定不要（バックエンドが自動設定する）。
 ★ ユーザーが選んだら、必ずconfirm_partを呼ぶこと。
 
 【ステップ7: 電源を提案する】
@@ -2535,19 +2537,37 @@ def handle_search_parts(params, all_products, session=None):
                   if p.get('price_min') and p['price_min'] >= min_price]
 
     # ソート
-    # GPU: VRAM降順→価格昇順、RAM: 容量降順→価格昇順、その他: 価格昇順
-    if category == 'ram':
-        candidates.sort(key=lambda p: (
-            -(((p.get('specs') or {}).get('capacity_gb')) or 0),
-            p.get('price_min') or 999999
-        ))
-    elif category == 'gpu':
-        candidates.sort(key=lambda p: (
-            -(((p.get('specs') or {}).get('vram_gb')) or 0),
-            p.get('price_min') or 999999
-        ))
+    # 予算あり（max_price設定済み）→ 価格降順（予算を活用して高性能品を先頭に）
+    # 予算なし → 従来通り（GPU: VRAM降順、RAM: 容量降順、他: 価格昇順）
+    has_budget = bool(params.get('max_price'))
+    if has_budget:
+        # 予算モード: 高い順→AIが1番目を推奨→予算帯に見合う高性能品が選ばれる
+        if category == 'gpu':
+            candidates.sort(key=lambda p: (
+                -(((p.get('specs') or {}).get('vram_gb')) or 0),
+                -(p.get('price_min') or 0)
+            ))
+        elif category == 'ram':
+            candidates.sort(key=lambda p: (
+                -(((p.get('specs') or {}).get('capacity_gb')) or 0),
+                -(p.get('price_min') or 0)
+            ))
+        else:
+            candidates.sort(key=lambda p: -(p.get('price_min') or 0))
     else:
-        candidates.sort(key=lambda p: p.get('price_min') or 999999)
+        # 予算なし: 従来ソート
+        if category == 'ram':
+            candidates.sort(key=lambda p: (
+                -(((p.get('specs') or {}).get('capacity_gb')) or 0),
+                p.get('price_min') or 999999
+            ))
+        elif category == 'gpu':
+            candidates.sort(key=lambda p: (
+                -(((p.get('specs') or {}).get('vram_gb')) or 0),
+                p.get('price_min') or 999999
+            ))
+        else:
+            candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
     # 件数制限（5件に絞る。多すぎるとAIが混乱してproduct_idを間違える）
     candidates = candidates[:5]
