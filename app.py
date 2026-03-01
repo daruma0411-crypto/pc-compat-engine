@@ -3755,7 +3755,7 @@ def chat():
 
         # デバッグ用ツールログ（常に含める）
         response_data['_debug_tool_logs'] = tool_logs
-        response_data['_code_version'] = 'v4-summary-compat'
+        response_data['_code_version'] = 'v5-individual-links'
 
         # セッションをRedisに保存（TTLリセット）
         save_session(session_id)
