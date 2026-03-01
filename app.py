@@ -1082,7 +1082,11 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
   → パターンB or C。予算の有無で分岐
 
 入力にパーツ型番がある場合:
-  → ヒアリング不要。即座にuser_specifiedとして確定し、残りパーツの相談へ
+  → ヒアリング不要。即座にsearch_parts(category=..., user_specified=true)で検索し、
+    該当製品のproduct_idでconfirm_part(category=..., product_id=..., user_specified=true)を呼ぶ。
+  → PART_ORDER（GPU→CPU→MB→RAM→Case→PSU）の順序に関係なく、指定パーツを先に確定してよい。
+  → 例: ユーザーが「Ryzen 5 7600X」と言った場合、GPUが未確定でもCPUを先にsearch+confirmする。
+  → 確定後、残りパーツをPART_ORDER順で提案する。
 
 入力が曖昧な場合（「ゲーミングPC組みたい」等）:
   → 「何に一番使いますか？」と「予算は？」の2つだけ聞く。それ以外は聞かない。
@@ -2252,6 +2256,10 @@ SEARCH_PARTS_TOOL = {
             "form_factor": {
                 "type": "string",
                 "description": "フォームファクター（例: ATX, Micro-ATX）"
+            },
+            "user_specified": {
+                "type": "boolean",
+                "description": "ユーザーが型番を明示指定した場合true。trueの場合、PART_ORDER順序チェックをスキップする"
             }
         },
         "required": ["category"]
@@ -2271,6 +2279,10 @@ CONFIRM_PART_TOOL = {
             "product_id": {
                 "type": "string",
                 "description": "search_partsの結果に含まれるproduct_id"
+            },
+            "user_specified": {
+                "type": "boolean",
+                "description": "ユーザーが型番を明示指定した場合true"
             }
         },
         "required": ["category", "product_id"]
@@ -2319,9 +2331,10 @@ def handle_search_parts(params, all_products, session=None):
     category = params['category']
 
     # ── 前のカテゴリが未確定なら拒否（confirm_part呼び忘れ防止）──
+    # ただし user_specified=true（ユーザーが型番指定）の場合はスキップ
     _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
     cb = (session or {}).get('current_build') or {}
-    if category in _PART_ORDER:
+    if category in _PART_ORDER and not params.get('user_specified'):
         cat_idx = _PART_ORDER.index(category)
         for prev_cat in _PART_ORDER[:cat_idx]:
             if cb.get(prev_cat) is None:
@@ -2352,7 +2365,8 @@ def handle_search_parts(params, all_products, session=None):
             params['min_gpu_length_mm'] = gpu['length_mm']
 
     # max_price自動補完: AIが指定し忘れた場合、予算配分比率で設定
-    if not params.get('max_price'):
+    # user_specified=trueの場合はスキップ（型番指定なら予算制限不要）
+    if not params.get('max_price') and not params.get('user_specified'):
         budget = (session or {}).get('budget_yen')
         if budget:
             _BUDGET_RATIO = {
@@ -2552,7 +2566,7 @@ def handle_confirm_part(params, session, all_products):
     # current_buildに登録
     build_entry = {
         'name': product['name'],
-        'user_specified': True,
+        'user_specified': bool(params.get('user_specified', False)),
         'id': product_id,
     }
     # カテゴリ別にスペックをコピー
