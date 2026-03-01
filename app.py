@@ -451,7 +451,7 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
     )
 
     req_body = json.dumps({
-        'model': 'claude-haiku-4-5-20251001',
+        'model': 'claude-sonnet-4-5-20250929',
         'max_tokens': 1024,
         'system': _PC_DIAGNOSIS_SYSTEM_PROMPT,
         'messages': [{'role': 'user', 'content': user_message}],
@@ -1401,7 +1401,7 @@ def _extract_parts_with_claude(message: str, history: list) -> dict:
     messages.append({'role': 'user', 'content': message})
 
     req_body = json.dumps({
-        'model': 'claude-haiku-4-5-20251001',
+        'model': 'claude-sonnet-4-5-20250929',
         'max_tokens': 512,
         'system': _EXTRACT_SYSTEM_PROMPT,
         'messages': messages,
@@ -1680,7 +1680,7 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     )
 
     build_body = json.dumps({
-        'model': 'claude-haiku-4-5-20251001',
+        'model': 'claude-sonnet-4-5-20250929',
         'max_tokens': 1000,
         'messages': [{'role': 'user', 'content': build_prompt}]
     }).encode('utf-8')
@@ -3069,7 +3069,7 @@ def format_history(history):
 def call_claude_chat(system, messages):
     """Claude APIを呼び出してチャット応答を取得する"""
     req_body = json.dumps({
-        'model': 'claude-haiku-4-5-20251001',
+        'model': 'claude-sonnet-4-5-20250929',
         'max_tokens': 2000,
         'system': system,
         'messages': messages,
@@ -4005,7 +4005,7 @@ def recommend():
             '{"game_name":"ゲーム名","budget_yen":予算数値またはnull,"fps_target":"60fps"または"144fps"またはnull}'
         )
         extract_body = json.dumps({
-            'model': 'claude-haiku-4-5-20251001',
+            'model': 'claude-sonnet-4-5-20250929',
             'max_tokens': 200,
             'messages': [{'role': 'user', 'content': extract_prompt}]
         }).encode('utf-8')
@@ -4158,7 +4158,7 @@ def recommend():
             '"tip":"追加アドバイス1文"}'
         )
         build_body = json.dumps({
-            'model': 'claude-haiku-4-5-20251001',
+            'model': 'claude-sonnet-4-5-20250929',
             'max_tokens': 1500,  # 8カテゴリフル構成対応（元800→1500）
             'temperature': 0.3,  # Phase 2-3: 再現性向上（ブレを抑制）
             'messages': [{'role': 'user', 'content': build_prompt}]
