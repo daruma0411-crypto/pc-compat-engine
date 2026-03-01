@@ -2325,6 +2325,86 @@ GET_BUILD_SUMMARY_TOOL = {
 
 FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL]
 
+# ── ティア別予算配分テーブル（PCPartPicker/chimolog/jisaku.com実データ準拠）──
+_BUDGET_TIERS = {
+    'entry': {  # ≤12万
+        'gpu': 0.40, 'cpu': 0.16, 'motherboard': 0.11, 'ram': 0.12, 'case': 0.08, 'psu': 0.09,
+    },
+    'mid': {  # 12-18万
+        'gpu': 0.40, 'cpu': 0.19, 'motherboard': 0.10, 'ram': 0.11, 'case': 0.07, 'psu': 0.08,
+    },
+    'performance': {  # 18-25万
+        'gpu': 0.42, 'cpu': 0.17, 'motherboard': 0.10, 'ram': 0.10, 'case': 0.06, 'psu': 0.07,
+    },
+    'highend': {  # >25万
+        'gpu': 0.45, 'cpu': 0.17, 'motherboard': 0.09, 'ram': 0.08, 'case': 0.06, 'psu': 0.06,
+    },
+}
+
+_MIN_MAX_PRICE = {
+    'gpu': 20000, 'cpu': 10000, 'motherboard': 8000,
+    'ram': 10000, 'case': 8000, 'psu': 6000,
+}
+
+
+def _get_budget_tier(budget_yen):
+    """予算額からティアを判定"""
+    if budget_yen <= 120000:
+        return 'entry'
+    elif budget_yen <= 180000:
+        return 'mid'
+    elif budget_yen <= 250000:
+        return 'performance'
+    else:
+        return 'highend'
+
+
+def _compute_budget_max_price(category, session):
+    """確定パーツの価格を差し引き、残額をティア別比率で配分してmax_priceを返す。
+    budget_yenが無い場合はNone（max_price適用なし）。
+    """
+    budget = (session or {}).get('budget_yen')
+    if not budget:
+        return None
+
+    tier = _get_budget_tier(budget)
+    ratios = _BUDGET_TIERS[tier]
+
+    # このカテゴリの比率が無い場合はNone
+    if category not in ratios:
+        return None
+
+    cb = (session or {}).get('current_build') or {}
+    _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+
+    # 確定パーツの価格合計と、確定済みカテゴリの比率合計を算出
+    confirmed_cost = 0
+    confirmed_ratio_sum = 0.0
+    for cat in _PART_ORDER:
+        part = cb.get(cat)
+        if part and part.get('price_min'):
+            confirmed_cost += part['price_min']
+            confirmed_ratio_sum += ratios.get(cat, 0)
+
+    remaining_budget = max(budget - confirmed_cost, 0)
+
+    # 未確定カテゴリの比率合計
+    unconfirmed_ratio_sum = 0.0
+    for cat in _PART_ORDER:
+        if not cb.get(cat):
+            unconfirmed_ratio_sum += ratios.get(cat, 0)
+
+    # 正規化比率（未確定比率合計で割って1.0にスケール）
+    if unconfirmed_ratio_sum > 0:
+        normalized_ratio = ratios[category] / unconfirmed_ratio_sum
+    else:
+        normalized_ratio = ratios[category]
+
+    computed = int(remaining_budget * normalized_ratio)
+
+    # 最低max_price保証
+    return max(computed, _MIN_MAX_PRICE.get(category, 0))
+
 
 def handle_search_parts(params, all_products, session=None):
     """AIからのツール呼び出しを処理してDB検索結果を返す。"""
@@ -2364,20 +2444,12 @@ def handle_search_parts(params, all_products, session=None):
         if gpu.get('length_mm'):
             params['min_gpu_length_mm'] = gpu['length_mm']
 
-    # max_price自動補完: AIが指定し忘れた場合、予算配分比率で設定
+    # max_price自動補完: AIが指定し忘れた場合、ティア別予算配分で設定
     # user_specified=trueの場合はスキップ（型番指定なら予算制限不要）
     if not params.get('max_price') and not params.get('user_specified'):
-        budget = (session or {}).get('budget_yen')
-        if budget:
-            _BUDGET_RATIO = {
-                'gpu': 0.45, 'cpu': 0.18, 'motherboard': 0.12, 'mb': 0.12,
-                'ram': 0.12, 'case': 0.10, 'psu': 0.08, 'ssd': 0.10, 'cooler': 0.05,
-            }
-            ratio = _BUDGET_RATIO.get(category, 0.15)
-            computed = int(budget * ratio)
-            # 最低max_priceを保証（安すぎると不適切な結果が出る）
-            _MIN_MAX_PRICE = {'ram': 10000, 'case': 8000, 'psu': 6000}
-            params['max_price'] = max(computed, _MIN_MAX_PRICE.get(category, 0))
+        tier_max_price = _compute_budget_max_price(category, session)
+        if tier_max_price is not None:
+            params['max_price'] = tier_max_price
 
     # カテゴリエイリアス対応
     if category == 'motherboard':
@@ -2627,10 +2699,10 @@ def handle_confirm_part(params, session, all_products):
         elif next_category == 'psu' and cb.get('gpu', {}) and cb['gpu'].get('tdp_w'):
             preview_params['min_wattage'] = cb['gpu']['tdp_w'] + 200
 
-        # budget_yenがあればmax_priceも設定
-        budget = session.get('budget_yen')
-        if budget:
-            preview_params['max_price'] = int(budget * 0.5)
+        # budget_yenがあればティア別予算配分でmax_priceを設定
+        tier_price = _compute_budget_max_price(next_category, session)
+        if tier_price is not None:
+            preview_params['max_price'] = tier_price
 
         preview_result = handle_search_parts(preview_params, all_products, session=session)
         next_candidates_count = preview_result.get('count', 0)
