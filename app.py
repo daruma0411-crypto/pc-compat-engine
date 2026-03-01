@@ -3199,6 +3199,112 @@ def generate_server_side_summary(session):
     if missing:
         lines.append(f"\n⏳ 未選択: {', '.join(missing)}")
 
+    # ── 互換性チェックセクション ──
+    compat_lines = []
+
+    # 1. CPU-MB ソケット
+    cpu_part = build.get('cpu') or {}
+    mb_part  = build.get('motherboard') or {}
+    cpu_socket = cpu_part.get('socket', '')
+    mb_socket  = mb_part.get('socket', '')
+    if cpu_socket and mb_socket:
+        if cpu_socket.upper() == mb_socket.upper():
+            compat_lines.append(f"✅ CPUソケット: {cpu_socket} 一致")
+        else:
+            compat_lines.append(f"❌ CPUソケット: {cpu_socket} vs {mb_socket} 不一致")
+    elif cpu_part.get('name') and mb_part.get('name'):
+        compat_lines.append("⚠️ CPUソケット: データ不足")
+
+    # 2. MB-RAM DDR世代
+    ram_part = build.get('ram') or {}
+    ram_type_raw = ram_part.get('memory_type', '')
+    ram_type = ram_type_raw[0] if isinstance(ram_type_raw, list) else str(ram_type_raw)
+    mb_mem_raw = mb_part.get('memory_type', '')
+    mb_types = ([t.upper() for t in mb_mem_raw] if isinstance(mb_mem_raw, list)
+                else ([str(mb_mem_raw).upper()] if mb_mem_raw else []))
+    if ram_type and mb_types:
+        if ram_type.upper() in mb_types:
+            compat_lines.append(f"✅ メモリ規格: {ram_type} 一致")
+        else:
+            compat_lines.append(f"❌ メモリ規格: {ram_type} vs {mb_mem_raw} 不一致")
+    elif ram_part.get('name') and mb_part.get('name'):
+        compat_lines.append("⚠️ メモリ規格: データ不足")
+
+    # 3. GPU-ケース長さ
+    gpu_part  = build.get('gpu') or {}
+    case_part = build.get('case') or {}
+    gpu_len_raw  = gpu_part.get('length_mm')
+    case_max_raw = case_part.get('max_gpu_length_mm')
+    if gpu_len_raw is not None and case_max_raw is not None:
+        try:
+            gpu_len  = float(str(gpu_len_raw).replace('mm', '').strip())
+            case_max = float(str(case_max_raw).replace('mm', '').strip())
+            margin = case_max - gpu_len
+            if margin <= 0:
+                compat_lines.append(f"❌ GPU物理干渉: {gpu_len:.0f}mm / {case_max:.0f}mm（{abs(margin):.0f}mmオーバー）")
+            else:
+                compat_lines.append(f"✅ GPU物理干渉: {gpu_len:.0f}mm / {case_max:.0f}mm（余裕{margin:.0f}mm）")
+        except (ValueError, TypeError):
+            compat_lines.append("⚠️ GPU物理干渉: データ不足")
+    elif gpu_part.get('name') and case_part.get('name'):
+        compat_lines.append("⚠️ GPU物理干渉: データ不足")
+
+    # 4. 電源容量
+    psu_part = build.get('psu') or {}
+    psu_w_raw = psu_part.get('wattage_w')
+    gpu_tdp_raw = gpu_part.get('tdp_w')
+    cpu_tdp_raw = cpu_part.get('tdp_w')
+    if psu_w_raw is not None and (gpu_tdp_raw is not None or cpu_tdp_raw is not None):
+        try:
+            psu_w = float(psu_w_raw)
+            gpu_tdp = float(gpu_tdp_raw) if gpu_tdp_raw is not None else 0
+            cpu_tdp = float(cpu_tdp_raw) if cpu_tdp_raw is not None else 0
+            required = (gpu_tdp + cpu_tdp + 50) * 1.5
+            if psu_w >= required:
+                compat_lines.append(f"✅ 電源容量: {psu_w:.0f}W ≥ {required:.0f}W（TDP {gpu_tdp + cpu_tdp:.0f}W × 1.5倍）")
+            else:
+                compat_lines.append(f"❌ 電源容量: {psu_w:.0f}W < {required:.0f}W（容量不足）")
+        except (ValueError, TypeError):
+            compat_lines.append("⚠️ 電源容量: データ不足")
+    elif psu_part.get('name'):
+        compat_lines.append("⚠️ 電源容量: データ不足")
+
+    if compat_lines:
+        lines.append("\n🔍 **互換性チェック**")
+        lines.extend(compat_lines)
+
+    # ── Amazon/楽天 購入ボタン ──
+    part_names = [build[k]['name'] for k in part_labels if build.get(k) and build[k].get('name')]
+    if part_names:
+        amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
+        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
+        amazon_q = urllib.parse.quote(' '.join(part_names))
+        amazon_url = f'https://www.amazon.co.jp/s?k={amazon_q}&tag={amazon_tag}'
+
+        rakuten_q = urllib.parse.quote(' '.join(part_names))
+        if rakuten_a_id and rakuten_l_id:
+            rakuten_url = (
+                f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                f'pc=https://search.rakuten.co.jp/search/mall/{rakuten_q}/&link_type=hybrid_url&ts=1'
+            )
+        else:
+            rakuten_url = f'https://search.rakuten.co.jp/search/mall/{rakuten_q}/'
+
+        btn_style = ('display:inline-block;padding:10px 20px;border-radius:8px;'
+                     'color:#fff;font-weight:600;text-decoration:none;font-size:.95rem;'
+                     'margin:4px 8px 4px 0;')
+        amazon_btn = (
+            f'<a href="{amazon_url}" target="_blank" rel="noopener" '
+            f'style="{btn_style}background:#FF9900;">🛒 まとめてAmazonで買う</a>'
+        )
+        rakuten_btn = (
+            f'<a href="{rakuten_url}" target="_blank" rel="noopener" '
+            f'style="{btn_style}background:#BF0000;">🛒 楽天で探す</a>'
+        )
+        lines.append(f"\n{amazon_btn} {rakuten_btn}")
+
     lines.append("\n右の「完成イメージを見る」で、AIがあなたのPCの完成予想図を作ります。")
     lines.append("変更したいパーツがあればいつでも言ってください。")
 
@@ -3630,7 +3736,7 @@ def chat():
 
         # デバッグ用ツールログ（常に含める）
         response_data['_debug_tool_logs'] = tool_logs
-        response_data['_code_version'] = 'v4-ttl-fix'
+        response_data['_code_version'] = 'v4-summary-compat'
 
         # セッションをRedisに保存（TTLリセット）
         save_session(session_id)
