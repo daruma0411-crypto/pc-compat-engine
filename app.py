@@ -2100,6 +2100,7 @@ def get_or_create_session(session_id):
             },
             'recheck_flags': [],    # 再チェックが必要なカテゴリ
             'last_search_results': [],  # 直近のsearch_parts結果（product_id保持用）
+            'last_search_category': None,  # 直近の検索カテゴリ
             'history': [],          # 会話履歴（直近100メッセージを保持）
             'stage': 'hearing',     # 'hearing' or 'recommending'
             'budget_yen': None,     # 抽出した予算
@@ -2624,6 +2625,12 @@ def execute_tool(tool_name, tool_input, session, all_products):
             'budget_yen': session.get('budget_yen'),
         }
     elif tool_name == 'get_build_summary':
+        main_cats = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+        missing = [c for c in main_cats if session['current_build'].get(c) is None]
+        if missing:
+            cat_ja = {'gpu':'GPU','cpu':'CPU','motherboard':'マザーボード','ram':'メモリ','case':'ケース','psu':'電源'}
+            missing_ja = ', '.join(cat_ja.get(c, c) for c in missing)
+            return {'error': f'まだ {missing_ja} が未確定です。全6パーツをconfirm_partで確定してからget_build_summaryを呼んでください。'}
         summary_text = generate_server_side_summary(session)
         return {'summary': summary_text}
     elif tool_name == 'amazon_search':
@@ -3159,6 +3166,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                         {'product_id': r.get('product_id', ''), 'name': r.get('name', ''), 'price_min': r.get('price_min')}
                         for r in result.get('results', [])[:5]
                     ]
+                    session['last_search_category'] = block['input'].get('category', '')
                 # ツール結果のサマリーをログ出力
                 log_entry = {'tool': block['name'], 'params': block['input']}
                 if isinstance(result, dict) and 'results' in result:
@@ -3332,18 +3340,22 @@ def chat():
 
         # 直近のsearch_parts結果（product_id参照用）
         last_search_hint = ''
-        if session.get('last_search_results'):
-            lines = ["\n## 前回の検索結果（confirm_partで使うproduct_id一覧）"]
-            labels = ['おすすめ', '代替案', '候補3', '候補4', '候補5']
-            for i, r in enumerate(session['last_search_results'][:5]):
-                price_str = f"¥{int(r['price_min']):,}" if r.get('price_min') else '価格不明'
-                label = labels[i] if i < len(labels) else f'候補{i+1}'
-                lines.append(f"  {label}: product_id=\"{r['product_id']}\" → {r['name']} ({price_str})")
-            lines.append("")
-            lines.append("⚠️ ユーザーが「おすすめで」「それで」「OK」等で承認したら、")
-            lines.append("  必ずconfirm_partを呼んで確定すること。confirm_partを呼ばずに次のカテゴリに進むな。")
-            lines.append("  product_idは上記リストからそのままコピーすること。IDを推測するな。")
-            last_search_hint = "\n".join(lines) + "\n"
+        last_cat = session.get('last_search_category', '')
+        if session.get('last_search_results') and last_cat:
+            # 未確定の場合のみヒントを出す
+            if session['current_build'].get(last_cat if last_cat != 'mb' else 'motherboard') is None:
+                cat_ja = {'gpu':'GPU','cpu':'CPU','motherboard':'マザーボード','ram':'メモリ','case':'ケース','psu':'電源'}.get(last_cat, last_cat)
+                lines = [f"\n## ⚠️ 未確定: {cat_ja}（confirm_part必須）"]
+                lines.append(f"前回の{cat_ja}検索結果:")
+                labels = ['おすすめ', '代替案', '候補3', '候補4', '候補5']
+                for i, r in enumerate(session['last_search_results'][:5]):
+                    price_str = f"¥{int(r['price_min']):,}" if r.get('price_min') else '価格不明'
+                    label = labels[i] if i < len(labels) else f'候補{i+1}'
+                    lines.append(f"  {label}: product_id=\"{r['product_id']}\" → {r['name']} ({price_str})")
+                lines.append("")
+                lines.append(f"→ ユーザーが承認したら confirm_part(category=\"{last_cat}\", product_id=\"...\") を必ず呼べ。")
+                lines.append(f"→ confirm_partを呼ばずに次に進むな。これは最優先の指示。")
+                last_search_hint = "\n".join(lines) + "\n"
 
         system_prompt = (
             current_build_text + last_search_hint + stagnation_hint + budget_hint + context_hint + "\n"
