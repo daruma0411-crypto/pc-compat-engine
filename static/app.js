@@ -805,6 +805,7 @@
       const item = catMap[cat];
       const valEl = document.getElementById('part-val-' + cat.toLowerCase());
       const priceEl = document.getElementById('part-price-' + cat.toLowerCase());
+      const buyEl = document.getElementById('part-buy-' + cat.toLowerCase());
       if (!valEl || !priceEl) return;
 
       if (item) {
@@ -814,10 +815,17 @@
         const priceVal = item.price_min || item.price_low;
         priceEl.textContent = priceVal ? '\u00a5' + Number(priceVal).toLocaleString() : '—';
         if (priceVal) totalPrice += Number(priceVal);
+        // A/R ミニボタン
+        if (buyEl && item.name) {
+          buyEl.innerHTML =
+            '<a class="parts-buy-link parts-buy-amz" href="' + escHtml(buildAmazonUrl(item.name)) + '" target="_blank" rel="noopener" title="Amazonで探す">A</a>' +
+            '<a class="parts-buy-link parts-buy-rak" href="' + escHtml(buildRakutenUrl(item.name)) + '" target="_blank" rel="noopener" title="楽天で探す">R</a>';
+        }
       } else {
         valEl.textContent = '—';
         valEl.className = 'parts-name parts-name--empty';
         priceEl.textContent = '—';
+        if (buyEl) buyEl.innerHTML = '';
       }
     });
 
@@ -879,7 +887,7 @@
       
       const data = await res.json();
       
-      // 画像表示
+      // 画像表示（ダッシュボード）
       img.src = data.image_url;
       img.onload = () => {
         container.style.display = 'block';
@@ -889,6 +897,11 @@
         // Phase C に移行 + 個別リンク生成
         onImageGenerationComplete();
       };
+
+      // チャット内にもインライン表示
+      const imgHtml = '<img src="' + escHtml(data.image_url) + '" alt="完成イメージ" style="max-width:100%;border-radius:8px;margin:8px 0;" />'
+        + '<br><span style="font-size:.8rem;color:#94a3b8;">※AI生成イメージです。実際の外観と異なる場合があります</span>';
+      appendMessage('assistant', '🖼️ あなたのPC、こんな感じに仕上がります！<br>' + imgHtml);
       
     } catch (e) {
       alert('⚠️ 画像生成エラー: ' + e.message);

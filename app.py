@@ -1094,6 +1094,9 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
   → PART_ORDER（GPU→CPU→MB→RAM→Case→PSU）の順序に関係なく、指定パーツを先に確定してよい。
   → 例: ユーザーが「Ryzen 5 7600X」と言った場合、GPUが未確定でもCPUを先にsearch_parts(category="cpu", name="7600X", user_specified=true)+confirmする。
   → 確定後、残りパーツをPART_ORDER順で提案する。
+  → 確定時は肯定的な確認応答を返すこと。
+    例: 「【GPU】RTX 5070 Ti、いいカードですね！確定しました ✅」
+    例: 「【CPU】Ryzen 5 7600X、コスパ抜群の選択です！確定しました ✅」
 
 入力が曖昧な場合（「ゲーミングPC組みたい」等）:
   → 「何に一番使いますか？」と「予算は？」の2つだけ聞く。それ以外は聞かない。
@@ -1155,6 +1158,9 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 【ステップ8: SSD・CPUクーラー】
 
 SSD・CPUクーラーはDBにないことが多い。amazon_searchでURL生成して案内する。
+★ amazon_searchの戻り値の html_link をそのまま返答に含めること。
+★ マークダウンリンク [text](url) は使わない（HTMLとして描画されないため）。
+★ html_linkはクリック可能なHTMLボタンとして表示される。
 
 【ステップ9: 完成】
 
@@ -2809,7 +2815,10 @@ def execute_tool(tool_name, tool_input, session, all_products):
     elif tool_name == 'amazon_search':
         amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
         q = urllib.parse.quote(tool_input['query'])
-        return {'url': f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'}
+        url = f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+        link_style = 'display:inline-block;padding:6px 14px;border-radius:6px;color:#fff;font-weight:600;text-decoration:none;font-size:.85rem;background:#FF9900;'
+        html_link = f'<a href="{url}" target="_blank" rel="noopener" style="{link_style}">🛒 Amazonで探す</a>'
+        return {'url': url, 'html_link': html_link}
     else:
         return {'error': f'Unknown tool: {tool_name}'}
 
@@ -3324,8 +3333,7 @@ def generate_server_side_summary(session):
                        f'style="{btn_style}background:#BF0000;">楽天</a>')
             lines.append(f"- **{p['label']}**: {amz_btn} {rak_btn}")
 
-    lines.append("\n右の「完成イメージを見る」で、AIがあなたのPCの完成予想図を作ります。")
-    lines.append("変更したいパーツがあればいつでも言ってください。")
+    lines.append("\n変更したいパーツがあればいつでも言ってください。")
 
     return "\n".join(lines)
 
@@ -3755,7 +3763,7 @@ def chat():
 
         # デバッグ用ツールログ（常に含める）
         response_data['_debug_tool_logs'] = tool_logs
-        response_data['_code_version'] = 'v5-individual-links'
+        response_data['_code_version'] = 'v6-ux-polish'
 
         # セッションをRedisに保存（TTLリセット）
         save_session(session_id)
@@ -4572,25 +4580,36 @@ def _translate_parts_to_english_prompt(parts: list) -> str:
     gpu_clean  = _clean_jp_brand(gpu_name)  if gpu_name  else None
     cpu_clean  = _clean_jp_brand(cpu_name)  if cpu_name  else None
     case_clean = _clean_jp_brand(case_name) if case_name else None
-    
-    # プロンプト構築
-    prompt_parts = ["Photorealistic gaming PC build with"]
-    
+
+    # ケース色の推定
+    case_color = 'black'
+    if case_name:
+        name_lower = case_name.lower()
+        if any(w in name_lower for w in ('white', 'wh', 'wt', '-w ', ' w ')):
+            case_color = 'white'
+        elif any(w in name_lower for w in ('silver', 'sv', 'titanium')):
+            case_color = 'silver'
+
+    # プロンプト構築（よりリアルな製品写真スタイル）
+    prompt_parts = [
+        f"Professional product photo of a fully assembled {case_color} gaming PC",
+        "glass side panel showing internal components"
+    ]
+
     if gpu_clean:
-        prompt_parts.append(f"{gpu_clean} graphics card")
-    if cpu_clean:
-        prompt_parts.append(f"{cpu_clean} processor")
+        prompt_parts.append(f"{gpu_clean} GPU installed")
     if case_clean:
-        prompt_parts.append(f"mounted in {case_clean} case")
-    
+        prompt_parts.append(f"in {case_clean} case")
+
     prompt_parts.extend([
         "RGB lighting",
-        "high-end components",
-        "professional product photography",
-        "detailed hardware",
-        "studio lighting"
+        "clean cable management",
+        "studio lighting",
+        "dark background",
+        "8k ultra detailed",
+        "commercial product photography"
     ])
-    
+
     return ', '.join(prompt_parts)
 
 
@@ -4616,18 +4635,19 @@ def generate_image():
         # プロンプト生成
         prompt = _translate_parts_to_english_prompt(parts)
 
-        # FLUX.1-schnell モデルで画像生成（requests で直接呼び出し）
+        # FLUX 2 Pro モデルで画像生成（requests で直接呼び出し）
         import time
         pred_res = urllib.request.urlopen(
             urllib.request.Request(
-                'https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions',
+                'https://api.replicate.com/v1/models/black-forest-labs/flux-1.1-pro/predictions',
                 data=json.dumps({
                     "input": {
                         "prompt": prompt,
-                        "num_outputs": 1,
                         "aspect_ratio": "16:9",
                         "output_format": "webp",
-                        "output_quality": 80,
+                        "output_quality": 90,
+                        "safety_tolerance": 5,
+                        "prompt_upsampling": True,
                     }
                 }).encode('utf-8'),
                 headers={
