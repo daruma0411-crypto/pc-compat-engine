@@ -1362,6 +1362,7 @@ GPU → CPU → マザーボード → メモリ → ケース → 電源 → SS
 - 通常の日本語テキストで返答する（JSON不要）
 - ツールで検索・確定を行い、テキストでユーザーと会話する
 - 提案時は必ずsearch_partsの結果に含まれる製品名と価格を正確に引用する
+- 提案メッセージの冒頭に必ず【カテゴリ名】を付けること（例: 「【ケース】おすすめ：...」「【電源】おすすめ：...」）
 - 自分で合計金額やサマリーテーブルを書かない（get_build_summaryを使う）
 - get_build_summaryの出力は一字一句そのまま使う。書き換え・省略・独自追加は禁止
 """
@@ -3176,11 +3177,29 @@ def generate_server_side_summary(session):
         'cooler':      'CPUクーラー',
     }
 
+    amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
+    def _amzn_url(name):
+        q = urllib.parse.quote(name)
+        return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+
+    def _raku_url(name):
+        q = urllib.parse.quote(name)
+        if rakuten_a_id and rakuten_l_id:
+            return (f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                    f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
+        return f'https://search.rakuten.co.jp/search/mall/{q}/'
+
+    link_style = 'color:#fff;text-decoration:none;padding:2px 8px;border-radius:4px;font-size:.8rem;font-weight:600;'
+
     lines = ["🎉 **構成が完成しました！**\n"]
     lines.append("| パーツ | 製品名 | 価格 |")
     lines.append("|--------|--------|------|")
     total = 0
     missing = []
+    confirmed_parts_for_links = []
     for key, label in part_labels.items():
         part = build.get(key)
         if part and part.get('name'):
@@ -3189,7 +3208,10 @@ def generate_server_side_summary(session):
             if price:
                 total += int(price)
             lock = " 🔒" if part.get('user_specified') else ""
-            lines.append(f"| {label} | {part['name']}{lock} | {price_str} |")
+            amz = f'<a href="{_amzn_url(part["name"])}" target="_blank" rel="noopener" style="{link_style}background:#FF9900;">Amazon</a>'
+            rak = f'<a href="{_raku_url(part["name"])}" target="_blank" rel="noopener" style="{link_style}background:#BF0000;">楽天</a>'
+            lines.append(f"| {label} | {part['name']}{lock} {amz} {rak} | {price_str} |")
+            confirmed_parts_for_links.append({'name': part['name'], 'label': label})
         else:
             missing.append(label)
 
@@ -3289,37 +3311,18 @@ def generate_server_side_summary(session):
         lines.append("\n🔍 **互換性チェック**")
         lines.extend(compat_lines)
 
-    # ── Amazon/楽天 購入ボタン ──
-    part_names = [build[k]['name'] for k in part_labels if build.get(k) and build[k].get('name')]
-    if part_names:
-        amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
-        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
-
-        amazon_q = urllib.parse.quote(' '.join(part_names))
-        amazon_url = f'https://www.amazon.co.jp/s?k={amazon_q}&tag={amazon_tag}'
-
-        rakuten_q = urllib.parse.quote(' '.join(part_names))
-        if rakuten_a_id and rakuten_l_id:
-            rakuten_url = (
-                f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
-                f'pc=https://search.rakuten.co.jp/search/mall/{rakuten_q}/&link_type=hybrid_url&ts=1'
-            )
-        else:
-            rakuten_url = f'https://search.rakuten.co.jp/search/mall/{rakuten_q}/'
-
-        btn_style = ('display:inline-block;padding:10px 20px;border-radius:8px;'
-                     'color:#fff;font-weight:600;text-decoration:none;font-size:.95rem;'
-                     'margin:4px 8px 4px 0;')
-        amazon_btn = (
-            f'<a href="{amazon_url}" target="_blank" rel="noopener" '
-            f'style="{btn_style}background:#FF9900;">🛒 まとめてAmazonで買う</a>'
-        )
-        rakuten_btn = (
-            f'<a href="{rakuten_url}" target="_blank" rel="noopener" '
-            f'style="{btn_style}background:#BF0000;">🛒 楽天で探す</a>'
-        )
-        lines.append(f"\n{amazon_btn} {rakuten_btn}")
+    # ── パーツ個別 購入リンク ──
+    if confirmed_parts_for_links:
+        btn_style = ('display:inline-block;padding:6px 14px;border-radius:6px;'
+                     'color:#fff;font-weight:600;text-decoration:none;font-size:.85rem;'
+                     'margin:2px 4px 2px 0;')
+        lines.append("\n🛒 **パーツ別購入リンク**")
+        for p in confirmed_parts_for_links:
+            amz_btn = (f'<a href="{_amzn_url(p["name"])}" target="_blank" rel="noopener" '
+                       f'style="{btn_style}background:#FF9900;">Amazon</a>')
+            rak_btn = (f'<a href="{_raku_url(p["name"])}" target="_blank" rel="noopener" '
+                       f'style="{btn_style}background:#BF0000;">楽天</a>')
+            lines.append(f"- **{p['label']}**: {amz_btn} {rak_btn}")
 
     lines.append("\n右の「完成イメージを見る」で、AIがあなたのPCの完成予想図を作ります。")
     lines.append("変更したいパーツがあればいつでも言ってください。")

@@ -237,31 +237,40 @@
         // 常にメッセージをチャットバブルとして表示
         appendAIBubble(data.message || '少し詳しく教えてください。');
 
-        // confirmed partsをマージしてダッシュボード更新
-        const newParts = data.recommended_parts || [];
-        const sessionParts = data.confirmed_parts_session || [];
-        const allParts = newParts.length > 0 ? newParts : sessionParts;
-
-        if (allParts.length > 0) {
-          allParts.forEach(p => {
-            const cat = normalizeCat(p.category);
-            if (!cat || !p.name) return;
-            const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === cat);
+        // current_buildから右パネルを常に同期（全カテゴリ網羅）
+        const cb = data.current_build || {};
+        const CB_CAT_MAP = {
+          gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
+          ram: 'RAM', case: 'CASE', psu: 'PSU', cooler: 'COOLER',
+        };
+        let buildChanged = false;
+        for (const [key, val] of Object.entries(cb)) {
+          const cat = CB_CAT_MAP[key];
+          if (!cat) continue;
+          const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === cat);
+          if (val && val.name) {
             const entry = {
-              name: p.name,
-              category: p.category,
-              reason: p.reason || '',
-              price_range: p.price_range || '',
-              price_min: p.price_min || 0,
-              amazon_url: p.amazon_url || buildAmazonUrl(p.name),
-              rakuten_url: p.rakuten_url || buildRakutenUrl(p.name),
+              name: val.name,
+              category: key.toUpperCase(),
+              reason: '',
+              price_range: val.price_min ? ('¥' + Number(val.price_min).toLocaleString()) : '',
+              price_min: val.price_min || 0,
+              amazon_url: buildAmazonUrl(val.name),
+              rakuten_url: buildRakutenUrl(val.name),
             };
             if (idx >= 0) {
               confirmedParts[idx] = entry;
             } else {
               confirmedParts.push(entry);
             }
-          });
+            buildChanged = true;
+          } else if (idx >= 0) {
+            // サーバー側でリセットされたパーツを除去
+            confirmedParts.splice(idx, 1);
+            buildChanged = true;
+          }
+        }
+        if (buildChanged) {
           updateDashboardFromConfirmedParts();
         }
 
