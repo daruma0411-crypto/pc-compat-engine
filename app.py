@@ -31,7 +31,7 @@ _PC_WORKSPACE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wo
 # ================================================================
 # セッションストレージ（Redis / フォールバック: メモリ内）
 # ================================================================
-_SESSION_TTL = 1800  # 30分
+_SESSION_TTL = 3600  # 1時間
 
 import sys as _sys
 
@@ -2130,23 +2130,26 @@ def _new_session_dict():
 
 
 def get_or_create_session(session_id):
-    """セッションを取得または作成する（Redis優先、フォールバック: メモリ）"""
+    """セッションを取得または作成する（Redis優先、フォールバック: メモリ）
+    戻り値: (session_dict, is_new_session)
+    """
     if _redis_client:
         key = f'sess:{session_id}'
         raw = _redis_client.get(key)
         if raw:
             session = json.loads(raw)
             _SESSIONS[session_id] = session  # ローカルキャッシュ
-            return session
-        # 新規作成
+            return session, False
+        # 新規作成（TTL切れ or 初回）
         session = _new_session_dict()
         _redis_client.setex(key, _SESSION_TTL, json.dumps(session, ensure_ascii=False))
         _SESSIONS[session_id] = session
-        return session
+        return session, True
     else:
         if session_id not in _SESSIONS:
             _SESSIONS[session_id] = _new_session_dict()
-        return _SESSIONS[session_id]
+            return _SESSIONS[session_id], True
+        return _SESSIONS[session_id], False
 
 
 def save_session(session_id):
@@ -3385,7 +3388,11 @@ def chat():
             return jsonify({'error': 'message が空です'}), 400
 
         # セッションを取得または作成
-        session = get_or_create_session(session_id)
+        session, is_new_session = get_or_create_session(session_id)
+
+        # TTL切れ検知: 既知のsession_idなのに新規セッションが作られた場合
+        # （session_id が 'default' や空でない & 新規作成された = TTL切れ）
+        session_expired = is_new_session and session_id not in ('default', '')
 
         # 製品DBロード
         all_products = _load_all_pc_products()
@@ -3559,6 +3566,15 @@ def chat():
             'message': ai_message or 'すみません、うまく処理できませんでした。もう一度お願いできますか？',
         }
 
+        # TTL切れ通知: AIの回答の前にセッション切れメッセージを挿入
+        if session_expired:
+            expiry_notice = (
+                '⏰ **前回のセッションが期限切れになりました。**'
+                '新しい構成を始めましょう！\n\n---\n\n'
+            )
+            response_data['message'] = expiry_notice + response_data['message']
+            response_data['session_expired'] = True
+
         # confirm_partで確定されたパーツをrecommended_partsに変換（フロントエンド互換）
         if confirmed_in_this_turn:
             response_data['recommended_parts'] = []
@@ -3639,7 +3655,7 @@ def api_reset():
         data       = request.get_json() or {}
         reset_type = data.get('type', 'full')
         session_id = data.get('session_id', 'default')
-        session    = get_or_create_session(session_id)
+        session, _ = get_or_create_session(session_id)
 
         if reset_type == 'full':
             result = _reset_full(session)
