@@ -3612,7 +3612,7 @@ def chat():
 
         # デバッグ用ツールログ（常に含める）
         response_data['_debug_tool_logs'] = tool_logs
-        response_data['_code_version'] = 'v2-tool-logs'
+        response_data['_code_version'] = 'v3-name-filter'
 
         # セッションをRedisに保存（TTLリセット）
         save_session(session_id)
