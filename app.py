@@ -2262,6 +2262,10 @@ SEARCH_PARTS_TOOL = {
             "user_specified": {
                 "type": "boolean",
                 "description": "ユーザーが型番を明示指定した場合true。trueの場合、PART_ORDER順序チェックをスキップする"
+            },
+            "name": {
+                "type": "string",
+                "description": "製品名・型番の部分一致検索（例: '7600X', 'RTX 4070'）。ユーザーが型番指定した場合に使用"
             }
         },
         "required": ["category"]
@@ -2458,6 +2462,11 @@ def handle_search_parts(params, all_products, session=None):
         candidates = [p for p in all_products if p.get('category') in ('motherboard', 'mb')]
     else:
         candidates = [p for p in all_products if p.get('category') == category]
+
+    # 名前/型番の部分一致フィルタ（最優先で適用）
+    if params.get('name'):
+        query = params['name'].lower()
+        candidates = [p for p in candidates if query in p.get('name', '').lower()]
 
     # RAM: SODIMM除外 + 8GB以上のみ + 2枚組を優先
     if category == 'ram':
