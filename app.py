@@ -51,6 +51,7 @@ else:
 
 # インメモリ フォールバック
 _SESSIONS = {}
+_SEEN_SESSION_IDS = set()  # やり取り済みsession_idを記録（TTL切れ検知用）
 
 # ================================================================
 # 診断ロジック（proxy_server.py から移植）
@@ -3390,9 +3391,10 @@ def chat():
         # セッションを取得または作成
         session, is_new_session = get_or_create_session(session_id)
 
-        # TTL切れ検知: 既知のsession_idなのに新規セッションが作られた場合
-        # （session_id が 'default' や空でない & 新規作成された = TTL切れ）
-        session_expired = is_new_session and session_id not in ('default', '')
+        # TTL切れ検知: 過去にやり取りしたsession_idが新規セッションになった場合
+        # 初訪問ユーザーは _SEEN_SESSION_IDS に未登録なので誤検知しない
+        session_expired = is_new_session and session_id in _SEEN_SESSION_IDS
+        _SEEN_SESSION_IDS.add(session_id)
 
         # 製品DBロード
         all_products = _load_all_pc_products()
