@@ -14,7 +14,7 @@ import urllib.parse
 import urllib.request
 
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, Response, jsonify, request, send_from_directory
 
 # replicate SDK は使わず requests で直接 Replicate API を呼び出す
 REPLICATE_AVAILABLE = True
@@ -3261,13 +3261,50 @@ def call_claude_chat(system, messages):
     return content
 
 
+# ── ツール名→進捗メッセージ変換 ──
+_TOOL_PROGRESS_MESSAGES = {
+    'search_build': '🔍 全パーツを一括検索中...',
+    'get_current_build': '📋 構成を確認中...',
+    'get_build_summary': '📊 構成サマリーを生成中...',
+    'amazon_search': '🛒 Amazon検索URL生成中...',
+}
+_CAT_JA = {'gpu': 'GPU', 'cpu': 'CPU', 'motherboard': 'マザーボード',
+           'ram': 'メモリ', 'case': 'ケース', 'psu': '電源', 'cooler': 'クーラー'}
+
+
+def _get_tool_progress(tool_name, tool_input):
+    """ツール名と入力から日本語の進捗メッセージを生成"""
+    if tool_name in _TOOL_PROGRESS_MESSAGES:
+        return _TOOL_PROGRESS_MESSAGES[tool_name]
+    cat = tool_input.get('category', '')
+    cat_ja = _CAT_JA.get(cat, cat.upper())
+    if tool_name == 'search_parts':
+        return f'🔍 {cat_ja}を検索中...'
+    if tool_name == 'confirm_part':
+        return f'✅ {cat_ja}を確定中...'
+    return f'⚙️ {tool_name}...'
+
+
 def call_claude_with_tools(session, user_message, all_products, system_prompt):
     """
-    Claude Haikuをtool use付きで呼び出す。
-    AIがツールを呼んだら、コード側で処理して結果を返す。ツールを呼ばなくなるまでループ。
-    戻り値: (ai_message, confirmed_in_this_turn)
-      ai_message: AIの最終テキスト応答
-      confirmed_in_this_turn: このターンでconfirm_partされたパーツのリスト
+    Claude をtool use付きで呼び出す（非ストリーミング版）。
+    戻り値: (ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs)
+    """
+    result = None
+    for event in _call_claude_with_tools_gen(session, user_message, all_products, system_prompt):
+        if event.get('type') == 'result':
+            result = event
+    if result is None:
+        return '', [], [], [], []
+    return (result['ai_message'], result['confirmed'], result['reset'],
+            result['recheck'], result['tool_logs'])
+
+
+def _call_claude_with_tools_gen(session, user_message, all_products, system_prompt):
+    """
+    Claude をtool use付きで呼び出すジェネレーター版。
+    yield: {'type': 'progress', 'message': str}  — ツール進捗
+    yield: {'type': 'result', ...}                — 最終結果（最後に1回）
     """
     import sys
     messages = []
@@ -3279,10 +3316,12 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
     confirmed_in_this_turn = []
     reset_parts_all = []
     recheck_parts_all = []
-    tool_logs = []  # デバッグ用ツールログ
-    max_iterations = 30  # 無限ループ防止（通常5-10回で完了）
+    tool_logs = []
+    max_iterations = 30
 
-    for _ in range(max_iterations):
+    for iteration in range(max_iterations):
+        yield {'type': 'progress', 'message': '🤔 AIが考え中...'}
+
         req_body = json.dumps({
             'model': 'claude-sonnet-4-5-20250929',
             'max_tokens': 1024,
@@ -3318,13 +3357,10 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
         stop_reason = resp_data.get('stop_reason', '')
         content_blocks = resp_data.get('content', [])
 
-        # ツール呼び出しがなければ完了
         if stop_reason != 'tool_use':
             break
 
-        # ツール呼び出しを処理
         tool_results = []
-        # assistant応答をシリアライズ可能な形式に変換
         assistant_content = []
         for block in content_blocks:
             if block.get('type') == 'text':
@@ -3336,28 +3372,28 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                     'name': block['name'],
                     'input': block['input'],
                 })
+                # 進捗イベントをyield
+                yield {'type': 'progress', 'message': _get_tool_progress(block['name'], block['input'])}
+
                 print(f"[TOOL_CALL] {block['name']} params={json.dumps(block['input'], ensure_ascii=False)}", flush=True, file=sys.stderr)
                 result = execute_tool(block['name'], block['input'], session, all_products)
-                # search_partsの結果をセッションに保存（次のターンでproduct_id参照用）
+                # search_partsの結果をセッションに保存
                 if block['name'] == 'search_parts' and isinstance(result, dict) and 'results' in result:
                     session['last_search_results'] = [
                         {'product_id': r.get('product_id', ''), 'name': r.get('name', ''), 'price_min': r.get('price_min')}
                         for r in result.get('results', [])[:5]
                     ]
                     session['last_search_category'] = block['input'].get('category', '')
-                # search_buildの結果からもセッションに保存
                 if block['name'] == 'search_build' and isinstance(result, dict) and 'build_candidates' in result:
-                    # 各カテゴリの1番目候補をlast_search_resultsにまとめる
                     all_top = []
                     for cat, cands in result['build_candidates'].items():
                         for c in cands[:3]:
                             all_top.append({'product_id': c.get('product_id', ''), 'name': c.get('name', ''), 'price_min': c.get('price_min'), 'category': cat})
                     session['last_search_results'] = all_top
                     session['last_search_category'] = 'all'
-                # ツール結果のサマリーをログ出力
+                # ログ
                 log_entry = {'tool': block['name'], 'params': block['input']}
                 if isinstance(result, dict) and 'build_candidates' in result:
-                    # search_build の結果ログ
                     cat_counts = {cat: len(cands) for cat, cands in result['build_candidates'].items()}
                     log_entry['build_candidates_count'] = cat_counts
                     log_entry['total_estimate'] = result.get('total_estimate_top1', 0)
@@ -3377,7 +3413,6 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                     'tool_use_id': block['id'],
                     'content': json.dumps(result, ensure_ascii=False)
                 })
-                # confirm_partの結果を追跡
                 if block['name'] == 'confirm_part' and isinstance(result, dict) and result.get('success'):
                     confirmed_in_this_turn.append({
                         'category': block['input'].get('category', ''),
@@ -3388,18 +3423,23 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                     reset_parts_all.extend(result.get('reset_parts', []))
                     recheck_parts_all.extend(result.get('recheck_parts', []))
 
-        # 結果をメッセージに追加して再度呼び出し
         messages.append({'role': 'assistant', 'content': assistant_content})
         messages.append({'role': 'user', 'content': tool_results})
 
-    # 最終応答テキストを抽出
     ai_message = ''
     for block in content_blocks:
         if block.get('type') == 'text':
             ai_message += block.get('text', '')
 
     print(f"[AI_RESPONSE] len={len(ai_message)} text={ai_message[:200]}", flush=True, file=sys.stderr)
-    return ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs
+    yield {
+        'type': 'result',
+        'ai_message': ai_message,
+        'confirmed': confirmed_in_this_turn,
+        'reset': reset_parts_all,
+        'recheck': recheck_parts_all,
+        'tool_logs': tool_logs,
+    }
 
 
 @app.route('/api/chat', methods=['POST'])
@@ -3560,113 +3600,158 @@ def chat():
             + _SHOP_CLERK_SYSTEM_PROMPT
         )
 
-        # Function Calling型でClaude呼び出し
-        ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs = \
-            call_claude_with_tools(session, message, all_products, system_prompt)
+        # ストリーミングモード判定
+        use_stream = data.get('stream', False)
 
-        # 全パーツ確定チェック → AIがget_build_summaryを呼ばなかった場合、サーバー側で自動追加
-        main_categories = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
-        confirmed_count = sum(1 for cat in main_categories if session['current_build'].get(cat) is not None)
-        already_has_summary = any(t.get('tool') == 'get_build_summary' for t in tool_logs)
-        if confirmed_count >= len(main_categories) and not already_has_summary:
-            # AIがサマリーを呼ばなかった場合、サーバー側で自動生成して追記
-            import sys
-            print(f"[AUTO_SUMMARY] All {confirmed_count} main parts confirmed, auto-generating summary", flush=True, file=sys.stderr)
-            summary = generate_server_side_summary(session)
-            ai_message = (ai_message or '') + "\n\n" + summary
+        if use_stream:
+            # ── SSEストリーミング: 進捗イベントをリアルタイム送信 ──
+            def generate_sse():
+                import sys
+                try:
+                    ai_message = ''
+                    confirmed_in_this_turn = []
+                    reset_parts_all = []
+                    recheck_parts_all = []
+                    tool_logs = []
 
-        # フロントエンド互換のレスポンス構築
-        amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
-        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+                    for event in _call_claude_with_tools_gen(session, message, all_products, system_prompt):
+                        if event['type'] == 'progress':
+                            yield f"data: {json.dumps({'type': 'progress', 'message': event['message']}, ensure_ascii=False)}\n\n"
+                        elif event['type'] == 'result':
+                            ai_message = event['ai_message']
+                            confirmed_in_this_turn = event['confirmed']
+                            reset_parts_all = event['reset']
+                            recheck_parts_all = event['recheck']
+                            tool_logs = event['tool_logs']
 
-        def _make_amzn(name):
-            q = urllib.parse.quote(name)
-            return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+                    # 後処理（従来版と同じ）
+                    response_data = _build_chat_response(
+                        session, session_id, session_expired,
+                        ai_message, confirmed_in_this_turn,
+                        reset_parts_all, recheck_parts_all, tool_logs, message
+                    )
+                    yield f"data: {json.dumps({'type': 'done', 'data': response_data}, ensure_ascii=False)}\n\n"
 
-        def _make_raku(name):
-            q = urllib.parse.quote(name)
-            if rakuten_a_id and rakuten_l_id:
-                return (f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
-                        f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
-            return f'https://search.rakuten.co.jp/search/mall/{q}/'
+                except Exception as e:
+                    print(f"[SSE_ERROR] {e}", flush=True, file=sys.stderr)
+                    yield f"data: {json.dumps({'type': 'error', 'error': str(e)}, ensure_ascii=False)}\n\n"
 
-        response_data = {
-            'message': ai_message or 'すみません、うまく処理できませんでした。もう一度お願いできますか？',
-        }
-
-        # TTL切れ通知: AIの回答の前にセッション切れメッセージを挿入
-        if session_expired:
-            expiry_notice = (
-                '⏰ **前回のセッションが期限切れになりました。**'
-                '新しい構成を始めましょう！\n\n---\n\n'
+            return Response(
+                generate_sse(),
+                content_type='text/event-stream',
+                headers={'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no'},
             )
-            response_data['message'] = expiry_notice + response_data['message']
-            response_data['session_expired'] = True
 
-        # confirm_partで確定されたパーツをrecommended_partsに変換（フロントエンド互換）
-        if confirmed_in_this_turn:
-            response_data['recommended_parts'] = []
-            for part in confirmed_in_this_turn:
-                cat = part.get('category', '').upper()
-                name = part.get('name', '')
-                response_data['recommended_parts'].append({
-                    'category': cat,
-                    'name': name,
-                    'reason': '',
-                    'price_range': f"¥{part['price_min']:,}" if part.get('price_min') else '',
-                    'amazon_url': _make_amzn(name),
-                    'rakuten_url': _make_raku(name),
-                })
+        else:
+            # ── 従来の非ストリーミングJSON応答 ──
+            ai_message, confirmed_in_this_turn, reset_parts_all, recheck_parts_all, tool_logs = \
+                call_claude_with_tools(session, message, all_products, system_prompt)
 
-        # リセット・再確認情報
-        if reset_parts_all:
-            response_data['reset_parts'] = list(set(reset_parts_all))
-        if recheck_parts_all:
-            response_data['recheck_parts'] = list(set(recheck_parts_all))
-
-        # current_buildをレスポンスに含める（右パネル更新用）
-        response_data['current_build'] = {
-            cat: ({
-                'name': p['name'],
-                'user_specified': p.get('user_specified', False),
-                'price_min': p.get('price_min'),
-            } if p else None)
-            for cat, p in session['current_build'].items()
-        }
-
-        # セッションのconfirmed_partsもレスポンスに含める（price_min付き）
-        if session['confirmed_parts'] and not response_data.get('recommended_parts'):
-            response_data['confirmed_parts_session'] = []
-            for cat, name in session['confirmed_parts'].items():
-                if name:
-                    entry = {'category': cat, 'name': name}
-                    build_part = session['current_build'].get(cat)
-                    if build_part and build_part.get('price_min'):
-                        entry['price_min'] = build_part['price_min']
-                    response_data['confirmed_parts_session'].append(entry)
-
-        # recheck_flagsをクリア
-        session['recheck_flags'] = []
-
-        # 会話履歴を更新（直近100メッセージを保持）
-        session['history'].append({'role': 'user', 'content': message})
-        session['history'].append({'role': 'assistant', 'content': ai_message or ''})
-        if len(session['history']) > 100:
-            session['history'] = session['history'][-100:]
-
-        # デバッグ用ツールログ（常に含める）
-        response_data['_debug_tool_logs'] = tool_logs
-        response_data['_code_version'] = 'v6-ux-polish'
-
-        # セッションをRedisに保存（TTLリセット）
-        save_session(session_id)
-
-        return jsonify(response_data)
+            response_data = _build_chat_response(
+                session, session_id, session_expired,
+                ai_message, confirmed_in_this_turn,
+                reset_parts_all, recheck_parts_all, tool_logs, message
+            )
+            return jsonify(response_data)
 
     except Exception as e:
         app.logger.error(f"[chat] Error: {e}", exc_info=True)
         return jsonify({'error': str(e)}), 500
+
+
+def _build_chat_response(session, session_id, session_expired,
+                         ai_message, confirmed_in_this_turn,
+                         reset_parts_all, recheck_parts_all, tool_logs, message):
+    """チャットレスポンスのJSON構築（SSE・非SSE共通）"""
+    import sys
+
+    # 全パーツ確定チェック → サーバー側で自動サマリー追加
+    main_categories = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+    confirmed_count = sum(1 for cat in main_categories if session['current_build'].get(cat) is not None)
+    already_has_summary = any(t.get('tool') == 'get_build_summary' for t in tool_logs)
+    if confirmed_count >= len(main_categories) and not already_has_summary:
+        print(f"[AUTO_SUMMARY] All {confirmed_count} main parts confirmed, auto-generating summary", flush=True, file=sys.stderr)
+        summary = generate_server_side_summary(session)
+        ai_message = (ai_message or '') + "\n\n" + summary
+
+    # フロントエンド互換のレスポンス構築
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
+    def _make_amzn(name):
+        q = urllib.parse.quote(name)
+        return f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+
+    def _make_raku(name):
+        q = urllib.parse.quote(name)
+        if rakuten_a_id and rakuten_l_id:
+            return (f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                    f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
+        return f'https://search.rakuten.co.jp/search/mall/{q}/'
+
+    response_data = {
+        'message': ai_message or 'すみません、うまく処理できませんでした。もう一度お願いできますか？',
+    }
+
+    if session_expired:
+        expiry_notice = (
+            '⏰ **前回のセッションが期限切れになりました。**'
+            '新しい構成を始めましょう！\n\n---\n\n'
+        )
+        response_data['message'] = expiry_notice + response_data['message']
+        response_data['session_expired'] = True
+
+    if confirmed_in_this_turn:
+        response_data['recommended_parts'] = []
+        for part in confirmed_in_this_turn:
+            cat = part.get('category', '').upper()
+            name = part.get('name', '')
+            response_data['recommended_parts'].append({
+                'category': cat,
+                'name': name,
+                'reason': '',
+                'price_range': f"¥{part['price_min']:,}" if part.get('price_min') else '',
+                'amazon_url': _make_amzn(name),
+                'rakuten_url': _make_raku(name),
+            })
+
+    if reset_parts_all:
+        response_data['reset_parts'] = list(set(reset_parts_all))
+    if recheck_parts_all:
+        response_data['recheck_parts'] = list(set(recheck_parts_all))
+
+    response_data['current_build'] = {
+        cat: ({
+            'name': p['name'],
+            'user_specified': p.get('user_specified', False),
+            'price_min': p.get('price_min'),
+        } if p else None)
+        for cat, p in session['current_build'].items()
+    }
+
+    if session['confirmed_parts'] and not response_data.get('recommended_parts'):
+        response_data['confirmed_parts_session'] = []
+        for cat, name in session['confirmed_parts'].items():
+            if name:
+                entry = {'category': cat, 'name': name}
+                build_part = session['current_build'].get(cat)
+                if build_part and build_part.get('price_min'):
+                    entry['price_min'] = build_part['price_min']
+                response_data['confirmed_parts_session'].append(entry)
+
+    session['recheck_flags'] = []
+
+    session['history'].append({'role': 'user', 'content': message})
+    session['history'].append({'role': 'assistant', 'content': ai_message or ''})
+    if len(session['history']) > 100:
+        session['history'] = session['history'][-100:]
+
+    response_data['_debug_tool_logs'] = tool_logs
+    response_data['_code_version'] = 'v7-streaming'
+
+    save_session(session_id)
+    return response_data
 
 
 # ================================================================

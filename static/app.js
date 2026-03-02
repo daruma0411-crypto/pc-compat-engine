@@ -193,14 +193,92 @@
     input.focus();
   }
 
-  // ─── メッセージ送信 ────────────────────────────────────────────────────
+  // ─── typing要素のテキスト更新ヘルパー ────────────────────────────────
+  function updateTypingText(typingEl, text) {
+    const bubble = typingEl.querySelector('.msg-bubble');
+    if (bubble) bubble.innerHTML = '<div class="typing-indicator"><span style="font-size:.85rem">' + text + '</span></div>';
+  }
+
+  // ─── SSEレスポンスを処理する共通関数 ────────────────────────────────
+  function handleChatResponse(data) {
+    // ① current_buildから右パネルを最優先で同期
+    const cb = data.current_build || {};
+    const CB_CAT_MAP = {
+      gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
+      ram: 'RAM', case: 'CASE', psu: 'PSU', cooler: 'COOLER',
+    };
+    for (const [key, val] of Object.entries(cb)) {
+      const cat = CB_CAT_MAP[key];
+      if (!cat) continue;
+      const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === cat);
+      if (val && val.name) {
+        const entry = {
+          name: val.name,
+          category: cat,
+          reason: '',
+          price_range: val.price_min ? ('¥' + Number(val.price_min).toLocaleString()) : '',
+          price_min: val.price_min || 0,
+          amazon_url: buildAmazonUrl(val.name),
+          rakuten_url: buildRakutenUrl(val.name),
+        };
+        if (idx >= 0) {
+          confirmedParts[idx] = entry;
+        } else {
+          confirmedParts.push(entry);
+        }
+      } else if (idx >= 0) {
+        confirmedParts.splice(idx, 1);
+      }
+    }
+
+    // reset_parts処理
+    const resetParts = data.reset_parts || [];
+    if (resetParts.length > 0) {
+      resetParts.forEach(cat => {
+        const normCat = normalizeCat(cat);
+        const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === normCat);
+        if (idx >= 0) confirmedParts.splice(idx, 1);
+      });
+    }
+
+    // ② パネル更新
+    updateDashboardFromConfirmedParts();
+    console.info('[build] confirmed:', confirmedParts.map(p => p.category).join(','));
+
+    // ③ チャットバブル表示
+    appendAIBubble(data.message || '少し詳しく教えてください。');
+
+    // ③-b サマリー表示後 → 画像生成ボタン
+    const allConfirmed = ['GPU','CPU','MB','RAM','CASE','PSU'].every(
+      c => confirmedParts.some(p => normalizeCat(p.category) === c)
+    );
+    if (allConfirmed && !currentImageGenerated) {
+      appendImageGenButton();
+    }
+
+    // ④ リセット通知
+    if (resetParts.length > 0) {
+      const resetLabels = resetParts.map(c => {
+        const m = { motherboard: 'マザーボード', ram: 'RAM', psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
+        return m[c.toLowerCase()] || c.toUpperCase();
+      });
+      appendAIBubble(`⚠️ パーツ変更により <b>${resetLabels.join('・')}</b> の互換性が変わりました。これらは再選択が必要です。`);
+    }
+
+    // recheck_parts
+    const recheckParts = data.recheck_parts || [];
+    if (recheckParts.length > 0 && resetParts.length === 0) {
+      console.info('[build] recheck:', recheckParts);
+    }
+  }
+
+  // ─── メッセージ送信（SSEストリーミング対応） ────────────────────────
   async function sendMessage() {
     if (sending) return;
     const input = document.getElementById('chat-input');
     const msg = input.value.trim();
     if (!msg) return;
 
-    // 最初のユーザーメッセージを localStorage に保存
     saveToHistory(msg, gameMode ? 'game' : 'compat');
 
     appendUserBubble(msg);
@@ -211,112 +289,67 @@
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 120000);
-    // 15秒後に進捗メッセージ表示（待ち時間の不安軽減）
-    const progressTimer = setTimeout(() => {
-      const dots = typingEl.querySelector('.typing-indicator');
-      if (dots) dots.innerHTML = '<span style="font-size:.85rem">🔍 パーツを選定中...</span>';
-    }, 15000);
 
     try {
       const endpoint = gameMode ? '/api/recommend' : '/api/chat';
+      const useStream = !gameMode; // 互換チェックモードのみSSE
+
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, session_id: sessionId }),
+        body: JSON.stringify({ message: msg, session_id: sessionId, stream: useStream }),
         signal: controller.signal,
       });
       clearTimeout(timer);
-      clearTimeout(progressTimer);
+
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
       }
-      const data = await res.json();
-      typingEl.remove();
 
-      // ゲームモード: 推奨構成を表示
-      if (gameMode && data.recommended_build) {
-        appendRecommendationMessage(data);
+      // ── ゲームモード: 従来通りJSON ──
+      if (gameMode) {
+        const data = await res.json();
+        typingEl.remove();
+        if (data.recommended_build) appendRecommendationMessage(data);
+        return;
       }
-      // 互換チェックモード（shop clerk）: チャットバブル表示 + ダッシュボード更新
-      else if (!gameMode) {
-        // ① current_buildから右パネルを最優先で同期（メッセージ表示より先）
-        const cb = data.current_build || {};
-        const CB_CAT_MAP = {
-          gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
-          ram: 'RAM', case: 'CASE', psu: 'PSU', cooler: 'COOLER',
-        };
-        for (const [key, val] of Object.entries(cb)) {
-          const cat = CB_CAT_MAP[key];
-          if (!cat) continue;
-          const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === cat);
-          if (val && val.name) {
-            const entry = {
-              name: val.name,
-              category: cat,
-              reason: '',
-              price_range: val.price_min ? ('¥' + Number(val.price_min).toLocaleString()) : '',
-              price_min: val.price_min || 0,
-              amazon_url: buildAmazonUrl(val.name),
-              rakuten_url: buildRakutenUrl(val.name),
-            };
-            if (idx >= 0) {
-              confirmedParts[idx] = entry;
-            } else {
-              confirmedParts.push(entry);
+
+      // ── SSEストリーミング: 進捗をリアルタイム表示 ──
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() || '';
+
+        for (const part of parts) {
+          if (!part.startsWith('data: ')) continue;
+          try {
+            const event = JSON.parse(part.slice(6));
+
+            if (event.type === 'progress') {
+              updateTypingText(typingEl, event.message);
+            } else if (event.type === 'done') {
+              typingEl.remove();
+              handleChatResponse(event.data);
+            } else if (event.type === 'error') {
+              typingEl.remove();
+              appendAIBubble('⚠️ エラー: ' + (event.error || '不明なエラー'));
             }
-          } else if (idx >= 0) {
-            confirmedParts.splice(idx, 1);
+          } catch (parseErr) {
+            console.warn('[SSE] parse error:', parseErr, part);
           }
         }
-
-        // reset_parts処理（互換性が破れたパーツをリセット）
-        const resetParts = data.reset_parts || [];
-        if (resetParts.length > 0) {
-          resetParts.forEach(cat => {
-            const normCat = normalizeCat(cat);
-            const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === normCat);
-            if (idx >= 0) confirmedParts.splice(idx, 1);
-          });
-        }
-
-        // ② パネル更新（メッセージ表示でエラーが出てもパネルは必ず更新される）
-        updateDashboardFromConfirmedParts();
-        console.info('[build] confirmed:', confirmedParts.map(p => p.category).join(','));
-
-        // ③ チャットバブル表示
-        appendAIBubble(data.message || '少し詳しく教えてください。');
-
-        // ③-b サマリー表示後 → チャット内に画像生成ボタンを挿入
-        const allConfirmed = ['GPU','CPU','MB','RAM','CASE','PSU'].every(
-          c => confirmedParts.some(p => normalizeCat(p.category) === c)
-        );
-        if (allConfirmed && !currentImageGenerated) {
-          appendImageGenButton();
-        }
-
-        // ④ リセット通知
-        if (resetParts.length > 0) {
-          const resetLabels = resetParts.map(c => {
-            const m = { motherboard: 'マザーボード', ram: 'RAM', psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
-            return m[c.toLowerCase()] || c.toUpperCase();
-          });
-          appendAIBubble(`⚠️ パーツ変更により <b>${resetLabels.join('・')}</b> の互換性が変わりました。これらは再選択が必要です。`);
-        }
-
-        // recheck_parts: 要確認通知
-        const recheckParts = data.recheck_parts || [];
-        if (recheckParts.length > 0 && resetParts.length === 0) {
-          const recheckLabels = recheckParts.map(c => {
-            const m = { psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
-            return m[c.toLowerCase()] || c.toUpperCase();
-          });
-          console.info('[build] recheck:', recheckLabels);
-        }
       }
+
     } catch (e) {
       clearTimeout(timer);
-      clearTimeout(progressTimer);
       typingEl.remove();
       if (e.name === 'AbortError') {
         appendAIBubble('⏱️ サーバーが起動中のため時間がかかっています。\nもう一度送信してください（2回目以降は速くなります）。');
