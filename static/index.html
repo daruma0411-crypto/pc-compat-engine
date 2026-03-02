@@ -204,19 +204,8 @@
         </div>
       </div>
 
-      <!-- 完成イメージエリア -->
-      <div class="dashboard-section image-area" id="image-area" style="display: none;">
-        <!-- 状態B: 画像生成ボタン -->
-        <button class="btn-generate-image" id="btn-generate-image" onclick="generateImage()">
-          🖼️ 完成イメージを見る
-        </button>
-        
-        <!-- 状態C: 生成済み画像 -->
-        <div id="generated-image-container" style="display: none;">
-          <img id="generated-image" alt="完成イメージ" />
-          <p class="image-note">※AI生成イメージです。実際の外観と異なる場合があります</p>
-        </div>
-      </div>
+      <!-- 完成イメージエリア（チャット内に統合済み・非表示） -->
+      <div id="image-area" style="display:none;"></div>
 
       <!-- 購入エリア（状態C時のみ表示） -->
       <div class="dashboard-section purchase-area" id="purchase-area" style="display: none;">

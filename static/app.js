@@ -281,6 +281,14 @@
         // ③ チャットバブル表示
         appendAIBubble(data.message || '少し詳しく教えてください。');
 
+        // ③-b サマリー表示後 → チャット内に画像生成ボタンを挿入
+        const allConfirmed = ['GPU','CPU','MB','RAM','CASE','PSU'].every(
+          c => confirmedParts.some(p => normalizeCat(p.category) === c)
+        );
+        if (allConfirmed && !currentImageGenerated) {
+          appendImageGenButton();
+        }
+
         // ④ リセット通知
         if (resetParts.length > 0) {
           const resetLabels = resetParts.map(c => {
@@ -833,80 +841,107 @@
       totalEl.textContent = totalPrice > 0 ? '\u00a5' + totalPrice.toLocaleString() : '—';
     }
 
-    // 画像生成エリア制御
-    if (currentImageGenerated) {
-      document.getElementById('image-area').style.display = 'block';
-      document.getElementById('btn-generate-image').style.display = 'none';
-      document.getElementById('generated-image-container').style.display = 'block';
+    // 画像生成エリア（右パネル）は廃止 → チャット内に統合済み
+    // 購入エリアは全パーツ確定時に表示
+    if (confirmedCount === CATEGORY_ORDER.length) {
       document.getElementById('purchase-area').style.display = 'block';
-    } else if (confirmedCount === CATEGORY_ORDER.length) {
-      document.getElementById('image-area').style.display = 'block';
-      document.getElementById('btn-generate-image').style.display = 'block';
-      document.getElementById('generated-image-container').style.display = 'none';
-      document.getElementById('purchase-area').style.display = 'none';
+      renderIndividualLinks();
     } else {
-      document.getElementById('image-area').style.display = 'none';
       document.getElementById('purchase-area').style.display = 'none';
     }
   }
   
-  // FLUX画像生成
-  async function generateImage() {
-    const btn = document.getElementById('btn-generate-image');
-    const container = document.getElementById('generated-image-container');
-    const img = document.getElementById('generated-image');
-    
+  // チャット内に画像生成ボタンを挿入
+  function appendImageGenButton() {
+    const wrap = mkEl('div', 'msg ai');
+    const inner = mkEl('div');
+    const bubble = mkEl('div', 'msg-bubble');
+    bubble.style.textAlign = 'center';
+    bubble.style.padding = '20px';
+    bubble.innerHTML =
+      '<p style="margin:0 0 12px;font-size:1rem;color:#94a3b8;">構成が完成しました！完成イメージを生成できます</p>' +
+      '<button id="btn-gen-img-chat" onclick="generateImage(this)" ' +
+      'style="display:inline-block;padding:14px 32px;font-size:1.1rem;font-weight:700;' +
+      'color:#fff;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:12px;' +
+      'cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(99,102,241,.4);"' +
+      ' onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">' +
+      '🖼️ 完成イメージを生成する</button>';
+    inner.appendChild(bubble);
+    wrap.innerHTML = '<div class="msg-avatar">🤖</div>';
+    wrap.appendChild(inner);
+    chat().appendChild(wrap);
+    scrollBottom();
+  }
+
+  // FLUX画像生成（チャット内ボタンから呼び出し）
+  async function generateImage(btnEl) {
+    // チャット内ボタン or 右パネルボタンどちらからも対応
+    const btn = btnEl || document.getElementById('btn-gen-img-chat');
+
     if (!confirmedParts || confirmedParts.length === 0) {
       alert('構成パーツが確定していません');
       return;
     }
-    
-    // confirmedParts を API用に変換
+
     const parts = confirmedParts.map(p => ({
       category: p.category.toUpperCase(),
       name: p.name,
     }));
-    
+
     // ローディング状態
-    btn.disabled = true;
-    btn.textContent = '🎨 画像生成中...（30秒ほどかかります）';
-    btn.style.opacity = '0.6';
-    
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '🎨 生成中...（30秒ほどかかります）';
+      btn.style.opacity = '0.6';
+      btn.style.cursor = 'wait';
+    }
+
     try {
       const res = await fetch('/api/generate-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ parts }),
       });
-      
+
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
       }
-      
-      const data = await res.json();
-      
-      // 画像表示（ダッシュボード）
-      img.src = data.image_url;
-      img.onload = () => {
-        container.style.display = 'block';
-        btn.style.display = 'none';
-        // 購入エリアも表示
-        document.getElementById('purchase-area').style.display = 'block';
-        // Phase C に移行 + 個別リンク生成
-        onImageGenerationComplete();
-      };
 
-      // チャット内にもインライン表示
-      const imgHtml = '<img src="' + escHtml(data.image_url) + '" alt="完成イメージ" style="max-width:100%;border-radius:8px;margin:8px 0;" />'
-        + '<br><span style="font-size:.8rem;color:#94a3b8;">※AI生成イメージです。実際の外観と異なる場合があります</span>';
+      const data = await res.json();
+      const imgUrl = data.image_url;
+
+      // ボタンを非表示
+      if (btn) btn.closest('.msg')?.remove();
+
+      // チャット内に150%サイズで画像表示 + ダウンロードボタン
+      const imgHtml =
+        '<div style="text-align:center;">' +
+        '<img src="' + escHtml(imgUrl) + '" alt="完成イメージ" ' +
+        'style="width:150%;max-width:min(150%, 800px);margin-left:-25%;border-radius:12px;' +
+        'box-shadow:0 8px 32px rgba(0,0,0,.3);margin-top:8px;margin-bottom:12px;" />' +
+        '<br><span style="font-size:.8rem;color:#94a3b8;">※AI生成イメージです。実際の外観と異なる場合があります</span>' +
+        '<br><a href="' + escHtml(imgUrl) + '" download="my-pc-build.webp" ' +
+        'style="display:inline-block;margin-top:10px;padding:10px 24px;font-size:.95rem;font-weight:600;' +
+        'color:#fff;background:linear-gradient(135deg,#10b981,#059669);border-radius:8px;' +
+        'text-decoration:none;box-shadow:0 2px 8px rgba(16,185,129,.3);' +
+        'transition:transform .15s;" ' +
+        'onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">' +
+        '💾 画像をダウンロード</a>' +
+        '</div>';
       appendAIBubble('🖼️ あなたのPC、こんな感じに仕上がります！<br>' + imgHtml);
-      
+
+      // Phase C
+      onImageGenerationComplete();
+
     } catch (e) {
-      alert('⚠️ 画像生成エラー: ' + e.message);
-      btn.disabled = false;
-      btn.textContent = '🖼️ 完成イメージを見る';
-      btn.style.opacity = '1';
+      if (btn && btn.parentElement) {
+        btn.disabled = false;
+        btn.textContent = '🖼️ 完成イメージを生成する';
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+      appendAIBubble('⚠️ 画像生成エラー: ' + e.message);
     }
   }
   
