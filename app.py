@@ -3322,9 +3322,14 @@ def _call_claude_with_tools_gen(session, user_message, all_products, system_prom
     for iteration in range(max_iterations):
         yield {'type': 'progress', 'message': '🤔 AIが考え中...'}
 
+        # 全パーツ確定済みなら最終応答用に2048、それ以外はツール用1024
+        _main_cats = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+        _all_done = all(session['current_build'].get(c) is not None for c in _main_cats)
+        current_max_tokens = 2048 if _all_done else 1024
+
         req_body = json.dumps({
             'model': 'claude-sonnet-4-5-20250929',
-            'max_tokens': 1024,
+            'max_tokens': current_max_tokens,
             'system': system_prompt,
             'tools': FC_TOOLS,
             'messages': messages,
@@ -3665,13 +3670,14 @@ def _build_chat_response(session, session_id, session_expired,
     """チャットレスポンスのJSON構築（SSE・非SSE共通）"""
     import sys
 
-    # 全パーツ確定チェック → サーバー側で自動サマリー追加
+    # 全パーツ確定チェック → 常にサーバー側サマリーを追加
+    # （AIのmax_tokensで応答が切れるリスクがあるため、AIが呼んでも常に上書き）
     main_categories = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
     confirmed_count = sum(1 for cat in main_categories if session['current_build'].get(cat) is not None)
-    already_has_summary = any(t.get('tool') == 'get_build_summary' for t in tool_logs)
-    if confirmed_count >= len(main_categories) and not already_has_summary:
-        print(f"[AUTO_SUMMARY] All {confirmed_count} main parts confirmed, auto-generating summary", flush=True, file=sys.stderr)
+    if confirmed_count >= len(main_categories):
+        print(f"[AUTO_SUMMARY] All {confirmed_count} main parts confirmed, generating server-side summary", flush=True, file=sys.stderr)
         summary = generate_server_side_summary(session)
+        # AIの応答の後にサーバー製サマリーを付与（AIが書いた不完全なサマリーがあっても上書き）
         ai_message = (ai_message or '') + "\n\n" + summary
 
     # フロントエンド互換のレスポンス構築

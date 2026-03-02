@@ -201,8 +201,24 @@
 
   // ─── SSEレスポンスを処理する共通関数 ────────────────────────────────
   function handleChatResponse(data) {
-    // ① current_buildから右パネルを最優先で同期
+    // セッション切れ → 画像生成フラグをリセット
+    if (data.session_expired) {
+      currentImageGenerated = false;
+      confirmedParts = [];
+    }
+    // 構成が大幅に変わった（3パーツ以上変更）→ 新ビルドと判断してフラグリセット
     const cb = data.current_build || {};
+    let changedCount = 0;
+    const CB_KEYS = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu'];
+    for (const key of CB_KEYS) {
+      const newName = (cb[key] || {}).name || '';
+      const oldPart = confirmedParts.find(cp => normalizeCat(cp.category) === normalizeCat(key));
+      const oldName = oldPart ? oldPart.name : '';
+      if (newName && newName !== oldName) changedCount++;
+    }
+    if (changedCount >= 3) {
+      currentImageGenerated = false;
+    }
     const CB_CAT_MAP = {
       gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
       ram: 'RAM', case: 'CASE', psu: 'PSU', cooler: 'COOLER',
