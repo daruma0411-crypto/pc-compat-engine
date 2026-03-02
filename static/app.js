@@ -896,7 +896,7 @@
       // チャット内にもインライン表示
       const imgHtml = '<img src="' + escHtml(data.image_url) + '" alt="完成イメージ" style="max-width:100%;border-radius:8px;margin:8px 0;" />'
         + '<br><span style="font-size:.8rem;color:#94a3b8;">※AI生成イメージです。実際の外観と異なる場合があります</span>';
-      appendMessage('assistant', '🖼️ あなたのPC、こんな感じに仕上がります！<br>' + imgHtml);
+      appendAIBubble('🖼️ あなたのPC、こんな感じに仕上がります！<br>' + imgHtml);
       
     } catch (e) {
       alert('⚠️ 画像生成エラー: ' + e.message);
@@ -928,7 +928,7 @@
       confirmedParts = [];
       updateDashboardFromConfirmedParts();
       // AIからのメッセージをチャットに追加
-      appendMessage('assistant', data.ai_message);
+      appendAIBubble(data.ai_message);
     }
   }
 
@@ -950,7 +950,7 @@
         if (idx >= 0) confirmedParts.splice(idx, 1);
       }
       updateDashboardFromConfirmedParts();
-      appendMessage('assistant', data.ai_message);
+      appendAIBubble(data.ai_message);
     }
   }
 
