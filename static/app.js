@@ -234,10 +234,7 @@
       }
       // 互換チェックモード（shop clerk）: チャットバブル表示 + ダッシュボード更新
       else if (!gameMode) {
-        // 常にメッセージをチャットバブルとして表示
-        appendAIBubble(data.message || '少し詳しく教えてください。');
-
-        // current_buildから右パネルを常に同期（全カテゴリ・毎回再描画）
+        // ① current_buildから右パネルを最優先で同期（メッセージ表示より先）
         const cb = data.current_build || {};
         const CB_CAT_MAP = {
           gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
@@ -263,13 +260,11 @@
               confirmedParts.push(entry);
             }
           } else if (idx >= 0) {
-            // サーバー側でリセットされたパーツを除去
             confirmedParts.splice(idx, 1);
           }
         }
-        updateDashboardFromConfirmedParts();
 
-        // 修正6: reset_parts処理（互換性が破れたパーツをリセット）
+        // reset_parts処理（互換性が破れたパーツをリセット）
         const resetParts = data.reset_parts || [];
         if (resetParts.length > 0) {
           resetParts.forEach(cat => {
@@ -277,7 +272,17 @@
             const idx = confirmedParts.findIndex(cp => normalizeCat(cp.category) === normCat);
             if (idx >= 0) confirmedParts.splice(idx, 1);
           });
-          updateDashboardFromConfirmedParts();
+        }
+
+        // ② パネル更新（メッセージ表示でエラーが出てもパネルは必ず更新される）
+        updateDashboardFromConfirmedParts();
+        console.info('[build] confirmed:', confirmedParts.map(p => p.category).join(','));
+
+        // ③ チャットバブル表示
+        appendAIBubble(data.message || '少し詳しく教えてください。');
+
+        // ④ リセット通知
+        if (resetParts.length > 0) {
           const resetLabels = resetParts.map(c => {
             const m = { motherboard: 'マザーボード', ram: 'RAM', psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
             return m[c.toLowerCase()] || c.toUpperCase();
@@ -292,7 +297,6 @@
             const m = { psu: '電源', case: 'ケース', cooler: 'CPUクーラー' };
             return m[c.toLowerCase()] || c.toUpperCase();
           });
-          // チャットには表示せず、次のターンでAIが自然に対応
           console.info('[build] recheck:', recheckLabels);
         }
       }
