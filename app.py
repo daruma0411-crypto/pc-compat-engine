@@ -9,6 +9,7 @@ import glob as glob_module
 import json
 import os
 import re
+import time
 import urllib.parse
 import urllib.request
 
@@ -988,7 +989,7 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 ユーザーの意図を最優先で解釈し、最短で目的を達成しろ。
 選びたいユーザーには選ばせろ、任せたいユーザーには一括で進めろ。
 
-- 「おまかせ」「全部決めて」→ 確認を挟まず一気にsearch_parts+confirm_partを連続実行してよい
+- 「おまかせ」「全部決めて」→ search_build(budget_yen, use_case)を1回呼び、結果からconfirm_partを6回呼ぶ（最速）
 - 「自分で選びたい」「候補見せて」→ 複数候補を提示して選ばせる
 - 「予算20万でモンハン」のように十分な情報がある → 追加質問せず即GPU検索開始
 - 情報が足りない場合のみ最小限の質問をする。デフォルト値で進められるなら進める
@@ -1025,6 +1026,13 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 【amazon_search】
 - SSD・CPUクーラー等DB外パーツの検索URL生成に使う
 - 戻り値のhtml_linkをそのまま返答に含める（マークダウンリンク[text](url)は使わない）
+
+【search_build】★おまかせ時の最速ツール★
+- 「おまかせ」「全部決めて」「予算○○万でお願い」→ まずsearch_buildを呼ぶ
+- budget_yenとuse_caseを渡すだけで、GPU→CPU→MB→RAM→Case→PSUを互換性チェーン付きで一括検索
+- 結果には各カテゴリtop3候補が含まれる。1番目がおすすめ
+- search_buildの後はconfirm_partを6回呼ぶだけ（search_partsは不要）
+- ユーザーが特定パーツを指定している場合はsearch_partsを使う
 
 【get_current_build】
 - 何が確定済みで何が未確定かを確認する
@@ -1537,10 +1545,22 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     }
 
 
+# ── productsグローバルキャッシュ（10分TTL）──
+_ALL_PC_PRODUCTS_CACHE = None
+_ALL_PC_PRODUCTS_CACHE_TIME = 0
+
+
 def _load_all_pc_products():
-    """全カテゴリの products.jsonl を読み込んで製品リストを返す（2022年以降のみ）"""
+    """全カテゴリの products.jsonl を読み込んで製品リストを返す（2022年以降のみ）
+    10分キャッシュ付き。データ更新は日次バッチのみなので十分。
+    """
+    global _ALL_PC_PRODUCTS_CACHE, _ALL_PC_PRODUCTS_CACHE_TIME
+    now = time.time()
+    if _ALL_PC_PRODUCTS_CACHE is not None and (now - _ALL_PC_PRODUCTS_CACHE_TIME) < 600:
+        return _ALL_PC_PRODUCTS_CACHE
+
     from datetime import datetime
-    
+
     jsonl_paths = glob_module.glob(
         os.path.join(_PC_WORKSPACE_DIR, 'data', '*', 'products.jsonl')
     )
@@ -1554,13 +1574,13 @@ def _load_all_pc_products():
                         all_products.append(json.loads(line))
         except Exception:
             pass
-    
+
     # 最新世代の製品のみに絞る（製品名から判定）
     import re
     def is_recent_product(product):
         name = product.get('name', '').upper()
         category = product.get('category', '')
-        
+
         # GPU: RTX 40xx/50xx, RX 7000/9000シリーズのみ
         if category == 'gpu':
             if re.search(r'RTX\s*(?:40[0-9]{2}|50[0-9]{2})', name):  # RTX 4000/5000
@@ -1570,7 +1590,7 @@ def _load_all_pc_products():
             if re.search(r'ARC\s*[AB][0-9]{3}', name):  # Intel Arc
                 return True
             return False
-        
+
         # CPU: Ryzen 7000/9000, Intel 12世代以降のみ
         if category == 'cpu':
             if re.search(r'RYZEN\s*[579]\s*(?:7[0-9]{3}|9[0-9]{3})', name):  # Ryzen 7000/9000
@@ -1578,12 +1598,14 @@ def _load_all_pc_products():
             if re.search(r'(?:CORE\s*(?:ULTRA|I[3579])[- ](?:1[2-9]|[2-9][0-9])|(?:1[2-9]|[2-9][0-9])TH\s*GEN)', name):  # Intel 12世代以降
                 return True
             return False
-        
+
         # その他のカテゴリは全て許可（マザボ、メモリ、SSDなど）
         return True
-    
+
     all_products = [p for p in all_products if is_recent_product(p)]
-    
+
+    _ALL_PC_PRODUCTS_CACHE = all_products
+    _ALL_PC_PRODUCTS_CACHE_TIME = now
     return all_products
 
 
@@ -2079,7 +2101,32 @@ GET_BUILD_SUMMARY_TOOL = {
     }
 }
 
-FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL]
+SEARCH_BUILD_TOOL = {
+    "name": "search_build",
+    "description": (
+        "おまかせ一括検索ツール。予算と用途を指定すると、GPU→CPU→MB→RAM→Case→PSUを"
+        "互換性チェーン付きで順次検索し、各カテゴリのtop3候補をまとめて返す。"
+        "「おまかせ」「全部決めて」等の一括ビルド時に使う。"
+        "結果を見て各カテゴリ1つずつconfirm_partで確定すること。"
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "budget_yen": {
+                "type": "integer",
+                "description": "予算（円）。例: 200000"
+            },
+            "use_case": {
+                "type": "string",
+                "enum": ["gaming", "work", "creator", "general"],
+                "description": "用途。gaming=ゲーム, work=仕事, creator=動画編集/3D, general=一般"
+            },
+        },
+        "required": ["budget_yen"]
+    }
+}
+
+FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL, SEARCH_BUILD_TOOL]
 
 # ── ティア別予算配分テーブル（PCPartPicker/chimolog/jisaku.com実データ準拠）──
 _BUDGET_TIERS = {
@@ -2162,7 +2209,7 @@ def _compute_budget_max_price(category, session):
     return max(computed, _MIN_MAX_PRICE.get(category, 0))
 
 
-def handle_search_parts(params, all_products, session=None):
+def handle_search_parts(params, all_products, session=None, limit=5, _internal=False):
     """AIからのツール呼び出しを処理してDB検索結果を返す。"""
     category = params['category']
 
@@ -2177,9 +2224,10 @@ def handle_search_parts(params, all_products, session=None):
 
     # ── 前のカテゴリが未確定なら拒否（confirm_part呼び忘れ防止）──
     # ただし user_specified=true（ユーザーが型番指定）の場合はスキップ
+    # _internal=True（search_buildからの内部呼び出し）の場合もスキップ
     _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
     cb = (session or {}).get('current_build') or {}
-    if category in _PART_ORDER and not params.get('user_specified'):
+    if category in _PART_ORDER and not params.get('user_specified') and not _internal:
         cat_idx = _PART_ORDER.index(category)
         for prev_cat in _PART_ORDER[:cat_idx]:
             if cb.get(prev_cat) is None:
@@ -2337,10 +2385,10 @@ def handle_search_parts(params, all_products, session=None):
         else:
             candidates.sort(key=lambda p: p.get('price_min') or 999999)
 
-    # 件数制限（5件に絞る。多すぎるとAIが混乱してproduct_idを間違える）
-    candidates = candidates[:5]
+    # 件数制限（多すぎるとAIが混乱してproduct_idを間違える）
+    candidates = candidates[:limit]
 
-    # 結果フォーマット
+    # 結果フォーマット（軽量版: specs→key_specs 1行テキストでトークン60%削減）
     results = []
     for p in candidates:
         specs = p.get('specs', {}) or {}
@@ -2348,33 +2396,34 @@ def handle_search_parts(params, all_products, session=None):
             'product_id': p.get('id', ''),
             'name': p['name'],
             'price_min': p.get('price_min'),
-            'specs': {}
         }
-        # カテゴリ別に重要スペックのみ返す（トークン節約）
+        # カテゴリ別にkey_specs 1行テキストを生成
+        parts = []
         if category == 'gpu':
-            for k in ('vram_gb', 'length_mm', 'tdp_w', 'chip'):
-                if specs.get(k) is not None:
-                    entry['specs'][k] = specs[k]
+            if specs.get('vram_gb'): parts.append(f"VRAM {specs['vram_gb']}GB")
+            if specs.get('length_mm'): parts.append(f"{specs['length_mm']}mm")
+            if specs.get('tdp_w'): parts.append(f"{specs['tdp_w']}W")
         elif category == 'cpu':
-            for k in ('socket', 'cores', 'threads', 'tdp_w', 'memory_type'):
-                if specs.get(k) is not None:
-                    entry['specs'][k] = specs[k]
+            if specs.get('socket'): parts.append(specs['socket'])
+            if specs.get('cores'): parts.append(f"{specs['cores']}C/{specs.get('threads', '?')}T")
+            if specs.get('tdp_w'): parts.append(f"{specs['tdp_w']}W")
+            if specs.get('memory_type'): parts.append(str(specs['memory_type']))
         elif category == 'motherboard':
-            for k in ('socket', 'chipset', 'memory_type', 'form_factor'):
-                if specs.get(k) is not None:
-                    entry['specs'][k] = specs[k]
+            if specs.get('socket'): parts.append(specs['socket'])
+            if specs.get('chipset'): parts.append(specs['chipset'])
+            if specs.get('memory_type'): parts.append(str(specs['memory_type']))
+            if specs.get('form_factor'): parts.append(specs['form_factor'])
         elif category == 'ram':
-            for k in ('memory_type', 'capacity_gb', 'speed_mhz'):
-                if specs.get(k) is not None:
-                    entry['specs'][k] = specs[k]
+            if specs.get('memory_type'): parts.append(str(specs['memory_type']))
+            if specs.get('capacity_gb'): parts.append(f"{specs['capacity_gb']}GB")
+            if specs.get('speed_mhz'): parts.append(f"{specs['speed_mhz']}MHz")
         elif category == 'case':
-            for k in ('max_gpu_length_mm', 'form_factor'):
-                if specs.get(k) is not None:
-                    entry['specs'][k] = specs[k]
+            if specs.get('max_gpu_length_mm'): parts.append(f"GPU {specs['max_gpu_length_mm']}mm")
+            if specs.get('form_factor'): parts.append(specs['form_factor'])
         elif category == 'psu':
-            for k in ('wattage_w', 'certification', 'modular'):
-                if specs.get(k) is not None:
-                    entry['specs'][k] = specs[k]
+            if specs.get('wattage_w'): parts.append(f"{specs['wattage_w']}W")
+            if specs.get('certification'): parts.append(specs['certification'])
+        entry['key_specs'] = ' / '.join(parts) if parts else ''
         results.append(entry)
 
     if not results:
@@ -2396,6 +2445,93 @@ def handle_search_parts(params, all_products, session=None):
             '上記結果の1番目（おすすめ）をユーザーに提案し、2番目を代替案として提示せよ。'
             'ユーザーが承認したら、その製品のproduct_idをそのままconfirm_partに渡すこと。'
             'product_idは絶対に自分で作らない。結果のproduct_idをコピーすること。'
+        ),
+    }
+
+
+def handle_search_build(params, all_products, session):
+    """おまかせ一括検索: GPU→CPU→MB→RAM→Case→PSUを互換性チェーン付きで順次検索。
+    各カテゴリtop3候補をまとめて返す。AIはこの結果から各カテゴリ1つずつconfirm_partするだけ。
+    """
+    budget_yen = params.get('budget_yen', 200000)
+    # セッションに予算を反映
+    session['budget_yen'] = budget_yen
+
+    # 互換性チェーン検索: sessionのcurrent_buildに仮登録しながら順次検索
+    # 終了後にcurrent_buildを元に戻す
+    original_build = {k: v for k, v in session['current_build'].items()}
+    build_results = {}
+
+    _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+
+    try:
+        for category in _PART_ORDER:
+            search_params = {'category': category}
+
+            # 前段パーツからの互換性条件を組み立て（current_buildから自動取得）
+            cb = session['current_build']
+
+            if category == 'motherboard' and cb.get('cpu'):
+                socket = cb['cpu'].get('socket')
+                if socket:
+                    search_params['socket'] = socket
+
+            if category == 'ram' and cb.get('motherboard'):
+                mem_type = cb['motherboard'].get('memory_type')
+                if mem_type:
+                    search_params['memory_type'] = str(mem_type) if not isinstance(mem_type, str) else mem_type
+
+            if category == 'case' and cb.get('gpu'):
+                length_mm = cb['gpu'].get('length_mm')
+                if length_mm:
+                    search_params['min_gpu_length_mm'] = length_mm
+
+            if category == 'psu' and cb.get('gpu'):
+                gpu_tdp = cb['gpu'].get('tdp_w', 0) or 0
+                cpu_tdp = (cb.get('cpu') or {}).get('tdp_w', 0) or 0
+                if gpu_tdp or cpu_tdp:
+                    search_params['min_wattage'] = int((gpu_tdp + cpu_tdp) * 1.5)
+
+            # 予算配分でmax_priceを自動計算（current_buildの仮登録が反映される）
+            tier_max_price = _compute_budget_max_price(category, session)
+            if tier_max_price is not None:
+                search_params['max_price'] = tier_max_price
+
+            # 検索実行（limit=3でトークン削減）
+            result = handle_search_parts(search_params, all_products, session=session, limit=3, _internal=True)
+            candidates = result.get('results', [])
+            build_results[category] = candidates
+
+            # 1番目の候補をcurrent_buildに仮登録（後続カテゴリの互換性チェーン+予算配分用）
+            if candidates:
+                top = candidates[0]
+                product = next((p for p in all_products if p.get('id') == top.get('product_id')), None)
+                if product:
+                    specs = product.get('specs', {}) or {}
+                    session['current_build'][category] = {
+                        'name': product.get('name', ''),
+                        'price_min': product.get('price_min'),
+                        **specs,
+                    }
+    finally:
+        # current_buildを元に戻す（仮登録を解除）
+        session['current_build'] = original_build
+
+    # 合計金額（1番目候補での見積もり）
+    total_estimate = 0
+    for cat in _PART_ORDER:
+        cands = build_results.get(cat, [])
+        if cands and cands[0].get('price_min'):
+            total_estimate += cands[0]['price_min']
+
+    return {
+        'build_candidates': build_results,
+        'total_estimate_top1': total_estimate,
+        'budget_yen': budget_yen,
+        'instruction': (
+            '上記は各カテゴリのtop3候補です。各カテゴリの1番目がおすすめです。'
+            'ユーザーに構成を提示し、承認を得たら各カテゴリの1番目のproduct_idで'
+            'confirm_partを6回呼んでください。product_idは結果からそのままコピーすること。'
         ),
     }
 
@@ -2543,6 +2679,8 @@ def execute_tool(tool_name, tool_input, session, all_products):
             return {'error': f'まだ {missing_ja} が未確定です。全6パーツをconfirm_partで確定してからget_build_summaryを呼んでください。'}
         summary_text = generate_server_side_summary(session)
         return {'summary': summary_text}
+    elif tool_name == 'search_build':
+        return handle_search_build(tool_input, all_products, session)
     elif tool_name == 'amazon_search':
         amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
         q = urllib.parse.quote(tool_input['query'])
@@ -3147,7 +3285,7 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
     for _ in range(max_iterations):
         req_body = json.dumps({
             'model': 'claude-sonnet-4-5-20250929',
-            'max_tokens': 2048,
+            'max_tokens': 1024,
             'system': system_prompt,
             'tools': FC_TOOLS,
             'messages': messages,
@@ -3207,9 +3345,24 @@ def call_claude_with_tools(session, user_message, all_products, system_prompt):
                         for r in result.get('results', [])[:5]
                     ]
                     session['last_search_category'] = block['input'].get('category', '')
+                # search_buildの結果からもセッションに保存
+                if block['name'] == 'search_build' and isinstance(result, dict) and 'build_candidates' in result:
+                    # 各カテゴリの1番目候補をlast_search_resultsにまとめる
+                    all_top = []
+                    for cat, cands in result['build_candidates'].items():
+                        for c in cands[:3]:
+                            all_top.append({'product_id': c.get('product_id', ''), 'name': c.get('name', ''), 'price_min': c.get('price_min'), 'category': cat})
+                    session['last_search_results'] = all_top
+                    session['last_search_category'] = 'all'
                 # ツール結果のサマリーをログ出力
                 log_entry = {'tool': block['name'], 'params': block['input']}
-                if isinstance(result, dict) and 'results' in result:
+                if isinstance(result, dict) and 'build_candidates' in result:
+                    # search_build の結果ログ
+                    cat_counts = {cat: len(cands) for cat, cands in result['build_candidates'].items()}
+                    log_entry['build_candidates_count'] = cat_counts
+                    log_entry['total_estimate'] = result.get('total_estimate_top1', 0)
+                    print(f"[TOOL_RESULT] search_build cats={cat_counts} total=¥{result.get('total_estimate_top1',0):,}", flush=True, file=sys.stderr)
+                elif isinstance(result, dict) and 'results' in result:
                     names = [{'name': r.get('name',''), 'price': r.get('price_min')} for r in result['results'][:10]]
                     log_entry['result_count'] = result.get('count', 0)
                     log_entry['top10'] = names

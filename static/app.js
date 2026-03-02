@@ -210,7 +210,12 @@
     const typingEl = appendTyping();
 
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 65000);
+    const timer = setTimeout(() => controller.abort(), 120000);
+    // 15秒後に進捗メッセージ表示（待ち時間の不安軽減）
+    const progressTimer = setTimeout(() => {
+      const dots = typingEl.querySelector('.typing-indicator');
+      if (dots) dots.innerHTML = '<span style="font-size:.85rem">🔍 パーツを選定中...</span>';
+    }, 15000);
 
     try {
       const endpoint = gameMode ? '/api/recommend' : '/api/chat';
@@ -221,6 +226,7 @@
         signal: controller.signal,
       });
       clearTimeout(timer);
+      clearTimeout(progressTimer);
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
@@ -310,6 +316,7 @@
       }
     } catch (e) {
       clearTimeout(timer);
+      clearTimeout(progressTimer);
       typingEl.remove();
       if (e.name === 'AbortError') {
         appendAIBubble('⏱️ サーバーが起動中のため時間がかかっています。\nもう一度送信してください（2回目以降は速くなります）。');
