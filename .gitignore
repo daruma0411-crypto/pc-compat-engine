@@ -20,6 +20,10 @@ workspace/data/steam/raw/
 # SEO互換性ページ（161,577件 ~1GB、Renderではオンデマンド生成想定）
 static/compat/
 
+# 一時画像（Twitter Bot）
+scripts/temp_images/
+scripts/test_images/
+
 # 一時スクリプト
 tmp_*.py
 tmp_*.ps1

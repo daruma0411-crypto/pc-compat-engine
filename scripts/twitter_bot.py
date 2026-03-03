@@ -109,7 +109,7 @@ def format_spec(spec):
 
 
 def generate_tweet_patterns(game):
-    """ツイート文のパターンを生成（複数パターンからランダム選択）"""
+    """ツイート文のパターンを生成（10パターンからランダム選択）"""
     name = game['name']
     slug = game_slug(name)
     url = f"{SITE_URL}/game/{slug}"
@@ -159,18 +159,77 @@ def generate_tweet_patterns(game):
         f"RAM: {ram}GB\n\n"
         f"互換性診断ツール→ {url}\n"
         f"#PCゲーム #動作環境",
+
+        # パターン5: 重い原因はGPU？
+        f"「{name}が重い！原因はGPU？」\n\n"
+        f"推奨スペック:\n"
+        f"GPU: {gpu}\n"
+        f"CPU: {cpu}\n"
+        f"RAM: {ram}GB\n\n"
+        f"スペック不足ならアップグレードを検討\n"
+        f"→ {url}\n"
+        f"#PCゲーム #GPU",
+
+        # パターン6: 予算別PC構成
+        f"「予算15万円で{name}を快適プレイ」\n\n"
+        f"推奨スペック:\n"
+        f"GPU: {gpu}\n"
+        f"CPU: {cpu}\n"
+        f"RAM: {ram}GB\n\n"
+        f"予算別PC構成を提案！\n"
+        f"→ {url}\n"
+        f"#ゲーミングPC #予算",
+
+        # パターン7: ノートPC対応
+        f"「ノートPCで{name}は動く？」\n\n"
+        f"推奨GPU: {gpu}\n"
+        f"推奨CPU: {cpu}\n"
+        f"RAM: {ram}GB\n\n"
+        f"ゲーミングノート選びの参考に\n"
+        f"→ {url}\n"
+        f"#ゲーミングノート #PCゲーム",
+
+        # パターン8: GPU別対応ゲーム
+        f"「RTX 4060で{name}は遊べる？」\n\n"
+        f"推奨GPU: {gpu}\n"
+        f"推奨CPU: {cpu}\n"
+        f"RAM: {ram}GB\n\n"
+        f"GPU別対応ゲーム一覧\n"
+        f"→ {url}\n"
+        f"#RTX4060 #GPU互換性",
+
+        # パターン9: 最低スペック vs 推奨スペック
+        f"「{name}の最低スペックと推奨スペックの違いは？」\n\n"
+        f"推奨スペック:\n"
+        f"GPU: {gpu}\n"
+        f"CPU: {cpu}\n"
+        f"RAM: {ram}GB\n\n"
+        f"詳細な比較はこちら\n"
+        f"→ {url}\n"
+        f"#PCゲーム #スペック",
+
+        # パターン10: FPS目標
+        f"「{name}を144fpsで遊ぶには？」\n\n"
+        f"推奨GPU: {gpu}\n"
+        f"推奨CPU: {cpu}\n"
+        f"RAM: {ram}GB\n\n"
+        f"FPS目標別のPC構成を提案\n"
+        f"→ {url}\n"
+        f"#144fps #ゲーミングPC",
     ]
 
     return random.choice(patterns)
 
 
-def post_tweet(text, dry_run=True):
-    """ツイートを投稿（DRY RUNモードではコンソール出力のみ）"""
+def post_tweet(text, dry_run=True, image_path=None):
+    """ツイートを投稿（画像添付対応、DRY RUNモードではコンソール出力のみ）"""
     if dry_run:
         print("=" * 60)
         print("[DRY RUN] 以下のツイートを投稿します:")
         print("=" * 60)
         print(text)
+        if image_path:
+            print(f"\n[画像添付] {image_path}")
         print("=" * 60)
         print(f"文字数: {len(text)}")
         return True
@@ -187,9 +246,11 @@ def post_tweet(text, dry_run=True):
         print(f"[ERROR] 環境変数が未設定: {', '.join(missing)}")
         return False
 
-    # Twitter API v2での投稿
+    # Twitter API v2での投稿（画像添付対応）
     try:
         import tweepy
+
+        # v2クライアント
         client = tweepy.Client(
             bearer_token=TWITTER_BEARER_TOKEN,
             consumer_key=TWITTER_API_KEY,
@@ -197,10 +258,36 @@ def post_tweet(text, dry_run=True):
             access_token=TWITTER_ACCESS_TOKEN,
             access_token_secret=TWITTER_ACCESS_SECRET
         )
-        response = client.create_tweet(text=text)
+
+        # 画像がある場合はv1 APIでアップロード
+        media_ids = None
+        if image_path and os.path.exists(str(image_path)):
+            auth = tweepy.OAuth1UserHandler(
+                TWITTER_API_KEY,
+                TWITTER_API_SECRET,
+                TWITTER_ACCESS_TOKEN,
+                TWITTER_ACCESS_SECRET
+            )
+            api_v1 = tweepy.API(auth)
+            media = api_v1.media_upload(str(image_path))
+            media_ids = [media.media_id]
+            print(f"[OK] 画像アップロード成功: media_id={media.media_id}")
+
+        # ツイート投稿
+        if media_ids:
+            response = client.create_tweet(text=text, media_ids=media_ids)
+        else:
+            response = client.create_tweet(text=text)
+
         tweet_id = response.data['id']
         print(f"[SUCCESS] ツイート投稿成功! ID: {tweet_id}")
         print(f"[SUCCESS] URL: https://twitter.com/i/web/status/{tweet_id}")
+
+        # 一時画像ファイルを削除
+        if image_path and os.path.exists(str(image_path)):
+            os.remove(str(image_path))
+            print(f"[OK] 一時画像を削除: {image_path}")
+
         return True
     except tweepy.errors.Forbidden as e:
         print(f"[ERROR] 403 Forbidden: App permissions が Read Only の可能性")
@@ -245,15 +332,32 @@ def main():
     # ツイート文生成
     tweet_text = generate_tweet_patterns(selected_game)
 
+    # メタスコア画像生成（スコアがある場合）
+    image_path = None
+    meta_score = selected_game.get('metacritic_score')
+    if meta_score and meta_score > 0:
+        try:
+            from generate_metacritic_image import generate_metacritic_image
+            image_dir = Path(__file__).parent / 'temp_images'
+            image_dir.mkdir(exist_ok=True)
+            safe_name = selected_game['name'].replace(' ', '_').replace('/', '_')
+            image_path = str(image_dir / f"meta_{safe_name}.png")
+            generate_metacritic_image(selected_game['name'], meta_score, image_path)
+            print(f"[OK] メタスコア画像生成: {image_path}")
+        except Exception as e:
+            print(f"[WARN] 画像生成スキップ（Pillow未インストール?）: {e}")
+            image_path = None
+
     # 投稿
-    success = post_tweet(tweet_text, dry_run=args.dry_run)
+    success = post_tweet(tweet_text, dry_run=args.dry_run, image_path=image_path)
 
     if success and not args.dry_run:
         # 履歴に追加
         history.append({
             'name': selected_game['name'],
             'posted_at': datetime.now().isoformat(),
-            'tweet_text': tweet_text
+            'tweet_text': tweet_text,
+            'has_image': image_path is not None,
         })
         save_history(history)
         print("[OK] 投稿履歴を更新しました")
