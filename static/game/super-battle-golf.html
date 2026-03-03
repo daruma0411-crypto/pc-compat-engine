@@ -12,212 +12,462 @@
     gtag('js', new Date());
     gtag('config', 'G-PPNEBG625J');
   </script>
-  <title>Super Battle Golf 推奨スペック | PC互換性チェッカー</title>
-  <meta name="description" content="Super Battle Golfの推奨スペックと最低動作環境。予算別PC構成案と互換性チェック。RTX 3060で動く？などのFAQも掲載。">
-  
+
+  <title>Super Battle Golf 推奨スペック・必要動作環境 | PC互換チェッカー</title>
+  <meta name="description" content="Super Battle Golfの推奨スペックと最低動作環境。予算別PC構成案（8万・12万・18万）、GPU性能比較、よくある質問も掲載。RTX 4060で何fpsでる？などのFAQに回答。">
+
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Super Battle Golf 推奨スペック完全ガイド">
-  <meta property="og:description" content="Super Battle Golfを快適にプレイするための推奨スペックと最適PC構成。">
-  <meta property="og:url" content="https://pc-compat-engine.onrender.com/game/super-battle-golf.html">
-  
-  <!-- 構造化データ -->
+  <meta property="og:title" content="Super Battle Golf 推奨スペック完全ガイド | PC互換チェッカー">
+  <meta property="og:description" content="Super Battle Golfを快適にプレイするための推奨スペックと最適PC構成。予算8万〜18万の3パターンを紹介。">
+  <meta property="og:url" content="https://pc-compat-engine-production.up.railway.app/game/super-battle-golf">
+  <meta property="og:site_name" content="PC互換チェッカー">
+
+  <!-- 構造化データ: VideoGame -->
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
   "@type": "VideoGame",
   "name": "Super Battle Golf",
-  "url": "https://pc-compat-engine.onrender.com/game/super-battle-golf.html",
+  "url": "https://pc-compat-engine-production.up.railway.app/game/super-battle-golf",
   "applicationCategory": "Game",
   "operatingSystem": "Windows",
   "systemRequirements": {
     "@type": "SoftwareApplication",
     "memoryRequirements": "8GB RAM",
-    "processorRequirements": "Ryxen 3 3100, equivalent",
+    "processorRequirements": "Ryxen 3 3100 / equivalent",
     "storageRequirements": "1GB",
+    "graphicsRequirements": "GTX 950 4gb / equivalent",
     "operatingSystem": "Windows 10/11"
   }
 }
   </script>
-  
+
+  <!-- 構造化データ: FAQPage -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Super Battle Golfの推奨スペックは？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Super Battle Golfの推奨スペックは、GPU: GTX 950 4gb / equivalent、CPU: Ryxen 3 3100 / equivalent、RAM: 8GB です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "予算10万円でSuper Battle Golf用PCは組める？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい、RTX 4060 + Ryzen 5 7600 + 16GB RAM の構成（約10万円）で1080p 60fps以上が可能です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Super Battle Golfは何fpsで遊べますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "推奨スペック（GTX 950 4gb / equivalent相当）で60〜90fps、RTX 4060で100〜144fpsが期待できます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ノートPCでも動きますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RTX 4060搭載ゲーミングノートなら1080p 60fps以上で快適にプレイ可能です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "内蔵GPU（グラボなし）でも遊べますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "内蔵GPUでは低設定・30fps前後になります。快適なプレイには専用グラフィックボード（最低Geforce GT 1030 / Radeon RX 450以上）が必要です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Super Battle Golfが重い・カクつく場合の対処法は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "グラフィック設定を低に変更、解像度を1080pに下げる、バックグラウンドアプリを終了、グラフィックドライバーを最新版に更新してください。"
+      }
+    }
+  ]
+}
+  </script>
+
   <style>
+
+    /* ベース */
+    * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 16px;
       line-height: 1.6;
       color: #333;
+      background: #fafafa;
     }
-    h1 {
-      color: #1a1a1a;
-      border-bottom: 3px solid #4CAF50;
-      padding-bottom: 10px;
-    }
-    h2 {
-      color: #2c3e50;
-      margin-top: 40px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-    }
-    th {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .faq-item {
-      background: #f9f9f9;
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 5px;
-      border-left: 4px solid #4CAF50;
-    }
-    .faq-item h3 {
-      margin-top: 0;
-      color: #2c3e50;
-    }
+    a { color: #4CAF50; }
+    h1 { color: #1a1a1a; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; }
+    h2 { color: #2c3e50; margin-top: 40px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; }
+    th { background-color: #4CAF50; color: white; }
+    time { color: #666; font-size: 0.9em; }
+    .source { color: #666; font-size: 0.9em; margin-top: 10px; }
+
+    /* ナビ */
+    .site-nav { background: #1a1a1a; padding: 10px 16px; margin: -16px -16px 20px; display: flex; align-items: center; gap: 16px; }
+    .site-nav a { color: #78FFCB; text-decoration: none; font-size: 14px; }
+    .site-nav a:hover { text-decoration: underline; }
+    .site-nav .nav-logo { font-weight: bold; font-size: 16px; }
+
+    /* CTAボタン */
     .cta-button {
       display: inline-block;
       background: #4CAF50;
-      color: white;
-      padding: 15px 30px;
+      color: white !important;
+      padding: 14px 28px;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-weight: bold;
       margin: 20px 0;
+      font-size: 15px;
     }
-    .cta-button:hover {
-      background: #45a049;
-    }
-    time {
-      color: #666;
-      font-size: 0.9em;
-    }
-    .source {
-      color: #666;
-      font-size: 0.9em;
-      margin-top: 10px;
+    .cta-button:hover { background: #45a049; }
+
+    /* SEOセクション共通 */
+    .seo-section { margin: 40px 0; padding: 24px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .seo-section h2 { margin-top: 0; }
+    .section-note { color: #777; font-size: 13px; margin-top: 12px; }
+
+    /* 予算カード */
+    .budget-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+    .budget-card { border: 2px solid #e0e0e0; border-radius: 10px; padding: 18px; background: #fff; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+    .budget-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .budget-badge { position: absolute; top: -12px; right: 16px; color: white; padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+    .budget-card h3 { margin: 0 0 12px; font-size: 16px; }
+    .build-specs { margin: 12px 0; }
+    .spec-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; gap: 4px; }
+    .spec-label { font-weight: 600; color: #555; min-width: 36px; }
+    .spec-value { flex: 1; padding: 0 8px; }
+    .spec-price { color: #1976D2; font-weight: 600; white-space: nowrap; }
+    .build-total { margin-top: 12px; padding: 10px; background: #f5f5f5; border-radius: 6px; text-align: center; font-size: 17px; font-weight: bold; }
+    .build-perf { margin-top: 8px; padding: 8px; background: #e3f2fd; border-radius: 6px; text-align: center; color: #1565C0; font-size: 12px; }
+    .btn-check { display: block; width: 100%; margin-top: 12px; padding: 10px; background: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 13px; }
+    .btn-check:hover { background: #45a049; }
+
+    /* GPU比較表 */
+    .table-scroll { overflow-x: auto; }
+    .gpu-table { min-width: 520px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .gpu-table th { background: #2196F3; }
+    .gpu-rec-row { background: #f0f9f0; }
+    .rec-badge { background: #4CAF50; color: white; font-size: 11px; padding: 2px 6px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+    .gpu-tips { margin-top: 16px; padding: 14px 16px; background: #fffde7; border-left: 4px solid #FFC107; border-radius: 4px; }
+    .gpu-tips ul { margin: 8px 0 0 20px; }
+    .gpu-tips li { margin-bottom: 4px; }
+
+    /* FAQ */
+    .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+    .faq-q { background: #f5f5f5; padding: 14px 16px; margin: 0; font-size: 15px; color: #333; }
+    .faq-a { padding: 14px 16px; background: white; }
+    .faq-a p { margin: 0; }
+
+    /* トラブルシューティング */
+    .trouble-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 16px; }
+    .trouble-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; background: white; }
+    .trouble-card h3 { color: #c62828; margin-top: 0; font-size: 15px; }
+    .trouble-card ol { padding-left: 20px; line-height: 1.8; font-size: 13px; margin: 8px 0; }
+    .trouble-tip { margin-top: 10px; padding: 8px 10px; background: #e8f5e9; border-radius: 4px; font-size: 13px; }
+
+    /* フッター */
+    .page-footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #e0e0e0; text-align: center; font-size: 13px; color: #777; }
+    .page-footer a { color: #4CAF50; margin: 0 8px; }
+
+    /* レスポンシブ */
+    @media (max-width: 600px) {
+      .budget-cards { grid-template-columns: 1fr; }
+      .trouble-grid { grid-template-columns: 1fr; }
+      .spec-item { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
-  <article itemscope itemtype="https://schema.org/Article">
-    <h1 itemprop="headline">Super Battle Golf 推奨スペック</h1>
+
+<!-- ナビゲーション -->
+<nav class="site-nav">
+  <a href="https://pc-compat-engine-production.up.railway.app/" class="nav-logo">🖥️ PC互換チェッカー</a>
+  <a href="https://pc-compat-engine-production.up.railway.app/guide">ガイド</a>
+  <a href="https://pc-compat-engine-production.up.railway.app/about">運営者情報</a>
+</nav>
+
+<article itemscope itemtype="https://schema.org/Article">
+  <h1 itemprop="headline">Super Battle Golf 推奨スペック・必要動作環境</h1>
+
+  <time datetime="2026-03-03" itemprop="dateModified">最終更新: 2026年03月03日</time>
+  <p class="source">データソース: <a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam公式</a></p>
+
+  <section id="recommended" itemprop="articleBody">
+    <h2>推奨動作環境</h2>
+    <p>Super Battle Golfを快適にプレイするための推奨スペックです。60fps以上の安定したフレームレートを実現できます。</p>
+
+    <table>
+      <tr><th>項目</th><th>推奨スペック</th></tr>
+      <tr><td><strong>GPU（グラフィックボード）</strong></td><td>GTX 950 4gb / equivalent</td></tr>
+      <tr><td><strong>CPU（プロセッサ）</strong></td><td>Ryxen 3 3100 / equivalent</td></tr>
+      <tr><td><strong>RAM（メモリ）</strong></td><td>8GB</td></tr>
+      <tr><td><strong>ストレージ</strong></td><td>1GB（SSD推奨）</td></tr>
+      <tr><td><strong>OS</strong></td><td>Windows 10/11 (64bit)</td></tr>
+    </table>
+  </section>
+
+  <section id="minimum">
+    <h2>最低動作環境</h2>
+    <p>起動可能な最低限のスペックです。低設定・30fps前後での動作となるため、快適性は推奨スペック以上を推奨します。</p>
+
+    <table>
+      <tr><th>項目</th><th>最低スペック</th></tr>
+      <tr><td><strong>GPU</strong></td><td>Geforce GT 1030 / Radeon RX 450</td></tr>
+      <tr><td><strong>CPU</strong></td><td>Intel Core i3 / equivalent</td></tr>
+      <tr><td><strong>RAM</strong></td><td>4GB</td></tr>
+    </table>
+  </section>
+
+  <section id="check">
+    <h2>あなたのPCでSuper Battle Golfは動く？</h2>
+    <p>AIショップ店員が、あなたの予算・ゲーム・用途に合わせた最適なPC構成を無料で提案します。</p>
+    <a href="https://pc-compat-engine-production.up.railway.app/?game=Super Battle Golf" class="cta-button">無料でAI診断を受ける →</a>
+  </section>
+
+  
+<section id="budget-builds" class="seo-section">
+  <h2>💰 予算別おすすめPC構成</h2>
+  <p>Super Battle Golfを快適にプレイできるPC構成を予算別に紹介します。価格はすべて目安です。</p>
+  <div class="budget-cards">
     
-    <time datetime="2026-02-25" itemprop="dateModified">
-      最終更新: 2026年02月25日
-    </time>
-    
-    <p class="source">データソース: <a href="https://store.steampowered.com/" target="_blank">Steam公式</a></p>
-    
-    <section id="recommended" itemprop="articleBody">
-      <h2>推奨動作環境</h2>
-      <p>Super Battle Golfを快適にプレイするための推奨スペックです。60fps以上の安定したフレームレートを実現できます。</p>
+    <div class="budget-card" style="border-color:#607D8B;">
       
-      <table>
-        <tr>
-          <th>項目</th>
-          <th>推奨スペック</th>
-        </tr>
-        <tr>
-          <td><strong>GPU（グラフィックボード）</strong></td>
-          <td>GTX 950 4gb, equivalent</td>
-        </tr>
-        <tr>
-          <td><strong>CPU（プロセッサ）</strong></td>
-          <td>Ryxen 3 3100, equivalent</td>
-        </tr>
-        <tr>
-          <td><strong>RAM（メモリ）</strong></td>
-          <td>8GB</td>
-        </tr>
-        <tr>
-          <td><strong>ストレージ</strong></td>
-          <td>1GB（SSD推奨）</td>
-        </tr>
-        <tr>
-          <td><strong>OS</strong></td>
-          <td>Windows 10/11 (64bit)</td>
-        </tr>
-      </table>
-    </section>
-    
-    <section id="minimum">
-      <h2>最低動作環境</h2>
-      <p>起動可能な最低限のスペックです。低設定・30fps前後での動作となるため、快適性は推奨スペック以上を推奨します。</p>
+      <h3>💵 8万円（最低動作）</h3>
+      <div class="build-specs">
+        <div class="spec-item"><span class="spec-label">GPU:</span><span class="spec-value">RTX 3060</span><span class="spec-price">¥29,800</span></div>
+        <div class="spec-item"><span class="spec-label">CPU:</span><span class="spec-value">Ryzen 5 5600</span><span class="spec-price">¥14,980</span></div>
+        <div class="spec-item"><span class="spec-label">RAM:</span><span class="spec-value">16GB DDR4</span><span class="spec-price">¥5,980</span></div>
+        <div class="spec-item"><span class="spec-label">SSD:</span><span class="spec-value">500GB SSD</span><span class="spec-price">¥5,480</span></div>
+        <div class="spec-item"><span class="spec-label">他:</span><span class="spec-value">MB・PSU・ケース等</span><span class="spec-price">¥22,000</span></div>
+      </div>
+      <div class="build-total">合計 約¥78,240</div>
+      <div class="build-perf">🎮 1080p 低〜中設定 30〜60fps</div>
+      <a href="/?game=Super Battle Golf" class="btn-check">AIに構成を相談する →</a>
+    </div>
+    <div class="budget-card" style="border-color:#4CAF50;">
+      <div class="budget-badge" style="background:#4CAF50;">おすすめ</div>
+      <h3>💳 12万円（推奨動作）</h3>
+      <div class="build-specs">
+        <div class="spec-item"><span class="spec-label">GPU:</span><span class="spec-value">RTX 4060</span><span class="spec-price">¥45,800</span></div>
+        <div class="spec-item"><span class="spec-label">CPU:</span><span class="spec-value">Ryzen 5 7600</span><span class="spec-price">¥25,000</span></div>
+        <div class="spec-item"><span class="spec-label">RAM:</span><span class="spec-value">16GB DDR5</span><span class="spec-price">¥7,980</span></div>
+        <div class="spec-item"><span class="spec-label">SSD:</span><span class="spec-value">1TB NVMe SSD</span><span class="spec-price">¥7,480</span></div>
+        <div class="spec-item"><span class="spec-label">他:</span><span class="spec-value">MB・PSU・ケース等</span><span class="spec-price">¥26,000</span></div>
+      </div>
+      <div class="build-total">合計 約¥112,260</div>
+      <div class="build-perf">🎮 1080p 高設定 60〜100fps / WQHD 中設定 60fps</div>
+      <a href="/?game=Super Battle Golf" class="btn-check">AIに構成を相談する →</a>
+    </div>
+    <div class="budget-card" style="border-color:#FF9800;">
       
-      <table>
+      <h3>💎 18万円（快適動作）</h3>
+      <div class="build-specs">
+        <div class="spec-item"><span class="spec-label">GPU:</span><span class="spec-value">RTX 4070</span><span class="spec-price">¥82,800</span></div>
+        <div class="spec-item"><span class="spec-label">CPU:</span><span class="spec-value">Ryzen 7 7700</span><span class="spec-price">¥38,000</span></div>
+        <div class="spec-item"><span class="spec-label">RAM:</span><span class="spec-value">32GB DDR5</span><span class="spec-price">¥13,980</span></div>
+        <div class="spec-item"><span class="spec-label">SSD:</span><span class="spec-value">1TB NVMe SSD</span><span class="spec-price">¥7,480</span></div>
+        <div class="spec-item"><span class="spec-label">他:</span><span class="spec-value">MB・PSU・ケース等</span><span class="spec-price">¥30,000</span></div>
+      </div>
+      <div class="build-total">合計 約¥172,260</div>
+      <div class="build-perf">🎮 WQHD 高設定 100〜144fps / 4K 中設定 60fps</div>
+      <a href="/?game=Super Battle Golf" class="btn-check">AIに構成を相談する →</a>
+    </div>
+  </div>
+  <p class="section-note">※ パーツ価格は変動します。AIに相談するとリアルタイムの価格でPC構成を提案します。</p>
+</section>
+
+  
+<section id="gpu-comparison" class="seo-section">
+  <h2>🎮 GPU別性能比較</h2>
+  <p>Super Battle Golfにおける主要GPUの性能比較です。FPS値は1080p高設定でのおおよその目安です。</p>
+  <div class="table-scroll">
+    <table class="gpu-table">
+      <thead>
         <tr>
-          <th>項目</th>
-          <th>最低スペック</th>
+          <th>GPU</th>
+          <th>価格（目安）</th>
+          <th>1080p</th>
+          <th>WQHD</th>
+          <th>4K</th>
+          <th>推奨度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RTX 3060</strong></td>
+          <td>¥29,800</td>
+          <td>70fps</td>
+          <td>45fps</td>
+          <td>27fps</td>
+          <td>★★★☆☆</td>
+        </tr>
+        <tr class="gpu-rec-row">
+          <td><strong>RTX 4060</strong> <span class="rec-badge">おすすめ</span></td>
+          <td>¥45,800</td>
+          <td>100fps</td>
+          <td>65fps</td>
+          <td>40fps</td>
+          <td>★★★★☆</td>
         </tr>
         <tr>
-          <td><strong>GPU</strong></td>
-          <td>Geforce GT 1030, Radeon RX 450</td>
+          <td><strong>RTX 4070</strong></td>
+          <td>¥82,800</td>
+          <td>140fps</td>
+          <td>95fps</td>
+          <td>58fps</td>
+          <td>★★★★☆</td>
         </tr>
         <tr>
-          <td><strong>CPU</strong></td>
-          <td>Intel Core i3, equivalent</td>
+          <td><strong>RTX 5070</strong></td>
+          <td>¥102,800</td>
+          <td>170fps</td>
+          <td>120fps</td>
+          <td>72fps</td>
+          <td>★★★★★</td>
         </tr>
         <tr>
-          <td><strong>RAM</strong></td>
-          <td>4GB</td>
+          <td><strong>RTX 5080</strong></td>
+          <td>¥209,800</td>
+          <td>240fps</td>
+          <td>165fps</td>
+          <td>100fps</td>
+          <td>★★★★★</td>
         </tr>
-      </table>
-    </section>
-    
-    <section id="check">
-      <h2>あなたのPCで動くかチェック</h2>
-      <p>Super Battle Golfを快適にプレイできるか、あなたのPC構成をチェックできます。</p>
-      <a href="/?game=Super Battle Golf" class="cta-button">互換性診断を開始</a>
-    </section>
-    
-    <section id="faq" itemscope itemtype="https://schema.org/FAQPage">
-      <h2>よくある質問</h2>
-      
+      </tbody>
+    </table>
+  </div>
+  <div class="gpu-tips">
+    <p><strong>💡 選び方ポイント:</strong></p>
+    <ul>
+      <li><strong>60fps安定:</strong> RTX 4060 以上を推奨</li>
+      <li><strong>144fps以上:</strong> RTX 4070 以上を推奨</li>
+      <li><strong>4K環境:</strong> RTX 5080 以上を推奨</li>
+    </ul>
+  </div>
+</section>
+
+  
+<section id="faq" class="seo-section" itemscope itemtype="https://schema.org/FAQPage">
+  <h2>❓ よくある質問</h2>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <h3 itemprop="name">RTX 3060でSuper Battle Golfは動きますか？</h3>
-      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <div itemprop="text">
-          <p>RTX 3060は推奨GPU（GTX 950 4gb, equivalent）と同等以上の性能です。1080p/中〜高設定で60fps以上の快適なプレイが可能です。</p>
-        </div>
+      <h3 class="faq-q" itemprop="name">Super Battle Golfの推奨スペックは？</h3>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">Super Battle Golfの推奨スペックは、GPU: GTX 950 4gb / equivalent、CPU: Ryxen 3 3100 / equivalent、RAM: 8GB です。上記スペックを満たすPCなら60fps以上で快適にプレイできます。</p>
+      </div>
+    </div>    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 class="faq-q" itemprop="name">予算10万円でSuper Battle Golf用PCは組める？</h3>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">はい、予算10万円前後でSuper Battle Golf用のPCを組めます。RTX 4060（約4.5万円）+ Ryzen 5 7600（約2.5万円）+ 16GB RAM（約0.8万円）の構成で1080p 60fps以上が可能です。</p>
+      </div>
+    </div>    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 class="faq-q" itemprop="name">Super Battle Golfは何fpsで遊べますか？</h3>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">最低スペック（Geforce GT 1030 / Radeon RX 450相当）で30〜60fps、推奨スペック（GTX 950 4gb / equivalent相当）で60〜90fps、RTX 4060で100〜144fps以上が期待できます。上のGPU比較表も参考にしてください。</p>
+      </div>
+    </div>    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 class="faq-q" itemprop="name">ノートPCでも動きますか？</h3>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">ゲーミングノートPCでも動作します。RTX 4060搭載モデル（12万円〜）なら1080p 60fps以上で快適にプレイ可能です。バッテリー駆動時は性能が低下するため、電源接続を推奨します。</p>
+      </div>
+    </div>    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 class="faq-q" itemprop="name">内蔵GPU（グラボなし）でも遊べますか？</h3>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">内蔵GPU（Intel Iris Xe、AMD Radeon 780M等）では低設定・30fps前後になります。快適にプレイするには専用グラフィックボード（最低Geforce GT 1030 / Radeon RX 450以上）が必須です。</p>
+      </div>
+    </div>    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 class="faq-q" itemprop="name">Super Battle Golfが重い・カクつく場合の対処法は？</h3>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">①グラフィック設定を「低」に変更、②解像度を1080pに下げる、③バックグラウンドアプリを終了、④グラフィックドライバーを最新版に更新、⑤垂直同期をオフ — を順番に試してください。</p>
       </div>
     </div>
-    
+</section>
 
-    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <h3 itemprop="name">予算8万円でSuper Battle Golfの推奨スペックを満たせますか？</h3>
-      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <div itemprop="text">
-          <p>GPU（RTX 4060: 約5.5万円）+ CPU（Ryzen 5 7600: 約3万円）で推奨スペックを満たせます。RAMは別途1万円程度必要です。</p>
-        </div>
-      </div>
+  
+<section id="troubleshooting" class="seo-section">
+  <h2>🔧 よくあるトラブルと解決策</h2>
+  <div class="trouble-grid">
+    <div class="trouble-card">
+      <h3>⚠️ カクつく・重い場合</h3>
+      <ol>
+        <li>グラフィック設定を「低」に変更</li>
+        <li>解像度を1080pに下げる</li>
+        <li>バックグラウンドアプリを終了（Chrome・Discord等）</li>
+        <li>グラフィックドライバーを最新版に更新</li>
+        <li>垂直同期（VSync）をオフにする</li>
+      </ol>
+      <p class="trouble-tip">💡 改善しない場合は上の<a href="#gpu-comparison">GPU比較表</a>でアップグレードを検討</p>
     </div>
-    
+    <div class="trouble-card">
+      <h3>🚫 動かない・起動しない場合</h3>
+      <ol>
+        <li>最低スペックを満たしているか<a href="#minimum">確認</a></li>
+        <li>DirectXを最新版に更新</li>
+        <li>Visual C++再頒布可能パッケージをインストール</li>
+        <li>ゲームファイルの整合性チェック（Steam→右クリック→ローカルファイル→整合性確認）</li>
+        <li>セキュリティソフトの除外設定に追加</li>
+      </ol>
+    </div>
+    <div class="trouble-card">
+      <h3>📉 FPSが出ない場合</h3>
+      <ol>
+        <li>フレームレート制限を解除（ゲーム設定）</li>
+        <li>NVIDIAコントロールパネルで「最大パフォーマンス」に設定</li>
+        <li>電源オプションを「高パフォーマンス」に変更</li>
+        <li>Windowsゲームモードをオン</li>
+        <li>バックグラウンド録画機能をオフ（GeForce Experience・Xbox Game Bar）</li>
+      </ol>
+    </div>
+    <div class="trouble-card">
+      <h3>🖥️ ノートPCで動かない場合</h3>
+      <ol>
+        <li>電源接続してプレイ（バッテリー駆動だと性能制限）</li>
+        <li>専用GPU（NVIDIA/AMD）を使用しているか確認</li>
+        <li>NVIDIAコントロールパネル→3D設定→優先GPU→高性能プロセッサ</li>
+        <li>冷却パッドを使用（熱によるサーマルスロットリング回避）</li>
+      </ol>
+    </div>
+  </div>
+</section>
 
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <h3 itemprop="name">Super Battle Golfの最低動作環境は？</h3>
-          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text">
-              <p>最低GPU: Geforce GT 1030, Radeon RX 450、最低RAM: 4GB。ただし、低設定・30fps前後での動作となります。快適なプレイには推奨スペック以上を推奨します。</p>
-            </div>
-          </div>
-        </div>
-        
-    </section>
-    
-    <section id="build">
-      <h2>予算別おすすめPC構成</h2>
-      <p>Super Battle Golfを快適にプレイするための予算別構成案を確認できます。</p>
-      <a href="/?game=Super Battle Golf" class="cta-button">構成案を見る</a>
-    </section>
-  </article>
+  <section style="text-align:center; margin-top: 40px; padding: 24px; background: #1a1a1a; border-radius: 8px;">
+    <p style="color: #78FFCB; font-size: 18px; font-weight: bold; margin: 0 0 12px;">🖥️ Super Battle Golf用PCを今すぐ相談する</p>
+    <p style="color: #aaa; margin: 0 0 16px; font-size: 14px;">14,000件のパーツデータ × AIショップ店員が最適構成を提案</p>
+    <a href="https://pc-compat-engine-production.up.railway.app/?game=Super Battle Golf" class="cta-button">無料でAI診断を受ける →</a>
+  </section>
+
+</article>
+
+<footer class="page-footer">
+  <p>
+    <a href="https://pc-compat-engine-production.up.railway.app/">トップ</a>
+    <a href="https://pc-compat-engine-production.up.railway.app/guide">ガイド</a>
+    <a href="https://pc-compat-engine-production.up.railway.app/about">運営者情報</a>
+    <a href="https://pc-compat-engine-production.up.railway.app/privacy">プライバシーポリシー</a>
+  </p>
+  <p>© 2026 PC自作、もう迷わない All Rights Reserved.</p>
+</footer>
+
 </body>
 </html>
