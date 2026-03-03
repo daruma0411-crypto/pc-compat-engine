@@ -537,6 +537,7 @@ def generate_page_css():
     return """
     /* ベース */
     * { box-sizing: border-box; }
+    html { overflow-x: hidden; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       max-width: 960px;
@@ -545,6 +546,8 @@ def generate_page_css():
       line-height: 1.6;
       color: #333;
       background: #fafafa;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
     a { color: #4CAF50; }
     h1 { color: #1a1a1a; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; }
@@ -642,13 +645,13 @@ def generate_page_css():
 
     /* レスポンシブ */
     @media (max-width: 600px) {
-      body { padding: 10px; overflow-x: hidden; }
+      body { padding: 10px; }
       h1 { font-size: 1.3rem; word-break: break-word; overflow-wrap: break-word; }
       h2 { font-size: 1.1rem; margin-top: 28px; }
       .site-nav { flex-wrap: wrap; gap: 8px; padding: 8px 12px; margin: -10px -10px 16px; }
       .site-nav a { font-size: 12px; }
       .site-nav .nav-logo { font-size: 14px; }
-      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: auto; max-width: 100%; }
       th, td { padding: 8px; font-size: 13px; white-space: normal; }
       .cta-button { display: block; text-align: center; padding: 12px 20px; }
       .budget-cards { grid-template-columns: 1fr; }
@@ -661,8 +664,10 @@ def generate_page_css():
       .faq-a { padding: 12px 14px; }
       .page-footer { font-size: 12px; }
       .page-footer a { display: inline-block; margin: 4px 6px; }
-      .seo-section { padding: 16px; }
+      .seo-section { padding: 16px; margin: 24px -10px; width: auto; }
       .gpu-tips { padding: 10px 12px; }
+      .gpu-table { min-width: unset; }
+      .table-scroll { max-width: 100%; }
     }
     @media (max-width: 375px) {
       body { padding: 8px; }
@@ -672,6 +677,7 @@ def generate_page_css():
       .budget-card { padding: 14px; }
       .budget-card h3 { font-size: 14px; }
       .spec-item { font-size: 12px; }
+      .seo-section { margin: 24px -8px; padding: 14px; }
     }"""
 
 
