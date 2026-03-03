@@ -797,3 +797,255 @@ header {
   color: var(--c-muted);
   font-size: 11px;
 }
+
+/* ================================================================
+   モード選択カード（起動時）
+   ================================================================ */
+.mode-cards {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.mode-card {
+  flex: 1;
+  min-width: 120px;
+  background: var(--bg-active);
+  border: 1px solid var(--c-border);
+  border-left: 3px solid transparent;
+  border-radius: 8px;
+  padding: 16px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .1s;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-sub);
+  line-height: 1.5;
+}
+.mode-card:hover {
+  background: var(--bg-active);
+  border-left-color: var(--c-primary);
+  transform: translateY(-2px);
+}
+.mode-card-icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ================================================================
+   BTOモード: 松竹梅カード
+   ================================================================ */
+
+/* モード選択カード: BTO */
+.mode-card--bto {
+  border: 1px solid rgba(99, 102, 241, 0.4) !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+.mode-card-sub {
+  display: block;
+  font-size: 10px;
+  color: var(--c-muted);
+  margin-top: 4px;
+}
+
+/* スペック要件サマリー */
+.bto-spec-summary {
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--c-sub);
+}
+
+/* 松竹梅3カード並列 */
+.bto-cards-container {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: stretch;
+}
+
+.bto-card {
+  flex: 1;
+  background: var(--bg-outer);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bto-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ゴルディロックス: 竹（おすすめ）を強調 */
+.bto-card--highlight {
+  border-color: rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.06);
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+}
+
+.bto-card--highlight:hover {
+  transform: scale(1.03) translateY(-2px);
+}
+
+.bto-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 14px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* ティアラベル */
+.bto-card-tier {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.bto-tier--value .bto-card-tier { color: #10b981; }
+.bto-tier--recommended .bto-card-tier { color: #6366f1; }
+.bto-tier--premium .bto-card-tier { color: #f59e0b; }
+
+/* メーカー・モデル */
+.bto-card-maker {
+  font-size: 11px;
+  color: var(--c-muted);
+  margin-bottom: 2px;
+}
+.bto-card-model {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+/* 価格 */
+.bto-card-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-ok);
+  margin-bottom: 12px;
+}
+.bto-card-tax {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--c-muted);
+}
+
+/* スペック表 */
+.bto-card-specs {
+  flex: 1;
+  margin-bottom: 10px;
+}
+.bto-spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  font-size: 11px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+}
+.bto-spec-row:last-child {
+  border-bottom: none;
+}
+.bto-spec-label {
+  color: var(--c-muted);
+  font-weight: 600;
+  min-width: 36px;
+}
+.bto-spec-val {
+  color: var(--c-text);
+  text-align: right;
+}
+
+/* タグ */
+.bto-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.bto-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(96, 165, 250, 0.15);
+  color: var(--c-primary);
+}
+
+/* マッチ度 */
+.bto-card-score {
+  font-size: 11px;
+  color: var(--c-sub);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* 購入ボタン */
+.bto-card-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  margin-bottom: 6px;
+}
+.bto-card-btn:hover {
+  opacity: 0.85;
+}
+.bto-tier--value .bto-card-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+.bto-tier--premium .bto-card-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+/* 保証 */
+.bto-card-warranty {
+  font-size: 10px;
+  color: var(--c-muted);
+  text-align: center;
+}
+
+/* フッター注意 */
+.bto-footer-note {
+  font-size: 10px;
+  color: var(--c-muted);
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* モバイル: 松竹梅カード縦積み */
+@media (max-width: 768px) {
+  .bto-cards-container {
+    flex-direction: column;
+  }
+  .bto-card--highlight {
+    transform: none;
+    order: -1;
+  }
+  .bto-card--highlight:hover {
+    transform: translateY(-2px);
+  }
+}

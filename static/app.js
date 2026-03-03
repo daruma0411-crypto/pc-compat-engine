@@ -12,6 +12,7 @@
   let sending = false;
   let lastDiagnosis = null;
   let gameMode = false;
+  let btoMode = false;      // BTOマッチングモード
   let historyFirstSaved = false;
   let confirmedParts = [];  // [{name: string, category: string}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
@@ -61,7 +62,7 @@
     }
     const rows = items.map(it =>
       '<div class="drawer-item">' +
-        '<span class="drawer-item-icon">' + (it.mode === 'game' ? '🎮' : '🔧') + '</span>' +
+        '<span class="drawer-item-icon">' + (it.mode === 'bto' ? '🖥️' : it.mode === 'game' ? '🎮' : '🔧') + '</span>' +
         '<span class="drawer-item-title">' + escHtml(it.title) + '</span>' +
         '<span class="drawer-item-date">'  + escHtml(it.date)  + '</span>' +
       '</div>'
@@ -96,6 +97,10 @@
         '<div class="mode-card" onclick="selectMode(\'compat\')">' +
           '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
         '</div>' +
+        '<div class="mode-card mode-card--bto" onclick="selectMode(\'bto\')">' +
+          '<span class="mode-card-icon">🖥️</span>おすすめPCを探す' +
+          '<span class="mode-card-sub">組み立て不要・メーカー保証付き</span>' +
+        '</div>' +
       '</div>';
     appendAIBubble('まず何をしたいか教えてください', cardsHtml);
     adjustHeight();
@@ -109,10 +114,20 @@
     });
     if (mode === 'game') {
       gameMode = true;
+      btoMode = false;
       document.getElementById('chat-input').placeholder = '例: モンハンワイルズを60fpsで遊びたい。予算15万';
       appendAIBubble('🎮 どのゲームを、どんな目標でプレイしたいですか？\n予算も教えていただけると、より正確な構成を提案できます。\n\n例: モンハンワイルズを60fpsで遊びたい。予算15万円');
+    } else if (mode === 'bto') {
+      gameMode = false;
+      btoMode = true;
+      document.getElementById('chat-input').placeholder = '例: モンハンワイルズを4Kで遊びたい。予算25万';
+      appendAIBubble('🖥️ どんな目的でPCを探していますか？\nゲーム名・予算・用途を教えてください。最適なBTOパソコンを松竹梅で提案します。\n\n例: モンハンワイルズを4Kで遊びたい。予算25万');
+      // BTOモード時はダッシュボードを非表示
+      const dashboard = document.getElementById('dashboard');
+      if (dashboard) dashboard.style.display = 'none';
     } else {
       gameMode = false;
+      btoMode = false;
       document.getElementById('chat-input').placeholder = '例: RTX 4070をLancool 216に入れたい';
       appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
     }
@@ -154,8 +169,11 @@
   function updateModeIndicator() {
     const btn = document.getElementById('btn-mode-switch');
     if (!btn) return;
-    btn.style.display = (gameMode !== null && gameMode !== undefined) ? '' : 'none';
-    if (gameMode) {
+    btn.style.display = '';
+    if (btoMode) {
+      btn.textContent = '🎮 ゲームモードへ';
+      btn.title = 'ゲームモードに切り替え';
+    } else if (gameMode) {
       btn.textContent = '🔧 互換チェックへ';
       btn.title = '互換チェックモードに切り替え';
     } else {
@@ -295,7 +313,7 @@
     const msg = input.value.trim();
     if (!msg) return;
 
-    saveToHistory(msg, gameMode ? 'game' : 'compat');
+    saveToHistory(msg, btoMode ? 'bto' : (gameMode ? 'game' : 'compat'));
 
     appendUserBubble(msg);
     input.value = '';
@@ -307,8 +325,8 @@
     const timer = setTimeout(() => controller.abort(), 120000);
 
     try {
-      const endpoint = gameMode ? '/api/recommend' : '/api/chat';
-      const useStream = !gameMode; // 互換チェックモードのみSSE
+      const endpoint = btoMode ? '/api/bto-match' : (gameMode ? '/api/recommend' : '/api/chat');
+      const useStream = !gameMode && !btoMode; // 互換チェックモードのみSSE
 
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -321,6 +339,14 @@
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
+      }
+
+      // ── BTOモード: 松竹梅カード表示 ──
+      if (btoMode) {
+        const data = await res.json();
+        typingEl.remove();
+        renderBtoResult(data);
+        return;
       }
 
       // ── ゲームモード: 従来通りJSON ──
@@ -1080,4 +1106,84 @@
     currentImageGenerated = true;
     updateDashboardFromConfirmedParts();
     renderIndividualLinks();
+  }
+
+  // ─── BTOモード: 松竹梅カード描画 ──────────────────────────────────────
+  const BTO_TIER_CONFIG = {
+    value:       { label: 'コスト重視', icon: '💰', cls: 'bto-tier--value' },
+    recommended: { label: 'おすすめ',   icon: '⭐', cls: 'bto-tier--recommended' },
+    premium:     { label: 'ハイスペック', icon: '👑', cls: 'bto-tier--premium' },
+  };
+
+  function renderBtoResult(data) {
+    if (data.error) {
+      appendAIBubble('⚠️ エラー: ' + escHtml(data.error));
+      return;
+    }
+
+    const recs = data.recommendations || {};
+    const spec = data.spec_vector || {};
+    const tierOrder = ['value', 'recommended', 'premium'];
+
+    // スペック要件サマリー
+    const specSummary = [];
+    if (spec.use_case) specSummary.push('用途: ' + escHtml(spec.use_case));
+    if (spec.game_detected) specSummary.push('ゲーム: ' + escHtml(spec.game_detected));
+    if (spec.budget_range) specSummary.push('予算: ' + escHtml(spec.budget_range));
+    if (spec.resolution && spec.resolution !== 'FHD') specSummary.push('解像度: ' + escHtml(spec.resolution));
+    if (spec.fps_target && spec.fps_target !== 60) specSummary.push('FPS: ' + spec.fps_target);
+
+    const specHtml = specSummary.length > 0
+      ? '<div class="bto-spec-summary">' + specSummary.join(' / ') + '</div>'
+      : '';
+
+    // 松竹梅カード生成
+    let cardsHtml = '';
+    let hasAny = false;
+
+    for (const tier of tierOrder) {
+      const rec = recs[tier];
+      if (!rec) continue;
+      hasAny = true;
+
+      const cfg = BTO_TIER_CONFIG[tier];
+      const isRec = tier === 'recommended';
+      const url = rec.affiliate_url || rec.url || '#';
+      const score = rec.match_score != null ? rec.match_score : '';
+
+      cardsHtml +=
+        '<div class="bto-card ' + cfg.cls + (isRec ? ' bto-card--highlight' : '') + '">' +
+          (isRec ? '<div class="bto-badge">おすすめ</div>' : '') +
+          '<div class="bto-card-tier">' + cfg.icon + ' ' + escHtml(cfg.label) + '</div>' +
+          '<div class="bto-card-maker">' + escHtml(rec.maker || '') + '</div>' +
+          '<div class="bto-card-model">' + escHtml(rec.series || '') + ' ' + escHtml(rec.model || '') + '</div>' +
+          '<div class="bto-card-price">¥' + Number(rec.price_jpy || 0).toLocaleString() + '<span class="bto-card-tax">（税込）</span></div>' +
+          '<div class="bto-card-specs">' +
+            '<div class="bto-spec-row"><span class="bto-spec-label">GPU</span><span class="bto-spec-val">' + escHtml(rec.gpu || '—') + ' (' + (rec.vram_gb || '?') + 'GB)</span></div>' +
+            '<div class="bto-spec-row"><span class="bto-spec-label">CPU</span><span class="bto-spec-val">' + escHtml(rec.cpu || '—') + '</span></div>' +
+            '<div class="bto-spec-row"><span class="bto-spec-label">RAM</span><span class="bto-spec-val">' + (rec.ram_gb || '?') + 'GB</span></div>' +
+            '<div class="bto-spec-row"><span class="bto-spec-label">SSD</span><span class="bto-spec-val">' + escHtml(rec.storage || '—') + '</span></div>' +
+            '<div class="bto-spec-row"><span class="bto-spec-label">電源</span><span class="bto-spec-val">' + escHtml(rec.psu || '—') + '</span></div>' +
+          '</div>' +
+          (rec.tags && rec.tags.length ? '<div class="bto-card-tags">' + rec.tags.map(t => '<span class="bto-tag">' + escHtml(t) + '</span>').join('') + '</div>' : '') +
+          '<div class="bto-card-score">マッチ度: ' + (score ? (score * 100).toFixed(0) + '%' : '—') + '</div>' +
+          '<a class="bto-card-btn" href="' + escHtml(url) + '" target="_blank" rel="noopener">🛒 購入ページへ</a>' +
+          '<div class="bto-card-warranty">保証: ' + (rec.warranty_years || 1) + '年</div>' +
+        '</div>';
+    }
+
+    if (!hasAny) {
+      appendAIBubble('条件に合うBTOパソコンが見つかりませんでした。予算や用途を変えて試してみてください。');
+      return;
+    }
+
+    const resultHtml =
+      specHtml +
+      '<div class="bto-cards-container">' + cardsHtml + '</div>' +
+      '<div class="bto-footer-note">※価格は2026年3月時点の参考価格です。最新価格は各メーカーサイトでご確認ください。</div>';
+
+    const wrap = appendAIBubble('あなたの目的に合う BTOパソコンを3段階で提案します。', resultHtml);
+    setTimeout(() => {
+      if (wrap) wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
   }

@@ -1,0 +1,31 @@
+{"type": "gpu", "name": "GeForce RTX 4060", "score": 48, "vram_gb": 8, "tdp_w": 115, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4060 Ti", "score": 55, "vram_gb": 8, "tdp_w": 160, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4070", "score": 63, "vram_gb": 12, "tdp_w": 200, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4070 Super", "score": 68, "vram_gb": 12, "tdp_w": 220, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4070 Ti", "score": 72, "vram_gb": 12, "tdp_w": 285, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4070 Ti Super", "score": 76, "vram_gb": 16, "tdp_w": 285, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4080 Super", "score": 83, "vram_gb": 16, "tdp_w": 320, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 4090", "score": 95, "vram_gb": 24, "tdp_w": 450, "generation": "Ada"}
+{"type": "gpu", "name": "GeForce RTX 5060", "score": 53, "vram_gb": 8, "tdp_w": 150, "generation": "Blackwell"}
+{"type": "gpu", "name": "GeForce RTX 5060 Ti", "score": 62, "vram_gb": 8, "tdp_w": 180, "generation": "Blackwell"}
+{"type": "gpu", "name": "GeForce RTX 5070", "score": 72, "vram_gb": 12, "tdp_w": 250, "generation": "Blackwell"}
+{"type": "gpu", "name": "GeForce RTX 5070 Ti", "score": 82, "vram_gb": 16, "tdp_w": 300, "generation": "Blackwell"}
+{"type": "gpu", "name": "GeForce RTX 5080", "score": 90, "vram_gb": 16, "tdp_w": 360, "generation": "Blackwell"}
+{"type": "gpu", "name": "GeForce RTX 5090", "score": 100, "vram_gb": 32, "tdp_w": 575, "generation": "Blackwell"}
+{"type": "gpu", "name": "Radeon RX 7800 XT", "score": 60, "vram_gb": 16, "tdp_w": 263, "generation": "RDNA3"}
+{"type": "gpu", "name": "Radeon RX 9070", "score": 70, "vram_gb": 16, "tdp_w": 250, "generation": "RDNA4"}
+{"type": "gpu", "name": "Radeon RX 9070 XT", "score": 75, "vram_gb": 16, "tdp_w": 300, "generation": "RDNA4"}
+{"type": "cpu", "name": "AMD Ryzen 5 4500", "score": 30, "cores": 6, "threads": 12, "generation": "Zen2"}
+{"type": "cpu", "name": "AMD Ryzen 7 5700X", "score": 48, "cores": 8, "threads": 16, "generation": "Zen3"}
+{"type": "cpu", "name": "AMD Ryzen 5 7500F", "score": 52, "cores": 6, "threads": 12, "generation": "Zen4"}
+{"type": "cpu", "name": "AMD Ryzen 7 7700", "score": 58, "cores": 8, "threads": 16, "generation": "Zen4"}
+{"type": "cpu", "name": "AMD Ryzen 7 9700X", "score": 65, "cores": 8, "threads": 16, "generation": "Zen5"}
+{"type": "cpu", "name": "AMD Ryzen 7 9800X3D", "score": 78, "cores": 8, "threads": 16, "generation": "Zen5"}
+{"type": "cpu", "name": "AMD Ryzen 9 9900X", "score": 80, "cores": 12, "threads": 24, "generation": "Zen5"}
+{"type": "cpu", "name": "Intel Core i5-14400F", "score": 55, "cores": 10, "threads": 16, "generation": "Raptor Lake"}
+{"type": "cpu", "name": "Intel Core i7-14700F", "score": 72, "cores": 20, "threads": 28, "generation": "Raptor Lake"}
+{"type": "cpu", "name": "Intel Core i9-14900K", "score": 82, "cores": 24, "threads": 32, "generation": "Raptor Lake"}
+{"type": "cpu", "name": "Intel Core Ultra 5 225F", "score": 50, "cores": 10, "threads": 10, "generation": "Arrow Lake"}
+{"type": "cpu", "name": "Intel Core Ultra 7 265F", "score": 68, "cores": 20, "threads": 20, "generation": "Arrow Lake"}
+{"type": "cpu", "name": "Intel Core Ultra 7 265K", "score": 72, "cores": 20, "threads": 20, "generation": "Arrow Lake"}
+{"type": "cpu", "name": "Intel Core Ultra 9 285K", "score": 80, "cores": 24, "threads": 24, "generation": "Arrow Lake"}

@@ -13,8 +13,13 @@ import time
 import urllib.parse
 import urllib.request
 
+import sys
+
 from dotenv import load_dotenv
 from flask import Flask, Response, jsonify, request, send_from_directory
+
+# BTOマッチングモジュールのパスを追加
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
 
 # replicate SDK は使わず requests で直接 Replicate API を呼び出す
 REPLICATE_AVAILABLE = True
@@ -1078,6 +1083,16 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 
 【get_current_build】
 - 何が確定済みで何が未確定かを確認する
+
+【search_bto】★BTO提案時に使う★
+- 「BTOがいい」「組み立てたくない」「完成品がほしい」「おすすめのPC教えて」→ search_btoを呼ぶ
+- 「自作は不安」「初心者」「手軽に」→ BTOを提案しつつ自作も選べることを伝える
+- 結果は松竹梅の3段階（コスト重視・おすすめ・ハイスペック）
+- 竹（おすすめ）を中心に提案。なぜそのPCがユーザーの目的に合うか説明する
+- BTOの場合はconfirm_partは不要（1台丸ごと提案）
+- 自作を希望する場合はsearch_buildまたはsearch_partsを使う
+- 価格・スペック・保証のメリットを伝える（組み立て不要、メーカー保証1-3年）
+- 購入URLも必ず案内する
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ■ 絶対に守ること
@@ -2168,7 +2183,45 @@ SEARCH_BUILD_TOOL = {
     }
 }
 
-FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL, SEARCH_BUILD_TOOL]
+SEARCH_BTO_TOOL = {
+    "name": "search_bto",
+    "description": (
+        "BTOパソコンのマッチング検索。ユーザーの予算・用途・ゲームから最適なBTOモデルを"
+        "松竹梅（コスト重視・おすすめ・ハイスペック）の3段階で提案する。"
+        "自作に不安なユーザー、手軽に始めたいユーザー、完成品がほしいユーザーに使う。"
+        "「BTOがいい」「組み立てたくない」「完成品」「おすすめのPC」→ このツールを呼ぶ。"
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "budget_yen": {
+                "type": "integer",
+                "description": "予算（円）。例: 250000"
+            },
+            "use_case": {
+                "type": "string",
+                "enum": ["gaming", "work", "creator", "ai", "streaming", "general"],
+                "description": "用途。gaming=ゲーム, creator=動画編集/3D, ai=AI画像生成, streaming=配信"
+            },
+            "game_name": {
+                "type": "string",
+                "description": "プレイしたいゲーム名（任意）"
+            },
+            "resolution": {
+                "type": "string",
+                "enum": ["FHD", "WQHD", "4K"],
+                "description": "目標解像度（デフォルト: FHD）"
+            },
+            "fps_target": {
+                "type": "integer",
+                "description": "目標FPS（デフォルト: 60）"
+            },
+        },
+        "required": ["budget_yen"]
+    }
+}
+
+FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL, SEARCH_BUILD_TOOL, SEARCH_BTO_TOOL]
 
 # ── ティア別予算配分テーブル（PCPartPicker/chimolog/jisaku.com実データ準拠）──
 _BUDGET_TIERS = {
@@ -2723,6 +2776,8 @@ def execute_tool(tool_name, tool_input, session, all_products):
         return {'summary': summary_text}
     elif tool_name == 'search_build':
         return handle_search_build(tool_input, all_products, session)
+    elif tool_name == 'search_bto':
+        return _handle_search_bto(tool_input, session)
     elif tool_name == 'amazon_search':
         amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
         q = urllib.parse.quote(tool_input['query'])
@@ -2732,6 +2787,87 @@ def execute_tool(tool_name, tool_input, session, all_products):
         return {'url': url, 'html_link': html_link}
     else:
         return {'error': f'Unknown tool: {tool_name}'}
+
+
+# ================================================================
+# BTO マッチングハンドラ
+# ================================================================
+
+def _handle_search_bto(params, session):
+    """search_bto ツールのハンドラ。BTOマッチング結果を松竹梅で返す。"""
+    try:
+        from bto_matching import run_matching
+    except ImportError:
+        return {'error': 'BTOマッチングモジュールが見つかりません'}
+
+    budget_yen = params.get('budget_yen')
+    use_case = params.get('use_case', 'gaming')
+    game_name = params.get('game_name')
+    resolution = params.get('resolution', 'FHD')
+    fps_target = params.get('fps_target', 60)
+
+    # セッションから予算を補完
+    if not budget_yen and session.get('budget_yen'):
+        budget_yen = session['budget_yen']
+    if not budget_yen:
+        budget_yen = 250000
+
+    # セッションにBTOモード情報を保存
+    session['bto_mode'] = True
+    session['budget_yen'] = budget_yen
+
+    user_input = f'{use_case} 予算{budget_yen // 10000}万'
+    if game_name:
+        user_input = f'{game_name} {user_input}'
+    if resolution != 'FHD':
+        user_input += f' {resolution}'
+    if fps_target != 60:
+        user_input += f' {fps_target}fps'
+
+    result = run_matching(
+        user_input,
+        budget_yen=budget_yen,
+        game_name=game_name,
+        resolution=resolution,
+        fps_target=fps_target,
+    )
+
+    # ツール応答用にフォーマット
+    recs = result.get('recommendations', {})
+    tiers = []
+    for tier_key in ['value', 'recommended', 'premium']:
+        rec = recs.get(tier_key)
+        if rec is None:
+            continue
+        tiers.append({
+            'tier': tier_key,
+            'tier_label': rec.get('tier_label', ''),
+            'maker': rec.get('maker', ''),
+            'series': rec.get('series', ''),
+            'model': rec.get('model', ''),
+            'price_jpy': rec.get('price_jpy', 0),
+            'match_score': rec.get('match_score', 0),
+            'cpu': rec.get('cpu', ''),
+            'gpu': rec.get('gpu', ''),
+            'vram_gb': rec.get('vram_gb', 0),
+            'ram_gb': rec.get('ram_gb', 0),
+            'storage': rec.get('storage', ''),
+            'psu': rec.get('psu', ''),
+            'url': rec.get('url', ''),
+            'warranty_years': rec.get('warranty_years', 1),
+            'tags': rec.get('tags', []),
+        })
+
+    return {
+        'bto_recommendations': tiers,
+        'spec_vector': result.get('spec_vector', {}),
+        'instruction': (
+            'BTOマッチング結果を松竹梅で提示してください。'
+            '竹（おすすめ）を中心に、なぜこのPCがユーザーの目的に合うか説明してください。'
+            '価格・スペック・保証のメリットを伝え、自作との違い（組み立て不要、メーカー保証）にも触れてください。'
+            '各BTOの購入ページURLも案内してください。'
+        ),
+    }
 
 
 # ================================================================
@@ -4317,6 +4453,42 @@ def _lookup_kakaku_price(name: str, category: str, all_products: list) -> int | 
                 candidates.append(int(price))
     
     return min(candidates) if candidates else None
+
+
+# ================================================================
+# BTO マッチング REST API
+# ================================================================
+
+@app.route('/api/bto-match', methods=['POST'])
+def bto_match():
+    """BTOマッチングAPI。自然言語入力から松竹梅BTOを返す。"""
+    try:
+        data = request.get_json(force=True)
+        message = data.get('message', '')
+        budget_yen = data.get('budget_yen')
+        game_name = data.get('game_name')
+        resolution = data.get('resolution', 'FHD')
+        fps_target = data.get('fps_target', 60)
+        session_id = data.get('session_id', '')
+
+        if not message and not budget_yen:
+            return jsonify({'error': 'message または budget_yen が必要です'}), 400
+
+        from bto_matching import run_matching
+
+        result = run_matching(
+            message,
+            budget_yen=budget_yen,
+            game_name=game_name,
+            resolution=resolution,
+            fps_target=fps_target,
+        )
+
+        return jsonify(result)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/recommend', methods=['POST'])
