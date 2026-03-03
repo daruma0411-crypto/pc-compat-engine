@@ -1,11 +1,9 @@
 name: Twitter Bot - Auto Post
-
-  on:
+on:
     schedule:
       - cron: '0 3,9,12 * * *'
     workflow_dispatch:
-
-  jobs:
+jobs:
     post:
       runs-on: ubuntu-latest
       permissions:
