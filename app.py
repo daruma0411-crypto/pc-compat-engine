@@ -1156,7 +1156,14 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 
 予算→GPUグレード目安:
   〜10万: RTX 4060 / 10〜15万: RTX 5060 / 15〜20万: RTX 5070
-  20〜25万: RTX 5070 Ti / 25万〜: RTX 5080
+  20〜25万: RTX 5070 Ti / 25万〜: RTX 5080 / 予算度外視: RTX 5090
+
+■ GPU世代の注意（厳守）:
+- 現行世代（推薦可）: RTX 50xx / RX 9xxx
+- 前世代（型落ち・推薦禁止）: RTX 40xx / RTX 30xx / RX 7xxx以下
+- RTX 4090は生産終了で希少価格（¥40万超）のため推薦禁止
+  → 予算度外視ならRTX 5090（より安く・DLSS 4対応・高性能）を推薦
+- search_partsの結果にRTX 40xxが含まれていても提示しない
 
 解像度×画質→GPU要件:
   FHD最高(レイトレOFF) → recommended GPU以上
@@ -2451,10 +2458,21 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
     # 予算あり（max_price設定済み）→ 価格降順（予算を活用して高性能品を先頭に）
     # 予算なし → 従来通り（GPU: VRAM降順、RAM: 容量降順、他: 価格昇順）
     has_budget = bool(params.get('max_price'))
+
+    def _gpu_gen_rank(name):
+        """GPU世代ランク: 現行世代(2) > 前世代(1) > 不明(0)"""
+        n = (name or '').lower()
+        if any(x in n for x in ['rtx 50', 'rx 9']):
+            return 2  # 現行世代
+        if any(x in n for x in ['rtx 40', 'rx 7']):
+            return 1  # 前世代（型落ち）
+        return 0
+
     if has_budget:
         # 予算モード: 高い順→AIが1番目を推奨→予算帯に見合う高性能品が選ばれる
         if category == 'gpu':
             candidates.sort(key=lambda p: (
+                -_gpu_gen_rank(p.get('name', '')),
                 -(((p.get('specs') or {}).get('vram_gb')) or 0),
                 -(p.get('price_min') or 0)
             ))
@@ -2474,6 +2492,7 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
             ))
         elif category == 'gpu':
             candidates.sort(key=lambda p: (
+                -_gpu_gen_rank(p.get('name', '')),
                 -(((p.get('specs') or {}).get('vram_gb')) or 0),
                 p.get('price_min') or 999999
             ))
