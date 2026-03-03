@@ -12,6 +12,7 @@ Twitter Bot for PC Compatibility Checker
 import json
 import random
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -68,22 +69,22 @@ def select_game(games, history, max_history=50):
         g for g in games
         if g.get('specs', {}).get('recommended', {}).get('gpu')
     ]
-    
+
     # 最近投稿したゲームを除外
     recent_names = set(h['name'] for h in history[-max_history:])
     candidates = [g for g in valid_games if g['name'] not in recent_names]
-    
+
     if not candidates:
         # 全ゲーム投稿済みの場合は履歴をリセット
         candidates = valid_games
-    
+
     # メタスコアでソート（高い順）
     candidates_with_score = [
         g for g in candidates
         if g.get('metacritic_score') and g['metacritic_score'] > 0
     ]
     candidates_with_score.sort(key=lambda x: x.get('metacritic_score', 0), reverse=True)
-    
+
     # 上位30%からランダム選択（多様性のため）
     top_count = max(1, len(candidates_with_score) // 3)
     return random.choice(candidates_with_score[:top_count])
@@ -91,7 +92,6 @@ def select_game(games, history, max_history=50):
 
 def game_slug(game_name):
     """ゲーム名からURL用スラッグを生成（sitemapのパターンに合わせる）"""
-    # 小文字化 + スペース/記号を'-'に置換
     slug = game_name.lower()
     slug = slug.replace(' ', '-').replace(':', '').replace('™', '')
     slug = slug.replace('®', '').replace('(', '').replace(')', '')
@@ -104,7 +104,6 @@ def game_slug(game_name):
 def format_spec(spec):
     """スペック情報を整形"""
     if isinstance(spec, list):
-        # リストの最初の要素を取得（"Intel Core i5-3570", "better" → "Intel Core i5-3570"）
         return spec[0].replace('™', '').replace('®', '').replace('(R)', '').strip()
     return str(spec).replace('™', '').replace('®', '').replace('(R)', '').strip()
 
@@ -114,16 +113,16 @@ def generate_tweet_patterns(game):
     name = game['name']
     slug = game_slug(name)
     url = f"{SITE_URL}/game/{slug}"
-    
+
     rec = game.get('specs', {}).get('recommended', {})
     gpu = format_spec(rec.get('gpu', ['不明'])) if rec.get('gpu') else '不明'
     cpu = format_spec(rec.get('cpu', ['不明'])) if rec.get('cpu') else '不明'
     ram = rec.get('ram_gb', '不明')
-    
+
     # メタスコア
     meta_score = game.get('metacritic_score')
     meta_text = f"（メタスコア: {meta_score}）" if meta_score and meta_score > 0 else ""
-    
+
     patterns = [
         # パターン1: GPU互換性強調
         f"【GPU互換性チェック】\n"
@@ -133,7 +132,7 @@ def generate_tweet_patterns(game):
         f"RAM: {ram}GB\n\n"
         f"あなたのPCで動く？→ {url}\n"
         f"#PCゲーム #GPU互換性",
-        
+
         # パターン2: 質問形式
         f"「{name}」やりたいけど、自分のPCで動くか不安...\n\n"
         f"推奨スペック:\n"
@@ -142,7 +141,7 @@ def generate_tweet_patterns(game):
         f"RAM: {ram}GB\n\n"
         f"無料で互換性チェック！→ {url}\n"
         f"#PCゲーム #スペック確認",
-        
+
         # パターン3: シンプル紹介
         f"{name}\n"
         f"推奨スペック一覧\n\n"
@@ -151,7 +150,7 @@ def generate_tweet_patterns(game):
         f"RAM: {ram}GB\n\n"
         f"詳細 → {url}\n"
         f"#PCゲーム #自作PC",
-        
+
         # パターン4: トラブルシューティング風
         f"「{name}がカクつく...」\n\n"
         f"推奨スペックをチェック！\n"
@@ -161,7 +160,7 @@ def generate_tweet_patterns(game):
         f"互換性診断ツール→ {url}\n"
         f"#PCゲーム #動作環境",
     ]
-    
+
     return random.choice(patterns)
 
 
@@ -175,8 +174,20 @@ def post_tweet(text, dry_run=True):
         print("=" * 60)
         print(f"文字数: {len(text)}")
         return True
-    
-    # Twitter API v2での投稿（要tweepy or requests）
+
+    # 環境変数チェック
+    missing = [k for k, v in {
+        'TWITTER_API_KEY': TWITTER_API_KEY,
+        'TWITTER_API_SECRET': TWITTER_API_SECRET,
+        'TWITTER_ACCESS_TOKEN': TWITTER_ACCESS_TOKEN,
+        'TWITTER_ACCESS_SECRET': TWITTER_ACCESS_SECRET,
+        'TWITTER_BEARER_TOKEN': TWITTER_BEARER_TOKEN,
+    }.items() if not v]
+    if missing:
+        print(f"[ERROR] 環境変数が未設定: {', '.join(missing)}")
+        return False
+
+    # Twitter API v2での投稿
     try:
         import tweepy
         client = tweepy.Client(
@@ -187,10 +198,28 @@ def post_tweet(text, dry_run=True):
             access_token_secret=TWITTER_ACCESS_SECRET
         )
         response = client.create_tweet(text=text)
-        print(f"[成功] ツイート投稿成功: {response.data}")
+        tweet_id = response.data['id']
+        print(f"[SUCCESS] ツイート投稿成功! ID: {tweet_id}")
+        print(f"[SUCCESS] URL: https://twitter.com/i/web/status/{tweet_id}")
         return True
+    except tweepy.errors.Forbidden as e:
+        print(f"[ERROR] 403 Forbidden: App permissions が Read Only の可能性")
+        print(f"        対処: Developer Portal で Read and Write に変更後、Access Token を再生成")
+        print(f"        詳細: {e}")
+        return False
+    except tweepy.errors.Unauthorized as e:
+        print(f"[ERROR] 401 Unauthorized: Access Token が無効")
+        print(f"        対処: Developer Portal で Access Token を再生成")
+        print(f"        詳細: {e}")
+        return False
     except Exception as e:
-        print(f"[失敗] ツイート投稿失敗: {e}")
+        error_str = str(e)
+        if '402' in error_str:
+            print(f"[ERROR] 402 Payment Required: Twitter API のクレジット不足")
+            print(f"        対処: https://developer.twitter.com/en/portal/subscription でプランを確認")
+            print(f"        Free Tier の月間500ツイート上限に達した可能性があります")
+        else:
+            print(f"[ERROR] ツイート投稿失敗: {type(e).__name__}: {e}")
         return False
 
 
@@ -199,26 +228,26 @@ def main():
     parser = argparse.ArgumentParser(description='PC Compatibility Checker Twitter Bot')
     parser.add_argument('--dry-run', action='store_true', help='テスト実行（実際に投稿しない）')
     args = parser.parse_args()
-    
+
     # ゲームデータ読み込み
     print("ゲームデータ読み込み中...")
     games = load_games()
     print(f"[OK] {len(games)}ゲームを読み込みました")
-    
+
     # 投稿履歴読み込み
     history = load_history()
     print(f"[履歴] 投稿履歴: {len(history)}件")
-    
+
     # ゲーム選択
     selected_game = select_game(games, history)
     print(f"[選択] 選択ゲーム: {selected_game['name']}")
-    
+
     # ツイート文生成
     tweet_text = generate_tweet_patterns(selected_game)
-    
+
     # 投稿
     success = post_tweet(tweet_text, dry_run=args.dry_run)
-    
+
     if success and not args.dry_run:
         # 履歴に追加
         history.append({
@@ -228,6 +257,9 @@ def main():
         })
         save_history(history)
         print("[OK] 投稿履歴を更新しました")
+
+    if not success:
+        sys.exit(1)
 
 
 if __name__ == '__main__':

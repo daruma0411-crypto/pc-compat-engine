@@ -1,0 +1,68 @@
+{
+  "bto_products": [
+    {
+      "id": "dospar_galleria_xa7c_r47",
+      "maker": "ドスパラ",
+      "series": "GALLERIA",
+      "model": "XA7C-R47",
+      "price_jpy": 249980,
+      "price_updated_at": "2026-03-02",
+      "affiliate": {
+        "asp": "A8.net",
+        "url": "https://...",
+        "commission_rate": 3.5
+      },
+      "specs": {
+        "cpu": {
+          "name": "Intel Core i7-14700F",
+          "cores": 20,
+          "threads": 28,
+          "base_clock_ghz": 2.1,
+          "boost_clock_ghz": 5.3
+        },
+        "gpu": {
+          "name": "NVIDIA GeForce RTX 4070",
+          "vram_gb": 12
+        },
+        "ram": {
+          "capacity_gb": 32,
+          "type": "DDR4",
+          "speed_mhz": 3200
+        },
+        "storage": [
+          {
+            "type": "NVMe SSD",
+            "capacity_gb": 1000,
+            "interface": "PCIe Gen4"
+          }
+        ],
+        "psu": {
+          "wattage": 750,
+          "certification": "80 PLUS GOLD"
+        },
+        "case": {
+          "form_factor": "ATX",
+          "color": "Black"
+        }
+      },
+      "performance": {
+        "target_resolution": "1440p",
+        "target_fps": 144,
+        "suitable_games": [
+          "Apex Legends",
+          "Valorant",
+          "Cyberpunk 2077",
+          "Elden Ring"
+        ]
+      },
+      "tags": [
+        "ゲーミング",
+        "コスパ",
+        "初心者向け",
+        "配信対応"
+      ],
+      "url": "https://www.dospara.co.jp/...",
+      "image_url": "https://..."
+    }
+  ]
+}
