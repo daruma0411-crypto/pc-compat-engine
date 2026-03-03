@@ -702,7 +702,52 @@ def generate_structured_data(game, slug):
     }, ensure_ascii=False, indent=2)
 
 
-def generate_page(game):
+def find_related_games(target_game, all_games, max_count=5):
+    """推奨スペック（RAM）とジャンルが似ているゲームを返す"""
+    target_rec, _ = _get_specs(target_game)
+    target_ram = target_rec.get('ram_gb') if target_rec else None
+    target_genres = set(target_game.get('genres', []))
+    target_slug = target_game['slug']
+
+    candidates = []
+    for g in all_games:
+        if g['slug'] == target_slug:
+            continue
+        rec, _ = _get_specs(g)
+        if not rec:
+            continue
+        g_ram = rec.get('ram_gb')
+
+        # スコア計算: RAM差が小さい + ジャンル共通が多いほど高い
+        ram_diff = abs((target_ram or 8) - (g_ram or 8))
+        genre_overlap = len(target_genres & set(g.get('genres', [])))
+        # metacritic_scoreがあるものを優先（人気ゲーム）
+        popularity = 1 if g.get('metacritic_score') else 0
+        score = genre_overlap * 10 + popularity * 5 - ram_diff
+        candidates.append((score, g))
+
+    candidates.sort(key=lambda x: -x[0])
+    return [c[1] for c in candidates[:max_count]]
+
+
+def generate_related_games_section(related_games):
+    """関連ゲームリンクセクションを生成"""
+    if not related_games:
+        return ""
+    items = []
+    for g in related_games:
+        items.append(f'    <li><a href="/game/{g["slug"]}">{g["name"]}</a></li>')
+    return f"""
+<section class="seo-section" style="margin-top:32px;">
+  <h3>この推奨スペックが似ているゲーム</h3>
+  <ul>
+{chr(10).join(items)}
+  </ul>
+  <a href="/" class="cta-button" style="margin-top:12px;">他のゲームも診断する →</a>
+</section>"""
+
+
+def generate_page(game, all_games=None):
     """1ゲーム分のHTMLページを生成"""
     name = game['name']
     slug = game['slug']
@@ -821,6 +866,8 @@ def generate_page(game):
 
   {generate_troubleshooting_section()}
 
+  {generate_related_games_section(find_related_games(game, all_games or [])) if all_games else ''}
+
   <section style="text-align:center; margin-top: 40px; padding: 24px; background: #1a1a1a; border-radius: 8px;">
     <p style="color: #78FFCB; font-size: 18px; font-weight: bold; margin: 0 0 12px;">🖥️ {name}用PCを今すぐ相談する</p>
     <p style="color: #aaa; margin: 0 0 16px; font-size: 14px;">14,000件のパーツデータ × AIショップ店員が最適構成を提案</p>
@@ -874,7 +921,7 @@ def main():
             continue
 
         try:
-            html = generate_page(game)
+            html = generate_page(game, all_games=games)
             output_file = OUTPUT_DIR / f"{game['slug']}.html"
             output_file.write_text(html, encoding='utf-8')
             generated += 1
