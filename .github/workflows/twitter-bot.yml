@@ -1,4 +1,4 @@
- name: Twitter Bot - Auto Post
+name: Twitter Bot - Auto Post
 
   on:
     schedule:
