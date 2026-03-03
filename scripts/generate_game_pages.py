@@ -642,9 +642,33 @@ def generate_page_css():
 
     /* レスポンシブ */
     @media (max-width: 600px) {
+      body { padding: 10px; }
+      h1 { font-size: 1.3rem; word-break: break-word; overflow-wrap: break-word; }
+      h2 { font-size: 1.1rem; margin-top: 28px; }
+      .site-nav { flex-wrap: wrap; gap: 8px; padding: 8px 12px; margin: -10px -10px 16px; }
+      .site-nav a { font-size: 12px; }
+      .site-nav .nav-logo { font-size: 14px; }
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      th, td { padding: 8px; font-size: 13px; white-space: normal; }
+      .cta-button { display: block; text-align: center; padding: 12px 20px; }
       .budget-cards { grid-template-columns: 1fr; }
       .trouble-grid { grid-template-columns: 1fr; }
       .spec-item { flex-wrap: wrap; }
+      .calc-row { flex-direction: column; align-items: stretch; }
+      .calc-row label { min-width: unset; }
+      .calc-row input, .calc-row select { min-width: unset; width: 100%; }
+      .faq-q { font-size: 14px; padding: 12px 14px; }
+      .faq-a { padding: 12px 14px; }
+      .page-footer { font-size: 12px; }
+      .page-footer a { display: inline-block; margin: 4px 6px; }
+    }
+    @media (max-width: 375px) {
+      body { padding: 8px; }
+      h1 { font-size: 1.15rem; line-height: 1.4; }
+      .site-nav .nav-logo { font-size: 13px; }
+      .budget-card { padding: 14px; }
+      .budget-card h3 { font-size: 14px; }
+      .spec-item { font-size: 12px; }
     }"""
 
 

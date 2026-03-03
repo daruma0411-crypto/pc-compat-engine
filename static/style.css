@@ -1124,3 +1124,113 @@ header {
     transform: translateY(-2px);
   }
 }
+
+/* ================================================================
+   レスポンシブ: 768px以下（タブレット縦・大型スマホ）
+   ================================================================ */
+@media (max-width: 768px) {
+  header {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  .header-title h1 {
+    font-size: 14px;
+  }
+  .header-title .subtitle {
+    font-size: 10px;
+  }
+  .header-logo {
+    font-size: 20px;
+  }
+  .mode-cards {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mode-card {
+    min-width: unset;
+    padding: 12px 10px;
+  }
+  .msg-bubble {
+    max-width: 95%;
+  }
+}
+
+/* ================================================================
+   レスポンシブ: 480px以下（スマートフォン）
+   ================================================================ */
+@media (max-width: 480px) {
+  .btn-guide-link {
+    display: none;
+  }
+  .btn-menu, .btn-mode-switch {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .btn-theme-toggle {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+  .header-title h1 {
+    font-size: 13px;
+  }
+  .header-title .subtitle {
+    font-size: 9px;
+  }
+  .chat-input-area {
+    padding: 8px 10px;
+  }
+  #chat-input {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  #btn-send {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  .mode-card {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+  .mode-card-icon {
+    font-size: 22px;
+  }
+  .mobile-dashboard-toggle {
+    bottom: 72px;
+  }
+  #btn-reset-all {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .site-footer-links {
+    gap: 12px;
+  }
+  .site-footer-links a {
+    font-size: 11px;
+  }
+}
+
+/* ================================================================
+   レスポンシブ: 375px以下（iPhone SE等の小型デバイス）
+   ================================================================ */
+@media (max-width: 375px) {
+  header {
+    gap: 6px;
+    padding: 8px 10px;
+  }
+  .header-title h1 {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+  .header-title .subtitle {
+    display: none;
+  }
+  .header-logo {
+    font-size: 18px;
+  }
+  .btn-mode-switch {
+    display: none;
+  }
+}
