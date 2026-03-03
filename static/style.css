@@ -754,3 +754,46 @@ header {
 .text-ng {
   color: var(--c-ng);
 }
+
+/* ── ヘッダー: ガイドリンク ── */
+.btn-guide-link {
+  color: var(--c-sub);
+  font-size: 13px;
+  text-decoration: none;
+  padding: 4px 10px;
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.btn-guide-link:hover {
+  color: var(--c-primary);
+  border-color: var(--c-primary);
+}
+
+/* ── サイトフッター（メインページ） ── */
+.site-footer-main {
+  background: var(--bg-main);
+  border-top: 1px solid var(--c-border);
+  padding: 16px 20px;
+  text-align: center;
+}
+.site-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.site-footer-links a {
+  color: var(--c-muted);
+  font-size: 12px;
+  text-decoration: none;
+}
+.site-footer-links a:hover {
+  color: var(--c-primary);
+}
+.site-footer-copy {
+  color: var(--c-muted);
+  font-size: 11px;
+}

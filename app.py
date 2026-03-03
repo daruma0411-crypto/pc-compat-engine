@@ -535,6 +535,48 @@ def index():
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/about')
+def about_page():
+    """運営者情報ページ"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    html_path = os.path.join(static_dir, 'about.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@app.route('/privacy')
+def privacy_page():
+    """プライバシーポリシーページ"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    html_path = os.path.join(static_dir, 'privacy.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@app.route('/guide')
+def guide_index():
+    """ガイド記事一覧ページ"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    html_path = os.path.join(static_dir, 'guide', 'index.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@app.route('/guide/<slug>')
+def guide_article(slug):
+    """ガイド記事個別ページ"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    html_path = os.path.join(static_dir, 'guide', f'{slug}.html')
+    if not os.path.isfile(html_path):
+        return 'Article not found', 404
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 @app.route('/game/<game_name>')
 def game_page(game_name):
     """ゲーム個別ページ（SEO/AIO最適化済み）"""

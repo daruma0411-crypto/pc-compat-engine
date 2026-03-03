@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【2026年最新】ゲーミングPC用GPU選び方ガイド — 用途別おすすめと性能比較 | PC自作、もう迷わない</title>
+<meta name="description" content="2026年最新のGPU選び方ガイド。RTX 5090・5080・5070 Ti・5070・5060 Tiの性能比較と用途別おすすめを徹底解説。DLSS 4のマルチフレーム生成についても紹介。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#0a0f1a;color:#f1f5f9;line-height:1.8}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:#111827;border-bottom:1px solid #334155;padding:12px 20px;display:flex;align-items:center;gap:12px}
+.site-header .logo{font-size:22px}
+.site-header .title a{color:#f1f5f9;font-weight:700;font-size:1rem;text-decoration:none}
+.site-header .subtitle{font-size:11px;color:#94a3b8}
+.header-nav{margin-left:auto;display:flex;gap:20px}
+.header-nav a{color:#94a3b8;font-size:0.875rem}
+.header-nav a:hover{color:#60a5fa;text-decoration:none}
+.wrap{max-width:860px;margin:0 auto;padding:48px 20px}
+.breadcrumb{font-size:0.85rem;color:#64748b;margin-bottom:28px}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{margin:0 6px}
+.article-tag{display:inline-block;background:#1e3a8a;color:#93c5fd;font-size:0.75rem;padding:3px 10px;border-radius:20px;margin-bottom:16px}
+h1{font-size:1.7rem;font-weight:700;margin-bottom:12px;color:#f1f5f9;line-height:1.4}
+.meta{color:#64748b;font-size:0.85rem;margin-bottom:36px}
+.lead-text{font-size:1.05rem;color:#94a3b8;margin-bottom:40px;padding:20px;background:#111827;border-left:3px solid #60a5fa;border-radius:0 8px 8px 0}
+h2{font-size:1.25rem;font-weight:700;color:#f1f5f9;margin:44px 0 16px;padding-left:14px;border-left:3px solid #60a5fa}
+h3{font-size:1.05rem;font-weight:600;color:#93c5fd;margin:24px 0 10px}
+p{color:#cbd5e1;margin-bottom:16px;font-size:0.95rem}
+ul,ol{padding-left:22px;margin-bottom:16px}
+li{color:#cbd5e1;font-size:0.95rem;margin-bottom:6px}
+strong{color:#f1f5f9}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.875rem}
+th{background:#1e293b;color:#94a3b8;font-size:0.8rem;font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid #334155}
+td{padding:10px 14px;border-bottom:1px solid #1e293b;color:#cbd5e1;vertical-align:top}
+tr:hover td{background:#111827}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600}
+.badge-top{background:#7c3aed;color:#fff}
+.badge-best{background:#065f46;color:#6ee7b7}
+.badge-mid{background:#1e3a8a;color:#93c5fd}
+.badge-entry{background:#374151;color:#9ca3af}
+.note-box{background:#111827;border:1px solid #334155;border-radius:8px;padding:16px 20px;margin:20px 0}
+.note-box p{margin:0;font-size:0.875rem;color:#94a3b8}
+.note-box strong{color:#fbbf24}
+.cta-box{background:linear-gradient(135deg,#1e3a8a,#4f46e5);border-radius:12px;padding:28px;text-align:center;margin:44px 0}
+.cta-box h3{font-size:1.15rem;color:#fff;margin-bottom:10px}
+.cta-box p{color:#bfdbfe;margin-bottom:20px;font-size:0.95rem}
+.btn-cta{display:inline-block;background:#60a5fa;color:#0a0f1a;font-weight:700;padding:12px 28px;border-radius:8px;font-size:1rem;text-decoration:none}
+.btn-cta:hover{background:#93c5fd;text-decoration:none}
+.site-footer{background:#111827;border-top:1px solid #334155;padding:28px 20px;margin-top:60px}
+.footer-inner{max-width:860px;margin:0 auto}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{color:#94a3b8;font-size:0.85rem}
+.footer-links a:hover{color:#60a5fa}
+.footer-copy{color:#475569;font-size:0.8rem}
+@media(max-width:600px){h1{font-size:1.35rem}h2{font-size:1.1rem}.header-nav{display:none}.wrap{padding:28px 16px}table{font-size:0.8rem}th,td{padding:8px 10px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">🖥️</div>
+  <div>
+    <div class="title"><a href="/">PC自作、もう迷わない</a></div>
+    <div class="subtitle">14,000件の互換性データ × AIショップ店員</div>
+  </div>
+  <nav class="header-nav">
+    <a href="/">チャット</a>
+    <a href="/guide">ガイド</a>
+    <a href="/about">運営者情報</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="/">ホーム</a><span>›</span><a href="/guide">ガイド</a><span>›</span>GPU選び方ガイド
+  </div>
+
+  <div class="article-tag">GPU選び</div>
+  <h1>【2026年最新】ゲーミングPC用GPU選び方ガイド<br>— 用途別おすすめと性能比較</h1>
+  <p class="meta">2026年3月更新 · 約3,500字</p>
+
+  <div class="lead-text">
+    自作PCで最も重要なパーツはGPU（グラフィックカード）です。同じ予算でもGPUの選択次第でゲーム体験が大きく変わります。本記事では2026年3月時点の最新GPU事情をもとに、用途別のおすすめと選び方の基準を解説します。
+  </div>
+
+  <h2>1. GPU選びの3つの軸</h2>
+  <p>GPUを選ぶ際に最初に決めるべき基準は次の3つです。この3軸が定まれば、自然と候補が絞り込まれます。</p>
+
+  <h3>① 解像度（プレイする画面サイズ）</h3>
+  <p>ゲームの映像品質は解像度によって大きく変わります。現在主流の解像度は以下の3段階です。</p>
+  <ul>
+    <li><strong>FHD（1920×1080）</strong>：最もスタンダードな解像度。エントリー〜ミドルGPUで十分な性能を発揮できます</li>
+    <li><strong>WQHD（2560×1440）</strong>：FHDより細かく、ゲームの没入感が増します。ミドル〜ハイエンドGPUが必要です</li>
+    <li><strong>4K（3840×2160）</strong>：最高画質。RTX 5080以上のハイエンドGPUを推奨します</li>
+  </ul>
+
+  <h3>② フレームレート目標</h3>
+  <p>フレームレート（fps）が高いほど映像が滑らかになります。144Hz以上のモニターをお持ちの場合、GPUもそれに見合った性能が必要です。</p>
+  <ul>
+    <li><strong>60fps</strong>：一般的な快適プレイの基準。RPGや一人称アドベンチャーはこれで十分</li>
+    <li><strong>120fps</strong>：アクションゲームで快適に感じる目安</li>
+    <li><strong>144fps以上</strong>：FPS・格闘ゲームなど競技性の高いゲームで差が出るレベル</li>
+  </ul>
+
+  <h3>③ 予算</h3>
+  <p>GPUはPC全体の予算の40〜50%を目安に設定するのが一般的です。ハイエンドGPUほど消費電力も上がるため、電源容量との兼ね合いも考慮してください。</p>
+
+  <h2>2. 2026年現行GPU 性能ティア表</h2>
+  <p>以下は2026年3月時点でのNVIDIA GeForce RTX 50シリーズの性能・価格まとめです。<strong>価格はかかくcom調べの参考最安値</strong>であり、在庫状況により変動します。</p>
+
+  <div class="note-box">
+    <p><strong>注意:</strong> RTX 40シリーズは旧世代です。2026年3月現在、RTX 40シリーズのモデルは一部在庫限りとなっており、RTX 50シリーズと同等以上の価格になっているケースもあります。新規購入はRTX 50シリーズを強く推奨します。</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>モデル</th>
+        <th>ランク</th>
+        <th>参考最安値</th>
+        <th>主な用途</th>
+        <th>推奨解像度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>RTX 5090</strong></td>
+        <td><span class="badge badge-top">最上位</span></td>
+        <td>549,800円〜</td>
+        <td>4K 144fps、クリエイター</td>
+        <td>4K</td>
+      </tr>
+      <tr>
+        <td><strong>RTX 5080</strong></td>
+        <td><span class="badge badge-top">ハイエンド</span></td>
+        <td>209,800円〜</td>
+        <td>4K 60fps、WQHD 144fps+</td>
+        <td>4K / WQHD</td>
+      </tr>
+      <tr>
+        <td><strong>RTX 5070 Ti</strong></td>
+        <td><span class="badge badge-best">ハイミドル</span></td>
+        <td>168,000円〜</td>
+        <td>WQHD 144fps、4K 60fps</td>
+        <td>WQHD / 4K</td>
+      </tr>
+      <tr>
+        <td><strong>RTX 5070</strong></td>
+        <td><span class="badge badge-best">コスパ最強</span></td>
+        <td>102,800円〜</td>
+        <td>WQHD 120fps+、FHD 144fps+</td>
+        <td>WQHD</td>
+      </tr>
+      <tr>
+        <td><strong>RTX 5060 Ti</strong></td>
+        <td><span class="badge badge-mid">ミドル</span></td>
+        <td>69,800円〜</td>
+        <td>FHD 144fps+、WQHD 60fps</td>
+        <td>FHD</td>
+      </tr>
+      <tr>
+        <td><strong>RTX 5060</strong></td>
+        <td><span class="badge badge-entry">エントリー</span></td>
+        <td>49,980円〜</td>
+        <td>FHD 60〜120fps</td>
+        <td>FHD</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. 用途別おすすめGPU</h2>
+
+  <h3>モンスターハンターワイルズ — WQHD 120fps目標</h3>
+  <p>グラフィックが非常に重いモンハンワイルズをWQHD解像度で快適にプレイするなら、<strong>RTX 5070以上</strong>を推奨します。RTX 5070はDLSS 4のマルチフレーム生成（後述）を活用することで、WQHDでも120fps以上の体験が期待できます。</p>
+
+  <h3>Apex Legends / VALORANT — FHD 144fps目標</h3>
+  <p>競技FPSはグラフィック負荷が比較的軽く、高フレームレートが重要です。<strong>RTX 5060 Tiで十分</strong>対応できます。FHD 144fps以上を安定して出せるため、コスパの高い選択肢です。</p>
+
+  <h3>4K 60fps（RPG・シングルプレイ系）</h3>
+  <p>4K解像度でのゲームプレイは非常に高い処理能力を要求します。<strong>RTX 5080</strong>が現実的な選択肢です。RTX 5090はさらに強力ですが、価格が約55万円と非常に高く、一般向けではありません。</p>
+
+  <h3>クリエイター用途（動画編集・3DCG）</h3>
+  <p>ゲームと兼用でクリエイター作業もこなしたい場合、VRAMが多いモデルが有利です。RTX 5080（16GB）やRTX 5090（32GB）が理想ですが、予算次第でRTX 5070 Ti（16GB）も実用的な選択です。</p>
+
+  <h2>4. DLSS 4とマルチフレーム生成について</h2>
+  <p>DLSS（Deep Learning Super Sampling）はNVIDIAが開発したAIアップスケーリング技術です。2026年現在、最新の「DLSS 4」では<strong>マルチフレーム生成</strong>という新機能が追加されました。</p>
+
+  <h3>マルチフレーム生成とは？</h3>
+  <p>従来のフレーム生成が1フレーム描画して1フレーム生成（実質2倍）だったのに対し、マルチフレーム生成では<strong>1フレーム描画して最大3フレーム生成（実質4倍）</strong>が可能です。この機能は<strong>RTX 50シリーズ専用</strong>であり、旧世代GPUでは使用できません。</p>
+
+  <p>例えばRTX 5070でネイティブ60fpsのゲームが、DLSS 4のマルチフレーム生成を有効にすると240fps相当の滑らかさを体験できます（体感フレームレートは条件により異なります）。</p>
+
+  <div class="note-box">
+    <p><strong>注意点:</strong> マルチフレーム生成はゲームの入力遅延をわずかに増加させる場合があります。競技FPSでは無効にして実フレームレートを優先するプレイヤーもいます。用途に応じて使い分けを推奨します。</p>
+  </div>
+
+  <h2>5. GPU選びで見落としがちなポイント</h2>
+
+  <h3>消費電力と電源容量</h3>
+  <p>RTX 50シリーズはハイエンドモデルほど消費電力が大きくなります。RTX 5080のTDPは約360Wで、CPU（125W前後）と合わせると500W超になります。<strong>850W以上の電源（80PLUS GOLD以上）を推奨</strong>します。</p>
+
+  <h3>カード長とケースの干渉</h3>
+  <p>ハイエンドGPUは全長350mmを超えるものが多くあります。PCケースの「GPU最大搭載長」を必ず確認してください。コンパクトなケースだと搭載できない場合があります。</p>
+
+  <h3>補助電源コネクタ</h3>
+  <p>RTX 50シリーズは16ピン（12VHPWR）コネクタを採用しています。古い電源では変換アダプターが必要な場合がありますが、<strong>ATX 3.0対応の電源</strong>ならネイティブ対応しており安心です。</p>
+
+  <h2>6. まとめ — 迷ったらAIに聞いてみよう</h2>
+  <p>GPUの選び方は「解像度 × フレームレート目標 × 予算」の掛け合わせです。以下を参考に選択してください：</p>
+  <ul>
+    <li>FHD 144fps・競技FPS → <strong>RTX 5060 Ti</strong>（約7万円〜）</li>
+    <li>WQHD 120fps・ゲーミング全般 → <strong>RTX 5070</strong>（約10万円〜）</li>
+    <li>WQHD 144fps・ハイフレームレート → <strong>RTX 5070 Ti</strong>（約17万円〜）</li>
+    <li>4K・ハイエンドゲーミング → <strong>RTX 5080</strong>（約21万円〜）</li>
+  </ul>
+  <p>「自分のプレイスタイルに合うGPUが分からない」「CPU・電源との相性も含めて構成を考えてほしい」という方は、下のAIチャットに気軽に相談してみてください。予算と用途を伝えるだけで、互換性チェック済みの構成を提案します。</p>
+
+  <div class="cta-box">
+    <h3>AIショップ店員に相談してみる</h3>
+    <p>「モンハンを高画質でやりたい、予算は25万」のように<br>気軽に話しかけるだけでOK。互換性チェック済みの構成を即提案。</p>
+    <a href="/" class="btn-cta">無料で相談する →</a>
+  </div>
+
+  <p style="font-size:0.8rem;color:#475569;margin-top:8px">※価格は2026年3月時点のかかくcom最安値参考値です。在庫状況により変動します。</p>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">チャット</a>
+      <a href="/guide">ガイド記事一覧</a>
+      <a href="/about">運営者情報</a>
+      <a href="/privacy">プライバシーポリシー</a>
+    </div>
+    <div class="footer-copy">© 2026 PC自作、もう迷わない All Rights Reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

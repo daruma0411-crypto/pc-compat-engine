@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【2026年版】予算別ゲーミングPC構成例 — 15万・20万・25万で何が組める？ | PC自作、もう迷わない</title>
+<meta name="description" content="2026年版の予算別ゲーミングPC自作構成例。予算15万・20万・25万円でそれぞれ最適なパーツ構成を実際の価格で紹介。自作vsBTO比較も掲載。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#0a0f1a;color:#f1f5f9;line-height:1.8}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:#111827;border-bottom:1px solid #334155;padding:12px 20px;display:flex;align-items:center;gap:12px}
+.site-header .logo{font-size:22px}
+.site-header .title a{color:#f1f5f9;font-weight:700;font-size:1rem;text-decoration:none}
+.site-header .subtitle{font-size:11px;color:#94a3b8}
+.header-nav{margin-left:auto;display:flex;gap:20px}
+.header-nav a{color:#94a3b8;font-size:0.875rem}
+.header-nav a:hover{color:#60a5fa;text-decoration:none}
+.wrap{max-width:860px;margin:0 auto;padding:48px 20px}
+.breadcrumb{font-size:0.85rem;color:#64748b;margin-bottom:28px}
+.breadcrumb a{color:#60a5fa}
+.breadcrumb span{margin:0 6px}
+.article-tag{display:inline-block;background:#1e3a8a;color:#93c5fd;font-size:0.75rem;padding:3px 10px;border-radius:20px;margin-bottom:16px}
+h1{font-size:1.7rem;font-weight:700;margin-bottom:12px;color:#f1f5f9;line-height:1.4}
+.meta{color:#64748b;font-size:0.85rem;margin-bottom:36px}
+.lead-text{font-size:1.05rem;color:#94a3b8;margin-bottom:40px;padding:20px;background:#111827;border-left:3px solid #60a5fa;border-radius:0 8px 8px 0}
+h2{font-size:1.25rem;font-weight:700;color:#f1f5f9;margin:44px 0 16px;padding-left:14px;border-left:3px solid #60a5fa}
+h3{font-size:1.05rem;font-weight:600;color:#93c5fd;margin:24px 0 10px}
+p{color:#cbd5e1;margin-bottom:16px;font-size:0.95rem}
+ul,ol{padding-left:22px;margin-bottom:16px}
+li{color:#cbd5e1;font-size:0.95rem;margin-bottom:6px}
+strong{color:#f1f5f9}
+.build-card{background:#111827;border:1px solid #334155;border-radius:12px;padding:24px;margin:24px 0}
+.build-card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.budget-badge{background:#4f46e5;color:#fff;font-size:1rem;font-weight:700;padding:6px 16px;border-radius:8px}
+.build-card h3{color:#f1f5f9;margin:0;font-size:1.1rem}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.875rem}
+th{background:#1e293b;color:#94a3b8;font-size:0.8rem;font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid #334155}
+td{padding:10px 14px;border-bottom:1px solid #1e293b;color:#cbd5e1}
+.price-cell{color:#60a5fa;font-weight:600;white-space:nowrap}
+.total-row td{background:#1e293b;font-weight:700;color:#f1f5f9}
+.total-row .price-cell{color:#78ffcb}
+.perf-box{background:#0f2027;border:1px solid #1e3a8a;border-radius:8px;padding:16px;margin-top:16px}
+.perf-box p{margin:0;font-size:0.875rem;color:#93c5fd}
+.perf-box strong{color:#60a5fa}
+.compare-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9rem}
+.compare-table th{background:#1e293b;color:#94a3b8;padding:12px 16px;text-align:center;font-size:0.85rem}
+.compare-table td{padding:12px 16px;border-bottom:1px solid #1e293b;color:#cbd5e1;text-align:center}
+.compare-table tr td:first-child{text-align:left;font-weight:600;color:#f1f5f9}
+.good{color:#6ee7b7}
+.bad{color:#fca5a5}
+.neutral{color:#94a3b8}
+.note-box{background:#111827;border:1px solid #334155;border-radius:8px;padding:16px 20px;margin:20px 0}
+.note-box p{margin:0;font-size:0.875rem;color:#94a3b8}
+.note-box strong{color:#fbbf24}
+.cta-box{background:linear-gradient(135deg,#1e3a8a,#4f46e5);border-radius:12px;padding:28px;text-align:center;margin:44px 0}
+.cta-box h3{font-size:1.15rem;color:#fff;margin-bottom:10px}
+.cta-box p{color:#bfdbfe;margin-bottom:20px;font-size:0.95rem}
+.btn-cta{display:inline-block;background:#60a5fa;color:#0a0f1a;font-weight:700;padding:12px 28px;border-radius:8px;font-size:1rem;text-decoration:none}
+.btn-cta:hover{background:#93c5fd;text-decoration:none}
+.site-footer{background:#111827;border-top:1px solid #334155;padding:28px 20px;margin-top:60px}
+.footer-inner{max-width:860px;margin:0 auto}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{color:#94a3b8;font-size:0.85rem}
+.footer-links a:hover{color:#60a5fa}
+.footer-copy{color:#475569;font-size:0.8rem}
+@media(max-width:600px){h1{font-size:1.35rem}h2{font-size:1.1rem}.header-nav{display:none}.wrap{padding:28px 16px}table{font-size:0.8rem}th,td{padding:8px 10px}.budget-badge{font-size:0.9rem}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">🖥️</div>
+  <div>
+    <div class="title"><a href="/">PC自作、もう迷わない</a></div>
+    <div class="subtitle">14,000件の互換性データ × AIショップ店員</div>
+  </div>
+  <nav class="header-nav">
+    <a href="/">チャット</a>
+    <a href="/guide">ガイド</a>
+    <a href="/about">運営者情報</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="/">ホーム</a><span>›</span><a href="/guide">ガイド</a><span>›</span>予算別構成例
+  </div>
+
+  <div class="article-tag">予算別構成</div>
+  <h1>【2026年版】予算別ゲーミングPC構成例<br>— 15万・20万・25万で何が組める？</h1>
+  <p class="meta">2026年3月更新 · 約3,500字</p>
+
+  <div class="lead-text">
+    「予算はあるけど、何をどう選べばいいかわからない」という方のために、2026年3月時点の実際のパーツ価格をもとに、予算帯ごとの具体的な構成例を紹介します。各構成はCPUソケット・メモリ規格・電源容量の互換性を確認済みです。
+  </div>
+
+  <h2>1. はじめに — 予算で何が変わるか</h2>
+  <p>ゲーミングPCの性能を決める最大の要素はGPU（グラフィックカード）です。予算が増えるほど上位のGPUを搭載でき、より高解像度・高フレームレートのゲームプレイが可能になります。</p>
+  <p>本記事では以下の3つの予算帯を取り上げます：</p>
+  <ul>
+    <li><strong>予算15万円</strong>：FHD 120fps以上を目指すエントリー構成</li>
+    <li><strong>予算20万円</strong>：WQHD 120fps対応のバランス構成</li>
+    <li><strong>予算25万円</strong>：WQHD 144fps以上・将来性を見据えたハイミドル構成</li>
+  </ul>
+  <div class="note-box">
+    <p><strong>注意:</strong> 以下の価格は2026年3月時点のかかくcom参考最安値です。OSや周辺機器（モニター・キーボード・マウス）の費用は含みません。</p>
+  </div>
+
+  <h2>2. 予算15万円の構成例</h2>
+
+  <div class="build-card">
+    <div class="build-card-header">
+      <span class="budget-badge">15万円構成</span>
+      <h3>FHD 120fps エントリーゲーミング</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>パーツ</th><th>製品</th><th class="price-cell">参考価格</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GPU</td><td>GeForce RTX 5060 Ti</td><td class="price-cell">約69,800円〜</td></tr>
+        <tr><td>CPU</td><td>AMD Ryzen 5 9500F BOX</td><td class="price-cell">約35,572円〜</td></tr>
+        <tr><td>マザーボード</td><td>AMD B650 チップセット（AM5対応）</td><td class="price-cell">約15,000円〜</td></tr>
+        <tr><td>メモリ</td><td>DDR5 32GB（16GB×2枚）</td><td class="price-cell">約12,000円〜</td></tr>
+        <tr><td>SSD</td><td>1TB NVMe M.2</td><td class="price-cell">約9,000円〜</td></tr>
+        <tr><td>電源</td><td>650W 80PLUS BRONZE</td><td class="price-cell">約8,000円〜</td></tr>
+        <tr><td>ケース</td><td>MicroATX / ATX ミドルタワー</td><td class="price-cell">約8,000円〜</td></tr>
+        <tr class="total-row"><td colspan="2"><strong>合計（目安）</strong></td><td class="price-cell">約157,000円〜</td></tr>
+      </tbody>
+    </table>
+    <div class="perf-box">
+      <p><strong>想定ゲーム性能（参考値）：</strong>Apex Legends / VALORANT FHD 144fps以上 / モンスターハンターワイルズ FHD 中〜高設定 60〜90fps / Cyberpunk 2077 FHD 中設定 60fps前後</p>
+    </div>
+  </div>
+
+  <h3>この構成のメリット・妥協ポイント</h3>
+  <p><strong>メリット：</strong>競技FPS（Apex・VALORANT）では非常に快適。Ryzen 5 9500Fは価格帯比でCPU性能が高く、ゲームのボトルネックになりにくいです。</p>
+  <p><strong>妥協ポイント：</strong>WQHD・4Kでの高フレームレートは厳しい。グラフィック設定を下げる必要があるゲームもあります。将来的にGPUのアップグレードを見越してB650マザーを選ぶのがポイントです。</p>
+
+  <h2>3. 予算20万円の構成例</h2>
+
+  <div class="build-card">
+    <div class="build-card-header">
+      <span class="budget-badge">20万円構成</span>
+      <h3>WQHD 120fps バランス構成</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>パーツ</th><th>製品</th><th class="price-cell">参考価格</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GPU</td><td>GeForce RTX 5070</td><td class="price-cell">約102,800円〜</td></tr>
+        <tr><td>CPU</td><td>AMD Ryzen 7 9700X BOX</td><td class="price-cell">約41,112円〜</td></tr>
+        <tr><td>マザーボード</td><td>AMD B650E / X670 チップセット（AM5対応）</td><td class="price-cell">約20,000円〜</td></tr>
+        <tr><td>メモリ</td><td>DDR5 32GB（16GB×2枚）高速品</td><td class="price-cell">約15,000円〜</td></tr>
+        <tr><td>SSD</td><td>1TB NVMe M.2（Gen4）</td><td class="price-cell">約10,000円〜</td></tr>
+        <tr><td>電源</td><td>750W 80PLUS GOLD</td><td class="price-cell">約12,000円〜</td></tr>
+        <tr><td>ケース</td><td>ATX ミドルタワー（エアフロー良好）</td><td class="price-cell">約10,000円〜</td></tr>
+        <tr class="total-row"><td colspan="2"><strong>合計（目安）</strong></td><td class="price-cell">約211,000円〜</td></tr>
+      </tbody>
+    </table>
+    <div class="perf-box">
+      <p><strong>想定ゲーム性能（参考値）：</strong>モンスターハンターワイルズ WQHD 高設定 90〜120fps（DLSS 4使用）/ Apex Legends FHD 200fps以上 / Cyberpunk 2077 WQHD 高設定 70〜90fps</p>
+    </div>
+  </div>
+
+  <h3>コスパの最適解</h3>
+  <p>RTX 5070はDLSS 4のマルチフレーム生成対応により、実際の描画フレーム数以上の滑らかさが得られます。Ryzen 7 9700Xはゲーム向けに最適化された8コア16スレッドのCPUで、RTX 5070の性能を引き出すのに十分なスペックです。20万円台でWQHD 120fps環境を構築できる、現時点でもっともコスパが高い構成帯といえます。</p>
+
+  <h2>4. 予算25万円の構成例</h2>
+
+  <div class="build-card">
+    <div class="build-card-header">
+      <span class="budget-badge">25万円構成</span>
+      <h3>WQHD 144fps+ 将来性重視構成</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>パーツ</th><th>製品</th><th class="price-cell">参考価格</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GPU</td><td>GeForce RTX 5070 Ti</td><td class="price-cell">約168,000円〜</td></tr>
+        <tr><td>CPU</td><td>AMD Ryzen 7 9800X3D BOX</td><td class="price-cell">約66,189円〜</td></tr>
+        <tr><td>マザーボード</td><td>AMD X670E チップセット（AM5対応）</td><td class="price-cell">約25,000円〜</td></tr>
+        <tr><td>メモリ</td><td>DDR5 32GB（16GB×2枚）高速品</td><td class="price-cell">約15,000円〜</td></tr>
+        <tr><td>SSD</td><td>2TB NVMe M.2（Gen4）</td><td class="price-cell">約18,000円〜</td></tr>
+        <tr><td>電源</td><td>850W 80PLUS GOLD（ATX 3.0対応）</td><td class="price-cell">約16,000円〜</td></tr>
+        <tr><td>ケース</td><td>ATX ミドル〜フルタワー</td><td class="price-cell">約12,000円〜</td></tr>
+        <tr class="total-row"><td colspan="2"><strong>合計（目安）</strong></td><td class="price-cell">約320,000円〜</td></tr>
+      </tbody>
+    </table>
+    <div class="perf-box">
+      <p><strong>想定ゲーム性能（参考値）：</strong>モンスターハンターワイルズ WQHD 最高設定 120fps+（DLSS 4使用）/ Apex Legends WQHD 200fps以上 / Cyberpunk 2077 WQHD 最高設定 80〜100fps</p>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p><strong>補足:</strong> Ryzen 7 9800X3Dは「3D V-Cache」テクノロジーを搭載した現行最強のゲーミングCPUです。L3キャッシュが大幅に増量されており、特にオープンワールドゲームで威力を発揮します。25万円構成は合計が予算を若干オーバーしますが、長期間使える将来性を考えると投資価値があります。</p>
+  </div>
+
+  <h2>5. 自作 vs BTO — どちらがお得？</h2>
+  <p>PC自作とBTO（Build to Order、メーカー組み立て済みPC）にはそれぞれメリット・デメリットがあります。どちらが正解かは目的と状況次第です。</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>比較項目</th>
+        <th>自作PC</th>
+        <th>BTO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>価格</td>
+        <td class="neutral">パーツ次第。安くなる場合もあるが常に安いわけではない</td>
+        <td class="neutral">業者仕入れで割安な場合もある</td>
+      </tr>
+      <tr>
+        <td>カスタマイズ自由度</td>
+        <td class="good">完全自由。好みのパーツを組み合わせられる</td>
+        <td class="bad">選択肢は限られる</td>
+      </tr>
+      <tr>
+        <td>組み立て</td>
+        <td class="bad">自分で組む必要あり。失敗リスクも</td>
+        <td class="good">組み立て不要、すぐ使える</td>
+      </tr>
+      <tr>
+        <td>保証</td>
+        <td class="bad">パーツ個別の保証のみ</td>
+        <td class="good">完成品としての保証あり</td>
+      </tr>
+      <tr>
+        <td>学習効果</td>
+        <td class="good">PCの仕組みが分かる。トラブル対処能力が身につく</td>
+        <td class="bad">構造は分かりにくい</td>
+      </tr>
+      <tr>
+        <td>パーツ選定の楽しさ</td>
+        <td class="good">パーツ選びも楽しみの一つ</td>
+        <td class="neutral">ラインナップから選ぶだけ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>判断基準のまとめ</h3>
+  <ul>
+    <li>PCに詳しくなりたい・パーツ選びを楽しみたい → <strong>自作</strong></li>
+    <li>すぐに使いたい・組み立てが不安 → <strong>BTO</strong></li>
+    <li>特定のゲームや用途に特化した構成にしたい → <strong>自作</strong></li>
+    <li>保証サービスを重視する → <strong>BTO</strong></li>
+  </ul>
+
+  <h2>6. まとめ — AIがあなたの最適構成を提案</h2>
+  <p>本記事で紹介した構成はあくまで参考例です。実際には「どのゲームを遊ぶか」「モニターの解像度は何か」「ケースのサイズ制限は？」など個人の条件によって最適解は変わります。</p>
+  <p>以下のチャットに予算と用途を伝えるだけで、あなたの条件に合った互換性チェック済みの構成を自動で提案します。ぜひ活用してみてください。</p>
+
+  <div class="cta-box">
+    <h3>あなたの予算でベストな構成をAIが提案</h3>
+    <p>「予算20万でモンハンをWQHDでやりたい」と話しかけてみてください。<br>CPUソケット・電源容量・GPU長まで互換性を自動チェック。</p>
+    <a href="/" class="btn-cta">無料で構成提案を受ける →</a>
+  </div>
+
+  <p style="font-size:0.8rem;color:#475569;margin-top:8px">※価格は2026年3月時点のかかくcom参考最安値です。Windows OS・周辺機器費用は含みません。在庫状況により変動します。</p>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">チャット</a>
+      <a href="/guide">ガイド記事一覧</a>
+      <a href="/about">運営者情報</a>
+      <a href="/privacy">プライバシーポリシー</a>
+    </div>
+    <div class="footer-copy">© 2026 PC自作、もう迷わない All Rights Reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
