@@ -41,6 +41,7 @@ jobs:
             git push
 
     auto-reply:
+      needs: auto-follow
       runs-on: ubuntu-latest
       permissions:
         contents: write
