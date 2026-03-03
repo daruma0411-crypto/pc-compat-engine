@@ -1,0 +1,41 @@
+name: Daily KPI Report
+
+on:
+  schedule:
+    # 毎朝 7:00 JST = 22:00 UTC (前日)
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+
+jobs:
+  kpi-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install google-analytics-data google-auth python-dotenv requests
+
+    - name: Write Google credentials file
+      run: |
+        echo '${{ secrets.GOOGLE_CREDENTIALS_JSON }}' > /tmp/ga-credentials.json
+
+    - name: Generate and send KPI report
+      env:
+        GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        GOOGLE_APPLICATION_CREDENTIALS: /tmp/ga-credentials.json
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: |
+        python scripts/daily_kpi_reporter.py
+
+    - name: Cleanup credentials
+      if: always()
+      run: rm -f /tmp/ga-credentials.json
