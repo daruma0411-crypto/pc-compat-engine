@@ -118,44 +118,70 @@ def generate_report():
     day_names = ['月', '火', '水', '木', '金', '土', '日']
     day_of_week = day_names[yesterday.weekday()]
 
-    # --- レポート組み立て ---
-    report = f"""━━━━ PC互換チェッカー 日次KPI ━━━━
+    # --- レポート組み立て（モバイル最適化版） ---
+    minutes = int(yesterday_data['avg_session_duration'] // 60)
+    seconds = int(yesterday_data['avg_session_duration'] % 60)
+    
+    report = f"""━━━━━━━━━━━━━━━━━
+📊 PC互換チェッカー 日次KPI
 {date_str}（{day_of_week}）
+━━━━━━━━━━━━━━━━━
 
-【流入サマリー】
-・ユーザー: {yesterday_data['total_users']:,}人（前週比 {users_wow}）
-・PV: {yesterday_data['total_pageviews']:,}（前週比 {pv_wow}）
-・セッション: {yesterday_data['total_sessions']:,}
-・平均滞在: {yesterday_data['avg_session_duration']:.0f}秒
-・直帰率: {yesterday_data['bounce_rate']*100:.1f}%
+【サマリー】
+👥 {yesterday_data['total_users']:,}人 ({users_wow}) | 📄 {yesterday_data['total_pageviews']:,}PV ({pv_wow})
+⏱ {minutes}分{seconds}秒 | 📊 直帰率: {yesterday_data['bounce_rate']*100:.1f}%
 """
 
-    # 流入元
+    # デバイス（サマリーに統合）
+    if devices:
+        device_line = " | ".join([f"{d.capitalize()}: {data['users']:,}" for d, data in sorted(devices.items(), key=lambda x: x[1]['users'], reverse=True)])
+        report += f"{device_line}\n"
+
+    # 流入元（絵文字で短縮）
     if traffic:
         report += "\n【流入元】\n"
+        emoji_map = {
+            'direct': '🔗',
+            'organic_search': '🔍',
+            'referral': '📧',
+            'social': '📱',
+            'unassigned': '❓'
+        }
         for channel, data in sorted(traffic.items(), key=lambda x: x[1]['users'], reverse=True):
-            report += f"  • {channel}: {data['users']:,}人\n"
+            emoji = emoji_map.get(channel, '•')
+            channel_name = channel.replace('_', ' ')
+            report += f"{emoji} {channel_name}: {data['users']:,}人\n"
 
-    # 人気ページ
+    # 人気ページ（0PVを除外、短縮表示）
     if top_pages:
-        report += "\n【人気ページ Top 5】\n"
-        for i, page in enumerate(top_pages, 1):
-            report += f"  {i}. {page['page']}: {page['pageviews']:,}PV\n"
+        # 0PVページを除外
+        filtered_pages = [p for p in top_pages if p['pageviews'] > 0]
+        if filtered_pages:
+            report += "\n【人気ページ】\n"
+            for i, page in enumerate(filtered_pages[:3], 1):  # Top 3に短縮
+                # ページ名を短縮
+                page_name = page['page']
+                if page_name == '/':
+                    page_name = 'トップ'
+                elif page_name.startswith('/game/'):
+                    game_name = page_name.replace('/game/', '')
+                    # 長い名前は省略
+                    if len(game_name) > 20:
+                        game_name = game_name[:20] + '...'
+                    page_name = game_name
+                
+                report += f"{i}️⃣ {page_name}: {page['pageviews']:,}PV\n"
 
-    # デバイス
-    if devices:
-        report += "\n【デバイス】\n"
-        for device, data in sorted(devices.items(), key=lambda x: x[1]['users'], reverse=True):
-            report += f"  • {device.capitalize()}: {data['users']:,}人\n"
-
-    # Twitter
+    # Twitter（短縮版）
     report += f"""
-【Twitter (@syoyutarou)】
-・昨日の投稿: {twitter['posts_today']}件
-・累計投稿: {twitter['total_posts']}件
-"""
+【Twitter】
+📝 昨日: {twitter['posts_today']}件 | 📊 累計: {twitter['total_posts']}件
 
-    report += "━━━━━━━━━━━━━━━━━━━━━━━━"
+━━━━━━━━━━━━━━━━━
+💡 次のアクション:
+・12:00/18:00/21:00 自動投稿
+・検索流入を増やす施策検討
+━━━━━━━━━━━━━━━━━"""
 
     return report
 
