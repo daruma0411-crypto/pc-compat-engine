@@ -13,5 +13,11 @@
     "name": "Factorio",
     "posted_at": "2026-03-03T12:40:49.498496",
     "tweet_text": "【GPU互換性チェック】\nFactorio（メタスコア: 90）\n\n推奨GPU: DirectX 11 capable GPU with 4 GB VRAM - GeForce GTX 1050 Ti, Radeon RX 570, Intel Arc\n推奨CPU: Quad core 4Ghz+ from 2020\nRAM: 16GB\n\nあなたのPCで動く？→ https://pc-compat-engine-production.up.railway.app/game/factorio\n#PCゲーム #GPU互換性"
+  },
+  {
+    "name": "ゴースト トリック",
+    "posted_at": "2026-03-03T13:49:12.407178",
+    "tweet_text": "「ゴースト トリックを144fpsで遊ぶには？」\n\n推奨GPU: NVIDIA GeForce GT 1030 (VRAM2GB) もしくは AMD Radeon RX550 (VRAM2GB)\n推奨CPU: Intel Core i3-9100F もしくは AMD Ryzen3 3200G\nRAM: 8GB\n\nFPS目標別のPC構成を提案\n→ https://pc-compat-engine-production.up.railway.app/game/ゴースト-トリック\n#144fps #ゲーミングPC",
+    "has_image": true
   }
 ]
