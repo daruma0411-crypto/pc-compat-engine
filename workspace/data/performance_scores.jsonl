@@ -29,3 +29,12 @@
 {"type": "cpu", "name": "Intel Core Ultra 7 265F", "score": 68, "cores": 20, "threads": 20, "generation": "Arrow Lake"}
 {"type": "cpu", "name": "Intel Core Ultra 7 265K", "score": 72, "cores": 20, "threads": 20, "generation": "Arrow Lake"}
 {"type": "cpu", "name": "Intel Core Ultra 9 285K", "score": 80, "cores": 24, "threads": 24, "generation": "Arrow Lake"}
+{"type": "gpu", "name": "GeForce GTX 1660 SUPER", "score": 22, "vram_gb": 6, "tdp_w": 125, "generation": "Turing"}
+{"type": "gpu", "name": "GeForce RTX 3060", "score": 35, "vram_gb": 12, "tdp_w": 170, "generation": "Ampere"}
+{"type": "gpu", "name": "GeForce RTX 3060 Ti", "score": 42, "vram_gb": 8, "tdp_w": 200, "generation": "Ampere"}
+{"type": "cpu", "name": "Intel Core i5-12400F", "score": 42, "cores": 6, "threads": 12, "generation": "Alder Lake"}
+{"type": "cpu", "name": "Intel Core i5-13400F", "score": 48, "cores": 10, "threads": 16, "generation": "Raptor Lake"}
+{"type": "cpu", "name": "AMD Ryzen 5 5500", "score": 28, "cores": 6, "threads": 12, "generation": "Zen3"}
+{"type": "cpu", "name": "AMD Ryzen 5 5600X", "score": 38, "cores": 6, "threads": 12, "generation": "Zen3"}
+{"type": "cpu", "name": "Intel Core i7-13700F", "score": 65, "cores": 16, "threads": 24, "generation": "Raptor Lake"}
+{"type": "cpu", "name": "AMD Ryzen 9 9950X", "score": 85, "cores": 16, "threads": 32, "generation": "Zen5"}

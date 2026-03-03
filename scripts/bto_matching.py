@@ -60,6 +60,115 @@ def _normalize_part_name(name):
 
 
 # ---------------------------------------------------------------------------
+# Steam DB → ゲーム要件の動的取得
+# ---------------------------------------------------------------------------
+
+# performance_scores.jsonl にないGPU の推定スコア（Steam要件解析用）
+_GPU_SCORE_ESTIMATES = {
+    'gtx 460': 6, 'gtx 560 ti': 8, 'gtx 560': 7,
+    'gtx 660': 10, 'gtx 670': 11, 'gtx 680': 13,
+    'gtx 750 ti': 14, 'gtx 760': 15,
+    'gtx 770': 17, 'gtx 780': 19,
+    'gtx 950': 16, 'gtx 960': 17, 'gtx 970': 20, 'gtx 980': 22,
+    'gtx 1050 ti': 17, 'gtx 1050': 15, 'gtx 1060': 20,
+    'gtx 1070 ti': 30, 'gtx 1070': 28, 'gtx 1080 ti': 35, 'gtx 1080': 32,
+    'gtx 1650': 16, 'gtx 1660 ti': 22, 'gtx 1660': 20,
+    'rtx 2060': 30, 'rtx 2070': 38, 'rtx 2080': 45,
+    'rtx 3070': 50, 'rtx 3080': 60, 'rtx 3090': 70,
+    'rx 480': 18, 'rx 570': 17, 'rx 580': 19,
+    'rx 5600': 30, 'rx 5700': 35,
+    'rx 6600 xt': 38, 'rx 6600': 35, 'rx 6700 xt': 42, 'rx 6800 xt': 55,
+    'rx 7600': 38,
+}
+
+
+def _extract_gpu_from_text(gpu_texts):
+    """GPU要件テキストからGPU名を抽出"""
+    if not gpu_texts:
+        return None
+    combined = ' '.join(gpu_texts) if isinstance(gpu_texts, list) else str(gpu_texts)
+    # 特殊文字除去
+    combined = combined.replace('®', '').replace('™', '').replace('(R)', '').replace('（', '(')
+
+    # GeForce / RTX / GTX パターン
+    m = re.search(
+        r'(?:GeForce\s+)?((?:RTX|GTX)\s+\d{3,4}(?:\s+(?:Ti|SUPER|XT))?)',
+        combined, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()
+
+    # Radeon RX パターン
+    m = re.search(
+        r'Radeon\s+(RX\s+\d{3,4}(?:\s+(?:XT|X))?)',
+        combined, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()
+
+    return None
+
+
+def _gpu_name_to_score(gpu_name, perf_scores):
+    """GPU名 → パフォーマンススコア（perf_scores参照 → 推定テーブル → None）"""
+    if gpu_name is None:
+        return None
+    normalized = _normalize_part_name(gpu_name)
+    entry = perf_scores.get(normalized)
+    if entry:
+        return entry['score']
+    # 推定テーブルで部分一致（長いキーから先に照合）
+    name_lower = gpu_name.lower().strip()
+    for key in sorted(_GPU_SCORE_ESTIMATES, key=len, reverse=True):
+        if key in name_lower:
+            return _GPU_SCORE_ESTIMATES[key]
+    return None
+
+
+def load_game_requirements():
+    """Steam DB (games.jsonl) からゲームタイトル→GPU要件スコアを動的生成"""
+    games_path = os.path.join(_DATA_DIR, 'steam', 'games.jsonl')
+    if not os.path.exists(games_path):
+        return {}
+
+    perf_scores = load_performance_scores()
+    requirements = {}
+
+    with open(games_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            game = json.loads(line)
+            name = game.get('name', '')
+            if not name:
+                continue
+
+            specs = game.get('specs', {})
+            rec = specs.get('recommended') or specs.get('minimum') or {}
+            gpu_texts = rec.get('gpu')
+            if not gpu_texts:
+                continue
+
+            gpu_name = _extract_gpu_from_text(gpu_texts)
+            gpu_score = _gpu_name_to_score(gpu_name, perf_scores)
+            if gpu_score is not None:
+                requirements[name.lower()] = gpu_score
+
+    return requirements
+
+
+# キャッシュ（モジュールレベル）
+_steam_game_reqs_cache = None
+
+
+def _get_steam_game_requirements():
+    """Steam DB ゲーム要件をキャッシュ付きで取得"""
+    global _steam_game_reqs_cache
+    if _steam_game_reqs_cache is None:
+        _steam_game_reqs_cache = load_game_requirements()
+    return _steam_game_reqs_cache
+
+
+# ---------------------------------------------------------------------------
 # スペック要件ベクトル生成
 # ---------------------------------------------------------------------------
 
@@ -211,11 +320,36 @@ def _extract_quality(user_input):
 
 
 def _extract_game(user_input):
-    """ゲーム名を抽出してGPU要件を返す"""
+    """ゲーム名を抽出してGPU要件を返す
+
+    優先順位: 1. ハードコード定義  2. Steam DB  3. None
+    ハードコードは最新タイトルや日本語名の正確なマッピングを保証する。
+    """
     text = user_input.lower()
+
+    # 1. ハードコード辞書を先に検索（手動定義で精度が高い）
     for game_key, gpu_req in _GAME_GPU_REQUIREMENTS.items():
         if game_key in text:
             return game_key, gpu_req
+
+    # 2. Steam DB からゲーム名を部分一致検索
+    steam_reqs = _get_steam_game_requirements()
+    best_match = None
+    best_len = 0
+    for game_name, gpu_score in steam_reqs.items():
+        # ゲーム名がユーザー入力に含まれている（長い一致を優先）
+        if game_name in text and len(game_name) > best_len:
+            best_match = (game_name, gpu_score)
+            best_len = len(game_name)
+        # ユーザー入力がゲーム名の先頭に一致 or ワード境界で一致（3文字以上）
+        elif len(text) >= 3 and re.search(r'\b' + re.escape(text) + r'\b', game_name):
+            if len(game_name) > best_len:
+                best_match = (game_name, gpu_score)
+                best_len = len(game_name)
+
+    if best_match:
+        return best_match
+
     return None, None
 
 
