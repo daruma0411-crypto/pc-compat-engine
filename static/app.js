@@ -1,4 +1,23 @@
-﻿  // ─── 定数 ──────────────────────────────────────────────────────────────
+﻿  // ─── テーマ切り替え ──────────────────────────────────────────────────────
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    var btn = document.getElementById('btn-theme-toggle');
+    if (btn) btn.textContent = theme === 'light' ? '☀️' : '🌙';
+  }
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('pc-compat-theme', next); } catch(e) {}
+  }
+  // ページ読み込み時にテーマ復元
+  (function() {
+    var saved = 'dark';
+    try { saved = localStorage.getItem('pc-compat-theme') || 'dark'; } catch(e) {}
+    applyTheme(saved);
+  })();
+
+  // ─── 定数 ──────────────────────────────────────────────────────────────
   const VERDICT_MAP = {
     OK:      { label: '互換性OK',  sub: 'すべてのチェックを通過しました',            icon: '✅', cls: 'OK'      },
     WARNING: { label: '要注意',    sub: '一部に互換性リスクがあります',               icon: '⚠️', cls: 'WARNING' },
