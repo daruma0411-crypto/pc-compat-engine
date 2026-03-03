@@ -900,6 +900,11 @@ header {
   margin-top: 4px;
 }
 
+/* BTO サブパス選択カード */
+.bto-sub-cards { margin-top: 12px; }
+.bto-sub-card { border-left: 3px solid rgba(99, 102, 241, 0.3) !important; }
+.bto-sub-card:hover { border-left-color: rgba(99, 102, 241, 0.8) !important; background: rgba(99, 102, 241, 0.08) !important; }
+
 /* スペック要件サマリー */
 .bto-spec-summary {
   padding: 8px 12px;

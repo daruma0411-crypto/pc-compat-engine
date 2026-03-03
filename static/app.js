@@ -32,6 +32,7 @@
   let lastDiagnosis = null;
   let gameMode = false;
   let btoMode = false;      // BTOマッチングモード
+let btoSubMode = null;    // 'purpose' | 'budget' | null
   let historyFirstSaved = false;
   let confirmedParts = [];  // [{name: string, category: string}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
@@ -139,8 +140,19 @@
     } else if (mode === 'bto') {
       gameMode = false;
       btoMode = true;
-      document.getElementById('chat-input').placeholder = '例: モンハンワイルズを4Kで遊びたい。予算25万';
-      appendAIBubble('🖥️ どんな目的でPCを探していますか？\nゲーム名・予算・用途を教えてください。最適なBTOパソコンを松竹梅で提案します。\n\n例: モンハンワイルズを4Kで遊びたい。予算25万');
+      btoSubMode = null;
+      const subCardsHtml =
+        '<div class="mode-cards bto-sub-cards">' +
+          '<div class="mode-card bto-sub-card" onclick="selectBtoSubMode(\'purpose\')">' +
+            '<span class="mode-card-icon">🎯</span>やりたいことから探す' +
+            '<span class="mode-card-sub">ゲーム・用途から最適なPCを提案</span>' +
+          '</div>' +
+          '<div class="mode-card bto-sub-card" onclick="selectBtoSubMode(\'budget\')">' +
+            '<span class="mode-card-icon">💰</span>予算から探す' +
+            '<span class="mode-card-sub">予算内でベストな1台を選ぶ</span>' +
+          '</div>' +
+        '</div>';
+      appendAIBubble('どちらの方法でPCを探しましょうか？', subCardsHtml);
       // BTOモード時はダッシュボードを非表示
       const dashboard = document.getElementById('dashboard');
       if (dashboard) dashboard.style.display = 'none';
@@ -151,6 +163,31 @@
       appendAIBubble('どんな組み合わせを確認したいですか？\n例: RTX 4070をLancool 216に入れたい');
     }
     updateModeIndicator();
+  }
+
+  function selectBtoSubMode(subMode) {
+    btoSubMode = subMode;
+    // サブカードを無効化
+    document.querySelectorAll('.bto-sub-card').forEach(c => {
+      c.style.pointerEvents = 'none';
+      c.style.opacity = '0.4';
+    });
+
+    if (subMode === 'purpose') {
+      document.getElementById('chat-input').placeholder = '例: モンハンワイルズを快適に遊びたい';
+      appendAIBubble(
+        '🎯 何に使うPCを探していますか？\n' +
+        'ゲーム名、やりたいこと（動画編集、AI画像生成、配信など）を教えてください。\n' +
+        '予算はまだ決まっていなくても大丈夫です！'
+      );
+    } else {
+      document.getElementById('chat-input').placeholder = '例: 20万円くらいで考えています';
+      appendAIBubble(
+        '💰 ご予算はどのくらいですか？\n' +
+        'だいたいの金額で構いません。\n\n' +
+        '例: 15万円、20万円、30万円くらい'
+      );
+    }
   }
 
   function switchMode() {
@@ -301,6 +338,11 @@
     // ③ チャットバブル表示
     appendAIBubble(data.message || '少し詳しく教えてください。');
 
+    // ③-a BTO松竹梅カード表示（search_btoツール結果がある場合）
+    if (data.bto_results) {
+      renderBtoResult(data.bto_results);
+    }
+
     // ③-b サマリー表示後 → 画像生成ボタン
     const allConfirmed = ['GPU','CPU','MB','RAM','CASE','PSU'].every(
       c => confirmedParts.some(p => normalizeCat(p.category) === c)
@@ -344,13 +386,17 @@
     const timer = setTimeout(() => controller.abort(), 120000);
 
     try {
-      const endpoint = btoMode ? '/api/bto-match' : (gameMode ? '/api/recommend' : '/api/chat');
-      const useStream = !gameMode && !btoMode; // 互換チェックモードのみSSE
+      const endpoint = (!btoMode && gameMode) ? '/api/recommend' : '/api/chat';
+      const useStream = !gameMode; // BTO + 互換チェック → SSE
+
+      const reqBody = { message: msg, session_id: sessionId, stream: useStream };
+      if (btoMode) reqBody.bto_mode = true;
+      if (btoSubMode) reqBody.bto_sub_mode = btoSubMode;
 
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, session_id: sessionId, stream: useStream }),
+        body: JSON.stringify(reqBody),
         signal: controller.signal,
       });
       clearTimeout(timer);
@@ -358,14 +404,6 @@
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
-      }
-
-      // ── BTOモード: 松竹梅カード表示 ──
-      if (btoMode) {
-        const data = await res.json();
-        typingEl.remove();
-        renderBtoResult(data);
-        return;
       }
 
       // ── ゲームモード: 従来通りJSON ──

@@ -1183,6 +1183,80 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
   配信+ゲーム: CPU(8コア以上) > GPU(NVENC) > RAM(32GB)
 """
 
+
+# ================================================================
+# BTO会話ガイダンスプロンプト
+# ================================================================
+
+def _get_bto_guidance_prompt(session):
+    """BTOモード用のガイダンスプロンプトを生成。段階的ヒアリングを誘導する。"""
+    if not session.get('bto_mode'):
+        return ''
+
+    sub_mode = session.get('bto_sub_mode', 'purpose')
+    has_budget = session.get('budget_yen') is not None
+    has_game = session.get('game_name') is not None
+    history_len = len(session.get('history', []))
+    turns = history_len // 2
+
+    parts = []
+    parts.append("""
+## 🖥️ BTOモード: 段階的ヒアリング
+
+あなたはBTOパソコンの提案モードです。
+自作パーツ用のツール（search_parts, confirm_part, search_build, get_build_summary）は使用禁止。
+search_btoのみ使用可能。
+
+### ヒアリングルール
+- 1回の返答で聞くのは1つの質問だけ
+- 質問は短く、選択肢を示す
+- ユーザーが一度に多くの情報を出したらそのまま受け取ってsearch_btoを呼ぶ
+- ユーザーが途中で「やっぱり予算から探したい」等と言ったら柔軟に対応（リセット不要）
+""")
+
+    if sub_mode == 'purpose':
+        parts.append("""
+### パス: やりたいことから探す
+質問順序:
+1. まず用途を聞く（ゲーム/動画編集/AI画像生成/配信/仕事など）
+2. 具体的なゲーム名や用途の詳細を聞く（ゲームの場合: 解像度やfpsの希望も）
+3. 予算を聞く（任意）→「予算はありますか？なくても全然大丈夫です！」
+4. 情報が揃ったらsearch_btoを呼ぶ
+""")
+    else:
+        parts.append("""
+### パス: 予算から探す
+質問順序:
+1. 予算を確認（既に伝えてくれているはず）
+2. 何に使いたいかを聞く（ゲーム/動画編集/AI/配信/仕事など）
+3. 情報が揃ったらsearch_btoを呼ぶ
+""")
+
+    parts.append("""
+### 予算の扱い（重要）
+- 予算はソフト制約。ユーザーは予算感が分からないからこのサービスを使っている
+- 予算なし→ やりたいことに最適なスペック構成を提案（相場感を教える）
+- 予算不足→ 予算内ベスト + 「あと○万追加するとこれができる」提案
+- 予算十分→ 最適構成 + 余った予算の活用提案（モニター/周辺機器等）
+
+### search_bto呼び出し条件
+以下が揃ったら search_bto を呼ぶ:
+- 用途（gaming/creator/ai/streaming/work）が判明している
+- （予算はなくてもOK。ない場合はbudget_yenを省略してよい）
+
+search_btoを呼んだ後は、結果の松竹梅を「なぜこのPCがユーザーの目的に合うか」を説明しながら提示すること。
+スペックの羅列ではなく、ユーザーのやりたいことに対してどう活きるかを伝える。
+""")
+
+    if turns >= 4 and not session.get('bto_last_results'):
+        parts.append("""
+## ⚠️ 会話が長くなっています。次の返答でsearch_btoを呼んでください。
+不足情報はデフォルト値で補完してOK（予算25万、FHD、60fps、高画質）。
+""")
+
+    return '\n'.join(parts)
+
+
 # ================================================================
 # チャット型番抽出プロンプト
 # ================================================================
@@ -1964,6 +2038,9 @@ def _new_session_dict():
         'quality': None,
         'game_name': None,
         'fps_target': None,
+        'bto_mode': False,
+        'bto_sub_mode': None,
+        'bto_last_results': None,
     }
 
 
@@ -2231,7 +2308,7 @@ SEARCH_BTO_TOOL = {
                 "description": "目標FPS（デフォルト: 60）"
             },
         },
-        "required": ["budget_yen"]
+        "required": []
     }
 }
 
@@ -2803,7 +2880,9 @@ def execute_tool(tool_name, tool_input, session, all_products):
     elif tool_name == 'search_build':
         return handle_search_build(tool_input, all_products, session)
     elif tool_name == 'search_bto':
-        return _handle_search_bto(tool_input, session)
+        result = _handle_search_bto(tool_input, session)
+        session['bto_last_results'] = result
+        return result
     elif tool_name == 'amazon_search':
         amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
         q = urllib.parse.quote(tool_input['query'])
@@ -3667,6 +3746,12 @@ def chat():
         # セッションを取得または作成
         session, is_new_session = get_or_create_session(session_id)
 
+        # BTOモードフラグをフロントエンドから取得
+        if data.get('bto_mode'):
+            session['bto_mode'] = True
+        if data.get('bto_sub_mode'):
+            session['bto_sub_mode'] = data['bto_sub_mode']
+
         # TTL切れ検知: 過去にやり取りしたsession_idが新規セッションになった場合
         # 初訪問ユーザーは _SEEN_SESSION_IDS に未登録なので誤検知しない
         session_expired = is_new_session and session_id in _SEEN_SESSION_IDS
@@ -3804,8 +3889,10 @@ def chat():
                 lines.append(f"→ confirm_partを呼ばずに次に進むな。これは最優先の指示。")
                 last_search_hint = "\n".join(lines) + "\n"
 
+        bto_guidance = _get_bto_guidance_prompt(session) if session.get('bto_mode') else ''
         system_prompt = (
-            current_build_text + last_search_hint + stagnation_hint + budget_hint + context_hint + "\n"
+            current_build_text + last_search_hint + stagnation_hint + budget_hint + context_hint
+            + bto_guidance + "\n"
             + _SHOP_CLERK_SYSTEM_PROMPT
         )
 
@@ -3939,6 +4026,20 @@ def _build_chat_response(session, session_id, session_expired,
         } if p else None)
         for cat, p in session['current_build'].items()
     }
+
+    # BTO松竹梅結果をフロントエンドに返す
+    if session.get('bto_last_results'):
+        bto_data = session['bto_last_results']
+        recs_for_frontend = {}
+        for tier_item in bto_data.get('bto_recommendations', []):
+            tier_key = tier_item.get('tier')
+            if tier_key:
+                recs_for_frontend[tier_key] = tier_item
+        response_data['bto_results'] = {
+            'recommendations': recs_for_frontend,
+            'spec_vector': bto_data.get('spec_vector', {}),
+        }
+        session['bto_last_results'] = None  # 1回表示したらクリア
 
     if session['confirmed_parts'] and not response_data.get('recommended_parts'):
         response_data['confirmed_parts_session'] = []
