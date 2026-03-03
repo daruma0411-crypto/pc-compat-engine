@@ -8,5 +8,10 @@
     "name": "Hollow Knight",
     "posted_at": "2026-03-03T09:36:05.770391",
     "tweet_text": "Hollow Knight\n推奨スペック一覧\n\nGPU: GeForce GTX 1050 (2GB), Radeon R9 380 (2GB)\nCPU: Intel Core i5-3470\nRAM: 8GB\n\n詳細 → https://pc-compat-engine-production.up.railway.app/game/hollow-knight\n#PCゲーム #自作PC"
+  },
+  {
+    "name": "Factorio",
+    "posted_at": "2026-03-03T12:40:49.498496",
+    "tweet_text": "【GPU互換性チェック】\nFactorio（メタスコア: 90）\n\n推奨GPU: DirectX 11 capable GPU with 4 GB VRAM - GeForce GTX 1050 Ti, Radeon RX 570, Intel Arc\n推奨CPU: Quad core 4Ghz+ from 2020\nRAM: 16GB\n\nあなたのPCで動く？→ https://pc-compat-engine-production.up.railway.app/game/factorio\n#PCゲーム #GPU互換性"
   }
 ]
