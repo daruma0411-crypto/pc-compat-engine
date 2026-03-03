@@ -44,6 +44,20 @@ def save_reply_history(history):
         json.dump(history, f, ensure_ascii=False, indent=2)
 
 
+SPAM_KEYWORDS = [
+    'airdrop', 'giveaway', 'プレゼント企画', '抽選で', '先着',
+    '万円相当', 'free mint', 'claim now', 'get started',
+    'crypto', 'nft', 'token', 'wallet', 'defi',
+    '副業', '稼げる', '月収', 'お金配り',
+]
+
+
+def is_spam(text):
+    """スパム・詐欺メンションを判定"""
+    lower = text.lower()
+    return any(kw in lower for kw in SPAM_KEYWORDS)
+
+
 def extract_game_name(text):
     """テキストからゲーム名を抽出（簡易版）"""
     patterns = [
@@ -165,6 +179,16 @@ def main():
     for mention in mentions.data:
         mention_id_str = str(mention.id)
         if mention_id_str in replied_ids:
+            continue
+
+        # スパムフィルタ
+        if is_spam(mention.text):
+            print(f"  [SKIP] スパム検出: {mention.text[:50]}...")
+            history['replies'].append({
+                'mention_id': mention_id_str,
+                'author_username': 'SPAM_SKIPPED',
+                'timestamp': datetime.now().isoformat(),
+            })
             continue
 
         # 返信先ユーザー名
