@@ -1,5 +1,7 @@
 .env
 credentials.json
+credentials/
+reports/
 *.bak
 workspace/data/**/*.bak
 __pycache__/

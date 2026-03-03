@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard - PC互換チェッカー</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f1117;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+    .header {
+      background: linear-gradient(135deg, #1a1f36, #2a3050);
+      padding: 20px 30px;
+      border-bottom: 1px solid #2a3050;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      font-size: 1.4em;
+      color: #7eb8ff;
+    }
+    .realtime-badge {
+      background: #1b5e20;
+      color: #81c784;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.95em;
+    }
+    .realtime-badge .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #4caf50;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .controls {
+      padding: 15px 30px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .controls label { color: #999; font-size: 0.9em; }
+    .controls select {
+      background: #1a1f36;
+      color: #e0e0e0;
+      border: 1px solid #333;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+    .controls button {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .controls button:hover { background: #1565c0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      padding: 0 30px 16px;
+    }
+    .card {
+      background: #1a1f36;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #2a3050;
+    }
+    .card .value {
+      font-size: 2.2em;
+      font-weight: bold;
+      color: #7eb8ff;
+    }
+    .card .label {
+      color: #888;
+      margin-top: 4px;
+      font-size: 0.85em;
+    }
+    .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 0 30px 16px;
+    }
+    .chart-card {
+      background: #1a1f36;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #2a3050;
+    }
+    .chart-card h3 {
+      color: #7eb8ff;
+      margin-bottom: 15px;
+      font-size: 1em;
+    }
+    .table-section {
+      padding: 0 30px 30px;
+    }
+    .table-section h3 {
+      color: #7eb8ff;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      background: #1a1f36;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #2a3050;
+    }
+    th, td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid #2a3050;
+    }
+    th {
+      background: #222840;
+      color: #7eb8ff;
+      font-weight: 600;
+      font-size: 0.85em;
+    }
+    td { font-size: 0.9em; }
+    tr:hover { background: #222840; }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+    .error {
+      color: #ef5350;
+      text-align: center;
+      padding: 20px;
+    }
+    @media (max-width: 768px) {
+      .charts { grid-template-columns: 1fr; }
+      .header { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>PC互換チェッカー Analytics</h1>
+    <div class="realtime-badge">
+      <span class="dot"></span>
+      リアルタイム: <span id="rt-users">-</span>人
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>期間:</label>
+    <select id="days-select">
+      <option value="1">昨日</option>
+      <option value="7" selected>過去7日</option>
+      <option value="14">過去14日</option>
+      <option value="30">過去30日</option>
+    </select>
+    <button onclick="loadAnalytics()">更新</button>
+    <span id="last-updated" style="color:#666;font-size:0.8em;margin-left:auto;"></span>
+  </div>
+
+  <div class="grid" id="summary-cards">
+    <div class="card"><div class="value" id="v-users">-</div><div class="label">ユーザー数</div></div>
+    <div class="card"><div class="value" id="v-sessions">-</div><div class="label">セッション数</div></div>
+    <div class="card"><div class="value" id="v-pageviews">-</div><div class="label">ページビュー</div></div>
+    <div class="card"><div class="value" id="v-duration">-</div><div class="label">平均滞在時間</div></div>
+    <div class="card"><div class="value" id="v-bounce">-</div><div class="label">直帰率</div></div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-card">
+      <h3>流入元</h3>
+      <canvas id="traffic-chart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>デバイス</h3>
+      <canvas id="device-chart"></canvas>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <h3>人気ページ TOP 10</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>ページ</th><th>PV</th><th>ユーザー</th></tr>
+      </thead>
+      <tbody id="top-pages-body">
+        <tr><td colspan="4" class="loading">読み込み中...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    let trafficChart = null;
+    let deviceChart = null;
+
+    const chartColors = ['#42a5f5','#66bb6a','#ffa726','#ef5350','#ab47bc','#26c6da','#8d6e63'];
+
+    async function loadAnalytics() {
+      const days = document.getElementById('days-select').value;
+      try {
+        const res = await fetch(`/api/analytics?days=${days}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+
+        // Summary cards
+        const o = data.overview || {};
+        document.getElementById('v-users').textContent = (o.total_users || 0).toLocaleString();
+        document.getElementById('v-sessions').textContent = (o.total_sessions || 0).toLocaleString();
+        document.getElementById('v-pageviews').textContent = (o.total_pageviews || 0).toLocaleString();
+        const dur = o.avg_session_duration || 0;
+        document.getElementById('v-duration').textContent = dur >= 60
+          ? `${Math.floor(dur/60)}分${Math.floor(dur%60)}秒`
+          : `${Math.floor(dur)}秒`;
+        document.getElementById('v-bounce').textContent = `${((o.bounce_rate || 0)*100).toFixed(1)}%`;
+
+        // Realtime
+        document.getElementById('rt-users').textContent = (data.realtime || {}).active_users || 0;
+
+        // Traffic chart
+        const traffic = data.traffic || {};
+        const tLabels = Object.keys(traffic);
+        const tData = tLabels.map(k => traffic[k].users);
+        if (trafficChart) trafficChart.destroy();
+        trafficChart = new Chart(document.getElementById('traffic-chart'), {
+          type: 'doughnut',
+          data: {
+            labels: tLabels,
+            datasets: [{ data: tData, backgroundColor: chartColors }]
+          },
+          options: {
+            plugins: { legend: { labels: { color: '#ccc' } } }
+          }
+        });
+
+        // Device chart
+        const devices = data.devices || {};
+        const dLabels = Object.keys(devices).map(k => k.charAt(0).toUpperCase()+k.slice(1));
+        const dData = Object.values(devices).map(v => v.users);
+        if (deviceChart) deviceChart.destroy();
+        deviceChart = new Chart(document.getElementById('device-chart'), {
+          type: 'doughnut',
+          data: {
+            labels: dLabels,
+            datasets: [{ data: dData, backgroundColor: chartColors.slice(3) }]
+          },
+          options: {
+            plugins: { legend: { labels: { color: '#ccc' } } }
+          }
+        });
+
+        // Top pages table
+        const pages = data.top_pages || [];
+        const tbody = document.getElementById('top-pages-body');
+        tbody.innerHTML = pages.length === 0
+          ? '<tr><td colspan="4" style="color:#666">データなし</td></tr>'
+          : pages.map((p, i) => `<tr>
+              <td>${i+1}</td>
+              <td>${p.page}</td>
+              <td>${p.pageviews.toLocaleString()}</td>
+              <td>${p.users.toLocaleString()}</td>
+            </tr>`).join('');
+
+        document.getElementById('last-updated').textContent =
+          `最終更新: ${new Date().toLocaleTimeString('ja-JP')}`;
+
+      } catch (err) {
+        console.error('Analytics load error:', err);
+        document.getElementById('top-pages-body').innerHTML =
+          `<tr><td colspan="4" class="error">エラー: ${err.message}</td></tr>`;
+      }
+    }
+
+    // 初回読み込み
+    loadAnalytics();
+    // 1分ごとに自動更新
+    setInterval(loadAnalytics, 60000);
+  </script>
+</body>
+</html>

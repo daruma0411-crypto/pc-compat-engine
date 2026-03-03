@@ -4725,6 +4725,41 @@ def generate_image():
         return jsonify({'error': f'画像生成エラー: {str(e)}'}), 500
 
 
+# ================================================================
+# Google Analytics API エンドポイント
+# ================================================================
+
+@app.route('/api/analytics')
+def api_analytics():
+    """Analytics データAPI"""
+    try:
+        from scripts.analytics.fetch_reports import (
+            get_daily_overview,
+            get_traffic_sources,
+            get_device_breakdown,
+            get_top_pages,
+            get_realtime_users,
+        )
+
+        days = request.args.get('days', 7, type=int)
+
+        return jsonify({
+            'overview': get_daily_overview(days),
+            'traffic': get_traffic_sources(days),
+            'devices': get_device_breakdown(days),
+            'top_pages': get_top_pages(days, 10),
+            'realtime': get_realtime_users(),
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/dashboard')
+def analytics_dashboard():
+    """Analytics ダッシュボードページ"""
+    return send_from_directory('static', 'dashboard.html')
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)

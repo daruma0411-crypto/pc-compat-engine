@@ -17,6 +17,10 @@ beautifulsoup4>=4.12.0
 # ── Session Store ───────────────────────────────────
 redis>=5.0.0
 
+# ── Google Analytics ────────────────────────────────
+google-analytics-data>=0.18.0
+google-auth>=2.23.0
+
 # ── Utilities ────────────────────────────────────────
 python-dotenv>=1.0.0
 requests>=2.32.0
