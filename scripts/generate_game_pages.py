@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 games.jsonl から全ゲームのランディングページを自動生成
-AIO/SEO最適化済み - Phase 1 (2026-03-03)
+AIO/SEO最適化済み - Phase 1+2 (2026-03-03)
 """
 import json
 import re
@@ -274,6 +274,214 @@ def generate_faq_schema(name, rec_gpu, min_gpu, rec_cpu, rec_ram):
                       ensure_ascii=False, indent=2)
 
 
+def generate_budget_calculator(name):
+    """Phase 2: 予算診断ツール（クライアントサイドJS）"""
+    builds_json = json.dumps(BUDGET_BUILDS, ensure_ascii=False)
+    return f"""
+<section id="budget-calculator" class="seo-section">
+  <h2>💰 予算診断ツール</h2>
+  <p>予算と目標を入力するだけで、{name}に最適なPC構成を診断します。</p>
+  <div class="calc-form">
+    <div class="calc-row">
+      <label for="calc-budget">予算（円）</label>
+      <input type="number" id="calc-budget" placeholder="例: 120000" min="50000" max="500000" step="10000">
+    </div>
+    <div class="calc-row">
+      <label for="calc-fps">目標FPS</label>
+      <select id="calc-fps">
+        <option value="60">60fps（標準）</option>
+        <option value="144" selected>144fps（高リフレッシュ）</option>
+        <option value="240">240fps（競技向け）</option>
+      </select>
+    </div>
+    <div class="calc-row">
+      <label for="calc-res">解像度</label>
+      <select id="calc-res">
+        <option value="1080p" selected>1080p（フルHD）</option>
+        <option value="1440p">1440p（WQHD）</option>
+        <option value="4k">4K（UHD）</option>
+      </select>
+    </div>
+    <button onclick="runBudgetCalc()" class="btn-calc">診断する</button>
+  </div>
+  <div id="calc-result" class="calc-result" style="display:none;"></div>
+</section>
+
+<script>
+const BUILDS = {builds_json};
+
+function runBudgetCalc() {{
+  const budget = parseInt(document.getElementById('calc-budget').value) || 0;
+  const fps = document.getElementById('calc-fps').value;
+  const res = document.getElementById('calc-res').value;
+  const resultDiv = document.getElementById('calc-result');
+
+  if (budget < 50000) {{
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p class="calc-warn">⚠️ 予算を入力してください（最低5万円）</p>';
+    return;
+  }}
+
+  // 予算からtier決定
+  let tier, verdict, verdictColor;
+  const minTotal = BUILDS.minimum.cpu_price + BUILDS.minimum.gpu_price + BUILDS.minimum.ram_price + BUILDS.minimum.storage_price + BUILDS.minimum.other;
+  const recTotal = BUILDS.recommended.cpu_price + BUILDS.recommended.gpu_price + BUILDS.recommended.ram_price + BUILDS.recommended.storage_price + BUILDS.recommended.other;
+  const preTotal = BUILDS.premium.cpu_price + BUILDS.premium.gpu_price + BUILDS.premium.ram_price + BUILDS.premium.storage_price + BUILDS.premium.other;
+
+  if (budget >= preTotal) {{
+    tier = BUILDS.premium; verdict = '✅ 快適動作が可能です！'; verdictColor = '#2e7d32';
+  }} else if (budget >= recTotal) {{
+    tier = BUILDS.recommended; verdict = '✅ 推奨スペックを満たせます！'; verdictColor = '#4CAF50';
+  }} else if (budget >= minTotal) {{
+    tier = BUILDS.minimum; verdict = '⚠️ 最低動作は可能ですが、余裕があれば予算を増やすとより快適です'; verdictColor = '#F57F17';
+  }} else {{
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p class="calc-warn">❌ 予算' + budget.toLocaleString() + '円では推奨構成が難しいです。最低' + minTotal.toLocaleString() + '円程度必要です。</p>';
+    return;
+  }}
+
+  const total = tier.cpu_price + tier.gpu_price + tier.ram_price + tier.storage_price + tier.other;
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = `
+    <div class="calc-verdict" style="border-color:${{verdictColor}};">
+      <p class="calc-verdict-text" style="color:${{verdictColor}};">${{verdict}}</p>
+      <table class="calc-table">
+        <tr><th>パーツ</th><th>モデル</th><th>価格</th></tr>
+        <tr><td>GPU</td><td>${{tier.gpu}}</td><td>¥${{tier.gpu_price.toLocaleString()}}</td></tr>
+        <tr><td>CPU</td><td>${{tier.cpu}}</td><td>¥${{tier.cpu_price.toLocaleString()}}</td></tr>
+        <tr><td>RAM</td><td>${{tier.ram}}</td><td>¥${{tier.ram_price.toLocaleString()}}</td></tr>
+        <tr><td>SSD</td><td>${{tier.storage}}</td><td>¥${{tier.storage_price.toLocaleString()}}</td></tr>
+        <tr><td>他</td><td>MB・PSU・ケース等</td><td>¥${{tier.other.toLocaleString()}}</td></tr>
+        <tr class="calc-total-row"><td colspan="2"><strong>合計</strong></td><td><strong>¥${{total.toLocaleString()}}</strong></td></tr>
+      </table>
+      <p class="calc-perf">🎮 期待性能: ${{tier.performance}}</p>
+      <a href="{SITE_URL}/?game={name}" class="btn-check" style="display:block;text-align:center;margin-top:12px;">AIにもっと詳しく相談する →</a>
+    </div>`;
+  resultDiv.scrollIntoView({{behavior: 'smooth', block: 'center'}});
+}}
+</script>"""
+
+
+def generate_spec_checker(name, rec_gpu, min_gpu, rec_ram):
+    """Phase 2: スペック診断ツール（クライアントサイドJS）"""
+    # GPU性能スコアテーブル（大文字小文字・RTX/GeForce両対応）
+    gpu_scores = {
+        "GTX 1050 Ti": 8, "GTX 1060": 12, "GTX 1070": 18, "GTX 1070 Ti": 20,
+        "GTX 1080": 24, "GTX 1080 Ti": 28,
+        "RTX 2060": 30, "RTX 2060 Super": 34, "RTX 2070": 38, "RTX 2070 Super": 42,
+        "RTX 2080": 46, "RTX 2080 Super": 50, "RTX 2080 Ti": 56,
+        "RTX 3050": 32, "RTX 3060": 40, "RTX 3060 Ti": 48, "RTX 3070": 56,
+        "RTX 3070 Ti": 60, "RTX 3080": 68, "RTX 3080 Ti": 74, "RTX 3090": 80,
+        "RTX 4050": 36, "RTX 4060": 50, "RTX 4060 Ti": 58, "RTX 4070": 72,
+        "RTX 4070 Super": 78, "RTX 4070 Ti": 84, "RTX 4080": 92, "RTX 4090": 100,
+        "RTX 5060": 55, "RTX 5070": 80, "RTX 5080": 95, "RTX 5090": 120,
+        "RX 580": 18, "RX 590": 20, "RX 5700": 36, "RX 5700 XT": 42,
+        "RX 6600": 44, "RX 6700 XT": 60, "RX 6800": 72, "RX 6800 XT": 80,
+        "RX 6900 XT": 88, "RX 7600": 52, "RX 7700 XT": 68, "RX 7800 XT": 76,
+        "RX 7900 XTX": 96, "RX 9070": 82, "RX 9070 XT": 90,
+    }
+    gpu_scores_json = json.dumps(gpu_scores, ensure_ascii=False)
+    # 推奨GPUのスコア推定（文字列から部分一致で取得）
+    rec_score_hint = 40  # デフォルト: RTX 3060相当
+    for gpu_name, score in gpu_scores.items():
+        if gpu_name.lower() in rec_gpu.lower():
+            rec_score_hint = score
+            break
+
+    return f"""
+<section id="spec-checker" class="seo-section">
+  <h2>🖥️ あなたのPCで{name}は動く？</h2>
+  <p>お手持ちのGPUを入力するだけで動作可否を瞬時に診断します。</p>
+  <div class="calc-form">
+    <div class="calc-row">
+      <label for="sc-gpu">GPU（グラボ）</label>
+      <input type="text" id="sc-gpu" placeholder="例: RTX 3060, RX 7700 XT" list="gpu-suggestions">
+      <datalist id="gpu-suggestions">
+        <option value="RTX 3060"><option value="RTX 4060"><option value="RTX 4070">
+        <option value="RTX 5070"><option value="RTX 5080"><option value="RX 7800 XT">
+        <option value="GTX 1080"><option value="RTX 2080">
+      </datalist>
+    </div>
+    <div class="calc-row">
+      <label for="sc-ram">RAM（GB）</label>
+      <input type="number" id="sc-ram" placeholder="16" min="4" max="128" value="16">
+    </div>
+    <button onclick="runSpecCheck()" class="btn-calc">診断する</button>
+  </div>
+  <div id="sc-result" class="calc-result" style="display:none;"></div>
+</section>
+
+<script>
+const GPU_SCORES = {gpu_scores_json};
+const REC_SCORE = {rec_score_hint};
+const REC_RAM = {rec_ram if str(rec_ram).isdigit() else 8};
+
+function getGpuScore(inputGpu) {{
+  const lower = inputGpu.toLowerCase();
+  // 完全一致
+  for (const [name, score] of Object.entries(GPU_SCORES)) {{
+    if (name.toLowerCase() === lower) return {{ name, score }};
+  }}
+  // 部分一致（長い名前優先）
+  let best = null;
+  for (const [name, score] of Object.entries(GPU_SCORES)) {{
+    if (lower.includes(name.toLowerCase()) || name.toLowerCase().includes(lower)) {{
+      if (!best || name.length > best.name.length) best = {{ name, score }};
+    }}
+  }}
+  return best;
+}}
+
+function runSpecCheck() {{
+  const gpuInput = document.getElementById('sc-gpu').value.trim();
+  const ram = parseInt(document.getElementById('sc-ram').value) || 8;
+  const resultDiv = document.getElementById('sc-result');
+
+  if (!gpuInput) {{
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p class="calc-warn">⚠️ GPUを入力してください</p>';
+    return;
+  }}
+
+  const gpuData = getGpuScore(gpuInput);
+  if (!gpuData) {{
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `<p class="calc-warn">⚠️ "${{gpuInput}}" のデータが見つかりません。モデル名を確認してください（例: RTX 3060）</p>`;
+    return;
+  }}
+
+  const ratio = gpuData.score / REC_SCORE;
+  const ramOk = ram >= REC_RAM;
+  let verdict, verdictColor, fps, advice;
+
+  if (ratio >= 1.2 && ramOk) {{
+    verdict = '✅ 快適に動作します'; verdictColor = '#2e7d32';
+    fps = Math.round(90 * ratio); advice = '高設定・1080pで' + Math.min(fps, 240) + 'fps以上が期待できます。';
+  }} else if (ratio >= 0.8) {{
+    verdict = '⚠️ 動作しますが設定次第'; verdictColor = '#F57F17';
+    fps = Math.round(60 * ratio); advice = '1080p中設定で' + Math.min(fps, 120) + 'fps前後が目安です。';
+  }} else {{
+    verdict = '❌ スペック不足の可能性'; verdictColor = '#c62828';
+    fps = Math.round(40 * ratio); advice = '低設定・30fps前後になる可能性があります。GPUのアップグレードを推奨します。';
+  }}
+
+  const ramWarn = !ramOk ? `<p class="calc-warn" style="margin-top:8px;">⚠️ RAM ${{ram}}GBは推奨(${{REC_RAM}}GB)を下回っています</p>` : '';
+
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = `
+    <div class="calc-verdict" style="border-color:${{verdictColor}};">
+      <p class="calc-verdict-text" style="color:${{verdictColor}};">${{verdict}}</p>
+      <p>検出GPU: <strong>${{gpuData.name}}</strong>（性能スコア: ${{gpuData.score}}/100）</p>
+      <p>推奨スペック比: <strong>${{Math.round(ratio*100)}}%</strong></p>
+      <p class="calc-perf">🎮 ${{advice}}</p>
+      ${{ramWarn}}
+      <a href="{SITE_URL}/?game={name}" class="btn-check" style="display:block;text-align:center;margin-top:12px;">AIに構成を相談する →</a>
+    </div>`;
+  resultDiv.scrollIntoView({{behavior: 'smooth', block: 'center'}});
+}}
+</script>"""
+
+
 def generate_troubleshooting_section():
     """トラブルシューティングセクションを生成"""
     return """
@@ -410,6 +618,23 @@ def generate_page_css():
     .trouble-card h3 { color: #c62828; margin-top: 0; font-size: 15px; }
     .trouble-card ol { padding-left: 20px; line-height: 1.8; font-size: 13px; margin: 8px 0; }
     .trouble-tip { margin-top: 10px; padding: 8px 10px; background: #e8f5e9; border-radius: 4px; font-size: 13px; }
+
+    /* Phase 2: 診断ツール共通 */
+    .calc-form { background: #f9f9f9; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    .calc-row { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .calc-row label { font-weight: 600; min-width: 100px; font-size: 14px; color: #555; }
+    .calc-row input, .calc-row select { flex: 1; min-width: 160px; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+    .btn-calc { padding: 10px 24px; background: #1976D2; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 4px; }
+    .btn-calc:hover { background: #1565C0; }
+    .calc-result { margin-top: 16px; }
+    .calc-verdict { border: 2px solid; border-radius: 8px; padding: 16px; background: white; }
+    .calc-verdict-text { font-size: 18px; font-weight: bold; margin: 0 0 12px; }
+    .calc-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+    .calc-table th, .calc-table td { border: 1px solid #e0e0e0; padding: 8px; }
+    .calc-table th { background: #f5f5f5; }
+    .calc-total-row td { background: #e8f5e9; font-weight: bold; }
+    .calc-perf { margin: 10px 0 0; padding: 8px; background: #e3f2fd; border-radius: 6px; color: #1565C0; font-size: 13px; }
+    .calc-warn { color: #c62828; font-weight: bold; padding: 10px; background: #ffebee; border-radius: 6px; }
 
     /* フッター */
     .page-footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #e0e0e0; text-align: center; font-size: 13px; color: #777; }
@@ -553,7 +778,11 @@ def generate_page(game):
 
   {generate_budget_section(name)}
 
+  {generate_budget_calculator(name)}
+
   {generate_gpu_section(name)}
+
+  {generate_spec_checker(name, rec_gpu, min_gpu, rec_ram)}
 
   {generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram)}
 
