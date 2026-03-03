@@ -1,11 +1,9 @@
 name: Twitter Engagement Bot
-
-  on:
+on:
     schedule:
       - cron: '0 0,12 * * *'
     workflow_dispatch:
-
-  jobs:
+jobs:
     auto-follow:
       runs-on: ubuntu-latest
       permissions:
