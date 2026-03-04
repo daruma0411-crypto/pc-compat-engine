@@ -1115,7 +1115,7 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 | 電源 | ~530 | ¥9,000〜¥44,000 | ¥21,000 | 550W〜1000W |
 
 基本ルール:
-- Premiere Pro / 動画編集 → NVIDIA GPU推奨（CUDA/NVENCが圧倒的に有利）
+- Premiere Pro / 動画編集 → NVIDIA GPU必須（AMD GPU選択禁止。CUDA/NVENCが必須）
 - RAM → 必ず2枚組キットで提案（シングル1枚は絶対NG）
 - ゲーム → GPU重視（予算の40-50%）
 - 動画編集 → CPU/RAM重視（CPUに20-25%、RAMに10-12%、GPUに25-35%）
@@ -1151,7 +1151,7 @@ _SHOP_CLERK_SYSTEM_PROMPT = """あなたはPC自作専門店の店長です。
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 【動画編集の注意点】
-  ⚠️ Premiere ProではNVIDIA CUDAが必須級。AMD GPUは提案しない。
+  ⚠️ Premiere ProではNVIDIA CUDA必須。AMD GPUは絶対に提案しない（バックエンドでも除外済み）。
   ⚠️ ストレージ: NVMe SSD重要（素材読み込み速度に直結）
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2628,6 +2628,20 @@ _BUDGET_TIERS = {
     },
 }
 
+# 用途別予算配分（ゲーム以外の用途で _BUDGET_TIERS を上書き）
+_BUDGET_RATIOS_BY_USECASE = {
+    'video': {   # 動画編集: CPU/RAM重視
+        'gpu': 0.28, 'cpu': 0.25, 'motherboard': 0.12, 'ram': 0.15, 'case': 0.07, 'psu': 0.08,
+    },
+    'streaming': {  # 配信: CPU > GPU > RAM
+        'gpu': 0.35, 'cpu': 0.22, 'motherboard': 0.10, 'ram': 0.13, 'case': 0.07, 'psu': 0.08,
+    },
+    'ai': {  # AI画像生成: GPU(VRAM) > RAM > SSD
+        'gpu': 0.38, 'cpu': 0.15, 'motherboard': 0.10, 'ram': 0.15, 'case': 0.07, 'psu': 0.08,
+    },
+    # 'gaming' → 既存の _BUDGET_TIERS をそのまま使用
+}
+
 _MIN_MAX_PRICE = {
     'gpu': 20000, 'cpu': 10000, 'motherboard': 8000,
     'ram': 10000, 'case': 8000, 'psu': 6000,
@@ -2654,8 +2668,13 @@ def _compute_budget_max_price(category, session):
     if not budget:
         return None
 
-    tier = _get_budget_tier(budget)
-    ratios = _BUDGET_TIERS[tier]
+    # 用途別テーブルを優先、なければティア別フォールバック
+    use_case = (session or {}).get('use_case') or 'gaming'
+    if use_case in _BUDGET_RATIOS_BY_USECASE:
+        ratios = _BUDGET_RATIOS_BY_USECASE[use_case]
+    else:
+        tier = _get_budget_tier(budget)
+        ratios = _BUDGET_TIERS[tier]
 
     # このカテゴリの比率が無い場合はNone
     if category not in ratios:
@@ -2741,6 +2760,11 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
         if gpu.get('length_mm'):
             params['min_gpu_length_mm'] = gpu['length_mm']
 
+    # 動画編集用途: GPU検索時にNVIDIAのみに絞る
+    if category == 'gpu' and (session or {}).get('use_case') == 'video':
+        if not params.get('name'):  # 型番指定がない場合のみ
+            params['_nvidia_only'] = True
+
     # max_price自動補完: AIが指定し忘れた場合、ティア別予算配分で設定
     # user_specified=trueの場合はスキップ（型番指定なら予算制限不要）
     if not params.get('max_price') and not params.get('user_specified'):
@@ -2759,20 +2783,24 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
         query = params['name'].lower()
         candidates = [p for p in candidates if query in p.get('name', '').lower()]
 
-    # RAM: SODIMM除外 + 8GB以上のみ + 2枚組を優先
+    # RAM: SODIMM除外 + 8GB以上のみ + 2枚組キットのみ（単品除外）
     if category == 'ram':
         candidates = [p for p in candidates
                       if 'sodimm' not in p.get('name', '').lower()
                       and 'so-dimm' not in p.get('name', '').lower()]
-        # ゲーム用: 8GB以上のモジュールのみ（4GB単体は除外）
+        # 8GB以上のモジュールのみ（4GB単体は除外）
         candidates = [p for p in candidates
                       if ((p.get('specs') or {}).get('capacity_gb') or 0) >= 8
                       or '16GB' in p.get('name', '') or '32GB' in p.get('name', '')
                       or '8GB' in p.get('name', '')]
-        # 2枚組を先に、1枚売りを後ろに
-        kit_2 = [p for p in candidates if '2枚' in p.get('name', '')]
-        kit_1 = [p for p in candidates if '2枚' not in p.get('name', '')]
-        candidates = kit_2 + kit_1
+        # 2枚組キットのみに絞る（フォールバック: 候補が0件なら全件に戻す）
+        import re as _re_ram
+        kit_pattern = r'[×xX]\s*2|2\s*枚|KIT|2PACK|DUAL|2枚組'
+        kits_only = [p for p in candidates
+                     if _re_ram.search(kit_pattern, p.get('name', ''), _re_ram.IGNORECASE)
+                     or (p.get('specs') or {}).get('capacity_gb', 0) >= 32]
+        if kits_only:  # フォールバック: 0件なら元のまま
+            candidates = kits_only
 
     # GPU: 業務用・HPC製品を除外
     if category == 'gpu':
@@ -2781,6 +2809,13 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
         candidates = [p for p in candidates
                       if not any(kw in p.get('name', '') for kw in _WORKSTATION_KEYWORDS)
                       and ((p.get('specs') or {}).get('vram_gb') or 0) <= 24]
+
+    # 動画編集: NVIDIA GPU のみ（AMD/Intel除外）
+    if category == 'gpu' and params.get('_nvidia_only'):
+        candidates = [p for p in candidates
+                      if 'RTX' in (p.get('name') or '').upper()
+                      or 'GEFORCE' in (p.get('name') or '').upper()
+                      or 'NVIDIA' in (p.get('maker') or '').upper()]
 
     # フィルタ適用
     if params.get('socket'):
@@ -4078,6 +4113,22 @@ def chat():
                 match = re.search(r'(\d+)\s*万', ui)
                 if match:
                     session['budget_yen'] = int(match.group(1)) * 10000
+                    break
+
+        # 用途検出（セッションに保存）
+        if session.get('use_case') is None:
+            use_case_patterns = {
+                'video': r'(動画編集|Premiere|プレミア|DaVinci|ダヴィンチ|映像制作|動画制作|動画クリエイター)',
+                'streaming': r'(配信|ストリーミング|Vtuber|VTuber|OBS)',
+                'ai': r'(AI画像|Stable.?Diffusion|画像生成|機械学習|ディープラーニング)',
+                'gaming': r'(ゲーム|ゲーミング|FPS|fps|モンハン|エルデン|原神|Apex|Valorant|フォートナイト)',
+            }
+            for ui in user_inputs:
+                for uc, pattern in use_case_patterns.items():
+                    if re.search(pattern, ui, re.IGNORECASE):
+                        session['use_case'] = uc
+                        break
+                if session.get('use_case'):
                     break
 
         # ゲーム名抽出（セッションに保存）
