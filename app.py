@@ -3661,7 +3661,10 @@ def _call_claude_with_tools_gen(session, user_message, all_products, system_prom
             current_max_tokens = 2048 if _all_done else 1024
 
         # BTOモード時はsearch_btoのみ提供（他ツールを使わせない）
-        tools_list = [SEARCH_BTO_TOOL] if session.get('bto_mode') else FC_TOOLS
+        if session.get('bto_mode'):
+            tools_list = [SEARCH_BTO_TOOL]
+        else:
+            tools_list = FC_TOOLS
 
         req_body = json.dumps({
             'model': 'claude-sonnet-4-5-20250929',
@@ -4731,8 +4734,32 @@ def recommend():
         game_name  = extracted.get('game_name', '') or ''
         budget_yen = extracted.get('budget_yen')
         fps_target = extracted.get('fps_target') or '60fps'
-        # Phase 2-4: 予算未指定時はミドル帯（15〜20万）をデフォルト目安として使用
-        effective_budget = budget_yen if budget_yen else 175000
+
+        # ── ヒアリングゲート: 必要情報が不足している場合は質問を返す ──
+        if not budget_yen:
+            if game_name:
+                hearing_msg = (
+                    f'🎮 **{game_name}**ですね！いい選択です。\n\n'
+                    f'最適な構成を提案するために、あと少し教えてください：\n\n'
+                    f'💰 **予算**はどれくらいですか？\n'
+                    f'（例: 15万円、20万円、予算は気にしない など）\n\n'
+                    f'🖥️ **解像度**の希望はありますか？\n'
+                    f'（FHD / WQHD / 4K、わからなければFHDで提案します）'
+                )
+            else:
+                hearing_msg = (
+                    'まずはいくつか教えてください：\n\n'
+                    '🎮 **どのゲーム**をプレイしたいですか？\n'
+                    '💰 **予算**はどれくらいですか？\n'
+                    '🖥️ **解像度**の希望はありますか？（わからなければFHDで提案します）'
+                )
+            return jsonify({
+                'reply': hearing_msg,
+                'needs_hearing': True,
+            })
+
+        # Phase 2-4: 予算指定あり → 構成提案に進む
+        effective_budget = budget_yen
 
         # Step2: games.jsonlからゲーム検索
         games_list = _load_steam_games()

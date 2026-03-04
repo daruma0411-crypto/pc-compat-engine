@@ -406,11 +406,18 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         throw new Error(err.error || 'HTTP ' + res.status);
       }
 
-      // ── ゲームモード: 従来通りJSON ──
+      // ── ゲームモード: ヒアリング or 構成提案 ──
       if (gameMode) {
         const data = await res.json();
         typingEl.remove();
-        if (data.recommended_build) appendRecommendationMessage(data);
+        if (data.needs_hearing) {
+          // ヒアリング中: チャットバブルで質問を表示
+          appendAIBubble(data.reply);
+        } else if (data.recommended_build) {
+          appendRecommendationMessage(data);
+        } else if (data.reply) {
+          appendAIBubble(data.reply);
+        }
         return;
       }
 
