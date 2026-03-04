@@ -1,79 +1,112 @@
 /* ================================================================
    直帰率対策: Exit Intent Modal + Scroll 50% CTA
+   CSSはインライン注入（ゲームページでstyle.css未読み込み対策）
    ================================================================ */
 
-// Exit Intent Detection
-let exitIntentShown = false;
-
-document.addEventListener('mouseleave', function(e) {
-  if (e.clientY <= 0 && !exitIntentShown && !sessionStorage.getItem('exitIntentShown')) {
-    showExitIntentModal();
-    exitIntentShown = true;
-    sessionStorage.setItem('exitIntentShown', 'true');
+(function() {
+  // CSS注入（style.cssがない環境でも動作するように）
+  if (!document.querySelector('#bounce-prevention-css')) {
+    var style = document.createElement('style');
+    style.id = 'bounce-prevention-css';
+    style.textContent =
+      '.exit-intent-modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;opacity:0;transition:opacity .3s;pointer-events:none}' +
+      '.exit-intent-modal.show{opacity:1;pointer-events:auto}' +
+      '.exit-modal-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7)}' +
+      '.exit-modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-main,#1a1a2e);border:1px solid var(--c-border,#333);border-radius:16px;padding:40px 32px;max-width:480px;width:90%;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.5)}' +
+      '.exit-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:28px;color:var(--c-muted,#888);cursor:pointer;line-height:1;padding:0}' +
+      '.exit-modal-close:hover{color:var(--c-text,#fff)}' +
+      '.exit-modal-content h2{font-size:24px;margin:0 0 12px;color:var(--c-text,#f1f5f9)}' +
+      '.exit-modal-content p{font-size:15px;line-height:1.6;color:var(--c-sub,#94a3b8);margin:0 0 24px}' +
+      '.exit-modal-cta{display:inline-block;background:var(--c-primary,#60a5fa);color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;transition:opacity .2s}' +
+      '.exit-modal-cta:hover{opacity:.85}' +
+      '.exit-modal-games{margin-top:16px;font-size:12px;color:var(--c-muted,#888)}' +
+      '.exit-modal-games a{color:var(--c-sub,#aaa);text-decoration:none}' +
+      '.exit-modal-games a:hover{color:var(--c-primary,#60a5fa);text-decoration:underline}' +
+      '.scroll-cta{position:fixed;bottom:-100px;left:50%;transform:translateX(-50%);z-index:9999;transition:bottom .3s ease-out}' +
+      '.scroll-cta.show{bottom:20px}' +
+      '.scroll-cta-content{background:var(--c-primary,#3b82f6);color:#fff;padding:14px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(96,165,250,.4);display:flex;align-items:center;gap:14px;max-width:90vw}' +
+      '.scroll-cta-text{font-size:14px;font-weight:500;white-space:nowrap}' +
+      '.scroll-cta-button{background:#fff;color:var(--c-primary,#3b82f6);padding:8px 18px;border-radius:50px;text-decoration:none;font-weight:600;font-size:13px;white-space:nowrap;transition:transform .2s}' +
+      '.scroll-cta-button:hover{transform:scale(1.05)}' +
+      '.scroll-cta-close{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:20px;width:28px;height:28px;border-radius:50%;cursor:pointer;transition:background .2s;flex-shrink:0;line-height:1;padding:0}' +
+      '.scroll-cta-close:hover{background:rgba(255,255,255,.3)}' +
+      '@media(max-width:768px){.scroll-cta-content{flex-direction:column;gap:10px;padding:14px 16px;border-radius:16px}.scroll-cta-text{font-size:13px;text-align:center;white-space:normal}}';
+    document.head.appendChild(style);
   }
-});
 
-function showExitIntentModal() {
-  var modal = document.createElement('div');
-  modal.className = 'exit-intent-modal';
-  modal.innerHTML =
-    '<div class="exit-modal-overlay" onclick="closeExitIntent()"></div>' +
-    '<div class="exit-modal-content">' +
-      '<button class="exit-modal-close" onclick="closeExitIntent()">&times;</button>' +
-      '<h2>ちょっと待って！</h2>' +
-      '<p>あなたのPCでゲームが動くか、<br>30秒で無料診断できます</p>' +
-      '<a href="/" class="exit-modal-cta">今すぐ診断する →</a>' +
-      '<div class="exit-modal-games">' +
-        '<span>人気:</span> ' +
-        '<a href="/game/monster-hunter-wilds">モンハンワイルズ</a> · ' +
-        '<a href="/game/elden-ring">エルデンリング</a> · ' +
-        '<a href="/game/palworld">パルワールド</a>' +
-      '</div>' +
-    '</div>';
-  document.body.appendChild(modal);
-  setTimeout(function() { modal.classList.add('show'); }, 10);
-}
+  // Exit Intent Detection
+  var exitIntentShown = false;
 
-function closeExitIntent() {
-  var modal = document.querySelector('.exit-intent-modal');
-  if (modal) {
-    modal.classList.remove('show');
-    setTimeout(function() { modal.remove(); }, 300);
-  }
-}
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY <= 0 && !exitIntentShown && !sessionStorage.getItem('exitIntentShown')) {
+      showExitIntentModal();
+      exitIntentShown = true;
+      sessionStorage.setItem('exitIntentShown', 'true');
+    }
+  });
 
-// Scroll 50% CTA
-var scrollCtaShown = false;
+  window.showExitIntentModal = function() {
+    var modal = document.createElement('div');
+    modal.className = 'exit-intent-modal';
+    modal.innerHTML =
+      '<div class="exit-modal-overlay" onclick="closeExitIntent()"></div>' +
+      '<div class="exit-modal-content">' +
+        '<button class="exit-modal-close" onclick="closeExitIntent()">&times;</button>' +
+        '<h2>ちょっと待って！</h2>' +
+        '<p>あなたのPCでゲームが動くか、<br>30秒で無料診断できます</p>' +
+        '<a href="/" class="exit-modal-cta">今すぐ診断する →</a>' +
+        '<div class="exit-modal-games">' +
+          '<span>人気:</span> ' +
+          '<a href="/game/monster-hunter-wilds">モンハンワイルズ</a> · ' +
+          '<a href="/game/elden-ring">エルデンリング</a> · ' +
+          '<a href="/game/palworld">パルワールド</a>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+    setTimeout(function() { modal.classList.add('show'); }, 10);
+  };
 
-window.addEventListener('scroll', function() {
-  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  if (docHeight <= 0) return;
-  var scrollPercent = (window.scrollY / docHeight) * 100;
+  window.closeExitIntent = function() {
+    var modal = document.querySelector('.exit-intent-modal');
+    if (modal) {
+      modal.classList.remove('show');
+      setTimeout(function() { modal.remove(); }, 300);
+    }
+  };
 
-  if (scrollPercent > 50 && !scrollCtaShown && !sessionStorage.getItem('scrollCtaShown')) {
-    showScrollCta();
-    scrollCtaShown = true;
-    sessionStorage.setItem('scrollCtaShown', 'true');
-  }
-});
+  // Scroll 50% CTA
+  var scrollCtaShown = false;
 
-function showScrollCta() {
-  var cta = document.createElement('div');
-  cta.className = 'scroll-cta';
-  cta.innerHTML =
-    '<div class="scroll-cta-content">' +
-      '<span class="scroll-cta-text">💡 あなたのPCスペックを診断してみませんか？</span>' +
-      '<a href="/" class="scroll-cta-button">今すぐ診断 →</a>' +
-      '<button class="scroll-cta-close" onclick="closeScrollCta()">&times;</button>' +
-    '</div>';
-  document.body.appendChild(cta);
-  setTimeout(function() { cta.classList.add('show'); }, 10);
-}
+  window.addEventListener('scroll', function() {
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    var scrollPercent = (window.scrollY / docHeight) * 100;
 
-function closeScrollCta() {
-  var cta = document.querySelector('.scroll-cta');
-  if (cta) {
-    cta.classList.remove('show');
-    setTimeout(function() { cta.remove(); }, 300);
-  }
-}
+    if (scrollPercent > 50 && !scrollCtaShown && !sessionStorage.getItem('scrollCtaShown')) {
+      showScrollCta();
+      scrollCtaShown = true;
+      sessionStorage.setItem('scrollCtaShown', 'true');
+    }
+  });
+
+  window.showScrollCta = function() {
+    var cta = document.createElement('div');
+    cta.className = 'scroll-cta';
+    cta.innerHTML =
+      '<div class="scroll-cta-content">' +
+        '<span class="scroll-cta-text">💡 あなたのPCスペックを診断してみませんか？</span>' +
+        '<a href="/" class="scroll-cta-button">今すぐ診断 →</a>' +
+        '<button class="scroll-cta-close" onclick="closeScrollCta()">&times;</button>' +
+      '</div>';
+    document.body.appendChild(cta);
+    setTimeout(function() { cta.classList.add('show'); }, 10);
+  };
+
+  window.closeScrollCta = function() {
+    var cta = document.querySelector('.scroll-cta');
+    if (cta) {
+      cta.classList.remove('show');
+      setTimeout(function() { cta.remove(); }, 300);
+    }
+  };
+})();
