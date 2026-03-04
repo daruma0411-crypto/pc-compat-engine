@@ -4681,10 +4681,14 @@ def bto_match():
 
 @app.route('/api/recommend', methods=['POST'])
 def recommend():
-    """ゲームのやりたいことからPC構成を提案する。"""
+    """ゲームのやりたいことからPC構成を提案する（セッション対応）。"""
     try:
         data = request.get_json(force=True)
         message = data.get('message', '')
+        session_id = data.get('session_id', 'default')
+
+        # セッションからヒアリング済み情報を復元
+        session, _ = get_or_create_session(session_id)
 
         amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
         rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
@@ -4735,9 +4739,21 @@ def recommend():
         budget_yen = extracted.get('budget_yen')
         fps_target = extracted.get('fps_target') or '60fps'
 
+        # セッションとマージ: 今回の抽出結果で更新、なければ前回値を使う
+        if game_name:
+            session['game_name'] = game_name
+        else:
+            game_name = session.get('game_name') or ''
+        if budget_yen:
+            session['budget_yen'] = budget_yen
+        else:
+            budget_yen = session.get('budget_yen')
+        if extracted.get('fps_target'):
+            session['fps_target'] = fps_target
+
         # ── ヒアリングゲート: 必要情報が不足している場合は質問を返す ──
-        if not budget_yen:
-            if game_name:
+        if not game_name or not budget_yen:
+            if game_name and not budget_yen:
                 hearing_msg = (
                     f'🎮 **{game_name}**ですね！いい選択です。\n\n'
                     f'最適な構成を提案するために、あと少し教えてください：\n\n'
@@ -4745,6 +4761,12 @@ def recommend():
                     f'（例: 15万円、20万円、予算は気にしない など）\n\n'
                     f'🖥️ **解像度**の希望はありますか？\n'
                     f'（FHD / WQHD / 4K、わからなければFHDで提案します）'
+                )
+            elif budget_yen and not game_name:
+                hearing_msg = (
+                    f'💰 予算{budget_yen:,}円ですね！\n\n'
+                    f'🎮 **どのゲーム**をプレイしたいですか？\n'
+                    f'（例: モンハンワイルズ、FF14、Apex など）'
                 )
             else:
                 hearing_msg = (
@@ -4859,7 +4881,7 @@ def recommend():
 
         build_prompt = (
             'PCゲームの推奨パーツ構成を提案してください。\n\n'
-            f'## ユーザー要求\n{message}\n{budget_str}、{fps_target}目標\n\n'
+            f'## ユーザー要求\nゲーム: {game_name}\n{message}\n{budget_str}、{fps_target}目標\n\n'
             f'## Steamの推奨スペック\n{game_info}\n\n'
             f'## DBにある主なGPU候補\n' +
             '\n'.join(fmt_gpu(p) for p in gpu_candidates) +
@@ -4873,6 +4895,10 @@ def recommend():
             '- 「推奨スペック未公開」とは絶対に言わないこと（DBに存在する）\n'
             '- 【必須】フル構成を提案すること。recommended_buildには最低限以下のカテゴリを含めること：\n'
             '  GPU, CPU, MB（マザーボード）, RAM, PSU（電源）, CASE（ケース）, SSD/Storage, Cooler（CPUクーラー）\n'
+            '- 【予算配分ルール・厳守】合計金額が予算を超えないこと。予算配分の目安:\n'
+            '  GPU: 35〜45% / CPU: 15〜20% / MB: 8〜12% / RAM: 5〜8% / PSU: 5〜8% / CASE: 5〜8% / SSD: 4〜6% / Cooler: 3〜5%\n'
+            '  例: 予算20万なら GPU 7〜9万、CPU 3〜4万、MB 1.5〜2.5万 が目安\n'
+            '  GPUに予算の50%以上を配分するのは禁止。予算内で最適なバランスを取ること\n'
             '\n以下のJSON形式だけで返してください（説明不要）:\n'
             '{"reply":"3〜4文の提案コメント（日本語・フレンドリー。予算とスペックの関係を店長口調で説明）",'
             '"recommended_build":['
