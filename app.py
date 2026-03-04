@@ -4874,22 +4874,22 @@ def recommend():
             '- 【必須】フル構成を提案すること。recommended_buildには最低限以下のカテゴリを含めること：\n'
             '  GPU, CPU, MB（マザーボード）, RAM, PSU（電源）, CASE（ケース）, SSD/Storage, Cooler（CPUクーラー）\n'
             '\n以下のJSON形式だけで返してください（説明不要）:\n'
-            '{"reply":"2〜3文の提案コメント（日本語・フレンドリー）",'
+            '{"reply":"3〜4文の提案コメント（日本語・フレンドリー。予算とスペックの関係を店長口調で説明）",'
             '"recommended_build":['
-            '{"category":"GPU","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"CPU","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"MB","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"RAM","name":"DDR5 32GB など","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"PSU","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"CASE","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"SSD","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"},'
-            '{"category":"COOLER","name":"製品名","reason":"選定理由1文","price_range":"¥XX,000〜¥XX,000"}'
+            '{"category":"GPU","name":"製品名","reason":"推奨スペックとの比較+なぜこれが最適か（2文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"CPU","name":"製品名","reason":"GPUとのバランス+性能の根拠（2文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"MB","name":"製品名","reason":"CPU対応+コスパの理由（2文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"RAM","name":"DDR5 32GB (16GB×2) など","reason":"推奨スペックとの比較+デュアルチャネルの理由（2文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"PSU","name":"製品名","reason":"必要W数の計算根拠+余裕度（2文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"CASE","name":"製品名","reason":"GPU収まるか+エアフロー（2文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"SSD","name":"製品名","reason":"ゲーム容量+速度の理由（1文）","price_range":"¥XX,000〜¥XX,000"},'
+            '{"category":"COOLER","name":"製品名","reason":"CPUの発熱に対して十分か（1文）","price_range":"¥XX,000〜¥XX,000"}'
             '],"total_estimate":"¥XX万〜¥XX万",'
-            '"tip":"追加アドバイス1文"}'
+            '"tip":"コスパ改善ポイントや代替案のヒント（例: CPUを○○に落とせば△万浮く等）"}'
         )
         build_body = json.dumps({
             'model': 'claude-sonnet-4-5-20250929',
-            'max_tokens': 1500,  # 8カテゴリフル構成対応（元800→1500）
+            'max_tokens': 2500,  # 8カテゴリ×理由2文+reply充実対応
             'temperature': 0.3,  # Phase 2-3: 再現性向上（ブレを抑制）
             'messages': [{'role': 'user', 'content': build_prompt}]
         }).encode('utf-8')

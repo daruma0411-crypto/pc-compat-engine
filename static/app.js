@@ -31,6 +31,7 @@
   let sending = false;
   let lastDiagnosis = null;
   let gameMode = false;
+  let gameBuildShown = false; // 構成提示済みフラグ（微調整モード切替用）
   let btoMode = false;      // BTOマッチングモード
 let btoSubMode = null;    // 'purpose' | 'budget' | null
   let historyFirstSaved = false;
@@ -128,6 +129,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
 
   function selectMode(mode) {
     confirmedParts = [];  // モード切替時: 確定パーツをリセット
+    gameBuildShown = false;
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
       c.style.opacity = '0.4';
@@ -386,8 +388,9 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const timer = setTimeout(() => controller.abort(), 120000);
 
     try {
-      const endpoint = (!btoMode && gameMode) ? '/api/recommend' : '/api/chat';
-      const useStream = !gameMode; // BTO + 互換チェック → SSE
+      // ゲームモード: 構成提示前は/api/recommend、提示後は/api/chatで微調整
+      const endpoint = (!btoMode && gameMode && !gameBuildShown) ? '/api/recommend' : '/api/chat';
+      const useStream = !(gameMode && !gameBuildShown); // recommend以外はSSE
 
       const reqBody = { message: msg, session_id: sessionId, stream: useStream };
       if (btoMode) reqBody.bto_mode = true;
@@ -414,6 +417,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           // ヒアリング中: チャットバブルで質問を表示
           appendAIBubble(data.reply);
         } else if (data.recommended_build) {
+          gameBuildShown = true; // 以降の会話は /api/chat で微調整モード
           appendRecommendationMessage(data);
         } else if (data.reply) {
           appendAIBubble(data.reply);
@@ -788,6 +792,15 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         if (btn) btn.addEventListener('click', () => transferToCompatCheck(build));
       }
       cardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // ハイブリッド: 構成提示後にフォローアップ
+      if (gameMode) {
+        const followUp =
+          '💬 この構成でOKなら「互換チェック」ボタンを押してください。\n\n' +
+          '変えたいパーツがあれば教えてください！\n' +
+          '例: 「GPUをもう少し安くしたい」「メモリは32GBにしたい」';
+        appendAIBubble(followUp);
+      }
     }, 150);
   }
 
@@ -1111,6 +1124,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     if (data.success) {
       confirmedParts = [];
       budgetYen = null;
+      gameBuildShown = false;
       updateDashboardFromConfirmedParts();
 
       // チャット履歴を完全クリア
