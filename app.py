@@ -3248,40 +3248,11 @@ def execute_tool(tool_name, tool_input, session, all_products):
 # BTO マッチングハンドラ
 # ================================================================
 
-def _bto_verify_url(rec):
-    """BTO商品URLを検証し、有効なら直リンク、無効なら空文字を返す。
-    検証: HTTPステータス200 + ページ内に商品名(series/model)が含まれるか。
-    """
-    import urllib.request as _ur
-    import ssl as _ssl
-
-    url = rec.get('url', '')
-    if not url:
+def _bto_get_url(rec):
+    """BTO商品URLを返す。url_verified=false なら空文字（リンク非表示）。"""
+    if rec.get('url_verified') is False:
         return ''
-
-    model = rec.get('model') or ''
-    series = rec.get('series') or ''
-
-    try:
-        ctx = _ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = _ssl.CERT_NONE
-        req = _ur.Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        })
-        with _ur.urlopen(req, timeout=8, context=ctx) as r:
-            if r.status != 200:
-                return ''
-            html = r.read().decode('utf-8', errors='replace')
-            # ページ内にモデル名またはシリーズ名が含まれているか
-            if model and model.lower() in html.lower():
-                return url
-            if series and series.lower() in html.lower():
-                return url
-            # 名前が見つからない → 商品差し替えの可能性
-            return ''
-    except Exception:
-        return ''
+    return rec.get('url', '')
 
 
 def _handle_search_bto(params, session):
@@ -3344,7 +3315,7 @@ def _handle_search_bto(params, session):
             'ram_gb': rec.get('ram_gb', 0),
             'storage': rec.get('storage', ''),
             'psu': rec.get('psu', ''),
-            'url': _bto_verify_url(rec),
+            'url': _bto_get_url(rec),
             'warranty_years': rec.get('warranty_years', 1),
             'tags': rec.get('tags', []),
         })
