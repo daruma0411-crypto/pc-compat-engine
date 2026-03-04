@@ -34,7 +34,7 @@ BUDGET_BUILDS = {
         "storage": "500GB SSD",
         "storage_price": 5480,
         "other": 22000,
-        "performance": "1080p 低〜中設定 30〜60fps",
+        "performance": "1080p 低〜中設定 30〜60fps前後",
         "color": "#607D8B",
     },
     "recommended": {
@@ -49,7 +49,7 @@ BUDGET_BUILDS = {
         "storage": "1TB NVMe SSD",
         "storage_price": 7480,
         "other": 26000,
-        "performance": "1080p 高設定 60〜100fps / WQHD 中設定 60fps",
+        "performance": "1080p 高設定 60〜100fps前後 / WQHD 中設定 60fps前後",
         "color": "#4CAF50",
         "badge": "おすすめ",
     },
@@ -65,7 +65,7 @@ BUDGET_BUILDS = {
         "storage": "1TB NVMe SSD",
         "storage_price": 7480,
         "other": 30000,
-        "performance": "WQHD 高設定 100〜144fps / 4K 中設定 60fps",
+        "performance": "WQHD 高設定 100〜144fps前後 / 4K 中設定 60fps前後",
         "color": "#FF9800",
     },
 }
@@ -138,7 +138,14 @@ def generate_budget_section(name):
   <div class="budget-cards">
     {''.join(cards)}
   </div>
-  <p class="section-note">※ パーツ価格は変動します。AIに相談するとリアルタイムの価格でPC構成を提案します。</p>
+  <div class="budget-disclaimer">
+    <p><strong>⚠️ 注意事項</strong></p>
+    <ul>
+      <li>FPS値は一般的なゲームでの参考値（目安）です。{name}での実際の動作は設定・解像度により異なります。</li>
+      <li>パーツ価格は2026年3月時点の目安です。最新価格は各販売店でご確認ください。</li>
+      <li>詳しい動作環境は<a href="{SITE_URL}/?game={name}">AI診断チャット</a>でご確認ください。</li>
+    </ul>
+  </div>
 </section>"""
 
 
@@ -152,9 +159,9 @@ def generate_gpu_section(name):
         rows.append(f"""        <tr{rec_class}>
           <td><strong>{g['name']}</strong>{rec_badge}</td>
           <td>¥{g['price']:,}</td>
-          <td>{g['fps_1080p']}fps</td>
-          <td>{g['fps_wqhd']}fps</td>
-          <td>{g['fps_4k']}fps</td>
+          <td>{g['fps_1080p']}fps前後</td>
+          <td>{g['fps_wqhd']}fps前後</td>
+          <td>{g['fps_4k']}fps前後</td>
           <td>{stars}</td>
         </tr>""")
 
@@ -187,6 +194,9 @@ def generate_gpu_section(name):
       <li><strong>4K環境:</strong> RTX 5080 以上を推奨</li>
     </ul>
   </div>
+  <div class="comparison-note">
+    <p><strong>📝 注意:</strong> FPS値は高設定での一般的な目安です。{name}での実測値ではありません。グラフィック設定・解像度により大きく変動します。正確な動作確認は<a href="{SITE_URL}/?game={name}">AI診断チャット</a>をご利用ください。</p>
+  </div>
 </section>"""
 
 
@@ -195,15 +205,15 @@ def generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram):
     faqs = [
         {
             "q": f"{name}の推奨スペックは？",
-            "a": f"{name}の推奨スペックは、GPU: {rec_gpu}、CPU: {rec_cpu}、RAM: {rec_ram}GB です。上記スペックを満たすPCなら60fps以上で快適にプレイできます。",
+            "a": f"{name}の推奨スペックは、GPU: {rec_gpu}、CPU: {rec_cpu}、RAM: {rec_ram}GB です。上記スペックを満たすPCなら60fps前後で快適にプレイできる目安です。詳しくはAI診断チャットでご確認ください。",
         },
         {
             "q": f"予算10万円で{name}用PCは組める？",
-            "a": f"はい、予算10万円前後で{name}用のPCを組めます。RTX 4060（約4.5万円）+ Ryzen 5 7600（約2.5万円）+ 16GB RAM（約0.8万円）の構成で1080p 60fps以上が可能です。",
+            "a": f"はい、予算10万円前後で{name}用のPCを組めます。RTX 4060（約4.5万円）+ Ryzen 5 7600（約2.5万円）+ 16GB RAM（約0.8万円）の構成で1080p 60fps前後が目安です。※価格・性能は変動するため、AI診断チャットで最新の構成をご相談ください。",
         },
         {
             "q": f"{name}は何fpsで遊べますか？",
-            "a": f"最低スペック（{min_gpu}相当）で30〜60fps、推奨スペック（{rec_gpu}相当）で60〜90fps、RTX 4060で100〜144fps以上が期待できます。上のGPU比較表も参考にしてください。",
+            "a": f"PC構成により異なります。最低スペック（{min_gpu}相当）で30〜60fps前後、推奨スペック（{rec_gpu}相当）で60〜90fps前後が一般的な目安です。※ゲームの最適化状況・設定により大きく変動します。正確な診断はAI診断チャットをご利用ください。",
         },
         {
             "q": "ノートPCでも動きますか？",
@@ -354,9 +364,19 @@ function runBudgetCalc() {{
         <tr><td>他</td><td>MB・PSU・ケース等</td><td>¥${{tier.other.toLocaleString()}}</td></tr>
         <tr class="calc-total-row"><td colspan="2"><strong>合計</strong></td><td><strong>¥${{total.toLocaleString()}}</strong></td></tr>
       </table>
-      <p class="calc-perf">🎮 期待性能: ${{tier.performance}}</p>
-      <a href="{SITE_URL}/?game={name}" class="btn-check" style="display:block;text-align:center;margin-top:12px;">AIにもっと詳しく相談する →</a>
+      <p class="calc-perf">🎮 期待性能（目安）: ${{tier.performance}}</p>
+      <p class="calc-disclaimer">※ FPS値は一般的なゲームの目安です。実際の性能はタイトル・設定により異なります。</p>
+      <div class="consult-cta">
+        <a href="{SITE_URL}/?game={name}&budget=${{budget}}&fps=${{fps}}&res=${{res}}" class="consult-button">💬 この構成についてAIに相談する →</a>
+        <p class="consult-note">診断結果を引き継いで、詳しくAIが回答します</p>
+      </div>
     </div>`;
+  // sessionStorageにコンテキスト保存
+  try {{
+    sessionStorage.setItem('diagnosisContext', JSON.stringify({{
+      game: '{name}', budget: budget, targetFps: fps, resolution: res, tier: tier.label, gpu: tier.gpu, cpu: tier.cpu, timestamp: Date.now()
+    }}));
+  }} catch(e) {{}}
   resultDiv.scrollIntoView({{behavior: 'smooth', block: 'center'}});
 }}
 </script>"""
@@ -475,8 +495,17 @@ function runSpecCheck() {{
       <p>推奨スペック比: <strong>${{Math.round(ratio*100)}}%</strong></p>
       <p class="calc-perf">🎮 ${{advice}}</p>
       ${{ramWarn}}
-      <a href="{SITE_URL}/?game={name}" class="btn-check" style="display:block;text-align:center;margin-top:12px;">AIに構成を相談する →</a>
+      <div class="consult-cta">
+        <a href="{SITE_URL}/?game={name}&gpu=${{encodeURIComponent(gpuData.name)}}&ram=${{ram}}" class="consult-button">💬 この診断結果についてAIに相談する →</a>
+        <p class="consult-note">より詳しいアドバイスをAIが提供します</p>
+      </div>
     </div>`;
+  // sessionStorageにコンテキスト保存
+  try {{
+    sessionStorage.setItem('diagnosisContext', JSON.stringify({{
+      game: '{name}', gpu: gpuData.name, ram: ram, score: gpuData.score, ratio: Math.round(ratio*100), verdict: verdict, timestamp: Date.now()
+    }}));
+  }} catch(e) {{}}
   resultDiv.scrollIntoView({{behavior: 'smooth', block: 'center'}});
 }}
 </script>"""
@@ -638,6 +667,21 @@ def generate_page_css():
     .calc-total-row td { background: #e8f5e9; font-weight: bold; }
     .calc-perf { margin: 10px 0 0; padding: 8px; background: #e3f2fd; border-radius: 6px; color: #1565C0; font-size: 13px; }
     .calc-warn { color: #c62828; font-weight: bold; padding: 10px; background: #ffebee; border-radius: 6px; }
+    .calc-disclaimer { color: #777; font-size: 12px; margin: 8px 0 0; padding: 6px 8px; background: #f8f8f8; border-left: 3px solid #ffa500; border-radius: 4px; }
+
+    /* 免責事項 */
+    .budget-disclaimer { margin-top: 20px; padding: 14px; background: #fff9e6; border: 1px solid #ffd700; border-radius: 8px; }
+    .budget-disclaimer strong { color: #ff6600; }
+    .budget-disclaimer ul { margin: 8px 0 0 20px; font-size: 13px; line-height: 1.7; }
+    .budget-disclaimer li { margin-bottom: 4px; }
+    .comparison-note { margin-top: 14px; padding: 12px; background: #f0f8ff; border: 1px solid #4682b4; border-radius: 6px; font-size: 13px; line-height: 1.6; }
+    .comparison-note strong { color: #4682b4; }
+
+    /* 相談ボタン */
+    .consult-cta { margin-top: 16px; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; text-align: center; }
+    .consult-button { display: inline-block; background: #fff; color: #667eea; padding: 12px 28px; font-size: 15px; font-weight: 600; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; }
+    .consult-button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.3); color: #667eea; }
+    .consult-note { color: #fff; font-size: 12px; margin-top: 8px; opacity: 0.9; }
 
     /* 目次 (TOC) */
     .toc { margin: 20px 0; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; }

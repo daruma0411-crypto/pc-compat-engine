@@ -595,6 +595,20 @@ def game_page(game_name):
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/blog/<article_name>')
+def blog_page(article_name):
+    """ブログ記事ページ"""
+    blog_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'blog')
+    html_path = os.path.join(blog_dir, f'{article_name}')
+    if not article_name.endswith('.html'):
+        html_path += '.html'
+    if not os.path.isfile(html_path):
+        return 'Blog post not found', 404
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 @app.route('/sitemap.xml')
 def sitemap():
     """SEO用サイトマップ"""

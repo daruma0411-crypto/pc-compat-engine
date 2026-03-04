@@ -1,0 +1,45 @@
+name: Blog Auto Generator
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # 毎月1日 09:00 JST
+  workflow_dispatch:
+    inputs:
+      count:
+        description: '生成記事数'
+        required: false
+        default: '30'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install anthropic
+
+    - name: Generate blog posts
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      run: |
+        COUNT=${{ github.event.inputs.count || '30' }}
+        python scripts/blog_generator.py --count $COUNT
+
+    - name: Commit new posts
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git pull --rebase origin main || true
+        git add static/blog/
+        git diff --staged --quiet || git commit -m "chore: ブログ記事自動生成 [skip ci]"
+        git push
