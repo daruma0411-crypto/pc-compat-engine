@@ -3248,26 +3248,40 @@ def execute_tool(tool_name, tool_input, session, all_products):
 # BTO マッチングハンドラ
 # ================================================================
 
-def _bto_search_url(rec):
-    """BTOメーカー別の商品検索URLを生成（直リンクは商品差替えリスクあり）"""
-    import urllib.parse as _up
-    maker = (rec.get('maker') or '').strip()
-    model = rec.get('model') or rec.get('series') or ''
-    q = _up.quote(model)
+def _bto_verify_url(rec):
+    """BTO商品URLを検証し、有効なら直リンク、無効なら空文字を返す。
+    検証: HTTPステータス200 + ページ内に商品名(series/model)が含まれるか。
+    """
+    import urllib.request as _ur
+    import ssl as _ssl
 
-    search_urls = {
-        'ドスパラ':           f'https://www.dospara.co.jp/SBR/IC442/{q}.html',
-        'パソコン工房':       f'https://www.pc-koubou.jp/products/list?keyword={q}',
-        'マウスコンピューター': f'https://www.mouse-jp.co.jp/store/g/search/?q={q}',
-        'サイコム':           f'https://www.sycom.co.jp/custom/search.php?search_word={q}',
-        'ツクモ':             f'https://shop.tsukumo.co.jp/search?keyword={q}',
-        'FRONTIER':          f'https://www.frontier-direct.jp/direct/default.aspx?s={q}',
-        'STORM':             f'https://www.stormst.com/products/list?keyword={q}',
-        'SEVEN':             f'https://pc-seven.co.jp/?s={q}',
-        'HP':                f'https://jp.ext.hp.com/search/?q={q}',
-        'Lenovo':            f'https://www.lenovo.com/jp/ja/search?q={q}',
-    }
-    return search_urls.get(maker, rec.get('url', ''))
+    url = rec.get('url', '')
+    if not url:
+        return ''
+
+    model = rec.get('model') or ''
+    series = rec.get('series') or ''
+
+    try:
+        ctx = _ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = _ssl.CERT_NONE
+        req = _ur.Request(url, headers={
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        })
+        with _ur.urlopen(req, timeout=8, context=ctx) as r:
+            if r.status != 200:
+                return ''
+            html = r.read().decode('utf-8', errors='replace')
+            # ページ内にモデル名またはシリーズ名が含まれているか
+            if model and model.lower() in html.lower():
+                return url
+            if series and series.lower() in html.lower():
+                return url
+            # 名前が見つからない → 商品差し替えの可能性
+            return ''
+    except Exception:
+        return ''
 
 
 def _handle_search_bto(params, session):
@@ -3330,7 +3344,7 @@ def _handle_search_bto(params, session):
             'ram_gb': rec.get('ram_gb', 0),
             'storage': rec.get('storage', ''),
             'psu': rec.get('psu', ''),
-            'url': _bto_search_url(rec),
+            'url': _bto_verify_url(rec),
             'warranty_years': rec.get('warranty_years', 1),
             'tags': rec.get('tags', []),
         })

@@ -635,6 +635,15 @@ header {
   color: var(--c-text);
 }
 
+/* チャット内リンク */
+.msg-bubble a {
+  color: var(--c-primary);
+  text-decoration: underline;
+}
+.msg-bubble a:hover {
+  opacity: 0.8;
+}
+
 /* 型番・製品名を太字+アクセントカラー */
 .msg.ai .msg-bubble strong {
   font-weight: 700;
@@ -1086,6 +1095,12 @@ header {
 }
 .bto-tier--premium .bto-card-btn {
   background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.bto-card-btn--disabled {
+  background: var(--c-muted) !important;
+  cursor: default;
+  font-size: 11px;
+  opacity: 0.7;
 }
 
 /* 保証 */

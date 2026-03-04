@@ -1221,7 +1221,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
 
       const cfg = BTO_TIER_CONFIG[tier];
       const isRec = tier === 'recommended';
-      const url = rec.affiliate_url || rec.url || '#';
+      const url = rec.affiliate_url || rec.url || '';
       const score = rec.match_score != null ? rec.match_score : '';
 
       cardsHtml +=
@@ -1240,7 +1240,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '</div>' +
           (rec.tags && rec.tags.length ? '<div class="bto-card-tags">' + rec.tags.map(t => '<span class="bto-tag">' + escHtml(t) + '</span>').join('') + '</div>' : '') +
           '<div class="bto-card-score">マッチ度: ' + (score ? (score * 100).toFixed(0) + '%' : '—') + '</div>' +
-          '<a class="bto-card-btn" href="' + escHtml(url) + '" target="_blank" rel="noopener">🛒 購入ページへ</a>' +
+          (url ? '<a class="bto-card-btn" href="' + escHtml(url) + '" target="_blank" rel="noopener">🛒 購入ページへ</a>' : '<div class="bto-card-btn bto-card-btn--disabled">🔍 メーカーサイトで検索してください</div>') +
           '<div class="bto-card-warranty">保証: ' + (rec.warranty_years || 1) + '年</div>' +
         '</div>';
     }
