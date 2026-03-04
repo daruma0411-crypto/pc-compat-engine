@@ -50,6 +50,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
+          git pull --rebase origin main || true
           git add scripts/twitter_post_history.json scripts/url_shortener_cache.json
           git diff --cached --quiet || git commit -m "Update Twitter post history [skip ci]"
           git push
