@@ -3605,16 +3605,22 @@ def _call_claude_with_tools_gen(session, user_message, all_products, system_prom
     for iteration in range(max_iterations):
         yield {'type': 'progress', 'message': '🤔 AIが考え中...'}
 
-        # 全パーツ確定済みなら最終応答用に2048、それ以外はツール用1024
-        _main_cats = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
-        _all_done = all(session['current_build'].get(c) is not None for c in _main_cats)
-        current_max_tokens = 2048 if _all_done else 1024
+        # BTOモードは松竹梅説明に2048必要。自作は全パーツ確定後2048、それ以外1024
+        if session.get('bto_mode'):
+            current_max_tokens = 2048
+        else:
+            _main_cats = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
+            _all_done = all(session['current_build'].get(c) is not None for c in _main_cats)
+            current_max_tokens = 2048 if _all_done else 1024
+
+        # BTOモード時はsearch_btoのみ提供（他ツールを使わせない）
+        tools_list = [SEARCH_BTO_TOOL] if session.get('bto_mode') else FC_TOOLS
 
         req_body = json.dumps({
             'model': 'claude-sonnet-4-5-20250929',
             'max_tokens': current_max_tokens,
             'system': system_prompt,
-            'tools': FC_TOOLS,
+            'tools': tools_list,
             'messages': messages,
         }).encode('utf-8')
 
