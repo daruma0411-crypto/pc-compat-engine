@@ -112,7 +112,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const cardsHtml =
       '<div class="mode-cards">' +
         '<div class="mode-card" onclick="selectMode(\'game\')">' +
-          '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい' +
+          '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい<span class="mode-card-sub">カクつきゼロの環境をAIが予算に合わせて自動で提案</span>' +
         '</div>' +
         '<div class="mode-card" onclick="selectMode(\'compat\')">' +
           '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
@@ -1114,7 +1114,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       const cardsHtml =
         '<div class="mode-cards">' +
           '<div class="mode-card" onclick="selectMode(\'game\')">' +
-            '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい' +
+            '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい<span class="mode-card-sub">カクつきゼロの環境をAIが予算に合わせて自動で提案</span>' +
           '</div>' +
           '<div class="mode-card" onclick="selectMode(\'compat\')">' +
             '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
