@@ -595,6 +595,110 @@ def game_page(game_name):
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/blog/')
+@app.route('/blog')
+def blog_index():
+    """ブログ一覧ページ（動的生成）"""
+    blog_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'blog')
+    history_path = os.path.join(blog_dir, 'generation_history.json')
+
+    articles = []
+    if os.path.exists(history_path):
+        with open(history_path, 'r', encoding='utf-8') as f:
+            articles = json.load(f)
+    articles.sort(key=lambda x: x.get('generated_at', ''), reverse=True)
+
+    tag_colors = {
+        'benchmark': '#4CAF50', 'budget_build': '#FF9800', 'gpu_list': '#2196F3',
+        'troubleshooting': '#f44336', 'performance': '#E91E63', 'high_res': '#9C27B0',
+        'laptop': '#00BCD4', 'used_parts': '#795548', 'mod': '#607D8B',
+        'ranking': '#FF5722', 'weekly_report': '#3F51B5',
+    }
+    tag_labels = {
+        'benchmark': '推奨スペック', 'budget_build': '予算別構成', 'gpu_list': 'GPU別ゲーム',
+        'troubleshooting': 'トラブル対処', 'performance': 'パフォーマンス', 'high_res': '高解像度',
+        'laptop': 'ノートPC', 'used_parts': '中古パーツ', 'mod': 'MOD',
+        'ranking': 'ランキング', 'weekly_report': '週刊レポート',
+    }
+
+    cards_html = ''
+    for a in articles:
+        tmpl = a.get('template', '')
+        color = tag_colors.get(tmpl, '#666')
+        label = tag_labels.get(tmpl, tmpl)
+        date_str = a.get('generated_at', '')[:10]
+        cards_html += f'''
+        <a href="/blog/{a['filename']}" class="blog-card">
+          <span class="blog-tag" style="background:{color}">{label}</span>
+          <div class="blog-card-title">{a['title']}</div>
+          <div class="blog-card-date">{date_str}</div>
+        </a>'''
+
+    if not articles:
+        cards_html = '<p style="text-align:center;color:#888;padding:40px;">記事を準備中です。毎日更新しますのでお楽しみに！</p>'
+
+    ga_id = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
+    site_url = 'https://pc-compat-engine-production.up.railway.app'
+
+    html = f'''<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ブログ | PC互換チェッカー</title>
+<meta name="description" content="PCゲーム互換性・自作PCパーツ・GPU価格の最新情報を毎日更新。実データに基づいた記事をお届けします。">
+<link rel="canonical" href="{site_url}/blog/">
+<script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{ga_id}');</script>
+<style>
+* {{ box-sizing: border-box; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 16px; line-height: 1.6; color: #333; background: #fafafa; }}
+.site-nav {{ background: #1a1a1a; padding: 10px 16px; margin: -16px -16px 20px; display: flex; align-items: center; gap: 16px; }}
+.site-nav a {{ color: #78FFCB; text-decoration: none; font-size: 14px; }}
+.site-nav .nav-logo {{ font-weight: bold; font-size: 16px; }}
+.nav-active {{ color: #fff !important; font-weight: bold; }}
+h1 {{ color: #1a1a1a; font-size: 1.5rem; margin-bottom: 4px; }}
+.blog-subtitle {{ color: #666; font-size: 14px; margin-bottom: 24px; }}
+.blog-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }}
+.blog-card {{ display: block; background: #fff; border-radius: 10px; padding: 20px; text-decoration: none; color: inherit; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; border-left: 4px solid #4CAF50; }}
+.blog-card:hover {{ transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }}
+.blog-tag {{ display: inline-block; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }}
+.blog-card-title {{ font-size: 15px; font-weight: 600; color: #1a1a1a; line-height: 1.5; }}
+.blog-card-date {{ font-size: 12px; color: #999; margin-top: 8px; }}
+.page-footer {{ margin-top: 40px; padding: 20px 0; border-top: 1px solid #e0e0e0; text-align: center; font-size: 13px; color: #777; }}
+.page-footer a {{ color: #4CAF50; margin: 0 8px; }}
+@media (max-width: 600px) {{
+  .blog-grid {{ grid-template-columns: 1fr; }}
+}}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/" class="nav-logo">PC互換チェッカー</a>
+  <a href="/">ホーム</a>
+  <a href="/blog/" class="nav-active">ブログ</a>
+  <a href="/about.html">このサイトについて</a>
+</nav>
+
+<h1>ブログ</h1>
+<p class="blog-subtitle">PCゲーム互換性・自作PCパーツの最新情報を毎日更新中（価格.com実データ連動）</p>
+
+<div class="blog-grid">
+  {cards_html}
+</div>
+
+<footer class="page-footer">
+  <a href="/">ホーム</a>
+  <a href="/blog/">ブログ</a>
+  <a href="/about.html">このサイトについて</a>
+  <a href="/privacy.html">プライバシーポリシー</a>
+  <p>&copy; 2026 PC互換チェッカー</p>
+</footer>
+</body>
+</html>'''
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 @app.route('/blog/<article_name>')
 def blog_page(article_name):
     """ブログ記事ページ"""
