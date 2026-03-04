@@ -468,7 +468,10 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const wrap = mkEl('div', 'msg ai');
     const inner = mkEl('div');
     const bubble = mkEl('div', 'msg-bubble');
-    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    bubble.innerHTML = text
+      .replace(/\n/g, '<br>')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
     if (extraHtml) bubble.insertAdjacentHTML('beforeend', extraHtml);
     
     inner.appendChild(bubble);
