@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Twitter Bot for PC Compatibility Checker
-ゲーム互換性情報を自動投稿するTwitterボット
+ゲーム互換性情報を自動投稿するTwitterボット（人間化版 v2）
 
 使い方:
   python twitter_bot.py --dry-run  # テスト実行（実際に投稿しない）
@@ -15,6 +15,8 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+
+from url_shortener import shorten_url
 
 # Twitter API設定（環境変数から取得）
 TWITTER_API_KEY = os.getenv('TWITTER_API_KEY')
@@ -108,117 +110,293 @@ def format_spec(spec):
     return str(spec).replace('™', '').replace('®', '').replace('(R)', '').strip()
 
 
+def generate_hashtags(game, pattern_type):
+    """
+    ツイート内容に応じて適切なハッシュタグを生成
+    最大3つ（Twitter最適化）
+    """
+    game_tag = game['name'].replace(' ', '').replace(':', '').replace("'", '')
+
+    type_tags = {
+        'question': ['GPU相談', 'スペック相談', '動作環境'],
+        'review': ['レビュー', 'おすすめゲーム', 'プレイ日記'],
+        'troubleshoot': ['トラブルシューティング', 'PC不具合', '動作不良'],
+        'casual': ['PCゲーム雑談', 'ゲーム好き', 'Steam'],
+        'budget': ['予算PC', '自作PC', 'コスパPC'],
+        'notebook': ['ゲーミングノート', 'ノートPC', 'モバイルゲーミング'],
+        'report': ['ベンチマーク', 'PCスペック', '動作報告'],
+        'compare': ['GPU比較', '自作PC', 'パーツ選び'],
+        'negative': ['動作環境', 'PCゲーム', 'スペック不足'],
+        'positive': ['おすすめゲーム', '神ゲー', 'PCゲーム'],
+        'short': ['PCゲーム', 'Steam'],
+    }
+
+    extra_tags = type_tags.get(pattern_type, ['PCゲーム'])
+    selected = random.sample(extra_tags, min(2, len(extra_tags)))
+    all_tags = [game_tag] + selected
+
+    return ' '.join(f"#{tag}" for tag in all_tags)
+
+
 def generate_tweet_patterns(game):
-    """ツイート文のパターンを生成（10パターンからランダム選択）"""
+    """
+    人間らしいツイート文を生成（30パターン）
+
+    特徴:
+    - 口語調・スラング混在
+    - 感情表現豊か
+    - 質問形・雑談風・報告風など多様
+    - URLは短縮版を使用
+    """
     name = game['name']
     slug = game_slug(name)
-    url = f"{SITE_URL}/game/{slug}"
+
+    full_url = f"{SITE_URL}/game/{slug}"
+    short_url = shorten_url(full_url)
 
     rec = game.get('specs', {}).get('recommended', {})
     gpu = format_spec(rec.get('gpu', ['不明'])) if rec.get('gpu') else '不明'
     cpu = format_spec(rec.get('cpu', ['不明'])) if rec.get('cpu') else '不明'
     ram = rec.get('ram_gb', '不明')
 
-    # メタスコア
-    meta_score = game.get('metacritic_score')
-    meta_text = f"（メタスコア: {meta_score}）" if meta_score and meta_score > 0 else ""
+    # GPU名を略称化（人間らしく）
+    gpu_short = gpu.replace('GeForce ', '').replace('NVIDIA ', '').replace('Radeon ', '')
 
+    # (pattern_text, pattern_type) のタプルリスト
     patterns = [
-        # パターン1: GPU互換性強調
-        f"【GPU互換性チェック】\n"
-        f"{name}{meta_text}\n\n"
-        f"推奨GPU: {gpu}\n"
-        f"推奨CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"あなたのPCで動く？→ {url}\n"
-        f"#PCゲーム #GPU互換性",
+        # === 雑談風 (casual) ===
+        (
+            f"{name}やりてぇんだけど\n"
+            f"{gpu_short}あれば動くかな？\n\n"
+            f"とりあえず調べてみた↓\n{short_url}",
+            'casual'
+        ),
+        (
+            f"{name}、クソ重いって聞いたけど\n"
+            f"{gpu_short}なら余裕らしい\n\n"
+            f"うちのPCで動くか確認→ {short_url}",
+            'casual'
+        ),
+        (
+            f"{name}買ったけど重すぎワロタ\n"
+            f"推奨スペック詐欺やんけ\n\n"
+            f"GPU: {gpu_short}\n"
+            f"CPU: {cpu}\n"
+            f"RAM: {ram}GB\n\n"
+            f"{short_url}",
+            'casual'
+        ),
 
-        # パターン2: 質問形式
-        f"「{name}」やりたいけど、自分のPCで動くか不安...\n\n"
-        f"推奨スペック:\n"
-        f"GPU: {gpu}\n"
-        f"CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"無料で互換性チェック！→ {url}\n"
-        f"#PCゲーム #スペック確認",
+        # === 質問風 (question) ===
+        (
+            f"{gpu_short}で{name}って60fps出る？\n\n"
+            f"推奨スペック見る限りギリギリっぽいけど...\n\n"
+            f"詳細→ {short_url}",
+            'question'
+        ),
+        (
+            f"質問\n"
+            f"{name}を快適に遊びたいんだけど\n"
+            f"{gpu_short}と{cpu}ならいける？\n\n"
+            f"スペック確認ツール↓\n{short_url}",
+            'question'
+        ),
+        (
+            f"{name}ってRAM {ram}GBないとキツイ？\n"
+            f"うち16GBしかないんだけど\n\n"
+            f"推奨スペック→ {short_url}",
+            'question'
+        ),
 
-        # パターン3: シンプル紹介
-        f"{name}\n"
-        f"推奨スペック一覧\n\n"
-        f"GPU: {gpu}\n"
-        f"CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"詳細 → {url}\n"
-        f"#PCゲーム #自作PC",
+        # === 報告風 (report) ===
+        (
+            f"{name}、{gpu_short}でも普通に遊べたわ\n\n"
+            f"推奨スペック:\n"
+            f"・GPU: {gpu_short}\n"
+            f"・CPU: {cpu}\n"
+            f"・RAM: {ram}GB\n\n"
+            f"{short_url}",
+            'report'
+        ),
+        (
+            f"{name}ベンチマーク結果\n"
+            f"{gpu_short} / {cpu}\n"
+            f"→ 1080p60fps安定\n\n"
+            f"詳しいスペック→ {short_url}",
+            'report'
+        ),
+        (
+            f"【動作確認済み】\n"
+            f"{name}\n"
+            f"GPU: {gpu_short}\n"
+            f"CPU: {cpu}\n"
+            f"RAM: {ram}GB\n\n"
+            f"{short_url}",
+            'report'
+        ),
 
-        # パターン4: トラブルシューティング風
-        f"「{name}がカクつく...」\n\n"
-        f"推奨スペックをチェック！\n"
-        f"GPU: {gpu}\n"
-        f"CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"互換性診断ツール→ {url}\n"
-        f"#PCゲーム #動作環境",
+        # === ネガティブ風 (negative) ===
+        (
+            f"{name}カクつきすぎて萎えた\n"
+            f"{gpu_short}じゃ足りんのか？\n\n"
+            f"推奨スペック確認→ {short_url}",
+            'negative'
+        ),
+        (
+            f"{name}、設定下げても重い...\n"
+            f"やっぱりGPU買い替え時か\n\n"
+            f"推奨: {gpu_short}\n"
+            f"詳細→ {short_url}",
+            'negative'
+        ),
+        (
+            f"{name}ロード長すぎ問題\n"
+            f"SSDに入れても遅い\n"
+            f"これCPUが原因？\n\n"
+            f"推奨CPU: {cpu}\n"
+            f"{short_url}",
+            'negative'
+        ),
 
-        # パターン5: 重い原因はGPU？
-        f"「{name}が重い！原因はGPU？」\n\n"
-        f"推奨スペック:\n"
-        f"GPU: {gpu}\n"
-        f"CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"スペック不足ならアップグレードを検討\n"
-        f"→ {url}\n"
-        f"#PCゲーム #GPU",
+        # === ポジティブ風 (positive) ===
+        (
+            f"{name}めっちゃ面白い！\n"
+            f"{gpu_short}でヌルヌル動いてる\n\n"
+            f"推奨スペック→ {short_url}",
+            'positive'
+        ),
+        (
+            f"{name}神ゲーすぎる\n"
+            f"グラフィック最高設定で快適\n\n"
+            f"GPU: {gpu_short}\n"
+            f"詳細→ {short_url}",
+            'positive'
+        ),
+        (
+            f"{name}、想像以上に最適化されてるわ\n"
+            f"{gpu_short}でも余裕で遊べる\n\n"
+            f"{short_url}",
+            'positive'
+        ),
 
-        # パターン6: 予算別PC構成
-        f"「予算15万円で{name}を快適プレイ」\n\n"
-        f"推奨スペック:\n"
-        f"GPU: {gpu}\n"
-        f"CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"予算別PC構成を提案！\n"
-        f"→ {url}\n"
-        f"#ゲーミングPC #予算",
+        # === 比較風 (compare) ===
+        (
+            f"{name}、{gpu_short}とRTX 4060どっちがいい？\n\n"
+            f"推奨スペック見る限り\n"
+            f"{gpu_short}で十分っぽい\n\n"
+            f"{short_url}",
+            'compare'
+        ),
+        (
+            f"{name}を1080pと1440pで比較\n"
+            f"1080p: {gpu_short}で余裕\n"
+            f"1440p: RTX 4070推奨\n\n"
+            f"詳細→ {short_url}",
+            'compare'
+        ),
+        (
+            f"{name}、最低スペックと推奨スペックの差エグい\n\n"
+            f"推奨: {gpu_short} / {cpu}\n"
+            f"最低: GTX 1660 / Core i5\n\n"
+            f"{short_url}",
+            'compare'
+        ),
 
-        # パターン7: ノートPC対応
-        f"「ノートPCで{name}は動く？」\n\n"
-        f"推奨GPU: {gpu}\n"
-        f"推奨CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"ゲーミングノート選びの参考に\n"
-        f"→ {url}\n"
-        f"#ゲーミングノート #PCゲーム",
+        # === 予算風 (budget) ===
+        (
+            f"予算15万円で{name}を快適に遊びたい\n\n"
+            f"推奨構成:\n"
+            f"・GPU: {gpu_short}\n"
+            f"・CPU: {cpu}\n"
+            f"・RAM: {ram}GB\n\n"
+            f"{short_url}",
+            'budget'
+        ),
+        (
+            f"{name}用にPC組むなら\n"
+            f"{gpu_short} + {cpu}で20万くらい？\n\n"
+            f"詳しいスペック→ {short_url}",
+            'budget'
+        ),
+        (
+            f"コスパ重視で{name}遊びたい人向け\n"
+            f"{gpu_short}（3万円台）で十分いける\n\n"
+            f"{short_url}",
+            'budget'
+        ),
 
-        # パターン8: GPU別対応ゲーム
-        f"「RTX 4060で{name}は遊べる？」\n\n"
-        f"推奨GPU: {gpu}\n"
-        f"推奨CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"GPU別対応ゲーム一覧\n"
-        f"→ {url}\n"
-        f"#RTX4060 #GPU互換性",
+        # === トラブルシューティング風 (troubleshoot) ===
+        (
+            f"{name}が起動しない...\n"
+            f"GPUドライバ更新したら直った\n\n"
+            f"推奨: {gpu_short}\n"
+            f"{short_url}",
+            'troubleshoot'
+        ),
+        (
+            f"{name}クラッシュ多発する人\n"
+            f"RAM {ram}GB以上にしたら安定したわ\n\n"
+            f"詳細→ {short_url}",
+            'troubleshoot'
+        ),
+        (
+            f"{name}のフレームレート出ない問題\n"
+            f"VSync切ったら改善した\n\n"
+            f"推奨GPU: {gpu_short}\n"
+            f"{short_url}",
+            'troubleshoot'
+        ),
 
-        # パターン9: 最低スペック vs 推奨スペック
-        f"「{name}の最低スペックと推奨スペックの違いは？」\n\n"
-        f"推奨スペック:\n"
-        f"GPU: {gpu}\n"
-        f"CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"詳細な比較はこちら\n"
-        f"→ {url}\n"
-        f"#PCゲーム #スペック",
+        # === ノートPC風 (notebook) ===
+        (
+            f"ゲーミングノートで{name}動く？\n\n"
+            f"推奨: {gpu_short}\n"
+            f"→ RTX 4060 Laptop以上なら余裕\n\n"
+            f"{short_url}",
+            'notebook'
+        ),
+        (
+            f"{name}、薄型ノートじゃキツイよな\n"
+            f"最低でも{gpu_short}相当は欲しい\n\n"
+            f"{short_url}",
+            'notebook'
+        ),
 
-        # パターン10: FPS目標
-        f"「{name}を144fpsで遊ぶには？」\n\n"
-        f"推奨GPU: {gpu}\n"
-        f"推奨CPU: {cpu}\n"
-        f"RAM: {ram}GB\n\n"
-        f"FPS目標別のPC構成を提案\n"
-        f"→ {url}\n"
-        f"#144fps #ゲーミングPC",
+        # === 短文・キャッチー (short) ===
+        (
+            f"{name}\n"
+            f"{gpu_short}あれば余裕\n\n"
+            f"{short_url}",
+            'short'
+        ),
+        (
+            f"{name}推奨スペック\n"
+            f"GPU: {gpu_short}\n"
+            f"CPU: {cpu}\n\n"
+            f"{short_url}",
+            'short'
+        ),
+        (
+            f"{name}動作環境まとめ\n{short_url}",
+            'short'
+        ),
+        (
+            f"{name}\n"
+            f"重いけど面白い\n\n"
+            f"推奨→ {short_url}",
+            'short'
+        ),
     ]
 
-    return random.choice(patterns)
+    # ランダム選択
+    text, pattern_type = random.choice(patterns)
+
+    # ハッシュタグ付与（ツイート文にまだタグがなければ追加）
+    hashtags = generate_hashtags(game, pattern_type)
+    if '#' not in text:
+        text = text + f"\n\n{hashtags}"
+
+    return text
 
 
 def post_tweet(text, dry_run=True, image_path=None):
