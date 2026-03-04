@@ -3142,7 +3142,7 @@ def _detect_stagnation(session):
 # ================================================================
 
 def _reset_full(session):
-    """全リセット: current_buildを全てNullに。チャット履歴は保持。"""
+    """全リセット: current_build・チャット履歴を全クリア。初期状態に戻す。"""
     for key in session['current_build']:
         session['current_build'][key] = None
     session['confirmed_parts'] = {}
@@ -3151,16 +3151,16 @@ def _reset_full(session):
     session['budget_yen']      = None
     session['resolution']      = None
     session['quality']         = None
+    session['history']         = []
+    session['game_name']       = None
+    if 'mode' in session:
+        session['mode'] = None
 
     return {
         'success': True,
         'reset_categories': list(session['current_build'].keys()),
         'current_build': {k: None for k in session['current_build']},
-        'ai_message': (
-            'まっさらな気持ちで行きましょう！\n'
-            '何に使うPCを組みたいですか？ゲーム？動画編集？'
-            '予算もあれば教えてもらえると助かります。'
-        ),
+        'ai_message': 'まず何をしたいか教えてください',
     }
 
 

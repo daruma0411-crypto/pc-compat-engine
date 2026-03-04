@@ -1102,11 +1102,29 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     });
     const data = await res.json();
     if (data.success) {
-      // クライアント側の confirmedParts をクリア
       confirmedParts = [];
+      budgetYen = null;
       updateDashboardFromConfirmedParts();
-      // AIからのメッセージをチャットに追加
-      appendAIBubble(data.ai_message);
+
+      // チャット履歴を完全クリア
+      const chatEl = document.getElementById('chat');
+      if (chatEl) chatEl.innerHTML = '';
+
+      // 初期の3コマンドカードを再表示
+      const cardsHtml =
+        '<div class="mode-cards">' +
+          '<div class="mode-card" onclick="selectMode(\'game\')">' +
+            '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい' +
+          '</div>' +
+          '<div class="mode-card" onclick="selectMode(\'compat\')">' +
+            '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
+          '</div>' +
+          '<div class="mode-card mode-card--bto" onclick="selectMode(\'bto\')">' +
+            '<span class="mode-card-icon">🖥️</span>おすすめPCを探す' +
+            '<span class="mode-card-sub">組み立て不要・メーカー保証付き</span>' +
+          '</div>' +
+        '</div>';
+      appendAIBubble(data.ai_message, cardsHtml);
     }
   }
 
