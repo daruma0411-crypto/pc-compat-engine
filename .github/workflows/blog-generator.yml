@@ -1,14 +1,20 @@
-name: Blog Auto Generator
+name: Blog Auto Generator (Daily)
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # 毎月1日 09:00 JST
+    - cron: '0 23 * * *'  # 毎日 08:00 JST → 通常記事1本
+    - cron: '0 0 * * 1'   # 毎週月曜 09:00 JST → 週刊レポート追加
   workflow_dispatch:
     inputs:
       count:
         description: '生成記事数'
         required: false
-        default: '30'
+        default: '1'
+      weekly_report:
+        description: '週刊レポートも生成する'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   generate:
@@ -28,18 +34,25 @@ jobs:
       run: |
         pip install anthropic
 
-    - name: Generate blog posts
+    - name: Generate blog post
       env:
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       run: |
-        COUNT=${{ github.event.inputs.count || '30' }}
-        python scripts/blog_generator.py --count $COUNT
+        COUNT=${{ github.event.inputs.count || '1' }}
+        WEEKLY=""
 
-    - name: Commit new posts
+        # 月曜スケジュール実行 or 手動指定の場合に週刊レポートも生成
+        if [ "${{ github.event.schedule }}" = "0 0 * * 1" ] || [ "${{ github.event.inputs.weekly_report }}" = "true" ]; then
+          WEEKLY="--weekly-report"
+        fi
+
+        cd scripts && python blog_generator.py --count $COUNT $WEEKLY
+
+    - name: Commit new post
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "actions@github.com"
         git pull --rebase origin main || true
         git add static/blog/
-        git diff --staged --quiet || git commit -m "chore: ブログ記事自動生成 [skip ci]"
+        git diff --staged --quiet || git commit -m "blog: 記事自動生成 $(date +%Y-%m-%d) [skip ci]"
         git push

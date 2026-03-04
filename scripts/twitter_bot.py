@@ -129,6 +129,7 @@ def generate_hashtags(game, pattern_type):
         'negative': ['動作環境', 'PCゲーム', 'スペック不足'],
         'positive': ['おすすめゲーム', '神ゲー', 'PCゲーム'],
         'short': ['PCゲーム', 'Steam'],
+        'blog': ['自作PC', 'PCパーツ', 'ブログ更新'],
     }
 
     extra_tags = type_tags.get(pattern_type, ['PCゲーム'])
@@ -488,11 +489,89 @@ def post_tweet(text, dry_run=True, image_path=None):
         return False
 
 
+def load_blog_history():
+    """ブログ生成履歴を読み込む"""
+    blog_history_path = Path(__file__).parent.parent / 'static' / 'blog' / 'generation_history.json'
+    if not blog_history_path.exists():
+        return []
+    with open(blog_history_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def generate_blog_tweet():
+    """ブログ記事紹介ツイートを生成"""
+    blog_history = load_blog_history()
+    if not blog_history:
+        return None, 'blog'
+
+    # 直近10記事からランダム選択
+    recent = blog_history[-10:]
+    article = random.choice(recent)
+    title = article['title']
+    filename = article['filename']
+
+    full_url = f"{SITE_URL}/blog/{filename}"
+    short_url = shorten_url(full_url)
+
+    patterns = [
+        (f"記事書きました\n\n{title}\n\n{short_url}", 'blog'),
+        (f"新記事↓\n{title}\n\n価格.comの最新データ使ってます\n{short_url}", 'blog'),
+        (f"毎日更新中\n\n{title}\n{short_url}", 'blog'),
+        (f"今日のPC記事\n{title}\n\n{short_url}", 'blog'),
+        (f"これ需要あると思う\n\n{title}\n{short_url}", 'blog'),
+        (f"実データで書いた記事\n{title}\n\n価格.com調べの最新価格入り\n{short_url}", 'blog'),
+        (f"ブログ更新\n{title}\n\n{short_url}", 'blog'),
+        (f"PC自作勢向け\n{title}\n\n{short_url}", 'blog'),
+    ]
+
+    # 週刊レポートには専用パターン
+    if 'weekly_report' in article.get('template', ''):
+        patterns.extend([
+            (f"今週のパーツ相場まとめ\n\n{title}\n\n{short_url}", 'blog'),
+            (f"GPU値下がってきた\n詳しくは↓\n\n{short_url}", 'blog'),
+            (f"毎週恒例パーツ価格チェック\n{title}\n{short_url}", 'blog'),
+        ])
+
+    text, pattern_type = random.choice(patterns)
+    return text, pattern_type
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='PC Compatibility Checker Twitter Bot')
     parser.add_argument('--dry-run', action='store_true', help='テスト実行（実際に投稿しない）')
     args = parser.parse_args()
+
+    # 30%の確率でブログ紹介ツイート
+    blog_history = load_blog_history()
+    use_blog = blog_history and random.random() < 0.3
+
+    if use_blog:
+        print("[モード] ブログ記事紹介ツイート")
+        tweet_text, pattern_type = generate_blog_tweet()
+        if tweet_text:
+            # ハッシュタグ追加
+            hashtags_list = random.sample(['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC'], 2)
+            hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
+            tweet_text = tweet_text + f"\n\n{hashtags}"
+
+            success = post_tweet(tweet_text, dry_run=args.dry_run)
+            if success and not args.dry_run:
+                history = load_history()
+                history.append({
+                    'name': '[blog]',
+                    'posted_at': datetime.now().isoformat(),
+                    'tweet_text': tweet_text,
+                    'has_image': False,
+                })
+                save_history(history)
+                print("[OK] 投稿履歴を更新しました")
+            if not success:
+                sys.exit(1)
+            return
+
+    # 通常のゲームツイート
+    print("[モード] ゲームスペックツイート")
 
     # ゲームデータ読み込み
     print("ゲームデータ読み込み中...")

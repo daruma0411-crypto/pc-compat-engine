@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ブログ記事自動生成
-Claude API (Haiku) を使用して記事を生成し static/blog/ に保存
+ブログ記事自動生成（毎日1本・実データ連動・旬対応）
+Claude API (Opus 4.6) を使用して記事を生成し static/blog/ に保存
 
 使い方:
-  python blog_generator.py --count 3    # 3記事生成（テスト）
-  python blog_generator.py --count 30   # 30記事生成（月次）
-  python blog_generator.py --dry-run    # API呼び出しなしのテスト
+  python blog_generator.py --count 1           # 1記事生成（日次）
+  python blog_generator.py --weekly-report      # 週刊レポート生成
+  python blog_generator.py --dry-run            # API呼び出しなしのテスト
 """
 
 import os
@@ -20,6 +20,7 @@ from pathlib import Path
 from datetime import datetime
 
 from blog_templates import BLOG_TEMPLATES
+from blog_data_loader import get_data_context, get_source_note
 
 # 環境変数
 ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
@@ -53,6 +54,22 @@ TARGET_BUDGETS = ["8", "10", "12", "15", "18", "20"]
 # 生成済み記事の重複チェック用
 HISTORY_FILE = BLOG_DIR / "generation_history.json"
 
+# 季節・イベントコンテキスト
+SEASON_CONTEXT = {
+    1: "年末年始セール直後で、新しいPCを組んだ人が多い時期です。初心者向けの記事が求められます。",
+    2: "春の新生活シーズン前。学生・新社会人向けのPC選びが注目されます。",
+    3: "新年度・新生活準備シーズン。PC購入需要が高まる時期です。GDC開催月でもあり新作発表も多いです。",
+    4: "新年度スタート。新入学・新社会人がPC環境を整える時期です。",
+    5: "GW（ゴールデンウィーク）で時間がある人がゲームを始める時期。セールも多いです。",
+    6: "Steamサマーセール直前。セールに備えたPC準備やゲーム選びの記事が求められます。",
+    7: "Steamサマーセール中〜直後。新作ゲームの発表が多い時期です。夏休み前でPC需要も上がります。",
+    8: "夏休み真っ只中。学生のPC自作需要が最大化。gamescom開催月で新作情報も豊富。",
+    9: "秋の大型タイトルラッシュ開始。Tokyo Game Show開催月。",
+    10: "年末商戦に向けた大型タイトル発売ラッシュ。ハロウィンセールもあります。",
+    11: "ブラックフライデー・サイバーマンデーセール。パーツ購入の最大チャンス。",
+    12: "年末商戦ピーク。Steamウィンターセール。クリスマス・年末年始用PCの駆け込み需要。",
+}
+
 
 def load_generation_history():
     if HISTORY_FILE.exists():
@@ -73,6 +90,30 @@ def slugify(text):
     text = re.sub(r'[^\w\s-]', '', text)
     text = re.sub(r'[-\s]+', '-', text)
     return text.strip('-')[:60]
+
+
+def get_season_context():
+    """現在の月に応じた季節コンテキストを返す"""
+    month = datetime.now().month
+    return SEASON_CONTEXT.get(month, "")
+
+
+def get_week_of_month():
+    """月の第N週を返す"""
+    now = datetime.now()
+    return (now.day - 1) // 7 + 1
+
+
+def get_date_variables():
+    """日付関連の変数を生成"""
+    now = datetime.now()
+    return {
+        'today': now.strftime('%Y年%m月%d日'),
+        'today_short': now.strftime('%Y年%m月'),
+        'month': str(now.month),
+        'week': str(get_week_of_month()),
+        'season_context': get_season_context(),
+    }
 
 
 def generate_article_html(title, content, keywords):
@@ -117,7 +158,9 @@ h3 {{ color: #34495e; margin-top: 24px; }}
 .cta-button:hover {{ transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }}
 .page-footer {{ margin-top: 40px; padding: 20px 0; border-top: 1px solid #e0e0e0; text-align: center; font-size: 13px; color: #777; }}
 .page-footer a {{ color: #4CAF50; margin: 0 8px; }}
-.disclaimer {{ color: #777; font-size: 12px; margin-top: 16px; padding: 10px; background: #f8f8f8; border-left: 3px solid #ffa500; border-radius: 4px; }}
+.source-note {{ color: #777; font-size: 12px; margin-top: 16px; padding: 10px; background: #f0f8ff; border-left: 3px solid #4682b4; border-radius: 4px; }}
+.source-note a {{ color: #4682b4; }}
+.disclaimer {{ color: #777; font-size: 12px; margin-top: 8px; padding: 10px; background: #f8f8f8; border-left: 3px solid #ffa500; border-radius: 4px; }}
 @media (max-width: 600px) {{
   body {{ padding: 10px; }}
   h1 {{ font-size: 1.2rem; }}
@@ -140,6 +183,7 @@ h3 {{ color: #34495e; margin-top: 24px; }}
 
   <div class="article-content">
     {content}
+    <p class="source-note">※ 価格データ：<a href="https://kakaku.com/" rel="nofollow">価格.com</a>調べ（{date_display}時点）。ゲーム動作環境：各ゲーム公式/Steam掲載情報。</p>
     <p class="disclaimer">※ 本記事のFPS値・性能値は一般的な目安です。実際の動作はPC環境・ゲーム設定により異なります。</p>
   </div>
 
@@ -171,6 +215,8 @@ def generate_blog_post(template, variables, dry_run=False):
     print(f"  記事生成中: {title}")
 
     if dry_run:
+        # dry-runでもデータコンテキストを表示して確認
+        print(f"  [DATA] data_context ({len(variables.get('data_context', ''))}文字)")
         content = f"<h2>テスト記事</h2><p>これは{title}のテスト記事です。</p>"
         return title, generate_article_html(title, content, keywords), keywords
 
@@ -189,6 +235,9 @@ def generate_blog_post(template, variables, dry_run=False):
         )
 
         content = message.content[0].text
+        # APIレスポンスからマークダウンコードフェンスを除去
+        content = re.sub(r'^```html?\s*\n?', '', content.strip())
+        content = re.sub(r'\n?```\s*$', '', content.strip())
         html = generate_article_html(title, content, keywords)
         return title, html, keywords
 
@@ -197,28 +246,77 @@ def generate_blog_post(template, variables, dry_run=False):
         return None, None, None
 
 
-def generate_posts(count=30, dry_run=False):
+def generate_posts(count=1, dry_run=False, weekly_report=False):
     """記事を生成"""
     history = load_generation_history()
     generated_titles = set(h.get('title', '') for h in history)
 
+    # 日付変数を準備
+    date_vars = get_date_variables()
+    source_note = get_source_note()
+
     generated = 0
     new_entries = []
 
-    for i in range(count):
-        # ランダムにテンプレート選択
-        template = random.choice(BLOG_TEMPLATES)
+    # 週刊レポートモード
+    if weekly_report:
+        template = next((t for t in BLOG_TEMPLATES if t['id'] == 'weekly_report'), None)
+        if not template:
+            print("[ERROR] weekly_report テンプレートが見つかりません")
+            return
 
-        # 変数設定
+        variables = {
+            **date_vars,
+            'source_note': source_note,
+            'data_context': get_data_context('weekly_report', {}),
+        }
+
+        title = template['title'].format(**variables)
+        if title in generated_titles:
+            print(f"[SKIP] 今週のレポートは生成済み: {title}")
+        else:
+            print(f"[週刊レポート] {template['id']}")
+            title, html, keywords = generate_blog_post(template, variables, dry_run=dry_run)
+            if html:
+                date_prefix = datetime.now().strftime('%Y%m%d')
+                filename = f"{date_prefix}-{template['id']}-{slugify(title)}.html"
+                filepath = BLOG_DIR / filename
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(html)
+                print(f"  [OK] {filepath.name}")
+                new_entries.append({
+                    'title': title,
+                    'filename': filename,
+                    'template': template['id'],
+                    'keywords': keywords,
+                    'generated_at': datetime.now().isoformat(),
+                })
+                generated += 1
+
+    # 通常記事モード
+    attempts = 0
+    max_attempts = count * 5
+    # weekly_reportテンプレートは通常モードでは除外
+    normal_templates = [t for t in BLOG_TEMPLATES if t['id'] != 'weekly_report']
+
+    while generated < count + (1 if weekly_report else 0) - (1 if weekly_report and new_entries else 0) and attempts < max_attempts:
+        attempts += 1
+
+        template = random.choice(normal_templates)
+
         variables = {
             'game': random.choice(TARGET_GAMES),
             'gpu_model': random.choice(TARGET_GPUS),
             'budget': random.choice(TARGET_BUDGETS),
+            **date_vars,
+            'source_note': source_note,
         }
+
+        # テンプレート別の実データを注入
+        variables['data_context'] = get_data_context(template['id'], variables)
 
         title = template['title'].format(**variables)
 
-        # 重複チェック
         if title in generated_titles:
             continue
 
@@ -227,11 +325,9 @@ def generate_posts(count=30, dry_run=False):
         title, html, keywords = generate_blog_post(template, variables, dry_run=dry_run)
 
         if html:
-            # ファイル名生成
             date_prefix = datetime.now().strftime('%Y%m%d')
             filename = f"{date_prefix}-{template['id']}-{slugify(title)}.html"
 
-            # 保存
             filepath = BLOG_DIR / filename
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(html)
@@ -247,7 +343,6 @@ def generate_posts(count=30, dry_run=False):
             })
             generated += 1
 
-            # レート制限対策
             if not dry_run:
                 time.sleep(1)
 
@@ -255,16 +350,17 @@ def generate_posts(count=30, dry_run=False):
     history.extend(new_entries)
     save_generation_history(history)
 
-    print(f"\n{generated}/{count} 記事生成完了！ → {BLOG_DIR}")
+    print(f"\n{len(new_entries)}記事生成完了！ → {BLOG_DIR}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Blog Auto Generator')
-    parser.add_argument('--count', type=int, default=30, help='生成記事数')
+    parser = argparse.ArgumentParser(description='Blog Auto Generator (Daily)')
+    parser.add_argument('--count', type=int, default=1, help='生成記事数（デフォルト: 1）')
+    parser.add_argument('--weekly-report', action='store_true', help='週刊レポートを生成')
     parser.add_argument('--dry-run', action='store_true', help='API呼び出しなしのテスト')
     args = parser.parse_args()
 
-    generate_posts(count=args.count, dry_run=args.dry_run)
+    generate_posts(count=args.count, dry_run=args.dry_run, weekly_report=args.weekly_report)
 
 
 if __name__ == '__main__':
