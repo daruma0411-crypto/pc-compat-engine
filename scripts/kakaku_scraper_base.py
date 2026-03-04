@@ -221,6 +221,155 @@ def extract_min_price(html: str) -> int | None:
     return None
 
 
+def migrate_entry(entry: dict, today: str) -> dict:
+    """既存エントリに差分管理フィールドを追加（冪等）"""
+    if 'status' not in entry:
+        entry['status'] = 'active'
+    if 'first_seen_at' not in entry:
+        entry['first_seen_at'] = entry.get('created_at', today)
+    if 'last_seen_at' not in entry:
+        entry['last_seen_at'] = entry.get('price_updated_at', today)
+    if 'price_history' not in entry:
+        entry['price_history'] = []
+        if entry.get('price_min'):
+            entry['price_history'] = [{
+                'date': entry.get('price_updated_at', today),
+                'price': entry['price_min']
+            }]
+    return entry
+
+
+def update_prices_with_diff(jsonl_path: str, today: str, active_codes: set = None) -> dict:
+    """
+    価格更新 + 差分検出。
+    active_codes: 今回のスクレイプで見つかった kakaku コードのセット。
+                  None の場合は廃盤検知をスキップ（従来互換）。
+    戻り値: {'new': [...], 'price_changed': [...], 'delisted': [...], 'updated': int}
+    """
+    diff = {'new': [], 'price_changed': [], 'delisted': [], 'updated': 0}
+
+    if not os.path.exists(jsonl_path):
+        print(f'  [SKIP] ファイルなし: {jsonl_path}')
+        return diff
+
+    entries = []
+    with open(jsonl_path, encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    entries.append(json.loads(line))
+                except Exception:
+                    pass
+
+    for entry in entries:
+        # マイグレーション（未適用なら適用）
+        migrate_entry(entry, today)
+
+        # すでに今日更新済みならスキップ
+        if entry.get('price_updated_at') == today:
+            continue
+
+        url = entry.get('source_url', '')
+        code_m = re.search(r'(K0\d{9})', url)
+        if not code_m:
+            continue
+        code = code_m.group(1)
+
+        # 廃盤検知
+        if active_codes is not None and code not in active_codes:
+            if entry.get('status') != 'delisted':
+                entry['status'] = 'delisted'
+                diff['delisted'].append({
+                    'id': entry.get('id', ''),
+                    'name': entry.get('name', ''),
+                    'last_price': entry.get('price_min'),
+                })
+            continue
+
+        # activeなら last_seen_at を更新
+        entry['last_seen_at'] = today
+        entry['status'] = 'active'
+
+        # 価格取得
+        html = fetch(f'https://kakaku.com/item/{code}/spec/', delay_range=(1.0, 2.0))
+        if not html:
+            continue
+        new_price = extract_min_price(html)
+        if new_price and new_price > 0:
+            old_price = entry.get('price_min')
+            if old_price != new_price:
+                # 価格変動
+                entry['price_history'].append({'date': today, 'price': new_price})
+                entry['price_history'] = entry['price_history'][-12:]  # 直近12回
+                diff['price_changed'].append({
+                    'id': entry.get('id', ''),
+                    'name': entry.get('name', ''),
+                    'old_price': old_price,
+                    'new_price': new_price,
+                })
+            entry['price_min'] = new_price
+            entry['price_updated_at'] = today
+            diff['updated'] += 1
+
+    # 全件書き直し
+    with open(jsonl_path, 'w', encoding='utf-8') as f:
+        for entry in entries:
+            f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+
+    print(f'  価格更新: {diff["updated"]}件 / {len(entries)}件'
+          f' (変動: {len(diff["price_changed"])} 廃盤: {len(diff["delisted"])}) [{jsonl_path}]')
+    return diff
+
+
+def save_diff_log(diff_log_dir: str, today: str, all_diffs: dict):
+    """
+    差分ログを JSONL ファイルに書き出す。
+    all_diffs: {category: diff_dict, ...}
+    """
+    os.makedirs(diff_log_dir, exist_ok=True)
+    log_path = os.path.join(diff_log_dir, f'{today}.jsonl')
+
+    total_new = 0
+    total_changed = 0
+    total_delisted = 0
+
+    with open(log_path, 'w', encoding='utf-8') as f:
+        for category, diff in all_diffs.items():
+            for item in diff.get('new', []):
+                item['type'] = 'new'
+                item['category'] = category
+                item['date'] = today
+                f.write(json.dumps(item, ensure_ascii=False) + '\n')
+                total_new += 1
+            for item in diff.get('price_changed', []):
+                item['type'] = 'price_changed'
+                item['category'] = category
+                item['date'] = today
+                f.write(json.dumps(item, ensure_ascii=False) + '\n')
+                total_changed += 1
+            for item in diff.get('delisted', []):
+                item['type'] = 'delisted'
+                item['category'] = category
+                item['date'] = today
+                f.write(json.dumps(item, ensure_ascii=False) + '\n')
+                total_delisted += 1
+
+        # サマリー行
+        summary = {
+            'type': 'summary',
+            'date': today,
+            'new_count': total_new,
+            'price_changed_count': total_changed,
+            'delisted_count': total_delisted,
+        }
+        f.write(json.dumps(summary, ensure_ascii=False) + '\n')
+
+    print(f'\n差分ログ: {log_path}')
+    print(f'  新規: {total_new} / 価格変動: {total_changed} / 廃盤: {total_delisted}')
+    return log_path
+
+
 def update_prices_in_jsonl(jsonl_path: str, today: str):
     """
     既存 JSONL ファイルの各エントリに price_min / price_updated_at を追記・上書きする。

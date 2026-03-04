@@ -1924,6 +1924,9 @@ def _load_all_pc_products():
 
     all_products = [p for p in all_products if is_recent_product(p)]
 
+    # 廃盤品を除外（statusフィールドなし = active扱い）
+    all_products = [p for p in all_products if p.get('status', 'active') != 'delisted']
+
     _ALL_PC_PRODUCTS_CACHE = all_products
     _ALL_PC_PRODUCTS_CACHE_TIME = now
     return all_products

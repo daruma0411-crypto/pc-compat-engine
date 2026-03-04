@@ -1,36 +1,64 @@
 """
-価格.com 価格バッチ更新スクリプト
-週1で実行し、GPU/CPU/RAM の最安値を更新して git push する。
+価格.com 価格バッチ更新スクリプト（差分検出対応）
+週1で実行し、全kakakuカテゴリの価格を更新・差分ログ出力・git push する。
 
 実行方法:
   python scripts/kakaku_price_updater.py
 
-タスクスケジューラ:
-  run_price_update.bat を毎週月曜 AM6:00 に実行
+自動化:
+  GitHub Actions weekly-price-update.yml (毎週日曜 06:00 JST)
 """
 import sys, os, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 from datetime import datetime, timezone
-from kakaku_scraper_base import DATA_ROOT, update_prices_in_jsonl
+from kakaku_scraper_base import (
+    DATA_ROOT, get_all_codes,
+    update_prices_with_diff, save_diff_log,
+    update_prices_in_jsonl,  # 後方互換
+)
 
 TODAY = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 
-# 価格更新対象ディレクトリ（既存スペックデータあり）
-PRICE_UPDATE_TARGETS = [
-    os.path.join(DATA_ROOT, 'kakaku_cpu',     'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_mb',      'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_psu',     'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_case',    'products.jsonl'),
-    os.path.join(DATA_ROOT, 'kakaku_cooler',  'products.jsonl'),
-]
+# kakakuカテゴリごとの LIST_URL と products.jsonl パス
+KAKAKU_CATEGORIES = {
+    'gpu':    {
+        'list_url': 'https://kakaku.com/pc/videocard/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_gpu', 'products.jsonl'),
+    },
+    'ram':    {
+        'list_url': 'https://kakaku.com/pc/pc-memory/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_ram', 'products.jsonl'),
+    },
+    'cpu':    {
+        'list_url': 'https://kakaku.com/pc/cpu/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_cpu', 'products.jsonl'),
+    },
+    'mb':     {
+        'list_url': 'https://kakaku.com/pc/motherboard/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_mb', 'products.jsonl'),
+    },
+    'psu':    {
+        'list_url': 'https://kakaku.com/pc/power-supply/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_psu', 'products.jsonl'),
+    },
+    'case':   {
+        'list_url': 'https://kakaku.com/pc/pc-case/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_case', 'products.jsonl'),
+    },
+    'cooler': {
+        'list_url': 'https://kakaku.com/pc/cpu-cooler/itemlist.aspx',
+        'jsonl': os.path.join(DATA_ROOT, 'kakaku_cooler', 'products.jsonl'),
+    },
+}
 
+DIFF_LOG_DIR = os.path.join(DATA_ROOT, 'diff_logs')
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def run_scraper(script_name: str):
-    """GPU/RAM スクレイパーを子プロセスで実行"""
+    """GPU/RAM スクレイパーを子プロセスで実行（新規製品の追加）"""
     script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), script_name)
     print(f'\n{"="*50}')
     print(f'実行: {script_name}')
@@ -59,15 +87,12 @@ def git_commit_and_push():
             print(result.stderr.strip())
         return result.returncode
 
-    # ステージング
-    run(['git', 'add',
-         os.path.join(data_dir, 'kakaku_gpu', 'products.jsonl'),
-         os.path.join(data_dir, 'kakaku_ram', 'products.jsonl'),
-         os.path.join(data_dir, 'kakaku_cpu', 'products.jsonl'),
-         os.path.join(data_dir, 'kakaku_mb',  'products.jsonl'),
-         os.path.join(data_dir, 'kakaku_psu', 'products.jsonl'),
-         os.path.join(data_dir, 'kakaku_case','products.jsonl'),
-    ])
+    # ステージング: 全kakakuデータ + diff_logs
+    add_paths = []
+    for cat_info in KAKAKU_CATEGORIES.values():
+        add_paths.append(cat_info['jsonl'])
+    add_paths.append(DIFF_LOG_DIR)
+    run(['git', 'add'] + add_paths)
 
     # 変更があるか確認
     result = subprocess.run(['git', 'diff', '--cached', '--quiet'],
@@ -82,7 +107,7 @@ def git_commit_and_push():
         print('[WARN] git commit 失敗')
         return
 
-    rc = run(['git', 'push', 'origin', 'master'])
+    rc = run(['git', 'push', 'origin', 'main'])
     if rc != 0:
         print('[WARN] git push 失敗')
     else:
@@ -93,20 +118,30 @@ def main():
     print(f'価格バッチ更新開始: {TODAY}')
     print(f'リポジトリ: {REPO_ROOT}')
 
-    # 1. GPU スクレイパー（新規収集 + 価格）
+    # 1. GPU/RAM スクレイパー（新規製品の追加 + 価格取得）
     run_scraper('kakaku_scraper_gpu.py')
-
-    # 2. RAM スクレイパー（新規収集 + 価格）
     run_scraper('kakaku_scraper_ram.py')
 
-    # 3. 既存 CPU/MB/PSU/Case の価格を更新
+    # 2. 全カテゴリの active_codes 収集 + 差分検出付き価格更新
+    all_diffs = {}
     print(f'\n{"="*50}')
-    print('既存エントリの価格更新')
+    print('差分検出付き価格更新')
     print('='*50)
-    total_updated = 0
-    for jsonl_path in PRICE_UPDATE_TARGETS:
-        total_updated += update_prices_in_jsonl(jsonl_path, TODAY)
-    print(f'合計更新: {total_updated}件')
+
+    for cat_name, cat_info in KAKAKU_CATEGORIES.items():
+        print(f'\n--- {cat_name} ---')
+
+        # 一覧ページから現在 active なコードを収集
+        print(f'  一覧ページ走査: {cat_info["list_url"]}')
+        active_codes = set(get_all_codes(cat_info['list_url']))
+        print(f'  active コード: {len(active_codes)}件')
+
+        # 差分検出付き価格更新
+        diff = update_prices_with_diff(cat_info['jsonl'], TODAY, active_codes)
+        all_diffs[cat_name] = diff
+
+    # 3. 差分ログ出力
+    save_diff_log(DIFF_LOG_DIR, TODAY, all_diffs)
 
     # 4. git commit & push
     git_commit_and_push()
