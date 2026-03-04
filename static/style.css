@@ -1239,3 +1239,323 @@ header {
     display: none;
   }
 }
+
+/* ================================================================
+   直帰率対策: Discovery Bar (サイドバー代替 - 横3カラム)
+   ================================================================ */
+.discovery-bar {
+  background: var(--bg-main);
+  border-top: 1px solid var(--c-border);
+  padding: 32px 20px;
+}
+.discovery-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.discovery-section h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin: 0 0 12px 0;
+}
+.popular-games-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: popular;
+}
+.popular-games-list li {
+  counter-increment: popular;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.popular-games-list li::before {
+  content: counter(popular) ". ";
+  font-weight: 600;
+  color: var(--c-primary);
+  margin-right: 4px;
+}
+.popular-games-list a,
+.new-games-list a,
+.genre-list a {
+  color: var(--c-sub);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+.popular-games-list a:hover,
+.new-games-list a:hover,
+.genre-list a:hover {
+  color: var(--c-primary);
+  text-decoration: underline;
+}
+.new-games-list,
+.genre-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.new-games-list li,
+.genre-list li {
+  margin-bottom: 6px;
+  padding-left: 18px;
+  position: relative;
+  font-size: 13px;
+}
+.new-games-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--c-primary);
+}
+.genre-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--c-primary);
+}
+@media (max-width: 768px) {
+  .discovery-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ================================================================
+   直帰率対策: フッター強化 (4セクション版)
+   ================================================================ */
+.site-footer-enhanced {
+  background: var(--bg-main);
+  border-top: 1px solid var(--c-border);
+  padding: 40px 20px 20px;
+}
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.footer-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--c-primary);
+}
+.footer-section p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-sub);
+  margin: 0;
+}
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-section ul li {
+  margin-bottom: 6px;
+}
+.footer-section a {
+  color: var(--c-sub);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+.footer-section a:hover {
+  color: var(--c-primary);
+}
+.footer-bottom {
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-border);
+}
+.footer-bottom p {
+  font-size: 12px;
+  color: var(--c-muted);
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
+   直帰率対策: Exit Intent Modal
+   ================================================================ */
+.exit-intent-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.exit-intent-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.exit-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.exit-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-main);
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+.exit-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: var(--c-muted);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+.exit-modal-close:hover {
+  color: var(--c-text);
+}
+.exit-modal-content h2 {
+  font-size: 24px;
+  margin: 0 0 12px 0;
+  color: var(--c-text);
+}
+.exit-modal-content p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-sub);
+  margin: 0 0 24px 0;
+}
+.exit-modal-cta {
+  display: inline-block;
+  background: var(--c-primary);
+  color: #ffffff;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: opacity 0.2s;
+}
+.exit-modal-cta:hover {
+  opacity: 0.85;
+}
+.exit-modal-games {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--c-muted);
+}
+.exit-modal-games a {
+  color: var(--c-sub);
+  text-decoration: none;
+}
+.exit-modal-games a:hover {
+  color: var(--c-primary);
+  text-decoration: underline;
+}
+
+/* ================================================================
+   直帰率対策: Scroll 50% CTA
+   ================================================================ */
+.scroll-cta {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  transition: bottom 0.3s ease-out;
+}
+.scroll-cta.show {
+  bottom: 20px;
+}
+.scroll-cta-content {
+  background: var(--c-primary);
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(96, 165, 250, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 90vw;
+}
+.scroll-cta-text {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.scroll-cta-button {
+  background: #ffffff;
+  color: var(--c-primary);
+  padding: 8px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: transform 0.2s;
+}
+.scroll-cta-button:hover {
+  transform: scale(1.05);
+}
+.scroll-cta-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+}
+.scroll-cta-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+@media (max-width: 768px) {
+  .scroll-cta-content {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 16px;
+  }
+  .scroll-cta-text {
+    font-size: 13px;
+    text-align: center;
+    white-space: normal;
+  }
+}
