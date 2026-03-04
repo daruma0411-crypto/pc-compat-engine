@@ -84,12 +84,28 @@ def save_generation_history(history):
 
 
 def slugify(text):
-    """タイトルをファイル名用スラッグに変換"""
+    """タイトルをファイル名用スラッグに変換（ASCII英数字のみ）"""
     text = text.lower()
-    text = re.sub(r'[「」\[\]【】（）()\'\"、。・]', '', text)
-    text = re.sub(r'[^\w\s-]', '', text)
+    # 日本語→英語の簡易変換
+    jp_map = {
+        '予算': 'budget', '万円': 'man', '最強': 'best', '版': '',
+        '週刊': 'weekly', '月': 'month', '第': 'week', '週': '',
+        '年': 'y', 'で組む': '', 'で遊べる': '', 'の推奨スペックと': '-spec-',
+        'が動かない時の対処法': '-fix', 'が重い': '-heavy',
+        'カクつく原因と解決策': '-lag-fix', '選': 'picks',
+        'を入れるために必要なスペック': '-mod-spec',
+        'をで遊ぶために必要な': '-for-', '中古パーツで組む': 'used-parts-',
+        'ノートで': 'laptop-', 'は快適に遊べる': '',
+        'おすすめ': 'recommend', 'パーツ価格ウォッチ': 'parts-price-watch',
+        '更新': 'update', 'ゲーミング構成': 'gaming-build',
+        '最新ゲーム推奨スペックランキング': 'spec-ranking',
+    }
+    for jp, en in jp_map.items():
+        text = text.replace(jp, en)
+    # ASCII英数字とハイフンのみ残す
+    text = re.sub(r'[^a-z0-9\s-]', '', text)
     text = re.sub(r'[-\s]+', '-', text)
-    return text.strip('-')[:60]
+    return text.strip('-')[:80]
 
 
 def get_season_context():
