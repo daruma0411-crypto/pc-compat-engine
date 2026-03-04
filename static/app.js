@@ -118,8 +118,8 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
         '</div>' +
         '<div class="mode-card mode-card--bto" onclick="selectMode(\'bto\')">' +
-          '<span class="mode-card-icon">🖥️</span>おすすめPC' +
-          '<span class="mode-card-sub">組み立て不要・メーカー保証付き</span>' +
+          '<span class="mode-card-icon">🖥️</span>組み立て済みPCを探す' +
+          '<span class="mode-card-sub">低価格＆高性能が即納！</span>' +
         '</div>' +
       '</div>';
     appendAIBubble('まず何をしたいか教えてください', cardsHtml);
@@ -1120,8 +1120,8 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
             '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
           '</div>' +
           '<div class="mode-card mode-card--bto" onclick="selectMode(\'bto\')">' +
-            '<span class="mode-card-icon">🖥️</span>おすすめPC' +
-            '<span class="mode-card-sub">組み立て不要・メーカー保証付き</span>' +
+            '<span class="mode-card-icon">🖥️</span>組み立て済みPCを探す' +
+            '<span class="mode-card-sub">低価格＆高性能が即納！</span>' +
           '</div>' +
         '</div>';
       appendAIBubble(data.ai_message, cardsHtml);
