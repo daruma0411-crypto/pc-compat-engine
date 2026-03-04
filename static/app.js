@@ -118,7 +118,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
         '</div>' +
         '<div class="mode-card mode-card--bto" onclick="selectMode(\'bto\')">' +
-          '<span class="mode-card-icon">🖥️</span>おすすめPCを探す' +
+          '<span class="mode-card-icon">🖥️</span>おすすめPC' +
           '<span class="mode-card-sub">組み立て不要・メーカー保証付き</span>' +
         '</div>' +
       '</div>';
@@ -1120,7 +1120,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
             '<span class="mode-card-icon">🔧</span>パーツの互換性を確認' +
           '</div>' +
           '<div class="mode-card mode-card--bto" onclick="selectMode(\'bto\')">' +
-            '<span class="mode-card-icon">🖥️</span>おすすめPCを探す' +
+            '<span class="mode-card-icon">🖥️</span>おすすめPC' +
             '<span class="mode-card-sub">組み立て不要・メーカー保証付き</span>' +
           '</div>' +
         '</div>';
