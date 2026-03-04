@@ -3248,6 +3248,28 @@ def execute_tool(tool_name, tool_input, session, all_products):
 # BTO マッチングハンドラ
 # ================================================================
 
+def _bto_search_url(rec):
+    """BTOメーカー別の商品検索URLを生成（直リンクは商品差替えリスクあり）"""
+    import urllib.parse as _up
+    maker = (rec.get('maker') or '').strip()
+    model = rec.get('model') or rec.get('series') or ''
+    q = _up.quote(model)
+
+    search_urls = {
+        'ドスパラ':           f'https://www.dospara.co.jp/SBR/IC442/{q}.html',
+        'パソコン工房':       f'https://www.pc-koubou.jp/products/list?keyword={q}',
+        'マウスコンピューター': f'https://www.mouse-jp.co.jp/store/g/search/?q={q}',
+        'サイコム':           f'https://www.sycom.co.jp/custom/search.php?search_word={q}',
+        'ツクモ':             f'https://shop.tsukumo.co.jp/search?keyword={q}',
+        'FRONTIER':          f'https://www.frontier-direct.jp/direct/default.aspx?s={q}',
+        'STORM':             f'https://www.stormst.com/products/list?keyword={q}',
+        'SEVEN':             f'https://pc-seven.co.jp/?s={q}',
+        'HP':                f'https://jp.ext.hp.com/search/?q={q}',
+        'Lenovo':            f'https://www.lenovo.com/jp/ja/search?q={q}',
+    }
+    return search_urls.get(maker, rec.get('url', ''))
+
+
 def _handle_search_bto(params, session):
     """search_bto ツールのハンドラ。BTOマッチング結果を松竹梅で返す。"""
     try:
@@ -3308,7 +3330,7 @@ def _handle_search_bto(params, session):
             'ram_gb': rec.get('ram_gb', 0),
             'storage': rec.get('storage', ''),
             'psu': rec.get('psu', ''),
-            'url': rec.get('url', ''),
+            'url': _bto_search_url(rec),
             'warranty_years': rec.get('warranty_years', 1),
             'tags': rec.get('tags', []),
         })
