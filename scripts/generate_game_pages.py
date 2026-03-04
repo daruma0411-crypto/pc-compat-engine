@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 games.jsonl から全ゲームのランディングページを自動生成
-AIO/SEO最適化済み - Phase 1+2 (2026-03-03)
+AIO/SEO最適化済み - Phase 1+2+3 直帰率改善 (2026-03-04)
 """
 import json
 import re
@@ -639,6 +639,33 @@ def generate_page_css():
     .calc-perf { margin: 10px 0 0; padding: 8px; background: #e3f2fd; border-radius: 6px; color: #1565C0; font-size: 13px; }
     .calc-warn { color: #c62828; font-weight: bold; padding: 10px; background: #ffebee; border-radius: 6px; }
 
+    /* 目次 (TOC) */
+    .toc { margin: 20px 0; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; }
+    .toc summary { cursor: pointer; font-size: 15px; color: #2c3e50; }
+    .toc ol { margin: 12px 0 0; padding-left: 24px; }
+    .toc li { margin-bottom: 6px; font-size: 14px; }
+    .toc a { color: #4CAF50; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* パンくず */
+    .breadcrumb { margin: 0 0 12px; font-size: 13px; }
+    .breadcrumb ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+    .breadcrumb li { display: flex; align-items: center; }
+    .breadcrumb li:not(:last-child)::after { content: "›"; margin-left: 4px; color: #999; }
+    .breadcrumb a { color: #4CAF50; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb li[aria-current="page"] { color: #666; }
+
+    /* 人気ゲームチップ */
+    .popular-chips { margin: 12px 0 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .chips-label { font-size: 13px; color: #666; font-weight: 600; white-space: nowrap; }
+    .game-chip { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 16px; font-size: 12px; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
+    .game-chip:hover { background: #c8e6c9; }
+
+    /* Back to Top */
+    .back-to-top { display: none; position: fixed; bottom: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #4CAF50; color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 999; align-items: center; justify-content: center; transition: background 0.2s; }
+    .back-to-top:hover { background: #45a049; }
+
     /* フッター */
     .page-footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #e0e0e0; text-align: center; font-size: 13px; color: #777; }
     .page-footer a { color: #4CAF50; margin: 0 8px; }
@@ -668,6 +695,9 @@ def generate_page_css():
       .gpu-tips { padding: 10px 12px; }
       .gpu-table { min-width: unset; }
       .table-scroll { max-width: 100%; }
+      .popular-chips { gap: 6px; }
+      .game-chip { font-size: 11px; padding: 3px 10px; }
+      .back-to-top { bottom: 14px; right: 14px; width: 40px; height: 40px; font-size: 18px; }
     }
     @media (max-width: 375px) {
       body { padding: 8px; }
@@ -700,6 +730,96 @@ def generate_structured_data(game, slug):
             "operatingSystem": "Windows 10/11"
         }
     }, ensure_ascii=False, indent=2)
+
+
+def get_popular_games(all_games, max_count=8):
+    """metacritic_score上位の人気ゲームを返す"""
+    scored = [(g.get('metacritic_score', 0) or 0, g) for g in all_games
+              if g.get('metacritic_score') and _get_specs(g)[0]]
+    scored.sort(key=lambda x: -x[0])
+    return [g for _, g in scored[:max_count]]
+
+
+def generate_toc_section(name):
+    """目次（Table of Contents）セクションを生成"""
+    return f"""
+<nav class="toc" aria-label="目次">
+  <details open>
+    <summary><strong>目次</strong></summary>
+    <ol>
+      <li><a href="#recommended">推奨動作環境</a></li>
+      <li><a href="#minimum">最低動作環境</a></li>
+      <li><a href="#check">PC診断</a></li>
+      <li><a href="#budget-builds">予算別おすすめPC構成</a></li>
+      <li><a href="#budget-calculator">予算診断ツール</a></li>
+      <li><a href="#gpu-comparison">GPU別性能比較</a></li>
+      <li><a href="#spec-checker">スペック診断ツール</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+      <li><a href="#troubleshooting">トラブルシューティング</a></li>
+    </ol>
+  </details>
+</nav>"""
+
+
+def generate_breadcrumb(name, slug, genre=None):
+    """パンくずナビゲーション HTML を生成"""
+    genre_label = genre if genre else "ゲーム推奨スペック"
+    return f"""
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/">ゲーム推奨スペック</a></li>
+    <li aria-current="page">{name}</li>
+  </ol>
+</nav>"""
+
+
+def generate_breadcrumb_schema(name, slug):
+    """BreadcrumbList Schema.org（JSON-LD）を生成"""
+    return json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "トップ",
+             "item": f"{SITE_URL}/"},
+            {"@type": "ListItem", "position": 2, "name": "ゲーム推奨スペック",
+             "item": f"{SITE_URL}/"},
+            {"@type": "ListItem", "position": 3, "name": name,
+             "item": f"{SITE_URL}/game/{slug}"}
+        ]
+    }, ensure_ascii=False, indent=2)
+
+
+def generate_popular_games_chips(popular_games, current_slug):
+    """人気ゲームのチップ型クイックリンクを生成"""
+    if not popular_games:
+        return ""
+    chips = []
+    for g in popular_games:
+        if g['slug'] == current_slug:
+            continue
+        chips.append(f'<a href="/game/{g["slug"]}" class="game-chip">{g["name"]}</a>')
+    if not chips:
+        return ""
+    return f"""
+<div class="popular-chips">
+  <span class="chips-label">人気ゲーム:</span>
+  {' '.join(chips[:6])}
+</div>"""
+
+
+def generate_back_to_top():
+    """Back to Top フローティングボタンのJS/HTMLを生成"""
+    return """
+<button id="back-to-top" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="ページ上部へ戻る">↑</button>
+<script>
+(function(){
+  var btn=document.getElementById('back-to-top');
+  window.addEventListener('scroll',function(){
+    btn.style.display=(window.scrollY>400)?'flex':'none';
+  });
+})();
+</script>"""
 
 
 def find_related_games(target_game, all_games, max_count=5):
@@ -747,7 +867,7 @@ def generate_related_games_section(related_games):
 </section>"""
 
 
-def generate_page(game, all_games=None):
+def generate_page(game, all_games=None, popular_games=None):
     """1ゲーム分のHTMLページを生成"""
     name = game['name']
     slug = game['slug']
@@ -803,6 +923,11 @@ def generate_page(game, all_games=None):
   {faq_schema}
   </script>
 
+  <!-- 構造化データ: BreadcrumbList -->
+  <script type="application/ld+json">
+  {generate_breadcrumb_schema(name, slug)}
+  </script>
+
   <style>
 {generate_page_css()}
   </style>
@@ -816,11 +941,17 @@ def generate_page(game, all_games=None):
   <a href="{SITE_URL}/about">運営者情報</a>
 </nav>
 
+{generate_breadcrumb(name, slug, (game.get('genres') or [None])[0])}
+
+{generate_popular_games_chips(popular_games or [], slug)}
+
 <article itemscope itemtype="https://schema.org/Article">
   <h1 itemprop="headline">{name} 推奨スペック・必要動作環境</h1>
 
   <time datetime="{today}" itemprop="dateModified">最終更新: {today_ja}</time>
   <p class="source">データソース: <a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam公式</a></p>
+
+  {generate_toc_section(name)}
 
   <section id="recommended" itemprop="articleBody">
     <h2>推奨動作環境</h2>
@@ -876,6 +1007,8 @@ def generate_page(game, all_games=None):
 
 </article>
 
+{generate_back_to_top()}
+
 <footer class="page-footer">
   <p>
     <a href="{SITE_URL}/">トップ</a>
@@ -912,6 +1045,10 @@ def main():
 
     print(f"[INFO] {len(games)}タイトル読み込み完了")
 
+    # 人気ゲームリストを事前計算
+    popular = get_popular_games(games)
+    print(f"[INFO] 人気ゲーム{len(popular)}件選出")
+
     generated = 0
     skipped = 0
     for i, game in enumerate(games, 1):
@@ -921,7 +1058,7 @@ def main():
             continue
 
         try:
-            html = generate_page(game, all_games=games)
+            html = generate_page(game, all_games=games, popular_games=popular)
             output_file = OUTPUT_DIR / f"{game['slug']}.html"
             output_file.write_text(html, encoding='utf-8')
             generated += 1
