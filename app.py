@@ -1201,11 +1201,14 @@ def _get_bto_guidance_prompt(session):
 
     parts = []
     parts.append("""
-## 🖥️ BTOモード: 段階的ヒアリング
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■ 最優先指示: BTOモード（上記の自作パーツ指示より優先）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-あなたはBTOパソコンの提案モードです。
-自作パーツ用のツール（search_parts, confirm_part, search_build, get_build_summary）は使用禁止。
-search_btoのみ使用可能。
+ユーザーは既に「おすすめPCを探す（BTO）」を選択済みです。
+- 自作PCの提案は絶対にしない。「自作と BTO どちらがいいですか？」と聞くのも禁止。
+- 使えるツールは search_bto のみ。search_parts, confirm_part, search_build, get_build_summary は存在しないものとして扱う。
+- 完成品のBTOパソコンだけを提案する。
 
 ### ヒアリングルール
 - 1回の返答で聞くのは1つの質問だけ
@@ -1239,10 +1242,11 @@ search_btoのみ使用可能。
 - 予算不足→ 予算内ベスト + 「あと○万追加するとこれができる」提案
 - 予算十分→ 最適構成 + 余った予算の活用提案（モニター/周辺機器等）
 
-### search_bto呼び出し条件
-以下が揃ったら search_bto を呼ぶ:
+### search_bto呼び出し条件（重要）
+以下が揃ったら**追加質問せずに即座に** search_bto を呼ぶ:
 - 用途（gaming/creator/ai/streaming/work）が判明している
 - （予算はなくてもOK。ない場合はbudget_yenを省略してよい）
+- ゲーム名+解像度が分かっている場合は十分。それ以上聞かない。
 
 search_btoを呼んだ後は、結果の松竹梅を「なぜこのPCがユーザーの目的に合うか」を説明しながら提示すること。
 スペックの羅列ではなく、ユーザーのやりたいことに対してどう活きるかを伝える。
@@ -3896,11 +3900,18 @@ def chat():
                 last_search_hint = "\n".join(lines) + "\n"
 
         bto_guidance = _get_bto_guidance_prompt(session) if session.get('bto_mode') else ''
-        system_prompt = (
-            current_build_text + last_search_hint + stagnation_hint + budget_hint + context_hint
-            + bto_guidance + "\n"
-            + _SHOP_CLERK_SYSTEM_PROMPT
-        )
+        if session.get('bto_mode'):
+            # BTOモード: 自作用プロンプトの代わりにBTOガイダンスを最後に配置（最優先）
+            system_prompt = (
+                budget_hint + context_hint + "\n"
+                + _SHOP_CLERK_SYSTEM_PROMPT + "\n"
+                + bto_guidance
+            )
+        else:
+            system_prompt = (
+                current_build_text + last_search_hint + stagnation_hint + budget_hint + context_hint + "\n"
+                + _SHOP_CLERK_SYSTEM_PROMPT
+            )
 
         # ストリーミングモード判定
         use_stream = data.get('stream', False)
