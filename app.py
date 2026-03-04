@@ -2797,8 +2797,7 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
         import re as _re_ram
         kit_pattern = r'[×xX]\s*2|2\s*枚|KIT|2PACK|DUAL|2枚組'
         kits_only = [p for p in candidates
-                     if _re_ram.search(kit_pattern, p.get('name', ''), _re_ram.IGNORECASE)
-                     or (p.get('specs') or {}).get('capacity_gb', 0) >= 32]
+                     if _re_ram.search(kit_pattern, p.get('name', ''), _re_ram.IGNORECASE)]
         if kits_only:  # フォールバック: 0件なら元のまま
             candidates = kits_only
 
