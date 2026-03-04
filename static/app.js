@@ -31,7 +31,7 @@
   let sending = false;
   let lastDiagnosis = null;
   let gameMode = false;
-  let gameBuildShown = false; // 構成提示済みフラグ（微調整モード切替用）
+  // gameBuildShown removed — game mode now uses /api/chat throughout
   let btoMode = false;      // BTOマッチングモード
 let btoSubMode = null;    // 'purpose' | 'budget' | null
   let historyFirstSaved = false;
@@ -129,7 +129,6 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
 
   function selectMode(mode) {
     confirmedParts = [];  // モード切替時: 確定パーツをリセット
-    gameBuildShown = false;
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
       c.style.opacity = '0.4';
@@ -388,9 +387,9 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const timer = setTimeout(() => controller.abort(), 120000);
 
     try {
-      // ゲームモード: 構成提示前は/api/recommend、提示後は/api/chatで微調整
-      const endpoint = (!btoMode && gameMode && !gameBuildShown) ? '/api/recommend' : '/api/chat';
-      const useStream = !(gameMode && !gameBuildShown); // recommend以外はSSE
+      // 全モード共通で /api/chat（SSEストリーミング）を使用
+      const endpoint = '/api/chat';
+      const useStream = true;
 
       const reqBody = { message: msg, session_id: sessionId, stream: useStream };
       if (btoMode) reqBody.bto_mode = true;
@@ -407,22 +406,6 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'HTTP ' + res.status);
-      }
-
-      // ── ゲームモード: ヒアリング or 構成提案 ──
-      if (gameMode) {
-        const data = await res.json();
-        typingEl.remove();
-        if (data.needs_hearing) {
-          // ヒアリング中: チャットバブルで質問を表示
-          appendAIBubble(data.reply);
-        } else if (data.recommended_build) {
-          gameBuildShown = true; // 以降の会話は /api/chat で微調整モード
-          appendRecommendationMessage(data);
-        } else if (data.reply) {
-          appendAIBubble(data.reply);
-        }
-        return;
       }
 
       // ── SSEストリーミング: 進捗をリアルタイム表示 ──
@@ -793,14 +776,6 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       }
       cardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      // ハイブリッド: 構成提示後にフォローアップ
-      if (gameMode) {
-        const followUp =
-          '💬 この構成でOKなら「互換チェック」ボタンを押してください。\n\n' +
-          '変えたいパーツがあれば教えてください！\n' +
-          '例: 「GPUをもう少し安くしたい」「メモリは32GBにしたい」';
-        appendAIBubble(followUp);
-      }
     }, 150);
   }
 
@@ -1124,7 +1099,6 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     if (data.success) {
       confirmedParts = [];
       budgetYen = null;
-      gameBuildShown = false;
       updateDashboardFromConfirmedParts();
 
       // チャット履歴を完全クリア
