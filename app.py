@@ -4427,8 +4427,6 @@ def _build_chat_response(session, session_id, session_expired,
 
     response_data['_debug_tool_logs'] = tool_logs
     response_data['_code_version'] = 'v9-usecase-filter'
-    response_data['_debug_use_case'] = session.get('use_case')
-    response_data['_debug_budget_yen'] = session.get('budget_yen')
 
     save_session(session_id)
     return response_data
