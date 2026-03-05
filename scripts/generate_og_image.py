@@ -25,8 +25,9 @@ def generate_og_image():
         # HTMLを開く（file://プロトコル）
         page.goto(f"file:///{HTML_PATH.as_posix()}")
         
-        # レンダリング完了を待つ
-        page.wait_for_timeout(1000)
+        # Google Fonts読み込みを待つ
+        page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(2000)
         
         # スクリーンショット
         page.screenshot(path=str(OUTPUT_PATH))
