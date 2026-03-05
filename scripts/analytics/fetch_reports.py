@@ -51,10 +51,13 @@ def get_daily_overview(days=7):
     返り値:
     {
       "total_users": 142,
+      "new_users": 98,
+      "returning_users": 44,
       "total_sessions": 215,
       "total_pageviews": 422,
       "avg_session_duration": 125.3,
-      "bounce_rate": 0.42
+      "bounce_rate": 0.42,
+      "sessions_per_user": 1.51
     }
     """
     request = RunReportRequest(
@@ -62,6 +65,7 @@ def get_daily_overview(days=7):
         date_ranges=[DateRange(start_date=f"{days}daysAgo", end_date="today")],
         metrics=[
             Metric(name="activeUsers"),
+            Metric(name="newUsers"),
             Metric(name="sessions"),
             Metric(name="screenPageViews"),
             Metric(name="averageSessionDuration"),
@@ -75,12 +79,19 @@ def get_daily_overview(days=7):
         return None
 
     row = response.rows[0]
+    total_users = int(row.metric_values[0].value)
+    new_users = int(row.metric_values[1].value)
+    total_sessions = int(row.metric_values[2].value)
+    
     return {
-        "total_users": int(row.metric_values[0].value),
-        "total_sessions": int(row.metric_values[1].value),
-        "total_pageviews": int(row.metric_values[2].value),
-        "avg_session_duration": float(row.metric_values[3].value),
-        "bounce_rate": float(row.metric_values[4].value),
+        "total_users": total_users,
+        "new_users": new_users,
+        "returning_users": total_users - new_users,
+        "total_sessions": total_sessions,
+        "total_pageviews": int(row.metric_values[3].value),
+        "avg_session_duration": float(row.metric_values[4].value),
+        "bounce_rate": float(row.metric_values[5].value),
+        "sessions_per_user": round(total_sessions / total_users, 2) if total_users > 0 else 0.0,
     }
 
 

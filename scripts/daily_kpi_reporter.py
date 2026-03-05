@@ -98,15 +98,17 @@ def generate_report():
     # None フォールバック
     if yesterday_data is None:
         yesterday_data = {
-            'total_users': 0, 'total_sessions': 0,
-            'total_pageviews': 0, 'avg_session_duration': 0.0,
-            'bounce_rate': 0.0,
+            'total_users': 0, 'new_users': 0, 'returning_users': 0,
+            'total_sessions': 0, 'total_pageviews': 0,
+            'avg_session_duration': 0.0, 'bounce_rate': 0.0,
+            'sessions_per_user': 0.0,
         }
     if last_week_data is None:
         last_week_data = {
-            'total_users': 0, 'total_sessions': 0,
-            'total_pageviews': 0, 'avg_session_duration': 0.0,
-            'bounce_rate': 0.0,
+            'total_users': 0, 'new_users': 0, 'returning_users': 0,
+            'total_sessions': 0, 'total_pageviews': 0,
+            'avg_session_duration': 0.0, 'bounce_rate': 0.0,
+            'sessions_per_user': 0.0,
         }
 
     # WoW 変化率
@@ -130,6 +132,10 @@ def generate_report():
 【サマリー】
 👥 {yesterday_data['total_users']:,}人 ({users_wow}) | 📄 {yesterday_data['total_pageviews']:,}PV ({pv_wow})
 ⏱ {minutes}分{seconds}秒 | 📊 直帰率: {yesterday_data['bounce_rate']*100:.1f}%
+
+【ユーザー詳細】
+🆕 新規: {yesterday_data['new_users']:,}人 | 🔄 リピーター: {yesterday_data['returning_users']:,}人
+📈 セッション/人: {yesterday_data['sessions_per_user']:.2f}
 """
 
     # デバイス（サマリーに統合）
@@ -208,6 +214,7 @@ def get_daily_overview_range(start_days_ago, end_days_ago):
             date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
             metrics=[
                 Metric(name="activeUsers"),
+                Metric(name="newUsers"),
                 Metric(name="sessions"),
                 Metric(name="screenPageViews"),
                 Metric(name="averageSessionDuration"),
@@ -221,12 +228,19 @@ def get_daily_overview_range(start_days_ago, end_days_ago):
             return None
 
         row = response.rows[0]
+        total_users = int(row.metric_values[0].value)
+        new_users = int(row.metric_values[1].value)
+        total_sessions = int(row.metric_values[2].value)
+        
         return {
-            "total_users": int(row.metric_values[0].value),
-            "total_sessions": int(row.metric_values[1].value),
-            "total_pageviews": int(row.metric_values[2].value),
-            "avg_session_duration": float(row.metric_values[3].value),
-            "bounce_rate": float(row.metric_values[4].value),
+            "total_users": total_users,
+            "new_users": new_users,
+            "returning_users": total_users - new_users,
+            "total_sessions": total_sessions,
+            "total_pageviews": int(row.metric_values[3].value),
+            "avg_session_duration": float(row.metric_values[4].value),
+            "bounce_rate": float(row.metric_values[5].value),
+            "sessions_per_user": round(total_sessions / total_users, 2) if total_users > 0 else 0.0,
         }
     except Exception as e:
         print(f"[WARN] 前週データ取得失敗（初期段階では正常）: {e}")
