@@ -179,8 +179,98 @@
       "topic_type": "budget_build",
       "timestamp": "2026-03-05T06:59:36.223334",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2029482436258906595",
+      "target_account": "@Ogaki_Doe",
+      "reply_text": "Arc B580でVR構成とか攻めてるね！12GB VRAMで4万円台は確かにコスパ良いし、VRならVRAM容量大事だから賢い選択かも。9800X3Dと組み合わせたら配信しながらでも余裕ありそう。全体で22万は結構いい線いってると思う。参考になる人多そう→ https://bit.ly/47erWsl",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-05T12:17:19.017145",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2028805354692431963",
+      "target_account": "@fopljet",
+      "reply_text": "値段度外視なら最強構成ですね。ただモンハンワイルズだと4090でも4K最高設定で100fps超えるので、5090は正直オーバースペックかもです。その分を冷却やモニタに回した方が体感変わるかなと。CPUも9950Xより14900K+良いクーラーの方が安定する気がします",
+      "grade": "S",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-05T12:19:32.684274",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2028968119633625464",
+      "target_account": "@pinecraft_CEO",
+      "reply_text": "GTX1650だと正直VRAM4GBがちょっと厳しいかも。設定下げれば動くけど、今から組むなら4060（VRAM8GB）あたりの方が長く使えると思う。予算的に厳しいなら中古の3060も選択肢かな→ https://bit.ly/47erWsl",
+      "grade": "S",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-05T12:20:45.985460",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029464549297143968",
+      "target_account": "@super_aki_tyan_",
+      "reply_text": "DDR4からの移行だとマザボ・CPU・メモリ全部変えることになるから、5070 Tiと合わせると結構な出費になっちゃうよね。ただVRAM 16GBは今後も安心だし、性能的にも4090に迫る感じだから投資価値はあると思う。予算組みの参考になるかも→ https://bit.ly/47erWsl",
+      "grade": "S",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-05T12:24:30.353104",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029152132700742094",
+      "target_account": "@Fuyuzuki_VRLife",
+      "reply_text": "7800X3Dいいよね、ゲーム性能めちゃ高いし。予算マイナスはつらいけど、AM5は後々CPU載せ替えやすいから長く使えるのが強み。とりあえず組めるタイミングまで情報集めとくのもありかも",
+      "grade": "A",
+      "topic_type": "general_pc",
+      "timestamp": "2026-03-05T12:27:22.493577",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029017392714793351",
+      "target_account": "@lapis_muumuu",
+      "reply_text": "5060で5万円台なら、予算的にCPUやストレージにもっと回せそうですね。メモリ32GBは同意です。ただFHDメインならRX 7800 XTが8万円で16GB VRAMあるので、長く使うなら選択肢に入るかもです → https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-05T12:32:14.497344",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029439652822958435",
+      "target_account": "@hika_04_run",
+      "reply_text": "おめでとう！グラボ届いたらまずベンチ回すのが楽しみだよね。どんなゲームやる予定なのか気になる。色々試したらぜひ感想聞かせて！参考になるかも→ https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-05T12:35:47.933966",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029127458579202443",
+      "target_account": "@ctw_vrc",
+      "reply_text": "おめでとう！グラボじゃないRTXって何買ったんだろ？気になる笑\nちなみに今RTX 5060が5万切ってて、VRAM 8GBだから結構使えるよ。参考までに→ https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-05T12:38:25.782150",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029184979058802953",
+      "target_account": "@TOSHI94fa",
+      "reply_text": "3年前のスペックだと確かにワイルズはキツいかも。推奨がRTX 4060以上だし、高設定60fps狙うなら4060 Ti以上は欲しい感じ。今のGPU価格見ると4060が4万円台、4060 Tiで6万円台だから、予算次第だけどグラボだけ変えるのもありかなと思う。参考になるかも → https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-05T12:41:10.468377",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029516630221602820",
+      "target_account": "@umemaruumeume",
+      "reply_text": "モンハンワイルズ用に組んだPCが画像生成でも活躍してるの最高じゃん！GPUパワーあると生成速度全然違うよね。ゲームも創作も両方楽しめるの、PC買って正解だったね。参考までにGPU比較とかまとめてるとこ置いとく→ https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-05T12:46:14.838503",
+      "had_link": false
     }
   ],
-  "total_replies": 20,
-  "total_runs": 3
+  "total_replies": 30,
+  "total_runs": 4
 }
