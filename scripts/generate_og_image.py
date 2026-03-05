@@ -13,8 +13,8 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 BASE_DIR = Path(__file__).parent.parent
-HTML_PATH = BASE_DIR / "og-image.html"
-OUTPUT_PATH = BASE_DIR / "og-image.png"
+HTML_PATH = BASE_DIR / "static" / "og-image-source.html"
+OUTPUT_PATH = BASE_DIR / "static" / "og-image.png"
 
 def generate_og_image():
     """HTMLをPNG画像に変換"""
