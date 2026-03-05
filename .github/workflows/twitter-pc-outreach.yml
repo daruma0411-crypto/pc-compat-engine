@@ -1,0 +1,53 @@
+name: Twitter PC Outreach Bot
+on:
+    schedule:
+      - cron: '0 5 * * *'    # 14:00 JST
+      - cron: '0 11 * * *'   # 20:00 JST
+    workflow_dispatch:
+jobs:
+    outreach:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install tweepy requests anthropic
+
+      - name: Random delay (0-45 minutes for humanization)
+        run: |
+          DELAY=$((RANDOM % 2700))
+          echo "Waiting ${DELAY} seconds for humanization..."
+          sleep $DELAY
+
+      - name: Run PC Outreach Bot
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          BITLY_API_TOKEN: ${{ secrets.BITLY_API_TOKEN }}
+        run: |
+          cd scripts
+          python twitter_pc_outreach.py
+
+      - name: Commit outreach history
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git pull --rebase origin main || true
+          git add scripts/twitter_outreach_history.json scripts/url_shortener_cache.json
+          git diff --cached --quiet || git commit -m "Update outreach history [skip ci]"
+          git push
