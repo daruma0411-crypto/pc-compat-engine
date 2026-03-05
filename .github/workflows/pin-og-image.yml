@@ -18,7 +18,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install tweepy python-dotenv playwright
+          pip install --upgrade tweepy>=4.14 python-dotenv playwright
           playwright install chromium
       
       - name: Generate OG Image

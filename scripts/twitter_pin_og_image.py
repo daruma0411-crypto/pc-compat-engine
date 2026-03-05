@@ -77,8 +77,14 @@ def pin_og_image_tweet():
     
     # 3. ピン留め
     print(f"\n[3/3] ピン留め中...")
-    client.pin(tweet_id)
-    print(f"✅ 固定ツイートに設定完了")
+    try:
+        client.pin(tweet_id)
+        print(f"✅ 固定ツイートに設定完了")
+    except Exception as e:
+        print(f"⚠️ 自動ピン留め失敗: {e}")
+        print(f"   手動でピン留めしてください：")
+        print(f"   https://twitter.com/syoyutarou/status/{tweet_id}")
+        print(f"   ツイートの「...」メニュー → 「プロフィールに固定する」")
     
     print("\n" + "=" * 60)
     print("🎉 完了！プロフィールを確認してください")
