@@ -34,7 +34,7 @@ BUDGET_BUILDS = {
         "storage": "500GB SSD",
         "storage_price": 5480,
         "other": 22000,
-        "performance": "1080p 低〜中設定 30〜60fps前後",
+        "performance": "1080p低〜中設定でのプレイに対応",
         "color": "#607D8B",
     },
     "recommended": {
@@ -49,7 +49,7 @@ BUDGET_BUILDS = {
         "storage": "1TB NVMe SSD",
         "storage_price": 7480,
         "other": 26000,
-        "performance": "1080p 高設定 60〜100fps前後 / WQHD 中設定 60fps前後",
+        "performance": "1080p高設定またはWQHD中設定での快適なプレイに対応",
         "color": "#4CAF50",
         "badge": "おすすめ",
     },
@@ -65,18 +65,18 @@ BUDGET_BUILDS = {
         "storage": "1TB NVMe SSD",
         "storage_price": 7480,
         "other": 30000,
-        "performance": "WQHD 高設定 100〜144fps前後 / 4K 中設定 60fps前後",
+        "performance": "WQHD高設定または4K中設定での快適なプレイに対応",
         "color": "#FF9800",
     },
 }
 
-# GPU性能比較テーブル（固定値・一般的なゲームの目安）
+# GPU性能比較テーブル（公式スペック）
 GPU_COMPARISON = [
-    {"name": "RTX 3060", "price": 29800, "fps_1080p": 70, "fps_wqhd": 45, "fps_4k": 27, "rating": 3},
-    {"name": "RTX 4060", "price": 45800, "fps_1080p": 100, "fps_wqhd": 65, "fps_4k": 40, "rating": 4, "recommended": True},
-    {"name": "RTX 4070", "price": 82800, "fps_1080p": 140, "fps_wqhd": 95, "fps_4k": 58, "rating": 4},
-    {"name": "RTX 5070", "price": 102800, "fps_1080p": 170, "fps_wqhd": 120, "fps_4k": 72, "rating": 5},
-    {"name": "RTX 5080", "price": 209800, "fps_1080p": 240, "fps_wqhd": 165, "fps_4k": 100, "rating": 5},
+    {"name": "RTX 3060", "price": 29800, "vram": "12GB", "tdp": "170W", "rating": 3},
+    {"name": "RTX 4060", "price": 45800, "vram": "8GB", "tdp": "115W", "rating": 4, "recommended": True},
+    {"name": "RTX 4070", "price": 82800, "vram": "12GB", "tdp": "200W", "rating": 4},
+    {"name": "RTX 5070", "price": 102800, "vram": "12GB", "tdp": "250W", "rating": 5},
+    {"name": "RTX 5080", "price": 209800, "vram": "16GB", "tdp": "360W", "rating": 5},
 ]
 
 
@@ -141,7 +141,7 @@ def generate_budget_section(name):
   <div class="budget-disclaimer">
     <p><strong>⚠️ 注意事項</strong></p>
     <ul>
-      <li>FPS値は一般的なゲームでの参考値（目安）です。{name}での実際の動作は設定・解像度により異なります。</li>
+      <li>上記構成は一般的な推奨環境を元にした目安です。{name}での実際の動作はゲームの最適化状況・設定・解像度により異なります。</li>
       <li>パーツ価格は2026年3月時点の目安です。最新価格は各販売店でご確認ください。</li>
       <li>詳しい動作環境は<a href="{SITE_URL}/?game={name}">AI診断チャット</a>でご確認ください。</li>
     </ul>
@@ -159,25 +159,23 @@ def generate_gpu_section(name):
         rows.append(f"""        <tr{rec_class}>
           <td><strong>{g['name']}</strong>{rec_badge}</td>
           <td>¥{g['price']:,}</td>
-          <td>{g['fps_1080p']}fps前後</td>
-          <td>{g['fps_wqhd']}fps前後</td>
-          <td>{g['fps_4k']}fps前後</td>
+          <td>{g['vram']}</td>
+          <td>{g['tdp']}</td>
           <td>{stars}</td>
         </tr>""")
 
     return f"""
 <section id="gpu-comparison" class="seo-section">
-  <h2>🎮 GPU別性能比較</h2>
-  <p>{name}における主要GPUの性能比較です。FPS値は1080p高設定でのおおよその目安です。</p>
+  <h2>🎮 GPU別スペック比較</h2>
+  <p>{name}向けの主要GPUのスペック比較です。VRAM容量とTDP（消費電力）は公式仕様値です。</p>
   <div class="table-scroll">
     <table class="gpu-table">
       <thead>
         <tr>
           <th>GPU</th>
           <th>価格（目安）</th>
-          <th>1080p</th>
-          <th>WQHD</th>
-          <th>4K</th>
+          <th>VRAM</th>
+          <th>TDP</th>
           <th>推奨度</th>
         </tr>
       </thead>
@@ -189,13 +187,13 @@ def generate_gpu_section(name):
   <div class="gpu-tips">
     <p><strong>💡 選び方ポイント:</strong></p>
     <ul>
-      <li><strong>60fps安定:</strong> RTX 4060 以上を推奨</li>
-      <li><strong>144fps以上:</strong> RTX 4070 以上を推奨</li>
-      <li><strong>4K環境:</strong> RTX 5080 以上を推奨</li>
+      <li><strong>1080p快適:</strong> RTX 4060 以上を推奨</li>
+      <li><strong>WQHD快適:</strong> RTX 4070 以上を推奨</li>
+      <li><strong>4K快適:</strong> RTX 5080 以上を推奨</li>
     </ul>
   </div>
   <div class="comparison-note">
-    <p><strong>📝 注意:</strong> FPS値は高設定での一般的な目安です。{name}での実測値ではありません。グラフィック設定・解像度により大きく変動します。正確な動作確認は<a href="{SITE_URL}/?game={name}">AI診断チャット</a>をご利用ください。</p>
+    <p><strong>📝 注意:</strong> 実際のフレームレートはゲームの最適化状況・グラフィック設定・解像度により大きく変動します。正確な動作確認は<a href="{SITE_URL}/?game={name}">AI診断チャット</a>をご利用ください。</p>
   </div>
 </section>"""
 
@@ -205,23 +203,23 @@ def generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram):
     faqs = [
         {
             "q": f"{name}の推奨スペックは？",
-            "a": f"{name}の推奨スペックは、GPU: {rec_gpu}、CPU: {rec_cpu}、RAM: {rec_ram}GB です。上記スペックを満たすPCなら60fps前後で快適にプレイできる目安です。詳しくはAI診断チャットでご確認ください。",
+            "a": f"{name}の推奨スペックは、GPU: {rec_gpu}、CPU: {rec_cpu}、RAM: {rec_ram}GB です。上記スペックを満たすPCなら快適にプレイできることが期待されます。詳しくはAI診断チャットでご確認ください。",
         },
         {
             "q": f"予算10万円で{name}用PCは組める？",
-            "a": f"はい、予算10万円前後で{name}用のPCを組めます。RTX 4060（約4.5万円）+ Ryzen 5 7600（約2.5万円）+ 16GB RAM（約0.8万円）の構成で1080p 60fps前後が目安です。※価格・性能は変動するため、AI診断チャットで最新の構成をご相談ください。",
+            "a": f"はい、予算10万円前後で{name}用のPCを組めます。RTX 4060（約4.5万円）+ Ryzen 5 7600（約2.5万円）+ 16GB RAM（約0.8万円）の構成で1080p高設定での快適なプレイが期待できます。※価格・性能は変動するため、AI診断チャットで最新の構成をご相談ください。",
         },
         {
             "q": f"{name}は何fpsで遊べますか？",
-            "a": f"PC構成により異なります。最低スペック（{min_gpu}相当）で30〜60fps前後、推奨スペック（{rec_gpu}相当）で60〜90fps前後が一般的な目安です。※ゲームの最適化状況・設定により大きく変動します。正確な診断はAI診断チャットをご利用ください。",
+            "a": f"フレームレートはPC構成・グラフィック設定により大きく異なります。最低スペック（{min_gpu}相当）では低設定、推奨スペック（{rec_gpu}相当）では高設定での快適なプレイが期待できます。※ゲームの最適化状況により変動するため、正確な診断はAI診断チャットをご利用ください。",
         },
         {
             "q": "ノートPCでも動きますか？",
-            "a": "ゲーミングノートPCでも動作します。RTX 4060搭載モデル（12万円〜）なら1080p 60fps以上で快適にプレイ可能です。バッテリー駆動時は性能が低下するため、電源接続を推奨します。",
+            "a": "ゲーミングノートPCでも動作します。RTX 4060搭載モデル（12万円〜）なら1080p高設定での快適なプレイが期待できます。バッテリー駆動時は性能が低下するため、電源接続を推奨します。",
         },
         {
             "q": "内蔵GPU（グラボなし）でも遊べますか？",
-            "a": f"内蔵GPU（Intel Iris Xe、AMD Radeon 780M等）では低設定・30fps前後になります。快適にプレイするには専用グラフィックボード（最低{min_gpu}以上）が必須です。",
+            "a": f"内蔵GPU（Intel Iris Xe、AMD Radeon 780M等）では低設定・低解像度でのプレイが可能ですが、快適性は限定的です。快適にプレイするには専用グラフィックボード（最低{min_gpu}以上）を推奨します。",
         },
         {
             "q": f"{name}が重い・カクつく場合の対処法は？",
@@ -254,19 +252,19 @@ def generate_faq_schema(name, rec_gpu, min_gpu, rec_cpu, rec_ram):
         },
         {
             "q": f"予算10万円で{name}用PCは組める？",
-            "a": f"はい、RTX 4060 + Ryzen 5 7600 + 16GB RAM の構成（約10万円）で1080p 60fps以上が可能です。",
+            "a": f"はい、RTX 4060 + Ryzen 5 7600 + 16GB RAM の構成（約10万円）で1080p高設定での快適なプレイが期待できます。",
         },
         {
             "q": f"{name}は何fpsで遊べますか？",
-            "a": f"推奨スペック（{rec_gpu}相当）で60〜90fps、RTX 4060で100〜144fpsが期待できます。",
+            "a": f"フレームレートはPC構成とグラフィック設定により大きく異なります。推奨スペック（{rec_gpu}相当）では高設定での快適なプレイが期待できます。",
         },
         {
             "q": "ノートPCでも動きますか？",
-            "a": "RTX 4060搭載ゲーミングノートなら1080p 60fps以上で快適にプレイ可能です。",
+            "a": "RTX 4060搭載ゲーミングノートなら1080p高設定での快適なプレイが期待できます。",
         },
         {
             "q": "内蔵GPU（グラボなし）でも遊べますか？",
-            "a": f"内蔵GPUでは低設定・30fps前後になります。快適なプレイには専用グラフィックボード（最低{min_gpu}以上）が必要です。",
+            "a": f"内蔵GPUでは低設定・低解像度でのプレイが可能ですが、快適性は限定的です。快適なプレイには専用グラフィックボード（最低{min_gpu}以上）を推奨します。",
         },
         {
             "q": f"{name}が重い・カクつく場合の対処法は？",
