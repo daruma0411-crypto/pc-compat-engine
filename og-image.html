@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  }
+
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: linear-gradient(135deg, #0f1729 0%, #1a2332 40%, #1e2d3d 70%, #162233 100%);
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle grid pattern */
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Glow effects */
+  .glow-1 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    top: -100px;
+    right: 100px;
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    bottom: -50px;
+    left: 200px;
+    z-index: 0;
+  }
+
+  .left-section {
+    flex: 1;
+    padding: 60px 50px 60px 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  }
+  .badge-text {
+    font-size: 14px;
+    color: #93c5fd;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .title {
+    font-size: 52px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+  }
+  .title-accent {
+    color: #60a5fa;
+  }
+  .title-fire {
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    font-weight: 400;
+  }
+
+  .features {
+    display: flex;
+    gap: 24px;
+  }
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 12px 18px;
+  }
+  .feature-icon {
+    font-size: 20px;
+  }
+  .feature-text {
+    font-size: 15px;
+    color: #e2e8f0;
+    font-weight: 500;
+  }
+
+  .right-section {
+    width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: relative;
+    padding-right: 50px;
+  }
+
+  /* Chat mockup */
+  .chat-mockup {
+    width: 340px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(59, 130, 246, 0.1);
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .chat-bot-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .chat-bot-name {
+    font-size: 15px;
+    color: #e2e8f0;
+    font-weight: 600;
+  }
+  .chat-bot-status {
+    font-size: 11px;
+    color: #4ade80;
+  }
+
+  .chat-bubble-user {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 14px 14px 4px 14px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    margin-left: 60px;
+    color: #dbeafe;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .chat-bubble-ai {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px 14px 14px 4px;
+    padding: 14px 16px;
+    margin-right: 40px;
+    color: #cbd5e1;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .chat-bubble-ai strong {
+    color: #60a5fa;
+    font-weight: 600;
+  }
+  .chat-bubble-ai .part {
+    color: #4ade80;
+  }
+  .chat-bubble-ai .price {
+    color: #fbbf24;
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: rgba(59, 130, 246, 0.08);
+    border-top: 1px solid rgba(59, 130, 246, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    z-index: 2;
+  }
+  .bottom-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #64748b;
+  }
+  .bottom-item span {
+    color: #94a3b8;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <div class="left-section">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      <div class="badge-text">AI-Powered PC Builder</div>
+    </div>
+
+    <div class="title">
+      PC自作、<br>
+      <span class="title-accent">もう</span><span class="title-fire">迷わない。</span>
+    </div>
+
+    <div class="subtitle">
+      予算とやりたいゲームを伝えるだけ。<br>
+      14,000件のパーツDBから最適構成をAIが即提案。
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">🔍</span>
+        <span class="feature-text">互換性自動チェック</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">💬</span>
+        <span class="feature-text">会話だけで完結</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <span class="feature-text">即時構成提案</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <div class="chat-mockup">
+      <div class="chat-header">
+        <div class="chat-bot-icon">🤖</div>
+        <div>
+          <div class="chat-bot-name">AIショップ店員</div>
+          <div class="chat-bot-status">● オンライン</div>
+        </div>
+      </div>
+
+      <div class="chat-bubble-user">
+        モンハンを120fpsで<br>遊びたい！予算20万で
+      </div>
+
+      <div class="chat-bubble-ai">
+        <strong>おまかせ構成:</strong><br>
+        <span class="part">GPU:</span> RTX 5060 Ti 16GB<br>
+        <span class="part">CPU:</span> Ryzen 5 9500F<br>
+        <span class="part">RAM:</span> DDR5 32GB<br>
+        <span class="price">合計: ¥199,937</span> ✅
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-item">🌐 <span>pc-compat-engine-production.up.railway.app</span></div>
+    <div class="bottom-item">📊 <span>14,000+ パーツ対応</span></div>
+    <div class="bottom-item">🔥 <span>RTX 50シリーズ対応済</span></div>
+  </div>
+</div>
+</body>
+</html>
