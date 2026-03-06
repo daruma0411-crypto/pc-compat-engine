@@ -1,0 +1,62 @@
+name: Twitter Delete & Repost
+
+on:
+  workflow_dispatch:
+    inputs:
+      delete_id:
+        description: '削除するツイートID'
+        required: true
+        type: string
+      game_appid:
+        description: 'ゲームのSteam AppID'
+        required: true
+        type: string
+      dry_run:
+        description: 'テスト実行（投稿しない）'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  delete-repost:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install fonts (for metacritic image)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk > /dev/null 2>&1
+
+      - name: Install dependencies
+        run: pip install tweepy Pillow requests
+
+      - name: Delete and Repost
+        working-directory: scripts
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          BITLY_API_TOKEN: ${{ secrets.BITLY_API_TOKEN }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python twitter_delete_repost.py --delete-id "${{ inputs.delete_id }}" --game-appid "${{ inputs.game_appid }}" --dry-run
+          else
+            python twitter_delete_repost.py --delete-id "${{ inputs.delete_id }}" --game-appid "${{ inputs.game_appid }}"
+          fi
+
+      - name: Commit history update
+        if: inputs.dry_run == false
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git pull --rebase origin main || true
+          git add scripts/twitter_post_history.json
+          git diff --cached --quiet || git commit -m "Update Twitter post history (delete & repost) [skip ci]"
+          git push
