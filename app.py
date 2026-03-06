@@ -16,7 +16,7 @@ import urllib.request
 import sys
 
 from dotenv import load_dotenv
-from flask import Flask, Response, jsonify, request, send_from_directory
+from flask import Flask, Response, abort, jsonify, redirect, request, send_from_directory
 
 # BTOマッチングモジュールのパスを追加
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
@@ -580,6 +580,35 @@ def guide_article(slug):
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@app.route('/g/<int:steam_appid>')
+def short_game_link(steam_appid):
+    """ゲームID→詳細ページへのリダイレクト（短縮URL用）"""
+    games_file = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        'workspace', 'data', 'steam', 'games.jsonl',
+    )
+    with open(games_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.strip():
+                game = json.loads(line)
+                appid = game.get('steam_appid') or game.get('appid')
+                if appid == steam_appid:
+                    slug = _game_slug(game['name'])
+                    return redirect(f'/game/{slug}')
+    abort(404)
+
+
+def _game_slug(name):
+    """ゲーム名からURLスラッグを生成"""
+    slug = name.lower()
+    slug = slug.replace(' ', '-').replace(':', '').replace('/', '-')
+    slug = slug.replace('[', '').replace(']', '').replace('/', '')
+    slug = slug.replace('\'', '').replace('"', '').replace(',', '')
+    slug = slug.replace('™', '').replace('®', '').replace('(', '').replace(')', '')
+    slug = slug.replace('--', '-').replace('--', '-')
+    return slug.strip('-')
 
 
 @app.route('/game/<game_name>')

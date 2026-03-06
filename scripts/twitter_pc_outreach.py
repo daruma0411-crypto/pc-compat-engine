@@ -333,6 +333,7 @@ def enrich_post(post: dict) -> dict:
             rec = specs.get("recommended", {})
             context["game_info"] = {
                 "name": game_data["name"],
+                "steam_appid": game_data.get("steam_appid") or game_data.get("appid"),
                 "rec_gpu": rec.get("gpu", []),
                 "rec_cpu": rec.get("cpu", []),
                 "rec_ram": rec.get("ram_gb"),
@@ -453,11 +454,11 @@ def generate_reply(post: dict, include_link: bool) -> str:
 
     # リンク指示（Bitly短縮URL）
     if include_link:
-        game_slug = ""
+        steam_appid = None
         if enrichment.get("game_info"):
-            game_slug = _slugify(enrichment["game_info"]["name"])
-        if game_slug:
-            full_url = f"{SITE_URL}/game/{game_slug}"
+            steam_appid = enrichment["game_info"].get("steam_appid")
+        if steam_appid:
+            full_url = f"{SITE_URL}/g/{steam_appid}"
         else:
             full_url = SITE_URL
         link_url = shorten_url(full_url)

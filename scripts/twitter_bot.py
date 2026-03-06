@@ -152,7 +152,8 @@ def generate_tweet_patterns(game):
     name = game['name']
     slug = game_slug(name)
 
-    full_url = f"{SITE_URL}/game/{slug}"
+    steam_appid = game.get('steam_appid') or game.get('appid')
+    full_url = f"{SITE_URL}/g/{steam_appid}"
     short_url = shorten_url(full_url)
 
     rec = game.get('specs', {}).get('recommended', {})
