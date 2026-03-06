@@ -529,9 +529,9 @@ def _slugify(name: str) -> str:
 # Phase 5: Posting（Tweepy v2）
 # ────────────────────────────────────────
 def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: str = "") -> bool:
-    """リプライを投稿（403時は@メンション付き通常ツイートにフォールバック）"""
+    """引用ツイートで投稿（元ツイートの文脈を保持）"""
     if dry_run:
-        print(f"    [DRY RUN] → {tweet_id} へリプライ:", flush=True)
+        print(f"    [DRY RUN] → {tweet_id} を引用ツイート:", flush=True)
         print(f"    {reply_text}", flush=True)
         print(f"    文字数: {len(reply_text)}", flush=True)
         return True
@@ -562,11 +562,12 @@ def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: st
             access_token_secret=TWITTER_ACCESS_SECRET,
         )
 
+        # 引用ツイートとして投稿（元ツイートが埋め込まれるので文脈が保たれる）
         response = client.create_tweet(
-            text=reply_text, in_reply_to_tweet_id=tweet_id
+            text=reply_text, quote_tweet_id=tweet_id
         )
-        reply_id = response.data["id"]
-        print(f"    [SUCCESS] リプライ投稿! ID: {reply_id}", flush=True)
+        qt_id = response.data["id"]
+        print(f"    [SUCCESS] 引用ツイート投稿! ID: {qt_id}", flush=True)
         return True
 
     except Exception as e:
@@ -579,39 +580,8 @@ def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: st
         elif "429" in error_str:
             print("    [WARN] 429 Rate Limit → スキップ", flush=True)
             return False
-        elif "403" in error_str:
-            print(f"    [WARN] リプライ403: {e}", flush=True)
-            # フォールバック: @メンション付き通常ツイートとして投稿
-            try:
-                mention = account if account.startswith("@") else f"@{account}" if account else ""
-                if mention:
-                    fallback_text = f"{mention} {reply_text}"
-                    # 280文字制限チェック
-                    if len(fallback_text) > 280:
-                        max_reply = 280 - len(mention) - 1
-                        fallback_text = f"{mention} {reply_text[:max_reply]}"
-                    print(f"    [RETRY] {mention} 宛て通常ツイートとして投稿...", flush=True)
-                else:
-                    fallback_text = reply_text
-                    print(f"    [RETRY] 通常ツイートとして投稿...", flush=True)
-
-                import tweepy
-                client2 = tweepy.Client(
-                    bearer_token=TWITTER_BEARER_TOKEN,
-                    consumer_key=TWITTER_API_KEY,
-                    consumer_secret=TWITTER_API_SECRET,
-                    access_token=TWITTER_ACCESS_TOKEN,
-                    access_token_secret=TWITTER_ACCESS_SECRET,
-                )
-                response2 = client2.create_tweet(text=fallback_text)
-                fallback_id = response2.data["id"]
-                print(f"    [SUCCESS] 通常ツイート投稿! ID: {fallback_id}", flush=True)
-                return True
-            except Exception as e2:
-                print(f"    [ERROR] フォールバックも失敗: {e2}", flush=True)
-                return False
         else:
-            print(f"    [ERROR] リプライ失敗: {type(e).__name__}: {e}", flush=True)
+            print(f"    [ERROR] 投稿失敗: {type(e).__name__}: {e}", flush=True)
             return False
 
 
