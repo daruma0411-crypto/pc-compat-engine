@@ -528,12 +528,18 @@ def _slugify(name: str) -> str:
 # ────────────────────────────────────────
 # Phase 5: Posting（Tweepy v2）
 # ────────────────────────────────────────
-def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: str = "") -> bool:
-    """引用ツイートで投稿（元ツイートの文脈を保持）"""
+def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: str = "", post_url: str = "") -> bool:
+    """通常ツイート + 元ツイートURL埋め込みで投稿（Xが自動プレビュー展開）"""
+    # 元ツイートURLを末尾に付与（文脈を保持）
+    if post_url:
+        full_text = f"{reply_text}\n{post_url}"
+    else:
+        full_text = reply_text
+
     if dry_run:
-        print(f"    [DRY RUN] → {tweet_id} を引用ツイート:", flush=True)
-        print(f"    {reply_text}", flush=True)
-        print(f"    文字数: {len(reply_text)}", flush=True)
+        print(f"    [DRY RUN] 投稿内容:", flush=True)
+        print(f"    {full_text}", flush=True)
+        print(f"    文字数: {len(full_text)}", flush=True)
         return True
 
     missing = [
@@ -562,12 +568,9 @@ def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: st
             access_token_secret=TWITTER_ACCESS_SECRET,
         )
 
-        # 引用ツイートとして投稿（元ツイートが埋め込まれるので文脈が保たれる）
-        response = client.create_tweet(
-            text=reply_text, quote_tweet_id=tweet_id
-        )
-        qt_id = response.data["id"]
-        print(f"    [SUCCESS] 引用ツイート投稿! ID: {qt_id}", flush=True)
+        response = client.create_tweet(text=full_text)
+        posted_id = response.data["id"]
+        print(f"    [SUCCESS] 投稿完了! ID: {posted_id}", flush=True)
         return True
 
     except Exception as e:
@@ -714,7 +717,8 @@ def main():
         print(f"  「{reply_text}」", flush=True)
 
         # Phase 5: Posting
-        success = post_reply(tweet_id, reply_text, dry_run=args.dry_run, account=account)
+        post_url = post.get("post_url", "")
+        success = post_reply(tweet_id, reply_text, dry_run=args.dry_run, account=account, post_url=post_url)
 
         if success:
             replied_count += 1
