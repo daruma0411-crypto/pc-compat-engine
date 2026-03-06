@@ -150,11 +150,13 @@ def generate_tweet_patterns(game):
     - 質問形・雑談風・報告風など多様
     - URLは短縮版を使用
     """
+    import urllib.parse
     name = game['name']
     slug = game_slug(name)
 
-    steam_appid = game.get('steam_appid') or game.get('appid')
-    full_url = f"{SITE_URL}/g/{steam_appid}"
+    # URLエンコード（日本語文字をASCII-safeに変換、Twitter対応）
+    encoded_slug = urllib.parse.quote(slug)
+    full_url = f"{SITE_URL}/game/{encoded_slug}"
     short_url = shorten_url(full_url)
 
     rec = game.get('specs', {}).get('recommended', {})

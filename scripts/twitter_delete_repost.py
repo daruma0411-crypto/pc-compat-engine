@@ -86,9 +86,11 @@ def game_slug(game_name):
 
 def generate_repost_tweet(game):
     """再投稿用ツイート文を生成"""
+    import urllib.parse
     name = game['name']
     slug = game_slug(name)
-    url = f"{SITE_URL}/game/{slug}"
+    encoded_slug = urllib.parse.quote(slug)
+    url = f"{SITE_URL}/game/{encoded_slug}"
 
     rec = game.get('specs', {}).get('recommended', {})
     gpu = format_spec(rec.get('gpu', ['不明'])) if rec.get('gpu') else '不明'
