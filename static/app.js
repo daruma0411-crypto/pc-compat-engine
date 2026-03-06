@@ -908,15 +908,52 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   }
 
   // ─── GA4: 購入リンククリック計測（イベント委譲） ────────────────────────
+  var AFFILIATE_DOMAINS = [
+    'amazon.co.jp',
+    'hb.afl.rakuten.co.jp',
+    'search.rakuten.co.jp',
+    'px.a8.net',
+    'ck.jp.ap.valuecommerce.com',
+    'af.moshimo.com',
+    'click.linksynergy.com',
+    'h.accesstrade.net',
+  ];
+
   document.addEventListener('click', function(e) {
     var link = e.target.closest('a.buy-btn, a.bto-card-btn');
+
+    if (!link) {
+      var anyLink = e.target.closest('a[href]');
+      if (anyLink) {
+        try {
+          var hostname = new URL(anyLink.href).hostname;
+          if (AFFILIATE_DOMAINS.some(function(d) { return hostname.indexOf(d) !== -1; })) {
+            link = anyLink;
+          }
+        } catch(ex) {}
+      }
+    }
     if (!link) return;
+
     var href = link.href || '';
-    var label = '';
-    if (link.classList.contains('buy-btn-amazon'))  label = 'amazon';
-    else if (link.classList.contains('buy-btn-rakuten')) label = 'rakuten';
-    else if (link.classList.contains('bto-card-btn'))    label = 'bto_purchase';
-    trackEvent('purchase_click', { link_type: label, link_url: href.substring(0, 100) });
+    var label = 'other';
+    if (link.classList.contains('buy-btn-amazon') || href.indexOf('amazon.co.jp') !== -1) label = 'amazon';
+    else if (link.classList.contains('buy-btn-rakuten') || href.indexOf('rakuten.co.jp') !== -1) label = 'rakuten';
+    else if (link.classList.contains('bto-card-btn')) label = 'bto_purchase';
+    else if (href.indexOf('px.a8.net') !== -1) label = 'a8';
+    else if (href.indexOf('valuecommerce.com') !== -1) label = 'valuecommerce';
+    else if (href.indexOf('moshimo.com') !== -1) label = 'moshimo';
+    else if (href.indexOf('linksynergy.com') !== -1) label = 'linksynergy';
+    else if (href.indexOf('accesstrade.net') !== -1) label = 'accesstrade';
+
+    trackEvent('purchase_click', {
+      link_type: label,
+      link_url: href.substring(0, 200),
+      page_path: location.pathname,
+      page_title: document.title.substring(0, 80),
+      value: 30,
+      currency: 'JPY'
+    });
   });
 
   // ─── v2 UI: 新機能 ─────────────────────────────────────────────────────
