@@ -528,8 +528,8 @@ def _slugify(name: str) -> str:
 # ────────────────────────────────────────
 # Phase 5: Posting（Tweepy v2）
 # ────────────────────────────────────────
-def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True) -> bool:
-    """リプライを投稿"""
+def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: str = "") -> bool:
+    """リプライを投稿（403時は@メンション付き通常ツイートにフォールバック）"""
     if dry_run:
         print(f"    [DRY RUN] → {tweet_id} へリプライ:", flush=True)
         print(f"    {reply_text}", flush=True)
@@ -562,30 +562,12 @@ def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True) -> bool:
             access_token_secret=TWITTER_ACCESS_SECRET,
         )
 
-        # まずリプライとして投稿を試みる
-        try:
-            response = client.create_tweet(
-                text=reply_text, in_reply_to_tweet_id=tweet_id
-            )
-            reply_id = response.data["id"]
-            print(f"    [SUCCESS] リプライ投稿! ID: {reply_id}", flush=True)
-            return True
-        except tweepy.errors.Forbidden as e:
-            print(f"    [WARN] リプライ403: {e}", flush=True)
-            print("    [RETRY] in_reply_to なしで通常ツイートとして投稿...", flush=True)
-            # フォールバック: リプライではなく通常ツイートとして投稿
-            try:
-                response = client.create_tweet(text=reply_text)
-                reply_id = response.data["id"]
-                print(f"    [SUCCESS] 通常ツイート投稿! ID: {reply_id}", flush=True)
-                return True
-            except Exception as e2:
-                error_str2 = str(e2)
-                if "402" in error_str2:
-                    print("[FATAL] 402 Payment Required: Twitter API クレジット不足", flush=True)
-                    sys.exit(1)
-                print(f"    [ERROR] 通常ツイートも失敗: {type(e2).__name__}: {e2}", flush=True)
-                return False
+        response = client.create_tweet(
+            text=reply_text, in_reply_to_tweet_id=tweet_id
+        )
+        reply_id = response.data["id"]
+        print(f"    [SUCCESS] リプライ投稿! ID: {reply_id}", flush=True)
+        return True
 
     except Exception as e:
         error_str = str(e)
@@ -597,6 +579,37 @@ def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True) -> bool:
         elif "429" in error_str:
             print("    [WARN] 429 Rate Limit → スキップ", flush=True)
             return False
+        elif "403" in error_str:
+            print(f"    [WARN] リプライ403: {e}", flush=True)
+            # フォールバック: @メンション付き通常ツイートとして投稿
+            try:
+                mention = account if account.startswith("@") else f"@{account}" if account else ""
+                if mention:
+                    fallback_text = f"{mention} {reply_text}"
+                    # 280文字制限チェック
+                    if len(fallback_text) > 280:
+                        max_reply = 280 - len(mention) - 1
+                        fallback_text = f"{mention} {reply_text[:max_reply]}"
+                    print(f"    [RETRY] {mention} 宛て通常ツイートとして投稿...", flush=True)
+                else:
+                    fallback_text = reply_text
+                    print(f"    [RETRY] 通常ツイートとして投稿...", flush=True)
+
+                import tweepy
+                client2 = tweepy.Client(
+                    bearer_token=TWITTER_BEARER_TOKEN,
+                    consumer_key=TWITTER_API_KEY,
+                    consumer_secret=TWITTER_API_SECRET,
+                    access_token=TWITTER_ACCESS_TOKEN,
+                    access_token_secret=TWITTER_ACCESS_SECRET,
+                )
+                response2 = client2.create_tweet(text=fallback_text)
+                fallback_id = response2.data["id"]
+                print(f"    [SUCCESS] 通常ツイート投稿! ID: {fallback_id}", flush=True)
+                return True
+            except Exception as e2:
+                print(f"    [ERROR] フォールバックも失敗: {e2}", flush=True)
+                return False
         else:
             print(f"    [ERROR] リプライ失敗: {type(e).__name__}: {e}", flush=True)
             return False
@@ -731,7 +744,7 @@ def main():
         print(f"  「{reply_text}」", flush=True)
 
         # Phase 5: Posting
-        success = post_reply(tweet_id, reply_text, dry_run=args.dry_run)
+        success = post_reply(tweet_id, reply_text, dry_run=args.dry_run, account=account)
 
         if success:
             replied_count += 1
