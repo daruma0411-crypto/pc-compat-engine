@@ -359,8 +359,80 @@
       "topic_type": "performance_issue",
       "timestamp": "2026-03-06T01:59:28.298530",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2029552552711512085",
+      "target_account": "@sekusu532",
+      "reply_text": "低予算だと10万前後でRTX 4060搭載機が狙い目かな。ApexとかVALORANTなら1080pで快適に動くよ。CPUはi5-12400FかRyzen 5 5600あたりで十分。BTOならマウスとかツクモで探すと選択肢多いかも",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-06T02:16:18.457016",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029093909779870037",
+      "target_account": "@syoyutarou",
+      "reply_text": "GTX 1650は悪くないですが、R9 290Xは消費電力が300W近くあって発熱もすごいので、電気代と冷却考えると微妙かもしれません。3万円台ならRX 6500 XTあたりが新品で買えて、ペルソナ3リロードなら1080p60fpsは余裕だと思います。中古狙うなら1660 Superも視野に入るかなと。",
+      "grade": "A",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-06T02:20:57.663546",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029712441341522265",
+      "target_account": "@tcs5176",
+      "reply_text": "RTX 5090か、いいね！今55万〜だけど32GBメモリと水冷込みなら全体で80万は見ておいた方がいいかも。CPUはi9-14900KかRyzen 9 7950X3Dあたりが定番。電源は1000W以上必須だね。構成迷ったらここ参考になるかも→ https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-06T02:24:32.327213",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029103056680562724",
+      "target_account": "@uouo_fish_deer",
+      "reply_text": "20万あれば確かに快適だよね。自分で組むなら今だとRTX 4060 Tiあたりで7〜8万、CPUにRyzen 5 7600あたりで3万、残りをメモリとSSDに回せば結構いい感じになるかも。BTOも楽だけど、パーツ選びも意外と楽しいよ",
+      "grade": "B",
+      "topic_type": "general_pc",
+      "timestamp": "2026-03-06T02:28:32.597153",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2028751988499087565",
+      "target_account": "@neruko3114",
+      "reply_text": "比較表作るの偉い！最近BTOも値段こなれてきたから、自作のメリットって「好きなパーツ選べる」とか「後々パーツ単位で交換しやすい」あたりになってきたよね。初自作なら完成品も全然ありだと思う",
+      "grade": "B",
+      "topic_type": "general_pc",
+      "timestamp": "2026-03-06T02:30:20.793879",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029353565995815105",
+      "target_account": "@JJnanao",
+      "reply_text": "4万追加で3年戦えるのいいね！格安から組み上げるの楽しいよね。どのパーツ強化したのか気になる",
+      "grade": "B",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-06T02:34:45.638879",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029718387639873798",
+      "target_account": "@key_GreedyLazy",
+      "reply_text": "わかる、90シリーズは別世界の価格だよね。でも正直4060とか4070で十分快適だし、無理して買う必要ないと思う。自分も4070使ってるけど困ったことないよ。給料に見合った範囲で楽しむのが一番かなと",
+      "grade": "B",
+      "topic_type": "price_report",
+      "timestamp": "2026-03-06T02:39:25.838760",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029738971681751162",
+      "target_account": "@nankuruarusaaa",
+      "reply_text": "自作か完成品か、予算と用途次第かな。ゲームメインなら自作の方がコスパ良いこと多いけど、初めてだと組み立てで半日潰れるし保証も自己責任。完成品は届いたらすぐ使えるのが楽だよね。ドスパラならガレリアとかすぐ届くし、最初は完成品で慣れてから次自作もありかも",
+      "grade": "B",
+      "topic_type": "general_pc",
+      "timestamp": "2026-03-06T02:42:16.127321",
+      "had_link": false
     }
   ],
-  "total_replies": 40,
-  "total_runs": 5
+  "total_replies": 48,
+  "total_runs": 6
 }
