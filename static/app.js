@@ -17,6 +17,11 @@
     applyTheme(saved);
   })();
 
+  // ─── GA4 イベント送信ヘルパー ──────────────────────────────────────────
+  function trackEvent(name, params) {
+    if (typeof gtag === 'function') gtag('event', name, params || {});
+  }
+
   // ─── 定数 ──────────────────────────────────────────────────────────────
   const VERDICT_MAP = {
     OK:      { label: '互換性OK',  sub: 'すべてのチェックを通過しました',            icon: '✅', cls: 'OK'      },
@@ -128,6 +133,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   });
 
   function selectMode(mode) {
+    trackEvent('select_mode', { mode: mode });
     confirmedParts = [];  // モード切替時: 確定パーツをリセット
     document.querySelectorAll('.mode-card').forEach(c => {
       c.style.pointerEvents = 'none';
@@ -208,6 +214,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
 
   // ─── ゲーム推奨構成 → 互換チェックへの引き渡し ───────────────────────────
   function transferToCompatCheck(build) {
+    trackEvent('transfer_to_compat', { parts_count: build.length });
     // ユーザーが「この構成で互換チェック」ボタンを押した = 推奨構成を引き継ぐ
     confirmedParts = build.map(b => ({ name: b.name, category: (b.category || '').toLowerCase() }));
     // ゲームモードを解除
@@ -376,6 +383,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     if (!msg) return;
 
     saveToHistory(msg, btoMode ? 'bto' : (gameMode ? 'game' : 'compat'));
+    trackEvent('chat_send', { mode: btoMode ? 'bto' : (gameMode ? 'game' : 'compat'), message_length: msg.length });
 
     appendUserBubble(msg);
     input.value = '';
@@ -499,6 +507,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   function appendDiagnosisMessage(data) {
     const { reply, parts, diagnosis } = data;
     const verdict = diagnosis.verdict || 'UNKNOWN';
+    trackEvent('compat_result', { verdict: verdict, parts_count: (parts || []).length });
     const checks  = diagnosis.checks  || [];
     const summary = diagnosis.summary || '';
     const vm = VERDICT_MAP[verdict] || VERDICT_MAP.UNKNOWN;
@@ -700,6 +709,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const total = data.total_estimate || '';
     const tip   = data.tip   || '';
     const reply = data.reply || '';
+    trackEvent('game_recommendation', { game_name: game.name || '', build_count: build.length });
 
     // 予算を更新（バックエンドから返されたbudget_yenを優先）
     if (data.budget_yen) budgetYen = data.budget_yen;
@@ -896,6 +906,18 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     ta.style.height = 'auto';
     ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
   }
+
+  // ─── GA4: 購入リンククリック計測（イベント委譲） ────────────────────────
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a.buy-btn, a.bto-card-btn');
+    if (!link) return;
+    var href = link.href || '';
+    var label = '';
+    if (link.classList.contains('buy-btn-amazon'))  label = 'amazon';
+    else if (link.classList.contains('buy-btn-rakuten')) label = 'rakuten';
+    else if (link.classList.contains('bto-card-btn'))    label = 'bto_purchase';
+    trackEvent('purchase_click', { link_type: label, link_url: href.substring(0, 100) });
+  });
 
   // ─── v2 UI: 新機能 ─────────────────────────────────────────────────────
   
@@ -1248,8 +1270,10 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
 
     if (!hasAny) {
       appendAIBubble('条件に合うBTOパソコンが見つかりませんでした。予算や用途を変えて試してみてください。');
+      trackEvent('bto_result', { result: 'no_match' });
       return;
     }
+    trackEvent('bto_result', { result: 'shown', tiers: tierOrder.filter(t => recs[t]).length });
 
     const resultHtml =
       specHtml +
