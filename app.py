@@ -3353,9 +3353,13 @@ def execute_tool(tool_name, tool_input, session, all_products):
 # ================================================================
 
 def _bto_get_url(rec):
-    """BTO商品URLを返す。url_verified=false なら空文字（リンク非表示）。"""
+    """BTO商品URLを返す。アフィリエイトURLがあれば優先。url_verified=false なら空文字。"""
     if rec.get('url_verified') is False:
         return ''
+    # アフィリエイトURLがあれば優先的に返す（収益化）
+    aff_url = rec.get('affiliate_url', '')
+    if aff_url:
+        return aff_url
     return rec.get('url', '')
 
 
