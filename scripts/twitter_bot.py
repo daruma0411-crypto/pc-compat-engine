@@ -99,6 +99,7 @@ def game_slug(game_name):
     slug = slug.replace('®', '').replace('(', '').replace(')', '')
     slug = slug.replace('[', '').replace(']', '').replace('/', '')
     slug = slug.replace('\'', '').replace('"', '').replace(',', '')
+    slug = slug.replace('・', '').replace('·', '').replace('‐', '-')
     slug = slug.replace('--', '-').replace('--', '-')  # 連続ハイフン除去
     return slug.strip('-')
 

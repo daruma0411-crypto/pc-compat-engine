@@ -607,6 +607,7 @@ def _game_slug(name):
     slug = slug.replace('[', '').replace(']', '').replace('/', '')
     slug = slug.replace('\'', '').replace('"', '').replace(',', '')
     slug = slug.replace('™', '').replace('®', '').replace('(', '').replace(')', '')
+    slug = slug.replace('・', '').replace('·', '').replace('‐', '-')
     slug = slug.replace('--', '-').replace('--', '-')
     return slug.strip('-')
 

@@ -72,11 +72,23 @@ def format_spec(spec):
     return str(spec).replace('™', '').replace('®', '').replace('(R)', '').strip()
 
 
+def game_slug(game_name):
+    """ゲーム名からURL用スラッグを生成"""
+    slug = game_name.lower()
+    slug = slug.replace(' ', '-').replace(':', '').replace('™', '')
+    slug = slug.replace('®', '').replace('(', '').replace(')', '')
+    slug = slug.replace('[', '').replace(']', '').replace('/', '')
+    slug = slug.replace('\'', '').replace('"', '').replace(',', '')
+    slug = slug.replace('・', '').replace('·', '').replace('‐', '-')
+    slug = slug.replace('--', '-').replace('--', '-')
+    return slug.strip('-')
+
+
 def generate_repost_tweet(game):
     """再投稿用ツイート文を生成"""
     name = game['name']
-    steam_appid = game.get('steam_appid') or game.get('appid')
-    url = f"{SITE_URL}/g/{steam_appid}"
+    slug = game_slug(name)
+    url = f"{SITE_URL}/game/{slug}"
 
     rec = game.get('specs', {}).get('recommended', {})
     gpu = format_spec(rec.get('gpu', ['不明'])) if rec.get('gpu') else '不明'
