@@ -530,11 +530,10 @@ def _slugify(name: str) -> str:
 # ────────────────────────────────────────
 def post_reply(tweet_id: str, reply_text: str, dry_run: bool = True, account: str = "", post_url: str = "") -> bool:
     """通常ツイート + 元ツイートURL埋め込みで投稿（Xが自動プレビュー展開）"""
-    # 元ツイートURLを末尾に付与（文脈を保持）
-    if post_url:
-        full_text = f"{reply_text}\n{post_url}"
-    else:
-        full_text = reply_text
+    # @メンション（通知用）+ 元ツイートURL（文脈保持）を付与
+    mention = account if account.startswith("@") else f"@{account}" if account else ""
+    parts = [mention, reply_text, post_url] if post_url else [mention, reply_text]
+    full_text = "\n".join(p for p in parts if p)
 
     if dry_run:
         print(f"    [DRY RUN] 投稿内容:", flush=True)
