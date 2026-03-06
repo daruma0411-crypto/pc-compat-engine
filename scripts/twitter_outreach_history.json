@@ -521,8 +521,98 @@
       "topic_type": "general_pc",
       "timestamp": "2026-03-06T06:02:56.525489",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2029479051027763650",
+      "target_account": "@yujiro8000",
+      "reply_text": "そのスペックなら全然余裕ですね。RTX 3060 TiはVRAM 8GBあるし、i5-10400Fも十分なので、マスターランクDLCも快適に遊べると思います。メモリも16GBで問題なしです。最適化されてるなら設定高めでも安定しそうですね。",
+      "grade": "S",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-06T06:40:00.722443",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2028893886496817389",
+      "target_account": "@hiimchoa",
+      "reply_text": "おめでとう！RTX 5070とRyzen 7 9700Xの組み合わせいいね。VRAM 16GBあるしFPS安定するのも納得。35万でその構成ならかなりバランス取れてると思う。ベンチ結果良好なら実ゲームでも快適そう。参考までに→ https://bit.ly/47erWsl",
+      "grade": "S",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-06T06:44:15.934637",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029557007058096189",
+      "target_account": "@johnisk_V",
+      "reply_text": "零シリーズのリメイク、グラ綺麗になってるから気になるよね。スペック不安なら一応確認だけど、体験版出てるなら先に動かしてみるのが確実かも。ホラゲは雰囲気大事だし、カクついたら怖さ半減しちゃうしね",
+      "grade": "A",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-06T06:46:46.166752",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029730848879300729",
+      "target_account": "@yukiAtR",
+      "reply_text": "SAOの新作楽しみだよね！スペック不安なら、まず推奨環境チェックしてみるといいかも。最近のゲームはRTX 4060あたりでも1080pなら結構いけるし、設定下げれば意外と動くことも多いよ。どのくらいのfps狙いたいかにもよるけど",
+      "grade": "A",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-06T06:51:16.763665",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029103561255379204",
+      "target_account": "@ryoswers",
+      "reply_text": "CPUボトルネックきついですよね。5070Tiならグラボ側は余裕あるはずなので、CPU使用率が100%近くになってたら確定かも。タスクマネージャーで確認してみた感じどうでした？あとグラフィック設定下げてもfps変わらないならCPU側の問題の可能性高いです",
+      "grade": "A",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-06T06:56:12.055251",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029558229597114867",
+      "target_account": "@isari_shigi",
+      "reply_text": "それはひどい…BTOでビニール剥がし忘れって初期不良レベルだよね。簡易水冷は特に熱がこもると一気に壊れるから、組み立て時のチェック体制どうなってるんだろ。自分で組むのが一番確実だけど、BTOならせめて到着後に内部確認したほうがいいかも。参考までに→ https://bit.ly/47erWsl",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-06T06:58:52.023113",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029457428706722258",
+      "target_account": "@indiegame0000",
+      "reply_text": "完成品でその構成は確かにコスパいいね！自作だとRTX 5060が5万前後、i7-14700Fも3万台だから、組み立て手間考えたら完成品もありかも。メルカリ販売頑張って！",
+      "grade": "A",
+      "topic_type": "price_report",
+      "timestamp": "2026-03-06T07:00:29.418042",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029476686350434580",
+      "target_account": "@StickyDote",
+      "reply_text": "わかる、フライトシムってGPU要求高いよね。でも30万は盛られすぎかも。RTX 5080、今21万円くらいで買えるよ。VRAM 16GBあるし、フライトシムなら十分すぎる性能。ドローン資格も面白そうだけど、PCでシム極めてからリアル飛ばすのもありじゃない？",
+      "grade": "A",
+      "topic_type": "price_report",
+      "timestamp": "2026-03-06T07:02:59.647156",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029598275909939366",
+      "target_account": "@aya_gamers",
+      "reply_text": "18349って相当高いスコアだね！RTX 5070、VRAM16GBあるから最高設定でも余裕そう。FF14ならレイトレ入れても快適に遊べるでしょ。いいPC組んだね",
+      "grade": "A",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-06T07:05:24.988149",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029531957043102079",
+      "target_account": "@yomirami430",
+      "reply_text": "FF14で1.5倍差は体感でもかなり変わるよね！5070のVRAM16GBって4060の倍あるから、高解像度テクスチャとか余裕で積めるのもデカい。ベンチの数字以上に実ゲームで差が出そう",
+      "grade": "A",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-06T07:07:27.126041",
+      "had_link": false
     }
   ],
-  "total_replies": 58,
-  "total_runs": 7
+  "total_replies": 68,
+  "total_runs": 8
 }
