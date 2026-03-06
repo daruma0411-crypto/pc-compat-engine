@@ -1234,9 +1234,10 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '<div class="bto-card-specs">' +
             '<div class="bto-spec-row"><span class="bto-spec-label">GPU</span><span class="bto-spec-val">' + escHtml(rec.gpu || '—') + ' (' + (rec.vram_gb || '?') + 'GB)</span></div>' +
             '<div class="bto-spec-row"><span class="bto-spec-label">CPU</span><span class="bto-spec-val">' + escHtml(rec.cpu || '—') + '</span></div>' +
-            '<div class="bto-spec-row"><span class="bto-spec-label">RAM</span><span class="bto-spec-val">' + (rec.ram_gb || '?') + 'GB</span></div>' +
+            '<div class="bto-spec-row"><span class="bto-spec-label">RAM</span><span class="bto-spec-val">' + (rec.ram_gb || '?') + 'GB' + (rec.ram_type ? ' ' + escHtml(rec.ram_type) : '') + (rec.ram_speed_mhz ? '-' + rec.ram_speed_mhz : '') + '</span></div>' +
             '<div class="bto-spec-row"><span class="bto-spec-label">SSD</span><span class="bto-spec-val">' + escHtml(rec.storage || '—') + '</span></div>' +
             '<div class="bto-spec-row"><span class="bto-spec-label">電源</span><span class="bto-spec-val">' + escHtml(rec.psu || '—') + '</span></div>' +
+            (rec.case_form_factor ? '<div class="bto-spec-row"><span class="bto-spec-label">ケース</span><span class="bto-spec-val">' + escHtml(rec.case_form_factor) + '</span></div>' : '') +
           '</div>' +
           (rec.tags && rec.tags.length ? '<div class="bto-card-tags">' + rec.tags.map(t => '<span class="bto-tag">' + escHtml(t) + '</span>').join('') + '</div>' : '') +
           '<div class="bto-card-score">マッチ度: ' + (score ? (score * 100).toFixed(0) + '%' : '—') + '</div>' +

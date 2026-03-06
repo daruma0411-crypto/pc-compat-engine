@@ -742,12 +742,15 @@ def format_result(spec_vector, goldilocks):
             'gpu': specs.get('gpu', {}).get('name', ''),
             'vram_gb': specs.get('gpu', {}).get('vram_gb', 0),
             'ram_gb': specs.get('ram', {}).get('capacity_gb', 0),
+            'ram_type': specs.get('ram', {}).get('type', ''),
+            'ram_speed_mhz': specs.get('ram', {}).get('speed_mhz', 0),
             'storage': ', '.join(
                 f"{s['capacity_gb']}GB {s['type']}"
                 for s in specs.get('storage', [])
             ),
             'psu': f"{specs.get('psu', {}).get('wattage', 0)}W "
                    f"{specs.get('psu', {}).get('certification', '')}",
+            'case_form_factor': specs.get('case', {}).get('form_factor', ''),
             'url': p.get('url', ''),
             'affiliate_url': p.get('affiliate', {}).get('url', '') or p.get('url', ''),
             'commission_rate': p.get('affiliate', {}).get('commission_rate', 0),
