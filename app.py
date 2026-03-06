@@ -31,6 +31,32 @@ REPLICATE_API_TOKEN = os.environ.get('REPLICATE_API_TOKEN', '')
 
 app = Flask(__name__, static_folder='static')
 
+# ================================================================
+# GA4 除外IPリスト（計測対象外にするIPアドレス）
+# ================================================================
+_GA_EXCLUDE_IPS = {
+    '155.190.49.9',
+}
+_GA_ID = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
+_GA_DISABLE_SCRIPT = (
+    f"<script>window['ga-disable-{_GA_ID}']=true;</script>"
+)
+
+
+@app.after_request
+def inject_ga_disable(response):
+    """除外IPからのアクセス時にGA4計測を無効化するスクリプトを注入"""
+    if response.content_type and 'text/html' in response.content_type:
+        client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+        if client_ip:
+            client_ip = client_ip.split(',')[0].strip()
+        if client_ip in _GA_EXCLUDE_IPS:
+            data = response.get_data(as_text=True)
+            data = data.replace('<head>', f'<head>{_GA_DISABLE_SCRIPT}', 1)
+            response.set_data(data)
+    return response
+
+
 # workspace/data/ のルートパス
 _PC_WORKSPACE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace')
 
