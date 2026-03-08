@@ -399,12 +399,14 @@ def _weekly_report_data():
 
 def get_data_context(template_id, variables):
     """テンプレートIDに応じた実データコンテキストを返す"""
+    # ゲームスペック検索は英語名を使う（Steamデータベースが英語名のため）
+    game_lookup = variables.get('game_en', variables.get('game', ''))
 
     if template_id == 'budget_build':
         return _budget_build_data(variables.get('budget', '15'))
 
     elif template_id == 'benchmark':
-        game_text = _game_spec_text(variables.get('game', ''))
+        game_text = _game_spec_text(game_lookup)
         perf_text = _perf_score_table()
         return f"{game_text}\n\n{perf_text}"
 
@@ -421,7 +423,7 @@ def get_data_context(template_id, variables):
         return f"■ {chip_name} 市場情報\n{gpu_text}{score_line}"
 
     elif template_id == 'high_res':
-        game_text = _game_spec_text(variables.get('game', ''))
+        game_text = _game_spec_text(game_lookup)
         # ハイエンドGPUの価格
         high_chips = ['RTX 5090', 'RTX 5080', 'RTX 5070 Ti', 'RTX 5070', 'RTX 4080', 'RTX 4070 Ti']
         gpu_text = _gpu_price_summary(high_chips)
@@ -429,22 +431,22 @@ def get_data_context(template_id, variables):
         return f"{game_text}\n\n■ ハイエンドGPU価格\n{gpu_text}\n\n{perf_text}"
 
     elif template_id in ('troubleshooting', 'laptop'):
-        return _game_spec_text(variables.get('game', ''))
+        return _game_spec_text(game_lookup)
 
     elif template_id == 'performance':
-        game_text = _game_spec_text(variables.get('game', ''))
+        game_text = _game_spec_text(game_lookup)
         perf_text = _perf_score_table()
         return f"{game_text}\n\n{perf_text}"
 
     elif template_id == 'used_parts':
-        game_text = _game_spec_text(variables.get('game', ''))
+        game_text = _game_spec_text(game_lookup)
         # 旧世代GPU
         old_chips = ['RTX 3060', 'RTX 3070', 'RTX 3080', 'GTX 1660', 'RX 6600']
         gpu_text = _gpu_price_summary(old_chips)
         return f"{game_text}\n\n■ 中古市場で人気の旧世代GPU（新品最安）\n{gpu_text}"
 
     elif template_id == 'mod':
-        game_text = _game_spec_text(variables.get('game', ''))
+        game_text = _game_spec_text(game_lookup)
         # VRAM別GPU一覧
         gpu = load_gpu_prices()
         vram_lines = ["■ VRAM別GPU最安値"]

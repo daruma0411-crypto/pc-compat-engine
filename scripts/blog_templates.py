@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ブログ記事テンプレート（11種類）
-変数: {game}, {gpu_model}, {budget}, {today}, {today_short}, {month}, {week},
+変数: {game}（日本語名）, {game_en}（英語名）, {gpu_model}, {budget}, {today}, {today_short}, {month}, {week},
       {season_context}, {data_context}, {source_note}
 """
 

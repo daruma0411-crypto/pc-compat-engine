@@ -36,14 +36,24 @@ SITE_URL = "https://pc-compat-engine-production.up.railway.app"
 # GA ID
 GA_ID = "G-PPNEBG625J"
 
-# 対象ゲーム（人気順）
-TARGET_GAMES = [
-    "Elden Ring", "Cyberpunk 2077", "Baldur's Gate 3",
-    "Starfield", "Hogwarts Legacy", "Palworld",
-    "Helldivers 2", "Final Fantasy VII Rebirth", "Dragon's Dogma 2",
-    "Monster Hunter Wilds", "Apex Legends", "Valorant",
-    "Counter-Strike 2", "Fortnite", "Call of Duty Modern Warfare III",
-]
+# 対象ゲーム（英語名→日本語名マッピング）
+TARGET_GAMES = {
+    "Elden Ring": "エルデンリング",
+    "Cyberpunk 2077": "サイバーパンク2077",
+    "Baldur's Gate 3": "バルダーズ・ゲート3",
+    "Starfield": "スターフィールド",
+    "Hogwarts Legacy": "ホグワーツ・レガシー",
+    "Palworld": "パルワールド",
+    "Helldivers 2": "ヘルダイバー2",
+    "Final Fantasy VII Rebirth": "ファイナルファンタジーVII リバース",
+    "Dragon's Dogma 2": "ドラゴンズドグマ2",
+    "Monster Hunter Wilds": "モンスターハンターワイルズ",
+    "Apex Legends": "エーペックスレジェンズ",
+    "Valorant": "ヴァロラント",
+    "Counter-Strike 2": "カウンターストライク2",
+    "Fortnite": "フォートナイト",
+    "Call of Duty Modern Warfare III": "コール オブ デューティ モダン・ウォーフェアIII",
+}
 
 # GPU モデル
 TARGET_GPUS = ["4060", "4070", "4080", "3060", "3070", "5070"]
@@ -330,8 +340,11 @@ def generate_posts(count=1, dry_run=False, weekly_report=False):
 
         template = random.choice(normal_templates)
 
+        game_en = random.choice(list(TARGET_GAMES.keys()))
+        game_ja = TARGET_GAMES[game_en]
         variables = {
-            'game': random.choice(TARGET_GAMES),
+            'game': game_ja,
+            'game_en': game_en,
             'gpu_model': random.choice(TARGET_GPUS),
             'budget': random.choice(TARGET_BUDGETS),
             **date_vars,
