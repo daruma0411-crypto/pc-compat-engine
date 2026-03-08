@@ -508,26 +508,48 @@ def get_recently_posted_blog_urls(days=7):
     cutoff = datetime.now().timestamp() - (days * 86400)
     posted_urls = set()
     for entry in history:
-        if entry.get('name') == '[blog]' and entry.get('blog_url'):
-            posted_at = entry.get('posted_at', '')
-            try:
-                entry_time = datetime.fromisoformat(posted_at).timestamp()
-                if entry_time > cutoff:
-                    posted_urls.add(entry['blog_url'])
-            except (ValueError, TypeError):
-                # パース失敗時は安全側で除外対象に含める
-                posted_urls.add(entry['blog_url'])
+        if entry.get('name') != '[blog]':
+            continue
+
+        posted_at = entry.get('posted_at', '')
+        try:
+            entry_time = datetime.fromisoformat(posted_at).timestamp()
+            if entry_time <= cutoff:
+                continue
+        except (ValueError, TypeError):
+            pass  # パース失敗時は安全側で除外対象に含める
+
+        # blog_urlフィールドから取得
+        blog_url = entry.get('blog_url', '')
+        if blog_url:
+            posted_urls.add(blog_url)
+            continue
+
+        # フォールバック: tweet_textからブログURLを抽出（過去の履歴互換）
+        tweet_text = entry.get('tweet_text', '')
+        for line in tweet_text.split('\n'):
+            stripped = line.strip()
+            if f'{SITE_URL}/blog/' in stripped:
+                posted_urls.add(stripped)
+                break
+
     return posted_urls
 
 
 def generate_blog_tweet():
-    """ブログ記事紹介ツイートを生成（重複チェック付き）"""
+    """ブログ記事紹介ツイートを生成（重複チェック付き）
+
+    Returns:
+        (tweet_text, pattern_type, full_blog_url) or (None, 'blog', None)
+    """
     blog_history = load_blog_history()
     if not blog_history:
-        return None, 'blog'
+        return None, 'blog', None
 
     # 直近7日以内に投稿済みのブログURLを取得
     recently_posted = get_recently_posted_blog_urls(days=7)
+    if recently_posted:
+        print(f"[INFO] 直近7日以内に投稿済みブログURL: {len(recently_posted)}件")
 
     # 直近10記事から未投稿の記事を抽出
     recent = blog_history[-10:]
@@ -538,7 +560,7 @@ def generate_blog_tweet():
 
     if not candidates:
         print("[INFO] ブログ記事が全て直近7日以内に投稿済み → ゲーム投稿にフォールバック")
-        return None, 'blog'
+        return None, 'blog', None
 
     article = random.choice(candidates)
     title = article['title']
@@ -567,7 +589,8 @@ def generate_blog_tweet():
         ])
 
     text, pattern_type = random.choice(patterns)
-    return text, pattern_type
+    print(f"[INFO] ブログ記事選択: {title} ({filename})")
+    return text, pattern_type, full_url
 
 
 def main():
@@ -582,7 +605,7 @@ def main():
 
     if use_blog:
         print("[モード] ブログ記事紹介ツイート")
-        tweet_text, pattern_type = generate_blog_tweet()
+        tweet_text, pattern_type, full_blog_url = generate_blog_tweet()
         if tweet_text:
             # ハッシュタグ追加
             hashtags_list = random.sample(['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC'], 2)
@@ -591,24 +614,16 @@ def main():
 
             success = post_tweet(tweet_text, dry_run=args.dry_run)
             if success and not args.dry_run:
-                # ツイート内のURLからブログURLを抽出して記録
-                blog_url = ''
-                for line in tweet_text.split('\n'):
-                    stripped = line.strip()
-                    if stripped.startswith(SITE_URL) or stripped.startswith('http'):
-                        blog_url = stripped
-                        break
-
                 history = load_history()
                 history.append({
                     'name': '[blog]',
                     'posted_at': datetime.now().isoformat(),
                     'tweet_text': tweet_text,
-                    'blog_url': blog_url,
+                    'blog_url': full_blog_url,
                     'has_image': False,
                 })
                 save_history(history)
-                print("[OK] 投稿履歴を更新しました")
+                print(f"[OK] 投稿履歴を更新しました (blog_url: {full_blog_url})")
             if not success:
                 sys.exit(1)
             return

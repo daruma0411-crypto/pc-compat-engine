@@ -137,25 +137,36 @@ def main():
 
     # 自分のユーザーID取得
     try:
-        me = client.get_me()
+        me = client.get_me(user_auth=True)
         my_id = me.data.id
         print(f"[OK] ログインユーザー: @{me.data.username} (ID: {my_id})")
     except Exception as e:
         print(f"[ERROR] ユーザー情報取得失敗: {e}")
         sys.exit(1)
 
-    # メンション取得
+    # メンション取得（user_auth=True: OAuth 1.0aでユーザーコンテキスト認証）
     try:
         kwargs = {
             'id': my_id,
             'tweet_fields': ['author_id', 'created_at', 'text'],
             'expansions': ['author_id'],
             'max_results': 10,
+            'user_auth': True,
         }
         if last_mention_id:
             kwargs['since_id'] = last_mention_id
 
         mentions = client.get_users_mentions(**kwargs)
+    except tweepy.errors.Unauthorized as e:
+        print(f"[ERROR] メンション取得失敗 (401 Unauthorized): {e}")
+        print(f"[INFO] X API Freeプランではメンション取得が利用できません")
+        print(f"[INFO] Basicプラン($100/月)へのアップグレード、またはこのワークフローの無効化を検討してください")
+        # GitHub Actionsで毎回failにならないようexit(0)
+        sys.exit(0)
+    except tweepy.errors.Forbidden as e:
+        print(f"[ERROR] メンション取得失敗 (403 Forbidden): {e}")
+        print(f"[INFO] アプリの権限スコープにtweet.read/users.readが必要です")
+        sys.exit(0)
     except Exception as e:
         print(f"[ERROR] メンション取得失敗: {e}")
         sys.exit(1)
