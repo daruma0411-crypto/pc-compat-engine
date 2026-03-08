@@ -17,6 +17,7 @@ import os
 import sys
 import json
 import argparse
+import re
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -67,6 +68,96 @@ def get_twitter_summary():
                 pass
 
     return {'posts_today': posts_today, 'total_posts': total}
+
+
+def analyze_twitter_bot_health():
+    """Twitter Bot 新施策の稼働状況を分析（直近7日間）"""
+    if not TWITTER_HISTORY_PATH.exists():
+        return None
+    
+    with open(TWITTER_HISTORY_PATH, 'r', encoding='utf-8') as f:
+        history = json.load(f)
+    
+    # 直近7日間のデータを抽出
+    seven_days_ago = datetime.now() - timedelta(days=7)
+    recent_posts = []
+    
+    for entry in history:
+        posted_at = entry.get('posted_at', '')
+        if posted_at:
+            try:
+                dt = datetime.fromisoformat(posted_at)
+                if dt >= seven_days_ago:
+                    recent_posts.append(entry)
+            except (ValueError, TypeError):
+                pass
+    
+    if not recent_posts:
+        return None
+    
+    # 投稿タイプ分析
+    type_counts = {
+        'game': 0,      # ゲーム紹介
+        'blog': 0,      # ブログ
+        'question': 0,  # 質問・意見（新機能）
+        'data': 0,      # データ分析（新機能）
+    }
+    
+    # ハッシュタグ分析
+    hashtag_counts = []
+    over_3_tags = 0
+    
+    # ブログ重複チェック
+    blog_urls = {}
+    duplicate_blogs = 0
+    
+    # スレッド投稿チェック
+    thread_count = 0
+    
+    for post in recent_posts:
+        tweet_text = post.get('tweet_text', '')
+        name = post.get('name', '')
+        
+        # タイプ判定
+        if name == '[blog]':
+            type_counts['blog'] += 1
+            # 重複チェック
+            url_match = re.search(r'https://[^\s]+', tweet_text)
+            if url_match:
+                url = url_match.group()
+                if url in blog_urls:
+                    duplicate_blogs += 1
+                blog_urls[url] = blog_urls.get(url, 0) + 1
+        elif 'post_type' in post:  # Phase 2実装後のフィールド
+            ptype = post['post_type']
+            if ptype in type_counts:
+                type_counts[ptype] += 1
+        else:
+            # 未実装時は全てゲーム投稿扱い
+            type_counts['game'] += 1
+        
+        # ハッシュタグカウント
+        hashtags = re.findall(r'#\w+', tweet_text)
+        tag_count = len(hashtags)
+        hashtag_counts.append(tag_count)
+        if tag_count >= 3:
+            over_3_tags += 1
+        
+        # スレッド投稿
+        if 'is_thread' in post and post['is_thread']:
+            thread_count += 1
+    
+    total_posts = len(recent_posts)
+    avg_hashtags = sum(hashtag_counts) / total_posts if total_posts > 0 else 0
+    
+    return {
+        'total_posts': total_posts,
+        'type_counts': type_counts,
+        'avg_hashtags': avg_hashtags,
+        'over_3_tags': over_3_tags,
+        'duplicate_blogs': duplicate_blogs,
+        'thread_count': thread_count,
+    }
 
 
 def calc_wow_change(current, previous):
@@ -182,7 +273,49 @@ def generate_report():
     report += f"""
 【Twitter】
 📝 昨日: {twitter['posts_today']}件 | 📊 累計: {twitter['total_posts']}件
+"""
 
+    # Twitter Bot 新施策監視
+    bot_health = analyze_twitter_bot_health()
+    if bot_health:
+        report += "\n【Twitter Bot 新施策】\n"
+        tc = bot_health['type_counts']
+        total = bot_health['total_posts']
+        
+        # 投稿タイプ分布
+        if tc['question'] > 0 or tc['data'] > 0:
+            # Phase 2実装済み
+            report += f"📊 投稿タイプ（7日間 計{total}件）\n"
+            report += f"  ゲーム: {tc['game']}件 ({tc['game']/total*100:.0f}%)\n"
+            report += f"  ブログ: {tc['blog']}件 ({tc['blog']/total*100:.0f}%)\n"
+            report += f"  質問: {tc['question']}件 ({tc['question']/total*100:.0f}%) ✨\n"
+            report += f"  データ: {tc['data']}件 ({tc['data']/total*100:.0f}%) ✨\n"
+        else:
+            # Phase 2未実装
+            report += f"⚠️ Phase 2未実装（投稿タイプ単調）\n"
+            report += f"  ゲーム: {tc['game']}件 / ブログ: {tc['blog']}件（7日間）\n"
+        
+        # ハッシュタグ
+        if bot_health['avg_hashtags'] <= 2.0:
+            emoji = "✅"
+        else:
+            emoji = "⚠️"
+        report += f"\n🏷️ ハッシュタグ {emoji}\n"
+        report += f"  平均: {bot_health['avg_hashtags']:.1f}個/投稿 (目標: ≤2個)\n"
+        if bot_health['over_3_tags'] > 0:
+            report += f"  3個以上: {bot_health['over_3_tags']}件 ⚠️\n"
+        
+        # ブログ重複
+        if bot_health['duplicate_blogs'] > 0:
+            report += f"\n🔄 ブログ重複: {bot_health['duplicate_blogs']}件 ⚠️\n"
+        else:
+            report += f"\n🔄 ブログ重複: なし ✅\n"
+        
+        # スレッド
+        if bot_health['thread_count'] > 0:
+            report += f"\n🧵 スレッド投稿: {bot_health['thread_count']}回 ✨\n"
+
+    report += """
 ━━━━━━━━━━━━━━━━━
 💡 次のアクション:
 ・12:00/18:00/21:00 自動投稿
