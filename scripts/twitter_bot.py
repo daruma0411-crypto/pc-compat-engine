@@ -821,18 +821,27 @@ def main():
         return
 
     if roll < 0.65:
-        # データ分析ツイート (20%)
+        # データ分析ツイート (20%) — GPU価格画像付き
         print("[モード] データ分析ツイート")
         tweet_text, pattern_type = generate_data_tweet()
         if tweet_text:
-            success = post_tweet(tweet_text, dry_run=args.dry_run)
+            # GPU価格チャート画像を生成
+            data_image = None
+            try:
+                from generate_gpu_price_chart import generate_gpu_price_chart
+                data_image = generate_gpu_price_chart()
+                print(f"[OK] GPU価格チャート画像: {data_image}")
+            except Exception as e:
+                print(f"[WARN] GPU価格チャート生成スキップ: {e}")
+
+            success = post_tweet(tweet_text, dry_run=args.dry_run, image_path=data_image)
             if success and not args.dry_run:
                 history = load_history()
                 history.append({
                     'name': '[data]',
                     'posted_at': datetime.now().isoformat(),
                     'tweet_text': tweet_text,
-                    'has_image': False,
+                    'has_image': data_image is not None,
                 })
                 save_history(history)
             if not success:
@@ -860,21 +869,33 @@ def main():
     # ツイート文生成
     tweet_text = generate_tweet_patterns(selected_game)
 
-    # メタスコア画像生成（スコアがある場合）
+    # スペックカード画像生成（全投稿に画像を付ける）
     image_path = None
-    meta_score = selected_game.get('metacritic_score')
-    if meta_score and meta_score > 0:
-        try:
-            from generate_metacritic_image import generate_metacritic_image
-            image_dir = Path(__file__).parent / 'temp_images'
-            image_dir.mkdir(exist_ok=True)
-            safe_name = selected_game['name'].replace(' ', '_').replace('/', '_')
-            image_path = str(image_dir / f"meta_{safe_name}.png")
-            generate_metacritic_image(selected_game['name'], meta_score, image_path)
-            print(f"[OK] メタスコア画像生成: {image_path}")
-        except Exception as e:
-            print(f"[WARN] 画像生成スキップ（Pillow未インストール?）: {e}")
-            image_path = None
+    try:
+        from generate_spec_card import generate_spec_card
+        rec = selected_game.get('specs', {}).get('recommended', {})
+        gpu_img = format_spec(rec.get('gpu', ['不明'])) if rec.get('gpu') else '不明'
+        cpu_img = format_spec(rec.get('cpu', ['不明'])) if rec.get('cpu') else '不明'
+        ram_img = rec.get('ram_gb', 8)
+        storage_img = rec.get('storage_gb')
+        meta_score = selected_game.get('metacritic_score')
+        image_dir = Path(__file__).parent / 'temp_images'
+        image_dir.mkdir(exist_ok=True)
+        safe_name = selected_game['name'].replace(' ', '_').replace('/', '_')[:40]
+        image_path = str(image_dir / f"spec_{safe_name}.png")
+        generate_spec_card(
+            game_name=selected_game['name'],
+            gpu=gpu_img,
+            cpu=cpu_img,
+            ram_gb=ram_img if isinstance(ram_img, int) else 8,
+            storage_gb=storage_img,
+            metacritic_score=meta_score if meta_score and meta_score > 0 else None,
+            output_path=image_path,
+        )
+        print(f"[OK] スペックカード画像生成: {image_path}")
+    except Exception as e:
+        print(f"[WARN] 画像生成スキップ: {e}")
+        image_path = None
 
     # 投稿
     success = post_tweet(tweet_text, dry_run=args.dry_run, image_path=image_path)

@@ -27,8 +27,8 @@ TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
 FOLLOW_HISTORY_FILE = Path(__file__).parent / 'twitter_follow_history.json'
 
 # 設定
-MAX_FOLLOWS_PER_HOUR = 15
-MAX_FOLLOWS_PER_DAY = 200
+MAX_FOLLOWS_PER_HOUR = 10
+MAX_FOLLOWS_PER_DAY = 10
 TARGET_HASHTAGS = [
     '#PCゲーム',
     '#自作PC',
