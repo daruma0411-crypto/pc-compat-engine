@@ -5,6 +5,11 @@ on:
       - cron: '0 9 * * *'   # 18:00 JST
       - cron: '0 12 * * *'  # 21:00 JST
     workflow_dispatch:
+
+concurrency:
+  group: twitter-bot-push
+  cancel-in-progress: false
+
 jobs:
     post:
       runs-on: ubuntu-latest
@@ -42,15 +47,28 @@ jobs:
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
-          BITLY_API_TOKEN: ${{ secrets.BITLY_API_TOKEN }}
         run: |
           python scripts/twitter_bot.py
 
-      - name: Commit history
+      - name: Commit and push history (with retry)
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git pull --rebase origin main || true
-          git add scripts/twitter_post_history.json scripts/url_shortener_cache.json
-          git diff --cached --quiet || git commit -m "Update Twitter post history [skip ci]"
-          git push
+          git add scripts/twitter_post_history.json
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git stash
+          for i in 1 2 3; do
+            git pull --rebase origin main || true
+            git stash pop || true
+            git add scripts/twitter_post_history.json
+            git diff --cached --quiet || git commit -m "Update Twitter post history [skip ci]"
+            if git push; then
+              echo "Push succeeded on attempt $i"
+              exit 0
+            fi
+            echo "Push failed on attempt $i, retrying..."
+            sleep 5
+            git stash
+          done
+          echo "Push failed after 3 attempts"
+          exit 1

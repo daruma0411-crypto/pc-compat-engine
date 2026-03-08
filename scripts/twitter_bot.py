@@ -502,15 +502,45 @@ def load_blog_history():
         return json.load(f)
 
 
+def get_recently_posted_blog_urls(days=7):
+    """直近N日以内に投稿済みのブログ記事URLを取得"""
+    history = load_history()
+    cutoff = datetime.now().timestamp() - (days * 86400)
+    posted_urls = set()
+    for entry in history:
+        if entry.get('name') == '[blog]' and entry.get('blog_url'):
+            posted_at = entry.get('posted_at', '')
+            try:
+                entry_time = datetime.fromisoformat(posted_at).timestamp()
+                if entry_time > cutoff:
+                    posted_urls.add(entry['blog_url'])
+            except (ValueError, TypeError):
+                # パース失敗時は安全側で除外対象に含める
+                posted_urls.add(entry['blog_url'])
+    return posted_urls
+
+
 def generate_blog_tweet():
-    """ブログ記事紹介ツイートを生成"""
+    """ブログ記事紹介ツイートを生成（重複チェック付き）"""
     blog_history = load_blog_history()
     if not blog_history:
         return None, 'blog'
 
-    # 直近10記事からランダム選択
+    # 直近7日以内に投稿済みのブログURLを取得
+    recently_posted = get_recently_posted_blog_urls(days=7)
+
+    # 直近10記事から未投稿の記事を抽出
     recent = blog_history[-10:]
-    article = random.choice(recent)
+    candidates = [
+        a for a in recent
+        if f"{SITE_URL}/blog/{a['filename']}" not in recently_posted
+    ]
+
+    if not candidates:
+        print("[INFO] ブログ記事が全て直近7日以内に投稿済み → ゲーム投稿にフォールバック")
+        return None, 'blog'
+
+    article = random.choice(candidates)
     title = article['title']
     filename = article['filename']
 
@@ -561,11 +591,20 @@ def main():
 
             success = post_tweet(tweet_text, dry_run=args.dry_run)
             if success and not args.dry_run:
+                # ツイート内のURLからブログURLを抽出して記録
+                blog_url = ''
+                for line in tweet_text.split('\n'):
+                    stripped = line.strip()
+                    if stripped.startswith(SITE_URL) or stripped.startswith('http'):
+                        blog_url = stripped
+                        break
+
                 history = load_history()
                 history.append({
                     'name': '[blog]',
                     'posted_at': datetime.now().isoformat(),
                     'tweet_text': tweet_text,
+                    'blog_url': blog_url,
                     'has_image': False,
                 })
                 save_history(history)
@@ -573,6 +612,8 @@ def main():
             if not success:
                 sys.exit(1)
             return
+        else:
+            print("[INFO] ブログ投稿スキップ → ゲーム投稿にフォールバック")
 
     # 通常のゲームツイート
     print("[モード] ゲームスペックツイート")
