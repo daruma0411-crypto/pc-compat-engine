@@ -1207,10 +1207,25 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     }
   }
 
-  // 一括購入処理（後で実装）
+  // 一括購入処理
   function handleBulkPurchase() {
-    alert('一括購入機能は実装中です');
-    // TODO: Amazon Cart Add URL生成
+    if (!confirmedParts || confirmedParts.length === 0) {
+      alert('先にAI診断を実行してください');
+      return;
+    }
+    trackEvent('bulk_purchase_click', {
+      parts_count: confirmedParts.length,
+      value: confirmedParts.reduce(function(s, p) { return s + (p.price_min || 0); }, 0),
+      currency: 'JPY'
+    });
+    var msg = confirmedParts.length + '個のパーツをAmazonで検索します。\n' +
+      confirmedParts.map(function(p) { return '・' + p.category + ': ' + p.name; }).join('\n');
+    if (!confirm(msg)) return;
+    confirmedParts.forEach(function(part, i) {
+      setTimeout(function() {
+        window.open(buildAmazonUrl(part.name), '_blank', 'noopener');
+      }, i * 300);
+    });
   }
   
   // 個別リンク生成

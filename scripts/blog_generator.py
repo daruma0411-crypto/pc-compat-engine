@@ -147,6 +147,16 @@ def generate_article_html(title, content, keywords):
 <meta name="description" content="{title} - PCゲーム互換性診断とおすすめPC構成">
 <meta name="keywords" content="{keywords_str}">
 <link rel="canonical" href="{SITE_URL}/blog/{slugify(title)}.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{title} | PC互換チェッカー">
+<meta property="og:description" content="{title} - PCゲーム互換性診断とおすすめPC構成">
+<meta property="og:url" content="{SITE_URL}/blog/{slugify(title)}.html">
+<meta property="og:image" content="{SITE_URL}/static/og-image.png">
+<meta property="og:site_name" content="PC互換チェッカー">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@syoyutarou">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:image" content="{SITE_URL}/static/og-image.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{GA_ID}');</script>
 <style>

@@ -7,6 +7,7 @@ import json
 import re
 from pathlib import Path
 from datetime import datetime
+from urllib.parse import quote_plus
 
 # パス設定
 WORKSPACE_DIR = Path(__file__).parent.parent
@@ -115,20 +116,29 @@ def generate_budget_section(name):
     for key, b in BUDGET_BUILDS.items():
         total = calc_total(b)
         badge_html = f'<div class="budget-badge" style="background:{b["color"]};">{b["badge"]}</div>' if b.get("badge") else ""
+        # パーツごとのAmazon/楽天検索リンク
+        gpu_q = quote_plus(b['gpu'])
+        cpu_q = quote_plus(b['cpu'])
+        ram_q = quote_plus(b['ram'])
+        ssd_q = quote_plus(b['storage'])
+        combo_q = quote_plus(f"{b['gpu']} {b['cpu']}")
         cards.append(f"""
     <div class="budget-card" style="border-color:{b['color']};">
       {badge_html}
       <h3>{b['icon']} {b['label']}</h3>
       <div class="build-specs">
-        <div class="spec-item"><span class="spec-label">GPU:</span><span class="spec-value">{b['gpu']}</span><span class="spec-price">¥{b['gpu_price']:,}</span></div>
-        <div class="spec-item"><span class="spec-label">CPU:</span><span class="spec-value">{b['cpu']}</span><span class="spec-price">¥{b['cpu_price']:,}</span></div>
-        <div class="spec-item"><span class="spec-label">RAM:</span><span class="spec-value">{b['ram']}</span><span class="spec-price">¥{b['ram_price']:,}</span></div>
-        <div class="spec-item"><span class="spec-label">SSD:</span><span class="spec-value">{b['storage']}</span><span class="spec-price">¥{b['storage_price']:,}</span></div>
+        <div class="spec-item"><span class="spec-label">GPU:</span><span class="spec-value">{b['gpu']}</span><span class="spec-price">¥{b['gpu_price']:,}</span><span class="spec-buy"><a href="https://www.amazon.co.jp/s?k={gpu_q}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">Amazon</a><a href="https://search.rakuten.co.jp/search/mall/{gpu_q}/" target="_blank" rel="noopener" class="buy-rak">楽天</a></span></div>
+        <div class="spec-item"><span class="spec-label">CPU:</span><span class="spec-value">{b['cpu']}</span><span class="spec-price">¥{b['cpu_price']:,}</span><span class="spec-buy"><a href="https://www.amazon.co.jp/s?k={cpu_q}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">Amazon</a><a href="https://search.rakuten.co.jp/search/mall/{cpu_q}/" target="_blank" rel="noopener" class="buy-rak">楽天</a></span></div>
+        <div class="spec-item"><span class="spec-label">RAM:</span><span class="spec-value">{b['ram']}</span><span class="spec-price">¥{b['ram_price']:,}</span><span class="spec-buy"><a href="https://www.amazon.co.jp/s?k={ram_q}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">Amazon</a><a href="https://search.rakuten.co.jp/search/mall/{ram_q}/" target="_blank" rel="noopener" class="buy-rak">楽天</a></span></div>
+        <div class="spec-item"><span class="spec-label">SSD:</span><span class="spec-value">{b['storage']}</span><span class="spec-price">¥{b['storage_price']:,}</span><span class="spec-buy"><a href="https://www.amazon.co.jp/s?k={ssd_q}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">Amazon</a><a href="https://search.rakuten.co.jp/search/mall/{ssd_q}/" target="_blank" rel="noopener" class="buy-rak">楽天</a></span></div>
         <div class="spec-item"><span class="spec-label">他:</span><span class="spec-value">MB・PSU・ケース等</span><span class="spec-price">¥{b['other']:,}</span></div>
       </div>
       <div class="build-total">合計 約¥{total:,}</div>
       <div class="build-perf">🎮 {b['performance']}</div>
-      <a href="/?game={name}" class="btn-check">AIに構成を相談する →</a>
+      <div class="card-actions">
+        <a href="/?game={name}" class="btn-check">💬 AIに相談</a>
+        <a href="https://www.amazon.co.jp/s?k={combo_q}&tag=pccompat-22" target="_blank" rel="noopener" class="btn-buy-amazon">🛒 Amazonで検索</a>
+      </div>
     </div>""")
 
     return f"""
@@ -376,6 +386,17 @@ function runBudgetCalc() {{
     }}));
   }} catch(e) {{}}
   resultDiv.scrollIntoView({{behavior: 'smooth', block: 'center'}});
+  // 3秒後にチャット相談フローティングバーを表示
+  setTimeout(function() {{
+    if (!sessionStorage.getItem('chatCtaShown') && !document.getElementById('chat-float-cta')) {{
+      sessionStorage.setItem('chatCtaShown', 'true');
+      var bar = document.createElement('div');
+      bar.id = 'chat-float-cta';
+      bar.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9998;background:#4CAF50;color:#fff;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(76,175,80,.4);display:flex;align-items:center;gap:12px;max-width:90vw;';
+      bar.innerHTML = '<span style="font-size:14px;font-weight:500;">💬 この結果をAIに相談してみませんか？</span><a href="{SITE_URL}/?game={name}" style="background:#fff;color:#4CAF50;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:600;font-size:13px;">相談する →</a><button onclick="this.parentElement.remove()" style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:18px;width:28px;height:28px;border-radius:50%;cursor:pointer;line-height:1;">&times;</button>';
+      document.body.appendChild(bar);
+    }}
+  }}, 3000);
 }}
 </script>"""
 
@@ -674,6 +695,27 @@ def generate_page_css():
     .budget-disclaimer li { margin-bottom: 4px; }
     .comparison-note { margin-top: 14px; padding: 12px; background: #f0f8ff; border: 1px solid #4682b4; border-radius: 6px; font-size: 13px; line-height: 1.6; }
     .comparison-note strong { color: #4682b4; }
+
+    /* 購入ボタン */
+    .spec-buy { display: flex; gap: 4px; margin-left: auto; flex-shrink: 0; }
+    .buy-amz { background: #FF9900; color: #000; font-size: 11px; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-weight: bold; white-space: nowrap; }
+    .buy-amz:hover { opacity: 0.85; }
+    .buy-rak { background: #BF0000; color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-weight: bold; white-space: nowrap; }
+    .buy-rak:hover { opacity: 0.85; }
+    .card-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .card-actions .btn-check { flex: 1; margin-top: 0; }
+    .btn-buy-amazon { display: block; flex: 1; background: #FF9900; color: #000; padding: 10px; border-radius: 6px; text-align: center; text-decoration: none; font-weight: bold; font-size: 13px; }
+    .btn-buy-amazon:hover { opacity: 0.85; }
+
+    /* 末尾購入リンク */
+    .bottom-purchase-links { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .bottom-purchase-links p { width: 100%; margin: 0 0 4px; color: #aaa; font-size: 13px; }
+    .bottom-purchase-links .buy-amz, .bottom-purchase-links .buy-rak { font-size: 12px; padding: 4px 10px; border-radius: 4px; }
+
+    /* お気に入りボタン */
+    .btn-fav { background: none; border: 1px solid #ddd; padding: 4px 12px; border-radius: 16px; cursor: pointer; font-size: 13px; color: #666; margin-bottom: 8px; transition: all 0.2s; }
+    .btn-fav:hover { border-color: #FFC107; color: #FFC107; }
+    .btn-fav-active { background: #FFF8E1; border-color: #FFC107; color: #F57F17; }
 
     /* 相談ボタン */
     .consult-cta { margin-top: 16px; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; text-align: center; }
@@ -989,6 +1031,7 @@ def generate_page(game, all_games=None, popular_games=None):
 
 <article itemscope itemtype="https://schema.org/Article">
   <h1 itemprop="headline">{name} 推奨スペック・必要動作環境</h1>
+  <button id="btn-fav" class="btn-fav" onclick="toggleFavorite()">⭐ お気に入りに追加</button>
 
   <time datetime="{today}" itemprop="dateModified">最終更新: {today_ja}</time>
   <p class="source">データソース: <a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam公式</a></p>
@@ -1045,6 +1088,13 @@ def generate_page(game, all_games=None, popular_games=None):
     <p style="color: #78FFCB; font-size: 18px; font-weight: bold; margin: 0 0 12px;">🖥️ {name}用PCを今すぐ相談する</p>
     <p style="color: #aaa; margin: 0 0 16px; font-size: 14px;">14,000件のパーツデータ × AIショップ店員が最適構成を提案</p>
     <a href="{SITE_URL}/?game={name}" class="cta-button">無料でAI診断を受ける →</a>
+    <div class="bottom-purchase-links">
+      <p>📦 推奨パーツをチェック</p>
+      <a href="https://www.amazon.co.jp/s?k={quote_plus(BUDGET_BUILDS['recommended']['gpu'])}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">GPU: {BUDGET_BUILDS['recommended']['gpu']}</a>
+      <a href="https://www.amazon.co.jp/s?k={quote_plus(BUDGET_BUILDS['recommended']['cpu'])}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">CPU: {BUDGET_BUILDS['recommended']['cpu']}</a>
+      <a href="https://search.rakuten.co.jp/search/mall/{quote_plus(BUDGET_BUILDS['recommended']['gpu'])}/" target="_blank" rel="noopener" class="buy-rak">GPU: {BUDGET_BUILDS['recommended']['gpu']}</a>
+      <a href="https://search.rakuten.co.jp/search/mall/{quote_plus(BUDGET_BUILDS['recommended']['cpu'])}/" target="_blank" rel="noopener" class="buy-rak">CPU: {BUDGET_BUILDS['recommended']['cpu']}</a>
+    </div>
   </section>
 
 </article>
@@ -1061,6 +1111,62 @@ def generate_page(game, all_games=None, popular_games=None):
   <p>© 2026 PC自作、もう迷わない All Rights Reserved.</p>
 </footer>
 
+<script>
+// GA4: 購入クリックトラッキング
+document.addEventListener('click', function(e) {{
+  var link = e.target.closest('.buy-amz, .buy-rak, .btn-buy-amazon');
+  if (link && typeof gtag === 'function') {{
+    gtag('event', 'purchase_click', {{
+      link_type: link.classList.contains('buy-rak') ? 'rakuten' : 'amazon',
+      link_url: link.href,
+      page_path: location.pathname,
+      value: 30, currency: 'JPY'
+    }});
+  }}
+}});
+
+// お気に入り機能
+var FAV_KEY = 'pccompat_favs';
+var GAME_SLUG = '{slug}';
+var GAME_NAME = '{name}';
+
+function getFavs() {{
+  try {{ return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }} catch(e) {{ return []; }}
+}}
+function saveFavs(favs) {{
+  try {{ localStorage.setItem(FAV_KEY, JSON.stringify(favs.slice(0, 20))); }} catch(e) {{}}
+}}
+function isFav() {{
+  return getFavs().some(function(f) {{ return f.slug === GAME_SLUG; }});
+}}
+function updateFavBtn() {{
+  var btn = document.getElementById('btn-fav');
+  if (!btn) return;
+  if (isFav()) {{
+    btn.textContent = '⭐ お気に入り済み';
+    btn.classList.add('btn-fav-active');
+  }} else {{
+    btn.textContent = '⭐ お気に入りに追加';
+    btn.classList.remove('btn-fav-active');
+  }}
+}}
+function toggleFavorite() {{
+  var favs = getFavs();
+  var idx = favs.findIndex(function(f) {{ return f.slug === GAME_SLUG; }});
+  if (idx >= 0) {{
+    favs.splice(idx, 1);
+  }} else {{
+    favs.unshift({{ slug: GAME_SLUG, name: GAME_NAME }});
+    if (typeof gtag === 'function') {{
+      gtag('event', 'add_to_favorites', {{ game_name: GAME_NAME, page_path: location.pathname }});
+    }}
+  }}
+  saveFavs(favs);
+  updateFavBtn();
+}}
+updateFavBtn();
+</script>
+<script src="{SITE_URL}/static/bounce-prevention.js"></script>
 </body>
 </html>"""
 

@@ -250,6 +250,39 @@
 
 </div>
 
+<!-- ── お気に入りゲーム ── -->
+<section class="discovery-bar" id="fav-section" style="display:none;">
+  <div class="discovery-inner">
+    <div class="discovery-section">
+      <h3>⭐ お気に入りゲーム</h3>
+      <ul id="fav-list" class="new-games-list"></ul>
+    </div>
+  </div>
+</section>
+<script>
+(function() {
+  var FAV_KEY = 'pccompat_favs';
+  try {
+    var favs = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+    if (favs.length > 0) {
+      var section = document.getElementById('fav-section');
+      var list = document.getElementById('fav-list');
+      if (section && list) {
+        section.style.display = '';
+        favs.forEach(function(f) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '/game/' + f.slug;
+          a.textContent = f.name;
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      }
+    }
+  } catch(e) {}
+})();
+</script>
+
 <!-- ── サイドバー: 人気ゲーム・新着・ジャンル ── -->
 <section class="discovery-bar" id="discovery-bar">
   <div class="discovery-inner">

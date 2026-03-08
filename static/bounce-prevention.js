@@ -1,6 +1,7 @@
 /* ================================================================
    直帰率対策: Exit Intent Modal + Scroll 50% CTA
    CSSはインライン注入（ゲームページでstyle.css未読み込み対策）
+   GA4改善: ゲームページ対応CTA (2026-03-08)
    ================================================================ */
 
 (function() {
@@ -34,6 +35,16 @@
     document.head.appendChild(style);
   }
 
+  // ゲームページ判定
+  var isGamePage = location.pathname.startsWith('/game/');
+  var gameName = null;
+  if (isGamePage) {
+    var h1 = document.querySelector('h1');
+    if (h1) {
+      gameName = h1.textContent.replace(/ 推奨スペック.*$/, '').trim();
+    }
+  }
+
   // Exit Intent Detection
   var exitIntentShown = false;
 
@@ -48,13 +59,24 @@
   window.showExitIntentModal = function() {
     var modal = document.createElement('div');
     modal.className = 'exit-intent-modal';
+
+    var heading = gameName
+      ? 'ちょっと待って！'
+      : 'ちょっと待って！';
+    var description = gameName
+      ? gameName + 'の最適構成を30秒で無料チェック'
+      : 'あなたのPCでゲームが動くか、<br>30秒で無料診断できます';
+    var ctaLink = gameName
+      ? '/?game=' + encodeURIComponent(gameName)
+      : '/';
+
     modal.innerHTML =
       '<div class="exit-modal-overlay" onclick="closeExitIntent()"></div>' +
       '<div class="exit-modal-content">' +
         '<button class="exit-modal-close" onclick="closeExitIntent()">&times;</button>' +
-        '<h2>ちょっと待って！</h2>' +
-        '<p>あなたのPCでゲームが動くか、<br>30秒で無料診断できます</p>' +
-        '<a href="/" class="exit-modal-cta">今すぐ診断する →</a>' +
+        '<h2>' + heading + '</h2>' +
+        '<p>' + description + '</p>' +
+        '<a href="' + ctaLink + '" class="exit-modal-cta">今すぐ診断する →</a>' +
         '<div class="exit-modal-games">' +
           '<span>人気:</span> ' +
           '<a href="/game/monster-hunter-wilds">モンハンワイルズ</a> · ' +
@@ -64,6 +86,9 @@
       '</div>';
     document.body.appendChild(modal);
     setTimeout(function() { modal.classList.add('show'); }, 10);
+    if (typeof gtag === 'function') {
+      gtag('event', 'exit_intent_shown', { page_path: location.pathname, game_name: gameName || '' });
+    }
   };
 
   window.closeExitIntent = function() {
@@ -90,16 +115,26 @@
   });
 
   window.showScrollCta = function() {
+    var ctaText = gameName
+      ? '💡 ' + gameName + 'に最適なPC構成をAIが提案'
+      : '💡 あなたのPCスペックを診断してみませんか？';
+    var ctaLink = gameName
+      ? '/?game=' + encodeURIComponent(gameName)
+      : '/';
+
     var cta = document.createElement('div');
     cta.className = 'scroll-cta';
     cta.innerHTML =
       '<div class="scroll-cta-content">' +
-        '<span class="scroll-cta-text">💡 あなたのPCスペックを診断してみませんか？</span>' +
-        '<a href="/" class="scroll-cta-button">今すぐ診断 →</a>' +
+        '<span class="scroll-cta-text">' + ctaText + '</span>' +
+        '<a href="' + ctaLink + '" class="scroll-cta-button">今すぐ診断 →</a>' +
         '<button class="scroll-cta-close" onclick="closeScrollCta()">&times;</button>' +
       '</div>';
     document.body.appendChild(cta);
     setTimeout(function() { cta.classList.add('show'); }, 10);
+    if (typeof gtag === 'function') {
+      gtag('event', 'scroll_cta_shown', { page_path: location.pathname, game_name: gameName || '' });
+    }
   };
 
   window.closeScrollCta = function() {
