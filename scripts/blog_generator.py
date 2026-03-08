@@ -7,6 +7,7 @@ Claude API (Opus 4.6) を使用して記事を生成し static/blog/ に保存
 使い方:
   python blog_generator.py --count 1           # 1記事生成（日次）
   python blog_generator.py --weekly-report      # 週刊レポート生成
+  python blog_generator.py --template benchmark # 特定テンプレートで生成
   python blog_generator.py --dry-run            # API呼び出しなしのテスト
 """
 
@@ -80,6 +81,35 @@ SEASON_CONTEXT = {
     12: "年末商戦ピーク。Steamウィンターセール。クリスマス・年末年始用PCの駆け込み需要。",
 }
 
+# 筆者ペルソナ（Phase 1-1）
+AUTHOR_SYSTEM_PROMPT = """あなたはPC自作歴8年の30代エンジニア「筆者」です。
+
+## 人格
+- 一人称は「筆者」
+- PC自作が趣味で、年2〜3台は組んでいる
+- 価格.comとAmazonのヘビーユーザー
+- 好きなGPU: RTX 4070（コスパ最強だと信じている）
+- 過去の失敗: 電源ケチって不安定になった、中古GPU掴まされた、等
+
+## 文体ルール
+1. 個人の経験・エピソードを記事中に最低3箇所入れること（「筆者も〜した」「筆者の環境では〜」）
+2. 価格データを引用する際は必ず「価格.com調べ」と明記
+3. 途中で文章を切らない。必ず結論と締めの一文まで書き切ること
+4. HTMLタグ（h2, p, ol, ul, li, table）で構造化。コードフェンス（```）は絶対に使わない
+5. 読者に語りかけるトーンで、BOT感を出さない
+6. 「〜です・ます」と「〜だ・である」を混在させず、ですます調で統一"""
+
+# テンプレート別CTA（Phase 1-4）
+TEMPLATE_CTA = {
+    'troubleshooting': {'heading': 'それでも解決しない？AIに無料相談', 'desc': 'あなたのPC環境を伝えるだけで、原因と対処法を提案します', 'button': 'AIに相談する →'},
+    'budget_build': {'heading': 'この構成の互換性をチェック', 'desc': 'パーツ同士の相性をAIが自動診断', 'button': '互換性チェック →'},
+    'benchmark': {'heading': 'あなたのGPUでFPS診断', 'desc': 'GPU名を入力するだけで推定FPSを表示', 'button': 'FPS診断する →'},
+    'performance': {'heading': 'ボトルネック診断', 'desc': 'CPU/GPU/RAMのどこが足を引っ張っているか判定', 'button': 'ボトルネック診断 →'},
+    'gpu_list': {'heading': 'あなたのGPUで遊べるゲーム一覧', 'desc': 'GPU名を入れると対応ゲームが分かります', 'button': '対応ゲーム検索 →'},
+    'ranking': {'heading': 'あなたのPCスペックで何が動く？', 'desc': 'AI診断チャットで詳しく確認', 'button': 'スペック診断 →'},
+}
+DEFAULT_CTA = {'heading': 'あなたのPCで動くか診断', 'desc': 'AI診断チャットで詳しく確認できます', 'button': '無料で診断する →'}
+
 
 def load_generation_history():
     if HISTORY_FILE.exists():
@@ -142,11 +172,84 @@ def get_date_variables():
     }
 
 
-def generate_article_html(title, content, keywords):
-    """記事の完全なHTMLを生成"""
+def get_related_articles(template_id, keywords, max_articles=3):
+    """同テンプレート/同キーワードの既存記事を最大3件返す（Phase 1-5）"""
+    history = load_generation_history()
+    if not history:
+        return []
+
+    related = []
+    keywords_lower = [kw.lower() for kw in keywords]
+
+    for entry in reversed(history):
+        if len(related) >= max_articles:
+            break
+        # 同テンプレート or キーワード一致
+        is_same_template = entry.get('template') == template_id
+        entry_keywords = [k.lower() for k in entry.get('keywords', [])]
+        has_keyword_match = any(kw in ' '.join(entry_keywords) for kw in keywords_lower)
+
+        if is_same_template or has_keyword_match:
+            related.append({
+                'title': entry['title'],
+                'filename': entry['filename'],
+            })
+
+    return related
+
+
+def generate_related_html(related_articles):
+    """関連記事セクションのHTML生成"""
+    if not related_articles:
+        return ""
+
+    items = []
+    for a in related_articles:
+        items.append(f'    <li><a href="{SITE_URL}/blog/{a["filename"]}">{a["title"]}</a></li>')
+
+    return (
+        '\n  <div class="related-articles" style="margin-top:28px;padding:16px;background:#f8fdf8;border-radius:8px;border:1px solid #e0e0e0;">\n'
+        '    <h3 style="margin:0 0 12px;font-size:1rem;color:#2c3e50;">関連記事</h3>\n'
+        '    <ul style="margin:0;padding-left:20px;">\n'
+        + '\n'.join(items) + '\n'
+        '    </ul>\n'
+        '  </div>\n'
+    )
+
+
+def generate_article_html(title, content, keywords, template_id=''):
+    """記事の完全なHTMLを生成（Schema.org + テンプレート別CTA + 関連記事）"""
     date_str = datetime.now().strftime('%Y-%m-%d')
     date_display = datetime.now().strftime('%Y年%m月%d日')
     keywords_str = ', '.join(keywords)
+
+    # テンプレート別CTA（Phase 1-4）
+    cta = TEMPLATE_CTA.get(template_id, DEFAULT_CTA)
+
+    # 関連記事（Phase 1-5）
+    related = get_related_articles(template_id, keywords)
+    related_html = generate_related_html(related)
+
+    # Schema.org Article構造化データ（Phase 1-3）
+    description_text = f"{title} - PCゲーム互換性診断とおすすめPC構成"
+    schema_json = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "datePublished": date_str,
+        "dateModified": date_str,
+        "author": {
+            "@type": "Person",
+            "name": "PC互換チェッカー編集部"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "PC互換チェッカー",
+            "url": SITE_URL
+        },
+        "description": description_text,
+        "mainEntityOfPage": f"{SITE_URL}/blog/{slugify(title)}.html"
+    }, ensure_ascii=False)
 
     return f'''<!DOCTYPE html>
 <html lang="ja">
@@ -154,12 +257,12 @@ def generate_article_html(title, content, keywords):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} | PC互換チェッカー</title>
-<meta name="description" content="{title} - PCゲーム互換性診断とおすすめPC構成">
+<meta name="description" content="{description_text}">
 <meta name="keywords" content="{keywords_str}">
 <link rel="canonical" href="{SITE_URL}/blog/{slugify(title)}.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title} | PC互換チェッカー">
-<meta property="og:description" content="{title} - PCゲーム互換性診断とおすすめPC構成">
+<meta property="og:description" content="{description_text}">
 <meta property="og:url" content="{SITE_URL}/blog/{slugify(title)}.html">
 <meta property="og:image" content="{SITE_URL}/static/og-image.png">
 <meta property="og:site_name" content="PC互換チェッカー">
@@ -167,6 +270,7 @@ def generate_article_html(title, content, keywords):
 <meta name="twitter:site" content="@syoyutarou">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:image" content="{SITE_URL}/static/og-image.png">
+<script type="application/ld+json">{schema_json}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{GA_ID}');</script>
 <style>
@@ -221,12 +325,13 @@ h3 {{ color: #34495e; margin-top: 24px; }}
     {content}
     <p class="source-note">※ 価格データ：<a href="https://kakaku.com/" rel="nofollow">価格.com</a>調べ（{date_display}時点）。ゲーム動作環境：各ゲーム公式/Steam掲載情報。</p>
     <p class="disclaimer">※ 本記事のFPS値・性能値は一般的な目安です。実際の動作はPC環境・ゲーム設定により異なります。</p>
+{related_html}
   </div>
 
   <div class="article-cta">
-    <h3>あなたのPCで動くか診断</h3>
-    <p>AI診断チャットで詳しく確認できます</p>
-    <a href="{SITE_URL}/" class="cta-button">無料で診断する →</a>
+    <h3>{cta['heading']}</h3>
+    <p>{cta['desc']}</p>
+    <a href="{SITE_URL}/" class="cta-button">{cta['button']}</a>
   </div>
 </article>
 
@@ -240,8 +345,30 @@ h3 {{ color: #34495e; margin-top: 24px; }}
 </html>'''
 
 
+def validate_content(content):
+    """生成コンテンツのバリデーション（Phase 1-2）"""
+    issues = []
+
+    # 最低800文字チェック
+    text_only = re.sub(r'<[^>]+>', '', content)
+    if len(text_only) < 800:
+        issues.append(f"文字数不足: {len(text_only)}文字（最低800文字）")
+
+    # HTMLタグ開閉チェック
+    for tag in ['h2', 'p', 'ol', 'ul', 'table']:
+        opens = len(re.findall(f'<{tag}[^>]*>', content))
+        closes = len(re.findall(f'</{tag}>', content))
+        if opens > closes:
+            # 自動補修: 閉じタグを追加
+            for _ in range(opens - closes):
+                content += f'</{tag}>'
+            issues.append(f"<{tag}>タグ不一致を自動補修（開:{opens} 閉:{closes}）")
+
+    return content, issues
+
+
 def generate_blog_post(template, variables, dry_run=False):
-    """Claude APIで記事本文を生成"""
+    """Claude APIで記事本文を生成（systemプロンプト + バリデーション付き）"""
     title = template['title'].format(**variables)
     keywords = [kw.format(**variables) for kw in template['keywords']]
     keywords_str = ', '.join(keywords)
@@ -253,8 +380,9 @@ def generate_blog_post(template, variables, dry_run=False):
     if dry_run:
         # dry-runでもデータコンテキストを表示して確認
         print(f"  [DATA] data_context ({len(variables.get('data_context', ''))}文字)")
-        content = f"<h2>テスト記事</h2><p>これは{title}のテスト記事です。</p>"
-        return title, generate_article_html(title, content, keywords), keywords
+        print(f"  [CTA] {TEMPLATE_CTA.get(template['id'], DEFAULT_CTA)['heading']}")
+        content = f"<h2>テスト記事</h2><p>これは{title}のテスト記事です。筆者もこのゲームをプレイしました。</p>" * 5
+        return title, generate_article_html(title, content, keywords, template['id']), keywords
 
     if not ANTHROPIC_API_KEY:
         print("  [ERROR] ANTHROPIC_API_KEY が未設定")
@@ -264,25 +392,53 @@ def generate_blog_post(template, variables, dry_run=False):
         from anthropic import Anthropic
         client = Anthropic(api_key=ANTHROPIC_API_KEY)
 
-        message = client.messages.create(
-            model="claude-opus-4-6",
-            max_tokens=2048,
-            messages=[{"role": "user", "content": prompt}]
-        )
+        # 1回目: 4096トークン
+        max_tokens = 4096
+        for attempt in range(2):
+            message = client.messages.create(
+                model="claude-opus-4-6",
+                max_tokens=max_tokens,
+                system=AUTHOR_SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": prompt}]
+            )
 
-        content = message.content[0].text
-        # APIレスポンスからマークダウンコードフェンスを除去
-        content = re.sub(r'^```html?\s*\n?', '', content.strip())
-        content = re.sub(r'\n?```\s*$', '', content.strip())
-        html = generate_article_html(title, content, keywords)
-        return title, html, keywords
+            content = message.content[0].text
+            # APIレスポンスからマークダウンコードフェンスを除去
+            content = re.sub(r'^```html?\s*\n?', '', content.strip())
+            content = re.sub(r'\n?```\s*$', '', content.strip())
+
+            # 途中切れチェック（Phase 1-2）
+            if message.stop_reason == 'max_tokens':
+                if attempt == 0:
+                    print(f"  [WARN] 途中切れ検出（{max_tokens}トークン） → 6144でリトライ")
+                    max_tokens = 6144
+                    continue
+                else:
+                    print(f"  [ERROR] 6144トークンでも途中切れ → スキップ")
+                    return None, None, None
+
+            # バリデーション
+            content, issues = validate_content(content)
+            for issue in issues:
+                print(f"  [VALIDATE] {issue}")
+
+            # 文字数不足でスキップ
+            text_only = re.sub(r'<[^>]+>', '', content)
+            if len(text_only) < 800:
+                print(f"  [SKIP] 文字数不足: {len(text_only)}文字")
+                return None, None, None
+
+            html = generate_article_html(title, content, keywords, template['id'])
+            return title, html, keywords
 
     except Exception as e:
         print(f"  [ERROR] API呼び出し失敗: {e}")
         return None, None, None
 
+    return None, None, None
 
-def generate_posts(count=1, dry_run=False, weekly_report=False):
+
+def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=None):
     """記事を生成"""
     history = load_generation_history()
     generated_titles = set(h.get('title', '') for h in history)
@@ -335,7 +491,17 @@ def generate_posts(count=1, dry_run=False, weekly_report=False):
     # weekly_reportテンプレートは通常モードでは除外
     normal_templates = [t for t in BLOG_TEMPLATES if t['id'] != 'weekly_report']
 
-    while generated < count + (1 if weekly_report else 0) - (1 if weekly_report and new_entries else 0) and attempts < max_attempts:
+    # --template フィルタ（Phase 1-7）
+    if template_filter:
+        normal_templates = [t for t in normal_templates if t['id'] == template_filter]
+        if not normal_templates:
+            print(f"[ERROR] テンプレート '{template_filter}' が見つかりません")
+            print(f"  利用可能: {', '.join(t['id'] for t in BLOG_TEMPLATES)}")
+            return
+
+    target_count = count + (1 if weekly_report else 0) - (1 if weekly_report and new_entries else 0)
+
+    while generated < target_count and attempts < max_attempts:
         attempts += 1
 
         template = random.choice(normal_templates)
@@ -396,10 +562,16 @@ def main():
     parser = argparse.ArgumentParser(description='Blog Auto Generator (Daily)')
     parser.add_argument('--count', type=int, default=1, help='生成記事数（デフォルト: 1）')
     parser.add_argument('--weekly-report', action='store_true', help='週刊レポートを生成')
+    parser.add_argument('--template', type=str, default=None, help='特定テンプレートで生成（例: troubleshooting, benchmark）')
     parser.add_argument('--dry-run', action='store_true', help='API呼び出しなしのテスト')
     args = parser.parse_args()
 
-    generate_posts(count=args.count, dry_run=args.dry_run, weekly_report=args.weekly_report)
+    generate_posts(
+        count=args.count,
+        dry_run=args.dry_run,
+        weekly_report=args.weekly_report,
+        template_filter=args.template,
+    )
 
 
 if __name__ == '__main__':

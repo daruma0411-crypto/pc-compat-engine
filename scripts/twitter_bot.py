@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Twitter Bot for PC Compatibility Checker
-ゲーム互換性情報を自動投稿するTwitterボット（人間化版 v2）
+ゲーム互換性情報を自動投稿するTwitterボット（人間化版 v3）
 
 使い方:
   python twitter_bot.py --dry-run  # テスト実行（実際に投稿しない）
@@ -114,7 +114,7 @@ def format_spec(spec):
 def generate_hashtags(game, pattern_type):
     """
     ツイート内容に応じて適切なハッシュタグを生成
-    最大3つ（Twitter最適化）
+    最大2つ（BOT感軽減）
     """
     game_tag = game['name'].replace(' ', '').replace(':', '').replace("'", '')
 
@@ -131,10 +131,12 @@ def generate_hashtags(game, pattern_type):
         'positive': ['おすすめゲーム', '神ゲー', 'PCゲーム'],
         'short': ['PCゲーム', 'Steam'],
         'blog': ['自作PC', 'PCパーツ', 'ブログ更新'],
+        'opinion': ['PCゲーム', '自作PC'],
+        'data': ['GPU価格', 'PCパーツ'],
     }
 
     extra_tags = type_tags.get(pattern_type, ['PCゲーム'])
-    selected = random.sample(extra_tags, min(2, len(extra_tags)))
+    selected = random.sample(extra_tags, min(1, len(extra_tags)))
     all_tags = [game_tag] + selected
 
     return ' '.join(f"#{tag}" for tag in all_tags)
@@ -404,6 +406,79 @@ def generate_tweet_patterns(game):
     return text
 
 
+def generate_question_tweet():
+    """質問・意見型ツイート（BOT感脱却）"""
+    patterns = [
+        "みんなGPU何使ってる？\n筆者はRTX 4070だけどそろそろ5070気になる",
+        "ゲーミングPC組むとき一番金かけるパーツどこ？\n個人的にはGPU>CPU>メモリの順",
+        "正直RTX 4060で十分じゃね？って思ってるんだけど\n4070にする価値ある場面って何",
+        "PC自作で一番やらかした失敗教えて\n自分は電源ケチって不安定になった",
+        "ゲーミングモニター、144Hzと240Hzの違いって体感できる？\nFPS系やる人教えて",
+        "メモリ16GBと32GB、ゲーム用途ならどっち？\n最近のゲーム32GB推奨増えてきたよね",
+        "中古GPUって買う？買わない？\nマイニング落ちは避けるべき？",
+        "BTOと自作、初心者にはどっちを勧める？\n自作の達成感は代えがたいけど",
+        "SSD、NVMe Gen4とGen3って体感差ある？\nゲームのロード時間変わるのかな",
+        "空冷vs簡易水冷\n見た目は水冷がカッコいいけどメンテ考えると空冷かなあ",
+        "PCゲーマーの皆さん、電気代月いくらくらい？\nハイエンドPC+モニター2枚だとヤバそう",
+        "今からPC組むならIntelとAMDどっち選ぶ？\nRyzen 7 7800X3Dが鉄板って聞くけど",
+        "Steamのウィッシュリストに入れっぱなしのゲーム何本ある？\n自分は47本...",
+        "PCケースのエアフロー気にする派？見た目重視派？\n最近のケースはどっちも優秀だけど",
+        "GPUの最適な買い替えサイクルって何年？\n2年で変える人いる？",
+        "ゲーム中にタスクマネージャー開く癖ある人いない？\nGPU使用率つい気になる",
+        "PCパーツの価格チェック、毎日してる人いる？\n底値狙いは疲れるけどやめられない",
+        "フルHDで十分って人、WQHD試したことある？\n一度体験すると戻れなくなるよ",
+        "PC自作始めたきっかけ何だった？\n自分はBTOの電源が壊れて交換したのが最初",
+        "最近のゲーム、推奨スペック上がりすぎじゃない？\nRTX 4070が「推奨」はキツイ",
+    ]
+    text = random.choice(patterns)
+    hashtags = random.sample(['自作PC', 'PCゲーム', 'GPU'], 1)
+    text += f"\n\n#{'  #'.join(hashtags)}"
+    return text, 'opinion'
+
+
+def generate_data_tweet():
+    """データ分析型ツイート（独自DB活用）"""
+    try:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from blog_data_loader import load_gpu_prices, load_performance_scores
+        gpu_prices = load_gpu_prices()
+        perf = load_performance_scores()
+    except Exception:
+        return None, 'data'
+
+    patterns = []
+
+    # GPU最安値パターン
+    target_chips = ['RTX 4060', 'RTX 4070', 'RTX 5070', 'RTX 4060 Ti']
+    for chip_name in target_chips:
+        for key, data in gpu_prices.items():
+            if chip_name.lower() in key.lower():
+                price = data['min_price']
+                patterns.append(
+                    f"{key}の最安値 今{price:,}円\n"
+                    f"VRAM {data.get('vram_gb', '?')}GB / {data['count']}製品比較\n"
+                    f"価格.com調べ\n\n"
+                    f"{SITE_URL}"
+                )
+                break
+
+    # 性能比較パターン
+    if perf.get('gpu') and len(perf['gpu']) >= 5:
+        top5 = perf['gpu'][:5]
+        lines = "GPU性能ランキング TOP5\n\n"
+        for i, g in enumerate(top5, 1):
+            lines += f"{i}. {g['name']}: {g['score']}点\n"
+        lines += f"\n14,000件の価格DBから算出\n{SITE_URL}"
+        patterns.append(lines)
+
+    if not patterns:
+        return None, 'data'
+
+    text = random.choice(patterns)
+    text += f"\n\n#GPU価格"
+    return text, 'data'
+
+
 def post_tweet(text, dry_run=True, image_path=None):
     """ツイートを投稿（画像添付対応、DRY RUNモードではコンソール出力のみ）"""
     if dry_run:
@@ -493,6 +568,77 @@ def post_tweet(text, dry_run=True, image_path=None):
         return False
 
 
+def post_thread(tweets, dry_run=True):
+    """スレッド投稿（3連投）"""
+    if dry_run:
+        print("=" * 60)
+        print("[DRY RUN] スレッド投稿:")
+        for i, t in enumerate(tweets, 1):
+            print(f"--- {i}/{len(tweets)} ---")
+            print(t)
+        print("=" * 60)
+        return True
+
+    try:
+        import tweepy
+        client = tweepy.Client(
+            bearer_token=TWITTER_BEARER_TOKEN,
+            consumer_key=TWITTER_API_KEY,
+            consumer_secret=TWITTER_API_SECRET,
+            access_token=TWITTER_ACCESS_TOKEN,
+            access_token_secret=TWITTER_ACCESS_SECRET
+        )
+
+        prev_id = None
+        for i, text in enumerate(tweets):
+            if prev_id:
+                response = client.create_tweet(text=text, in_reply_to_tweet_id=prev_id)
+            else:
+                response = client.create_tweet(text=text)
+            prev_id = response.data['id']
+            print(f"[SUCCESS] スレッド {i+1}/{len(tweets)} 投稿: ID={prev_id}")
+
+        return True
+    except Exception as e:
+        print(f"[ERROR] スレッド投稿失敗: {e}")
+        return False
+
+
+def generate_thread_tweets(game):
+    """スレッド用3連投を生成"""
+    import urllib.parse
+    name = game['name']
+    slug = game_slug(name)
+    encoded_slug = urllib.parse.quote(slug)
+    full_url = f"{SITE_URL}/game/{encoded_slug}"
+    short_url = shorten_url(full_url)
+
+    rec = game.get('specs', {}).get('recommended', {})
+    gpu = format_spec(rec.get('gpu', ['不明'])) if rec.get('gpu') else '不明'
+    gpu_short = gpu.replace('GeForce ', '').replace('NVIDIA ', '').replace('Radeon ', '')
+    ram = rec.get('ram_gb', '不明')
+
+    tweets = [
+        f"【{name}の推奨スペック解説】\n\n"
+        f"推奨GPU: {gpu_short}\n"
+        f"推奨RAM: {ram}GB\n\n"
+        f"このゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+
+        f"GPU選びのポイント\n\n"
+        f"1080p60fpsなら{gpu_short}で十分\n"
+        f"WQHD以上ならRTX 4070以上推奨\n\n"
+        f"コスパ重視ならRTX 4060（4万円台〜）が鉄板\n"
+        f"価格.com調べ",
+
+        f"まとめ\n\n"
+        f"・{name}は{gpu_short}あれば快適\n"
+        f"・予算10〜15万で組める\n"
+        f"・詳細スペック→ {short_url}\n\n"
+        f"#PCゲーム",
+    ]
+    return tweets
+
+
 def load_blog_history():
     """ブログ生成履歴を読み込む"""
     blog_history_path = Path(__file__).parent.parent / 'static' / 'blog' / 'generation_history.json'
@@ -502,7 +648,7 @@ def load_blog_history():
         return json.load(f)
 
 
-def get_recently_posted_blog_urls(days=7):
+def get_recently_posted_blog_urls(days=14):
     """直近N日以内に投稿済みのブログ記事URLを取得"""
     history = load_history()
     cutoff = datetime.now().timestamp() - (days * 86400)
@@ -546,10 +692,10 @@ def generate_blog_tweet():
     if not blog_history:
         return None, 'blog', None
 
-    # 直近7日以内に投稿済みのブログURLを取得
-    recently_posted = get_recently_posted_blog_urls(days=7)
+    # 直近14日以内に投稿済みのブログURLを取得
+    recently_posted = get_recently_posted_blog_urls(days=14)
     if recently_posted:
-        print(f"[INFO] 直近7日以内に投稿済みブログURL: {len(recently_posted)}件")
+        print(f"[INFO] 直近14日以内に投稿済みブログURL: {len(recently_posted)}件")
 
     # 直近10記事から未投稿の記事を抽出
     recent = blog_history[-10:]
@@ -559,7 +705,7 @@ def generate_blog_tweet():
     ]
 
     if not candidates:
-        print("[INFO] ブログ記事が全て直近7日以内に投稿済み → ゲーム投稿にフォールバック")
+        print("[INFO] ブログ記事が全て直近14日以内に投稿済み → ゲーム投稿にフォールバック")
         return None, 'blog', None
 
     article = random.choice(candidates)
@@ -599,16 +745,42 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='テスト実行（実際に投稿しない）')
     args = parser.parse_args()
 
-    # 30%の確率でブログ紹介ツイート
+    # 投稿タイプ選択（Phase 2-2: 多様化）
+    # ブログ15% / ゲーム35% / 質問・意見30% / データ分析20%
+    roll = random.random()
     blog_history = load_blog_history()
-    use_blog = blog_history and random.random() < 0.3
 
-    if use_blog:
+    # 月曜のみ10%確率でスレッド投稿（Phase 2-3）
+    is_monday = datetime.now().weekday() == 0
+    if is_monday and random.random() < 0.1:
+        print("[モード] スレッド投稿（月曜日特別）")
+        games = load_games()
+        history = load_history()
+        selected_game = select_game(games, history)
+        print(f"[選択] {selected_game['name']}")
+
+        tweets = generate_thread_tweets(selected_game)
+        success = post_thread(tweets, dry_run=args.dry_run)
+
+        if success and not args.dry_run:
+            history.append({
+                'name': selected_game['name'],
+                'posted_at': datetime.now().isoformat(),
+                'tweet_text': tweets[0],
+                'type': 'thread',
+                'has_image': False,
+            })
+            save_history(history)
+        if not success:
+            sys.exit(1)
+        return
+
+    if roll < 0.15 and blog_history:
+        # ブログ紹介ツイート (15%)
         print("[モード] ブログ記事紹介ツイート")
         tweet_text, pattern_type, full_blog_url = generate_blog_tweet()
         if tweet_text:
-            # ハッシュタグ追加
-            hashtags_list = random.sample(['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC'], 2)
+            hashtags_list = random.sample(['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC'], 1)
             hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
             tweet_text = tweet_text + f"\n\n{hashtags}"
 
@@ -628,9 +800,48 @@ def main():
                 sys.exit(1)
             return
         else:
-            print("[INFO] ブログ投稿スキップ → ゲーム投稿にフォールバック")
+            print("[INFO] ブログ投稿スキップ → フォールバック")
 
-    # 通常のゲームツイート
+    if roll < 0.45:
+        # 質問・意見ツイート (30%)
+        print("[モード] 質問・意見ツイート")
+        tweet_text, pattern_type = generate_question_tweet()
+        success = post_tweet(tweet_text, dry_run=args.dry_run)
+        if success and not args.dry_run:
+            history = load_history()
+            history.append({
+                'name': '[opinion]',
+                'posted_at': datetime.now().isoformat(),
+                'tweet_text': tweet_text,
+                'has_image': False,
+            })
+            save_history(history)
+        if not success:
+            sys.exit(1)
+        return
+
+    if roll < 0.65:
+        # データ分析ツイート (20%)
+        print("[モード] データ分析ツイート")
+        tweet_text, pattern_type = generate_data_tweet()
+        if tweet_text:
+            success = post_tweet(tweet_text, dry_run=args.dry_run)
+            if success and not args.dry_run:
+                history = load_history()
+                history.append({
+                    'name': '[data]',
+                    'posted_at': datetime.now().isoformat(),
+                    'tweet_text': tweet_text,
+                    'has_image': False,
+                })
+                save_history(history)
+            if not success:
+                sys.exit(1)
+            return
+        else:
+            print("[INFO] データツイート生成失敗 → ゲーム投稿にフォールバック")
+
+    # ゲームスペックツイート (35% + フォールバック)
     print("[モード] ゲームスペックツイート")
 
     # ゲームデータ読み込み

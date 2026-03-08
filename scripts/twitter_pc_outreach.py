@@ -45,7 +45,7 @@ TWITTER_BEARER_TOKEN = os.environ.get("TWITTER_BEARER_TOKEN", "")
 
 MAX_REPLIES_PER_RUN = 10
 REPLY_COOLDOWN_DAYS = 7
-LINK_PROBABILITY = 0.3
+LINK_PROBABILITY = 0.2
 
 # ────────────────────────────────────────
 # 検索クエリ（21本、毎回ランダム7本選択）
@@ -169,7 +169,6 @@ def discover_posts(queries: list[str]) -> list[dict]:
             "instructions": DISCOVERY_SYSTEM_PROMPT,
             "input": user_prompt,
             "tools": [{"type": "x_search"}],
-            "inline_citations": True,
         }
         headers = {
             "Content-Type": "application/json",

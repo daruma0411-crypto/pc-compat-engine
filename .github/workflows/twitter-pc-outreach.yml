@@ -1,8 +1,7 @@
 name: Twitter PC Outreach Bot
 on:
-    # schedule:                      # Pay-Per-Use切替後に有効化
-    #   - cron: '0 5 * * *'          # 14:00 JST
-    #   - cron: '0 11 * * *'         # 20:00 JST
+    schedule:
+      - cron: '0 5 * * 1,3,5'       # 月水金 14:00 JST
     workflow_dispatch:
 jobs:
     outreach:
