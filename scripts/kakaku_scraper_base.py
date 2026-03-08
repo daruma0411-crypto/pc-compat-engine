@@ -88,6 +88,11 @@ def fetch(url: str, retries: int = 3, delay_range=(0.5, 1.0)) -> str | None:
             time.sleep(random.uniform(*delay_range))
             return raw.decode('cp932', errors='replace')
         except Exception as e:
+            err_str = str(e)
+            # 410 Gone（廃盤）/ 404 Not Found はリトライしても無駄
+            if '410' in err_str or '404' in err_str:
+                print(f'  [SKIP] {url} → {err_str.split(":")[0].strip()}')
+                return None
             wait = 2 ** attempt
             print(f'  [WARN] {url} attempt={attempt+1} error={e} → wait {wait}s')
             time.sleep(wait)
