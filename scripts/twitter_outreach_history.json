@@ -611,8 +611,53 @@
       "topic_type": "performance_issue",
       "timestamp": "2026-03-06T07:07:27.126041",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2029767888731824599",
+      "target_account": "@pariberu_camp",
+      "reply_text": "5070で十分ってのは同意。5080以上はコスパ的に微妙だよね。ただCPUは用途次第かな。ゲームメインなら7800X3Dは確かに鉄板だけど、配信とかエンコもするなら通常版Ryzen9も選択肢に入ってくる。5700Xはコスパいいけど、今から買うならもう少し新しい世代狙ってもいいかもね",
+      "grade": "S",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-09T06:25:30.890301",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2030625914791600488",
+      "target_account": "@shoe_1968",
+      "reply_text": "12年ぶりの新調おめでとう！Ryzen 5 8600Gなら内蔵グラフィックもそこそこ強いから、ゲーム少なめならグラボなしでも結構いけるよね。15万で組めるなら後からグラボ追加する余裕もあるし、いい選択だと思う",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-09T06:29:28.576118",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2030572365311279352",
+      "target_account": "@light_icicle",
+      "reply_text": "RTX 3060は12GB積んでるのが強みですよね。4060は性能上がってるけど8GBなのが痛い。最近のAAAタイトルだとVRAM食うゲーム増えてきてるから、フルHDでも設定次第で厳しくなるかも。5060がもし12GB載せてくれたら理想なんですけどね",
+      "grade": "A",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-09T06:34:21.775148",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2030101058949976221",
+      "target_account": "@nJW5utMoPE72529",
+      "reply_text": "アダムスマッシャー戦のためにPC新調とか熱いな！サイバーパンクならRTX 4060以上あれば高設定で快適に遊べるよ。予算次第だけど、RTX 4060 Tiなら将来的にも安心かも。レイトレONでナイトシティ歩くと別ゲーになるから楽しみだね",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-09T06:39:24.581397",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2029947732643979664",
+      "target_account": "@okomega11",
+      "reply_text": "SAOのゲームって結構種類あるけど、最新のだとグラボ必須なやつ多いよね。在宅用PCってことはオンボ？だとしたらちょっと厳しいかも。GTX 1650とか安めのグラボ追加するだけで結構変わるから、予算次第では検討してみるといいかも",
+      "grade": "A",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-09T06:40:35.721849",
+      "had_link": false
     }
   ],
-  "total_replies": 68,
-  "total_runs": 8
+  "total_replies": 73,
+  "total_runs": 9
 }
