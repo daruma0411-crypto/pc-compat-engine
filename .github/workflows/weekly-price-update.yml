@@ -34,23 +34,25 @@ jobs:
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "actions@github.com"
-        git add workspace/data/
-        if git diff --cached --quiet; then
-          echo "No changes for ${{ matrix.category }}"
-          exit 0
-        fi
-        # 並列pushの競合対策: リトライ3回
-        for i in 1 2 3; do
+        # 並列pushの競合対策: stash + rebase + リトライ5回
+        for i in 1 2 3 4 5; do
+          git add workspace/data/
+          if git diff --cached --quiet; then
+            echo "No changes for ${{ matrix.category }}"
+            exit 0
+          fi
+          git stash
           git pull --rebase origin main || true
+          git stash pop || true
+          git add workspace/data/
           git commit -m "auto: price update ${{ matrix.category }} $(date +%Y-%m-%d)" || true
           if git push; then
             echo "Push OK: ${{ matrix.category }}"
             exit 0
           fi
-          echo "Push failed (attempt $i), retrying in $((i * 10))s..."
-          git reset HEAD~1 2>/dev/null || true
-          sleep $((i * 10))
-          git add workspace/data/
+          echo "Push failed (attempt $i), retrying..."
+          git reset --soft HEAD~1 || true
+          sleep $((RANDOM % 15 + i * 5))
         done
-        echo "Failed to push after 3 attempts"
+        echo "Failed to push after 5 attempts"
         exit 1

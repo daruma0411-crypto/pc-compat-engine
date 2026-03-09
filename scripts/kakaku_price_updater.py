@@ -156,8 +156,12 @@ def main():
         diff = update_prices_with_diff(cat_info['jsonl'], TODAY, active_codes)
         all_diffs[cat_name] = diff
 
-    # 3. 差分ログ出力
-    save_diff_log(DIFF_LOG_DIR, TODAY, all_diffs)
+    # 3. 差分ログ出力（並列時はカテゴリ別ファイルに書き出し）
+    if args.category:
+        # カテゴリ別: diff_logs/2026-03-09-gpu.jsonl
+        save_diff_log(DIFF_LOG_DIR, f'{TODAY}-{args.category}', all_diffs)
+    else:
+        save_diff_log(DIFF_LOG_DIR, TODAY, all_diffs)
 
     # 4. git commit & push（全カテゴリ実行時のみ。並列時はワークフロー側で処理）
     if not args.category:
