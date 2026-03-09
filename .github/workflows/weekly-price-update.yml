@@ -5,9 +5,13 @@ on:
   workflow_dispatch:       # 手動実行可
 
 jobs:
-  update-prices:
+  update-category:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 90
+    strategy:
+      matrix:
+        category: [gpu, ram, cpu, mb, psu, case, cooler]
+      fail-fast: false
     permissions:
       contents: write
 
@@ -23,14 +27,30 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run price updater
-      run: python scripts/kakaku_price_updater.py
+    - name: Run price updater (${{ matrix.category }})
+      run: python scripts/kakaku_price_updater.py --category ${{ matrix.category }}
 
     - name: Commit and push
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "actions@github.com"
-        git pull --rebase origin main || true
         git add workspace/data/
-        git diff --cached --quiet || git commit -m "auto: weekly price update $(date +%Y-%m-%d)"
-        git push
+        if git diff --cached --quiet; then
+          echo "No changes for ${{ matrix.category }}"
+          exit 0
+        fi
+        # 並列pushの競合対策: リトライ3回
+        for i in 1 2 3; do
+          git pull --rebase origin main || true
+          git commit -m "auto: price update ${{ matrix.category }} $(date +%Y-%m-%d)" || true
+          if git push; then
+            echo "Push OK: ${{ matrix.category }}"
+            exit 0
+          fi
+          echo "Push failed (attempt $i), retrying in $((i * 10))s..."
+          git reset HEAD~1 2>/dev/null || true
+          sleep $((i * 10))
+          git add workspace/data/
+        done
+        echo "Failed to push after 3 attempts"
+        exit 1

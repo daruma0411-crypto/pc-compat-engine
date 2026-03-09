@@ -115,20 +115,36 @@ def git_commit_and_push():
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='価格.com 価格バッチ更新')
+    parser.add_argument('--category', choices=list(KAKAKU_CATEGORIES.keys()),
+                        help='単一カテゴリのみ処理（並列実行用）')
+    parser.add_argument('--no-scraper', action='store_true',
+                        help='新規製品スクレイパーをスキップ')
+    args = parser.parse_args()
+
     print(f'価格バッチ更新開始: {TODAY}')
     print(f'リポジトリ: {REPO_ROOT}')
 
-    # 1. GPU/RAM スクレイパー（新規製品の追加 + 価格取得）
-    run_scraper('kakaku_scraper_gpu.py')
-    run_scraper('kakaku_scraper_ram.py')
+    if args.category:
+        categories = {args.category: KAKAKU_CATEGORIES[args.category]}
+        print(f'対象カテゴリ: {args.category}')
+    else:
+        categories = KAKAKU_CATEGORIES
+        print(f'全カテゴリ: {list(KAKAKU_CATEGORIES.keys())}')
 
-    # 2. 全カテゴリの active_codes 収集 + 差分検出付き価格更新
+    # 1. 新規製品スクレイパー（全カテゴリ実行時のみ）
+    if not args.no_scraper and not args.category:
+        run_scraper('kakaku_scraper_gpu.py')
+        run_scraper('kakaku_scraper_ram.py')
+
+    # 2. active_codes 収集 + 差分検出付き価格更新
     all_diffs = {}
     print(f'\n{"="*50}')
     print('差分検出付き価格更新')
     print('='*50)
 
-    for cat_name, cat_info in KAKAKU_CATEGORIES.items():
+    for cat_name, cat_info in categories.items():
         print(f'\n--- {cat_name} ---')
 
         # 一覧ページから現在 active なコードを収集
@@ -143,10 +159,11 @@ def main():
     # 3. 差分ログ出力
     save_diff_log(DIFF_LOG_DIR, TODAY, all_diffs)
 
-    # 4. git commit & push
-    git_commit_and_push()
+    # 4. git commit & push（全カテゴリ実行時のみ。並列時はワークフロー側で処理）
+    if not args.category:
+        git_commit_and_push()
 
-    print(f'\n=== 全処理完了 {TODAY} ===')
+    print(f'\n=== 処理完了 {TODAY} ===')
 
 
 if __name__ == '__main__':
