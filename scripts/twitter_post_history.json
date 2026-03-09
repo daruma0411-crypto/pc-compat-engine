@@ -94,9 +94,16 @@
     "has_image": false
   },
   {
+<<<<<<< Updated upstream
     "name": "[opinion]",
     "posted_at": "2026-03-09T13:57:38.469109",
     "tweet_text": "ゲーム中にタスクマネージャー開く癖ある人いない？\nGPU使用率つい気になる\n\n#PCゲーム",
+=======
+    "name": "[blog]",
+    "posted_at": "2026-03-09T13:58:28.768401",
+    "tweet_text": "これ需要あると思う\n\n「ヘルダイバー2」のMODを入れるために必要なスペック\nhttps://pc-compat-engine-production.up.railway.app/blog/20260308-mod-2mod-mod-spec.html\n\n#PCパーツ",
+    "blog_url": "https://pc-compat-engine-production.up.railway.app/blog/20260308-mod-2mod-mod-spec.html",
+>>>>>>> Stashed changes
     "has_image": false
   }
 ]
