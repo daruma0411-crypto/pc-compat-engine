@@ -743,11 +743,15 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description='PC Compatibility Checker Twitter Bot')
     parser.add_argument('--dry-run', action='store_true', help='テスト実行（実際に投稿しない）')
+    parser.add_argument('--force-blog', action='store_true', help='ブログ記事紹介を強制投稿')
     args = parser.parse_args()
 
     # 投稿タイプ選択（Phase 2-2: 多様化）
     # ブログ15% / ゲーム35% / 質問・意見30% / データ分析20%
     roll = random.random()
+    if args.force_blog:
+        roll = 0.0  # ブログモードを強制
+        print("[INFO] --force-blog: ブログ記事紹介を強制実行")
     blog_history = load_blog_history()
 
     # 月曜のみ10%確率でスレッド投稿（Phase 2-3）

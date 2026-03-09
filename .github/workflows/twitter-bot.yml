@@ -3,6 +3,12 @@ on:
     schedule:
       - cron: '0 9 * * *'   # 18:00 JST（1日1回、濃い投稿）
     workflow_dispatch:
+      inputs:
+        force_blog:
+          description: 'ブログ記事紹介を強制投稿'
+          required: false
+          type: boolean
+          default: false
 
 concurrency:
   group: twitter-bot-push
@@ -33,6 +39,7 @@ jobs:
           pip install tweepy Pillow requests
 
       - name: Random delay (0-30 minutes for humanization)
+        if: ${{ !inputs.force_blog }}
         run: |
           DELAY=$((RANDOM % 1800))
           echo "Waiting ${DELAY} seconds for humanization..."
@@ -46,7 +53,11 @@ jobs:
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
         run: |
-          python scripts/twitter_bot.py
+          if [ "${{ inputs.force_blog }}" = "true" ]; then
+            python scripts/twitter_bot.py --force-blog
+          else
+            python scripts/twitter_bot.py
+          fi
 
       - name: Commit and push history (with retry)
         run: |
