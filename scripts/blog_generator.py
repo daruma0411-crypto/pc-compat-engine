@@ -148,6 +148,14 @@ def slugify(text):
     return text.strip('-')[:80]
 
 
+def _game_slug(game_en):
+    """ゲーム英語名をファイル名用スラッグに変換"""
+    slug = game_en.lower()
+    slug = slug.replace("'", '').replace('"', '').replace(':', '')
+    slug = re.sub(r'[^a-z0-9]+', '-', slug)
+    return slug.strip('-')[:30]
+
+
 def get_season_context():
     """現在の月に応じた季節コンテキストを返す"""
     month = datetime.now().month
@@ -217,11 +225,14 @@ def generate_related_html(related_articles):
     )
 
 
-def generate_article_html(title, content, keywords, template_id=''):
+def generate_article_html(title, content, keywords, template_id='', filename=''):
     """記事の完全なHTMLを生成（Schema.org + テンプレート別CTA + 関連記事）"""
     date_str = datetime.now().strftime('%Y-%m-%d')
     date_display = datetime.now().strftime('%Y年%m月%d日')
     keywords_str = ', '.join(keywords)
+
+    # canonical URL用のファイル名（.html除去）
+    url_slug = filename.replace('.html', '') if filename else slugify(title)
 
     # テンプレート別CTA（Phase 1-4）
     cta = TEMPLATE_CTA.get(template_id, DEFAULT_CTA)
@@ -248,7 +259,7 @@ def generate_article_html(title, content, keywords, template_id=''):
             "url": SITE_URL
         },
         "description": description_text,
-        "mainEntityOfPage": f"{SITE_URL}/blog/{slugify(title)}.html"
+        "mainEntityOfPage": f"{SITE_URL}/blog/{url_slug}"
     }, ensure_ascii=False)
 
     return f'''<!DOCTYPE html>
@@ -259,11 +270,11 @@ def generate_article_html(title, content, keywords, template_id=''):
 <title>{title} | PC互換チェッカー</title>
 <meta name="description" content="{description_text}">
 <meta name="keywords" content="{keywords_str}">
-<link rel="canonical" href="{SITE_URL}/blog/{slugify(title)}.html">
+<link rel="canonical" href="{SITE_URL}/blog/{url_slug}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title} | PC互換チェッカー">
 <meta property="og:description" content="{description_text}">
-<meta property="og:url" content="{SITE_URL}/blog/{slugify(title)}.html">
+<meta property="og:url" content="{SITE_URL}/blog/{url_slug}">
 <meta property="og:image" content="{SITE_URL}/static/og-image.png">
 <meta property="og:site_name" content="PC互換チェッカー">
 <meta name="twitter:card" content="summary_large_image">
@@ -368,7 +379,10 @@ def validate_content(content):
 
 
 def generate_blog_post(template, variables, dry_run=False):
-    """Claude APIで記事本文を生成（systemプロンプト + バリデーション付き）"""
+    """Claude APIで記事本文を生成（systemプロンプト + バリデーション付き）
+    Returns: (title, content_body, keywords) - content_bodyはHTML本文のみ。
+    完全なHTMLはcallerがfilenameを確定後にgenerate_article_htmlで生成する。
+    """
     title = template['title'].format(**variables)
     keywords = [kw.format(**variables) for kw in template['keywords']]
     keywords_str = ', '.join(keywords)
@@ -382,7 +396,7 @@ def generate_blog_post(template, variables, dry_run=False):
         print(f"  [DATA] data_context ({len(variables.get('data_context', ''))}文字)")
         print(f"  [CTA] {TEMPLATE_CTA.get(template['id'], DEFAULT_CTA)['heading']}")
         content = f"<h2>テスト記事</h2><p>これは{title}のテスト記事です。筆者もこのゲームをプレイしました。</p>" * 5
-        return title, generate_article_html(title, content, keywords, template['id']), keywords
+        return title, content, keywords
 
     if not ANTHROPIC_API_KEY:
         print("  [ERROR] ANTHROPIC_API_KEY が未設定")
@@ -428,8 +442,7 @@ def generate_blog_post(template, variables, dry_run=False):
                 print(f"  [SKIP] 文字数不足: {len(text_only)}文字")
                 return None, None, None
 
-            html = generate_article_html(title, content, keywords, template['id'])
-            return title, html, keywords
+            return title, content, keywords
 
     except Exception as e:
         print(f"  [ERROR] API呼び出し失敗: {e}")
@@ -468,10 +481,11 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
             print(f"[SKIP] 今週のレポートは生成済み: {title}")
         else:
             print(f"[週刊レポート] {template['id']}")
-            title, html, keywords = generate_blog_post(template, variables, dry_run=dry_run)
-            if html:
+            title, content_body, keywords = generate_blog_post(template, variables, dry_run=dry_run)
+            if content_body:
                 date_prefix = datetime.now().strftime('%Y%m%d')
                 filename = f"{date_prefix}-{template['id']}-{slugify(title)}.html"
+                html = generate_article_html(title, content_body, keywords, template['id'], filename)
                 filepath = BLOG_DIR / filename
                 with open(filepath, 'w', encoding='utf-8') as f:
                     f.write(html)
@@ -527,13 +541,28 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
 
         print(f"[{generated + 1}/{count}] {template['id']}")
 
-        title, html, keywords = generate_blog_post(template, variables, dry_run=dry_run)
+        title, content_body, keywords = generate_blog_post(template, variables, dry_run=dry_run)
 
-        if html:
+        if content_body:
             date_prefix = datetime.now().strftime('%Y%m%d')
-            filename = f"{date_prefix}-{template['id']}-{slugify(title)}.html"
+            # ゲーム名をファイル名に含めて衝突を防ぐ
+            game_part = _game_slug(variables.get('game_en', ''))
+            base_slug = slugify(title)
+            if game_part and game_part not in base_slug:
+                filename = f"{date_prefix}-{template['id']}-{game_part}-{base_slug}.html"
+            else:
+                filename = f"{date_prefix}-{template['id']}-{base_slug}.html"
 
+            # 衝突検知: 同一ファイル名が既にあれば連番を付与
             filepath = BLOG_DIR / filename
+            counter = 2
+            while filepath.exists() and filename not in [e.get('filename') for e in new_entries]:
+                name_base = filename.replace('.html', '')
+                filename = f"{name_base}-{counter}.html"
+                filepath = BLOG_DIR / filename
+                counter += 1
+
+            html = generate_article_html(title, content_body, keywords, template['id'], filename)
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(html)
             print(f"  [OK] {filepath.name}")

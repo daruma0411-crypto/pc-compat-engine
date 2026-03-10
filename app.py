@@ -638,6 +638,14 @@ def guide_article(slug):
         seo_tags += '<meta name="twitter:card" content="summary_large_image">\n'
         seo_tags += '<meta name="twitter:site" content="@syoyutarou">\n'
     html = html.replace('</head>', seo_tags + '</head>', 1)
+    # BreadcrumbList JSON-LD
+    title_match = re.search(r'<title>(.+?)[\|<]', html)
+    page_title = title_match.group(1).strip() if title_match else slug.replace('-', ' ').title()
+    html = _inject_breadcrumb_jsonld(html, [
+        ('ホーム', '/'),
+        ('ガイド', '/guide'),
+        (page_title, f'/guide/{slug}'),
+    ])
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -690,6 +698,13 @@ def game_page(game_name):
     if '<meta property="og:image"' not in html:
         seo_tags += f'<meta property="og:image" content="{_BASE_URL}/static/og-image.png">\n'
     html = html.replace('</head>', seo_tags + '</head>', 1)
+    # BreadcrumbList JSON-LD
+    display_name = game_name.replace('-', ' ').title()
+    html = _inject_breadcrumb_jsonld(html, [
+        ('ホーム', '/'),
+        ('ゲーム推奨スペック', '/game/' + game_name),
+        (display_name, f'/game/{game_name}'),
+    ])
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -830,6 +845,14 @@ def blog_page(article_name):
         seo_tags += '<meta name="twitter:card" content="summary_large_image">\n'
         seo_tags += '<meta name="twitter:site" content="@syoyutarou">\n'
     html = html.replace('</head>', seo_tags + '</head>', 1)
+    # BreadcrumbList JSON-LD
+    title_match = re.search(r'<h1>(.+?)</h1>', html)
+    page_title = title_match.group(1).strip() if title_match else slug
+    html = _inject_breadcrumb_jsonld(html, [
+        ('ホーム', '/'),
+        ('ブログ', '/blog/'),
+        (page_title[:50], f'/blog/{slug}'),
+    ])
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -874,6 +897,27 @@ def static_pages(filename):
             html = _inject_affiliate_tags(html)
             return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
     return _render_404(), 404
+
+
+def _inject_breadcrumb_jsonld(html, breadcrumb_items):
+    """BreadcrumbList JSON-LDを</head>前に注入する
+    breadcrumb_items: [('ホーム', '/'), ('ゲーム', '/game/...'), ...]
+    """
+    items = []
+    for i, (name, url) in enumerate(breadcrumb_items, 1):
+        items.append({
+            "@type": "ListItem",
+            "position": i,
+            "name": name,
+            "item": f"{_BASE_URL}{url}" if url.startswith('/') else url,
+        })
+    ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": items,
+    }, ensure_ascii=False)
+    tag = f'<script type="application/ld+json">{ld}</script>\n'
+    return html.replace('</head>', tag + '</head>', 1)
 
 
 def _render_404():

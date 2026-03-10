@@ -42,41 +42,8 @@
     "generated_at": "2026-03-07T23:17:59.965469"
   },
   {
-    "title": "「フォートナイト」が動かない時の対処法7選",
-    "filename": "20260308-troubleshooting-fix7picks.html",
-    "template": "troubleshooting",
-    "keywords": [
-      "フォートナイト 動かない",
-      "フォートナイト 起動しない",
-      "フォートナイト トラブル"
-    ],
-    "generated_at": "2026-03-08T15:15:04.427035"
-  },
-  {
-    "title": "「エルデンリング」が動かない時の対処法7選",
-    "filename": "20260308-troubleshooting-fix7picks.html",
-    "template": "troubleshooting",
-    "keywords": [
-      "エルデンリング 動かない",
-      "エルデンリング 起動しない",
-      "エルデンリング トラブル"
-    ],
-    "generated_at": "2026-03-08T15:18:36.030874"
-  },
-  {
-    "title": "「モンスターハンターワイルズ」の推奨スペックとGPU別FPS目安【2026年03月更新】",
-    "filename": "20260308-benchmark-spec-gpufps2026y03monthupdate.html",
-    "template": "benchmark",
-    "keywords": [
-      "モンスターハンターワイルズ 推奨スペック",
-      "モンスターハンターワイルズ FPS",
-      "モンスターハンターワイルズ 動作環境"
-    ],
-    "generated_at": "2026-03-08T15:18:36.283581"
-  },
-  {
     "title": "「ヴァロラント」が動かない時の対処法7選",
-    "filename": "20260308-troubleshooting-fix7picks.html",
+    "filename": "20260308-troubleshooting-valorant-fix7picks.html",
     "template": "troubleshooting",
     "keywords": [
       "ヴァロラント 動かない",
@@ -107,7 +74,7 @@
   },
   {
     "title": "「スターフィールド」の推奨スペックとGPU別FPS目安【2026年03月更新】",
-    "filename": "20260308-benchmark-spec-gpufps2026y03monthupdate.html",
+    "filename": "20260308-benchmark-starfield-spec-gpufps2026y03monthupdate.html",
     "template": "benchmark",
     "keywords": [
       "スターフィールド 推奨スペック",
