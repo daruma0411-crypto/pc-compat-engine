@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-BASE_URL = "https://pc-compat-engine-production.up.railway.app"
+BASE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
 OUTPUT_DIR = Path(__file__).parent.parent  # project root
 
 def generate_sitemap():

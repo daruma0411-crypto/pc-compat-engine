@@ -43,6 +43,17 @@ _GA_DISABLE_SCRIPT = (
 )
 
 
+@app.before_request
+def redirect_to_custom_domain():
+    """旧ドメイン→独自ドメインへ301リダイレクト（SEO評価引き継ぎ）"""
+    custom = os.getenv('CUSTOM_DOMAIN')
+    if custom and request.host != custom:
+        # ヘルスチェックはリダイレクトしない
+        if request.path == '/api/health':
+            return None
+        return redirect(f'https://{custom}{request.path}', code=301)
+
+
 @app.after_request
 def after_request_handler(response):
     """GA除外 + Cache-Control ヘッダー設定"""
@@ -993,7 +1004,7 @@ th{background:#f9fafb;font-weight:600;font-size:.9rem;color:#374151}
 .section-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;color:#374151}
 </style>"""
 
-_BASE_URL = 'https://pc-compat-engine-production.up.railway.app'
+_BASE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
 
 
 def _safe_parse_claude_json(text: str, fallback: dict | None = None) -> dict:

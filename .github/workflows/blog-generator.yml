@@ -37,6 +37,7 @@ jobs:
     - name: Generate blog post
       env:
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        SITE_URL: ${{ secrets.SITE_URL }}
       run: |
         COUNT=${{ github.event.inputs.count || '1' }}
         WEEKLY=""

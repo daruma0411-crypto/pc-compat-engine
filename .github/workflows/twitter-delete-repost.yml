@@ -48,6 +48,7 @@ jobs:
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           BITLY_API_TOKEN: ${{ secrets.BITLY_API_TOKEN }}
+          SITE_URL: ${{ secrets.SITE_URL }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             python twitter_delete_repost.py --delete-id "${{ inputs.delete_id }}" --game-appid "${{ inputs.game_appid }}" --dry-run

@@ -4,6 +4,7 @@ games.jsonl から全ゲームのランディングページを自動生成
 AIO/SEO最適化済み - Phase 1+2+3 直帰率改善 (2026-03-04)
 """
 import json
+import os
 import re
 from pathlib import Path
 from datetime import datetime
@@ -16,7 +17,7 @@ OUTPUT_DIR = WORKSPACE_DIR / "static" / "game"
 OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 
 # サイトベースURL（Railway本番環境）
-SITE_URL = "https://pc-compat-engine-production.up.railway.app"
+SITE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
 
 # Google Analytics ID
 GA_ID = "G-PPNEBG625J"

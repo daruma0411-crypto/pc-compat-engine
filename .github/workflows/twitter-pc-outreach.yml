@@ -38,6 +38,7 @@ jobs:
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           BITLY_API_TOKEN: ${{ secrets.BITLY_API_TOKEN }}
+          SITE_URL: ${{ secrets.SITE_URL }}
         run: |
           cd scripts
           python twitter_pc_outreach.py
