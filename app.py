@@ -3159,7 +3159,8 @@ def handle_search_parts(params, all_products, session=None, limit=5, _internal=F
 
 def handle_search_build(params, all_products, session):
     """おまかせ一括検索: GPU→CPU→MB→RAM→Case→PSUを互換性チェーン付きで順次検索。
-    各カテゴリtop3候補をまとめて返す。AIはこの結果から各カテゴリ1つずつconfirm_partするだけ。
+    各カテゴリtop3候補をまとめて返す。AIはこの結果から未確定カテゴリのみconfirm_partする。
+    既に確定済みのパーツはスキップし、上書きしない。
     """
     budget_yen = params.get('budget_yen', 200000)
     # セッションに予算を反映
@@ -3169,11 +3170,24 @@ def handle_search_build(params, all_products, session):
     # 終了後にcurrent_buildを元に戻す
     original_build = {k: v for k, v in session['current_build'].items()}
     build_results = {}
+    skipped_confirmed = []
 
     _PART_ORDER = ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu']
 
     try:
         for category in _PART_ORDER:
+            # ── 既に確定済みのカテゴリはスキップ ──
+            existing = session['current_build'].get(category)
+            if existing and existing.get('name'):
+                build_results[category] = [{
+                    'product_id': existing.get('id', ''),
+                    'name': existing['name'],
+                    'price_min': existing.get('price_min'),
+                    'already_confirmed': True,
+                }]
+                skipped_confirmed.append(category)
+                continue
+
             search_params = {'category': category}
 
             # 前段パーツからの互換性条件を組み立て（current_buildから自動取得）
@@ -3232,15 +3246,33 @@ def handle_search_build(params, all_products, session):
         if cands and cands[0].get('price_min'):
             total_estimate += cands[0]['price_min']
 
+    # 確定済みカテゴリの情報を含むinstructionを生成
+    cat_ja = {'gpu': 'GPU', 'cpu': 'CPU', 'motherboard': 'マザーボード',
+              'ram': 'メモリ', 'case': 'ケース', 'psu': '電源'}
+    need_confirm = [c for c in _PART_ORDER if c not in skipped_confirmed]
+
+    if skipped_confirmed:
+        skipped_ja = ', '.join(cat_ja.get(c, c) for c in skipped_confirmed)
+        need_ja = ', '.join(cat_ja.get(c, c) for c in need_confirm)
+        instruction = (
+            f'上記は各カテゴリの候補です。'
+            f'{skipped_ja}は既にユーザーが確定済みなので、confirm_partを呼ばないでください。'
+            f'{need_ja}のみconfirm_partで確定してください。'
+            f'product_idは結果からそのままコピーすること。'
+        )
+    else:
+        instruction = (
+            '上記は各カテゴリのtop3候補です。各カテゴリの1番目がおすすめです。'
+            'ユーザーに構成を提示し、承認を得たら各カテゴリの1番目のproduct_idで'
+            'confirm_partを呼んでください。product_idは結果からそのままコピーすること。'
+        )
+
     return {
         'build_candidates': build_results,
         'total_estimate_top1': total_estimate,
         'budget_yen': budget_yen,
-        'instruction': (
-            '上記は各カテゴリのtop3候補です。各カテゴリの1番目がおすすめです。'
-            'ユーザーに構成を提示し、承認を得たら各カテゴリの1番目のproduct_idで'
-            'confirm_partを6回呼んでください。product_idは結果からそのままコピーすること。'
-        ),
+        'instruction': instruction,
+        'skipped_confirmed': skipped_confirmed,
     }
 
 
@@ -4525,7 +4557,9 @@ def _build_chat_response(session, session_id, session_expired,
     if confirmed_count >= len(main_categories):
         print(f"[AUTO_SUMMARY] All {confirmed_count} main parts confirmed, generating server-side summary", flush=True, file=sys.stderr)
         summary = generate_server_side_summary(session)
-        # AIの応答の後にサーバー製サマリーを付与（AIが書いた不完全なサマリーがあっても上書き）
+        # AIが既にget_build_summaryのサマリーを含んでいる場合は重複を除去
+        if ai_message and '🎉 **構成が完成しました！**' in ai_message:
+            ai_message = ai_message.split('🎉 **構成が完成しました！**')[0].rstrip()
         ai_message = (ai_message or '') + "\n\n" + summary
 
     # フロントエンド互換のレスポンス構築
@@ -4603,7 +4637,8 @@ def _build_chat_response(session, session_id, session_expired,
         for cat, name in session['confirmed_parts'].items():
             if name:
                 entry = {'category': cat, 'name': name}
-                build_part = session['current_build'].get(cat)
+                # confirmed_partsのキーは大文字('GPU')、current_buildは小文字('gpu')
+                build_part = session['current_build'].get(cat.lower())
                 if build_part and build_part.get('price_min'):
                     entry['price_min'] = build_part['price_min']
                 response_data['confirmed_parts_session'].append(entry)
