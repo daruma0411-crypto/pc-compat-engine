@@ -18,10 +18,13 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: Claude-Web
 Allow: /
 
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://pc-compat-engine.onrender.com/sitemap.xml
+Sitemap: https://pc-compat-engine-production.up.railway.app/sitemap.xml

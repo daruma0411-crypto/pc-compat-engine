@@ -1,23 +1,30 @@
-# robots.txt for pc-compat-engine
-
+# Allow all crawlers including AI
 User-agent: *
 Allow: /
 
-# AI Crawlers (AIO最適化)
+# AI Crawlers
+User-agent: CCBot
+Allow: /
+
 User-agent: ChatGPT-User
 Allow: /
 
 User-agent: GPTBot
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
 Allow: /
 
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: Google-Extended
+User-agent: Claude-Web
 Allow: /
 
-# Sitemap
-Sitemap: https://pc-compat-engine.onrender.com/sitemap.xml
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://pc-compat-engine-production.up.railway.app/sitemap.xml

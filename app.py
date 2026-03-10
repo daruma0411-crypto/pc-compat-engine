@@ -44,8 +44,9 @@ _GA_DISABLE_SCRIPT = (
 
 
 @app.after_request
-def inject_ga_disable(response):
-    """除外IPからのアクセス時にGA4計測を無効化するスクリプトを注入"""
+def after_request_handler(response):
+    """GA除外 + Cache-Control ヘッダー設定"""
+    # GA4計測除外
     if response.content_type and 'text/html' in response.content_type:
         client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
         if client_ip:
@@ -54,6 +55,17 @@ def inject_ga_disable(response):
             data = response.get_data(as_text=True)
             data = data.replace('<head>', f'<head>{_GA_DISABLE_SCRIPT}', 1)
             response.set_data(data)
+
+    # Cache-Control: 静的ページは1日、APIは無キャッシュ
+    if 'Cache-Control' not in response.headers:
+        path = request.path
+        if path.startswith('/api/'):
+            response.headers['Cache-Control'] = 'no-store'
+        elif path.endswith(('.css', '.js', '.png', '.jpg', '.svg', '.woff2')):
+            response.headers['Cache-Control'] = 'public, max-age=604800'  # 7日
+        elif response.content_type and 'text/html' in response.content_type:
+            response.headers['Cache-Control'] = 'public, max-age=86400'  # 1日
+
     return response
 
 
@@ -593,6 +605,16 @@ def guide_index():
     html_path = os.path.join(static_dir, 'guide', 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
+    # canonical / OG 自動注入
+    seo_tags = f'<link rel="canonical" href="{_BASE_URL}/guide">\n'
+    if '<meta property="og:url"' not in html:
+        seo_tags += f'<meta property="og:url" content="{_BASE_URL}/guide">\n'
+    if '<meta property="og:image"' not in html:
+        seo_tags += f'<meta property="og:image" content="{_BASE_URL}/static/og-image.png">\n'
+    if '<meta name="twitter:card"' not in html:
+        seo_tags += '<meta name="twitter:card" content="summary_large_image">\n'
+        seo_tags += '<meta name="twitter:site" content="@syoyutarou">\n'
+    html = html.replace('</head>', seo_tags + '</head>', 1)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -602,9 +624,20 @@ def guide_article(slug):
     static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
     html_path = os.path.join(static_dir, 'guide', f'{slug}.html')
     if not os.path.isfile(html_path):
-        return 'Article not found', 404
+        return _render_404(), 404
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
+    # canonical / OG / Twitter Card 自動注入
+    canonical_url = f'{_BASE_URL}/guide/{slug}'
+    seo_tags = f'<link rel="canonical" href="{canonical_url}">\n'
+    if '<meta property="og:url"' not in html:
+        seo_tags += f'<meta property="og:url" content="{canonical_url}">\n'
+    if '<meta property="og:image"' not in html:
+        seo_tags += f'<meta property="og:image" content="{_BASE_URL}/static/og-image.png">\n'
+    if '<meta name="twitter:card"' not in html:
+        seo_tags += '<meta name="twitter:card" content="summary_large_image">\n'
+        seo_tags += '<meta name="twitter:site" content="@syoyutarou">\n'
+    html = html.replace('</head>', seo_tags + '</head>', 1)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -644,10 +677,19 @@ def game_page(game_name):
     static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
     html_path = os.path.join(static_dir, f'{game_name}.html')
     if not os.path.isfile(html_path):
-        return 'Game page not found', 404
+        return _render_404(), 404
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
     html = _inject_affiliate_tags(html)
+    # canonical / OG / Twitter Card 自動注入
+    canonical_url = f'{_BASE_URL}/game/{game_name}'
+    seo_tags = f'<link rel="canonical" href="{canonical_url}">\n'
+    if '<meta name="twitter:card"' not in html:
+        seo_tags += f'<meta name="twitter:card" content="summary_large_image">\n'
+        seo_tags += f'<meta name="twitter:site" content="@syoyutarou">\n'
+    if '<meta property="og:image"' not in html:
+        seo_tags += f'<meta property="og:image" content="{_BASE_URL}/static/og-image.png">\n'
+    html = html.replace('</head>', seo_tags + '</head>', 1)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -704,6 +746,16 @@ def blog_index():
 <title>ブログ | PC互換チェッカー</title>
 <meta name="description" content="PCゲーム互換性・自作PCパーツ・GPU価格の最新情報を毎日更新。実データに基づいた記事をお届けします。">
 <link rel="canonical" href="{site_url}/blog/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ブログ | PC互換チェッカー">
+<meta property="og:description" content="PCゲーム互換性・自作PCパーツ・GPU価格の最新情報を毎日更新。実データに基づいた記事をお届けします。">
+<meta property="og:url" content="{site_url}/blog/">
+<meta property="og:image" content="{site_url}/static/og-image.png">
+<meta property="og:site_name" content="PC自作、もう迷わない">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@syoyutarou">
+<meta name="twitter:title" content="ブログ | PC互換チェッカー">
+<meta name="twitter:description" content="PCゲーム互換性・自作PCパーツ・GPU価格の最新情報を毎日更新">
 <script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{ga_id}');</script>
 <style>
@@ -763,9 +815,21 @@ def blog_page(article_name):
     if not article_name.endswith('.html'):
         html_path += '.html'
     if not os.path.isfile(html_path):
-        return 'Blog post not found', 404
+        return _render_404(), 404
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
+    # canonical / OG / Twitter Card 自動注入
+    slug = article_name.replace('.html', '') if article_name.endswith('.html') else article_name
+    canonical_url = f'{_BASE_URL}/blog/{slug}'
+    seo_tags = f'<link rel="canonical" href="{canonical_url}">\n'
+    if '<meta property="og:url"' not in html:
+        seo_tags += f'<meta property="og:url" content="{canonical_url}">\n'
+    if '<meta property="og:image"' not in html:
+        seo_tags += f'<meta property="og:image" content="{_BASE_URL}/static/og-image.png">\n'
+    if '<meta name="twitter:card"' not in html:
+        seo_tags += '<meta name="twitter:card" content="summary_large_image">\n'
+        seo_tags += '<meta name="twitter:site" content="@syoyutarou">\n'
+    html = html.replace('</head>', seo_tags + '</head>', 1)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -809,7 +873,38 @@ def static_pages(filename):
         if html:
             html = _inject_affiliate_tags(html)
             return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
-    return 'Not Found', 404
+    return _render_404(), 404
+
+
+def _render_404():
+    """カスタム404ページ"""
+    return f'''<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ページが見つかりません | PC自作、もう迷わない</title>
+<meta name="robots" content="noindex">
+<style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{font-family:'Inter',-apple-system,sans-serif;background:#0a0f1a;color:#f1f5f9;display:flex;flex-direction:column;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:20px}}
+h1{{font-size:4rem;margin-bottom:8px;color:#60a5fa}}
+p{{color:#94a3b8;font-size:1.1rem;margin-bottom:24px}}
+a{{display:inline-block;background:#2563eb;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600}}
+a:hover{{background:#1d4ed8}}
+</style>
+</head>
+<body>
+<h1>404</h1>
+<p>お探しのページは見つかりませんでした。</p>
+<a href="/">トップページに戻る</a>
+</body>
+</html>'''
+
+
+@app.errorhandler(404)
+def handle_404(e):
+    return _render_404(), 404
 
 
 # ── compat/ 動的ページ生成 ──────────────────────────────────────
@@ -854,7 +949,7 @@ th{background:#f9fafb;font-weight:600;font-size:.9rem;color:#374151}
 .section-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;color:#374151}
 </style>"""
 
-_BASE_URL = 'https://pc-compat-engine.onrender.com'
+_BASE_URL = 'https://pc-compat-engine-production.up.railway.app'
 
 
 def _safe_parse_claude_json(text: str, fallback: dict | None = None) -> dict:

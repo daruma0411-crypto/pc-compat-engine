@@ -31,7 +31,7 @@ AMAZON_TAG   = '__AMAZON_TAG__'
 RAKUTEN_A_ID = '__RAKUTEN_A_ID__'
 RAKUTEN_L_ID = '__RAKUTEN_L_ID__'
 
-_BASE_URL = 'https://pc-compat-engine.onrender.com'
+_BASE_URL = 'https://pc-compat-engine-production.up.railway.app'
 
 
 # ── ユーティリティ ────────────────────────────────────────────
