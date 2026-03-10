@@ -9,6 +9,11 @@ on:
           required: false
           type: boolean
           default: false
+        blog_filename:
+          description: '投稿するブログ記事のファイル名 (例: 20260309-xxx.html)'
+          required: false
+          type: string
+          default: ''
 
 concurrency:
   group: twitter-bot-push
@@ -53,11 +58,14 @@ jobs:
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
         run: |
+          ARGS=""
           if [ "${{ inputs.force_blog }}" = "true" ]; then
-            python scripts/twitter_bot.py --force-blog
-          else
-            python scripts/twitter_bot.py
+            ARGS="$ARGS --force-blog"
           fi
+          if [ -n "${{ inputs.blog_filename }}" ]; then
+            ARGS="$ARGS --blog-filename ${{ inputs.blog_filename }}"
+          fi
+          python scripts/twitter_bot.py $ARGS
 
       - name: Commit and push history (with retry)
         run: |

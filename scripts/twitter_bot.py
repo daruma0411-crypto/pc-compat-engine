@@ -682,9 +682,11 @@ def get_recently_posted_blog_urls(days=14):
     return posted_urls
 
 
-def generate_blog_tweet():
+def generate_blog_tweet(target_filename=None):
     """ブログ記事紹介ツイートを生成（重複チェック付き）
 
+    Args:
+        target_filename: 指定時はその記事を強制選択
     Returns:
         (tweet_text, pattern_type, full_blog_url) or (None, 'blog', None)
     """
@@ -692,23 +694,33 @@ def generate_blog_tweet():
     if not blog_history:
         return None, 'blog', None
 
-    # 直近14日以内に投稿済みのブログURLを取得
-    recently_posted = get_recently_posted_blog_urls(days=14)
-    if recently_posted:
-        print(f"[INFO] 直近14日以内に投稿済みブログURL: {len(recently_posted)}件")
+    # ファイル名指定時はその記事を直接選択
+    if target_filename:
+        matched = [a for a in blog_history if a['filename'] == target_filename]
+        if matched:
+            article = matched[-1]
+            print(f"[INFO] 指定記事を選択: {article['title']} ({target_filename})")
+        else:
+            print(f"[ERROR] 指定ファイル名が見つかりません: {target_filename}")
+            return None, 'blog', None
+    else:
+        # 直近14日以内に投稿済みのブログURLを取得
+        recently_posted = get_recently_posted_blog_urls(days=14)
+        if recently_posted:
+            print(f"[INFO] 直近14日以内に投稿済みブログURL: {len(recently_posted)}件")
 
-    # 直近10記事から未投稿の記事を抽出
-    recent = blog_history[-10:]
-    candidates = [
-        a for a in recent
-        if f"{SITE_URL}/blog/{a['filename']}" not in recently_posted
-    ]
+        # 直近10記事から未投稿の記事を抽出
+        recent = blog_history[-10:]
+        candidates = [
+            a for a in recent
+            if f"{SITE_URL}/blog/{a['filename']}" not in recently_posted
+        ]
 
-    if not candidates:
-        print("[INFO] ブログ記事が全て直近14日以内に投稿済み → ゲーム投稿にフォールバック")
-        return None, 'blog', None
+        if not candidates:
+            print("[INFO] ブログ記事が全て直近14日以内に投稿済み → ゲーム投稿にフォールバック")
+            return None, 'blog', None
 
-    article = random.choice(candidates)
+        article = random.choice(candidates)
     title = article['title']
     filename = article['filename']
 
@@ -744,6 +756,7 @@ def main():
     parser = argparse.ArgumentParser(description='PC Compatibility Checker Twitter Bot')
     parser.add_argument('--dry-run', action='store_true', help='テスト実行（実際に投稿しない）')
     parser.add_argument('--force-blog', action='store_true', help='ブログ記事紹介を強制投稿')
+    parser.add_argument('--blog-filename', type=str, default=None, help='投稿するブログ記事のファイル名を指定')
     args = parser.parse_args()
 
     # 投稿タイプ選択（Phase 2-2: 多様化）
@@ -782,7 +795,7 @@ def main():
     if roll < 0.15 and blog_history:
         # ブログ紹介ツイート (15%)
         print("[モード] ブログ記事紹介ツイート")
-        tweet_text, pattern_type, full_blog_url = generate_blog_tweet()
+        tweet_text, pattern_type, full_blog_url = generate_blog_tweet(target_filename=args.blog_filename)
         if tweet_text:
             hashtags_list = random.sample(['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC'], 1)
             hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
