@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIM市場 深掘り調査レポート 2026 | あかがね戦略資料</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', sans-serif; background: #0a0a1a; color: #e0e0e0; line-height: 1.8; }
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+/* Header */
+.hero { background: linear-gradient(135deg, #1a1a3e 0%, #0d2137 50%, #1a3a2e 100%); padding: 60px 40px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #2a2a5a; }
+.hero h1 { font-size: 2.2em; color: #fff; margin-bottom: 10px; }
+.hero .subtitle { font-size: 1.1em; color: #8ab4f8; margin-bottom: 20px; }
+.hero .date { color: #888; font-size: 0.9em; }
+.hero .verdict { background: rgba(255,170,0,0.15); border-left: 4px solid #ffaa00; padding: 15px 20px; border-radius: 0 8px 8px 0; margin-top: 20px; }
+.hero .verdict strong { color: #ffaa00; font-size: 1.1em; }
+
+/* Section */
+section { background: #111128; border-radius: 12px; padding: 35px; margin-bottom: 30px; border: 1px solid #1e1e40; }
+section h2 { font-size: 1.6em; color: #8ab4f8; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #2a2a5a; }
+section h3 { font-size: 1.2em; color: #c0d0ff; margin: 25px 0 12px; }
+section h4 { font-size: 1.05em; color: #ffaa00; margin: 18px 0 8px; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+th { background: #1a1a3e; color: #8ab4f8; padding: 12px 15px; text-align: left; font-weight: 600; border-bottom: 2px solid #3a3a6a; }
+td { padding: 10px 15px; border-bottom: 1px solid #1e1e40; }
+tr:hover { background: rgba(138,180,248,0.05); }
+.highlight-row { background: rgba(255,170,0,0.08); }
+.highlight-row td { color: #ffcc66; }
+
+/* Cards */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+.card { background: #151535; border-radius: 10px; padding: 20px; border: 1px solid #2a2a5a; }
+.card .card-title { font-size: 1.1em; color: #ffaa00; margin-bottom: 8px; }
+.card .card-value { font-size: 2em; color: #fff; font-weight: 700; }
+.card .card-desc { color: #999; font-size: 0.9em; margin-top: 5px; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 30px; margin: 20px 0; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #ff4444, #ffaa00, #44ff44, #4488ff); border-radius: 2px; }
+.timeline-item { position: relative; margin-bottom: 25px; padding-left: 20px; }
+.timeline-item::before { content: ''; position: absolute; left: -26px; top: 8px; width: 14px; height: 14px; border-radius: 50%; border: 3px solid; }
+.timeline-item.critical::before { border-color: #ff4444; background: #ff444433; }
+.timeline-item.warning::before { border-color: #ffaa00; background: #ffaa0033; }
+.timeline-item.info::before { border-color: #44ff44; background: #44ff4433; }
+.timeline-item.future::before { border-color: #4488ff; background: #4488ff33; }
+.timeline-year { font-size: 1.3em; font-weight: 700; margin-bottom: 5px; }
+.timeline-item.critical .timeline-year { color: #ff6666; }
+.timeline-item.warning .timeline-year { color: #ffcc66; }
+.timeline-item.info .timeline-year { color: #66ff66; }
+.timeline-item.future .timeline-year { color: #6699ff; }
+
+/* Bar chart */
+.bar-chart { margin: 15px 0; }
+.bar-row { display: flex; align-items: center; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 0.9em; color: #aaa; flex-shrink: 0; }
+.bar-track { flex: 1; height: 28px; background: #1a1a3e; border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 0.85em; font-weight: 600; color: #fff; transition: width 0.5s; }
+.bar-value { margin-left: 10px; font-size: 0.9em; color: #ccc; }
+
+/* Competitor */
+.competitor { background: #151535; border-radius: 10px; padding: 20px; margin-bottom: 15px; border-left: 4px solid; }
+.competitor.dnp { border-color: #e74c3c; }
+.competitor.scsk { border-color: #3498db; }
+.competitor.exa { border-color: #2ecc71; }
+.competitor.akeneo { border-color: #9b59b6; }
+.competitor.contentserv { border-color: #f39c12; }
+.competitor.akagane { border-color: #ff6b6b; }
+.competitor-name { font-size: 1.2em; font-weight: 700; color: #fff; margin-bottom: 5px; }
+.competitor-type { font-size: 0.85em; color: #888; margin-bottom: 10px; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.8em; margin-right: 5px; margin-bottom: 5px; }
+.tag-strength { background: rgba(46,204,113,0.2); color: #2ecc71; }
+.tag-weakness { background: rgba(231,76,60,0.2); color: #e74c3c; }
+.tag-client { background: rgba(52,152,219,0.2); color: #3498db; }
+
+/* Callout */
+.callout { padding: 20px; border-radius: 8px; margin: 15px 0; }
+.callout.danger { background: rgba(255,68,68,0.1); border-left: 4px solid #ff4444; }
+.callout.warning { background: rgba(255,170,0,0.1); border-left: 4px solid #ffaa00; }
+.callout.success { background: rgba(68,255,68,0.1); border-left: 4px solid #44ff44; }
+.callout.info { background: rgba(68,136,255,0.1); border-left: 4px solid #4488ff; }
+.callout-title { font-weight: 700; margin-bottom: 5px; }
+.callout.danger .callout-title { color: #ff6666; }
+.callout.warning .callout-title { color: #ffcc66; }
+.callout.success .callout-title { color: #66ff66; }
+.callout.info .callout-title { color: #6699ff; }
+
+/* Score */
+.score-ring { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; font-size: 1.8em; font-weight: 700; }
+.score-high { border: 4px solid #44ff44; color: #44ff44; }
+.score-mid { border: 4px solid #ffaa00; color: #ffaa00; }
+.score-low { border: 4px solid #ff4444; color: #ff4444; }
+
+/* Flow chart */
+.flow { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 15px 0; }
+.flow-box { background: #1a1a3e; padding: 12px 18px; border-radius: 8px; border: 1px solid #3a3a6a; text-align: center; min-width: 120px; }
+.flow-arrow { color: #ffaa00; font-size: 1.5em; }
+
+/* Sources */
+.sources { font-size: 0.85em; color: #666; margin-top: 10px; }
+.sources a { color: #6699ff; text-decoration: none; }
+.sources a:hover { text-decoration: underline; }
+
+/* TOC */
+.toc { background: #0d0d24; border-radius: 10px; padding: 25px; margin-bottom: 30px; border: 1px solid #2a2a5a; }
+.toc h3 { color: #8ab4f8; margin-bottom: 15px; }
+.toc ol { padding-left: 20px; }
+.toc li { margin-bottom: 8px; }
+.toc a { color: #c0d0ff; text-decoration: none; }
+.toc a:hover { color: #ffaa00; }
+
+ul { padding-left: 20px; margin: 10px 0; }
+li { margin-bottom: 5px; }
+p { margin: 10px 0; }
+strong { color: #fff; }
+em { color: #ffcc66; font-style: normal; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="date">2026年3月11日 作成 | AKGNET 調査レポート</div>
+  <h1>PIM市場 深掘り調査レポート 2026</h1>
+  <div class="subtitle">Product Information Management — 市場動向・競合分析・AI融合・DPP規制・2027年以降の仮説</div>
+  <div class="verdict">
+    <strong>結論：PIM市場は「爆発前夜」。日本は導入率13%の未成熟市場。<br>2026-2027年のDPP規制が強制的な需要創出のトリガーとなる。<br>あかがねは60年の実績で先行者優位にあるが、デジタルマーケティング(SEO)の弱さで機会損失中。</strong>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>目次</h3>
+  <ol>
+    <li><a href="#market">グローバル市場規模と成長率</a></li>
+    <li><a href="#japan-why">なぜ日本は未成熟なのか？ — 60年の闇</a></li>
+    <li><a href="#dpp">ゲームチェンジャー：EU Digital Product Passport (DPP)</a></li>
+    <li><a href="#dpp-domain">DPP影響を受ける業種と日本の輸出構造</a></li>
+    <li><a href="#competitors">競合プレイヤー詳細分析</a></li>
+    <li><a href="#ai-pim">AI × PIM — ゲームが変わった</a></li>
+    <li><a href="#cost">PIM導入のリアルな費用感</a></li>
+    <li><a href="#2027">2027年以降の仮説 — こうなる</a></li>
+    <li><a href="#akagane">あかがねへの提言</a></li>
+  </ol>
+</div>
+
+<!-- 1. MARKET -->
+<section id="market">
+  <h2>1. グローバル市場規模と成長率</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">2025年 市場規模</div>
+      <div class="card-value">$19.8B</div>
+      <div class="card-desc">約2.9兆円（Mordor Intelligence）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">2026年 予測</div>
+      <div class="card-value">$22.2B</div>
+      <div class="card-desc">約3.3兆円（前年比+12%）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">2031年 予測</div>
+      <div class="card-value">$37.4B</div>
+      <div class="card-desc">約5.6兆円（CAGR 13.4%）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">年平均成長率 (CAGR)</div>
+      <div class="card-value">12-20%</div>
+      <div class="card-desc">IT市場平均(5-8%)の2〜3倍</div>
+    </div>
+  </div>
+
+  <h3>成長ドライバー TOP4</h3>
+  <table>
+    <tr><th>要因</th><th>内容</th><th>インパクト</th></tr>
+    <tr><td><strong>EC/オムニチャネル</strong></td><td>複数チャネルへの商品情報同時配信が必須に</td><td>★★★★★</td></tr>
+    <tr><td><strong>DPP規制（EU）</strong></td><td>2026-2027年から段階的に義務化。法規制による強制需要</td><td>★★★★★</td></tr>
+    <tr><td><strong>AI統合</strong></td><td>生成AIによる商品説明自動生成、MCP連携</td><td>★★★★☆</td></tr>
+    <tr><td><strong>DX推進</strong></td><td>カタログ→デジタル移行。多品種少量生産のSKU爆発</td><td>★★★★☆</td></tr>
+  </table>
+
+  <div class="sources">出典: <a href="https://www.mordorintelligence.com/industry-reports/product-information-management-market">Mordor Intelligence</a>, <a href="https://www.fortunebusinessinsights.com/product-information-management-market-107113">Fortune Business Insights</a>, <a href="https://www.businessresearchinsights.com/market-reports/product-information-management-pim-market-120624">Business Research Insights</a></div>
+</section>
+
+<!-- 2. WHY JAPAN -->
+<section id="japan-why">
+  <h2>2. なぜ日本は未成熟なのか？ — 60年の闇</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">PIM認知率</div>
+      <div class="card-value">38%</div>
+      <div class="card-desc">日本の製造業・小売業（Contentserv調査）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">PIM導入率</div>
+      <div class="card-value">13%</div>
+      <div class="card-desc">商品10,000点以上の企業対象</div>
+    </div>
+    <div class="card">
+      <div class="card-title">導入計画あり</div>
+      <div class="card-value">34%</div>
+      <div class="card-desc">「検討中」の企業が大量に存在</div>
+    </div>
+  </div>
+
+  <h3>「なんとかなってしまった」日本の構造的問題</h3>
+
+  <div class="callout danger">
+    <div class="callout-title">核心：Excel + 属人化 + 「動いているから触るな」文化</div>
+    <p>日本の製造業では商品情報管理の課題が<strong>10〜20年前から存在</strong>していたが、「なんとか回っていた」ため放置されてきた。以下が未成熟の真因：</p>
+  </div>
+
+  <table>
+    <tr><th>#</th><th>原因</th><th>実態</th></tr>
+    <tr>
+      <td>1</td>
+      <td><strong>Excel地獄</strong></td>
+      <td>商品マスタがExcel管理。部署ごとに別バージョンが存在。コピペで不整合が日常的に発生。<br>→「共有ドライブのExcelを更新してください」が業務フロー</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>属人化</strong></td>
+      <td>「あの人しか知らない」情報が大量。ベテラン社員の退職で情報が消失。<br>→ 商品情報がローカルPCに保存され、一貫性が保てない</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>縦割り組織</strong></td>
+      <td>設計→製造→営業→マーケの各部門で別システム・別フォーマット。<br>→ カタログ用・Web用・EC用で同じ情報を3回手入力</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>「動いているから触るな」</strong></td>
+      <td>年数回のカタログ更新で回っていたため、投資の緊急性が低かった。<br>→ 経営層の理解が得られず、予算がつかない</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>PIMの認知不足</strong></td>
+      <td>欧米では10年前から普及。日本ではPIMという言葉すら知らない企業が62%。<br>→ ガートナーが解説記事を出すレベルでまだ「入門段階」</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>「作る」文化 vs「管理する」文化</strong></td>
+      <td>日本の製造業は「ものづくり」には投資するが「情報づくり」には投資しない。<br>→ 製品開発に数年かけるのに、その情報管理は後回し</td>
+    </tr>
+  </table>
+
+  <div class="callout warning">
+    <div class="callout-title">しかし、もう「なんとかなる」時代は終わった</div>
+    <p><strong>EC化率の上昇</strong>（BtoB含む）、<strong>グローバル展開</strong>の加速、そして<strong>DPP規制</strong>の施行により、Excel管理では物理的に対応不可能な時代に突入。これが2025-2027年の「PIM導入ラッシュ」の引き金となる。</p>
+  </div>
+
+  <div class="sources">出典: <a href="https://prtimes.jp/main/html/rd/p/000000053.000040168.html">Contentserv 意識・実態調査</a>, <a href="https://mtame.jp/martec/pim_for_manufacturing_industry/">エムタメ 製造業PIM</a>, <a href="https://www.sbbit.jp/article/cont1/118076">ガートナー PIM解説</a></div>
+</section>
+
+<!-- 3. DPP -->
+<section id="dpp">
+  <h2>3. ゲームチェンジャー：EU Digital Product Passport (DPP)</h2>
+
+  <div class="callout danger">
+    <div class="callout-title">DPPとは何か？（一言で）</div>
+    <p>EU域内で販売する全製品に「デジタルの履歴書」をQRコード付きで義務化する規制。<br>
+    原材料の産地、CO2排出量、リサイクル可能性、性能データなど<strong>100以上のデータ属性</strong>を電子的に記録・公開する必要がある。<br>
+    <strong>日本企業でもEU向けに輸出するなら対応必須。</strong></p>
+  </div>
+
+  <h3>DPP施行タイムライン</h3>
+
+  <div class="timeline">
+    <div class="timeline-item critical">
+      <div class="timeline-year">2026年7月</div>
+      <p><strong>EU中央デジタルレジストリ設立</strong><br>全DPPデータの集中管理基盤が稼働開始</p>
+    </div>
+    <div class="timeline-item critical">
+      <div class="timeline-year">2027年2月</div>
+      <p><strong>バッテリーパスポート義務化</strong><br>EV・産業用バッテリー（2kWh超）にQRコード付きDPP必須<br>
+      → <em>パナソニック、村田製作所、TDK、日本電産 等に直接影響</em></p>
+    </div>
+    <div class="timeline-item warning">
+      <div class="timeline-year">2027年内</div>
+      <p><strong>繊維・鉄鋼カテゴリ</strong><br>アパレル・履物・鉄鋼製品にDPP適用開始<br>
+      → <em>東レ、帝人、旭化成、日本製鉄、JFE 等に影響</em></p>
+    </div>
+    <div class="timeline-item warning">
+      <div class="timeline-year">2028年〜</div>
+      <p><strong>電子機器・家電</strong><br>消費者向け電子機器にDPP適用拡大<br>
+      → <em>ソニー、パナソニック、シャープ、京セラ 等に影響</em></p>
+    </div>
+    <div class="timeline-item info">
+      <div class="timeline-year">2030年</div>
+      <p><strong>建材・化学品・家具</strong><br>残りのカテゴリに全面適用。約30カテゴリが対象<br>
+      → <em>ほぼ全ての製造業に波及</em></p>
+    </div>
+  </div>
+
+  <h3>DPPで求められるデータ（バッテリーの例）</h3>
+  <table>
+    <tr><th>カテゴリ</th><th>具体的なデータ項目</th></tr>
+    <tr><td>原材料</td><td>コバルト・リチウム・ニッケルの産地、紛争鉱物の地理的起源</td></tr>
+    <tr><td>CO2</td><td>ライフサイクル段階別のカーボンフットプリント（採掘→製造→輸送）</td></tr>
+    <tr><td>リサイクル</td><td>再生材含有率、回収率、リサイクル可能性の数値</td></tr>
+    <tr><td>性能</td><td>容量、耐久性、効率、State-of-Health メトリクス</td></tr>
+    <tr><td>人権</td><td>サプライチェーンのデューデリジェンス（人権・環境基準の遵守）</td></tr>
+  </table>
+
+  <div class="callout info">
+    <div class="callout-title">なぜDPPがPIMの「ゲームチェンジャー」なのか</div>
+    <p>DPP対応 = <strong>製品情報のデジタル一元管理が法律で義務化</strong>される、ということ。<br>
+    これまで「あると便利」だったPIMが、<strong>「ないと売れない」</strong>に変わる。<br>
+    典型的な自動車・電子機器メーカーはサプライヤー500〜5,000社、30〜50ヵ国にまたがるサプライチェーンからデータを集約する必要があり、業界アナリストは<strong>データ基盤構築に12〜18ヶ月</strong>が必要と試算。<br>
+    → つまり<strong>2027年2月に間に合わせるには、2025年中に着手しなければ手遅れ</strong>。</p>
+  </div>
+
+  <div class="sources">出典: <a href="https://www.ey.com/ja_jp/insights/climate-change-sustainability-services/dpp-under-the-espr-regulation">EY Japan DPP解説</a>, <a href="https://www.centricsoftware.com/ja/blogs/digital-product-passport/">Centric Software DPP</a>, <a href="https://base-batterypassport.com/blog/regulations-4/eu-battery-passport-regulation-57">EU Battery Passport Regulation</a>, <a href="https://www.informatica.com/resources/articles/digital-product-passport-battery-passport-guide.html">Informatica DPP Guide</a></div>
+</section>
+
+<!-- 4. DPP DOMAIN -->
+<section id="dpp-domain">
+  <h2>4. DPP影響を受ける業種と日本のEU輸出構造</h2>
+
+  <h3>日本→EU 輸出構成比（2024年）</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">輸送用機器</div>
+      <div class="bar-track"><div class="bar-fill" style="width:53%;background:linear-gradient(90deg,#e74c3c,#ff6b6b);">26.4%</div></div>
+      <div class="bar-value">← DPP直撃</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">一般機械</div>
+      <div class="bar-track"><div class="bar-fill" style="width:38%;background:linear-gradient(90deg,#3498db,#6bb5ff);">19.2%</div></div>
+      <div class="bar-value">← 2028年〜</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">電気機器</div>
+      <div class="bar-track"><div class="bar-fill" style="width:33%;background:linear-gradient(90deg,#9b59b6,#c27aee);">16.3%</div></div>
+      <div class="bar-value">← DPP直撃</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">化学製品</div>
+      <div class="bar-track"><div class="bar-fill" style="width:24%;background:linear-gradient(90deg,#2ecc71,#5ff0a0);">11.8%</div></div>
+      <div class="bar-value">← 2030年〜</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">その他</div>
+      <div class="bar-track"><div class="bar-fill" style="width:52%;background:linear-gradient(90deg,#666,#999);">26.3%</div></div>
+      <div class="bar-value"></div>
+    </div>
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-title">EU輸出額 $660億（約10兆円）の73.7%がDPP対象になる</div>
+    <p>自動車（18.5%）+ 自動車部品（4.2%）+ 電気機器（16.3%）+ 一般機械（19.2%）+ 化学製品（11.8%）+ 繊維等 = <strong>EU輸出のほぼ全てがDPP対応を迫られる</strong>。<br>
+    対応できなければ、文字通り<strong>「EUに製品を売れなくなる」</strong>。</p>
+  </div>
+
+  <h3>DPP対応が急務な日本企業（業種別）</h3>
+  <table>
+    <tr><th>業種</th><th>DPP開始</th><th>影響を受ける主要企業（例）</th><th>あかがね接点</th></tr>
+    <tr class="highlight-row"><td>バッテリー</td><td><strong>2027年2月</strong></td><td>パナソニック、村田製作所、TDK、日本電産、GSユアサ</td><td>高（製品情報管理）</td></tr>
+    <tr class="highlight-row"><td>自動車・部品</td><td><strong>2027年</strong></td><td>トヨタ、ホンダ、デンソー、アイシン、日本精工</td><td>高（カタログ・多言語）</td></tr>
+    <tr><td>繊維・アパレル</td><td>2027年</td><td>東レ、帝人、旭化成、ワコール、ファーストリテイリング</td><td>中</td></tr>
+    <tr><td>鉄鋼</td><td>2027年</td><td>日本製鉄、JFE、神戸製鋼</td><td>中</td></tr>
+    <tr><td>電子機器</td><td>2028年〜</td><td>ソニー、京セラ、オムロン、キーエンス、ミツトヨ</td><td>高（実績あり）</td></tr>
+    <tr><td>建材</td><td>2030年</td><td>LIXIL、TOTO、旭硝子、ダイキン</td><td>高（カタログ）</td></tr>
+  </table>
+
+  <div class="sources">出典: <a href="https://www.mofa.go.jp/mofaj/files/100510867.pdf">外務省 日EU経済関係資料 2025</a>, <a href="https://www.jetro.go.jp/world/europe/eu/gtir/">JETRO EUの貿易投資年報</a></div>
+</section>
+
+<!-- 5. COMPETITORS -->
+<section id="competitors">
+  <h2>5. 競合プレイヤー詳細分析</h2>
+
+  <div class="competitor dnp">
+    <div class="competitor-name">DNP 大日本印刷</div>
+    <div class="competitor-type">国内大手 / PIMソリューションパートナー</div>
+    <p><strong>PIM製品:</strong> 自社PIM「Pro-V」（Stibo Systemsベース） + Centric PXM（旧Contentserv）の販売パートナー<br>
+    <strong>戦略:</strong> 2017年からContentservの日本市場販売を開始。自社でもContentservを導入し「商材サーチ」で案件転換率60%改善。PIMからPXM（Product Experience Management）へのAI活用を推進中。</p>
+    <span class="tag tag-strength">印刷→デジタルのDX文脈で強い</span>
+    <span class="tag tag-strength">大企業パイプライン豊富</span>
+    <span class="tag tag-strength">カタログ制作から一貫提供</span>
+    <span class="tag tag-weakness">PIM専業ではない</span>
+    <span class="tag tag-weakness">中小企業には高コスト</span>
+    <span class="tag tag-client">導入先: 自社営業DX、フジッコ、フランフラン</span>
+  </div>
+
+  <div class="competitor scsk">
+    <div class="competitor-name">SCSK</div>
+    <div class="competitor-type">SIer / 製造業DX</div>
+    <p><strong>PIM製品:</strong> Contentserv（現Centric PXM）のインテグレーター。製造業特化のデジタルマーケティング基盤を提供。<br>
+    <strong>戦略:</strong> 「製造業特化型デジタルマーケティング」をブランディング。WebサイトでPIMコラムを積極発信。海外市場への情報発信時間短縮を訴求。</p>
+    <span class="tag tag-strength">製造業へのSI実績が豊富</span>
+    <span class="tag tag-strength">SEOコンテンツが充実</span>
+    <span class="tag tag-weakness">自社PIM製品はない（代理店）</span>
+    <span class="tag tag-weakness">運用支援は弱い</span>
+    <span class="tag tag-client">製造業の海外展開案件に強い</span>
+  </div>
+
+  <div class="competitor exa">
+    <div class="competitor-name">エクサ（日本IBM系）</div>
+    <div class="competitor-type">SIer / デジタルビジネス基盤</div>
+    <p><strong>PIM製品:</strong> IBM基盤の商品情報活用プラットフォーム。イントリックスと協業し、戦略立案からサイト構築・運用までワンストップ提供。<br>
+    <strong>戦略:</strong> BtoB製造業のデジタルコミュニケーションに特化。部品データの一括更新で業務効率化を訴求。</p>
+    <span class="tag tag-strength">IBM基盤の信頼性</span>
+    <span class="tag tag-strength">エンタープライズに強い</span>
+    <span class="tag tag-weakness">中堅企業には重い</span>
+    <span class="tag tag-weakness">導入コストが高い</span>
+    <span class="tag tag-client">導入先: 部品メーカーA社（数万点データ一括更新）</span>
+  </div>
+
+  <div class="competitor akeneo">
+    <div class="competitor-name">Akeneo</div>
+    <div class="competitor-type">海外 / オープンソースPIM専業</div>
+    <p><strong>PIM製品:</strong> Akeneo PIM（オープンソース版 + Enterprise版）。世界で最も採用されているPIM専業ベンダー。<br>
+    <strong>戦略:</strong> 2025年にMCP（Model Context Protocol）対応を発表。AIエージェント「Data Architect Agent」でPIM導入期間を数ヶ月→数日に短縮。API-firstアーキテクチャで他システム連携に強い。</p>
+    <span class="tag tag-strength">PIM専業で機能最強</span>
+    <span class="tag tag-strength">MCP対応（AI直結）</span>
+    <span class="tag tag-strength">オープンソースでスモールスタート可能</span>
+    <span class="tag tag-weakness">日本語対応・サポートが弱い</span>
+    <span class="tag tag-weakness">日本市場のパートナーが少ない</span>
+    <span class="tag tag-client">グローバル企業中心</span>
+  </div>
+
+  <div class="competitor contentserv">
+    <div class="competitor-name">Centric PXM（旧 Contentserv）</div>
+    <div class="competitor-type">海外SaaS / Dassault Systèmes傘下</div>
+    <p><strong>PIM製品:</strong> Centric PXM。DAM統合、多言語対応、AI機能搭載。2024年にCentric Softwareが買収しDassault Systèmesグループ入り。<br>
+    <strong>日本実績:</strong> <em>ミズノ、リコー、パナソニック コネクト、ミツトヨ、日本電子、アネスト岩田</em> — 製造業大手が多数導入済み。アネスト岩田ではWeb製品情報DL数が<strong>10倍</strong>に増加。</p>
+    <span class="tag tag-strength">日本での導入実績が最多</span>
+    <span class="tag tag-strength">製造業大手の実績豊富</span>
+    <span class="tag tag-strength">DNP/SCSKがパートナー</span>
+    <span class="tag tag-weakness">ライセンス費用が高額</span>
+    <span class="tag tag-weakness">カスタマイズに時間がかかる</span>
+    <span class="tag tag-client">ミズノ、リコー、パナソニック、ミツトヨ、アネスト岩田</span>
+  </div>
+
+  <div class="competitor akagane">
+    <div class="competitor-name">あかがね</div>
+    <div class="competitor-type">国内独立系 / 製造業特化60年</div>
+    <p><strong>PIM製品:</strong> DASソリューション（KOKONIDAS + ERAVIDAS）。商品情報の作成→管理→配信→翻訳→印刷を一貫提供。<br>
+    <strong>強み:</strong> 20万点超のデータ安全管理実績。60年・180社超の製造業支援。カタログ制作から運用まで「人」が伴走する点が大手SIerとの最大の差別化。</p>
+    <span class="tag tag-strength">60年・180社の製造業実績</span>
+    <span class="tag tag-strength">作成→管理→配信→運用の一貫体制</span>
+    <span class="tag tag-strength">自社PIM製品あり</span>
+    <span class="tag tag-strength">多言語（タイ・中国・インド拠点）</span>
+    <span class="tag tag-weakness">SEO/デジタルマーケが致命的に弱い</span>
+    <span class="tag tag-weakness">ブランド認知度が低い</span>
+    <span class="tag tag-weakness">AI対応の発信がない</span>
+  </div>
+
+  <h3>競合ポジションマップ</h3>
+  <table>
+    <tr><th>プレイヤー</th><th>PIM専業度</th><th>製造業特化</th><th>AI対応</th><th>日本実績</th><th>運用支援</th><th>コスト</th></tr>
+    <tr><td>DNP</td><td>△ 兼業</td><td>○</td><td>○</td><td>◎</td><td>○</td><td>高</td></tr>
+    <tr><td>SCSK</td><td>× 代理店</td><td>◎</td><td>△</td><td>○</td><td>△</td><td>高</td></tr>
+    <tr><td>エクサ</td><td>△ 兼業</td><td>○</td><td>△</td><td>○</td><td>○</td><td>高</td></tr>
+    <tr><td>Akeneo</td><td>◎</td><td>△</td><td>◎</td><td>×</td><td>×</td><td>中〜高</td></tr>
+    <tr><td>Centric PXM</td><td>◎</td><td>○</td><td>○</td><td>◎</td><td>△</td><td>高</td></tr>
+    <tr class="highlight-row"><td><strong>あかがね</strong></td><td><strong>◎</strong></td><td><strong>◎</strong></td><td><strong>×</strong></td><td><strong>◎</strong></td><td><strong>◎</strong></td><td><strong>中</strong></td></tr>
+  </table>
+
+  <div class="sources">出典: <a href="https://www.contentserv.com/ja/customer-stories">Centric Software 導入事例</a>, <a href="https://www.dnp.co.jp/biz/case/detail/20173038_4968.html">DNP 商材サーチ事例</a>, <a href="https://api.akeneo.com/mcp/overview.html">Akeneo MCP API</a>, <a href="https://www.scsk.jp/sp/seizou-digital/">SCSK 製造業DX</a></div>
+</section>
+
+<!-- 6. AI x PIM -->
+<section id="ai-pim">
+  <h2>6. AI × PIM — ゲームが変わった</h2>
+
+  <div class="callout info">
+    <div class="callout-title">PIMは「データベース」から「AI基盤」に進化している</div>
+    <p>2025年を境に、PIMは単なる商品情報の保管場所から、<strong>AIが商品情報を理解・生成・配信する中核インフラ</strong>に変わった。<br>
+    この変化を象徴するのがAkeneoの<strong>MCP（Model Context Protocol）対応</strong>。</p>
+  </div>
+
+  <h3>Akeneo MCP — 何が革命的なのか</h3>
+
+  <div class="flow">
+    <div class="flow-box">Claude / GPT<br><small>AIモデル</small></div>
+    <div class="flow-arrow">⇄</div>
+    <div class="flow-box" style="border-color:#9b59b6;"><strong>MCP Server</strong><br><small>ガバナンス層</small></div>
+    <div class="flow-arrow">⇄</div>
+    <div class="flow-box">Akeneo PIM<br><small>商品データ</small></div>
+  </div>
+
+  <ul>
+    <li><strong>2025年秋:</strong> MCP Server を初リリース。AIモデルからPIMに直接アクセスし、自然言語で商品検索・属性更新・コンプライアンスチェックが可能に</li>
+    <li><strong>2026年冬:</strong> MCP Server 拡張版。AIが製品データを扱う際の「ガバナンス層」として機能。製品モデル・エンリッチメントルール・データ関係性を保持し、AIのハルシネーション（嘘）を防止</li>
+    <li><strong>Data Architect Agent:</strong> Akeneo初のAIエージェント。PIMのデータモデル設計を自動化。導入期間を<strong>数ヶ月→数日</strong>に短縮</li>
+  </ul>
+
+  <h3>AI × PIM でできること（2026年現在）</h3>
+  <table>
+    <tr><th>機能</th><th>従来</th><th>AI × PIM</th><th>効果</th></tr>
+    <tr><td>商品説明文の作成</td><td>人が1件ずつ手書き</td><td>AIが属性データから自動生成</td><td><strong>作業時間 1/10</strong></td></tr>
+    <tr><td>多言語翻訳</td><td>翻訳会社に外注（2-4週間）</td><td>AI翻訳 + 品質チェック自動化</td><td><strong>即日完了</strong></td></tr>
+    <tr><td>画像タグ付け</td><td>人が1枚ずつタグ入力</td><td>AI Asset Tagging で自動分類</td><td><strong>作業時間 1/20</strong></td></tr>
+    <tr><td>チャネル別マッピング</td><td>各EC/小売の仕様に手動対応</td><td>AI Auto-Mapping で自動変換</td><td><strong>Time-to-Market 50%短縮</strong></td></tr>
+    <tr><td>データモデル設計</td><td>コンサルが数ヶ月かけて設計</td><td>Data Architect Agent が自動設計</td><td><strong>導入期間 数ヶ月→数日</strong></td></tr>
+    <tr><td>DPP対応</td><td>全データを手動で集約・フォーマット</td><td>PIMがDPPの基盤として自動統合</td><td><strong>規制対応の自動化</strong></td></tr>
+  </table>
+
+  <div class="callout warning">
+    <div class="callout-title">あかがねにとっての意味</div>
+    <p>AI × PIM の流れは<strong>脅威でもあり、最大のチャンス</strong>でもある。<br><br>
+    <strong>脅威:</strong> Akeneoの Data Architect Agent が「PIM導入コンサルの自動化」を始めている。あかがねの強みである「人が伴走する導入支援」の価値が薄れるリスク。<br><br>
+    <strong>チャンス:</strong> AIはデータの「構造化」を自動化できるが、<strong>製造業固有の業務知識</strong>（カタログ制作のノウハウ、印刷入稿の暗黙知、多言語の文化的ニュアンス）はAIだけでは代替できない。<br>
+    あかがねが<strong>AI機能を自社PIMに統合</strong>すれば、「AI × 60年の製造業ノウハウ」という<strong>誰にも真似できないポジション</strong>を取れる。</p>
+  </div>
+
+  <div class="sources">出典: <a href="https://api.akeneo.com/mcp/overview.html">Akeneo MCP API Documentation</a>, <a href="https://www.akeneo.com/blog/winter-release-2026/">Akeneo Winter Release 2026</a>, <a href="https://www.akeneo.com/press-release/akeneo-introduces-first-ai-data-architect-agent-and-new-px-insights-capabilities-to-prepare-enterprises-for-ai-driven-commerce/">Akeneo AI Data Architect Agent</a></div>
+</section>
+
+<!-- 7. COST -->
+<section id="cost">
+  <h2>7. PIM導入のリアルな費用感</h2>
+
+  <table>
+    <tr><th>規模</th><th>タイプ</th><th>初期費用</th><th>月額/年額</th><th>導入期間</th></tr>
+    <tr><td>スモールスタート</td><td>クラウドSaaS</td><td>無料〜数万円</td><td>月額1万〜10万円</td><td>最短1週間</td></tr>
+    <tr><td>中堅企業</td><td>クラウド + カスタマイズ</td><td>数百万円</td><td>月額10万〜50万円</td><td>3〜6ヶ月</td></tr>
+    <tr class="highlight-row"><td>大企業</td><td>エンタープライズ</td><td>数千万円</td><td>年額数百万〜</td><td>6ヶ月〜1年以上</td></tr>
+    <tr><td>フルカスタム</td><td>オンプレミス</td><td>数千万〜億円</td><td>保守年額10万〜40万円</td><td>1年以上</td></tr>
+  </table>
+
+  <div class="callout success">
+    <div class="callout-title">あかがねの価格優位性</div>
+    <p>DNP/SCSK/エクサ経由の大手PIM（Centric PXM等）はライセンス+SI費で<strong>数千万円〜</strong>。<br>
+    あかがねのDASソリューションは自社開発のため、<strong>ライセンス費用が不要</strong>で中堅企業にもリーチ可能。<br>
+    この「大手には高すぎ、自前では無理」な<strong>中堅製造業（従業員100〜1000人）</strong>がブルーオーシャン。</p>
+  </div>
+
+  <div class="sources">出典: <a href="https://ebisumart.com/blog/pim-comparison/">ebisumart PIMサービス比較</a>, <a href="https://www.kikan-modern.com/kind/pim.html">基幹Modern PIM費用相場</a></div>
+</section>
+
+<!-- 8. 2027+ -->
+<section id="2027">
+  <h2>8. 2027年以降の仮説 — こうなる</h2>
+
+  <div class="timeline">
+    <div class="timeline-item critical">
+      <div class="timeline-year">2027年（転換点）</div>
+      <ul>
+        <li><strong>DPPバッテリー規制施行</strong> → バッテリー/自動車メーカーが一斉にPIM導入ラッシュ</li>
+        <li>繊維・鉄鋼もDPP対応開始 → サプライチェーン全体に波及</li>
+        <li>「PIM入れてますか？」が取引条件の一部になり始める</li>
+        <li>日本のPIM導入率: 13% → <strong>推定20-25%</strong>に急伸</li>
+        <li><strong>Akeneo/Centric PXMの日本語パートナーが急増</strong>。国内SIerが参入ラッシュ</li>
+      </ul>
+    </div>
+    <div class="timeline-item warning">
+      <div class="timeline-year">2028年（普及期）</div>
+      <ul>
+        <li>電子機器・家電にDPP拡大 → ソニー、パナソニック等が本格対応</li>
+        <li><strong>AI × PIM が標準化</strong>。生成AIなしのPIMは「旧式」扱いに</li>
+        <li>MCP対応が業界標準に。Akeneo以外のPIMベンダーも追従</li>
+        <li>Tier2/Tier3 サプライヤーにもDPP対応要求が波及 → <strong>中小製造業のPIM需要が爆発</strong></li>
+        <li>日本のPIM導入率: <strong>推定30-35%</strong></li>
+      </ul>
+    </div>
+    <div class="timeline-item info">
+      <div class="timeline-year">2029年（成熟期入口）</div>
+      <ul>
+        <li>PIM未導入企業は「デジタル後進企業」としてブランド毀損リスク</li>
+        <li><strong>PIMデータとAIエージェントの統合</strong>が当たり前に。営業がAIに「この顧客に合う製品は？」と聞くとPIMから最適解を返す</li>
+        <li>DPPデータがサーキュラーエコノミーの基盤に。リサイクル業者がDPPデータで素材を自動仕分け</li>
+        <li>コンサル価値の変化: 「PIM導入支援」→「PIM × AI × DPP の統合運用支援」に移行</li>
+      </ul>
+    </div>
+    <div class="timeline-item future">
+      <div class="timeline-year">2030年〜（新常態）</div>
+      <ul>
+        <li><strong>DPP全面適用</strong>（約30カテゴリ）。事実上の全製造業が対象に</li>
+        <li>PIM導入率: <strong>推定50-60%</strong>。未導入はもはや例外</li>
+        <li>PIMは「あると便利」から<strong>「水道や電気と同じインフラ」</strong>になる</li>
+        <li>競争の軸は「PIMを入れているか」から<strong>「PIMをどう活用しているか」</strong>に移行</li>
+        <li>あかがねのような「運用伴走型」の価値が再評価される（ツール導入だけでは差がつかないため）</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-title">あかがねにとっての「2027年問題」</div>
+    <p>2027年のDPP施行で<strong>PIM市場は「選択」から「必須」</strong>に変わる。<br>
+    しかしこの波に乗れるかどうかは<strong>「2025-2026年に何をしたか」</strong>で決まる。<br><br>
+    大手SIer（DNP/SCSK）は既にContentserv/Centric PXMの販売体制を整えている。<br>
+    Akeneoは日本パートナーを探している段階。<br><br>
+    <strong>あかがねが今やるべきこと:</strong><br>
+    ① das-solutionのSEOを修正し「PIM 製造業」で検索上位を取る<br>
+    ② DPP対応コンテンツを大量発信し、2027年の相談需要を先取りする<br>
+    ③ 自社PIMにAI機能を統合し「AI × 60年のノウハウ」を差別化にする<br><br>
+    この3つを<strong>2026年中に実行</strong>しなければ、2027年の波は大手に持っていかれる。</p>
+  </div>
+</section>
+
+<!-- 9. AKAGANE -->
+<section id="akagane">
+  <h2>9. あかがねへの提言</h2>
+
+  <h3>SWOT分析</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left:4px solid #2ecc71;">
+      <div class="card-title" style="color:#2ecc71;">Strengths（強み）</div>
+      <ul>
+        <li>60年・180社超の製造業実績</li>
+        <li>自社PIM製品（DASソリューション）</li>
+        <li>作成→管理→配信→翻訳→印刷の一貫体制</li>
+        <li>海外拠点（中国・タイ・インド）</li>
+        <li>「人が伴走する」運用支援</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #e74c3c;">
+      <div class="card-title" style="color:#e74c3c;">Weaknesses（弱み）</div>
+      <ul>
+        <li>SEO/デジタルマーケティングが壊滅的（45点）</li>
+        <li>PIMベンダーとしての認知度が低い</li>
+        <li>AI対応の発信・機能がゼロ</li>
+        <li>DPP対応の打ち出しがない</li>
+        <li>ブログ/コラム発信力が弱い</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #3498db;">
+      <div class="card-title" style="color:#3498db;">Opportunities（機会）</div>
+      <ul>
+        <li>PIM市場 CAGR 12-20%の急成長</li>
+        <li>DPP規制で強制的な需要創出</li>
+        <li>日本の導入率13% → 87%が未開拓</li>
+        <li>中堅製造業はブルーオーシャン</li>
+        <li>Akeneoの日本パートナー需要</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid #f39c12;">
+      <div class="card-title" style="color:#f39c12;">Threats（脅威）</div>
+      <ul>
+        <li>DNP/SCSKが既に販売体制構築済み</li>
+        <li>AIエージェントが導入コンサルを自動化</li>
+        <li>海外PIMベンダーの日本本格参入</li>
+        <li>DPP対応で大手に案件が集中するリスク</li>
+        <li>PIMの「コモディティ化」</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>推奨アクション（優先度順）</h3>
+  <table>
+    <tr><th>優先度</th><th>アクション</th><th>期限</th><th>期待効果</th></tr>
+    <tr class="highlight-row"><td>★★★</td><td><strong>das-solution SEO修正</strong>（robots.txt/sitemap/meta/OG/構造化データ）</td><td>2週間以内</td><td>検索順位 大幅改善</td></tr>
+    <tr class="highlight-row"><td>★★★</td><td><strong>「DPP対応」コンテンツ大量発信</strong>（ブログ月4本 + ホワイトペーパー）</td><td>2026年Q2</td><td>2027年の相談需要を先取り</td></tr>
+    <tr><td>★★☆</td><td>akagane.co.jp のSEO修正（meta/OG/hreflang/sitemap更新）</td><td>1ヶ月以内</td><td>コーポレートサイトの信頼性向上</td></tr>
+    <tr><td>★★☆</td><td>自社PIMへのAI機能統合検討（生成AI商品説明/翻訳）</td><td>2026年Q3</td><td>「AI × 60年ノウハウ」の差別化</td></tr>
+    <tr><td>★★☆</td><td>Akeneoパートナー検討（MCP対応/日本市場代理店）</td><td>2026年Q3</td><td>最先端PIM技術へのアクセス</td></tr>
+    <tr><td>★☆☆</td><td>ケーススタディ拡充（DPP対応事例を含め20件以上）</td><td>2026年Q4</td><td>コンバージョン率向上</td></tr>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:30px; color:#555; font-size:0.85em;">
+  <p>本レポートは公開情報に基づく調査です。市場規模は調査会社により幅があります。</p>
+  <p>作成: AKGNET | 2026年3月11日</p>
+</div>
+
+</div>
+</body>
+</html>
