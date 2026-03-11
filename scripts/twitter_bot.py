@@ -154,11 +154,17 @@ def generate_tweet_patterns(game):
     """
     import urllib.parse
     name = game['name']
-    slug = game_slug(name)
-
-    # URLエンコード（日本語文字をASCII-safeに変換、Twitter対応）
-    encoded_slug = urllib.parse.quote(slug)
-    full_url = f"{SITE_URL}/game/{encoded_slug}"
+    steam_appid = game.get('steam_appid')
+    
+    if not steam_appid:
+        # AppIDがない場合はスラッグを使用（レガシー対応）
+        slug = game_slug(name)
+        encoded_slug = urllib.parse.quote(slug)
+        full_url = f"{SITE_URL}/game/{encoded_slug}"
+    else:
+        # 短縮URL形式（200文字超過エラー対策）
+        full_url = f"{SITE_URL}/g/{steam_appid}"
+    
     short_url = shorten_url(full_url)
 
     rec = game.get('specs', {}).get('recommended', {})
@@ -608,9 +614,15 @@ def generate_thread_tweets(game):
     """スレッド用3連投を生成"""
     import urllib.parse
     name = game['name']
-    slug = game_slug(name)
-    encoded_slug = urllib.parse.quote(slug)
-    full_url = f"{SITE_URL}/game/{encoded_slug}"
+    steam_appid = game.get('steam_appid')
+    
+    if not steam_appid:
+        slug = game_slug(name)
+        encoded_slug = urllib.parse.quote(slug)
+        full_url = f"{SITE_URL}/game/{encoded_slug}"
+    else:
+        full_url = f"{SITE_URL}/g/{steam_appid}"
+    
     short_url = shorten_url(full_url)
 
     rec = game.get('specs', {}).get('recommended', {})

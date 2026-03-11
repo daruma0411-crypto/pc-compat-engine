@@ -457,15 +457,8 @@ def generate_reply(post: dict, include_link: bool) -> str:
         if enrichment.get("game_info"):
             steam_appid = enrichment["game_info"].get("steam_appid")
         if steam_appid:
-            import urllib.parse
-            # ゲーム名からスラッグ生成してURLエンコード（日本語対応）
-            game_name = enrichment["game_info"].get("name", "")
-            if game_name:
-                slug = _slugify(game_name)
-                encoded_slug = urllib.parse.quote(slug)
-                full_url = f"{SITE_URL}/game/{encoded_slug}"
-            else:
-                full_url = SITE_URL
+            # 短縮URL形式（200文字超過エラー対策）
+            full_url = f"{SITE_URL}/g/{steam_appid}"
         else:
             full_url = SITE_URL
         link_url = shorten_url(full_url)
