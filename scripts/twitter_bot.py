@@ -111,10 +111,15 @@ def format_spec(spec):
     return str(spec).replace('™', '').replace('®', '').replace('(R)', '').strip()
 
 
-def generate_hashtags(game, pattern_type):
+def generate_hashtags(game, pattern_type, max_tags=2):
     """
     ツイート内容に応じて適切なハッシュタグを生成
     最大2つ（BOT感軽減）
+    
+    Args:
+        game: ゲーム情報辞書
+        pattern_type: ツイートパターンタイプ
+        max_tags: 最大タグ数（デフォルト2）
     """
     game_tag = game['name'].replace(' ', '').replace(':', '').replace("'", '')
 
@@ -136,10 +141,60 @@ def generate_hashtags(game, pattern_type):
     }
 
     extra_tags = type_tags.get(pattern_type, ['PCゲーム'])
-    selected = random.sample(extra_tags, min(1, len(extra_tags)))
+    
+    # max_tags=2の場合、ゲームタグ1つ + 追加タグ1つ = 合計2つ
+    num_extra = min(max_tags - 1, len(extra_tags))
+    selected = random.sample(extra_tags, num_extra) if num_extra > 0 else []
     all_tags = [game_tag] + selected
+    
+    # 念のため最大数チェック
+    all_tags = all_tags[:max_tags]
 
     return ' '.join(f"#{tag}" for tag in all_tags)
+
+
+def count_hashtags(text):
+    """ツイート内のハッシュタグ数をカウント"""
+    return text.count('#')
+
+
+def ensure_max_hashtags(text, max_tags=2):
+    """
+    ツイート内のハッシュタグが上限を超えないように制限
+    
+    Args:
+        text: ツイート文
+        max_tags: 最大タグ数
+    Returns:
+        調整後のツイート文
+    """
+    current_count = count_hashtags(text)
+    if current_count <= max_tags:
+        return text
+    
+    # タグを抽出して上限数に制限
+    lines = text.split('\n')
+    result_lines = []
+    tags_count = 0
+    
+    for line in lines:
+        if '#' not in line:
+            result_lines.append(line)
+        else:
+            # この行のタグを処理
+            words = line.split()
+            new_words = []
+            for word in words:
+                if word.startswith('#'):
+                    if tags_count < max_tags:
+                        new_words.append(word)
+                        tags_count += 1
+                else:
+                    new_words.append(word)
+            if new_words:
+                result_lines.append(' '.join(new_words))
+    
+    return '\n'.join(result_lines)
 
 
 def generate_tweet_patterns(game):
@@ -151,6 +206,7 @@ def generate_tweet_patterns(game):
     - 感情表現豊か
     - 質問形・雑談風・報告風など多様
     - URLは短縮版を使用
+    - ハッシュタグは最大2つまで
     """
     import urllib.parse
     name = game['name']
@@ -405,9 +461,14 @@ def generate_tweet_patterns(game):
     text, pattern_type = random.choice(patterns)
 
     # ハッシュタグ付与（ツイート文にまだタグがなければ追加）
-    hashtags = generate_hashtags(game, pattern_type)
-    if '#' not in text:
+    current_tag_count = count_hashtags(text)
+    if current_tag_count == 0:
+        # タグが無い場合は追加
+        hashtags = generate_hashtags(game, pattern_type, max_tags=2)
         text = text + f"\n\n{hashtags}"
+    elif current_tag_count > 2:
+        # タグが3個以上ある場合は2個に制限
+        text = ensure_max_hashtags(text, max_tags=2)
 
     return text
 
@@ -437,8 +498,15 @@ def generate_question_tweet():
         "最近のゲーム、推奨スペック上がりすぎじゃない？\nRTX 4070が「推奨」はキツイ",
     ]
     text = random.choice(patterns)
-    hashtags = random.sample(['自作PC', 'PCゲーム', 'GPU'], 1)
-    text += f"\n\n#{'  #'.join(hashtags)}"
+    
+    # ハッシュタグは最大2個まで
+    hashtags_list = random.sample(['自作PC', 'PCゲーム', 'GPU'], min(2, 2))
+    hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
+    text += f"\n\n{hashtags}"
+    
+    # 念のためタグ数チェック
+    text = ensure_max_hashtags(text, max_tags=2)
+    
     return text, 'opinion'
 
 
@@ -481,7 +549,19 @@ def generate_data_tweet():
         return None, 'data'
 
     text = random.choice(patterns)
-    text += f"\n\n#GPU価格"
+    
+    # ハッシュタグ追加（最大2個）
+    current_count = count_hashtags(text)
+    if current_count < 2:
+        remaining_tags = 2 - current_count
+        possible_tags = ['GPU価格', 'PCパーツ']
+        tags_to_add = random.sample(possible_tags, min(remaining_tags, len(possible_tags)))
+        hashtags = ' '.join(f"#{tag}" for tag in tags_to_add)
+        text += f"\n\n{hashtags}"
+    
+    # 念のためタグ数チェック
+    text = ensure_max_hashtags(text, max_tags=2)
+    
     return text, 'data'
 
 
@@ -809,9 +889,17 @@ def main():
         print("[モード] ブログ記事紹介ツイート")
         tweet_text, pattern_type, full_blog_url = generate_blog_tweet(target_filename=args.blog_filename)
         if tweet_text:
-            hashtags_list = random.sample(['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC'], 1)
-            hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
-            tweet_text = tweet_text + f"\n\n{hashtags}"
+            # ハッシュタグ追加（最大2個）
+            current_count = count_hashtags(tweet_text)
+            if current_count < 2:
+                remaining_tags = 2 - current_count
+                possible_tags = ['自作PC', 'PCパーツ', 'ブログ更新', 'GPU', 'ゲーミングPC']
+                hashtags_list = random.sample(possible_tags, min(remaining_tags, len(possible_tags)))
+                hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
+                tweet_text = tweet_text + f"\n\n{hashtags}"
+            
+            # 念のためタグ数チェック
+            tweet_text = ensure_max_hashtags(tweet_text, max_tags=2)
 
             success = post_tweet(tweet_text, dry_run=args.dry_run)
             if success and not args.dry_run:

@@ -21,6 +21,16 @@ from flask import Flask, Response, abort, jsonify, redirect, request, send_from_
 # BTOマッチングモジュールのパスを追加
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
 
+# SEOスキーマモジュールのパスを追加
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src'))
+try:
+    from seo_schema import generate_faq_schema, generate_videogame_schema, inject_schema_into_html
+except ImportError:
+    # フォールバック: seo_schemaが無い場合はスキップ
+    generate_faq_schema = None
+    generate_videogame_schema = None
+    inject_schema_into_html = None
+
 # replicate SDK は使わず requests で直接 Replicate API を呼び出す
 REPLICATE_AVAILABLE = True
 
@@ -690,9 +700,24 @@ def _game_slug(name):
     return slug.strip('-')
 
 
+def _load_game_data(game_slug):
+    """ゲームスラッグからゲームデータを読み込む"""
+    games_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace', 'data', 'steam', 'games.jsonl')
+    if not os.path.exists(games_file):
+        return None
+    
+    with open(games_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.strip():
+                game = json.loads(line)
+                if _game_slug(game['name']) == game_slug:
+                    return game
+    return None
+
+
 @app.route('/game/<game_name>')
 def game_page(game_name):
-    """ゲーム個別ページ（SEO/AIO最適化済み）"""
+    """ゲーム個別ページ（SEO/AIO最適化済み + FAQ構造化データ）"""
     static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
     html_path = os.path.join(static_dir, f'{game_name}.html')
     if not os.path.isfile(html_path):
@@ -700,6 +725,20 @@ def game_page(game_name):
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
     html = _inject_affiliate_tags(html)
+    
+    # ゲームデータを読み込み
+    game_data = _load_game_data(game_name)
+    
+    # FAQ構造化データを注入（ゲームデータが取得できた場合のみ）
+    if game_data and generate_faq_schema and inject_schema_into_html:
+        try:
+            faq_schema = generate_faq_schema(game_data)
+            videogame_schema = generate_videogame_schema(game_data, _BASE_URL)
+            html = inject_schema_into_html(html, [faq_schema, videogame_schema])
+        except Exception as e:
+            # エラーが発生してもページ表示は継続
+            print(f"[WARN] FAQ schema generation failed for {game_name}: {e}")
+    
     # canonical / OG / Twitter Card 自動注入
     canonical_url = f'{_BASE_URL}/game/{game_name}'
     seo_tags = f'<link rel="canonical" href="{canonical_url}">\n'
