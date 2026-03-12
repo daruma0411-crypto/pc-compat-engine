@@ -758,6 +758,35 @@ def game_page(game_name):
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/article/<article_name>')
+def article_page(article_name):
+    """ロングテール記事ページ（GPU別ゲーム一覧など）"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'article')
+    html_path = os.path.join(static_dir, f'{article_name}.html')
+    if not os.path.isfile(html_path):
+        html_path = os.path.join(static_dir, f'{article_name}')  # 拡張子なしも試す
+        if not os.path.isfile(html_path):
+            return _render_404(), 404
+    
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    
+    html = _inject_affiliate_tags(html)
+    
+    # canonical / OG / Twitter Card 自動注入
+    canonical_url = f'{_BASE_URL}/article/{article_name}'
+    seo_tags = f'<link rel="canonical" href="{canonical_url}">\n'
+    if '<meta name="twitter:card"' not in html:
+        seo_tags += f'<meta name="twitter:card" content="summary_large_image">\n'
+        seo_tags += f'<meta name="twitter:site" content="@syoyutarou">\n'
+    if '<meta property="og:image"' not in html:
+        seo_tags += f'<meta property="og:image" content="{_BASE_URL}/static/og-image.png">\n'
+    
+    html = html.replace('</head>', seo_tags + '</head>', 1)
+    
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 @app.route('/blog/')
 @app.route('/blog')
 def blog_index():

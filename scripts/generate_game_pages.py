@@ -988,13 +988,13 @@ def generate_page(game, all_games=None, popular_games=None):
     gtag('config', '{GA_ID}');
   </script>
 
-  <title>{name} 推奨スペック・必要動作環境 | PC互換チェッカー</title>
-  <meta name="description" content="{name}の推奨スペックと最低動作環境。予算別PC構成案（8万・12万・18万）、GPU性能比較、よくある質問も掲載。RTX 4060で何fpsでる？などのFAQに回答。">
+  <title>{name} 推奨スペック｜予算別PC構成提案【2026年最新】| PC互換チェッカー</title>
+  <meta name="description" content="{name}の推奨スペックと予算別PC構成を提案。FHD 60fps〜144fps・WQHD・4K対応。RTX 4060で10万円台、RTX 4070で15万円台の最適構成をAIが診断。無料チャット相談OK。価格.com最新データ使用。">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="{name} 推奨スペック完全ガイド | PC互換チェッカー">
-  <meta property="og:description" content="{name}を快適にプレイするための推奨スペックと最適PC構成。予算8万〜18万の3パターンを紹介。">
+  <meta property="og:title" content="{name} 推奨スペック｜予算別PC構成【2026年最新】">
+  <meta property="og:description" content="{name}を快適にプレイするための推奨スペックと最適PC構成。FHD 60fps〜144fps対応。予算10万〜18万円の3パターンを紹介。価格.com最新データ使用。">
   <meta property="og:url" content="{SITE_URL}/game/{slug}">
   <meta property="og:site_name" content="PC互換チェッカー">
 
