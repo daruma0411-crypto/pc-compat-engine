@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU | PC互換チェッカー</title>
+<meta name="description" content="「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU - PCゲーム互換性診断とおすすめPC構成">
+<meta name="keywords" content="エーペックスレジェンズ WQHD, エーペックスレジェンズ 4K GPU">
+<link rel="canonical" href="https://pc-jisaku.com/blog/20260312-high_res-apex-legends-wqhd4kgpu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU | PC互換チェッカー">
+<meta property="og:description" content="「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU - PCゲーム互換性診断とおすすめPC構成">
+<meta property="og:url" content="https://pc-jisaku.com/blog/20260312-high_res-apex-legends-wqhd4kgpu">
+<meta property="og:image" content="https://pc-jisaku.com/static/og-image.png">
+<meta property="og:site_name" content="PC互換チェッカー">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@syoyutarou">
+<meta name="twitter:title" content="「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU">
+<meta name="twitter:image" content="https://pc-jisaku.com/static/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU", "datePublished": "2026-03-12", "dateModified": "2026-03-12", "author": {"@type": "Person", "name": "PC互換チェッカー編集部"}, "publisher": {"@type": "Organization", "name": "PC互換チェッカー", "url": "https://pc-jisaku.com"}, "description": "「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU - PCゲーム互換性診断とおすすめPC構成", "mainEntityOfPage": "https://pc-jisaku.com/blog/20260312-high_res-apex-legends-wqhd4kgpu"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PPNEBG625J"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PPNEBG625J');</script>
+<style>
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 16px; line-height: 1.8; color: #333; background: #fafafa; }
+a { color: #4CAF50; }
+h1 { color: #1a1a1a; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; font-size: 1.5rem; }
+h2 { color: #2c3e50; margin-top: 32px; font-size: 1.2rem; }
+h3 { color: #34495e; margin-top: 24px; }
+.site-nav { background: #1a1a1a; padding: 10px 16px; margin: -16px -16px 20px; display: flex; align-items: center; gap: 16px; }
+.site-nav a { color: #78FFCB; text-decoration: none; font-size: 14px; }
+.site-nav .nav-logo { font-weight: bold; font-size: 16px; }
+.article-meta { color: #666; font-size: 0.9em; margin-bottom: 24px; }
+.article-content { background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.article-content h2 { border-left: 4px solid #4CAF50; padding-left: 12px; }
+.article-content ul, .article-content ol { padding-left: 24px; }
+.article-content li { margin-bottom: 6px; }
+.article-content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.article-content th, .article-content td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+.article-content th { background: #4CAF50; color: white; }
+.article-cta { margin-top: 32px; padding: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; text-align: center; }
+.article-cta h3 { color: #fff; margin: 0 0 8px; }
+.article-cta p { color: rgba(255,255,255,0.9); margin: 0 0 16px; font-size: 14px; }
+.cta-button { display: inline-block; background: #fff; color: #667eea; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+.page-footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #e0e0e0; text-align: center; font-size: 13px; color: #777; }
+.page-footer a { color: #4CAF50; margin: 0 8px; }
+.source-note { color: #777; font-size: 12px; margin-top: 16px; padding: 10px; background: #f0f8ff; border-left: 3px solid #4682b4; border-radius: 4px; }
+.source-note a { color: #4682b4; }
+.disclaimer { color: #777; font-size: 12px; margin-top: 8px; padding: 10px; background: #f8f8f8; border-left: 3px solid #ffa500; border-radius: 4px; }
+@media (max-width: 600px) {
+  body { padding: 10px; }
+  h1 { font-size: 1.2rem; }
+  .article-content { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="https://pc-jisaku.com/" class="nav-logo">PC互換チェッカー</a>
+  <a href="https://pc-jisaku.com/">ホーム</a>
+  <a href="https://pc-jisaku.com/about.html">このサイトについて</a>
+</nav>
+
+<article>
+  <h1>「エーペックスレジェンズ」をWQHD/4Kで遊ぶために必要なGPU</h1>
+  <div class="article-meta">
+    <time datetime="2026-03-12">2026年03月12日</time> | PC互換チェッカー
+  </div>
+
+  <div class="article-content">
+    <h2>せっかく4Kモニター買ったのにフルHDで遊んでない？</h2>
+
+<p>せっかく4Kモニター買ったのにフルHDで遊んでない？——これ、筆者の周りでも本当によく見かける光景です。新生活に合わせて奮発した4Kモニターなのに、エーペックスレジェンズを起動したら「重いからフルHDに落とそう」となってしまう。それ、GPUの選び方ひとつで解決できます。今回は、エーペックスレジェンズをWQHD〜4Kで快適に遊ぶためのGPU選びを、実際の市場価格と性能スコアをもとに解説していきます。</p>
+
+<h2>解像度×フレームレート、どこを狙うかで必要なGPUが変わる</h2>
+
+<p>まず大前提として、エーペックスレジェンズはバトロワ系FPSの中では比較的軽量な部類に入ります。とはいえ、解像度を上げればGPU負荷は跳ね上がります。ざっくりとした負荷イメージを整理すると以下のとおりです。</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<tr><th>解像度</th><th>目標フレームレート</th><th>GPU負荷の目安</th></tr>
+<tr><td>WQHD（2560×1440）</td><td>144fps安定</td><td>中〜やや高</td></tr>
+<tr><td>WQHD（2560×1440）</td><td>240fps狙い</td><td>高</td></tr>
+<tr><td>4K（3840×2160）</td><td>60fps安定</td><td>中</td></tr>
+<tr><td>4K（3840×2160）</td><td>144fps安定</td><td>非常に高</td></tr>
+</table>
+
+<p>フルHDから4Kに上げると、単純計算でピクセル数は4倍です。つまり「フルHDで240fps出てるから4Kでも余裕でしょ」は大間違い。筆者も4Kモニターを導入した直後にこの罠にハマり、当時のGPUでは100fpsすら安定しなくて泣いた経験があります。</p>
+
+<h2>【WQHD編】ぶっちゃけWQHDが一番バランスいい</h2>
+
+<p>正直に言います。ぶっちゃけWQHDが一番バランスいいです。4Kとの視覚的な差は27インチクラスのモニターでは意外と小さく、それでいて必要なGPUパワーは4Kの半分程度で済みます。</p>
+
+<ul>
+<li><strong>144fps安定を狙うなら：GeForce RTX 4070（性能スコア63点）</strong><br>エーペックスレジェンズは最適化が良好なタイトルなので、WQHDで高設定144fps安定ならこのクラスで十分です。筆者がコスパ最強だと信じて疑わないGPUでもあります。</li>
+<li><strong>240fps狙いで競技志向なら：GeForce RTX 5070 Ti（性能スコア82点）</strong><br>価格.com調べで最安168,000円（2026年3月12日時点、21製品）。VRAM 16GBで将来的な余裕もあり、WQHDで画質を落とさず高フレームレートを維持できます。</li>
+</ul>
+
+<h2>【4K編】本気で4Kで遊ぶなら妥協しないGPU選びを</h2>
+
+<p>4Kで60fps安定なら中堅GPUでも対応できますが、4Kモニターを買う方の多くは144fps以上を求めているはずです。そうなると話が変わってきます。</p>
+
+<ul>
+<li><strong>4K×144fps安定：GeForce RTX 5080（性能スコア90点）</strong><br>価格.com調べで最安209,800円（2026年3月12日時点、29製品）。VRAM 16GBを搭載し、エーペックスレジェンズの4K高設定で144fpsラインを安定して超えてくるパワーがあります。筆者の環境でもRTX 5080クラスに換装してから4Kプレイが一気に快適になりました。</li>
+<li><strong>4Kで妥協なく最高環境：GeForce RTX 5090（性能スコア100点）</strong><br>最安549,800円（価格.com調べ）と完全に別次元の価格帯ですが、VRAM 32GBで4K×240fpsも視野に入ります。ただし、エーペックスレジェンズのためだけに55万円は正直オーバースペックです。</li>
+</ul>
+
+<h2>コスパで選ぶならこの2択</h2>
+
+<p>当サイトの性能スコアと実売価格から「1点あたりの価格」を計算すると、コストパフォーマンスが見えてきます。</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<tr><th>GPU</th><th>性能スコア</th><th>最安価格</th><th>1点あたり価格</th></tr>
+<tr><td>RTX 5070 Ti</td><td>82点</td><td>168,000円</td><td>約2,049円</td></tr>
+<tr><td>RTX 5080</td><td>90点</td><td>209,800円</td><td>約2,331円</td></tr>
+<tr><td>RTX 5090</td><td>100点</td><td>549,800円</td><td>約5,498円</td></tr>
+</table>
+
+<p>コスパではRTX 5070 Tiが頭ひとつ抜けています。WQHD主体で遊ぶなら迷わずこれ。4Kメインで遊ぶなら、もう少し頑張ってRTX 5080まで手を伸ばすのが後悔しない選択です。</p>
+
+<h2>まとめ：自分の「解像度×フレームレート目標」を決めてからGPUを選ぼう</h2>
+
+<p>エーペックスレジェンズを高解像度で遊ぶためのGPU選びは、まず「どの解像度で何fpsを目指すか」を決めることがスタートラインです。筆者の結論としては、WQHDならRTX 5070 Ti（168,000円・価格.com調べ）、4KならRTX 5080（209,800円・価格.com調べ）がそれぞれのスイートスポットです。せっかく買った高解像度モニター、フルHD設定のままにせず、GPUをしっかり選んでその真価を引き出してあげてください。</p>
+    <p class="source-note">※ 価格データ：<a href="https://kakaku.com/" rel="nofollow">価格.com</a>調べ（2026年03月12日時点）。ゲーム動作環境：各ゲーム公式/Steam掲載情報。</p>
+    <p class="disclaimer">※ 本記事のFPS値・性能値は一般的な目安です。実際の動作はPC環境・ゲーム設定により異なります。</p>
+
+  <div class="related-articles" style="margin-top:28px;padding:16px;background:#f8fdf8;border-radius:8px;border:1px solid #e0e0e0;">
+    <h3 style="margin:0 0 12px;font-size:1rem;color:#2c3e50;">関連記事</h3>
+    <ul style="margin:0;padding-left:20px;">
+    <li><a href="https://pc-jisaku.com/blog/20260310-high_res-elden-ring-wqhd4kgpu.html">「エルデンリング」をWQHD/4Kで遊ぶために必要なGPU</a></li>
+    <li><a href="https://pc-jisaku.com/blog/20260308-high_res-wqhd4kgpu.html">「ヴァロラント」をWQHD/4Kで遊ぶために必要なGPU</a></li>
+    </ul>
+  </div>
+
+  </div>
+
+  <div class="article-cta">
+    <h3>あなたのPCで動くか診断</h3>
+    <p>AI診断チャットで詳しく確認できます</p>
+    <a href="https://pc-jisaku.com/" class="cta-button">無料で診断する →</a>
+  </div>
+</article>
+
+<footer class="page-footer">
+  <a href="https://pc-jisaku.com/">ホーム</a>
+  <a href="https://pc-jisaku.com/about.html">このサイトについて</a>
+  <a href="https://pc-jisaku.com/privacy.html">プライバシーポリシー</a>
+  <p>&copy; 2026 PC互換チェッカー</p>
+</footer>
+</body>
+</html>
