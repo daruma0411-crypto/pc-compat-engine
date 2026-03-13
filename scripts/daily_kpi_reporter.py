@@ -118,27 +118,50 @@ def analyze_twitter_bot_health():
         tweet_text = post.get('tweet_text', '')
         name = post.get('name', '')
         
-        # タイプ判定
-        if name == '[blog]':
+        # タイプ判定（post_typeフィールド優先）
+        if 'post_type' in post:
+            ptype = post['post_type']
+            if ptype in type_counts:
+                type_counts[ptype] += 1
+            
+            # ブログ重複チェック（blog_urlフィールド優先）
+            if ptype == 'blog':
+                url = post.get('blog_url')
+                if not url:
+                    # フォールバック: ツイート本文からURL抽出
+                    url_match = re.search(r'https://[^\s]+', tweet_text)
+                    if url_match:
+                        url = url_match.group()
+                
+                if url:
+                    if url in blog_urls:
+                        duplicate_blogs += 1
+                    blog_urls[url] = blog_urls.get(url, 0) + 1
+        elif name == '[blog]':
+            # レガシー形式（post_typeなし）
             type_counts['blog'] += 1
-            # 重複チェック
             url_match = re.search(r'https://[^\s]+', tweet_text)
             if url_match:
                 url = url_match.group()
                 if url in blog_urls:
                     duplicate_blogs += 1
                 blog_urls[url] = blog_urls.get(url, 0) + 1
-        elif 'post_type' in post:  # Phase 2実装後のフィールド
-            ptype = post['post_type']
-            if ptype in type_counts:
-                type_counts[ptype] += 1
+        elif name == '[opinion]':
+            type_counts['question'] += 1
+        elif name == '[data]':
+            type_counts['data'] += 1
         else:
             # 未実装時は全てゲーム投稿扱い
             type_counts['game'] += 1
         
-        # ハッシュタグカウント
-        hashtags = re.findall(r'#\w+', tweet_text)
-        tag_count = len(hashtags)
+        # ハッシュタグカウント（hashtag_countフィールド優先）
+        if 'hashtag_count' in post:
+            tag_count = post['hashtag_count']
+        else:
+            # フォールバック: ツイート本文から抽出
+            hashtags = re.findall(r'#\w+', tweet_text)
+            tag_count = len(hashtags)
+        
         hashtag_counts.append(tag_count)
         if tag_count >= 3:
             over_3_tags += 1

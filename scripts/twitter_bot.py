@@ -878,6 +878,9 @@ def main():
                 'tweet_text': tweets[0],
                 'type': 'thread',
                 'has_image': False,
+                'post_type': 'game',  # Phase 2判定用
+                'is_thread': True,
+                'hashtag_count': count_hashtags(tweets[0]),
             })
             save_history(history)
         if not success:
@@ -910,6 +913,8 @@ def main():
                     'tweet_text': tweet_text,
                     'blog_url': full_blog_url,
                     'has_image': False,
+                    'post_type': 'blog',  # Phase 2判定用
+                    'hashtag_count': count_hashtags(tweet_text),
                 })
                 save_history(history)
                 print(f"[OK] 投稿履歴を更新しました (blog_url: {full_blog_url})")
@@ -931,6 +936,8 @@ def main():
                 'posted_at': datetime.now().isoformat(),
                 'tweet_text': tweet_text,
                 'has_image': False,
+                'post_type': 'question',  # Phase 2判定用
+                'hashtag_count': count_hashtags(tweet_text),
             })
             save_history(history)
         if not success:
@@ -959,6 +966,8 @@ def main():
                     'posted_at': datetime.now().isoformat(),
                     'tweet_text': tweet_text,
                     'has_image': data_image is not None,
+                    'post_type': 'data',  # Phase 2判定用
+                    'hashtag_count': count_hashtags(tweet_text),
                 })
                 save_history(history)
             if not success:
@@ -1024,6 +1033,8 @@ def main():
             'posted_at': datetime.now().isoformat(),
             'tweet_text': tweet_text,
             'has_image': image_path is not None,
+            'post_type': 'game',  # Phase 2判定用
+            'hashtag_count': count_hashtags(tweet_text),
         })
         save_history(history)
         print("[OK] 投稿履歴を更新しました")
