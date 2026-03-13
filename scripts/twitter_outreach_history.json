@@ -701,8 +701,53 @@
       "topic_type": "performance_issue",
       "timestamp": "2026-03-10T06:19:59.613199",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2031594746771374564",
+      "target_account": "@bochi_co",
+      "reply_text": "リンク先見れないから何とも言えないけど、どんなゲームやりたいかで全然変わってくるよ。フルHDで軽めのゲームならミドルスペックでも十分だし、4Kで最新AAAタイトルやるなら高めのGPU必要になる。予算とやりたいゲーム教えてくれたら具体的にアドバイスできるかも",
+      "grade": "S",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-13T05:48:55.242765",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2032075414118825989",
+      "target_account": "@Harutora___FN",
+      "reply_text": "フォトナでクラッシュとFPSドロップはキツいね。画像見た感じだと、まずグラボのドライバを最新に更新してみて。あとフォトナ側の設定でDX11モードとDX12モード切り替えると安定することあるよ。遅延の方はPing正常なら描画処理が追いついてない可能性高いから、影とか描画距離を下げてみるといいかも。それでもダメなら一度グラボの温度チェックしてみて",
+      "grade": "S",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-13T05:51:47.875861",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2032304956942999978",
+      "target_account": "@reigi_5788",
+      "reply_text": "ナイトレイン、公式の推奨スペック見る限りRTX 3060くらいあれば普通に遊べそうだけどね。自分の周りだとRTX 4060とかRTX 3070あたりでプレイしてる人多い印象。高設定狙うならRTX 4070以上あると安心かも",
+      "grade": "A",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-13T05:53:34.607162",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2032223461373079641",
+      "target_account": "@pkp133539",
+      "reply_text": "ARK Ascended、自分も似た症状あったわ。スペック足りてても落ちるのは大体メモリリークかドライバ周り。グラボドライバ最新にしてる？あとゲーム内設定で影とフォリッジ品質下げるだけでも安定性変わったりする。それでもダメならゲームファイルの整合性チェックしてみて。参考になるかも→ https://pc-jisaku.com/g/2399830",
+      "grade": "A",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-13T05:57:26.083849",
+      "had_link": true
+    },
+    {
+      "target_tweet_id": "2032103251555074205",
+      "target_account": "@ina_n_ji",
+      "reply_text": "9700Xに9060XT 16GBで19万は良い構成だね！VRAM 16GBあると最近の重めのゲームも安心だし、将来性考えたら賢い選択だと思う。おめでとう🎉",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-13T06:00:40.236168",
+      "had_link": false
     }
   ],
-  "total_replies": 78,
-  "total_runs": 10
+  "total_replies": 83,
+  "total_runs": 11
 }
