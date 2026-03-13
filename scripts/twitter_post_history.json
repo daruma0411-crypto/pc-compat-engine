@@ -132,5 +132,14 @@
     "tweet_text": "記事書きました\n\n3月版 最新ゲーム推奨スペックランキングTOP20\n\nhttps://pc-compat-engine-production.up.railway.app/blog/20260308-ranking-3month-spec-rankingtop20.html\n\n#ブログ更新 #PCパーツ",
     "blog_url": "https://pc-compat-engine-production.up.railway.app/blog/20260308-ranking-3month-spec-rankingtop20.html",
     "has_image": false
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-13T09:52:38.005985",
+    "tweet_text": "これ需要あると思う\n\nRTX 4070で遊べる最新ゲーム50選【3月版】\nhttps://pc-jisaku.com/blog/20260311-gpu_list-valorant-rtx-407050picks3month.html\n\n#PCパーツ #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260311-gpu_list-valorant-rtx-407050picks3month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
