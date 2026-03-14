@@ -58,7 +58,7 @@ X にログイン（x_session.json が有効なら再利用、期限切れなら
 |-----------------|------|------------------------------------------------------------------|
 | X_USERNAME      | ✅   | —                                                                |
 | X_PASSWORD      | ✅   | —                                                                |
-| COMPAT_API_URL  |      | https://pc-compat-engine.onrender.com/api/diagnose               |
+| COMPAT_API_URL  |      | https://pc-jisaku.com/api/diagnose               |
 | X_SEARCH_QUERY  |      | グラボ 入らない                                                  |
 | MAX_TWEETS      |      | 20                                                               |
 

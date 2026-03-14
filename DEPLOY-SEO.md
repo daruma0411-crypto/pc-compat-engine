@@ -83,7 +83,7 @@ git push origin main
 ### 1. サイトアクセス確認
 
 ```
-https://pc-compat-engine-production.up.railway.app/
+https://pc-jisaku.com/
 ```
 
 - [ ] ページが正常に表示される
@@ -95,7 +95,7 @@ https://pc-compat-engine-production.up.railway.app/
 **方法A: Google Rich Results Test**
 
 1. https://search.google.com/test/rich-results を開く
-2. URLを入力: `https://pc-compat-engine-production.up.railway.app/`
+2. URLを入力: `https://pc-jisaku.com/`
 3. 「URLをテスト」をクリック
 4. 以下が検出されることを確認：
    - [ ] FAQPage（6つの質問）
@@ -105,7 +105,7 @@ https://pc-compat-engine-production.up.railway.app/
 
 **方法B: ブラウザでHTMLソース確認**
 
-1. https://pc-compat-engine-production.up.railway.app/ を開く
+1. https://pc-jisaku.com/ を開く
 2. F12キー → Elementsタブ
 3. `<head>`内に以下があることを確認：
    ```html
@@ -117,7 +117,7 @@ https://pc-compat-engine-production.up.railway.app/
 ### 3. Google Search Console確認
 
 1. https://search.google.com/search-console を開く
-2. プロパティ選択: `https://pc-compat-engine-production.up.railway.app/`
+2. プロパティ選択: `https://pc-jisaku.com/`
 3. 左メニュー → **拡張** → **FAQ**
    - [ ] 数日後にFAQが検出される
 4. **エクスペリエンス** → **ページエクスペリエンス**
@@ -179,7 +179,7 @@ git push origin main --force
 ### 長期（3ヶ月後）
 
 1. **インデックス数**
-   - `site:pc-compat-engine-production.up.railway.app` で検索
+   - `site:pc-jisaku.com` で検索
    - 416ゲームページがインデックスされているか
 
 2. **主要キーワード順位**
@@ -268,7 +268,7 @@ python app.py
 - [ ] Railway.appデプロイ開始を確認
 
 ### デプロイ後
-- [ ] サイトアクセス確認（https://pc-compat-engine-production.up.railway.app/）
+- [ ] サイトアクセス確認（https://pc-jisaku.com/）
 - [ ] Schema.org検証（Google Rich Results Test）
 - [ ] エラー確認（ブラウザコンソール）
 - [ ] Google Search Console送信

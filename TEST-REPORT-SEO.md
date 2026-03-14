@@ -37,7 +37,7 @@ Schema #2: SoftwareApplication
 
 Schema #3: Organization
   - 組織名: PC互換チェッカー
-  - URL: https://pc-compat-engine-production.up.railway.app/
+  - URL: https://pc-jisaku.com/
   - JSON形式: 有効
 ```
 

@@ -1,6 +1,6 @@
 # SEO・AIO強化策計画書
 **PC互換チェッカー（PC Compat Engine）**  
-**URL**: https://pc-compat-engine-production.up.railway.app/  
+**URL**: https://pc-jisaku.com/  
 **作成日**: 2026年3月1日
 
 ---

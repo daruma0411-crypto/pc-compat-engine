@@ -6,7 +6,7 @@
 
 **現在の問題**:
 - 定型文すぎてBOT感満載
-- URLが長すぎる（`https://pc-compat-engine-production.up.railway.app/...`）
+- URLが長すぎる（`https://pc-jisaku.com/...`）
 - 感情表現が単調
 - 投稿時間が固定（12:00, 18:00, 21:00）
 - ハッシュタグが固定
@@ -323,7 +323,7 @@ def shorten_url(long_url):
 
 if __name__ == '__main__':
     # テスト
-    test_url = "https://pc-compat-engine-production.up.railway.app/game/elden-ring"
+    test_url = "https://pc-jisaku.com/game/elden-ring"
     short = shorten_url(test_url)
     print(f"Original: {test_url}")
     print(f"Shortened: {short}")
@@ -531,7 +531,7 @@ GPU: GeForce RTX 3060
 CPU: Core i7-12700
 RAM: 16GB
 
-無料で互換性チェック！→ https://pc-compat-engine-production.up.railway.app/game/elden-ring
+無料で互換性チェック！→ https://pc-jisaku.com/game/elden-ring
 
 #PCゲーム #スペック確認
 ```

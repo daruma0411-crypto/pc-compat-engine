@@ -2,8 +2,8 @@
 
 **最終更新**: 2026-02-26 17:30  
 **プロジェクト**: PC互換性チェッカー（pc-compat-engine）  
-**本番環境**: https://pc-compat-engine-production.up.railway.app
-**旧Render環境（停止中）**: https://pc-compat-engine-1.onrender.com/
+**本番環境**: https://pc-jisaku.com
+**旧Render環境（停止中）**: https://pc-jisaku.com/
 
 ---
 
@@ -190,7 +190,7 @@ git push origin main
 # 3. Logsタブでエラーがないか確認
 
 # 4. ブラウザでアクセステスト
-curl https://pc-compat-engine.onrender.com/
+curl https://pc-jisaku.com/
 ```
 
 ---

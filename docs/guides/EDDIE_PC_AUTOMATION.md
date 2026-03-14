@@ -456,7 +456,7 @@ def post_to_social_media(article_path: str, game: Dict, template: ArticleTemplat
 
 #PCゲーム #{game['name'].replace(' ', '')} #ゲーミングPC
 
-👉 https://pc-compat-engine-production.up.railway.app/blog/{Path(article_path).stem}
+👉 https://pc-jisaku.com/blog/{Path(article_path).stem}
 """
     
     # Twitter API経由で投稿（twitter_bot.pyの関数を再利用）
@@ -466,7 +466,7 @@ def post_to_social_media(article_path: str, game: Dict, template: ArticleTemplat
     
     # Reddit投稿（r/pcgaming, r/buildapc）
     reddit_title = template.title_pattern.format(game=game['name'])
-    reddit_url = f"https://pc-compat-engine-production.up.railway.app/blog/{Path(article_path).stem}"
+    reddit_url = f"https://pc-jisaku.com/blog/{Path(article_path).stem}"
     
     print(f"[INFO] Reddit投稿予定: {reddit_title}")
     print(f"       URL: {reddit_url}")
@@ -655,7 +655,7 @@ def main():
         title_line = [line for line in content.split('\n') if line.startswith('title:')][0]
         title = title_line.replace('title:', '').strip(' "')
     
-    article_url = f"https://pc-compat-engine-production.up.railway.app/blog/{latest_article.stem}"
+    article_url = f"https://pc-jisaku.com/blog/{latest_article.stem}"
     
     # 各サブレディットに投稿
     for subreddit in TARGET_SUBREDDITS:
@@ -1028,7 +1028,7 @@ PC互換性診断ツール「PC互換チェッカー」運営のEDDIE-PCと申�
 ━━━━━━━━━━━━━━━━━
 PC互換チェッカー
 運営: EDDIE-PC
-URL: https://pc-compat-engine-production.up.railway.app/
+URL: https://pc-jisaku.com/
 Mail: contact@pc-compat-engine.com
 ━━━━━━━━━━━━━━━━━
 ```
@@ -1312,7 +1312,7 @@ from typing import Dict, Optional
 GMAIL_CREDENTIALS_PATH = os.getenv('GMAIL_CREDENTIALS_PATH')
 
 # サイトURL
-SITE_URL = 'https://pc-compat-engine-production.up.railway.app'
+SITE_URL = 'https://pc-jisaku.com'
 
 
 def classify_inquiry(email_body: str) -> Dict:

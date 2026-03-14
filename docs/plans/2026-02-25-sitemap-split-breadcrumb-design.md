@@ -41,7 +41,7 @@ Googlebotのクロール効率が低い。
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://pc-compat-engine.onrender.com/sitemap-1.xml</loc>
+    <loc>https://pc-jisaku.com/sitemap-1.xml</loc>
     <lastmod>2026-02-25</lastmod>
   </sitemap>
   ...
@@ -83,7 +83,7 @@ Googlebotのクロール効率が低い。
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://pc-compat-engine.onrender.com/" },
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://pc-jisaku.com/" },
     { "@type": "ListItem", "position": 2, "name": "{gpu_name}", "item": "https://.../compat/gpu/{slug}.html" },
     { "@type": "ListItem", "position": 3, "name": "{gpu_name} vs {case_name}" }
   ]

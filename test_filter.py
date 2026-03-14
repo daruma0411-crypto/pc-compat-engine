@@ -6,7 +6,7 @@ import json
 import urllib.request
 import urllib.parse
 
-BASE_URL = "https://pc-compat-engine-production.up.railway.app"
+BASE_URL = "https://pc-jisaku.com"
 SESSION_ID = "test_filter_am5_001"
 
 

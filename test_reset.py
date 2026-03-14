@@ -7,7 +7,7 @@
 import json
 import urllib.request
 
-BASE_URL = "https://pc-compat-engine-production.up.railway.app"
+BASE_URL = "https://pc-jisaku.com"
 
 
 def api_reset(session_id, reset_type, category=None):

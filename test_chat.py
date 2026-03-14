@@ -2,7 +2,7 @@
 import requests
 import json
 
-url = "https://pc-compat-engine-1.onrender.com/api/chat"
+url = "https://pc-jisaku.com/api/chat"
 data = {"message": "モンハンワイルズを60fpsで遊びたい、予算20万、WQHD"}
 
 print("送信中...")

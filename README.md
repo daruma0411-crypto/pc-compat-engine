@@ -2,7 +2,7 @@
 
 ゲーム・動画編集・作業PC、用途から最適なPCを提案するWebアプリケーション。
 
-**本番環境**: https://pc-compat-engine.onrender.com/
+**本番環境**: https://pc-jisaku.com/
 
 ---
 

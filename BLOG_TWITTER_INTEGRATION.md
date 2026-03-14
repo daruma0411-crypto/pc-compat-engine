@@ -473,7 +473,7 @@ def generate_daily_post():
         save_blog_post(filename, html)
         
         # 記事URLを生成
-        article_url = f"https://pc-compat-engine-production.up.railway.app/blog/{filename}"
+        article_url = f"https://pc-jisaku.com/blog/{filename}"
         
         # Twitterに投稿
         print(f"\n🐦 Twitter投稿中...")
@@ -511,7 +511,7 @@ def generate_weekly_report():
     save_blog_post(filename, html)
     
     # 記事URL生成
-    article_url = f"https://pc-compat-engine-production.up.railway.app/blog/{filename}"
+    article_url = f"https://pc-jisaku.com/blog/{filename}"
     
     # Twitter投稿（週次レポート専用文面）
     tweet_text = f"""

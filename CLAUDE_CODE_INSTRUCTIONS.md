@@ -500,7 +500,7 @@ curl https://www.pc-koubou.jp/robots.txt
 **User-Agent 設定例:**
 ```python
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) PC-Compat-Engine/1.0 (+https://pc-compat-engine-production.up.railway.app/)'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) PC-Compat-Engine/1.0 (+https://pc-jisaku.com/)'
 }
 ```
 

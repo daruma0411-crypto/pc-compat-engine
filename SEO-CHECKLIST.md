@@ -22,14 +22,14 @@
 #### 手順
 1. https://search.google.com/search-console にアクセス
 2. 「プロパティを追加」
-3. URL: `https://pc-compat-engine.onrender.com`
+3. URL: `https://pc-jisaku.com`
 4. 所有権確認:
    - HTMLファイルアップロード、または
    - HTMLタグ（推奨）、または
    - DNS TXT レコード
 
 5. sitemap.xml送信
-   - `https://pc-compat-engine.onrender.com/sitemap.xml`
+   - `https://pc-jisaku.com/sitemap.xml`
 
 6. インデックス登録リクエスト
    - 主要ページ10件を手動リクエスト:
@@ -55,7 +55,7 @@ def index():
 ### 2. Bing Webmaster Tools登録（15分）
 
 1. https://www.bing.com/webmasters/
-2. サイト追加: `https://pc-compat-engine.onrender.com`
+2. サイト追加: `https://pc-jisaku.com`
 3. sitemap.xml送信
 
 ---
@@ -141,7 +141,7 @@ def game_page(slug):
 ## 📊 効果測定（2週間後）
 
 ### チェック項目
-- [ ] Google検索でインデックス数確認: `site:pc-compat-engine.onrender.com`
+- [ ] Google検索でインデックス数確認: `site:pc-jisaku.com`
 - [ ] 検索クエリ上位10件（サーチコンソール）
 - [ ] トラフィック: 目標 10,000 PV/月
 - [ ] 検索順位: 「モンハンワイルズ 推奨スペック」 → 1ページ目目標

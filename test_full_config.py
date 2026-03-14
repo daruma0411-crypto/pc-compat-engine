@@ -6,7 +6,7 @@ import io
 # UTF-8出力に設定
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-url = "https://pc-compat-engine.onrender.com/api/recommend"
+url = "https://pc-jisaku.com/api/recommend"
 payload = {"message": "予算15万円でモンハンワイルズを遊びたい"}
 
 print("=" * 60)

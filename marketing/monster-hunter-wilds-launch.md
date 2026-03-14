@@ -13,7 +13,7 @@
 ✅ 144fps出すには RTX 4070以上
 
 詳細チェック👇
-https://pc-compat-engine.onrender.com/game/monster-hunter-wilds.html
+https://pc-jisaku.com/game/monster-hunter-wilds.html
 
 #モンハン #MHWilds #自作PC #ゲーミングPC
 ```
@@ -42,7 +42,7 @@ https://pc-compat-engine.onrender.com/game/monster-hunter-wilds.html
 → RTX 4070 Ti以上 + 1440pモニター推奨。
 
 詳細な構成案はこちら：
-https://pc-compat-engine.onrender.com/game/monster-hunter-wilds.html
+https://pc-jisaku.com/game/monster-hunter-wilds.html
 
 ---
 ※スペック情報はSteam公式より。実測値は環境により異なります。
@@ -62,7 +62,7 @@ RAM: 16GB
 RTX 3060民は中設定60fpsで快適
 4070Ti以上なら144fps狙える
 
-詳細: https://pc-compat-engine.onrender.com/game/monster-hunter-wilds.html
+詳細: https://pc-jisaku.com/game/monster-hunter-wilds.html
 ```
 
 ### 3月1日〜3日（発売後）
@@ -90,7 +90,7 @@ RTX 3060民は中設定60fpsで快適
 4. ドライバーを最新版に更新
 
 詳しい構成チェックはこちら：
-https://pc-compat-engine.onrender.com/game/monster-hunter-wilds.html
+https://pc-jisaku.com/game/monster-hunter-wilds.html
 
 【アップグレードするなら】
 RTX 4060 Ti（約7.5万円）で高設定60fps安定します。

@@ -61,8 +61,8 @@ https://developer.twitter.com/en/portal/projects-and-apps
   - 以下の設定を実施:
     - **App permissions**: `Read and Write`
     - **Type of App**: `Web App, Automated App or Bot`
-    - **Callback URI**: `https://pc-compat-engine-production.up.railway.app`
-    - **Website URL**: `https://pc-compat-engine-production.up.railway.app`
+    - **Callback URI**: `https://pc-jisaku.com`
+    - **Website URL**: `https://pc-jisaku.com`
 
 #### 1.3 Access Token を再生成
 

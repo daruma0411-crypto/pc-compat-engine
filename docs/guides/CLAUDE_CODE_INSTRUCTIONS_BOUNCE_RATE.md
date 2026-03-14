@@ -707,19 +707,19 @@ breadcrumb_schema = f'''
       "@type": "ListItem",
       "position": 1,
       "name": "ホーム",
-      "item": "https://pc-compat-engine-production.up.railway.app/"
+      "item": "https://pc-jisaku.com/"
     }},
     {{
       "@type": "ListItem",
       "position": 2,
       "name": "{genre if genre else 'ゲーム'}",
-      "item": "https://pc-compat-engine-production.up.railway.app/genre/{genre.lower() if genre else 'all'}"
+      "item": "https://pc-jisaku.com/genre/{genre.lower() if genre else 'all'}"
     }},
     {{
       "@type": "ListItem",
       "position": 3,
       "name": "{game_title}",
-      "item": "https://pc-compat-engine-production.up.railway.app/game/{game_slug}"
+      "item": "https://pc-jisaku.com/game/{game_slug}"
     }}
   ]
 }}

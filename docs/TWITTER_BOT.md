@@ -85,7 +85,7 @@ GPU: Nvidia 2060 Super
 CPU: Intel i7 8700K
 RAM: 16GB
 
-無料で互換性チェック！→ https://pc-compat-engine-production.up.railway.app/game/baldurs-gate-3
+無料で互換性チェック！→ https://pc-jisaku.com/game/baldurs-gate-3
 #PCゲーム #スペック確認
 ============================================================
 文字数: 200
