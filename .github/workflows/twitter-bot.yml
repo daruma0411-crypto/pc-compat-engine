@@ -1,7 +1,9 @@
 name: Twitter Bot - Auto Post
 on:
     schedule:
-      - cron: '0 9 * * *'   # 18:00 JST（1日1回、濃い投稿）
+      - cron: '0 22 * * *'  # 07:00 JST（朝）
+      - cron: '0 4 * * *'   # 13:00 JST（昼）
+      - cron: '0 9 * * *'   # 18:00 JST（夜）
     workflow_dispatch:
       inputs:
         force_blog:
