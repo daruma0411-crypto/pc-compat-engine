@@ -32,7 +32,7 @@ BLOG_DIR = WORKSPACE_DIR / "static" / "blog"
 BLOG_DIR.mkdir(exist_ok=True, parents=True)
 
 # サイトURL
-SITE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+SITE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 
 # GA ID
 GA_ID = "G-PPNEBG625J"

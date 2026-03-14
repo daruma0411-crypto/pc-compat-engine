@@ -35,7 +35,7 @@ BAR_COLORS = [
     (120, 220, 100), # ライム
 ]
 
-SITE_URL = "pc-compat-engine-production.up.railway.app"
+SITE_URL = "pc-jisaku.com"
 
 
 def find_font():

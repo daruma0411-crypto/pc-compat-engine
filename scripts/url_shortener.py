@@ -18,7 +18,7 @@ def shorten_url(long_url):
 
 
 if __name__ == '__main__':
-    test_url = "https://pc-compat-engine-production.up.railway.app/game/elden-ring"
+    test_url = "https://pc-jisaku.com/game/elden-ring"
     short = shorten_url(test_url)
     print(f"Original: {test_url}")
     print(f"Result: {short}")

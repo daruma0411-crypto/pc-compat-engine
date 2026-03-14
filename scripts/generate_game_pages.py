@@ -17,7 +17,7 @@ OUTPUT_DIR = WORKSPACE_DIR / "static" / "game"
 OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 
 # サイトベースURL（Railway本番環境）
-SITE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+SITE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 
 # Google Analytics ID
 GA_ID = "G-PPNEBG625J"

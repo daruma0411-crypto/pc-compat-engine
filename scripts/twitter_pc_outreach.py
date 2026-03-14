@@ -27,7 +27,7 @@ from url_shortener import shorten_url
 # ────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).parent
 HISTORY_FILE = SCRIPT_DIR / "twitter_outreach_history.json"
-SITE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+SITE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 
 XAI_API_KEY = os.environ.get("XAI_API_KEY", "")
 XAI_API_URL = "https://api.x.ai/v1/responses"

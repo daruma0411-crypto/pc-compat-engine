@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-BASE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+BASE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 OUTPUT_DIR = Path(__file__).parent.parent  # project root
 
 def generate_sitemap():
@@ -112,7 +112,7 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://pc-compat-engine-production.up.railway.app/sitemap.xml
+Sitemap: https://pc-jisaku.com/sitemap.xml
 """
     
     robots_path = OUTPUT_DIR / "robots.txt"

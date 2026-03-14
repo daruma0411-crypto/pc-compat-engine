@@ -19,7 +19,7 @@ TWITTER_ACCESS_TOKEN = os.getenv('TWITTER_ACCESS_TOKEN')
 TWITTER_ACCESS_SECRET = os.getenv('TWITTER_ACCESS_SECRET')
 TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
 
-SITE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+SITE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 GAMES_DATA_PATH = Path(__file__).parent.parent / 'workspace' / 'data' / 'steam' / 'games.jsonl'
 HISTORY_FILE = Path(__file__).parent / 'twitter_post_history.json'
 

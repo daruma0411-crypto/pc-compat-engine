@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from datetime import datetime
 
-BASE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+BASE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 INPUT_FILE = Path(__file__).parent.parent / "workspace" / "data" / "steam" / "new_games.jsonl"
 OUTPUT_DIR = Path(__file__).parent.parent / "static" / "game"
 

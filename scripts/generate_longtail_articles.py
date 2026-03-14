@@ -269,7 +269,7 @@ def generate_gpu_article(gpu_name, games, output_dir):
         'budget_max': 18
     })
     
-    site_url = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+    site_url = os.getenv('SITE_URL', 'https://pc-jisaku.com')
     ga_id = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
     now = datetime.now().isoformat()
     

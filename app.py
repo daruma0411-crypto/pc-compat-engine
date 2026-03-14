@@ -830,7 +830,7 @@ def blog_index():
         cards_html = '<p style="text-align:center;color:#888;padding:40px;">記事を準備中です。毎日更新しますのでお楽しみに！</p>'
 
     ga_id = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
-    site_url = 'https://pc-compat-engine-production.up.railway.app'
+    site_url = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 
     html = f'''<!DOCTYPE html>
 <html lang="ja">
@@ -1072,7 +1072,7 @@ th{background:#f9fafb;font-weight:600;font-size:.9rem;color:#374151}
 .section-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;color:#374151}
 </style>"""
 
-_BASE_URL = os.getenv('SITE_URL', 'https://pc-compat-engine-production.up.railway.app')
+_BASE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 
 
 def _safe_parse_claude_json(text: str, fallback: dict | None = None) -> dict:

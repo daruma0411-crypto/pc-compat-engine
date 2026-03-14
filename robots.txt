@@ -24,4 +24,4 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://pc-compat-engine-production.up.railway.app/sitemap.xml
+Sitemap: https://pc-jisaku.com/sitemap.xml

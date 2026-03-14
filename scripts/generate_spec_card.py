@@ -39,7 +39,7 @@ METACRITIC_GREEN = (102, 204, 0)
 METACRITIC_YELLOW = (255, 204, 0)
 METACRITIC_RED = (255, 60, 60)
 
-SITE_URL = "pc-compat-engine-production.up.railway.app"
+SITE_URL = "pc-jisaku.com"
 
 
 def find_font():
