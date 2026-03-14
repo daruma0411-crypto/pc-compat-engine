@@ -65,6 +65,7 @@ def select_game(games, history, max_history=50):
     - 推奨スペックが記載されているゲームを優先
     - 最近投稿したゲームは除外
     - メタスコアが高いゲームを優先
+    - 人気タイトル（Apex, Fortnite, Valorant等）を優先（オーディエンスが中高生・40代中心のため）
     """
     # 有効なゲーム（推奨スペックあり）を抽出
     valid_games = [
@@ -79,6 +80,22 @@ def select_game(games, history, max_history=50):
     if not candidates:
         # 全ゲーム投稿済みの場合は履歴をリセット
         candidates = valid_games
+
+    # 人気タイトルを優先（オーディエンス分析: 13-17歳30%, 45-54歳26%）
+    popular_titles = [
+        'Apex Legends', 'VALORANT', 'Fortnite', 'Minecraft',
+        'Counter-Strike 2', 'Elden Ring', 'Cyberpunk 2077',
+        'Palworld', 'The Finals', 'Street Fighter 6'
+    ]
+    
+    # 人気タイトルがあれば70%の確率でそちらを優先
+    popular_candidates = [
+        g for g in candidates
+        if any(title.lower() in g['name'].lower() for title in popular_titles)
+    ]
+    
+    if popular_candidates and random.random() < 0.7:
+        candidates = popular_candidates
 
     # メタスコアでソート（高い順）
     candidates_with_score = [
