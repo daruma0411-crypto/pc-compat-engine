@@ -141,6 +141,7 @@ def generate_hashtags(game, pattern_type, max_tags=2):
     game_tag = game['name'].replace(' ', '').replace(':', '').replace("'", '')
 
     type_tags = {
+        'budget_question': ['予算PC', '自作PC初心者', 'コスパPC'],  # 新規追加
         'question': ['GPU相談', 'スペック相談', '動作環境'],
         'review': ['レビュー', 'おすすめゲーム', 'プレイ日記'],
         'troubleshoot': ['トラブルシューティング', 'PC不具合', '動作不良'],
@@ -249,7 +250,31 @@ def generate_tweet_patterns(game):
     gpu_short = gpu.replace('GeForce ', '').replace('NVIDIA ', '').replace('Radeon ', '')
 
     # (pattern_text, pattern_type) のタプルリスト
+    # オーディエンス分析: 13-17歳30%, 45-54歳26% → 予算重視・初心者向けを強化
     patterns = [
+        # === 予算重視質問 (budget_question) - 中高生・初心者向け ===
+        (
+            f"予算5万円で{name}動かせる？\n\n"
+            f"推奨スペック:\n"
+            f"GPU: {gpu_short}\n"
+            f"RAM: {ram}GB\n\n"
+            f"あなたのPC診断↓\n{short_url}",
+            'budget_question'
+        ),
+        (
+            f"{name}やりたいんだけど\n"
+            f"予算10万円以内で組めますか？\n\n"
+            f"推奨: {gpu_short}\n"
+            f"詳細→ {short_url}",
+            'budget_question'
+        ),
+        (
+            f"初めての自作PCで{name}遊びたい\n"
+            f"予算8万円でいける？\n\n"
+            f"{gpu_short}必要らしい\n{short_url}",
+            'budget_question'
+        ),
+        
         # === 雑談風 (casual) ===
         (
             f"{name}やりてぇんだけど\n"
@@ -261,15 +286,6 @@ def generate_tweet_patterns(game):
             f"{name}、クソ重いって聞いたけど\n"
             f"{gpu_short}なら余裕らしい\n\n"
             f"うちのPCで動くか確認→ {short_url}",
-            'casual'
-        ),
-        (
-            f"{name}買ったけど重すぎワロタ\n"
-            f"推奨スペック詐欺やんけ\n\n"
-            f"GPU: {gpu_short}\n"
-            f"CPU: {cpu}\n"
-            f"RAM: {ram}GB\n\n"
-            f"{short_url}",
             'casual'
         ),
 
@@ -365,7 +381,7 @@ def generate_tweet_patterns(game):
             'positive'
         ),
 
-        # === 比較風 (compare) ===
+        # === 比較風 (compare) - エンゲージメント向上のため増量 ===
         (
             f"{name}、{gpu_short}とRTX 4060どっちがいい？\n\n"
             f"推奨スペック見る限り\n"
@@ -387,8 +403,24 @@ def generate_tweet_patterns(game):
             f"{short_url}",
             'compare'
         ),
+        (
+            f"{name}、RTX 4060 vs RTX 3070\nどっちがコスパいい？\n\n"
+            f"性能: 3070が15%上\n"
+            f"価格: 4060が¥8,000安い\n"
+            f"電力: 4060が30W少ない\n\n"
+            f"詳細→ {short_url}",
+            'compare'
+        ),
+        (
+            f"初めての自作PC\n{name}用ならどのGPU選ぶ？\n\n"
+            f"推奨: {gpu_short}\n"
+            f"コスパ: RTX 4060\n"
+            f"将来性: RTX 4070\n\n"
+            f"{short_url}",
+            'compare'
+        ),
 
-        # === 予算風 (budget) ===
+        # === 予算風 (budget) - 中高生・40-50代に刺さる内容 ===
         (
             f"予算15万円で{name}を快適に遊びたい\n\n"
             f"推奨構成:\n"
@@ -407,6 +439,21 @@ def generate_tweet_patterns(game):
         (
             f"コスパ重視で{name}遊びたい人向け\n"
             f"{gpu_short}（3万円台）で十分いける\n\n"
+            f"{short_url}",
+            'budget'
+        ),
+        (
+            f"{name}、中古パーツで組んだら\n"
+            f"予算7万円で動いた\n\n"
+            f"GPU: {gpu_short}\n"
+            f"CPU: {cpu}\n\n"
+            f"詳細→ {short_url}",
+            'budget'
+        ),
+        (
+            f"学生でも手が届く\n{name}用PC構成\n\n"
+            f"予算10万円以内\n"
+            f"{gpu_short}で快適プレイ\n\n"
             f"{short_url}",
             'budget'
         ),
@@ -474,8 +521,19 @@ def generate_tweet_patterns(game):
         ),
     ]
 
-    # ランダム選択
-    text, pattern_type = random.choice(patterns)
+    # 重み付けランダム選択（オーディエンス分析: 中高生30%, 40-50代26% → 予算・質問重視）
+    weights = []
+    for _, pattern_type in patterns:
+        if pattern_type == 'budget_question':
+            weights.append(3.0)  # 予算質問を最優先
+        elif pattern_type in ('question', 'budget', 'compare'):
+            weights.append(2.0)  # 質問・予算・比較を優先
+        elif pattern_type in ('casual', 'positive'):
+            weights.append(1.5)  # カジュアル・ポジティブをやや優先
+        else:
+            weights.append(1.0)  # その他は通常確率
+    
+    text, pattern_type = random.choices(patterns, weights=weights, k=1)[0]
 
     # ハッシュタグ付与（ツイート文にまだタグがなければ追加）
     current_tag_count = count_hashtags(text)
