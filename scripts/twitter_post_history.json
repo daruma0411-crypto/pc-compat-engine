@@ -141,5 +141,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-14T09:04:14.480872",
+    "tweet_text": "毎日更新中\n\n3月版 最新ゲーム推奨スペックランキングTOP20\nhttps://pc-jisaku.com/blog/20260308-ranking-3month-spec-rankingtop20.html\n\n#PCパーツ #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260308-ranking-3month-spec-rankingtop20.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
