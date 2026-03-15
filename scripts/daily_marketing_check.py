@@ -17,6 +17,10 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import subprocess
 
+# Windows コンソールのエンコード問題を回避
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8')
+
 def check_twitter_posts():
     """Twitter投稿状況確認"""
     print("\n" + "=" * 60)

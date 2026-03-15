@@ -1,59 +1,37 @@
-name: Blog Auto Generator (Daily)
+name: Blog Generator - Daily
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # 毎日 08:00 JST → 通常記事1本
-    - cron: '0 0 * * 1'   # 毎週月曜 09:00 JST → 週刊レポート追加
+    # 毎日 JST 06:00 (UTC 21:00前日)
+    - cron: '0 21 * * *'
   workflow_dispatch:
-    inputs:
-      count:
-        description: '生成記事数'
-        required: false
-        default: '1'
-      weekly_report:
-        description: '週刊レポートも生成する'
-        required: false
-        type: boolean
-        default: false
 
 jobs:
-  generate:
+  generate-blog:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: Install dependencies
-      run: |
-        pip install anthropic
-
-    - name: Generate blog post
-      env:
-        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        SITE_URL: ${{ secrets.SITE_URL }}
-      run: |
-        COUNT=${{ github.event.inputs.count || '1' }}
-        WEEKLY=""
-
-        # 月曜スケジュール実行 or 手動指定の場合に週刊レポートも生成
-        if [ "${{ github.event.schedule }}" = "0 0 * * 1" ] || [ "${{ github.event.inputs.weekly_report }}" = "true" ]; then
-          WEEKLY="--weekly-report"
-        fi
-
-        cd scripts && python blog_generator.py --count $COUNT $WEEKLY
-
-    - name: Commit new post
-      run: |
-        git config user.name "GitHub Actions Bot"
-        git config user.email "actions@github.com"
-        git pull --rebase origin main || true
-        git add static/blog/
-        git diff --staged --quiet || git commit -m "blog: 記事自動生成 $(date +%Y-%m-%d) [skip ci]"
-        git push
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install anthropic requests beautifulsoup4 python-dotenv
+      
+      - name: Generate blog post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          python scripts/blog_generator.py --count 1
+      
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add static/blog/
+          git diff --cached --quiet || git commit -m "🤖 Daily blog post generated"
+          git push
