@@ -791,8 +791,53 @@
       "topic_type": "purchase_report",
       "timestamp": "2026-03-14T06:15:02.491798",
       "had_link": true
+    },
+    {
+      "target_tweet_id": "2032867065351254404",
+      "target_account": "@zmlvnms",
+      "reply_text": "おお、9800X3DにRX 9070 XTの組み合わせいいね！メモリ64GBも将来性あるし、1000W電源なら安心だわ。41万でこのスペックならコスパ良さそう。組み上がったらベンチ結果とか見たいな",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-15T06:20:09.294140",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2033031022204563721",
+      "target_account": "@M_sora0312",
+      "reply_text": "VRCなら20万台でも十分いけるよ。RTX 4060（7.5万くらい）+ Ryzen 7 5700X3Dあたりで組めば、アバター多い集会でも安定する。メモリは32GB必須かな。残り予算でストレージとケースに回せば快適に動くと思う",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-15T06:23:08.254207",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2032827757319827550",
+      "target_account": "@mahiki09",
+      "reply_text": "配信＋ホラゲならRTX 4060 + Ryzen 5 7600あたりで12〜15万くらいが現実的かな。配信エンコはGPU任せにすれば負荷分散できるし、ホラゲはそこまでスペック要らないから余裕あると思う。メモリは16GBあれば十分だよ",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-15T06:27:51.066927",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2033017212999709124",
+      "target_account": "@kungC4Bt8A88878",
+      "reply_text": "わかる、1060は今となってはちょっと厳しいよね。でも11万でこの構成は頑張ったと思う！GPU換装するなら中古でRX 5700 XTが4万円台で出てて、1060より50%くらい性能上がるからコスパいいかも。電源750Wあるし余裕で使えるよ",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-15T06:30:43.439750",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2033053418378637450",
+      "target_account": "@ccs_log",
+      "reply_text": "5年使い込んだ5900X/3080なら十分頑張ったと思う。3080は今でも悪くないけど、最新ゲームの最高設定だとさすがにVRAM不足が響くよね。GPU単体なら4070 Ti SUPERあたりで体感変わるし、フルリニューアルなら5080も視野かな。ただ5900Xまだ使えるから、まずGPUだけ換装して様子見もアリだと思う",
+      "grade": "A",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-15T06:35:32.755192",
+      "had_link": false
     }
   ],
-  "total_replies": 88,
-  "total_runs": 12
+  "total_replies": 93,
+  "total_runs": 13
 }
