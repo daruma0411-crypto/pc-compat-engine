@@ -1,7 +1,7 @@
 name: Weekly Price Update
 on:
   schedule:
-    - cron: '0 21 * * 0'  # 毎週日曜 06:00 JST
+    - cron: '0 21 * * 6'  # 毎週土曜 21:00 UTC = 日曜 06:00 JST
   workflow_dispatch:       # 手動実行可
 
 jobs:
