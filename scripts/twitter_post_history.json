@@ -200,5 +200,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "ELDEN RING",
+    "posted_at": "2026-03-16T11:59:05.083811",
+    "tweet_text": "GEFORCE GTX 1070 8 GBでELDEN RINGって60fps出る？\n\n推奨スペック見る限りギリギリっぽいけど...\n\n詳細→ https://pc-jisaku.com/game/elden-ring\n\n#ELDENRING #スペック相談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
