@@ -1,0 +1,29 @@
+name: Daily KPI Report - Telegram
+
+on:
+  schedule:
+    # 毎日 JST 08:00 (UTC 23:00前日)
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-kpi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install requests python-dotenv
+      
+      - name: Generate and send KPI report
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        run: |
+          python scripts/send_daily_kpi.py
