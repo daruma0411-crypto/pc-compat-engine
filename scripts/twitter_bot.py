@@ -876,12 +876,20 @@ def generate_blog_tweet(target_filename=None):
         if recently_posted:
             print(f"[INFO] 直近14日以内に投稿済みブログURL: {len(recently_posted)}件")
 
-        # 直近10記事から未投稿の記事を抽出
-        recent = blog_history[-10:]
+        # 全記事から未投稿の記事を抽出（直近30記事を優先）
+        # まず直近30記事から未投稿を探す
+        recent = blog_history[-30:]
         candidates = [
             a for a in recent
             if f"{SITE_URL}/blog/{a['filename']}" not in recently_posted
         ]
+        
+        # 見つからなければ全記事から探す
+        if not candidates:
+            candidates = [
+                a for a in blog_history
+                if f"{SITE_URL}/blog/{a['filename']}" not in recently_posted
+            ]
 
         if not candidates:
             print("[INFO] ブログ記事が全て直近14日以内に投稿済み → ゲーム投稿にフォールバック")
