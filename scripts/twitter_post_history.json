@@ -183,5 +183,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-16T05:48:12.211891",
+    "tweet_text": "PC自作勢向け\n中古パーツで組む「エーペックスレジェンズ」向け格安ゲーミングPC\n\nhttps://pc-jisaku.com/blog/20260313-used_parts-apex-legends-pc.html\n\n#PCパーツ #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260313-used_parts-apex-legends-pc.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
