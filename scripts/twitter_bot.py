@@ -1039,14 +1039,36 @@ def main():
         # 質問・意見ツイート (30%)
         print("[モード] 質問・意見ツイート")
         tweet_text, pattern_type = generate_question_tweet()
-        success = post_tweet(tweet_text, dry_run=args.dry_run)
+        
+        # 50%の確率で画像付き（ランキング or 比較）
+        question_image = None
+        if random.random() < 0.5:
+            try:
+                from generate_tweet_image import generate_ranking_image, generate_comparison_image
+                if random.random() < 0.5:
+                    question_image = generate_ranking_image(
+                        "コスパ最強GPU TOP5【2026年3月】",
+                        ["RTX 4060 (¥44,800)", "RX 7600 (¥35,800)", "RTX 4060 Ti (¥58,800)", "RTX 4070 (¥82,800)", "RX 7700 XT (¥62,800)"]
+                    )
+                else:
+                    question_image = generate_comparison_image(
+                        "どっちが買い？",
+                        "RTX 4070", "RX 7800 XT",
+                        ["¥82,800", "12GB VRAM", "DLSS 3", "200W", "Ray Tracing◎"],
+                        ["¥72,800", "16GB VRAM", "FSR 3", "263W", "1440p最強"]
+                    )
+                print(f"[OK] 質問画像: {question_image}")
+            except Exception as e:
+                print(f"[WARN] 画像生成スキップ: {e}")
+        
+        success = post_tweet(tweet_text, dry_run=args.dry_run, image_path=question_image)
         if success and not args.dry_run:
             history = load_history()
             history.append({
                 'name': '[opinion]',
                 'posted_at': datetime.now().isoformat(),
                 'tweet_text': tweet_text,
-                'has_image': False,
+                'has_image': question_image is not None,
                 'post_type': 'question',  # Phase 2判定用
                 'hashtag_count': count_hashtags(tweet_text),
             })
