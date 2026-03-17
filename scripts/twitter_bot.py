@@ -597,16 +597,8 @@ def generate_question_tweet():
     hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
     text += f"\n\n{hashtags}"
     
-    # 10%の確率でシェアお願いを自然に追加
-    if random.random() < 0.10:
-        share_asks = [
-            "\n\n自作PC仲間に教えてあげて🙏",
-            "\n\n参考になったらRTしてくれると嬉しい",
-            "\n\n広まれ〜🙏",
-            "\n\nPC仲間にシェアしてね",
-            "\n\nこれ知らない人多いからRT頼む",
-        ]
-        text += random.choice(share_asks)
+    # 保存推奨系のみシェアお願い（通常投稿にはつけない）
+    # いいねしてくれた人へのお礼リプライで対応（twitter_like_thanker.py）
     
     # 念のためタグ数チェック
     text = ensure_max_hashtags(text, max_tags=2)
