@@ -545,6 +545,17 @@ def generate_tweet_patterns(game):
         # タグが3個以上ある場合は2個に制限
         text = ensure_max_hashtags(text, max_tags=2)
 
+    # 10%の確率でシェアお願い（保存推奨系の投稿パターン時は20%）
+    share_rate = 0.20 if '保存推奨' in text else 0.10
+    if random.random() < share_rate:
+        share_asks = [
+            "\n\n友達にも教えてあげて🎮",
+            "\n\n参考になったらRTお願い🙏",
+            "\n\n広まれ〜",
+            "\n\nスペック足りるか心配な人に共有してね",
+        ]
+        text += random.choice(share_asks)
+
     return text
 
 
@@ -585,6 +596,17 @@ def generate_question_tweet():
     hashtags_list = random.sample(['自作PC', 'PCゲーム', 'GPU'], min(2, 2))
     hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
     text += f"\n\n{hashtags}"
+    
+    # 10%の確率でシェアお願いを自然に追加
+    if random.random() < 0.10:
+        share_asks = [
+            "\n\n自作PC仲間に教えてあげて🙏",
+            "\n\n参考になったらRTしてくれると嬉しい",
+            "\n\n広まれ〜🙏",
+            "\n\nPC仲間にシェアしてね",
+            "\n\nこれ知らない人多いからRT頼む",
+        ]
+        text += random.choice(share_asks)
     
     # 念のためタグ数チェック
     text = ensure_max_hashtags(text, max_tags=2)
