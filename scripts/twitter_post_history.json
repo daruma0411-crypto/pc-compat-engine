@@ -258,5 +258,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-17T22:36:15.290349",
+    "tweet_text": "最近のゲーム、推奨スペック上がりすぎじゃない？\nRTX 4070が「推奨」はキツイ\n\n#PCゲーム #GPU",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
