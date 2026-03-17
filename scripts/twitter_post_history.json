@@ -233,5 +233,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-17T06:40:51.053122",
+    "tweet_text": "GPU値下がってきた\n詳しくは↓\n\nhttps://pc-jisaku.com/blog/20260317-weekly_report-pcparts-price-watch-2026y03monthweek3.html\n\n#GPU #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260317-weekly_report-pcparts-price-watch-2026y03monthweek3.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
