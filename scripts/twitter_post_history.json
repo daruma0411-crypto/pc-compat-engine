@@ -224,5 +224,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-17T05:24:17.838768",
+    "tweet_text": "ブログ更新\n【週刊】PCパーツ価格ウォッチ 2026年3月第3週\n\nhttps://pc-jisaku.com/blog/20260317-weekly_report-pcparts-price-watch-2026y03monthweek3.html\n\n#ブログ更新 #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260317-weekly_report-pcparts-price-watch-2026y03monthweek3.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
