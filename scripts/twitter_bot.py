@@ -592,10 +592,13 @@ def generate_question_tweet():
     ]
     text = random.choice(patterns)
     
+    # サイトURLを追加（導線確保）
+    text += f"\n\n診断はこちら→ {SITE_URL}"
+    
     # ハッシュタグは最大2個まで
     hashtags_list = random.sample(['自作PC', 'PCゲーム', 'GPU'], min(2, 2))
     hashtags = ' '.join(f"#{tag}" for tag in hashtags_list)
-    text += f"\n\n{hashtags}"
+    text += f"\n{hashtags}"
     
     # 保存推奨系のみシェアお願い（通常投稿にはつけない）
     # いいねしてくれた人へのお礼リプライで対応（twitter_like_thanker.py）
@@ -1054,9 +1057,9 @@ def main():
         print("[モード] 質問・意見ツイート")
         tweet_text, pattern_type = generate_question_tweet()
         
-        # 50%の確率で画像付き（ランキング or 比較）
+        # 80%の確率で画像付き（ランキング or 比較）
         question_image = None
-        if random.random() < 0.5:
+        if random.random() < 0.8:
             try:
                 from generate_tweet_image import generate_ranking_image, generate_comparison_image
                 if random.random() < 0.5:
