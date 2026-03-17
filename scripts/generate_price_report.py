@@ -166,12 +166,35 @@ a {{ color: #64b5f6; }}
 </body>
 </html>'''
     
-    filename = f'{today}-weekly_report-pcparts-price-watch-2026y03monthweek3.html'
+    # 週番号を動的に計算
+    week_num = datetime.now().isocalendar()[1]
+    month = datetime.now().month
+    filename = f'{today}-weekly_report-pcparts-price-watch-2026y{month:02d}monthweek{(week_num % 4) + 1}.html'
     filepath = BLOG_DIR / filename
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(html)
     
+    # generation_history.json に自動登録
+    history_path = BLOG_DIR / 'generation_history.json'
+    if history_path.exists():
+        with open(history_path, 'r', encoding='utf-8') as f:
+            history = json.load(f)
+    else:
+        history = []
+    
+    history.append({
+        'title': f'【週刊】PCパーツ価格ウォッチ 2026年{month}月第{(week_num % 4) + 1}週',
+        'filename': filename,
+        'template': 'weekly_report',
+        'keywords': ['PCパーツ 価格', 'GPU 値下げ', '自作PC 相場'],
+        'generated_at': datetime.now().isoformat()
+    })
+    
+    with open(history_path, 'w', encoding='utf-8') as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+    
     print(f'✅ ブログ記事生成: {filename}')
+    print(f'✅ generation_history.json に登録済み')
     return filepath, filename
 
 
