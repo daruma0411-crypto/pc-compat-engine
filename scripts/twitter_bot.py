@@ -934,12 +934,33 @@ def main():
     parser.add_argument('--blog-filename', type=str, default=None, help='投稿するブログ記事のファイル名を指定')
     args = parser.parse_args()
 
-    # 投稿タイプ選択（Phase 2-2: 多様化）
-    # ブログ15% / ゲーム35% / 質問・意見30% / データ分析20%
+    # 時間帯別の投稿戦略（Phase 3: インプレッション最大化）
+    current_hour = datetime.now().hour  # UTC時間（GitHub Actions）
+    jst_hour = (current_hour + 9) % 24  # JST変換
+    
+    # 朝7時台はエンゲージメント重視（質問・挨拶系）
+    if 6 <= jst_hour <= 8:
+        print(f"[時間帯] 朝（JST {jst_hour}時）→ エンゲージメント重視")
+        # 朝は質問型を50%に引き上げ
+        morning_boost = True
+    else:
+        morning_boost = False
+    
+    # 投稿タイプ選択（Phase 3: 時間帯対応）
+    # 朝: 質問50% / ブログ20% / ゲーム20% / データ10%
+    # 他: ブログ15% / ゲーム35% / 質問30% / データ20%
     roll = random.random()
     if args.force_blog:
         roll = 0.0  # ブログモードを強制
         print("[INFO] --force-blog: ブログ記事紹介を強制実行")
+    elif morning_boost:
+        # 朝は質問型を優先
+        if roll < 0.20:
+            roll = 0.0   # ブログ
+        elif roll < 0.40:
+            roll = 0.50  # ゲーム
+        else:
+            roll = 0.20  # 質問（50%の確率）
     blog_history = load_blog_history()
 
     # 月曜のみ10%確率でスレッド投稿（Phase 2-3）
