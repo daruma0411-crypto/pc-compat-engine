@@ -577,9 +577,9 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
 def _inject_affiliate_tags(html: str) -> str:
     """HTMLのプレースホルダーに環境変数のアフィリエイトIDを注入する。"""
     amazon_tag   = os.environ.get('AMAZON_TAG',    'pccompat-22')
-    rakuten_a_id = os.environ.get('RAKUTEN_A_ID',  '')
-    rakuten_l_id = os.environ.get('RAKUTEN_L_ID',  '')
-    kakaku_vc_sid = os.environ.get('KAKAKU_VC_SID', '')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID',  '0eb4779e.5d30c5ba')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID',  '0eb4779f.b871e4e3')
+    kakaku_vc_sid = os.environ.get('KAKAKU_VC_SID', '3764551')
     kakaku_vc_pid = os.environ.get('KAKAKU_VC_PID', '')
     html = html.replace("'__AMAZON_TAG__'",   f"'{amazon_tag}'")
     html = html.replace("'__RAKUTEN_A_ID__'", f"'{rakuten_a_id}'")
@@ -593,7 +593,7 @@ def _make_kakaku_search_url(name: str) -> str:
     """価格.com検索URL生成（ValueCommerceアフィリエイト対応）"""
     q = urllib.parse.quote(name)
     base_url = f'https://kakaku.com/search_results/{q}/'
-    vc_sid = os.environ.get('KAKAKU_VC_SID', '')
+    vc_sid = os.environ.get('KAKAKU_VC_SID', '3764551')
     vc_pid = os.environ.get('KAKAKU_VC_PID', '')
     if vc_sid and vc_pid:
         encoded = urllib.parse.quote(base_url, safe='')
@@ -638,8 +638,8 @@ def _inject_blog_affiliate_section(html: str) -> str:
     unique_parts = unique_parts[:8]
 
     amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
-    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
 
     rows = []
     for part in unique_parts:
@@ -2031,8 +2031,8 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     戻り値は /api/recommend と同じ type="recommendation" 形式。
     """
     amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
-    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
 
     def make_amazon_url(name):
         q = urllib.parse.quote(name)
@@ -4218,8 +4218,8 @@ def generate_server_side_summary(session):
     }
 
     amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
-    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
 
     def _amzn_url(name):
         q = urllib.parse.quote(name)
@@ -4893,8 +4893,8 @@ def _build_chat_response(session, session_id, session_expired,
 
     # フロントエンド互換のレスポンス構築
     amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
-    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
 
     def _make_amzn(name):
         q = urllib.parse.quote(name)
@@ -5029,8 +5029,8 @@ def alternatives():
         gpu_name  = request.args.get('gpu_name', '')
 
         amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
-        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
 
         def make_amazon_url(name):
             q = urllib.parse.quote(name)
@@ -5556,8 +5556,8 @@ def recommend():
         session, _ = get_or_create_session(session_id)
 
         amazon_tag   = os.environ.get('AMAZON_TAG',   'pccompat-22')
-        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
-        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+        rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+        rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
 
         def make_amazon_url(name):
             q = urllib.parse.quote(name)

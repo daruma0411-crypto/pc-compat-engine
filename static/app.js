@@ -875,11 +875,12 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   }
   function buildRakutenUrl(name) {
     const search = 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(name) + '/';
-    if (typeof RAKUTEN_A_ID !== 'undefined' && RAKUTEN_A_ID && !RAKUTEN_A_ID.startsWith('__')) {
-      return 'https://hb.afl.rakuten.co.jp/hgc/' + RAKUTEN_A_ID + '/' + RAKUTEN_L_ID +
-             '/?pc=' + encodeURIComponent(search);
-    }
-    return search;
+    var aid = (typeof RAKUTEN_A_ID !== 'undefined' && RAKUTEN_A_ID && !RAKUTEN_A_ID.startsWith('__'))
+      ? RAKUTEN_A_ID : '0eb4779e.5d30c5ba';
+    var lid = (typeof RAKUTEN_L_ID !== 'undefined' && RAKUTEN_L_ID && !RAKUTEN_L_ID.startsWith('__'))
+      ? RAKUTEN_L_ID : '0eb4779f.b871e4e3';
+    return 'https://hb.afl.rakuten.co.jp/hgc/' + aid + '/' + lid +
+           '/?pc=' + encodeURIComponent(search) + '&link_type=hybrid_url&ts=1';
   }
   function buildKakakuUrl(name) {
     var base = 'https://kakaku.com/search_results/' + encodeURIComponent(name) + '/';
