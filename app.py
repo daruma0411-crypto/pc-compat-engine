@@ -579,9 +579,107 @@ def _inject_affiliate_tags(html: str) -> str:
     amazon_tag   = os.environ.get('AMAZON_TAG',    'pccompat-22')
     rakuten_a_id = os.environ.get('RAKUTEN_A_ID',  '')
     rakuten_l_id = os.environ.get('RAKUTEN_L_ID',  '')
+    kakaku_vc_sid = os.environ.get('KAKAKU_VC_SID', '')
+    kakaku_vc_pid = os.environ.get('KAKAKU_VC_PID', '')
     html = html.replace("'__AMAZON_TAG__'",   f"'{amazon_tag}'")
     html = html.replace("'__RAKUTEN_A_ID__'", f"'{rakuten_a_id}'")
     html = html.replace("'__RAKUTEN_L_ID__'", f"'{rakuten_l_id}'")
+    html = html.replace("'__KAKAKU_VC_SID__'", f"'{kakaku_vc_sid}'")
+    html = html.replace("'__KAKAKU_VC_PID__'", f"'{kakaku_vc_pid}'")
+    return html
+
+
+def _make_kakaku_search_url(name: str) -> str:
+    """価格.com検索URL生成（ValueCommerceアフィリエイト対応）"""
+    q = urllib.parse.quote(name)
+    base_url = f'https://kakaku.com/search_results/{q}/'
+    vc_sid = os.environ.get('KAKAKU_VC_SID', '')
+    vc_pid = os.environ.get('KAKAKU_VC_PID', '')
+    if vc_sid and vc_pid:
+        encoded = urllib.parse.quote(base_url, safe='')
+        return (f'https://ck.jp.ap.valuecommerce.com/servlet/referral?'
+                f'sid={vc_sid}&pid={vc_pid}&vc_url={encoded}')
+    return base_url
+
+
+# GPU/CPU/パーツ名を検出するパターン（ブログ記事からパーツ名を抽出する用）
+_PARTS_RE = re.compile(
+    r'(?:GeForce\s+)?(?:RTX|GTX|RX|Arc)\s+[A-Z]?\d{3,4}[\w\s]*?(?:Ti|XT|SUPER)?'
+    r'|Ryzen\s+[3579]\s+\d{4}X?\d?[A-Z]*'
+    r'|Core\s+(?:i[3579]|Ultra\s+[579])\s*[-\s]\d{4,5}\w*',
+    re.IGNORECASE
+)
+
+
+def _inject_blog_affiliate_section(html: str) -> str:
+    """ブログ記事HTMLに製品名を検出してアフィリエイトリンクセクションを注入する。"""
+    # 既にアフィリエイトセクションがある場合はスキップ
+    if 'blog-affiliate-links' in html:
+        return html
+
+    # 記事本文から製品名を抽出
+    matches = _PARTS_RE.findall(html)
+    if not matches:
+        return html
+
+    # 重複排除（出現順を維持）
+    seen = set()
+    unique_parts = []
+    for m in matches:
+        name = m.strip()
+        key = name.lower()
+        if key not in seen and len(name) > 5:
+            seen.add(key)
+            unique_parts.append(name)
+    if not unique_parts:
+        return html
+
+    # 最大8製品に制限
+    unique_parts = unique_parts[:8]
+
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+    rakuten_a_id = os.environ.get('RAKUTEN_A_ID', '')
+    rakuten_l_id = os.environ.get('RAKUTEN_L_ID', '')
+
+    rows = []
+    for part in unique_parts:
+        q = urllib.parse.quote(part)
+        amz_url = f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+        if rakuten_a_id and rakuten_l_id:
+            rak_url = (f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/?'
+                       f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
+        else:
+            rak_url = f'https://search.rakuten.co.jp/search/mall/{q}/'
+        kak_url = _make_kakaku_search_url(part)
+
+        rows.append(f'''<tr>
+<td style="font-weight:600;font-size:.9rem;">{part}</td>
+<td><a href="{amz_url}" target="_blank" rel="noopener nofollow" style="display:inline-block;background:#FF9900;color:#fff;padding:4px 12px;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600;">Amazon</a></td>
+<td><a href="{rak_url}" target="_blank" rel="noopener nofollow" style="display:inline-block;background:#BF0000;color:#fff;padding:4px 12px;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600;">楽天</a></td>
+<td><a href="{kak_url}" target="_blank" rel="noopener nofollow" style="display:inline-block;background:#0068b7;color:#fff;padding:4px 12px;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600;">価格.com</a></td>
+</tr>''')
+
+    section = f'''
+<div class="blog-affiliate-links" style="margin:32px 0;padding:20px;background:#f8f9fa;border-radius:12px;border:1px solid #e0e0e0;">
+<h3 style="margin:0 0 12px;font-size:1.1rem;color:#333;">🛒 記事で紹介したパーツの最安値をチェック</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.9rem;">
+<thead><tr style="border-bottom:2px solid #ddd;">
+<th style="text-align:left;padding:8px;">パーツ名</th>
+<th style="padding:8px;width:80px;">Amazon</th>
+<th style="padding:8px;width:80px;">楽天</th>
+<th style="padding:8px;width:80px;">価格.com</th>
+</tr></thead>
+<tbody>{''.join(rows)}</tbody>
+</table>
+<p style="margin:12px 0 0;font-size:.75rem;color:#888;">※ 価格・在庫は変動します。リンク先で最新情報をご確認ください。</p>
+</div>'''
+
+    # </article> or footer の前に挿入
+    if '</article>' in html:
+        html = html.replace('</article>', section + '\n</article>', 1)
+    elif '</body>' in html:
+        html = html.replace('</body>', section + '\n</body>', 1)
+
     return html
 
 
@@ -932,6 +1030,8 @@ def blog_page(article_name):
         ('ブログ', '/blog/'),
         (page_title[:50], f'/blog/{slug}'),
     ])
+    html = _inject_affiliate_tags(html)
+    html = _inject_blog_affiliate_section(html)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -1947,6 +2047,9 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
             )
         return f'https://search.rakuten.co.jp/search/mall/{q}/'
 
+    def make_kakaku_url(name):
+        return _make_kakaku_search_url(name)
+
     all_products = _load_all_products()
 
     # historyからユーザーの予算を抽出（ゲームモードからの引き継ぎ等）
@@ -2181,9 +2284,11 @@ def _suggest_build_with_claude(parts: list, message: str, history: list = None, 
     for item in suggested_build:
         item['amazon_url']  = make_amazon_url(item.get('name', ''))
         item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
+        item['kakaku_url']  = make_kakaku_url(item.get('name', ''))
     for item in prefixed_build:
         item['amazon_url']  = make_amazon_url(item.get('name', ''))
         item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
+        item['kakaku_url']  = make_kakaku_url(item.get('name', ''))
 
     # 重複カテゴリは確定パーツ優先
     confirmed_cat_labels = {i['category'] for i in prefixed_build}
@@ -4127,6 +4232,9 @@ def generate_server_side_summary(session):
                     f'pc=https://search.rakuten.co.jp/search/mall/{q}/&link_type=hybrid_url&ts=1')
         return f'https://search.rakuten.co.jp/search/mall/{q}/'
 
+    def _kakaku_url(name):
+        return _make_kakaku_search_url(name)
+
     link_style = 'color:#fff;text-decoration:none;padding:2px 8px;border-radius:4px;font-size:.8rem;font-weight:600;'
 
     lines = ["🎉 **構成が完成しました！**\n"]
@@ -4145,7 +4253,8 @@ def generate_server_side_summary(session):
             lock = " 🔒" if part.get('user_specified') else ""
             amz = f'<a href="{_amzn_url(part["name"])}" target="_blank" rel="noopener" style="{link_style}background:#FF9900;">Amazon</a>'
             rak = f'<a href="{_raku_url(part["name"])}" target="_blank" rel="noopener" style="{link_style}background:#BF0000;">楽天</a>'
-            lines.append(f"| {label} | {part['name']}{lock} {amz} {rak} | {price_str} |")
+            kak = f'<a href="{_kakaku_url(part["name"])}" target="_blank" rel="noopener" style="{link_style}background:#0068b7;">価格.com</a>'
+            lines.append(f"| {label} | {part['name']}{lock} {amz} {rak} {kak} | {price_str} |")
             confirmed_parts_for_links.append({'name': part['name'], 'label': label})
         else:
             missing.append(label)
@@ -4257,7 +4366,9 @@ def generate_server_side_summary(session):
                        f'style="{btn_style}background:#FF9900;">Amazon</a>')
             rak_btn = (f'<a href="{_raku_url(p["name"])}" target="_blank" rel="noopener" '
                        f'style="{btn_style}background:#BF0000;">楽天</a>')
-            lines.append(f"- **{p['label']}**: {amz_btn} {rak_btn}")
+            kak_btn = (f'<a href="{_kakaku_url(p["name"])}" target="_blank" rel="noopener" '
+                       f'style="{btn_style}background:#0068b7;">価格.com</a>')
+            lines.append(f"- **{p['label']}**: {amz_btn} {rak_btn} {kak_btn}")
 
     lines.append("\n変更したいパーツがあればいつでも言ってください。")
 
@@ -4934,6 +5045,9 @@ def alternatives():
                 )
             return f'https://search.rakuten.co.jp/search/mall/{q}/'
 
+        def make_kakaku_url(name):
+            return _make_kakaku_search_url(name)
+
         # 全商品を読み込む
         jsonl_paths = glob_module.glob(
             os.path.join(_PC_WORKSPACE_DIR, 'data', '*', 'products.jsonl')
@@ -4987,6 +5101,7 @@ def alternatives():
                     },
                     'amazon_url':  make_amazon_url(p.get('name', '')),
                     'rakuten_url': make_rakuten_url(p.get('name', '')),
+                    'kakaku_url':  make_kakaku_url(p.get('name', '')),
                 })
                 if len(result) >= 6:
                     break
@@ -5025,6 +5140,7 @@ def alternatives():
                     },
                     'amazon_url':  make_amazon_url(p.get('name', '')),
                     'rakuten_url': make_rakuten_url(p.get('name', '')),
+                    'kakaku_url':  make_kakaku_url(p.get('name', '')),
                 })
                 if len(result) >= 6:
                     break
@@ -5456,6 +5572,9 @@ def recommend():
                 )
             return f'https://search.rakuten.co.jp/search/mall/{q}/'
 
+        def make_kakaku_url(name):
+            return _make_kakaku_search_url(name)
+
         # Step1: ゲーム名・予算をClaude Haikuで抽出
         extract_prompt = (
             'ユーザーの入力からゲーム名と予算を抽出してください。\n'
@@ -5688,6 +5807,7 @@ def recommend():
         for item in recommended_build:
             item['amazon_url']  = make_amazon_url(item.get('name', ''))
             item['rakuten_url'] = make_rakuten_url(item.get('name', ''))
+            item['kakaku_url']  = make_kakaku_url(item.get('name', ''))
             item['confirmed']   = False  # ゲーム推奨はユーザー未承認なので ai_pending 扱い
 
         # price_range から数値を抽出して合計を計算（Claudeの誤算を防ぐ）

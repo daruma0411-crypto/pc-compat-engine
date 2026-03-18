@@ -383,6 +383,10 @@ header {
   background: #BF0000;
 }
 
+.parts-buy-kak {
+  background: #0068b7;
+}
+
 .parts-change-link {
   width: 32px;
   font-size: 11px;
@@ -567,6 +571,15 @@ header {
 
 .buy-btn-rakuten:hover {
   background: #a00000;
+}
+
+.buy-btn-kakaku {
+  background: #0068b7;
+  color: #fff;
+}
+
+.buy-btn-kakaku:hover {
+  background: #005599;
 }
 
 /* ── チャットバブル（.msg / .msg-bubble） ── */

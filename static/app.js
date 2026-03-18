@@ -318,6 +318,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           price_min: val.price_min || 0,
           amazon_url: buildAmazonUrl(val.name),
           rakuten_url: buildRakutenUrl(val.name),
+          kakaku_url: buildKakakuUrl(val.name),
         };
         if (idx >= 0) {
           confirmedParts[idx] = entry;
@@ -593,12 +594,14 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       const specStr  = buildSpecStr(category, specs);
       const amazonUrl  = it.amazon_url  || buildAmazonUrl(it.name);
       const rakutenUrl = it.rakuten_url || buildRakutenUrl(it.name);
+      const kakakuUrl  = it.kakaku_url  || buildKakakuUrl(it.name);
       return '<div class="alt-product">' +
         '<div class="alt-name">'  + escHtml(it.name || '') + '</div>' +
         '<div class="alt-specs">' + escHtml(specStr)       + '</div>' +
         '<div class="alt-links">' +
           '<a class="buy-btn buy-btn-amazon"  href="' + escHtml(amazonUrl)  + '" target="_blank" rel="noopener">🛒 Amazon</a>' +
           '<a class="buy-btn buy-btn-rakuten" href="' + escHtml(rakutenUrl) + '" target="_blank" rel="noopener">🛍 楽天</a>' +
+          '<a class="buy-btn buy-btn-kakaku"  href="' + escHtml(kakakuUrl)  + '" target="_blank" rel="noopener">💰 価格.com</a>' +
         '</div>' +
         '</div>';
     }).join('');
@@ -724,6 +727,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const itemsHtml = build.map(item => {
       const amazonUrl  = item.amazon_url  || buildAmazonUrl(item.name || '');
       const rakutenUrl = item.rakuten_url || buildRakutenUrl(item.name || '');
+      const kakakuUrl  = item.kakaku_url  || buildKakakuUrl(item.name || '');
       return '<div class="build-item ' + getBuildItemSizeClass(item.category) + '">' +
         '<div class="build-item-header">' +
           '<span class="build-category" data-cat="' + escHtml((item.category || '').toUpperCase()) + '">' + escHtml(item.category || '') + '</span>' +
@@ -737,6 +741,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         '<div class="build-links">' +
           '<a class="buy-btn buy-btn-amazon"  href="' + escHtml(amazonUrl)  + '" target="_blank" rel="noopener">🛒 Amazon</a>' +
           '<a class="buy-btn buy-btn-rakuten" href="' + escHtml(rakutenUrl) + '" target="_blank" rel="noopener">🛍 楽天</a>' +
+          '<a class="buy-btn buy-btn-kakaku"  href="' + escHtml(kakakuUrl)  + '" target="_blank" rel="noopener">💰 価格.com</a>' +
         '</div>' +
         '</div>';
     }).join('');
@@ -876,6 +881,15 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     }
     return search;
   }
+  function buildKakakuUrl(name) {
+    var base = 'https://kakaku.com/search_results/' + encodeURIComponent(name) + '/';
+    if (typeof KAKAKU_VC_SID !== 'undefined' && KAKAKU_VC_SID && !String(KAKAKU_VC_SID).startsWith('__') &&
+        typeof KAKAKU_VC_PID !== 'undefined' && KAKAKU_VC_PID && !String(KAKAKU_VC_PID).startsWith('__')) {
+      return 'https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=' + KAKAKU_VC_SID +
+             '&pid=' + KAKAKU_VC_PID + '&vc_url=' + encodeURIComponent(base);
+    }
+    return base;
+  }
 
   // ─── ユーティリティ ────────────────────────────────────────────────────
   function chat() { return document.getElementById('chat'); }
@@ -917,6 +931,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     'af.moshimo.com',
     'click.linksynergy.com',
     'h.accesstrade.net',
+    'kakaku.com',
   ];
 
   document.addEventListener('click', function(e) {
@@ -939,6 +954,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     var label = 'other';
     if (link.classList.contains('buy-btn-amazon') || href.indexOf('amazon.co.jp') !== -1) label = 'amazon';
     else if (link.classList.contains('buy-btn-rakuten') || href.indexOf('rakuten.co.jp') !== -1) label = 'rakuten';
+    else if (link.classList.contains('buy-btn-kakaku') || href.indexOf('kakaku.com') !== -1) label = 'kakaku';
     else if (link.classList.contains('bto-card-btn')) label = 'bto_purchase';
     else if (href.indexOf('px.a8.net') !== -1) label = 'a8';
     else if (href.indexOf('valuecommerce.com') !== -1) label = 'valuecommerce';
@@ -1022,7 +1038,8 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         if (buyEl && item.name) {
           buyEl.innerHTML =
             '<a class="parts-buy-link parts-buy-amz" href="' + escHtml(buildAmazonUrl(item.name)) + '" target="_blank" rel="noopener" title="Amazonで探す">A</a>' +
-            '<a class="parts-buy-link parts-buy-rak" href="' + escHtml(buildRakutenUrl(item.name)) + '" target="_blank" rel="noopener" title="楽天で探す">R</a>';
+            '<a class="parts-buy-link parts-buy-rak" href="' + escHtml(buildRakutenUrl(item.name)) + '" target="_blank" rel="noopener" title="楽天で探す">R</a>' +
+            '<a class="parts-buy-link parts-buy-kak" href="' + escHtml(buildKakakuUrl(item.name)) + '" target="_blank" rel="noopener" title="価格.comで探す">K</a>';
         }
       } else {
         valEl.textContent = '—';
@@ -1236,11 +1253,13 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const linksHtml = confirmedParts.map(p => {
       const amazonUrl = buildAmazonUrl(p.name);
       const rakutenUrl = buildRakutenUrl(p.name);
+      const kakakuUrl = buildKakakuUrl(p.name);
       return `<div class="individual-link-item">
         <span class="link-item-name">${escHtml(p.name)}</span>
         <div class="link-item-buttons">
           <a class="buy-btn buy-btn-amazon" href="${escHtml(amazonUrl)}" target="_blank" rel="noopener">🛒 Amazon</a>
           <a class="buy-btn buy-btn-rakuten" href="${escHtml(rakutenUrl)}" target="_blank" rel="noopener">🛍 楽天</a>
+          <a class="buy-btn buy-btn-kakaku" href="${escHtml(kakakuUrl)}" target="_blank" rel="noopener">💰 価格.com</a>
         </div>
       </div>`;
     }).join('');
