@@ -1053,9 +1053,18 @@ def main():
             print("[INFO] ブログ投稿スキップ → フォールバック")
 
     if roll < 0.45:
-        # 質問・意見ツイート (30%)
-        print("[モード] 質問・意見ツイート")
-        tweet_text, pattern_type = generate_question_tweet()
+        # バズ型 or 質問型 (30%) — 50%ずつ
+        if random.random() < 0.5:
+            print("[モード] 🔥 バズ型ツイート")
+            try:
+                from buzz_tweet_templates import get_random_buzz_tweet
+                tweet_text, pattern_type = get_random_buzz_tweet()
+            except Exception as e:
+                print(f"[WARN] バズ型失敗、質問型にフォールバック: {e}")
+                tweet_text, pattern_type = generate_question_tweet()
+        else:
+            print("[モード] 質問・意見ツイート")
+            tweet_text, pattern_type = generate_question_tweet()
         
         # 80%の確率で画像付き（ランキング or 比較）
         question_image = None
