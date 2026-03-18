@@ -266,5 +266,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-03-18T05:10:47.736129",
+    "tweet_text": "Street Fighter 6\n重いけど面白い\n\n推奨→ https://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #Steam",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
