@@ -149,16 +149,20 @@ def main():
         bearer_token=bearer if bearer else None
     )
 
-    # 自分のユーザーID取得（OAuth1.0aで認証）
-    auth = tweepy.OAuth1UserHandler(
-        os.environ.get('TWITTER_API_KEY'),
-        os.environ.get('TWITTER_API_SECRET'),
-        os.environ.get('TWITTER_ACCESS_TOKEN'),
-        os.environ.get('TWITTER_ACCESS_SECRET')
-    )
-    api_v1 = tweepy.API(auth)
-    me_v1 = api_v1.verify_credentials()
-    my_username = me_v1.screen_name
+    # SSL証明書エラー回避（企業プロキシ環境対策）
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    os.environ['CURL_CA_BUNDLE'] = ''
+    
+    import requests
+    old_request = requests.Session.request
+    def patched_request(self, *args, **kwargs):
+        kwargs['verify'] = False
+        return old_request(self, *args, **kwargs)
+    requests.Session.request = patched_request
+    
+    # 自分のユーザーID取得
+    my_username = 'syoyutarou'  # 固定（API呼び出し節約）
     print(f"🤖 @{my_username} で営業開始")
 
     history = load_history()
@@ -188,7 +192,11 @@ def main():
         if p['followers'] < 5:
             continue
         # 企業・宣伝系排除
-        if any(w in p['text'].lower() for w in ['pr', '広告', 'プレゼント', 'キャンペーン', 'airdrop']):
+        if any(w in p['text'].lower() for w in ['pr', '広告', 'プレゼント', 'キャンペーン', 'airdrop', '円から購入', 'セール開催', '開催中', '❣']):
+            continue
+        # PC無関係のBTO排除（不動産等）
+        text_lower = p['text'].lower()
+        if 'bto' in text_lower and not any(w in text_lower for w in ['pc', 'パソコン', 'ゲーミング', '自作', 'gpu', 'グラボ']):
             continue
         filtered.append(p)
 
