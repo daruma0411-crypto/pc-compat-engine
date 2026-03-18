@@ -28,6 +28,16 @@ if env_path.exists():
                 key, val = line.split('=', 1)
                 os.environ.setdefault(key.strip(), val.strip())
 
+# SSL証明書エラー回避（企業プロキシ対策）
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import requests
+_old_request = requests.Session.request
+def _patched_request(self, *args, **kwargs):
+    kwargs['verify'] = False
+    return _old_request(self, *args, **kwargs)
+requests.Session.request = _patched_request
+
 TWITTER_API_KEY = os.getenv('TWITTER_API_KEY')
 TWITTER_API_SECRET = os.getenv('TWITTER_API_SECRET')
 TWITTER_ACCESS_TOKEN = os.getenv('TWITTER_ACCESS_TOKEN')

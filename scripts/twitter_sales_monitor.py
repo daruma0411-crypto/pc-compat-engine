@@ -217,16 +217,43 @@ def main():
         print(f"   リプライ: {reply_text[:80]}...")
 
         if not args.dry_run:
+            # Step 1: いいね（接点作り）
+            try:
+                client.like(prospect['tweet_id'])
+                print(f"   ❤️ いいね成功")
+            except Exception as e:
+                print(f"   ⚠️ いいね失敗: {e}")
+            
+            time.sleep(random.randint(5, 15))
+            
+            # Step 2: リプライ試行（403なら引用RTにフォールバック）
             try:
                 client.create_tweet(
                     text=reply_text,
                     in_reply_to_tweet_id=prospect['tweet_id']
                 )
-                print(f"   ✅ 送信成功！")
-                time.sleep(random.randint(60, 180))  # 1-3分待機
+                print(f"   ✅ リプライ成功！")
             except Exception as e:
-                print(f"   ❌ 送信失敗: {e}")
-                continue
+                if '403' in str(e):
+                    # 引用RTにフォールバック
+                    try:
+                        tweet_url = f"https://x.com/i/status/{prospect['tweet_id']}"
+                        quote_text = reply_text.replace(f"@{prospect['username']} ", "")
+                        if len(quote_text) > 240:
+                            quote_text = quote_text[:237] + "..."
+                        client.create_tweet(
+                            text=quote_text,
+                            quote_tweet_id=prospect['tweet_id']
+                        )
+                        print(f"   🔄 引用RT成功！（リプライ403のためフォールバック）")
+                    except Exception as e2:
+                        print(f"   ❌ 引用RTも失敗: {e2}")
+                        continue
+                else:
+                    print(f"   ❌ 送信失敗: {e}")
+                    continue
+            
+            time.sleep(random.randint(30, 90))
         else:
             print(f"   🔍 [DRY RUN]")
 
