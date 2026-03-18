@@ -104,6 +104,10 @@ def select_game(games, history, max_history=50):
     ]
     candidates_with_score.sort(key=lambda x: x.get('metacritic_score', 0), reverse=True)
 
+    # メタスコア付き候補がない場合はcandidates全体から選択
+    if not candidates_with_score:
+        return random.choice(candidates)
+
     # 上位30%からランダム選択（多様性のため）
     top_count = max(1, len(candidates_with_score) // 3)
     return random.choice(candidates_with_score[:top_count])
