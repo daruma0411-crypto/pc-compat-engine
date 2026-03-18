@@ -274,5 +274,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-18T22:38:09.762854",
+    "tweet_text": "これ知ってた？\n\nPCゲーマーの平均GPU予算\n2024年: 4.2万円\n2025年: 5.8万円\n2026年: 7.1万円\n\n年々上がってるけど\nコスパ最強はRTX 4060（4.5万）\n\n📊 https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
