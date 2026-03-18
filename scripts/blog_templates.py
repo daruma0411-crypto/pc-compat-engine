@@ -13,6 +13,12 @@ _DATA_REQUIREMENT = (
     "上記の実データを必ず記事に織り込んでください。"
 )
 
+_PURCHASE_GUIDANCE = (
+    "\n\n【購入導線】記事の結論部分で、このテーマに最適なパーツを具体名で2〜3点推奨し、"
+    "「記事下のおすすめ購入先から各ショップの最安値をチェックしてみてください」と締めてください。"
+    "自作が不安な読者にはBTO（完成品PC）も選択肢として1文で言及してください。"
+)
+
 # 各テンプレートは固有の「文体」を持ち、画一的にならないようにする
 BLOG_TEMPLATES = [
     {
@@ -32,7 +38,7 @@ BLOG_TEMPLATES = [
             "「自分もハマった」「これで直った」のような体験談風に。ステップを踏むごとに「ここで直れば儲けもん」のような励ましを入れてください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグ（h2, p, ol, li）で構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -51,7 +57,7 @@ BLOG_TEMPLATES = [
             "ジャンルごとに1〜2行の私見コメントを入れてください。最後に「個人的ベスト3」を選んでください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグ（h2, h3, p, ul, li）で構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -70,7 +76,7 @@ BLOG_TEMPLATES = [
             "パーツ選びの「なぜこれを選んだか」の理由を1つずつ丁寧に。「ここをケチるとゲーム体験が台無しになる」のような優先順位の解説を含めてください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -89,7 +95,7 @@ BLOG_TEMPLATES = [
             "「コスパ最強はこれ」「これは避けたほうがいい」のような明確な結論を各セクションに入れてください。感情を排した事実ベースの解説で。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -106,7 +112,7 @@ BLOG_TEMPLATES = [
             "重量・バッテリー持ち・排熱音のリアルな話を含め、「電車で使えるか」「カフェで恥ずかしくないか」のような実用的な視点で書いてください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -124,7 +130,7 @@ BLOG_TEMPLATES = [
             "解像度とフレームレートのトレードオフを図解的に説明。「ぶっちゃけWQHDが一番バランスいい」のような実践的アドバイスを含めてください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -141,7 +147,7 @@ BLOG_TEMPLATES = [
             "各解決策に「効果度：★★★」のような5段階評価を付けてください。「これで8割の人は直る」のような統計的な言い回しを使ってください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -160,7 +166,7 @@ BLOG_TEMPLATES = [
             "最後に「中古 vs 新品」の総コスト比較表を入れてください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -179,7 +185,7 @@ BLOG_TEMPLATES = [
             "「入れすぎるとこうなる」のような失敗談を含め、段階的なMOD導入のロードマップを提案してください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -197,7 +203,7 @@ BLOG_TEMPLATES = [
             "TOP3には詳細な分析を、それ以下は簡潔に。「先月からの変動」があれば言及してください。\n"
             "SEOキーワード: {keywords}\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
     {
@@ -219,7 +225,7 @@ BLOG_TEMPLATES = [
             "\n【文体指示】経済ニュースのアナリスト風に。「今週のPC市場は○○が動いた」のような導入で。"
             "数字の前週比を必ず記載し、「底値圏」「天井」「買い時」のような市場用語を使ってください。\n"
             "出力はHTMLタグで構造化してください。コードフェンス（```）は絶対に使わないでください。"
-            + _DATA_REQUIREMENT
+            + _DATA_REQUIREMENT + _PURCHASE_GUIDANCE
         ),
     },
 ]

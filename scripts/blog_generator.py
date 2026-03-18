@@ -17,6 +17,7 @@ import random
 import time
 import argparse
 import re
+import urllib.parse
 from pathlib import Path
 from datetime import datetime
 
@@ -110,6 +111,216 @@ TEMPLATE_CTA = {
     'ranking': {'heading': 'あなたのPCスペックで何が動く？', 'desc': 'AI診断チャットで詳しく確認', 'button': 'スペック診断 →'},
 }
 DEFAULT_CTA = {'heading': 'あなたのPCで動くか診断', 'desc': 'AI診断チャットで詳しく確認できます', 'button': '無料で診断する →'}
+
+# --- アフィリエイト設定 ---
+AMAZON_TAG = 'pccompat-22'
+RAKUTEN_A_ID = os.getenv('RAKUTEN_A_ID', '0eb4779e.5d30c5ba')
+RAKUTEN_L_ID = os.getenv('RAKUTEN_L_ID', '0eb4779f.b871e4e3')
+BTO_DATA_PATH = WORKSPACE_DIR / "workspace" / "data" / "bto" / "products.jsonl"
+
+
+# --- アフィリエイトURL生成 ---
+
+def _build_amazon_url(name):
+    """Amazon検索URL（アフィリエイトタグ付き）"""
+    return f'https://www.amazon.co.jp/s?k={urllib.parse.quote(name)}&tag={AMAZON_TAG}'
+
+
+def _build_rakuten_url(name):
+    """楽天検索URL（A8.net経由）"""
+    search = f'https://search.rakuten.co.jp/search/mall/{urllib.parse.quote(name)}/'
+    return (f'https://hb.afl.rakuten.co.jp/hgc/{RAKUTEN_A_ID}/{RAKUTEN_L_ID}'
+            f'/?pc={urllib.parse.quote(search, safe="")}&link_type=hybrid_url&ts=1')
+
+
+def _build_kakaku_url(name):
+    """価格.com検索URL"""
+    return f'https://kakaku.com/search_results/{urllib.parse.quote(name)}/'
+
+
+# --- BTO マッチング ---
+
+def _load_bto_products():
+    """BTO products.jsonlを読み込む"""
+    products = []
+    if not BTO_DATA_PATH.exists():
+        return products
+    with open(BTO_DATA_PATH, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                products.append(json.loads(line))
+    return products
+
+
+_GPU_TIERS = {
+    4: ['5090', '4090'],
+    3: ['5080', '5070 ti', '4080', '4070 ti super', '4070 ti'],
+    2: ['5070', '4070', '5060 ti', '4060 ti', '3070', '9070 xt', '9070'],
+}
+
+
+def _get_gpu_tier(gpu_name):
+    """GPU名 → ティア (1=エントリー, 2=ミドル, 3=ハイ, 4=ウルトラ)"""
+    name_lower = gpu_name.lower()
+    for tier, chips in _GPU_TIERS.items():
+        for chip in chips:
+            if chip in name_lower:
+                return tier
+    return 1
+
+
+def _match_bto_products(template_id, variables, max_items=3):
+    """テンプレートに基づいてBTO製品をマッチング（メーカー分散）"""
+    all_bto = _load_bto_products()
+    if not all_bto:
+        return []
+
+    candidates = [p for p in all_bto if p.get('url')]
+
+    if template_id == 'budget_build':
+        budget_yen = int(variables.get('budget', '15')) * 10000
+        lo, hi = budget_yen * 0.7, budget_yen * 1.3
+        candidates = [p for p in candidates if lo <= p.get('price_jpy', 0) <= hi]
+        candidates.sort(key=lambda x: abs(x.get('price_jpy', 0) - budget_yen))
+
+    elif template_id == 'gpu_list':
+        target_tier = _get_gpu_tier(f"RTX {variables.get('gpu_model', '4060')}")
+        candidates.sort(key=lambda x: (
+            abs(_get_gpu_tier(x.get('specs', {}).get('gpu', {}).get('name', '')) - target_tier),
+            x.get('price_jpy', 999999)))
+
+    elif template_id in ('high_res', 'mod'):
+        candidates = [p for p in candidates
+                      if _get_gpu_tier(p.get('specs', {}).get('gpu', {}).get('name', '')) >= 3]
+        candidates.sort(key=lambda x: x.get('price_jpy', 0))
+
+    elif template_id == 'used_parts':
+        candidates = [p for p in candidates if p.get('price_jpy', 0) <= 200000]
+        candidates.sort(key=lambda x: x.get('price_jpy', 0))
+
+    else:
+        candidates.sort(key=lambda x: abs(x.get('price_jpy', 0) - 250000))
+
+    # メーカー分散
+    result, seen = [], set()
+    for p in candidates:
+        maker = p.get('maker', '')
+        if maker not in seen or len(result) < max_items:
+            result.append(p)
+            seen.add(maker)
+        if len(result) >= max_items:
+            break
+    return result
+
+
+# --- パーツリスト判定 ---
+
+_TEMPLATE_PARTS = {
+    'budget_build': {
+        8:  ['GeForce RTX 4060', 'Ryzen 5 5500', 'DDR4 16GB'],
+        10: ['GeForce RTX 4060', 'Ryzen 5 5500', 'DDR4 16GB'],
+        12: ['GeForce RTX 5060', 'Ryzen 5 7500F', 'DDR5 16GB'],
+        15: ['GeForce RTX 5060', 'Ryzen 7 7700', 'DDR5 16GB'],
+        18: ['GeForce RTX 5070', 'Ryzen 7 9700X', 'DDR5 32GB'],
+        20: ['GeForce RTX 5070', 'Ryzen 7 9700X', 'DDR5 32GB'],
+        25: ['GeForce RTX 5080', 'Ryzen 9 9900X', 'DDR5 32GB'],
+    },
+    'gpu_list':        lambda v: [f"GeForce RTX {v.get('gpu_model', '4060')}"],
+    'benchmark':       lambda v: [f"GeForce RTX {v.get('gpu_model', '5060')}", 'ゲーミングPC'],
+    'high_res':        ['GeForce RTX 5070 Ti', 'GeForce RTX 5080', '4Kモニター'],
+    'performance':     ['GeForce RTX 5060', 'DDR5 32GB メモリ', 'NVMe SSD 1TB'],
+    'troubleshooting': ['GeForce RTX 5060', 'ゲーミングPC'],
+    'used_parts':      ['GeForce RTX 3060 中古', 'GeForce RTX 3070 中古'],
+    'mod':             ['GeForce RTX 5070 Ti 16GB', 'DDR5 32GB メモリ'],
+    'laptop':          ['ゲーミングノートPC RTX 4060', 'ゲーミングノートPC RTX 4070'],
+    'ranking':         ['GeForce RTX 5070', 'GeForce RTX 5060', 'ゲーミングPC'],
+    'weekly_report':   ['GeForce RTX 5060', 'GeForce RTX 5070', 'DDR5 32GB'],
+}
+
+
+def _get_affiliate_parts(template_id, variables):
+    """テンプレートに応じたアフィリエイト対象パーツを返す"""
+    mapping = _TEMPLATE_PARTS.get(template_id)
+    if mapping is None:
+        return ['ゲーミングPC', 'GeForce RTX 5060']
+    if callable(mapping):
+        return mapping(variables)
+    if isinstance(mapping, dict):
+        budget = int(variables.get('budget', '15'))
+        # 最も近い予算帯を選択
+        closest = min(mapping.keys(), key=lambda k: abs(k - budget))
+        return mapping[closest]
+    return list(mapping)
+
+
+# --- アフィリエイトセクション HTML 生成 ---
+
+def generate_affiliate_section(template_id, variables):
+    """おすすめ購入先セクション（パーツリンク + BTO推奨）のHTMLを生成"""
+    parts = _get_affiliate_parts(template_id, variables or {})
+    bto_list = _match_bto_products(template_id, variables or {}, max_items=3)
+
+    if not parts and not bto_list:
+        return ''
+
+    h = []
+    h.append('<div class="blog-affiliate-links blog-purchase-guide" style="margin-top:32px;padding:20px;background:#f8fdf8;border-radius:10px;border:1px solid #e0e0e0;">')
+    h.append('<h2 style="margin:0 0 16px;font-size:1.2rem;color:#2c3e50;border-left:4px solid #4CAF50;padding-left:12px;">おすすめ購入先</h2>')
+
+    # --- パーツ検索リンクテーブル ---
+    if parts:
+        h.append('<h3 style="font-size:1rem;color:#34495e;margin:12px 0 8px;">パーツを探す</h3>')
+        h.append('<div style="overflow-x:auto;">')
+        h.append('<table style="width:100%;border-collapse:collapse;margin-bottom:16px;min-width:400px;">')
+        h.append('<thead><tr>'
+                 '<th style="background:#4CAF50;color:#fff;padding:8px 10px;text-align:left;font-size:.85rem;">パーツ名</th>'
+                 '<th style="background:#FF9900;color:#fff;padding:8px 10px;text-align:center;width:80px;font-size:.85rem;">Amazon</th>'
+                 '<th style="background:#bf0000;color:#fff;padding:8px 10px;text-align:center;width:80px;font-size:.85rem;">楽天</th>'
+                 '<th style="background:#0068b7;color:#fff;padding:8px 10px;text-align:center;width:80px;font-size:.85rem;">価格.com</th>'
+                 '</tr></thead><tbody>')
+        for part in parts:
+            amz = _build_amazon_url(part)
+            rak = _build_rakuten_url(part)
+            kak = _build_kakaku_url(part)
+            link_style = 'font-weight:bold;text-decoration:none;font-size:.85rem;'
+            h.append(f'<tr>'
+                     f'<td style="padding:8px 10px;border-bottom:1px solid #eee;font-weight:600;font-size:.9rem;">{part}</td>'
+                     f'<td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center;"><a href="{amz}" target="_blank" rel="noopener nofollow" style="color:#FF9900;{link_style}">検索</a></td>'
+                     f'<td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center;"><a href="{rak}" target="_blank" rel="noopener nofollow" style="color:#bf0000;{link_style}">検索</a></td>'
+                     f'<td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center;"><a href="{kak}" target="_blank" rel="noopener nofollow" style="color:#0068b7;{link_style}">検索</a></td>'
+                     f'</tr>')
+        h.append('</tbody></table></div>')
+
+    # --- BTO推奨カード ---
+    if bto_list:
+        h.append('<h3 style="font-size:1rem;color:#34495e;margin:20px 0 12px;">自作が不安なら完成品PC（BTO）もおすすめ</h3>')
+        h.append('<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">')
+        for bto in bto_list:
+            sp = bto.get('specs', {})
+            gpu = sp.get('gpu', {}).get('name', '?')
+            cpu = sp.get('cpu', {}).get('name', '?')
+            ram_gb = sp.get('ram', {}).get('capacity_gb', '?')
+            ram_type = sp.get('ram', {}).get('type', '')
+            price = bto.get('price_jpy', 0)
+            maker = bto.get('maker', '')
+            series = bto.get('series', '')
+            model = bto.get('model', '')
+            url = bto.get('affiliate', {}).get('url', '') or bto.get('url', '')
+            h.append(
+                f'<div style="border:1px solid #e0e0e0;border-radius:8px;padding:14px;background:#fff;">'
+                f'<div style="font-size:.75rem;color:#888;margin-bottom:2px;">{maker} {series}</div>'
+                f'<div style="font-weight:bold;font-size:.95rem;margin-bottom:6px;color:#1a1a1a;">{model}</div>'
+                f'<div style="font-size:.8rem;color:#555;margin-bottom:8px;line-height:1.4;">{gpu}<br>{cpu}<br>{ram_type} {ram_gb}GB</div>'
+                f'<div style="font-size:1.1rem;font-weight:bold;color:#e63946;margin-bottom:10px;">¥{price:,}</div>'
+                f'<a href="{url}" target="_blank" rel="noopener nofollow" '
+                f'style="display:inline-block;background:#4CAF50;color:#fff;padding:6px 16px;border-radius:6px;text-decoration:none;font-size:.85rem;font-weight:600;">詳細を見る →</a>'
+                f'</div>')
+        h.append('</div>')
+        h.append('<p style="font-size:.75rem;color:#999;margin-top:8px;">※ 価格は記事執筆時点のものです。最新価格は各ショップにてご確認ください。</p>')
+
+    h.append('</div>')
+    return '\n'.join(h)
 
 
 def load_generation_history():
@@ -226,8 +437,8 @@ def generate_related_html(related_articles):
     )
 
 
-def generate_article_html(title, content, keywords, template_id='', filename=''):
-    """記事の完全なHTMLを生成（Schema.org + テンプレート別CTA + 関連記事）"""
+def generate_article_html(title, content, keywords, template_id='', filename='', variables=None):
+    """記事の完全なHTMLを生成（Schema.org + テンプレート別CTA + 関連記事 + アフィリエイト）"""
     date_str = datetime.now().strftime('%Y-%m-%d')
     date_display = datetime.now().strftime('%Y年%m月%d日')
     keywords_str = ', '.join(keywords)
@@ -241,6 +452,9 @@ def generate_article_html(title, content, keywords, template_id='', filename='')
     # 関連記事（Phase 1-5）
     related = get_related_articles(template_id, keywords)
     related_html = generate_related_html(related)
+
+    # アフィリエイト購入セクション
+    affiliate_html = generate_affiliate_section(template_id, variables or {})
 
     # Schema.org Article構造化データ（Phase 1-3）
     description_text = f"{title} - PCゲーム互換性診断とおすすめPC構成"
@@ -339,6 +553,8 @@ h3 {{ color: #34495e; margin-top: 24px; }}
     <p class="disclaimer">※ 本記事のFPS値・性能値は一般的な目安です。実際の動作はPC環境・ゲーム設定により異なります。</p>
 {related_html}
   </div>
+
+{affiliate_html}
 
   <div class="article-cta">
     <h3>{cta['heading']}</h3>
@@ -486,7 +702,7 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
             if content_body:
                 date_prefix = datetime.now().strftime('%Y%m%d')
                 filename = f"{date_prefix}-{template['id']}-{slugify(title)}.html"
-                html = generate_article_html(title, content_body, keywords, template['id'], filename)
+                html = generate_article_html(title, content_body, keywords, template['id'], filename, variables)
                 filepath = BLOG_DIR / filename
                 with open(filepath, 'w', encoding='utf-8') as f:
                     f.write(html)
@@ -563,7 +779,7 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
                 filepath = BLOG_DIR / filename
                 counter += 1
 
-            html = generate_article_html(title, content_body, keywords, template['id'], filename)
+            html = generate_article_html(title, content_body, keywords, template['id'], filename, variables)
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(html)
             print(f"  [OK] {filepath.name}")
