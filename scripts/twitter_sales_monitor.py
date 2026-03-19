@@ -47,6 +47,17 @@ SEARCH_QUERIES = [
     "自作PC 初めて",
 ]
 
+# 猛者アカウント（PC自作系インフルエンサー）
+# これらのアカウントの投稿にいいね → フォロワーへの露出
+INFLUENCER_ACCOUNTS = [
+    'storm_btopc',       # STORM BTO (119K)
+    'Tsukumo_eX',        # ツクモ秋葉原 (92K)
+    'dospara_sapporo',   # ドスパラ札幌 (16K)
+    'dospara_kago',      # ドスパラ鹿児島 (19K)
+    'PK_itami',          # パソコン工房 (1K)
+    'PK_Kashii',         # パソコン工房 (2K)
+]
+
 
 def load_history():
     if not HISTORY_FILE.exists():
@@ -168,6 +179,36 @@ def main():
 
     history = load_history()
     replied_ids = set(history.get('replied', []))
+    liked_influencer_ids = set(history.get('liked_influencer', []))
+
+    # === Phase 0: 猛者の投稿にいいね（露出戦略）===
+    print("\n--- 猛者いいね ---")
+    influencer_like_count = 0
+    for account in random.sample(INFLUENCER_ACCOUNTS, min(2, len(INFLUENCER_ACCOUNTS))):
+        try:
+            user_result = client.get_user(username=account, user_fields=['id'])
+            if not user_result.data:
+                continue
+            user_id = user_result.data.id
+            tweets_result = client.get_users_tweets(user_id, max_results=5, tweet_fields=['public_metrics'])
+            if not tweets_result.data:
+                continue
+            for tweet in tweets_result.data[:2]:
+                tweet_key = f"inf_{tweet.id}"
+                if tweet_key in liked_influencer_ids:
+                    continue
+                try:
+                    client.like(tweet.id)
+                    print(f"  ❤️ @{account} の投稿にいいね")
+                    liked_influencer_ids.add(tweet_key)
+                    influencer_like_count += 1
+                    time.sleep(random.randint(3, 8))
+                except Exception:
+                    pass
+        except Exception as e:
+            print(f"  ⚠️ @{account}: {e}")
+        time.sleep(1)
+    print(f"  猛者いいね: {influencer_like_count}件")
 
     # ランダムに3つのクエリを選択（レート制限対策）
     queries = random.sample(SEARCH_QUERIES, min(3, len(SEARCH_QUERIES)))
@@ -200,8 +241,12 @@ def main():
         if 'bto' in text_lower and not any(w in text_lower for w in ['pc', 'パソコン', 'ゲーミング', '自作', 'gpu', 'グラボ']):
             continue
         # PC関連キーワードが1つもない投稿を除外
-        pc_keywords = ['pc', 'パソコン', 'グラボ', 'gpu', 'cpu', 'メモリ', 'ゲーミング', '自作', 'rtx', 'geforce', 'radeon', 'steam', 'ゲーム']
+        pc_keywords = ['pc', 'パソコン', 'グラボ', 'gpu', 'cpu', 'メモリ', 'ゲーミング', '自作', 'rtx', 'geforce', 'radeon', 'steam', 'ゲーム', 'スペック']
         if not any(w in text_lower for w in pc_keywords):
+            continue
+        # 創作・恋愛系を除外
+        exclude_keywords = ['キャラ', '推し活', 'イラスト', '漫画', '小説', '恋愛', 'cp', 'うちよそ', '夢女子', '片想い']
+        if any(w in text_lower for w in exclude_keywords):
             continue
         filtered.append(p)
 
@@ -258,6 +303,7 @@ def main():
         reply_count += 1
 
     history['replied'] = list(replied_ids)[-500:]  # 直近500件保持
+    history['liked_influencer'] = list(liked_influencer_ids)[-200:]
     history['last_run'] = datetime.now().isoformat()
     save_history(history)
 
