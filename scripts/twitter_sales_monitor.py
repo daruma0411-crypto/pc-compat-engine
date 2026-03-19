@@ -105,36 +105,49 @@ def search_prospects(client, query, max_results=10):
 
 
 def generate_reply(prospect):
-    """見込み客の投稿内容に合わせたリプライを生成"""
+    """見込み客の投稿内容に合わせた人間らしいリプライを生成"""
     text = prospect['text'].lower()
     username = prospect['username']
     
-    # キーワードマッチでリプライパターンを選択
+    # URLは3回に1回だけ（営業感を消す）
+    add_url = random.random() < 0.33
+    url_suffix = f"\n\n{SITE_URL}" if add_url else ""
+    
     if any(w in text for w in ['予算', '万円', '万で']):
         replies = [
-            f"@{username} 予算に合わせた最適構成、こちらで診断できますよ！\n14,000件以上のパーツDBから提案します\n\n{SITE_URL}",
-            f"@{username} 予算内で最大パフォーマンスの構成、気になりませんか？\nAIが最適パーツを提案↓\n\n{SITE_URL}",
+            f"@{username} その予算なら意外といい構成組めますよ👍\nGPUに全振りするのがコツです{url_suffix}",
+            f"@{username} 予算内で最大限のパフォーマンス出したいですよね\n電源とケースで節約してGPUに回すのが正解{url_suffix}",
+            f"@{username} いい予算感ですね！\nその金額ならRTX 4060が狙えるので、大体のゲーム快適にいけますよ{url_suffix}",
         ]
     elif any(w in text for w in ['延命', '買い替え', '交換', '新調']):
         replies = [
-            f"@{username} 今のPCでどこまで戦えるか、こちらで診断できますよ！\nパーツ交換の優先順位もわかります\n\n{SITE_URL}",
-            f"@{username} 延命 vs 買い替え、迷いますよね\nまず今の構成で何が動くかチェック↓\n\n{SITE_URL}",
+            f"@{username} 延命か買い替えか悩みますよね...\n個人的にはまずSSD+電源交換で様子見がコスパ良いと思います{url_suffix}",
+            f"@{username} 同じ悩み抱えてる人多いですよね\nグラボだけ変えてもう2年戦うのもアリですよ{url_suffix}",
         ]
     elif any(w in text for w in ['スペック', '動く', '足りる', '推奨']):
         replies = [
-            f"@{username} そのゲームが動くか、こちらで即チェックできますよ！\n推奨スペックとの比較も一目瞭然\n\n{SITE_URL}",
+            f"@{username} 推奨スペック満たしてても実際カクつくことありますよね...\n設定下げれば意外と快適になることも多いです{url_suffix}",
+            f"@{username} スペック気になりますよね\n公式の推奨って結構盛ってるので、実際はもう少し低くても動きますよ{url_suffix}",
         ]
     elif any(w in text for w in ['おすすめ', 'どっち', '迷う', '悩む']):
         replies = [
-            f"@{username} パーツ選びで迷ったら、こちらで互換性チェックしてみてください！\n14,000件のDBから最適解を提案します\n\n{SITE_URL}",
+            f"@{username} 迷いますよね〜\n正直どっち選んでも後悔しないレベルだと思います\n予算で決めちゃうのもアリ{url_suffix}",
+            f"@{username} その2つで迷うの、めちゃくちゃわかります\n用途次第ですけど、コスパなら下位モデルで十分かと{url_suffix}",
         ]
     elif any(w in text for w in ['初めて', '初心者', '組みたい']):
         replies = [
-            f"@{username} 初自作PC、ワクワクしますね！\n予算と用途を入れるだけで最適構成を提案してくれるツールありますよ↓\n\n{SITE_URL}",
+            f"@{username} 初自作！楽しみですね🎮\nぶっちゃけプラモ感覚で組めるので思ったより簡単ですよ{url_suffix}",
+            f"@{username} 自作PC沼へようこそw\n最初は不安だけど、一回組むとハマりますよ{url_suffix}",
+        ]
+    elif any(w in text for w in ['重い', 'カクつく', 'フレームレート', 'fps']):
+        replies = [
+            f"@{username} カクつくのストレスですよね...\nまず画質設定を「中」にしてみてください。意外と見た目変わらずfps倍になったりします{url_suffix}",
+            f"@{username} 重いの辛いですよね\nグラボのドライバ更新で改善することもあるので試してみてください{url_suffix}",
         ]
     else:
         replies = [
-            f"@{username} PC構成の互換性チェック、こちらでできますよ！\nAIショップ店員が最適構成を提案します\n\n{SITE_URL}",
+            f"@{username} PC周りって奥が深いですよね\n何か困ったことあればお気軽にどうぞ👍{url_suffix}",
+            f"@{username} わかります〜\nPCの悩みって尽きないですよねw{url_suffix}",
         ]
     
     return random.choice(replies)

@@ -596,8 +596,14 @@ def generate_question_tweet():
     ]
     text = random.choice(patterns)
     
-    # サイトURLを追加（導線確保）
-    text += f"\n\n診断はこちら→ {SITE_URL}"
+    # URLは50%の確率で追加（毎回だとBot感が出る）
+    if random.random() < 0.5:
+        url_patterns = [
+            f"\n\n{SITE_URL}",
+            f"\n\n気になる人→ {SITE_URL}",
+            f"\n\nちなみに診断できる→ {SITE_URL}",
+        ]
+        text += random.choice(url_patterns)
     
     # ハッシュタグは最大2個まで
     hashtags_list = random.sample(['自作PC', 'PCゲーム', 'GPU'], min(2, 2))
