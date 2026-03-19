@@ -79,6 +79,7 @@ def search_prospects(client, query, max_results=10):
             user = users.get(tweet.author_id)
             results.append({
                 'tweet_id': str(tweet.id),
+                'author_id': str(tweet.author_id),
                 'text': tweet.text,
                 'username': user.username if user else 'unknown',
                 'name': user.name if user else 'unknown',
@@ -194,9 +195,13 @@ def main():
         # 企業・宣伝系排除
         if any(w in p['text'].lower() for w in ['pr', '広告', 'プレゼント', 'キャンペーン', 'airdrop', '円から購入', 'セール開催', '開催中', '❣']):
             continue
-        # PC無関係のBTO排除（不動産等）
+        # PC無関係の投稿を除外
         text_lower = p['text'].lower()
         if 'bto' in text_lower and not any(w in text_lower for w in ['pc', 'パソコン', 'ゲーミング', '自作', 'gpu', 'グラボ']):
+            continue
+        # PC関連キーワードが1つもない投稿を除外
+        pc_keywords = ['pc', 'パソコン', 'グラボ', 'gpu', 'cpu', 'メモリ', 'ゲーミング', '自作', 'rtx', 'geforce', 'radeon', 'steam', 'ゲーム']
+        if not any(w in text_lower for w in pc_keywords):
             continue
         filtered.append(p)
 
@@ -235,20 +240,12 @@ def main():
                 print(f"   ✅ リプライ成功！")
             except Exception as e:
                 if '403' in str(e):
-                    # 引用RTにフォールバック
+                    # リプライ不可 → フォローで接点作り
                     try:
-                        tweet_url = f"https://x.com/i/status/{prospect['tweet_id']}"
-                        quote_text = reply_text.replace(f"@{prospect['username']} ", "")
-                        if len(quote_text) > 240:
-                            quote_text = quote_text[:237] + "..."
-                        client.create_tweet(
-                            text=quote_text,
-                            quote_tweet_id=prospect['tweet_id']
-                        )
-                        print(f"   🔄 引用RT成功！（リプライ403のためフォールバック）")
-                    except Exception as e2:
-                        print(f"   ❌ 引用RTも失敗: {e2}")
-                        continue
+                        client.follow_user(prospect.get('author_id', ''))
+                        print(f"   👤 フォロー成功（リプライ403のため）")
+                    except Exception:
+                        print(f"   ℹ️ いいねのみ（リプライ・フォロー不可）")
                 else:
                     print(f"   ❌ 送信失敗: {e}")
                     continue
