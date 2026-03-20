@@ -338,5 +338,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-20T22:26:32.307065",
+    "tweet_text": "PCパーツを一番安く買う方法、全部教える\n\n①価格.comの最安値を鵜呑みにするな\n→送料込みで比較しろ\n→ポイント還元も計算に入れろ\n\n②Amazonのタイムセール\n→金曜夜〜日曜が狙い目\n→Keepaで価格履歴を確認\n→「セール」でも通常価格と変わらないことがある\n\n③新世代の発売直後が旧世代の底値\n→RTX 5070出た直後にRTX 4070が5万円落ちた\n→焦って新型買うな\n\n④中古は「マイニング落ち」だけ避けろ\n→GPU使用時間が1万時間超えてたらアウト\n→メルカリよりじゃんぱらの方が安心\n\n⑤決算期（3月・9月）は値下がりしやすい\n→今まさにその時期\n\n価格チェック→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
