@@ -926,8 +926,53 @@
       "topic_type": "performance_issue",
       "timestamp": "2026-03-17T06:17:32.881728",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2034875130695000347",
+      "target_account": "@jJ_moja",
+      "reply_text": "Titan RTXは今だと中古で5〜7万くらいかな。ただ2018年のカードだから、同じ予算ならRTX 4060（新品4万台）の方が性能も電力効率も上だよ。反応速度重視ならフレームレート安定する方が体感良いし、VRAMも8GBあるから普通のゲームなら十分。中古ハイエンドより新しめのミドル狙う方が無難かも",
+      "grade": "S",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-20T06:28:00.018409",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034863571989942312",
+      "target_account": "@JustoWatchin",
+      "reply_text": "9070xt気になるよね。価格差あるなら性能ほぼ同じならそっち選ぶの賢いと思う。ただ発売直後は在庫薄いかもだから、焦らず様子見するのもありかも",
+      "grade": "S",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-03-20T06:30:48.335700",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034319652965470610",
+      "target_account": "@kg3_o0",
+      "reply_text": "わかる、CPU買い替えって中途半端に高いよね。5万だとCPU+マザボで終わるし、体感変わらないパターンある。\n\nFPS出ない原因がCPUなら、設定落としてGPU負荷上げる方向もありかも。解像度上げるとか。あと使ってるCPUとGPUの型番わかれば、どこがボトルネックか判断しやすいかも\n\n50万は確かにキツいから、今できる範囲で延命が現実的な気がする",
+      "grade": "S",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-20T06:31:56.630003",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034111940189184316",
+      "target_account": "@Sovietdoljp",
+      "reply_text": "わかる、パーツ揃えたのに組む理由ないと萎えるよね。25万で9070 XT入ってるなら性能的には十分だし、組んでベンチ回すだけでも楽しいかも。14万案も悪くないけど、せっかく買ったパーツもったいない気がする。とりあえず組んでみて、使い道は後から考えるのもありじゃない？",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-20T06:35:50.574062",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034473117427417355",
+      "target_account": "@minato_amane_v",
+      "reply_text": "それ辛いね...LOLでカクつき＆カーソル消えは結構報告あるやつだ。5060Tiなら性能的には余裕なはずだから、ドライバじゃなくてWindowsのマウス設定かUSBポートの問題かも。試してたらごめんだけど、マウスを別のUSBポート（できればマザボ直結）に挿し直してみるのと、Windowsの「ポインター精度を高める」をオフにするのも効果あったって人いたよ",
+      "grade": "S",
+      "topic_type": "performance_issue",
+      "timestamp": "2026-03-20T06:40:33.136068",
+      "had_link": false
     }
   ],
-  "total_replies": 103,
-  "total_runs": 15
+  "total_replies": 108,
+  "total_runs": 16
 }
