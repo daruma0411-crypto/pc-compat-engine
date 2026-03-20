@@ -1063,8 +1063,18 @@ def main():
             print("[INFO] ブログ投稿スキップ → フォールバック")
 
     if roll < 0.45:
-        # バズ型 or 質問型 (30%) — 50%ずつ
-        if random.random() < 0.5:
+        # 長文ためになる型(40%) / バズ型(30%) / 質問型(30%)
+        sub_roll = random.random()
+        if sub_roll < 0.40:
+            print("[モード] 📝 長文ためになるツイート")
+            try:
+                from longform_tweet_templates import get_random_longform_tweet
+                tweet_text, pattern_type = get_random_longform_tweet()
+            except Exception as e:
+                print(f"[WARN] 長文型失敗、バズ型にフォールバック: {e}")
+                from buzz_tweet_templates import get_random_buzz_tweet
+                tweet_text, pattern_type = get_random_buzz_tweet()
+        elif sub_roll < 0.70:
             print("[モード] 🔥 バズ型ツイート")
             try:
                 from buzz_tweet_templates import get_random_buzz_tweet
