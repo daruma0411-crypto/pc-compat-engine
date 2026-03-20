@@ -322,5 +322,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Elden Ring Shadow of the Erdtree",
+    "posted_at": "2026-03-20T07:56:45.858910",
+    "tweet_text": "Elden Ring Shadow of the Erdtree、中古パーツで組んだら\n予算7万円で動いた\n\nGPU: GTX 1070 8GB\nCPU: Intel Core i7-8700K\n\n詳細→ https://pc-jisaku.com/game/elden-ring-shadow-of-the-erdtree\n\n#EldenRingShadowoftheErdtree #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
