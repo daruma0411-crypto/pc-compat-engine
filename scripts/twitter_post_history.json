@@ -355,5 +355,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Palworld",
+    "posted_at": "2026-03-21T07:53:04.119544",
+    "tweet_text": "【動作確認済み】\nPalworld\nGPU: RTX 2070\nCPU: Intel Core i9-9900K\nRAM: 32GB\n\nhttps://pc-jisaku.com/game/palworld\n\n#Palworld #PCスペック",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
