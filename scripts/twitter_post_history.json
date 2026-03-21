@@ -363,5 +363,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-21T11:35:36.707240",
+    "tweet_text": "ブログ更新\n「ヴァロラント」をWQHD/4Kで遊ぶために必要なGPU\n\nhttps://pc-jisaku.com/blog/20260308-high_res-wqhd4kgpu.html\n\n#ゲーミングPC #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260308-high_res-wqhd4kgpu.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
