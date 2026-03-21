@@ -21,15 +21,25 @@ _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 _DATA_DIR = os.path.join(_BASE_DIR, '..', 'workspace', 'data')
 
 
-def load_bto_products(path=None):
-    """BTOインベントリDBを読み込む"""
+def load_bto_products(path=None, active_only=True):
+    """BTOインベントリDBを読み込む
+
+    Args:
+        active_only: True の場合、url_verified=false / out_of_stock の商品を除外
+    """
     path = path or os.path.join(_DATA_DIR, 'bto', 'products.jsonl')
     products = []
     with open(path, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()
             if line:
-                products.append(json.loads(line))
+                entry = json.loads(line)
+                if active_only:
+                    if entry.get('url_verified') is False:
+                        continue
+                    if 'out_of_stock' in entry.get('tags', []):
+                        continue
+                products.append(entry)
     return products
 
 
@@ -752,6 +762,7 @@ def format_result(spec_vector, goldilocks):
                    f"{specs.get('psu', {}).get('certification', '')}",
             'case_form_factor': specs.get('case', {}).get('form_factor', ''),
             'url': p.get('url', ''),
+            'url_verified': p.get('url_verified', True),
             'affiliate_url': p.get('affiliate', {}).get('url', '') or p.get('url', ''),
             'commission_rate': p.get('affiliate', {}).get('commission_rate', 0),
             'warranty_years': p.get('warranty_years', 1),

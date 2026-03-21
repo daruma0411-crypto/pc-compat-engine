@@ -3764,14 +3764,21 @@ def execute_tool(tool_name, tool_input, session, all_products):
 # ================================================================
 
 def _bto_get_url(rec):
-    """BTO商品URLを返す。アフィリエイトURLがあれば優先。url_verified=false なら空文字。"""
+    """BTO商品URLを返す。アフィリエイトURLがあれば優先。URL無効時は検索URLにフォールバック。"""
     if rec.get('url_verified') is False:
-        return ''
+        # フォールバック: メーカー名+モデル名で価格.com検索URLを生成
+        query = f"{rec.get('maker', '')} {rec.get('model', '')} BTO"
+        return _make_kakaku_search_url(query)
     # アフィリエイトURLがあれば優先的に返す（収益化）
     aff_url = rec.get('affiliate_url', '')
     if aff_url:
         return aff_url
-    return rec.get('url', '')
+    url = rec.get('url', '')
+    if url:
+        return url
+    # URLが空の場合もフォールバック
+    query = f"{rec.get('maker', '')} {rec.get('model', '')} BTO"
+    return _make_kakaku_search_url(query)
 
 
 def _handle_search_bto(params, session):
