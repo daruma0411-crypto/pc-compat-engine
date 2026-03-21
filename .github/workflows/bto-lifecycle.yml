@@ -1,0 +1,49 @@
+name: BTO Lifecycle Update
+on:
+  schedule:
+    - cron: '0 18 * * 3'  # 毎週水曜 18:00 UTC = 木曜 03:00 JST
+  workflow_dispatch:       # 手動実行可
+
+jobs:
+  bto-lifecycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run BTO lifecycle update
+      run: python scripts/bto_lifecycle.py --no-push
+
+    - name: Commit and push
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git add workspace/data/bto/products.jsonl workspace/data/diff_logs/
+        if git diff --cached --quiet; then
+          echo "No changes"
+          exit 0
+        fi
+        git commit -m "auto: BTO lifecycle update $(date +%Y-%m-%d)"
+        for i in 1 2 3 4 5; do
+          if git push; then
+            echo "Push OK"
+            exit 0
+          fi
+          echo "Push failed (attempt $i), retrying..."
+          git pull --rebase origin main || true
+          sleep $((RANDOM % 10 + i * 3))
+        done
+        echo "Failed to push after 5 attempts"
+        exit 1

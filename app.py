@@ -1484,6 +1484,27 @@ def health():
     })
 
 
+def _log_diagnosis(parts, verdict, summary, user_agent, referer):
+    """診断ログを保存（ユーザー行動分析用）"""
+    try:
+        import datetime
+        log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+        os.makedirs(log_dir, exist_ok=True)
+        log_path = os.path.join(log_dir, 'diagnosis_log.jsonl')
+        entry = {
+            'timestamp': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'parts': parts,
+            'verdict': verdict,
+            'summary': summary[:200] if summary else '',
+            'user_agent': (user_agent or '')[:200],
+            'referer': (referer or '')[:200],
+        }
+        with open(log_path, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+    except Exception:
+        pass  # ログ保存失敗はサイレントに
+
+
 @app.route('/api/diagnose', methods=['POST'])
 def diagnose():
     try:
@@ -1502,13 +1523,42 @@ def diagnose():
         not_found = [p for p in parts if p not in specs]
         diagnosis = _run_pc_diagnosis_with_claude(parts, specs)
 
+        verdict = diagnosis.get('verdict', 'UNKNOWN')
+        summary = diagnosis.get('summary', '')
+
+        # 診断ログ保存
+        _log_diagnosis(
+            parts=parts,
+            verdict=verdict,
+            summary=summary,
+            user_agent=request.headers.get('User-Agent'),
+            referer=request.headers.get('Referer'),
+        )
+
         return jsonify({
-            'verdict':   diagnosis.get('verdict', 'UNKNOWN'),
+            'verdict':   verdict,
             'checks':    diagnosis.get('checks', []),
-            'summary':   diagnosis.get('summary', ''),
+            'summary':   summary,
             'not_found': not_found,
         })
 
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/diagnosis-logs', methods=['GET'])
+def get_diagnosis_logs():
+    """診断ログを取得（分析用）"""
+    try:
+        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs', 'diagnosis_log.jsonl')
+        if not os.path.exists(log_path):
+            return jsonify({'logs': [], 'count': 0})
+        logs = []
+        with open(log_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.strip():
+                    logs.append(json.loads(line))
+        return jsonify({'logs': logs[-100:], 'count': len(logs)})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
