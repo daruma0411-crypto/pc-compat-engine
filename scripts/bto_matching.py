@@ -25,7 +25,8 @@ def load_bto_products(path=None, active_only=True):
     """BTOインベントリDBを読み込む
 
     Args:
-        active_only: True の場合、url_verified=false / out_of_stock の商品を除外
+        active_only: True の場合、販売終了(out_of_stock)の商品を除外。
+                     url_verified=false の商品はリンクを検索URLにフォールバックするため除外しない。
     """
     path = path or os.path.join(_DATA_DIR, 'bto', 'products.jsonl')
     products = []
@@ -35,8 +36,6 @@ def load_bto_products(path=None, active_only=True):
             if line:
                 entry = json.loads(line)
                 if active_only:
-                    if entry.get('url_verified') is False:
-                        continue
                     if 'out_of_stock' in entry.get('tags', []):
                         continue
                 products.append(entry)
