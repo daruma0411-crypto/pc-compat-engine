@@ -971,8 +971,53 @@
       "topic_type": "performance_issue",
       "timestamp": "2026-03-20T06:40:33.136068",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2034960542230528119",
+      "target_account": "@syoyutarou",
+      "reply_text": "Hades程度なら8万で余裕だよ。RX 6500 XTが3万ちょいで買えるし、VRAM4GBあれば推奨2GBは軽くクリアできる。CPU込みで組んでもいけるはず。初自作なら配線とか最初戸惑うけど、YouTube見ながらやれば案外なんとかなるから頑張って",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-21T05:36:52.916052",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034972608601759986",
+      "target_account": "@TEofGilgamesh",
+      "reply_text": "9950X3D + RTX 5080の組み合わせ、めっちゃ良いですね。メモリ96GBも将来性考えたら正解だと思います。5080は4090の95%くらいの性能出るらしいので、4K高設定も余裕そう。羨ましい構成です",
+      "grade": "S",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-21T05:39:36.704448",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034963393329946918",
+      "target_account": "@hirasyawa",
+      "reply_text": "i9-9900Kの1.7倍OCに2080Ti SLIで水冷とか、当時の最高峰構成じゃないですか。120万は相当攻めましたね。今だとその予算ならRTX 4090が買えちゃう時代になったけど、SLI構成の見た目のインパクトは今でも格別ですよね。水冷メンテとか大変そうだけど、その分愛着湧きそう",
+      "grade": "S",
+      "topic_type": "price_report",
+      "timestamp": "2026-03-21T05:41:22.856405",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034949805575909810",
+      "target_account": "@44l6",
+      "reply_text": "ITX構成いいね！Ryzen 5 9500FとRTX 5060の組み合わせ、コンパクトにまとまってて羨ましい。YESTONのカードって見た目も独特で面白いよね。ケースは何使ったの？",
+      "grade": "S",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-03-21T05:43:03.202432",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2034996935799841196",
+      "target_account": "@annirimochi",
+      "reply_text": "Surface辛いよね…エンドフィールドならRTX 2060で十分動くけど、今から買うなら4060のほうがコスパいいかも。VRAM8GBあるし長く使えるよ。予算15万くらいならi5-14400F + RTX 4060の構成で組めるし、peakも高設定で余裕になる",
+      "grade": "S",
+      "topic_type": "game_spec",
+      "timestamp": "2026-03-21T05:46:50.968172",
+      "had_link": false
     }
   ],
-  "total_replies": 108,
-  "total_runs": 16
+  "total_replies": 113,
+  "total_runs": 17
 }
