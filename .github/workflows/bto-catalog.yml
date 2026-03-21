@@ -1,0 +1,52 @@
+name: BTO Catalog Update
+on:
+  schedule:
+    - cron: '0 18 1 * *'  # 毎月1日 18:00 UTC = 2日 03:00 JST
+  workflow_dispatch:       # 手動実行可
+
+jobs:
+  bto-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run BTO catalog scraper
+      run: python scripts/bto_catalog_scraper.py --max-new 20
+
+    - name: Run BTO lifecycle (verify new products)
+      run: python scripts/bto_lifecycle.py --verify-only --no-push
+
+    - name: Commit and push
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git add workspace/data/bto/products.jsonl workspace/data/diff_logs/
+        if git diff --cached --quiet; then
+          echo "No changes"
+          exit 0
+        fi
+        git commit -m "auto: BTO catalog update $(date +%Y-%m-%d)"
+        for i in 1 2 3 4 5; do
+          if git push; then
+            echo "Push OK"
+            exit 0
+          fi
+          echo "Push failed (attempt $i), retrying..."
+          git pull --rebase origin main || true
+          sleep $((RANDOM % 10 + i * 3))
+        done
+        echo "Failed to push after 5 attempts"
+        exit 1
