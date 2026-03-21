@@ -4992,7 +4992,7 @@ def _build_chat_response(session, session_id, session_expired,
         session['history'] = session['history'][-100:]
 
     response_data['_debug_tool_logs'] = tool_logs
-    response_data['_code_version'] = 'v9-usecase-filter'
+    response_data['_code_version'] = 'v10-no-bto-leak'
 
     save_session(session_id)
     return response_data
