@@ -3110,7 +3110,7 @@ SEARCH_BTO_TOOL = {
     }
 }
 
-FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL, SEARCH_BUILD_TOOL, SEARCH_BTO_TOOL]
+FC_TOOLS = [SEARCH_PARTS_TOOL, CONFIRM_PART_TOOL, GET_CURRENT_BUILD_TOOL, AMAZON_SEARCH_TOOL, GET_BUILD_SUMMARY_TOOL, SEARCH_BUILD_TOOL]
 
 # ── ティア別予算配分テーブル（PCPartPicker/chimolog/jisaku.com実データ準拠）──
 _BUDGET_TIERS = {
@@ -3793,9 +3793,9 @@ def _handle_search_bto(params, session):
     if not budget_yen:
         budget_yen = 250000
 
-    # セッションにBTOモード情報を保存
-    session['bto_mode'] = True
-    session['budget_yen'] = budget_yen
+    # セッションにBTOモード情報を保存（既にBTOモードの場合のみ）
+    if session.get('bto_mode'):
+        session['budget_yen'] = budget_yen
 
     user_input = f'{use_case} 予算{budget_yen // 10000}万'
     if game_name:
