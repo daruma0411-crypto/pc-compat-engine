@@ -1,0 +1,44 @@
+{"id": "kakaku_K0001507447", "name": "AMD Ryzen 5 7600 BOX", "old_price": 27999, "new_price": 27329, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001680188", "name": "AMD Ryzen 5 9600 BOX", "old_price": 33772, "new_price": 33624, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001630333", "name": "AMD Ryzen 5 9600X BOX", "old_price": 34980, "new_price": 34610, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001630335", "name": "AMD Ryzen 7 5800XT BOX", "old_price": 39980, "new_price": 38890, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001507444", "name": "AMD Ryzen 7 7800X3D BOX", "old_price": 49980, "new_price": 49579, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001630332", "name": "AMD Ryzen 7 9700X BOX", "old_price": 40201, "new_price": 38800, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001661801", "name": "AMD Ryzen 7 9800X3D BOX", "old_price": 61500, "new_price": 60500, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001766727", "name": "AMD Ryzen 7 9850X3D BOX", "old_price": 87000, "new_price": 85000, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001172057", "name": "AMD Ryzen 9 3950X BOX", "old_price": 70000, "new_price": 68000, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001299537", "name": "AMD Ryzen 9 5900X BOX", "old_price": 58699, "new_price": 61276, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001630331", "name": "AMD Ryzen 9 9900X BOX", "old_price": 58997, "new_price": 59000, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001670215", "name": "AMD Ryzen 9 9950X3D BOX", "old_price": 112980, "new_price": 112500, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001213692", "name": "AMD Ryzen Threadripper 3960X", "old_price": 184392, "new_price": 165080, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001578845", "name": "AMD Ryzen Threadripper 7960X BOX", "old_price": 235000, "new_price": 230669, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001578844", "name": "AMD Ryzen Threadripper 7970X BOX", "old_price": 355995, "new_price": 373971, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001702503", "name": "AMD Ryzen Threadripper 9960X BOX", "old_price": 263503, "new_price": 262947, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001702501", "name": "AMD Ryzen Threadripper 9970X BOX", "old_price": 438372, "new_price": 438356, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001344061", "name": "AMD Ryzen Threadripper PRO 3975WX BOX", "old_price": 188535, "new_price": 192592, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001344060", "name": "AMD Ryzen Threadripper PRO 3995WX BOX", "old_price": 603489, "new_price": 584547, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001578841", "name": "AMD Ryzen Threadripper PRO 7995WX BOX", "old_price": 1857172, "new_price": 1854964, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001701207", "name": "AMD Ryzen Threadripper PRO 9965WX BOX", "old_price": 538623, "new_price": 514871, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001701206", "name": "AMD Ryzen Threadripper PRO 9975WX BOX", "old_price": 777980, "new_price": 747263, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001673195", "name": "インテル Core Ultra 5 225 BOX", "old_price": 27980, "new_price": 27000, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001673196", "name": "インテル Core Ultra 5 225F BOX", "old_price": 24631, "new_price": 24000, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001673194", "name": "インテル Core Ultra 5 235 BOX", "old_price": 40451, "new_price": 39642, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001677984", "name": "インテル Core Ultra 7 265 BOX", "old_price": 56980, "new_price": 56878, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001678741", "name": "インテル Core Ultra 7 265F BOX", "old_price": 52500, "new_price": 52000, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001679401", "name": "インテル Core Ultra 9 285 BOX", "old_price": 94949, "new_price": 94499, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001596170", "name": "インテル Core i3 14100 BOX", "old_price": 21500, "new_price": 21930, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001413994", "name": "インテル Core i5 12400 BOX", "old_price": 25980, "new_price": 24980, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001476110", "name": "インテル Core i5 13600KF BOX", "old_price": 54239, "new_price": 57864, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001596168", "name": "インテル Core i5 14400 BOX", "old_price": 28980, "new_price": 28880, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001577325", "name": "インテル Core i5 14600K BOX", "old_price": 43970, "new_price": 48566, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001577326", "name": "インテル Core i5 14600KF BOX", "old_price": 40980, "new_price": 41970, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001395719", "name": "インテル Core i7 12700KF BOX", "old_price": 42872, "new_price": 44980, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001596165", "name": "インテル Core i7 14700 BOX", "old_price": 58290, "new_price": 58780, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001596166", "name": "インテル Core i7 14700F BOX", "old_price": 53980, "new_price": 56490, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001577323", "name": "インテル Core i7 14700K BOX", "old_price": 64980, "new_price": 66780, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001577324", "name": "インテル Core i7 14700KF BOX", "old_price": 61980, "new_price": 62799, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001596163", "name": "インテル Core i9 14900 BOX", "old_price": 98800, "new_price": 98500, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001596164", "name": "インテル Core i9 14900F BOX", "old_price": 104000, "new_price": 104160, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001577322", "name": "インテル Core i9 14900KF BOX", "old_price": 77979, "new_price": 77980, "type": "price_changed", "category": "cpu", "date": "2026-03-21-cpu"}
+{"id": "kakaku_K0001413997", "name": "インテル Core i3 12100 BOX", "last_price": 21480, "type": "delisted", "category": "cpu", "date": "2026-03-21-cpu"}
+{"type": "summary", "date": "2026-03-21-cpu", "new_count": 0, "price_changed_count": 42, "delisted_count": 1}
