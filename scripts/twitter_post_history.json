@@ -372,5 +372,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-21T22:23:51.612662",
+    "tweet_text": "ゲームの「推奨スペック」が嘘な理由\n\n公式の推奨スペックって\n「設定:中で30fps出ます」\nって意味なの知ってた？\n\nつまり\n推奨スペック=快適ではない\n\n実際に快適にやるなら\n推奨の1ランク上が必要\n\n例：モンハンワイルズ\n推奨: RTX 2070（公式）\n→実際30-40fpsでカクつく\n\n快適: RTX 4060以上\n→60fps安定\n\n本当の推奨: RTX 4070\n→高設定60fps+レイトレON\n\nメーカーは敷居を下げたいから\n低めに書いてるだけ\n\nゲーム別の本当の推奨→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
