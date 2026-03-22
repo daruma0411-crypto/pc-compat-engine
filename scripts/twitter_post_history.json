@@ -405,5 +405,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-22T22:10:42.251420",
+    "tweet_text": "フルHDで十分って人、WQHD試したことある？\n一度体験すると戻れなくなるよ\n#PCゲーム #GPU",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
