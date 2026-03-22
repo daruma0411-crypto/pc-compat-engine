@@ -380,5 +380,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-22T04:16:56.944007",
+    "tweet_text": "ブログ更新\nノートPCで「モンスターハンターワイルズ」は快適に遊べる？おすすめ3選\n\nhttps://pc-jisaku.com/blog/20260317-laptop-monster-hunter-wilds-pcrecommend3picks.html\n\n#ブログ更新 #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260317-laptop-monster-hunter-wilds-pcrecommend3picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
