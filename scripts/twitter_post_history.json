@@ -397,5 +397,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-22T11:13:30.350003",
+    "tweet_text": "ゲーミングPC組むとき一番金かけるパーツどこ？\n個人的にはGPU>CPU>メモリの順\n\nちなみに診断できる→ https://pc-jisaku.com\n#PCゲーム #GPU",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
