@@ -422,5 +422,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "HITMAN World of Assassination",
+    "posted_at": "2026-03-23T07:58:45.507218",
+    "tweet_text": "HITMAN World of Assassination用にPC組むなら\nNvidia GPU GTX 1070 + Intel CPU Core i7 4790 4 GHzで20万くらい？\n\n詳しいスペック→ https://pc-jisaku.com/game/hitman-world-of-assassination\n\n#HITMANWorldofAssassination #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
