@@ -413,5 +413,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-23T04:01:04.072709",
+    "tweet_text": "毎日更新中\n\n「バルダーズ・ゲート3」をWQHD/4Kで遊ぶために必要なGPU\nhttps://pc-jisaku.com/blog/20260317-high_res-baldurs-gate-3-3wqhd4kgpu.html\n\n#PCパーツ #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260317-high_res-baldurs-gate-3-3wqhd4kgpu.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
