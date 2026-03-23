@@ -430,5 +430,15 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "It Takes Two Friend's Pass",
+    "posted_at": "2026-03-23T11:43:03.622962",
+    "tweet_text": "【It Takes Two Friend's Passの推奨スペック解説】\n\n推奨GPU: Nvidia GTX 980\n推奨RAM: 16GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
