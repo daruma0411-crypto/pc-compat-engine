@@ -192,6 +192,16 @@ def main():
         if mention_id_str in replied_ids:
             continue
 
+        # 自分自身のメンション（スレッド投稿等）をスキップ
+        if str(mention.author_id) == str(my_id):
+            print(f"  [SKIP] 自分自身のメンション: {mention.text[:50]}...")
+            history['replies'].append({
+                'mention_id': mention_id_str,
+                'author_username': 'SELF_SKIPPED',
+                'timestamp': datetime.now().isoformat(),
+            })
+            continue
+
         # スパムフィルタ
         if is_spam(mention.text):
             print(f"  [SKIP] スパム検出: {mention.text[:50]}...")
