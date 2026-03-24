@@ -1614,3 +1614,39 @@ header {
     white-space: normal;
   }
 }
+
+/* ─── シェアボタン ─── */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border, #333);
+  flex-wrap: wrap;
+}
+.share-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #aaa);
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.share-btn:hover { opacity: 0.8; }
+.share-x {
+  background: #000;
+  color: #fff;
+  border: 1px solid #333;
+}
+.share-line {
+  background: #06C755;
+  color: #fff;
+}

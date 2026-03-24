@@ -541,6 +541,13 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       /ケース|case|フォームファクター/i.test(c.item)
     );
 
+    // シェアテキスト生成
+    const partsText = (parts || []).slice(0, 3).join(' / ');
+    const shareText = encodeURIComponent(
+      vm.icon + ' ' + vm.label + '｜' + partsText + '\nPC互換性チェッカーで無料診断 →'
+    );
+    const shareUrl = encodeURIComponent('https://pc-jisaku.com');
+
     const diagHtml =
       '<div class="diag-card">' +
         '<div class="verdict-banner ' + vm.cls + '">' +
@@ -551,6 +558,11 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '</div>' +
         '</div>' +
         '<div class="checks-list">' + checksHtml + '</div>' +
+        '<div class="share-buttons">' +
+          '<span class="share-label">結果をシェア:</span>' +
+          '<a href="https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '" target="_blank" rel="noopener" class="share-btn share-x" onclick="trackEvent(\'share_click\',{platform:\'twitter\'})">𝕏 ポスト</a>' +
+          '<a href="https://social-plugins.line.me/lineit/share?url=' + shareUrl + '&text=' + shareText + '" target="_blank" rel="noopener" class="share-btn share-line" onclick="trackEvent(\'share_click\',{platform:\'line\'})">LINE</a>' +
+        '</div>' +
       '</div>';
 
     appendAIBubble(
