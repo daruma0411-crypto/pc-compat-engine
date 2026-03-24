@@ -448,5 +448,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Devil May Cry 5",
+    "posted_at": "2026-03-24T04:04:47.174819",
+    "tweet_text": "Devil May Cry 5ってRAM 8GBないとキツイ？\nうち16GBしかないんだけど\n\n推奨スペック→ https://pc-jisaku.com/game/devil-may-cry-5\n\n#DevilMayCry5 #動作環境",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
