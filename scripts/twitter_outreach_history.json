@@ -1061,8 +1061,53 @@
       "topic_type": "purchase_report",
       "timestamp": "2026-03-22T06:04:26.896717",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2036215963734184026",
+      "target_account": "@TapiQca",
+      "reply_text": "40万あればかなり良い構成組めるね！今ならRTX 5070 Tiが15.9万で買えるから、CPUにCore i7かRyzen 7持ってきても余裕ある。モニターとか周辺機器込みでも収まるはず。パーツ選び迷ったらここ見るといいかも→ https://pc-jisaku.com",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-24T05:33:52.602383",
+      "had_link": true
+    },
+    {
+      "target_tweet_id": "2036202748644040745",
+      "target_account": "@okayama_uchu",
+      "reply_text": "eGPU失敗はキツいね…自分も昔Thunderbolt周りで散々ハマった経験ある。\n\n25万あればRTX 4060 Ti + Ryzen 5 7600あたりで組めるし、将来的なアップグレードも効くよ。Amazonリスト作ってるなら電源は余裕持って750Wくらい見といた方が後悔しない。ケースも地味に重要だから配線しやすいやつ選ぶといいかも",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-24T05:35:40.835579",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2036142236916998385",
+      "target_account": "@Tatiuo_Takeshi",
+      "reply_text": "20〜30万ならRTX 4070 Super + Ryzen 7 7700Xあたりが動画編集も配信も快適だよ。フォトナは240fps余裕だし、TETRIS EFFECTは4Kでもヌルヌル動く。配信するならメモリ32GBにしとくと安心かも。参考になるかも→ https://pc-jisaku.com",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-03-24T05:38:01.807046",
+      "had_link": true
+    },
+    {
+      "target_tweet_id": "2035629688903909887",
+      "target_account": "@tukishimasan_1",
+      "reply_text": "2.2万でこのスペックは正直かなりお得だと思う。GTX 1070なら軽めのゲームとか作業用には十分使えるし、メモリ16GBあるのもいいね。ただ世代的に消費電力高めだから、電気代は覚悟しといた方がいいかも",
+      "grade": "S",
+      "topic_type": "price_report",
+      "timestamp": "2026-03-24T05:42:29.803582",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2035640455422169498",
+      "target_account": "@Rachmaninovsky",
+      "reply_text": "わかる、メモリとSSDほんと高いよね。去年の今頃と比べて1.5倍くらいになってる気がする。CPU・GPU・マザボが安くなっても結局トータルで見ると微妙なんだよな。メモリは16GBで妥協するか、SSDは500GBスタートで後から増設とか工夫が必要かも。価格推移見るならここ参考になるよ→ https://pc-jisaku.com",
+      "grade": "A",
+      "topic_type": "price_report",
+      "timestamp": "2026-03-24T05:47:23.457797",
+      "had_link": true
     }
   ],
-  "total_replies": 118,
-  "total_runs": 19
+  "total_replies": 123,
+  "total_runs": 20
 }
