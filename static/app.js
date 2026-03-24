@@ -116,6 +116,11 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   // ─── 初期メッセージ ─────────────────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
     const cardsHtml =
+      '<div class="welcome-stats">' +
+        '<span>🔍 14,000件のパーツDB</span>' +
+        '<span>⚡ 30秒で診断</span>' +
+        '<span>💰 完全無料</span>' +
+      '</div>' +
       '<div class="mode-cards">' +
         '<div class="mode-card" onclick="selectMode(\'game\')">' +
           '<span class="mode-card-icon">🎮</span>ゲームを快適に遊びたい<span class="mode-card-sub">カクつきゼロの環境をAIが予算に合わせて自動で提案</span>' +
@@ -128,7 +133,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '<span class="mode-card-sub">低価格＆高性能が即納！</span>' +
         '</div>' +
       '</div>';
-    appendAIBubble('まず何をしたいか教えてください', cardsHtml);
+    appendAIBubble('こんにちは！AI店員です。何をお手伝いしましょうか？', cardsHtml);
     adjustHeight();
   });
 
@@ -457,6 +462,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         appendAIBubble('⏱️ サーバーが起動中のため時間がかかっています。\nもう一度送信してください（2回目以降は速くなります）。');
       } else {
         appendAIBubble('⚠️ エラーが発生しました: ' + e.message);
+        trackEvent('diagnosis_error', { error: e.message });
       }
     } finally {
       setSending(false);
@@ -509,6 +515,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     const { reply, parts, diagnosis } = data;
     const verdict = diagnosis.verdict || 'UNKNOWN';
     trackEvent('compat_result', { verdict: verdict, parts_count: (parts || []).length });
+    trackEvent('diagnosis_complete', { verdict: verdict, parts_count: (parts || []).length, success: verdict !== 'UNKNOWN' });
     const checks  = diagnosis.checks  || [];
     const summary = diagnosis.summary || '';
     const vm = VERDICT_MAP[verdict] || VERDICT_MAP.UNKNOWN;

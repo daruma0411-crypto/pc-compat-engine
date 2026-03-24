@@ -885,6 +885,21 @@ header {
 /* ================================================================
    モード選択カード（起動時）
    ================================================================ */
+.welcome-stats {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.welcome-stats span {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #aaa);
+  background: var(--bg-active, #2a2a2a);
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
 .mode-cards {
   display: flex;
   gap: 10px;
