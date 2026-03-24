@@ -6,7 +6,14 @@ Railway上のログはデプロイ時に消えるので定期的に取得が必�
 """
 import sys
 import json
+import urllib3
+urllib3.disable_warnings()
 import requests
+_old = requests.Session.request
+def _p(self, *a, **kw):
+    kw['verify'] = False
+    return _old(self, *a, **kw)
+requests.Session.request = _p
 
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
