@@ -158,6 +158,18 @@ def main():
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args()
 
+    # SSL証明書エラー回避（企業プロキシ環境対策）— tweepy Client作成前に設定
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    os.environ['CURL_CA_BUNDLE'] = ''
+    
+    import requests
+    old_request = requests.Session.request
+    def patched_request(self, *args, **kwargs):
+        kwargs['verify'] = False
+        return old_request(self, *args, **kwargs)
+    requests.Session.request = patched_request
+
     import tweepy
     
     # Bearer TokenのURLエンコードを解除
@@ -173,18 +185,8 @@ def main():
         access_token_secret=os.environ.get('TWITTER_ACCESS_SECRET'),
         bearer_token=bearer if bearer else None
     )
-
-    # SSL証明書エラー回避（企業プロキシ環境対策）
-    import urllib3
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    os.environ['CURL_CA_BUNDLE'] = ''
-    
-    import requests
-    old_request = requests.Session.request
-    def patched_request(self, *args, **kwargs):
-        kwargs['verify'] = False
-        return old_request(self, *args, **kwargs)
-    requests.Session.request = patched_request
+    # tweepy内部セッションにもverify=False設定
+    client.session.verify = False
     
     # 自分のユーザーID取得
     my_username = 'syoyutarou'  # 固定（API呼び出し節約）
