@@ -457,7 +457,7 @@ def generate_article_html(title, content, keywords, template_id='', filename='',
     affiliate_html = generate_affiliate_section(template_id, variables or {})
 
     # Schema.org Article構造化データ（Phase 1-3）
-    description_text = f"{title} - PCゲーム互換性診断とおすすめPC構成"
+    description_text = f"{title}【2026年最新】。自作PC・ゲーミングPC構成をAIが無料で即診断。パーツの互換性チェックも自動で完了。"
     schema_json = json.dumps({
         "@context": "https://schema.org",
         "@type": "Article",
@@ -482,12 +482,12 @@ def generate_article_html(title, content, keywords, template_id='', filename='',
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} | PC互換チェッカー</title>
+<title>{title}【2026年最新】| pc-jisaku.com</title>
 <meta name="description" content="{description_text}">
 <meta name="keywords" content="{keywords_str}">
 <link rel="canonical" href="{SITE_URL}/blog/{url_slug}">
 <meta property="og:type" content="article">
-<meta property="og:title" content="{title} | PC互換チェッカー">
+<meta property="og:title" content="{title}【2026年最新】| pc-jisaku.com">
 <meta property="og:description" content="{description_text}">
 <meta property="og:url" content="{SITE_URL}/blog/{url_slug}">
 <meta property="og:image" content="{SITE_URL}/static/og-image.png">
