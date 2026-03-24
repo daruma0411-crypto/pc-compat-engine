@@ -20,6 +20,8 @@ import subprocess
 # Windows コンソールのエンコード問題を回避
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+    os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 
 def check_twitter_posts():
     """Twitter投稿状況確認"""

@@ -19,6 +19,8 @@ from datetime import datetime, timedelta
 
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+    os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 
 # .envから読み込み
 env_path = Path(__file__).parent.parent / '.env'
