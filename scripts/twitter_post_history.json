@@ -464,5 +464,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Chants of Sennaar",
+    "posted_at": "2026-03-24T11:28:12.111947",
+    "tweet_text": "Chants of Sennaarクラッシュ多発する人\nRAM 8GB以上にしたら安定したわ\n\n詳細→ https://pc-jisaku.com/game/chants-of-sennaar\n\n#ChantsofSennaar #動作不良",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
