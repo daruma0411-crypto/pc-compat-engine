@@ -102,7 +102,7 @@ def search_prospects(client, query, max_results=10):
             })
         return results
     except Exception as e:
-        print(f"  ⚠️ 検索エラー ({query}): {e}")
+        print(f"  [WARN] 検索エラー ({query}): {e}")
         return []
 
 
@@ -117,7 +117,7 @@ def generate_reply(prospect):
     
     if any(w in text for w in ['予算', '万円', '万で']):
         replies = [
-            f"@{username} その予算なら意外といい構成組めますよ👍\nGPUに全振りするのがコツです{url_suffix}",
+            f"@{username} その予算なら意外といい構成組めますよ[GOOD]\nGPUに全振りするのがコツです{url_suffix}",
             f"@{username} 予算内で最大限のパフォーマンス出したいですよね\n電源とケースで節約してGPUに回すのが正解{url_suffix}",
             f"@{username} いい予算感ですね！\nその金額ならRTX 4060が狙えるので、大体のゲーム快適にいけますよ{url_suffix}",
         ]
@@ -148,7 +148,7 @@ def generate_reply(prospect):
         ]
     else:
         replies = [
-            f"@{username} PC周りって奥が深いですよね\n何か困ったことあればお気軽にどうぞ👍{url_suffix}",
+            f"@{username} PC周りって奥が深いですよね\n何か困ったことあればお気軽にどうぞ[GOOD]{url_suffix}",
             f"@{username} わかります〜\nPCの悩みって尽きないですよねw{url_suffix}",
         ]
     
@@ -169,6 +169,7 @@ def main():
     old_request = requests.Session.request
     def patched_request(self, *args, **kwargs):
         kwargs['verify'] = False
+        kwargs.setdefault('timeout', 30)  # 30秒でタイムアウト（ハング防止）
         return old_request(self, *args, **kwargs)
     requests.Session.request = patched_request
 
@@ -192,7 +193,7 @@ def main():
     
     # 自分のユーザーID取得
     my_username = 'syoyutarou'  # 固定（API呼び出し節約）
-    print(f"🤖 @{my_username} で営業開始")
+    print(f"[BOT] @{my_username} で営業開始")
 
     history = load_history()
     replied_ids = set(history.get('replied', []))
@@ -216,14 +217,14 @@ def main():
                     continue
                 try:
                     client.like(tweet.id)
-                    print(f"  ❤️ @{account} の投稿にいいね")
+                    print(f"  [LIKE] @{account} の投稿にいいね")
                     liked_influencer_ids.add(tweet_key)
                     influencer_like_count += 1
                     time.sleep(random.randint(3, 8))
                 except Exception:
                     pass
         except Exception as e:
-            print(f"  ⚠️ @{account}: {e}")
+            print(f"  [WARN] @{account}: {e}")
         time.sleep(1)
     print(f"  猛者いいね: {influencer_like_count}件")
 
@@ -232,7 +233,7 @@ def main():
     
     all_prospects = []
     for query in queries:
-        print(f"\n🔍 検索: {query}")
+        print(f"\n[SEARCH] 検索: {query}")
         prospects = search_prospects(client, query, max_results=10)
         print(f"  → {len(prospects)}件発見")
         all_prospects.extend(prospects)
@@ -267,7 +268,7 @@ def main():
             continue
         filtered.append(p)
 
-    print(f"\n📋 フィルタ後: {len(filtered)}件")
+    print(f"\n[LIST] フィルタ後: {len(filtered)}件")
 
     # 最大3件リプライ
     reply_count = 0
@@ -279,7 +280,7 @@ def main():
 
         reply_text = generate_reply(prospect)
         
-        print(f"\n👤 @{prospect['username']} (フォロワー{prospect['followers']})")
+        print(f"\n[USER] @{prospect['username']} (フォロワー{prospect['followers']})")
         print(f"   投稿: {prospect['text'][:80]}...")
         print(f"   リプライ: {reply_text[:80]}...")
 
@@ -287,9 +288,9 @@ def main():
             # Step 1: いいね（接点作り）
             try:
                 client.like(prospect['tweet_id'])
-                print(f"   ❤️ いいね成功")
+                print(f"   [LIKE] いいね成功")
             except Exception as e:
-                print(f"   ⚠️ いいね失敗: {e}")
+                print(f"   [WARN] いいね失敗: {e}")
             
             time.sleep(random.randint(5, 15))
             
@@ -299,22 +300,22 @@ def main():
                     text=reply_text,
                     in_reply_to_tweet_id=prospect['tweet_id']
                 )
-                print(f"   ✅ リプライ成功！")
+                print(f"   [OK] リプライ成功！")
             except Exception as e:
                 if '403' in str(e):
                     # リプライ不可 → フォローで接点作り
                     try:
                         client.follow_user(prospect.get('author_id', ''))
-                        print(f"   👤 フォロー成功（リプライ403のため）")
+                        print(f"   [USER] フォロー成功（リプライ403のため）")
                     except Exception:
                         print(f"   ℹ️ いいねのみ（リプライ・フォロー不可）")
                 else:
-                    print(f"   ❌ 送信失敗: {e}")
+                    print(f"   [ERR] 送信失敗: {e}")
                     continue
             
             time.sleep(random.randint(30, 90))
         else:
-            print(f"   🔍 [DRY RUN]")
+            print(f"   [SEARCH] [DRY RUN]")
 
         replied_ids.add(prospect['tweet_id'])
         reply_count += 1
@@ -324,7 +325,7 @@ def main():
     history['last_run'] = datetime.now().isoformat()
     save_history(history)
 
-    print(f"\n✅ 営業完了: {reply_count}件リプライ")
+    print(f"\n[OK] 営業完了: {reply_count}件リプライ")
 
 
 if __name__ == '__main__':
