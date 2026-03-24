@@ -456,5 +456,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[data]",
+    "posted_at": "2026-03-24T07:48:26.497779",
+    "tweet_text": "RTX 5070 Tiの最安値 今159,000円\nVRAM 16GB / 21製品比較\n価格.com調べ\n\nhttps://pc-jisaku.com\n\n#PCパーツ #GPU価格",
+    "has_image": true,
+    "post_type": "data",
+    "hashtag_count": 2
   }
 ]
