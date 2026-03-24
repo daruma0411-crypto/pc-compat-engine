@@ -18,8 +18,10 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 if sys.platform == 'win32':
-    sys.stdout.reconfigure(encoding='utf-8')
-    sys.stderr.reconfigure(encoding='utf-8')
+    # Windows exec環境でのエンコード・バッファリング問題回避
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace', line_buffering=True)
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace', line_buffering=True)
     os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 
 # .envから読み込み
