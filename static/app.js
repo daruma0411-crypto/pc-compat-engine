@@ -22,6 +22,47 @@
     if (typeof gtag === 'function') gtag('event', name, params || {});
   }
 
+  // ─── 構成保存・復元（リピーター促進） ──────────────────────────────────
+  function saveConfig(partsJson, verdict) {
+    try {
+      const saved = { parts: JSON.parse(partsJson), verdict: verdict, date: new Date().toISOString() };
+      localStorage.setItem('pc-compat-saved-config', JSON.stringify(saved));
+      trackEvent('config_save', { parts_count: saved.parts.length });
+      alert('構成を保存しました。次回アクセス時に復元できます。');
+    } catch(e) { console.warn('保存失敗:', e); }
+  }
+  // 再訪時に保存済み構成を表示
+  window.addEventListener('DOMContentLoaded', () => {
+    try {
+      const raw = localStorage.getItem('pc-compat-saved-config');
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      const days = Math.floor((Date.now() - new Date(saved.date).getTime()) / 86400000);
+      if (days < 1 || days > 90) return; // 当日or90日超は非表示
+      const banner = document.createElement('div');
+      banner.className = 'saved-config-banner';
+      banner.innerHTML =
+        '<span>💾 前回の構成（' + days + '日前）: ' + (saved.parts || []).slice(0,3).join(' / ') + '</span>' +
+        '<button onclick="restoreSavedConfig()">復元する</button>' +
+        '<button onclick="this.parentElement.remove()">✕</button>';
+      document.body.prepend(banner);
+      trackEvent('saved_config_shown', { days_since: days });
+    } catch(e) {}
+  });
+  function restoreSavedConfig() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('pc-compat-saved-config'));
+      if (saved && saved.parts) {
+        const input = document.getElementById('chat-input');
+        if (input) {
+          input.value = saved.parts.join(', ') + ' の互換性をチェックして';
+          document.querySelector('.saved-config-banner')?.remove();
+          trackEvent('config_restore', {});
+        }
+      }
+    } catch(e) {}
+  }
+
   // ─── 定数 ──────────────────────────────────────────────────────────────
   const VERDICT_MAP = {
     OK:      { label: '互換性OK',  sub: 'すべてのチェックを通過しました',            icon: '✅', cls: 'OK'      },
@@ -562,6 +603,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
           '<span class="share-label">結果をシェア:</span>' +
           '<a href="https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '" target="_blank" rel="noopener" class="share-btn share-x" onclick="trackEvent(\'share_click\',{platform:\'twitter\'})">𝕏 ポスト</a>' +
           '<a href="https://social-plugins.line.me/lineit/share?url=' + shareUrl + '&text=' + shareText + '" target="_blank" rel="noopener" class="share-btn share-line" onclick="trackEvent(\'share_click\',{platform:\'line\'})">LINE</a>' +
+          '<button class="share-btn share-save" onclick="saveConfig(\'' + escHtml(JSON.stringify(parts||[]).replace(/'/g,'')) + '\',\'' + verdict + '\')">💾 構成を保存</button>' +
         '</div>' +
       '</div>';
 

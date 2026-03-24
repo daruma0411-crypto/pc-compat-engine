@@ -1650,3 +1650,41 @@ header {
   background: #06C755;
   color: #fff;
 }
+.share-save {
+  background: var(--bg-active, #2a2a2a);
+  color: var(--text-primary, #eee);
+  border: 1px solid var(--border, #444);
+  cursor: pointer;
+}
+
+/* ─── 保存構成バナー ─── */
+.saved-config-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: linear-gradient(90deg, #1a237e, #283593);
+  color: #fff;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+}
+.saved-config-banner span { flex: 1; }
+.saved-config-banner button {
+  padding: 4px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.saved-config-banner button:first-of-type {
+  background: #fff;
+  color: #1a237e;
+  font-weight: 600;
+}
