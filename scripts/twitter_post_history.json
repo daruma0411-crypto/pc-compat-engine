@@ -472,5 +472,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-24T22:24:05.045214",
+    "tweet_text": "これ需要あると思う\n\n「エルデンリング」をWQHD/4Kで遊ぶために必要なGPU\nhttps://pc-jisaku.com/blog/20260310-high_res-elden-ring-wqhd4kgpu.html\n\n#PCパーツ #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260310-high_res-elden-ring-wqhd4kgpu.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
