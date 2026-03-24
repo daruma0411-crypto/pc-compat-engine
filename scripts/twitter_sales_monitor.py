@@ -331,4 +331,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"[ERR] 予期せぬエラー: {e}")
+    sys.exit(0)  # PowerShell NativeCommandError回避: 常に0で終了
