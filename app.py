@@ -4572,6 +4572,7 @@ def _call_claude_with_tools_gen(session, user_message, all_products, system_prom
             'system': system_prompt,
             'tools': tools_list,
             'messages': messages,
+            'stream': True,
         }).encode('utf-8')
 
         req = urllib.request.Request(
@@ -4587,7 +4588,53 @@ def _call_claude_with_tools_gen(session, user_message, all_products, system_prom
 
         try:
             with urllib.request.urlopen(req, timeout=60) as resp:
-                resp_data = json.loads(resp.read().decode('utf-8'))
+                # ストリーミングレスポンスをパース
+                resp_data = {'content': [], 'stop_reason': ''}
+                current_block = None
+                full_text = ''
+                for raw_line in resp:
+                    line = raw_line.decode('utf-8').strip()
+                    if not line or line.startswith('event:'):
+                        continue
+                    if not line.startswith('data: '):
+                        continue
+                    data_str = line[6:]
+                    if data_str == '[DONE]':
+                        break
+                    try:
+                        chunk = json.loads(data_str)
+                    except json.JSONDecodeError:
+                        continue
+                    chunk_type = chunk.get('type', '')
+                    if chunk_type == 'content_block_start':
+                        cb = chunk.get('content_block', {})
+                        if cb.get('type') == 'text':
+                            current_block = {'type': 'text', 'text': ''}
+                        elif cb.get('type') == 'tool_use':
+                            current_block = {'type': 'tool_use', 'id': cb.get('id',''), 'name': cb.get('name',''), 'input': {}, '_input_json': ''}
+                    elif chunk_type == 'content_block_delta':
+                        delta = chunk.get('delta', {})
+                        if delta.get('type') == 'text_delta' and current_block and current_block['type'] == 'text':
+                            text_chunk = delta.get('text', '')
+                            current_block['text'] += text_chunk
+                            full_text += text_chunk
+                            # テキストチャンクをフロントにストリーム送信
+                            yield {'type': 'text_delta', 'text': text_chunk}
+                        elif delta.get('type') == 'input_json_delta' and current_block and current_block['type'] == 'tool_use':
+                            current_block['_input_json'] += delta.get('partial_json', '')
+                    elif chunk_type == 'content_block_stop':
+                        if current_block:
+                            if current_block['type'] == 'tool_use':
+                                try:
+                                    current_block['input'] = json.loads(current_block['_input_json'])
+                                except json.JSONDecodeError:
+                                    current_block['input'] = {}
+                                del current_block['_input_json']
+                            resp_data['content'].append(current_block)
+                            current_block = None
+                    elif chunk_type == 'message_delta':
+                        resp_data['stop_reason'] = chunk.get('delta', {}).get('stop_reason', '')
+                content_blocks = resp_data['content']
         except urllib.error.HTTPError as api_err:
             err_body = api_err.read().decode('utf-8', errors='replace')
             print(f"[CLAUDE_API_ERROR] HTTP {api_err.code}: {err_body[:500]}", flush=True, file=sys.stderr)
@@ -4893,6 +4940,8 @@ def chat():
                     for event in _call_claude_with_tools_gen(session, message, all_products, system_prompt):
                         if event['type'] == 'progress':
                             yield f"data: {json.dumps({'type': 'progress', 'message': event['message']}, ensure_ascii=False)}\n\n"
+                        elif event['type'] == 'text_delta':
+                            yield f"data: {json.dumps({'type': 'text_delta', 'text': event['text']}, ensure_ascii=False)}\n\n"
                         elif event['type'] == 'result':
                             ai_message = event['ai_message']
                             confirmed_in_this_turn = event['confirmed']

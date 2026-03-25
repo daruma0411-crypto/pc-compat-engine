@@ -463,10 +463,12 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         throw new Error(err.error || 'HTTP ' + res.status);
       }
 
-      // ── SSEストリーミング: 進捗をリアルタイム表示 ──
+      // ── SSEストリーミング: テキストをリアルタイム表示 ──
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let buffer = '';
+      let streamBubble = null;  // ストリーミング中のバブル要素
+      let streamText = '';      // 累積テキスト
 
       while (true) {
         const { done, value } = await reader.read();
@@ -483,10 +485,30 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
 
             if (event.type === 'progress') {
               updateTypingText(typingEl, event.message);
+            } else if (event.type === 'text_delta') {
+              // テキストストリーミング: 最初のチャンクでバブル作成、以降追記
+              if (!streamBubble) {
+                typingEl.remove();
+                streamBubble = appendAIBubble('');
+                // バブル内のテキスト要素を取得
+                streamBubble._textEl = streamBubble.querySelector('.msg-text') || streamBubble.querySelector('div:last-child');
+              }
+              streamText += event.text;
+              if (streamBubble._textEl) {
+                streamBubble._textEl.textContent = streamText;
+              }
+              scrollBottom();
             } else if (event.type === 'done') {
+              if (streamBubble) {
+                // ストリーミング完了: バブルを削除して正式なレスポンスで置換
+                streamBubble.remove();
+                streamBubble = null;
+                streamText = '';
+              }
               typingEl.remove();
               handleChatResponse(event.data);
             } else if (event.type === 'error') {
+              if (streamBubble) { streamBubble.remove(); streamBubble = null; }
               typingEl.remove();
               appendAIBubble('⚠️ エラー: ' + (event.error || '不明なエラー'));
             }
