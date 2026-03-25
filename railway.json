@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1",
+    "startCommand": "gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1 --worker-class gevent",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE",
