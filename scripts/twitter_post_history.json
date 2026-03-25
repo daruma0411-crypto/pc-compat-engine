@@ -481,5 +481,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-25T04:09:43.828090",
+    "tweet_text": "記事書きました\n\nRTX 3070で遊べる最新ゲーム50選【3月版】\n\nhttps://pc-jisaku.com/blog/20260306-gpu_list-rtx-307050picks3month.html\n\n#PCパーツ #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260306-gpu_list-rtx-307050picks3month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
