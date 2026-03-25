@@ -498,5 +498,14 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-25T11:49:57.728763",
+    "tweet_text": "実データで書いた記事\n予算20万円で組む最強ゲーミングPC構成【2026年03月版】\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20260308-budget_build-budget20manbestpc2026y03month.html\n\n#ブログ更新 #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260308-budget_build-budget20manbestpc2026y03month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
