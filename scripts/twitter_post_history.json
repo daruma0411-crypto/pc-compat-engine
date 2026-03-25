@@ -507,5 +507,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-25T22:30:10.261377",
+    "tweet_text": "2026年のPC自作、3年前と全然違う\n\n変わったこと\n\n①DDR5が当たり前になった\n→DDR4はもう旧世代\n→価格もDDR4並みまで下がった\n\n②GPUが異常に高い\n→AI需要で価格が下がらない\n→RTX 4070が¥16万って3年前なら¥8万クラス\n\n③PCIe Gen5 SSDが出たけど\n→体感差はほぼゼロ\n→Gen4で十分、むしろGen3でもいい\n\n④ケースがピラーレスだらけ\n→全面ガラスで中が見える\n→エアフロー的には微妙だけど映える\n\n⑤AI PCという謎カテゴリ\n→NPU搭載が増えたけど\n→ゲーマーには正直関係ない\n\n来年はさらにGPU価格上がりそう\n買うなら今年中が吉",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
