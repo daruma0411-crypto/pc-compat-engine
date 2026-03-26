@@ -523,5 +523,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-26T07:42:21.899940",
+    "tweet_text": "ゲーミングモニター、144Hzと240Hzの違いって体感できる？\nFPS系やる人教えて\n\nちなみに診断できる→ https://pc-jisaku.com\n#PCゲーム #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
