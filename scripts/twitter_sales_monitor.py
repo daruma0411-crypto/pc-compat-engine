@@ -62,6 +62,11 @@ INFLUENCER_ACCOUNTS = [
     'PK_Kashii',         # パソコン工房 (2K)
 ]
 
+# ブロックされたユーザー（いいね・リプライ・フォロー全てスキップ）
+BLOCKED_BY_USERS = [
+    'SayuriTrpg',        # 2026-03-27 ブロック確認
+]
+
 
 def load_history():
     if not HISTORY_FILE.exists():
@@ -222,7 +227,7 @@ def main():
                     print(f"  [LIKE] @{account} の投稿にいいね")
                     liked_influencer_ids.add(tweet_key)
                     influencer_like_count += 1
-                    time.sleep(random.randint(3, 8))
+                    time.sleep(random.randint(2, 4))
                 except Exception:
                     pass
         except Exception as e:
@@ -249,6 +254,9 @@ def main():
             continue
         # 自分自身
         if p['username'] == my_username:
+            continue
+        # ブロックされたユーザー
+        if p['username'] in BLOCKED_BY_USERS:
             continue
         # フォロワー少なすぎ（Bot排除）
         if p['followers'] < 5:
@@ -294,7 +302,7 @@ def main():
             except Exception as e:
                 print(f"   [WARN] いいね失敗: {e}")
             
-            time.sleep(random.randint(5, 15))
+            time.sleep(random.randint(3, 7))
             
             # Step 2: リプライ試行（403なら引用RTにフォールバック）
             try:
@@ -315,7 +323,7 @@ def main():
                     print(f"   [ERR] 送信失敗: {e}")
                     continue
             
-            time.sleep(random.randint(30, 90))
+            time.sleep(random.randint(10, 20))
         else:
             print(f"   [SEARCH] [DRY RUN]")
 
