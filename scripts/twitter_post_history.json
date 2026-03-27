@@ -555,5 +555,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-27T07:35:01.374342",
+    "tweet_text": "毎日更新中\n\n「バルダーズ・ゲート3」のMODを入れるために必要なスペック\nhttps://pc-jisaku.com/blog/20260318-mod-baldurs-gate-3-3mod-mod-spec.html\n\n#GPU #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260318-mod-baldurs-gate-3-3mod-mod-spec.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
