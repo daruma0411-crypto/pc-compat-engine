@@ -547,5 +547,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Crusader Kings III",
+    "posted_at": "2026-03-27T04:08:19.042859",
+    "tweet_text": "Crusader Kings IIIめっちゃ面白い！\nGTX 970 | AMD RX 480 | Intel Arc A580でヌルヌル動いてる\n\n推奨スペック→ https://pc-jisaku.com/game/crusader-kings-iii\n\n#CrusaderKingsIII #PCゲーム",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
