@@ -580,5 +580,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Cities: Skylines",
+    "posted_at": "2026-03-28T04:02:52.632181",
+    "tweet_text": "Cities: Skylines、RTX 4060 vs RTX 3070\nどっちがコスパいい？\n\n性能: 3070が15%上\n価格: 4060が¥8,000安い\n電力: 4060が30W少ない\n\n詳細→ https://pc-jisaku.com/game/cities-skylines\n\n#CitiesSkylines #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
