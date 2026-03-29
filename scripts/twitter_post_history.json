@@ -612,5 +612,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-29T04:09:16.085712",
+    "tweet_text": "GPUの価格がどう決まるか教える\n\n①NVIDIAがチップ価格を決める\n→ここが全ての始まり\n→RTX 4060のチップ原価は推定$150\n\n②AIB（ASUS,MSI等）が基板を作る\n→独自クーラーを載せる\n→ここで¥5,000-20,000の差が出る\n\n③代理店が輸入する\n→為替で価格が変動\n→円安=GPU値上げ\n\n④小売店の利益\n→価格.comの最安店は利益ほぼゼロ\n→Amazonはポイント分上乗せ\n\nつまり\n・NVIDIAの値付け\n・為替\n・AIBの人気\nこの3つでGPU価格の9割が決まる\n\n「なんで高いの？」の答えがこれ",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
