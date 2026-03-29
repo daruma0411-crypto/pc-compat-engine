@@ -628,5 +628,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-03-29T11:40:05.883127",
+    "tweet_text": "1万円でPC生まれ変わった\n\nHDD → SSD換装しただけ\n\n起動: 2分 → 8秒\nゲームロード: 45秒 → 5秒\n\nまだHDDの人、マジで今すぐ変えて\n世界変わるから",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
