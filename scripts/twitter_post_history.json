@@ -668,5 +668,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-03-30T22:28:58.268807",
+    "tweet_text": "これ需要あると思う\n\n中古パーツで組む「バルダーズ・ゲート3」向け格安ゲーミングPC\nhttps://pc-jisaku.com/blog/20260327-used_parts-baldurs-gate-3-3pc.html\n\n#GPU #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260327-used_parts-baldurs-gate-3-3pc.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
