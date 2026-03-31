@@ -693,5 +693,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "ELDEN RING",
+    "posted_at": "2026-03-31T11:40:56.965215",
+    "tweet_text": "ELDEN RING、最低スペックと推奨スペックの差エグい\n\n推奨: GEFORCE GTX 1070 8 GB / INTEL CORE I7-8700K\n最低: GTX 1660 / Core i5\n\nhttps://pc-jisaku.com/game/elden-ring\n\n#ELDENRING #パーツ選び",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
