@@ -710,5 +710,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-04-01T04:13:00.097893",
+    "tweet_text": "GPUの最適な買い替えサイクルって何年？\n2年で変える人いる？\n#自作PC #GPU",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
