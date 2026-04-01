@@ -718,5 +718,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-04-01T08:01:18.483860",
+    "tweet_text": "RTX 5060が出たけど、買うべきか正直に言う\n\nスペック\n→VRAM 16GB（4060の倍）\n→DLSS 4対応\n→消費電力150W\n\n価格\n→¥65,000前後（予想）\n→RTX 4060は今¥44,800\n\n性能差\n→4060比で約30-40%向上\n→VRAM倍増は将来性◎\n\nで、買うべきか？\n\n今4060持ってる人→買い替え不要\nGTX 1060/1070世代→5060は良い選択肢\n新規で組む人→3ヶ月待って値下がりを狙え\n\n結局「発売直後に飛びつくな」が正解\n3ヶ月で1万は下がる\n\nスペック診断→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
