@@ -750,5 +750,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-02T07:50:51.953502",
+    "tweet_text": "毎日更新中\n\n「モンスターハンターワイルズ」が動かない時の対処法7選\nhttps://pc-jisaku.com/blog/20260320-troubleshooting-monster-hunter-wilds-fix7picks.html\n\n#ブログ更新 #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260320-troubleshooting-monster-hunter-wilds-fix7picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
