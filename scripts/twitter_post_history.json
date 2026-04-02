@@ -767,5 +767,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-02T22:13:41.664483",
+    "tweet_text": "これ需要あると思う\n\n3月版 最新ゲーム推奨スペックランキングTOP20\nhttps://pc-jisaku.com/blog/20260308-ranking-3month-spec-rankingtop20.html\n\n#PCパーツ #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260308-ranking-3month-spec-rankingtop20.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
