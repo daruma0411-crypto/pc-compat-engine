@@ -1106,8 +1106,53 @@
       "topic_type": "price_report",
       "timestamp": "2026-03-24T05:47:23.457797",
       "had_link": true
+    },
+    {
+      "target_tweet_id": "2039279364991504781",
+      "target_account": "@takashi1211",
+      "reply_text": "その組み合わせ面白いね！ただRadeon 680Mだと軽めのゲームは行けるけど、重いタイトルはPS5頼りになっちゃうかも。15万ならミニPCじゃなくてデスクトップでRTX 3070 Ti（6万円台）組んだ方がPC側でも本格的に遊べると思う。PS5とどっちで買うか迷う問題もなくなるし",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-02T05:36:00.761082",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2038958701491655126",
+      "target_account": "@upnusinitizyou",
+      "reply_text": "メモリ高いのわかる…自分も前回組んだ時びっくりした。でも40万予算ならGPUにもうちょい振れそう。RTX 3080 Tiが16万くらいで買えるから、メモリを32GBから16GBに落として差額をGPUに回すのもありかも。ゲームメインなら16GBでも当分困らないし",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-02T05:39:31.194682",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039274180651450373",
+      "target_account": "@aobasadao",
+      "reply_text": "30万でRTX 5070か9070XT狙いなら、CPUは9700Xで十分かも。9800X3Dは性能いいけど価格差考えるとGPUに予算回した方が体感変わるよ。BTOは楽だけど自作なら同予算でワンランク上狙えるかな。5070と9070XTはベンチ待ちだけど、レイトレ重視なら5070、ラスタ性能ならAMDって感じになりそう",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-02T05:43:59.033779",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2038588258675019869",
+      "target_account": "@ganplaojisan",
+      "reply_text": "9070XTと9700の価格差次第だけど、性能差が小さいなら9700で浮いた分をメモリやSSDに回すのもありだよね。ポイント還元考えると実質1万くらい変わることもあるし、そこは賢い選択だと思う",
+      "grade": "A",
+      "topic_type": "gpu_recommendation",
+      "timestamp": "2026-04-02T05:45:06.879817",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2038721196787986444",
+      "target_account": "@PCjisaku_U",
+      "reply_text": "Lightning Zは静音性の評価高いですね。RTX 5090でその選択は贅沢だけど、VRAM 32GBあるから4K高設定でも余裕だと思います。ただ消費電力もすごいので電源は850W以上推奨かなと。参考までに→ https://pc-jisaku.com",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-04-02T05:48:08.281109",
+      "had_link": true
     }
   ],
-  "total_replies": 123,
-  "total_runs": 28
+  "total_replies": 128,
+  "total_runs": 29
 }
