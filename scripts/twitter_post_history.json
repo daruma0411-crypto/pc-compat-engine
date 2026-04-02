@@ -759,5 +759,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "サブノーティカ",
+    "posted_at": "2026-04-02T11:49:12.517436",
+    "tweet_text": "サブノーティカを1080pと1440pで比較\n1080p: Nvidia GTX 550 Tiで余裕\n1440p: RTX 4070推奨\n\n詳細→ https://pc-jisaku.com/game/%E3%82%B5%E3%83%96%E3%83%8E%E3%83%BC%E3%83%86%E3%82%A3%E3%82%AB\n\n#サブノーティカ #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
