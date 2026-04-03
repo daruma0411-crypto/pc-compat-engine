@@ -800,5 +800,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-04-03T22:21:56.873428",
+    "tweet_text": "ゲーミングPCって結局いくら必要なの？\n\n💰 5万: Apex 60fps（中古なら余裕）\n💰 10万: モンハン快適\n💰 15万: エルデン 144fps\n💰 20万: サイパン 4K\n💰 30万: もう何も怖くない\n\nあなたはどのライン？\n\nhttps://pc-jisaku.com",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
