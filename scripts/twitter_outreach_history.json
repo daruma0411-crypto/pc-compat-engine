@@ -1151,8 +1151,53 @@
       "topic_type": "purchase_report",
       "timestamp": "2026-04-02T05:48:08.281109",
       "had_link": true
+    },
+    {
+      "target_tweet_id": "2039884305607094508",
+      "target_account": "@V_HisuiSoseki",
+      "reply_text": "配信用なら今だとRTX 4060が4万円台で買えて、エンコード性能も2060より上ですね。メモリ16GB + i5-14400F辺りで組めば20万前後に収まるかもです。配信ソフト何使うかにもよりますが、NVENCエンコ前提ならコスパ良いと思います",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-03T05:43:49.381151",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039701851277533579",
+      "target_account": "@Hal900H",
+      "reply_text": "おお、TITAN懐かしい！7000円なら全然ありだね。当時のハイエンドが今こんな値段で手に入るの面白いよな。Windowsのインストールまでスムーズにいったなら掘り出し物だったかも。軽めのゲームとか動画編集くらいなら今でも十分使えるし、楽しんで！",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-04-03T05:45:25.921279",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039270648665772083",
+      "target_account": "@fuka_fukashi",
+      "reply_text": "21万でその構成揃えるの良いね！グラボ流用できるなら予算かなり抑えられるし賢い選択だと思う。CPU何にしたか気になる👀",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-04-03T05:46:37.837511",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039905707101917413",
+      "target_account": "@mocha_168",
+      "reply_text": "おめでとう！27万で初自作とかめっちゃいいスタートだね。270k plusならエアフロー良いしケーブル配線もやりやすいはず。GPU何にするか決めた？その予算ならRTX 5070とか狙えるし、組み立て楽しんで！",
+      "grade": "A",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-04-03T05:51:05.255372",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039263431677952236",
+      "target_account": "@tm_tama_mt",
+      "reply_text": "50万あれば余裕だね！その予算ならRTX 5080（20万くらい）+最新CPU構成で組めるから、挙げてるゲーム全部最高設定でヌルヌル動くよ。BTOならサイコムとかツクモが評判いいかな。エペとオバウォは特に軽いから144fps以上狙えるし、アークやモンハンも高設定で快適にプレイできる",
+      "grade": "A",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-03T05:55:17.385747",
+      "had_link": false
     }
   ],
-  "total_replies": 128,
-  "total_runs": 29
+  "total_replies": 133,
+  "total_runs": 30
 }
