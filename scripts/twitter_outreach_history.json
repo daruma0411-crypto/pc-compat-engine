@@ -1196,8 +1196,53 @@
       "topic_type": "budget_build",
       "timestamp": "2026-04-03T05:55:17.385747",
       "had_link": false
+    },
+    {
+      "target_tweet_id": "2039957630492524557",
+      "target_account": "@minto_0413",
+      "reply_text": "RTX3060から5070Tiは結構な飛び級だね！電源も一緒に変えたのは正解。4K高設定でもヌルヌル動くようになったんじゃない？自分も似たような構成にしたとき体感で別物になったよ。参考までに→ https://pc-jisaku.com",
+      "grade": "S",
+      "topic_type": "purchase_report",
+      "timestamp": "2026-04-04T05:57:54.466725",
+      "had_link": true
+    },
+    {
+      "target_tweet_id": "2040006649164013609",
+      "target_account": "@tubame_umikun",
+      "reply_text": "配信込みだと確かに15万は厳しいですね。ただ今の相場だと20万あればRTX 4060 Ti + Ryzen 7でそこそこ組めるかなと。配信エンコはGPU側に任せれば負荷分散できるので、CPUはミドルクラスでも意外と戦えますよ。BTOで相談するのもありですが、自作なら同予算でワンランク上狙えるかもです。",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-04T05:59:47.906303",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2040004885563985968",
+      "target_account": "@maronmaron921",
+      "reply_text": "15万だと編集もゲームもいけるやつ組めるね。RTX 3070 Tiが6万弱で買えるから、残りでi5とメモリ16GB、SSD 500GBあたり揃えられそう。TikTok編集ならこのスペックで十分サクサク動くよ",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-04T06:01:23.966242",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039706822580601018",
+      "target_account": "@umiyade21",
+      "reply_text": "15万でも全然いけるよ。RTX 4060（4万円台）+ i5-14400F + 16GBメモリで組めば大体のゲームは快適。20万出すならRTX 4060 Tiにグレードアップできるけど、最初は15万で様子見るのもあり。BTOなら@の付いてる大手メーカーが安心かな。自作も意外と簡単だけど、初めてなら完成品の方が無難かも",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-04T06:06:29.630462",
+      "had_link": false
+    },
+    {
+      "target_tweet_id": "2039207917484986612",
+      "target_account": "@fn_MeloPanda_fv",
+      "reply_text": "15万ならRX 7600かGTX 1660 SUPERあたりが狙い目かも！どっちも4万切ってて、フルHDなら大体のゲーム快適に動くよ。分割払いならBTOショップが便利だけど、手数料チェックしといた方がいいかな。何のゲームやる予定？",
+      "grade": "S",
+      "topic_type": "budget_build",
+      "timestamp": "2026-04-04T06:09:54.899911",
+      "had_link": false
     }
   ],
-  "total_replies": 133,
-  "total_runs": 30
+  "total_replies": 138,
+  "total_runs": 31
 }
