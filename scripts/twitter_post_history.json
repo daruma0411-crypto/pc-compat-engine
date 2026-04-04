@@ -816,5 +816,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-04-04T07:30:43.491620",
+    "tweet_text": "Street Fighter 6やりたいんだけど\n予算10万円以内で組めますか？\n\n推奨: RTX2070\n詳細→ https://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
