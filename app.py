@@ -575,7 +575,9 @@ def _run_pc_diagnosis_with_claude(parts: list, specs: dict) -> dict:
 # ================================================================
 
 def _inject_affiliate_tags(html: str) -> str:
-    """HTMLのプレースホルダーに環境変数のアフィリエイトIDを注入する。"""
+    """HTMLのプレースホルダーに環境変数のアフィリエイトIDを注入する。
+    また、ハードコードされた楽天検索URLをアフィリエイトURLに変換する。
+    """
     amazon_tag   = os.environ.get('AMAZON_TAG',    'pccompat-22')
     rakuten_a_id = os.environ.get('RAKUTEN_A_ID',  '0eb4779e.5d30c5ba')
     rakuten_l_id = os.environ.get('RAKUTEN_L_ID',  '0eb4779f.b871e4e3')
@@ -586,6 +588,18 @@ def _inject_affiliate_tags(html: str) -> str:
     html = html.replace("'__RAKUTEN_L_ID__'", f"'{rakuten_l_id}'")
     html = html.replace("'__KAKAKU_VC_SID__'", f"'{kakaku_vc_sid}'")
     html = html.replace("'__KAKAKU_VC_PID__'", f"'{kakaku_vc_pid}'")
+    # ハードコードされた楽天検索URLをアフィリエイトURLに変換
+    if rakuten_a_id and rakuten_l_id:
+        def _rakuten_to_affiliate(m):
+            search_url = m.group(0)
+            encoded = urllib.parse.quote(search_url, safe='')
+            return (f'https://hb.afl.rakuten.co.jp/hgc/{rakuten_a_id}/{rakuten_l_id}/'
+                    f'?pc={encoded}&link_type=hybrid_url&ts=1')
+        html = re.sub(
+            r'https://search\.rakuten\.co\.jp/search/mall/[^"\'<>\s]+',
+            _rakuten_to_affiliate,
+            html
+        )
     return html
 
 
