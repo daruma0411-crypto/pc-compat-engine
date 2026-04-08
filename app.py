@@ -1839,6 +1839,70 @@ def health():
     })
 
 
+# ================================================================
+# IndexNow（Bing/Yandex/Naver即時インデックス通知）
+# ================================================================
+_INDEXNOW_KEY = '3f264e2600904952b0efaa0c0651442e'
+
+
+def _submit_indexnow(urls):
+    """IndexNow APIにURL群を送信（Bing/Yandex/Naver対応）"""
+    import urllib.request
+    if isinstance(urls, str):
+        urls = [urls]
+    payload = json.dumps({
+        'host': 'pc-jisaku.com',
+        'key': _INDEXNOW_KEY,
+        'keyLocation': f'https://pc-jisaku.com/static/{_INDEXNOW_KEY}.txt',
+        'urlList': urls[:10000],
+    }).encode('utf-8')
+    try:
+        req = urllib.request.Request(
+            'https://api.indexnow.org/indexnow',
+            data=payload,
+            headers={'Content-Type': 'application/json; charset=utf-8'},
+            method='POST',
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return resp.status
+    except Exception as e:
+        print(f'[IndexNow] Error: {e}')
+        return None
+
+
+@app.route('/api/indexnow', methods=['POST'])
+def api_indexnow():
+    """手動IndexNow送信（管理者用）。全ゲーム/ブログページを一括送信。"""
+    urls = [f'{_BASE_URL}/']
+    urls.append(f'{_BASE_URL}/blog/')
+    urls.append(f'{_BASE_URL}/prices')
+    # インデックス対象ゲームページ
+    game_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
+    if os.path.isdir(game_dir):
+        for f in os.listdir(game_dir):
+            if f.endswith('.html'):
+                slug = f.replace('.html', '')
+                fpath = os.path.join(game_dir, f)
+                # noindexページは除外
+                with open(fpath, 'r', encoding='utf-8') as fh:
+                    head = fh.read(2000)
+                if 'noindex' not in head:
+                    urls.append(f'{_BASE_URL}/game/{slug}')
+    # ブログページ
+    blog_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'blog')
+    if os.path.isdir(blog_dir):
+        for f in os.listdir(blog_dir):
+            if f.endswith('.html') and f != 'index.html':
+                slug = f.replace('.html', '')
+                urls.append(f'{_BASE_URL}/blog/{slug}')
+    status = _submit_indexnow(urls)
+    return jsonify({
+        'submitted': len(urls),
+        'indexnow_status': status,
+        'sample_urls': urls[:10],
+    })
+
+
 def _log_chat(session_id, message, ai_message, session, tool_logs):
     """チャット履歴を永続化（PDCA分析用）"""
     try:

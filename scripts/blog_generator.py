@@ -803,6 +803,26 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
 
     print(f"\n{len(new_entries)}記事生成完了！ → {BLOG_DIR}")
 
+    # IndexNow通知（Bing/Yandex/Naverに即時インデックス依頼）
+    if new_entries and not dry_run:
+        try:
+            import urllib.request
+            site_url = os.getenv('SITE_URL', 'https://pc-jisaku.com')
+            indexnow_key = '3f264e2600904952b0efaa0c0651442e'
+            urls = [f"{site_url}/blog/{e['slug']}" for e in new_entries]
+            payload = json.dumps({
+                'host': 'pc-jisaku.com', 'key': indexnow_key,
+                'keyLocation': f'{site_url}/static/{indexnow_key}.txt',
+                'urlList': urls,
+            }).encode('utf-8')
+            req = urllib.request.Request(
+                'https://api.indexnow.org/indexnow', data=payload,
+                headers={'Content-Type': 'application/json; charset=utf-8'}, method='POST')
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                print(f"[IndexNow] Submitted {len(urls)} URLs, status: {resp.status}")
+        except Exception as e:
+            print(f"[IndexNow] Warning: {e}")
+
 
 def main():
     parser = argparse.ArgumentParser(description='Blog Auto Generator (Daily)')
