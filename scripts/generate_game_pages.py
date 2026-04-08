@@ -22,64 +22,126 @@ SITE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
 # Google Analytics ID
 GA_ID = "G-PPNEBG625J"
 
-# 予算別PC構成（固定値）
-BUDGET_BUILDS = {
-    "minimum": {
-        "label": "8万円（最低動作）",
-        "icon": "💵",
-        "cpu": "Ryzen 5 5600",
-        "cpu_price": 14980,
-        "gpu": "RTX 3060",
-        "gpu_price": 29800,
-        "ram": "16GB DDR4",
-        "ram_price": 5980,
-        "storage": "500GB SSD",
-        "storage_price": 5480,
-        "other": 22000,
-        "performance": "1080p低〜中設定でのプレイに対応",
-        "color": "#607D8B",
+# GPU性能スコア（要求度判定用）
+_GPU_PERF_SCORES = {
+    "gtx 1050": 1, "gtx 1060": 1.5, "gtx 1650": 1.5, "gtx 1660": 2,
+    "rtx 2060": 2.5, "rtx 2070": 3, "rtx 3050": 2, "rtx 3060": 2.5,
+    "rtx 3070": 3.5, "rtx 4060": 3, "rtx 4070": 4, "rtx 4080": 4.5,
+    "rtx 5070": 4.5, "rtx 5080": 5, "rtx 5090": 5,
+    "rx 580": 1.5, "rx 5600": 2, "rx 6600": 2.5, "rx 7700": 3.5,
+    "rx 9070": 4.5,
+    "2 gb": 1, "3 gb": 1.5, "4 gb": 2, "6 gb": 2.5, "8 gb": 3, "12 gb": 4, "16 gb": 5,
+}
+
+
+def _estimate_demand(rec_gpu_str, rec_ram):
+    """ゲームの推奨スペックから要求度を5段階判定"""
+    rec_lower = (rec_gpu_str or "").lower()
+    score = 3.0  # デフォルト: mid
+    for gpu_name, s in _GPU_PERF_SCORES.items():
+        if gpu_name in rec_lower:
+            score = max(score, s) if "gb" not in gpu_name else score
+            if "gb" not in gpu_name:
+                score = s
+                break
+    # VRAM容量でもフォールバック判定
+    if score == 3.0:
+        for vram, s in _GPU_PERF_SCORES.items():
+            if "gb" in vram and vram in rec_lower:
+                score = s
+                break
+    # RAM要求も考慮
+    try:
+        ram_val = int(rec_ram) if rec_ram and str(rec_ram).isdigit() else 8
+    except (ValueError, TypeError):
+        ram_val = 8
+    if ram_val >= 32:
+        score = max(score, 4.0)
+    elif ram_val >= 16:
+        score = max(score, 2.5)
+
+    if score <= 1.5:
+        return "light"
+    elif score <= 2.5:
+        return "light_mid"
+    elif score <= 3.5:
+        return "mid"
+    elif score <= 4.5:
+        return "heavy"
+    else:
+        return "ultra"
+
+
+# 要求度別・予算別PC構成
+BUDGET_BUILDS_BY_DEMAND = {
+    "light": {
+        "minimum":     {"label": "5万円（最低動作）", "icon": "💵", "cpu": "Ryzen 5 5500", "cpu_price": 12000, "gpu": "GTX 1660 SUPER", "gpu_price": 18000, "ram": "8GB DDR4", "ram_price": 3500, "storage": "256GB SSD", "storage_price": 3000, "other": 14500, "performance": "1080pで快適にプレイ可能", "color": "#607D8B"},
+        "recommended": {"label": "8万円（推奨動作）", "icon": "💳", "cpu": "Ryzen 5 5600", "cpu_price": 14980, "gpu": "RTX 3060", "gpu_price": 29800, "ram": "16GB DDR4", "ram_price": 5980, "storage": "500GB SSD", "storage_price": 5480, "other": 18000, "performance": "1080p高設定で60+ fps", "color": "#4CAF50", "badge": "おすすめ"},
+        "premium":     {"label": "12万円（快適動作）", "icon": "💎", "cpu": "Ryzen 5 7600", "cpu_price": 25000, "gpu": "RTX 4060", "gpu_price": 45800, "ram": "16GB DDR5", "ram_price": 7980, "storage": "512GB NVMe SSD", "storage_price": 5480, "other": 24000, "performance": "1080p最高設定で144fps、WQHD 60fps", "color": "#FF9800"},
     },
-    "recommended": {
-        "label": "12万円（推奨動作）",
-        "icon": "💳",
-        "cpu": "Ryzen 5 7600",
-        "cpu_price": 25000,
-        "gpu": "RTX 4060",
-        "gpu_price": 45800,
-        "ram": "16GB DDR5",
-        "ram_price": 7980,
-        "storage": "1TB NVMe SSD",
-        "storage_price": 7480,
-        "other": 26000,
-        "performance": "1080p高設定またはWQHD中設定での快適なプレイに対応",
-        "color": "#4CAF50",
-        "badge": "おすすめ",
+    "light_mid": {
+        "minimum":     {"label": "7万円（最低動作）", "icon": "💵", "cpu": "Ryzen 5 5600", "cpu_price": 14980, "gpu": "RTX 3060", "gpu_price": 29800, "ram": "16GB DDR4", "ram_price": 5980, "storage": "500GB SSD", "storage_price": 5480, "other": 18000, "performance": "1080p中設定でプレイ可能", "color": "#607D8B"},
+        "recommended": {"label": "10万円（推奨動作）", "icon": "💳", "cpu": "Ryzen 5 7600", "cpu_price": 25000, "gpu": "RTX 4060", "gpu_price": 45800, "ram": "16GB DDR5", "ram_price": 7980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 22000, "performance": "1080p高設定で60+ fps", "color": "#4CAF50", "badge": "おすすめ"},
+        "premium":     {"label": "15万円（快適動作）", "icon": "💎", "cpu": "Ryzen 7 7700", "cpu_price": 38000, "gpu": "RTX 4070", "gpu_price": 82800, "ram": "16GB DDR5", "ram_price": 7980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 28000, "performance": "WQHD高設定で60+ fps", "color": "#FF9800"},
     },
-    "premium": {
-        "label": "18万円（快適動作）",
-        "icon": "💎",
-        "cpu": "Ryzen 7 7700",
-        "cpu_price": 38000,
-        "gpu": "RTX 4070",
-        "gpu_price": 82800,
-        "ram": "32GB DDR5",
-        "ram_price": 13980,
-        "storage": "1TB NVMe SSD",
-        "storage_price": 7480,
-        "other": 30000,
-        "performance": "WQHD高設定または4K中設定での快適なプレイに対応",
-        "color": "#FF9800",
+    "mid": {
+        "minimum":     {"label": "8万円（最低動作）", "icon": "💵", "cpu": "Ryzen 5 5600", "cpu_price": 14980, "gpu": "RTX 3060", "gpu_price": 29800, "ram": "16GB DDR4", "ram_price": 5980, "storage": "500GB SSD", "storage_price": 5480, "other": 22000, "performance": "1080p低〜中設定でのプレイに対応", "color": "#607D8B"},
+        "recommended": {"label": "12万円（推奨動作）", "icon": "💳", "cpu": "Ryzen 5 7600", "cpu_price": 25000, "gpu": "RTX 4060", "gpu_price": 45800, "ram": "16GB DDR5", "ram_price": 7980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 26000, "performance": "1080p高設定またはWQHD中設定での快適なプレイに対応", "color": "#4CAF50", "badge": "おすすめ"},
+        "premium":     {"label": "18万円（快適動作）", "icon": "💎", "cpu": "Ryzen 7 7700", "cpu_price": 38000, "gpu": "RTX 4070", "gpu_price": 82800, "ram": "32GB DDR5", "ram_price": 13980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 30000, "performance": "WQHD高設定または4K中設定での快適なプレイに対応", "color": "#FF9800"},
+    },
+    "heavy": {
+        "minimum":     {"label": "12万円（最低動作）", "icon": "💵", "cpu": "Ryzen 5 7600", "cpu_price": 25000, "gpu": "RTX 4060 Ti", "gpu_price": 52000, "ram": "16GB DDR5", "ram_price": 7980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 28000, "performance": "1080p中設定で60fps", "color": "#607D8B"},
+        "recommended": {"label": "18万円（推奨動作）", "icon": "💳", "cpu": "Ryzen 7 7700", "cpu_price": 38000, "gpu": "RTX 4070", "gpu_price": 82800, "ram": "32GB DDR5", "ram_price": 13980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 30000, "performance": "1080p高設定で60+ fps、WQHD 60fps", "color": "#4CAF50", "badge": "おすすめ"},
+        "premium":     {"label": "25万円（快適動作）", "icon": "💎", "cpu": "Ryzen 7 9700X", "cpu_price": 55000, "gpu": "RTX 4080", "gpu_price": 150000, "ram": "32GB DDR5", "ram_price": 13980, "storage": "2TB NVMe SSD", "storage_price": 15000, "other": 35000, "performance": "WQHD高設定で144fps、4K 60fps", "color": "#FF9800"},
+    },
+    "ultra": {
+        "minimum":     {"label": "18万円（最低動作）", "icon": "💵", "cpu": "Ryzen 7 7700", "cpu_price": 38000, "gpu": "RTX 4070 Ti", "gpu_price": 92000, "ram": "32GB DDR5", "ram_price": 13980, "storage": "1TB NVMe SSD", "storage_price": 7480, "other": 32000, "performance": "1080p高設定で60fps", "color": "#607D8B"},
+        "recommended": {"label": "28万円（推奨動作）", "icon": "💳", "cpu": "Ryzen 9 7950X", "cpu_price": 78000, "gpu": "RTX 5080", "gpu_price": 209800, "ram": "32GB DDR5", "ram_price": 13980, "storage": "2TB NVMe SSD", "storage_price": 15000, "other": 45000, "performance": "4K高設定で60+ fps、WQHD 144fps", "color": "#4CAF50", "badge": "おすすめ"},
+        "premium":     {"label": "38万円（快適動作）", "icon": "💎", "cpu": "Ryzen 9 9950X", "cpu_price": 95000, "gpu": "RTX 5090", "gpu_price": 280000, "ram": "64GB DDR5", "ram_price": 27000, "storage": "2TB NVMe SSD", "storage_price": 15000, "other": 55000, "performance": "4K最高設定で60+ fps", "color": "#FF9800"},
     },
 }
 
-# GPU性能比較テーブル（公式スペック）
-GPU_COMPARISON = [
-    {"name": "RTX 3060", "price": 29800, "vram": "12GB", "tdp": "170W", "rating": 3},
-    {"name": "RTX 4060", "price": 45800, "vram": "8GB", "tdp": "115W", "rating": 4, "recommended": True},
-    {"name": "RTX 4070", "price": 82800, "vram": "12GB", "tdp": "200W", "rating": 4},
-    {"name": "RTX 5070", "price": 102800, "vram": "12GB", "tdp": "250W", "rating": 5},
-    {"name": "RTX 5080", "price": 209800, "vram": "16GB", "tdp": "360W", "rating": 5},
+# 後方互換: デフォルト（mid）
+BUDGET_BUILDS = BUDGET_BUILDS_BY_DEMAND["mid"]
+
+# 要求度別GPU比較テーブル
+_ALL_GPUS = [
+    {"name": "GTX 1660 SUPER", "price": 18000, "vram": "6GB", "tdp": "125W", "rating": 2},
+    {"name": "RTX 3060",  "price": 29800,  "vram": "12GB", "tdp": "170W", "rating": 3},
+    {"name": "RTX 4060",  "price": 45800,  "vram": "8GB",  "tdp": "115W", "rating": 4},
+    {"name": "RTX 4060 Ti","price": 52000, "vram": "16GB", "tdp": "150W", "rating": 4},
+    {"name": "RTX 4070",  "price": 82800,  "vram": "12GB", "tdp": "200W", "rating": 4},
+    {"name": "RTX 4070 Ti","price": 92000, "vram": "12GB", "tdp": "285W", "rating": 5},
+    {"name": "RTX 4080",  "price": 150000, "vram": "16GB", "tdp": "320W", "rating": 5},
+    {"name": "RTX 5070",  "price": 102800, "vram": "12GB", "tdp": "250W", "rating": 5},
+    {"name": "RTX 5080",  "price": 209800, "vram": "16GB", "tdp": "360W", "rating": 5},
+    {"name": "RTX 5090",  "price": 280000, "vram": "32GB", "tdp": "575W", "rating": 5},
 ]
+
+_GPU_SETS = {
+    "light":     ["GTX 1660 SUPER", "RTX 3060", "RTX 4060"],
+    "light_mid": ["RTX 3060", "RTX 4060", "RTX 4060 Ti", "RTX 4070"],
+    "mid":       ["RTX 3060", "RTX 4060", "RTX 4070", "RTX 5070", "RTX 5080"],
+    "heavy":     ["RTX 4060 Ti", "RTX 4070", "RTX 4070 Ti", "RTX 4080", "RTX 5070"],
+    "ultra":     ["RTX 4070 Ti", "RTX 4080", "RTX 5070", "RTX 5080", "RTX 5090"],
+}
+
+_GPU_REC = {"light": "RTX 3060", "light_mid": "RTX 4060", "mid": "RTX 4060", "heavy": "RTX 4070", "ultra": "RTX 5080"}
+
+
+def _get_gpu_comparison(demand):
+    """要求度に応じたGPU比較リストを返す"""
+    names = _GPU_SETS.get(demand, _GPU_SETS["mid"])
+    rec = _GPU_REC.get(demand, "RTX 4060")
+    gpus = [dict(g) for g in _ALL_GPUS if g["name"] in names]
+    for g in gpus:
+        if g["name"] == rec:
+            g["recommended"] = True
+    return gpus
+
+
+# 後方互換
+GPU_COMPARISON = _get_gpu_comparison("mid")
 
 
 def slugify(text):
@@ -111,10 +173,11 @@ def calc_total(build):
     return build["cpu_price"] + build["gpu_price"] + build["ram_price"] + build["storage_price"] + build["other"]
 
 
-def generate_budget_section(name):
-    """予算別PC構成セクションを生成"""
+def generate_budget_section(name, demand="mid"):
+    """予算別PC構成セクションを生成（要求度対応）"""
+    builds = BUDGET_BUILDS_BY_DEMAND.get(demand, BUDGET_BUILDS_BY_DEMAND["mid"])
     cards = []
-    for key, b in BUDGET_BUILDS.items():
+    for key, b in builds.items():
         total = calc_total(b)
         badge_html = f'<div class="budget-badge" style="background:{b["color"]};">{b["badge"]}</div>' if b.get("badge") else ""
         # パーツごとのAmazon/楽天検索リンク
@@ -160,10 +223,11 @@ def generate_budget_section(name):
 </section>"""
 
 
-def generate_gpu_section(name):
-    """GPU比較テーブルセクションを生成"""
+def generate_gpu_section(name, demand="mid"):
+    """GPU比較テーブルセクションを生成（要求度対応）"""
+    gpu_list = _get_gpu_comparison(demand)
     rows = []
-    for g in GPU_COMPARISON:
+    for g in gpu_list:
         stars = "★" * g["rating"] + "☆" * (5 - g["rating"])
         rec_class = ' class="gpu-rec-row"' if g.get("recommended") else ""
         rec_badge = ' <span class="rec-badge">おすすめ</span>' if g.get("recommended") else ""
@@ -209,16 +273,20 @@ def generate_gpu_section(name):
 </section>"""
 
 
-def generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram):
-    """FAQ セクション（6問）を生成"""
+def generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram, demand="mid"):
+    """FAQ セクション（6問）を生成（要求度対応）"""
+    builds = BUDGET_BUILDS_BY_DEMAND.get(demand, BUDGET_BUILDS_BY_DEMAND["mid"])
+    rec_build = builds["recommended"]
+    rec_total = calc_total(rec_build)
+    budget_man = f"{rec_total // 10000}万円"
     faqs = [
         {
             "q": f"{name}の推奨スペックは？",
             "a": f"{name}の推奨スペックは、GPU: {rec_gpu}、CPU: {rec_cpu}、RAM: {rec_ram}GB です。上記スペックを満たすPCなら快適にプレイできることが期待されます。詳しくはAI診断チャットでご確認ください。",
         },
         {
-            "q": f"予算10万円で{name}用PCは組める？",
-            "a": f"はい、予算10万円前後で{name}用のPCを組めます。RTX 4060（約4.5万円）+ Ryzen 5 7600（約2.5万円）+ 16GB RAM（約0.8万円）の構成で1080p高設定での快適なプレイが期待できます。※価格・性能は変動するため、AI診断チャットで最新の構成をご相談ください。",
+            "q": f"予算{budget_man}で{name}用PCは組める？",
+            "a": f"はい、予算{budget_man}前後で{name}用のPCを組めます。{rec_build['gpu']}（約{rec_build['gpu_price']//10000}.{rec_build['gpu_price']%10000//1000}万円）+ {rec_build['cpu']}（約{rec_build['cpu_price']//10000}.{rec_build['cpu_price']%10000//1000}万円）+ {rec_build['ram']}（約{rec_build['ram_price']//10000}.{rec_build['ram_price']%10000//1000}万円）の構成で{rec_build['performance']}。※価格・性能は変動するため、AI診断チャットで最新の構成をご相談ください。",
         },
         {
             "q": f"{name}は何fpsで遊べますか？",
@@ -226,7 +294,7 @@ def generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram):
         },
         {
             "q": "ノートPCでも動きますか？",
-            "a": "ゲーミングノートPCでも動作します。RTX 4060搭載モデル（12万円〜）なら1080p高設定での快適なプレイが期待できます。バッテリー駆動時は性能が低下するため、電源接続を推奨します。",
+            "a": f"ゲーミングノートPCでも動作します。{rec_build['gpu']}搭載モデル（{budget_man}〜）なら{rec_build['performance']}。バッテリー駆動時は性能が低下するため、電源接続を推奨します。",
         },
         {
             "q": "内蔵GPU（グラボなし）でも遊べますか？",
@@ -970,6 +1038,9 @@ def generate_page(game, all_games=None, popular_games=None):
     today = datetime.now().strftime('%Y-%m-%d')
     today_ja = datetime.now().strftime('%Y年%m月%d日')
 
+    # ゲーム要求度判定（予算構成・GPU比較・FAQの個別化に使用）
+    demand_level = _estimate_demand(rec_gpu, rec_ram)
+
     faq_schema = generate_faq_schema(name, rec_gpu, min_gpu, rec_cpu, rec_ram)
     video_game_schema = generate_structured_data(game, slug)
 
@@ -1071,15 +1142,15 @@ def generate_page(game, all_games=None, popular_games=None):
     <a href="{SITE_URL}/?game={name}" class="cta-button">無料でAI診断を受ける →</a>
   </section>
 
-  {generate_budget_section(name)}
+  {generate_budget_section(name, demand_level)}
 
   {generate_budget_calculator(name)}
 
-  {generate_gpu_section(name)}
+  {generate_gpu_section(name, demand_level)}
 
   {generate_spec_checker(name, rec_gpu, min_gpu, rec_ram)}
 
-  {generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram)}
+  {generate_faq_section(name, rec_gpu, min_gpu, rec_cpu, rec_ram, demand_level)}
 
   {generate_troubleshooting_section()}
 
@@ -1091,10 +1162,10 @@ def generate_page(game, all_games=None, popular_games=None):
     <a href="{SITE_URL}/?game={name}" class="cta-button">無料でAI診断を受ける →</a>
     <div class="bottom-purchase-links">
       <p>📦 推奨パーツをチェック</p>
-      <a href="https://www.amazon.co.jp/s?k={quote_plus(BUDGET_BUILDS['recommended']['gpu'])}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">GPU: {BUDGET_BUILDS['recommended']['gpu']}</a>
-      <a href="https://www.amazon.co.jp/s?k={quote_plus(BUDGET_BUILDS['recommended']['cpu'])}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">CPU: {BUDGET_BUILDS['recommended']['cpu']}</a>
-      <a href="https://search.rakuten.co.jp/search/mall/{quote_plus(BUDGET_BUILDS['recommended']['gpu'])}/" target="_blank" rel="noopener" class="buy-rak">GPU: {BUDGET_BUILDS['recommended']['gpu']}</a>
-      <a href="https://search.rakuten.co.jp/search/mall/{quote_plus(BUDGET_BUILDS['recommended']['cpu'])}/" target="_blank" rel="noopener" class="buy-rak">CPU: {BUDGET_BUILDS['recommended']['cpu']}</a>
+      <a href="https://www.amazon.co.jp/s?k={quote_plus(BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['gpu'])}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">GPU: {BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['gpu']}</a>
+      <a href="https://www.amazon.co.jp/s?k={quote_plus(BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['cpu'])}&tag=pccompat-22" target="_blank" rel="noopener" class="buy-amz">CPU: {BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['cpu']}</a>
+      <a href="https://search.rakuten.co.jp/search/mall/{quote_plus(BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['gpu'])}/" target="_blank" rel="noopener" class="buy-rak">GPU: {BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['gpu']}</a>
+      <a href="https://search.rakuten.co.jp/search/mall/{quote_plus(BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['cpu'])}/" target="_blank" rel="noopener" class="buy-rak">CPU: {BUDGET_BUILDS_BY_DEMAND.get(demand_level, BUDGET_BUILDS_BY_DEMAND['mid'])['recommended']['cpu']}</a>
     </div>
   </section>
 
