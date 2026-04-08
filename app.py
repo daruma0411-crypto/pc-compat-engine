@@ -600,6 +600,77 @@ def _inject_affiliate_tags(html: str) -> str:
             _rakuten_to_affiliate,
             html
         )
+    # 旧ドメインのcanonical/リンクを現在のドメインに置換（SEO修正）
+    base_url = os.getenv('SITE_URL', 'https://pc-jisaku.com')
+    html = html.replace('https://pc-compat-engine.onrender.com', base_url)
+    html = html.replace('https://pc-compat-engine-production.up.railway.app', base_url)
+    return html
+
+
+def _inject_internal_links(html: str, page_type: str, slug: str) -> str:
+    """ゲーム↔ブログ間の内部リンクを動的注入する。SEO内部リンク強化。"""
+    try:
+        blog_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'blog')
+        game_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
+
+        if page_type == 'game' and os.path.isdir(blog_dir):
+            # ゲームページ → 関連ブログ記事へのリンク
+            game_name_parts = slug.replace('-', ' ').lower().split()
+            related = []
+            for f in os.listdir(blog_dir):
+                if not f.endswith('.html') or f == 'index.html':
+                    continue
+                fname_lower = f.lower()
+                if any(p in fname_lower for p in game_name_parts if len(p) > 3):
+                    title_match = None
+                    fpath = os.path.join(blog_dir, f)
+                    with open(fpath, 'r', encoding='utf-8') as fh:
+                        for line in fh:
+                            m = re.search(r'<title>(.+?)</title>', line)
+                            if m:
+                                title_match = m.group(1).split('|')[0].strip()
+                                break
+                    if title_match:
+                        blog_slug = f.replace('.html', '')
+                        related.append((title_match, f'/blog/{blog_slug}'))
+                    if len(related) >= 3:
+                        break
+            if related:
+                links_html = '<div style="margin:24px 0;padding:16px;background:#1e293b;border-radius:8px;border:1px solid #334155;">'
+                links_html += '<h3 style="font-size:.95rem;color:#94a3b8;margin:0 0 12px;">📝 関連ブログ記事</h3><ul style="margin:0;padding:0 0 0 20px;">'
+                for title, url in related:
+                    links_html += f'<li style="margin:4px 0;"><a href="{url}" style="color:#60a5fa;text-decoration:none;">{title}</a></li>'
+                links_html += '</ul></div>'
+                html = html.replace('</main>', links_html + '</main>', 1)
+                if '</main>' not in html:
+                    html = html.replace('</body>', links_html + '</body>', 1)
+
+        elif page_type == 'blog' and os.path.isdir(game_dir):
+            # ブログ記事 → 関連ゲームページへのリンク
+            game_files = os.listdir(game_dir)
+            slug_parts = slug.lower().split('-')
+            related = []
+            for gf in game_files:
+                if not gf.endswith('.html'):
+                    continue
+                gf_lower = gf.replace('.html', '').lower()
+                # ブログslugにゲーム名が含まれていれば関連
+                if any(p in slug.lower() for p in gf_lower.split('-') if len(p) > 3):
+                    display = gf.replace('.html', '').replace('-', ' ').title()
+                    related.append((display, f'/game/{gf.replace(".html", "")}'))
+                    if len(related) >= 3:
+                        break
+            if related:
+                links_html = '<div style="margin:24px 0;padding:16px;background:#f0f9ff;border-radius:8px;border:1px solid #bae6fd;">'
+                links_html += '<h3 style="font-size:.95rem;color:#0369a1;margin:0 0 12px;">🎮 関連ゲームページ</h3><ul style="margin:0;padding:0 0 0 20px;">'
+                for title, url in related:
+                    links_html += f'<li style="margin:4px 0;"><a href="{url}" style="color:#0284c7;text-decoration:none;">{title} 推奨スペック</a></li>'
+                links_html += '</ul></div>'
+                html = html.replace('</main>', links_html + '</main>', 1)
+                if '</main>' not in html:
+                    html = html.replace('</body>', links_html + '</body>', 1)
+    except Exception:
+        pass  # 内部リンク注入は失敗してもページ表示に影響させない
     return html
 
 
@@ -867,6 +938,7 @@ def game_page(game_name):
         ('ゲーム推奨スペック', '/game/' + game_name),
         (display_name, f'/game/{game_name}'),
     ])
+    html = _inject_internal_links(html, 'game', game_name)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
@@ -1046,6 +1118,7 @@ def blog_page(article_name):
     ])
     html = _inject_affiliate_tags(html)
     html = _inject_blog_affiliate_section(html)
+    html = _inject_internal_links(html, 'blog', slug)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
