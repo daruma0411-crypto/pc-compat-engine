@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/left-4-dead-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/biohazard-5</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -31,6 +37,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/the-testament-of-sherlock-holmes</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/grim-dawn</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/dmc-devil-may-cry</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/biohazard-6</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -49,7 +73,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/dying-light</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/assetto-corsa</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/plague-inc-evolved</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -62,6 +98,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/rust</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/omsi-2-steam-edition</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -85,6 +127,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/darkest-dungeon</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/サブノーティカ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -92,6 +140,18 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/iracing</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/cuphead</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/hero-siege</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -110,6 +170,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/stellaris</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/beamngdrive</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -139,13 +205,43 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/project-motor-racing</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/biohazard-hd-remaster</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/the-long-dark</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/the-elder-scrolls-online</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/spaceengine</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/dont-starve-together</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/フロストパンク</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -181,6 +277,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/astroneer</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ロックマン-クラシックス-コレクション</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/hollow-knight</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -194,6 +302,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/dark-souls-iii</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/the-isle</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -223,7 +337,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/undertale</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/hearts-of-iron-iv</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/call-of-cthulhu</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -289,6 +415,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/プラネットコースター</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ロックマン-クラシックス-コレクション-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ace-combat-7-skies-unknown</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -331,6 +469,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/dying-light-2-stay-human-reloaded-edition</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/xenonauts-2-ゼノノーツ-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/helldivers-2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -349,6 +499,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/golf-it</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/モンスターハンターワールド</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -361,13 +517,37 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/trailmakers</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/total-war-warhammer-ii</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/hunt-showdown-1896</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/old-world-オールドワールド</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/devil-may-cry-5</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/barotrauma</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -427,6 +607,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/world-war-z</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/プラネット-ズー</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -445,6 +631,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ロックマン11-運命の歯車</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ロックマンx-アニバーサリー-コレクション</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ロックマンx-アニバーサリー-コレクション-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/outer-wilds</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -452,6 +656,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/muse-dash</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/last-man-sitting</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -500,6 +710,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/kovaaks</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/サブノーティカビロウゼロ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -601,6 +817,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ロックマン-ゼロゼクス-ダブルヒーローコレクション</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ファイナルファンタジータクティクス-イヴァリース-クロニクルズ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -608,6 +830,18 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/地球防衛軍５</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ovr-advanced-settings</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/hollow-knight-silksong</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -625,6 +859,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/crime-scene-cleaner</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/farthest-frontier</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -637,7 +877,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/timberborn</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/dinkumディンカム</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/panzer-corps-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ドラゴンクエストビルダーズ２-破壊神シドーとからっぽの島</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -685,6 +943,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/the-last-spell</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ペルソナ4-ザゴールデン</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -697,7 +961,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ghostrunner-ゴーストランナー</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/total-war-warhammer-iii</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ready-or-not</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -728,6 +1004,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/うたわれるもの-偽りの仮面</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/omori</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -793,6 +1075,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/final-fantasy-v</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/red-dead-redemption-2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -818,6 +1106,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/biohazard-village</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/i-am-jesus-christ-私はイエスキリストです</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -854,6 +1148,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/overcooked-all-you-can-eat</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/synduality-echo-of-ada</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -901,7 +1201,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ボーダーランズ4</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ea-play</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/powerwash-simulator</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/サガ-フロンティア-リマスター</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -920,6 +1238,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/cult-of-the-lamb</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/spark-in-the-dark</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -944,6 +1268,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/信長の野望新生</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/rise-of-the-ronin</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -974,6 +1304,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/ノー-レスト-フォー-ザ-ウィケッド</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ジョジョの奇妙な冒険-オールスターバトル-r</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1051,7 +1387,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/needy-girl-overdose</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/final-fantasy-vii-remake-intergrade</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/tainted-grail-the-fall-of-avalon</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/age-of-empires-iv-anniversary-edition</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1093,7 +1447,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/little-witch-in-the-woods</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/killer-inn</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/フロストパンク2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/crisis-core-final-fantasy-vii-reunion</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1106,6 +1478,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/palworld</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ピープルオブノート</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1129,6 +1507,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/stalker-2-heart-of-chornobyl</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ride-5</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1136,6 +1520,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/hitman-world-of-assassination</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/age-of-wonders-4</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1171,6 +1561,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/starfield</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/back-to-the-dawn-ブレイクザアニマルプリズン</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/初音ミク-project-diva-mega39s</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1189,7 +1591,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/スターオーシャン-6-the-divine-force</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/鉄拳8</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/the-last-caretaker</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1208,6 +1622,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/ロックマンエグゼ-アドバンスドコレクション-vol1</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ロックマンエグゼ-アドバンスドコレクション-vol2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1237,6 +1657,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/marvels-spider-man-remastered</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/炎姫</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/chivalry-2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1244,6 +1676,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/喫茶ステラと死神の蝶</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/太閤立志伝ⅴ-dx</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1261,13 +1699,43 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/death-stranding-directors-cut</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/the-last-starship</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/vein</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ソードアートオンライン-フラクチュアード-デイドリーム</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/dragonkin-the-banished</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/世界樹の迷宮ⅱ-諸王の聖杯-hd-remaster</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/arma-reforger</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1297,6 +1765,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/the-last-of-us-part-i</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/clair-obscur-expedition-33</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1304,6 +1778,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/スーパーロボット大戦y</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/operator</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1339,6 +1819,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/stacklands</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/モノクロームメビウス-刻ノ代贖</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1351,13 +1837,37 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/road-to-vostok</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/lethal-company</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ゴースト-トリック</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/オクトパストラベラー-ii</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/デジモンストーリー-タイムストレンジャー</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/pax-dei</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1370,6 +1880,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/biohazard-re4</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/narin-the-orange-room</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1412,6 +1928,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/ball-x-pit</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/クラウドハイム</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1507,7 +2029,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/蒐命のラスティル-とこしえの迷宮城</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ドラゴンクエストモンスターズ３-魔族の王子とエルフの旅</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/不思議のダンジョン-風来のシレン６-とぐろ島探検録</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ロックマンx-dive-オフライン</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1543,6 +2083,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/tom-clancys-the-division-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ovis-loop</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/tom-clancys-ghost-recon-breakpoint</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1555,7 +2107,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/echoes-of-aincrad</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/モンスターハンターワイルズ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/魔界戦記ディスガイア７</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/everwind</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1568,6 +2138,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/blazblue-entropy-effect</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/明末ウツロノハネ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1615,13 +2191,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/subliminal</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/bladesong-ブレイドソング</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/into-the-radius-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/dawnfolk</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/evocreo-2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1705,6 +2299,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/fatestay-night-remastered</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/fatehollow-ataraxia-remastered</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1741,6 +2341,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/nova-roma-ノヴァローマ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/バックパックバトル</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1748,6 +2354,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/menace-メナス</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/セフィリア</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1766,6 +2378,18 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/sword-of-the-sea</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/大悪逆令嬢-ストラテジーオブリリィ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/cooking-simulator-2-better-together</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1795,6 +2419,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/グレーゾーンウォーフェア</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/forza-horizon-6</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1802,6 +2432,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/ソニックレーシング-クロスワールド</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/cash-cleaner-simulator</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1819,7 +2455,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/temtem-swarm</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ソニック-シャドウ-ジェネレーションズ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/final-fantasy-xvi</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1831,7 +2479,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/grime-ii</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/魔女の庭</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/テイルズ-オブ-グレイセス-エフ-リマスター</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1867,7 +2527,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/million-depth</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/chained-together</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/farmers-dynasty-2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1885,6 +2557,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/the-elder-scrolls-iv-oblivion-remastered</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/life-is-strange-reunion</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ninja-gaiden-4</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/首都高バトル</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1892,6 +2582,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/star-trek-voyager-across-the-unknown</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/pico-park-2</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1939,6 +2635,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ヤリモノ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/パラノマサイト-file38-伊勢人魚物語</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -1946,6 +2648,18 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/ドラゴンクエストiii-そして伝説へ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/崩壊都市</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/戦国無双４-dx</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1981,13 +2695,37 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/monster-train-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/goblin-cleanup</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/elden-ring-shadow-of-the-erdtree</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/modulus工場自動化シミュレーター</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/イナズマイレブン-英雄たちのヴィクトリーロード</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/screamer</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2011,6 +2749,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ブレイブリーデフォルト-フライングフェアリー-hdリマスター</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/buckshot-roulette</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/モンスターハンターストーリーズ3-運命の双竜</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2023,6 +2773,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/slay-the-spire-2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/decktamer</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2030,6 +2786,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/master-of-command</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/content-warning</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2059,7 +2821,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/silent-hill-f</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/エクリプスの魔女</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/lort</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ジュラシックワールドエボリューション3</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/drainsim</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2107,13 +2893,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/オクトパストラベラー0</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/デッドリーデイズロードトリップ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/鬼武者2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/assetto-corsa-evo</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/the-headliners</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2150,6 +2954,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/tcg-card-shop-simulator</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/voodoo-fishin</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2245,6 +3055,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/トリヴィアアバウトユー</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/cinderia</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/泣き叫ぶ雁</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/deadzone-rogue</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2270,6 +3098,18 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/death-stranding-2-on-the-beach</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/super-meat-boy-3d</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/easy-delivery-co</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2305,7 +3145,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/hozy</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/ガールズメイドプディング</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/off</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/リーサルダンジョン</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/card-coder</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2335,13 +3199,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/空の軌跡-the-1st</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/メンヘラリウム</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/clean-up-earth</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/ea-sports-fc-26</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/dyping-escape</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2389,6 +3271,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/やれ整備工場ブラザーズ</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/saga-seeker</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/horripilant</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2396,6 +3290,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/peak</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/machine-child</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2461,7 +3361,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/アクアリウムは踊らない-special-edition</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/仁王３</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/wwe-2k26</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2479,6 +3391,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/きかんしゃトーマスソドー島の不思議</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/black-souls</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/スーパーボンバーマン-コレクション</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2486,6 +3410,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/利用規約に同意したい</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/night-shippers</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2503,13 +3433,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/keep-on-mining</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/umigari-ウミガリ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/raccoin-coin-pusher-roguelike</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/wasd-トリの冒険</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/guns-and-nuns-storming-hell</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2527,6 +3475,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/metal-gear-solid-master-collection-vol2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/namakorium-ナマコリウム</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2534,6 +3488,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/戦国英雄譚-samurai-heroes</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/おにぎり屋さんシミュレーター</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2569,7 +3529,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/大戦略ssb2</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/revolgear-zero</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/scritchy-scratchy</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2587,7 +3559,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/link-penguins</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/the-spotter-dig-or-die</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/転生保険株式会社-rip</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/musynxreturn</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/宇宙銀河ウォーズ</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2600,6 +3596,12 @@
   </url>
   <url>
     <loc>https://pc-jisaku.com/game/myvoicezoo</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/space-rock-breaker</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2623,7 +3625,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/クルセイダークエストヒーローズタウン</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/にほんの田舎ぐらし-japanese-rural-life-adventure</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/data-center</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/smash-hit-museum</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/signal-zone</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2641,6 +3667,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/biohazard-1996</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/biohazard-2-1998</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/biohazard-3-last-escape-1999</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/dino-crisis</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2653,7 +3697,43 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/ブレス-オブ-ファイアiv-うつろわざるもの</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/over-the-tower</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/zero-stress-king-idle-defense</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/奇跡の勇者</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/keep-on-mining-worlds</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/rigidgems-museum</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/timber-rush</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2671,7 +3751,25 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pc-jisaku.com/game/substance-3d-painter-2026</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pc-jisaku.com/game/親戚の家に行けよし子</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/とららの麻雀教室</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pc-jisaku.com/game/orbitmine</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
