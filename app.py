@@ -1149,10 +1149,11 @@ def _load_price_drops():
     diff_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace', 'data', 'diff_logs')
     if not os.path.isdir(diff_dir):
         return []
-    # 最新日付のファイルを探す
-    files = sorted([f for f in os.listdir(diff_dir) if f.endswith('.jsonl')], reverse=True)
+    # 最新日付のファイルを探す（YYYY-MM-DD-*.jsonl形式のみ）
+    files = sorted([f for f in os.listdir(diff_dir)
+                    if f.endswith('.jsonl') and f[:4].isdigit()], reverse=True)
     if not files:
-        return []
+        return [], ''
     # 最新日付のカテゴリ別ファイルを全て読む
     latest_date = files[0][:10]  # YYYY-MM-DD
     drops = []
@@ -1170,15 +1171,17 @@ def _load_price_drops():
                     old_p = entry.get('old_price', 0)
                     new_p = entry.get('new_price', 0)
                     if old_p > 0 and new_p > 0 and new_p < old_p:
-                        diff = new_p - old_p
-                        pct = round(diff / old_p * 100, 1)
-                        entry['diff'] = diff
+                        pct = round((new_p - old_p) / old_p * 100, 1)
+                        # 異常値除外: 50%以上の値下がりはデータエラーの可能性
+                        if pct < -50:
+                            continue
+                        entry['diff'] = new_p - old_p
                         entry['pct'] = pct
                         drops.append(entry)
                 except Exception:
                     pass
     drops.sort(key=lambda x: x.get('diff', 0))  # 最大値下がり順
-    return drops[:50], latest_date if drops else ([], '')
+    return (drops[:50], latest_date) if drops else ([], '')
 
 
 def _load_bto_for_demand(demand_level):
