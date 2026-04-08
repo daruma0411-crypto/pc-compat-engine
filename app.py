@@ -1845,6 +1845,13 @@ def health():
 _INDEXNOW_KEY = '3f264e2600904952b0efaa0c0651442e'
 
 
+@app.route(f'/{_INDEXNOW_KEY}.txt')
+@app.route(f'/static/{_INDEXNOW_KEY}.txt')
+def indexnow_key_file():
+    """IndexNowキー検証ファイル"""
+    return _INDEXNOW_KEY, 200, {'Content-Type': 'text/plain'}
+
+
 def _submit_indexnow(urls):
     """IndexNow APIにURL群を送信（Bing/Yandex/Naver対応）"""
     import urllib.request
