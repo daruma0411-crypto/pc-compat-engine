@@ -1571,6 +1571,52 @@ def health():
     })
 
 
+def _log_chat(session_id, message, ai_message, session, tool_logs):
+    """チャット履歴を永続化（PDCA分析用）"""
+    try:
+        import datetime
+        log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+        os.makedirs(log_dir, exist_ok=True)
+        log_path = os.path.join(log_dir, 'chat_log.jsonl')
+        # 確定済みパーツの抽出
+        confirmed = {}
+        build = session.get('current_build', {})
+        for cat in ('gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu', 'cooler'):
+            part = build.get(cat)
+            if part and part.get('name'):
+                confirmed[cat] = {
+                    'name': part['name'],
+                    'price': part.get('price_min'),
+                }
+        # ツール呼び出しサマリー
+        tools_summary = []
+        for tl in (tool_logs or []):
+            tools_summary.append({
+                'tool': tl.get('tool', ''),
+                'params': {k: v for k, v in (tl.get('params') or {}).items()
+                           if k in ('category', 'query', 'budget_max', 'product_id')},
+                'result_count': tl.get('result_count', 0),
+            })
+        entry = {
+            'ts': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'sid': str(session_id)[:32],
+            'user': message[:500],
+            'ai': (ai_message or '')[:500],
+            'game': session.get('game_name', ''),
+            'budget': session.get('budget_yen'),
+            'use_case': session.get('use_case', ''),
+            'resolution': session.get('resolution', ''),
+            'confirmed': confirmed,
+            'tools': tools_summary[:10],
+            'turn': len(session.get('history', [])) // 2,
+            'ua': (request.headers.get('User-Agent') or '')[:100],
+        }
+        with open(log_path, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+    except Exception:
+        pass  # ログ保存失敗はサイレントに
+
+
 def _log_diagnosis(parts, verdict, summary, user_agent, referer):
     """診断ログを保存（ユーザー行動分析用）"""
     try:
@@ -5180,8 +5226,89 @@ def _build_chat_response(session, session_id, session_expired,
     response_data['_debug_tool_logs'] = tool_logs
     response_data['_code_version'] = 'v10-no-bto-leak'
 
+    # チャット履歴永続化（PDCA分析用）
+    _log_chat(session_id, message, ai_message, session, tool_logs)
+
     save_session(session_id)
     return response_data
+
+
+# ================================================================
+# チャットログ集計API（PDCA分析用）
+# ================================================================
+
+@app.route('/api/chat-analytics')
+def chat_analytics():
+    """チャットログの集計データを返す（管理者用）"""
+    log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs', 'chat_log.jsonl')
+    if not os.path.isfile(log_path):
+        return jsonify({'error': 'no logs yet', 'total': 0})
+    entries = []
+    with open(log_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    entries.append(json.loads(line))
+                except Exception:
+                    pass
+    # 集計
+    game_counts = {}
+    budget_dist = {'~10万': 0, '10-15万': 0, '15-20万': 0, '20-30万': 0, '30万~': 0, '未指定': 0}
+    use_case_counts = {}
+    sessions = set()
+    tool_counts = {}
+    gpu_confirmed = {}
+    hourly = {}
+    for e in entries:
+        # ゲーム名集計
+        gn = e.get('game', '')
+        if gn:
+            game_counts[gn] = game_counts.get(gn, 0) + 1
+        # 予算帯
+        b = e.get('budget')
+        if not b:
+            budget_dist['未指定'] += 1
+        elif b < 100000:
+            budget_dist['~10万'] += 1
+        elif b < 150000:
+            budget_dist['10-15万'] += 1
+        elif b < 200000:
+            budget_dist['15-20万'] += 1
+        elif b < 300000:
+            budget_dist['20-30万'] += 1
+        else:
+            budget_dist['30万~'] += 1
+        # 用途
+        uc = e.get('use_case', '') or '未指定'
+        use_case_counts[uc] = use_case_counts.get(uc, 0) + 1
+        # セッション数
+        sessions.add(e.get('sid', ''))
+        # ツール集計
+        for t in e.get('tools', []):
+            tn = t.get('tool', '')
+            tool_counts[tn] = tool_counts.get(tn, 0) + 1
+        # GPU確定集計
+        gpu = (e.get('confirmed') or {}).get('gpu', {}).get('name', '')
+        if gpu:
+            gpu_confirmed[gpu] = gpu_confirmed.get(gpu, 0) + 1
+        # 時間帯
+        ts = e.get('ts', '')
+        if len(ts) >= 13:
+            h = ts[11:13]
+            hourly[h] = hourly.get(h, 0) + 1
+    return jsonify({
+        'total_messages': len(entries),
+        'unique_sessions': len(sessions),
+        'avg_turns_per_session': round(len(entries) / max(len(sessions), 1), 1),
+        'top_games': sorted(game_counts.items(), key=lambda x: -x[1])[:20],
+        'budget_distribution': budget_dist,
+        'use_case': sorted(use_case_counts.items(), key=lambda x: -x[1]),
+        'top_gpu_confirmed': sorted(gpu_confirmed.items(), key=lambda x: -x[1])[:15],
+        'tool_usage': sorted(tool_counts.items(), key=lambda x: -x[1]),
+        'hourly_distribution': dict(sorted(hourly.items())),
+        'recent_questions': [e.get('user', '')[:100] for e in entries[-20:]],
+    })
 
 
 # ================================================================
