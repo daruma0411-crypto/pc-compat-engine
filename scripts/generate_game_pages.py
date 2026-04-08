@@ -1084,9 +1084,7 @@ def generate_page(game, all_games=None, popular_games=None):
   {generate_breadcrumb_schema(name, slug)}
   </script>
 
-  <style>
-{generate_page_css()}
-  </style>
+  <link rel="stylesheet" href="/static/game-page.css">
 </head>
 <body>
 
