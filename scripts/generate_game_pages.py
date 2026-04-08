@@ -1044,11 +1044,17 @@ def generate_page(game, all_games=None, popular_games=None):
     faq_schema = generate_faq_schema(name, rec_gpu, min_gpu, rec_cpu, rec_ram)
     video_game_schema = generate_structured_data(game, slug)
 
+    # metacritic_score による noindex 判定
+    metacritic_score = game.get('metacritic_score', 0) or 0
+    noindex_tag = ''
+    if metacritic_score < 80:
+        noindex_tag = '\n  <meta name="robots" content="noindex, follow">'
+
     html = f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">{noindex_tag}
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>

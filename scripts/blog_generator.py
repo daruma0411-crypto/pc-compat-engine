@@ -577,10 +577,10 @@ def validate_content(content):
     """生成コンテンツのバリデーション（Phase 1-2）"""
     issues = []
 
-    # 最低800文字チェック
+    # 最低2000文字チェック（目標5,000〜8,000文字）
     text_only = re.sub(r'<[^>]+>', '', content)
-    if len(text_only) < 800:
-        issues.append(f"文字数不足: {len(text_only)}文字（最低800文字）")
+    if len(text_only) < 2000:
+        issues.append(f"文字数不足: {len(text_only)}文字（最低2000文字）")
 
     # HTMLタグ開閉チェック
     for tag in ['h2', 'p', 'ol', 'ul', 'table']:
@@ -623,8 +623,8 @@ def generate_blog_post(template, variables, dry_run=False):
         from anthropic import Anthropic
         client = Anthropic(api_key=ANTHROPIC_API_KEY)
 
-        # 1回目: 4096トークン
-        max_tokens = 4096
+        # 1回目: 6144トークン（5,000〜8,000文字記事対応）
+        max_tokens = 6144
         for attempt in range(2):
             message = client.messages.create(
                 model="claude-opus-4-6",
@@ -641,11 +641,11 @@ def generate_blog_post(template, variables, dry_run=False):
             # 途中切れチェック（Phase 1-2）
             if message.stop_reason == 'max_tokens':
                 if attempt == 0:
-                    print(f"  [WARN] 途中切れ検出（{max_tokens}トークン） → 6144でリトライ")
-                    max_tokens = 6144
+                    print(f"  [WARN] 途中切れ検出（{max_tokens}トークン） → 8192でリトライ")
+                    max_tokens = 8192
                     continue
                 else:
-                    print(f"  [ERROR] 6144トークンでも途中切れ → スキップ")
+                    print(f"  [ERROR] 8192トークンでも途中切れ → スキップ")
                     return None, None, None
 
             # バリデーション
@@ -653,10 +653,10 @@ def generate_blog_post(template, variables, dry_run=False):
             for issue in issues:
                 print(f"  [VALIDATE] {issue}")
 
-            # 文字数不足でスキップ
+            # 文字数不足でスキップ（目標5,000〜8,000文字）
             text_only = re.sub(r'<[^>]+>', '', content)
-            if len(text_only) < 800:
-                print(f"  [SKIP] 文字数不足: {len(text_only)}文字")
+            if len(text_only) < 2000:
+                print(f"  [SKIP] 文字数不足: {len(text_only)}文字（最低2000文字）")
                 return None, None, None
 
             return title, content, keywords
