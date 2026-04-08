@@ -939,7 +939,62 @@ def game_page(game_name):
         (display_name, f'/game/{game_name}'),
     ])
     html = _inject_internal_links(html, 'game', game_name)
+    # BTO キャンペーンバナー注入
+    html = _inject_bto_banner(html, game_data)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+def _inject_bto_banner(html, game_data):
+    """ゲームの要求度に応じたBTOバナーを注入"""
+    try:
+        if not game_data:
+            return html
+        rec = game_data.get('specs', {}).get('recommended', {})
+        rec_gpu = ' '.join(rec.get('gpu', [])) if isinstance(rec.get('gpu'), list) else str(rec.get('gpu', ''))
+        rec_ram = rec.get('ram_gb', 8)
+        # 簡易要求度判定
+        demand = 'mid'
+        rec_lower = rec_gpu.lower()
+        for kw, lvl in [('5080', 'ultra'), ('5090', 'ultra'), ('4080', 'heavy'), ('4070', 'heavy'),
+                         ('3060', 'light_mid'), ('1660', 'light'), ('1060', 'light'), ('1050', 'light')]:
+            if kw in rec_lower:
+                demand = lvl
+                break
+        try:
+            if int(rec_ram) >= 32:
+                demand = 'heavy' if demand in ('mid', 'light_mid', 'light') else demand
+        except (ValueError, TypeError):
+            pass
+        btos = _load_bto_for_demand(demand)
+        if not btos:
+            return html
+        cards = ''
+        for bto in btos[:2]:
+            name = f"{bto.get('maker','')} {bto.get('series','')} {bto.get('model','')}"
+            gpu = bto.get('specs', {}).get('gpu', {}).get('name', '')
+            cpu = bto.get('specs', {}).get('cpu', {}).get('name', '')
+            ram = bto.get('specs', {}).get('ram', {}).get('capacity_gb', '')
+            price = bto.get('price_jpy', 0)
+            url = bto.get('affiliate', {}).get('url', '') or bto.get('url', '')
+            cards += f'''<div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:14px;flex:1;min-width:250px;">
+              <p style="font-weight:700;color:#e2e8f0;margin:0 0 6px;font-size:.95rem;">{name}</p>
+              <p style="color:#94a3b8;margin:0;font-size:.85rem;">{gpu} / {cpu} / {ram}GB</p>
+              <p style="color:#22d3ee;font-weight:700;font-size:1.1rem;margin:8px 0;">¥{price:,}</p>
+              <a href="{url}" target="_blank" rel="noopener" style="display:inline-block;background:#f59e0b;color:#000;padding:6px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.85rem;">詳しく見る →</a>
+            </div>'''
+        banner = f'''<div style="margin:24px 0;padding:20px;background:#0f172a;border:2px solid #f59e0b;border-radius:12px;">
+          <p style="color:#f59e0b;font-weight:700;font-size:1rem;margin:0 0 4px;">🔥 このゲームが快適に動くBTO PC</p>
+          <p style="color:#94a3b8;font-size:.8rem;margin:0 0 12px;">自作が不安な方はBTO（完成品）もおすすめ</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">{cards}</div>
+        </div>'''
+        # CTA セクションの前に挿入
+        if '今すぐ相談する' in html:
+            html = html.replace('🖥️', banner + '\n🖥️', 1)
+        elif '</body>' in html:
+            html = html.replace('</body>', banner + '</body>', 1)
+    except Exception:
+        pass
+    return html
 
 
 @app.route('/article/<article_name>')
@@ -1080,6 +1135,216 @@ h1 {{ color: #1a1a1a; font-size: 1.5rem; margin-bottom: 4px; }}
   <a href="/privacy.html">プライバシーポリシー</a>
   <p>&copy; 2026 PC互換チェッカー</p>
 </footer>
+</body>
+</html>'''
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+# ================================================================
+# 価格ウォッチページ
+# ================================================================
+
+def _load_price_drops():
+    """diff_logsから最新の値下がりデータを取得"""
+    diff_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace', 'data', 'diff_logs')
+    if not os.path.isdir(diff_dir):
+        return []
+    # 最新日付のファイルを探す
+    files = sorted([f for f in os.listdir(diff_dir) if f.endswith('.jsonl')], reverse=True)
+    if not files:
+        return []
+    # 最新日付のカテゴリ別ファイルを全て読む
+    latest_date = files[0][:10]  # YYYY-MM-DD
+    drops = []
+    for f in files:
+        if not f.startswith(latest_date):
+            break
+        fpath = os.path.join(diff_dir, f)
+        with open(fpath, 'r', encoding='utf-8') as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entry = json.loads(line)
+                    old_p = entry.get('old_price', 0)
+                    new_p = entry.get('new_price', 0)
+                    if old_p > 0 and new_p > 0 and new_p < old_p:
+                        diff = new_p - old_p
+                        pct = round(diff / old_p * 100, 1)
+                        entry['diff'] = diff
+                        entry['pct'] = pct
+                        drops.append(entry)
+                except Exception:
+                    pass
+    drops.sort(key=lambda x: x.get('diff', 0))  # 最大値下がり順
+    return drops[:50], latest_date if drops else ([], '')
+
+
+def _load_bto_for_demand(demand_level):
+    """要求度に応じたBTO製品を返す"""
+    bto_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace', 'data', 'bto', 'products.jsonl')
+    if not os.path.isfile(bto_path):
+        return []
+    gpu_tiers = {
+        'light': ['GTX 1660', 'RTX 3050', 'RTX 3060', 'RTX 4060'],
+        'light_mid': ['RTX 3060', 'RTX 4060', 'RTX 4060 Ti'],
+        'mid': ['RTX 4060', 'RTX 4060 Ti', 'RTX 4070', 'RTX 5060'],
+        'heavy': ['RTX 4070', 'RTX 4070 Ti', 'RTX 4080', 'RTX 5070'],
+        'ultra': ['RTX 4080', 'RTX 4090', 'RTX 5070', 'RTX 5080', 'RTX 5090'],
+    }
+    target_gpus = gpu_tiers.get(demand_level, gpu_tiers['mid'])
+    matched = []
+    with open(bto_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            if not line.strip():
+                continue
+            try:
+                bto = json.loads(line)
+                gpu_name = bto.get('specs', {}).get('gpu', {}).get('name', '')
+                if any(t.lower() in gpu_name.lower() for t in target_gpus):
+                    url = bto.get('affiliate', {}).get('url', '') or bto.get('url', '')
+                    if url:
+                        matched.append(bto)
+            except Exception:
+                pass
+    matched.sort(key=lambda x: x.get('price_jpy', 999999))
+    return matched[:3]
+
+
+@app.route('/prices')
+def price_watch():
+    """価格ウォッチページ - 今週の値下がりTOP"""
+    result = _load_price_drops()
+    drops, latest_date = result if isinstance(result, tuple) else (result, '')
+    ga_id = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+
+    cat_labels = {'gpu': 'GPU', 'cpu': 'CPU', 'ram': 'メモリ', 'mb': 'マザーボード',
+                  'case': 'ケース', 'cooler': 'クーラー', 'psu': '電源'}
+    # カテゴリ別に分類
+    by_cat = {}
+    for d in drops:
+        cat = d.get('category', 'other')
+        by_cat.setdefault(cat, []).append(d)
+
+    sections_html = ''
+    for cat in ['gpu', 'cpu', 'ram', 'mb', 'case', 'psu', 'cooler']:
+        items = by_cat.get(cat, [])[:10]
+        if not items:
+            continue
+        rows = ''
+        for item in items:
+            name = item.get('name', '')[:60]
+            q = urllib.parse.quote(name[:40])
+            amz_url = f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+            rows += f'''<tr>
+              <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{item.get("name","")}">{name}</td>
+              <td style="text-decoration:line-through;color:#999;">¥{item.get("old_price",0):,}</td>
+              <td style="color:#22c55e;font-weight:700;">¥{item.get("new_price",0):,}</td>
+              <td style="color:#ef4444;font-weight:700;">{item.get("pct",0)}%</td>
+              <td><a href="{amz_url}" target="_blank" rel="noopener" style="background:#FF9900;color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:.8rem;">Amazon</a></td>
+              <td><button onclick="toggleWatch(this,'{item.get("id","")}')" class="watch-btn" data-id="{item.get("id","")}">+</button></td>
+            </tr>'''
+        sections_html += f'''
+        <h2 style="margin-top:28px;color:#60a5fa;">{cat_labels.get(cat, cat)}</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;">
+          <tr style="background:#1e293b;"><th>製品名</th><th>旧価格</th><th>新価格</th><th>変動</th><th>購入</th><th>Watch</th></tr>
+          {rows}
+        </table>'''
+
+    html = f'''<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCパーツ価格ウォッチ - 今週の値下がり速報 | pc-jisaku.com</title>
+<meta name="description" content="14,000件のPCパーツ価格を毎週更新。GPU・CPU・メモリの値下がり速報とウォッチリスト機能。">
+<link rel="canonical" href="{_BASE_URL}/prices">
+<script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{ga_id}');</script>
+<style>
+* {{ box-sizing: border-box; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 0; }}
+.container {{ max-width: 960px; margin: 0 auto; padding: 20px; }}
+.site-nav {{ background: #1a1a1a; padding: 10px 16px; display: flex; align-items: center; gap: 16px; }}
+.site-nav a {{ color: #60a5fa; text-decoration: none; font-weight: 600; }}
+h1 {{ font-size: 1.8rem; color: #60a5fa; margin: 20px 0 8px; }}
+h2 {{ font-size: 1.3rem; }}
+table {{ border: 1px solid #334155; }}
+th, td {{ border: 1px solid #334155; padding: 6px 10px; text-align: left; }}
+th {{ background: #1e293b; color: #94a3b8; }}
+.watch-btn {{ background: #334155; color: #60a5fa; border: 1px solid #475569; padding: 4px 10px; border-radius: 4px; cursor: pointer; }}
+.watch-btn.active {{ background: #22c55e; color: #fff; border-color: #22c55e; }}
+.watchlist {{ background: #1e293b; border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid #334155; }}
+.cta {{ display: inline-block; background: #2563eb; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; margin: 12px 0; }}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/">PC互換チェッカー</a>
+  <a href="/blog/">ブログ</a>
+  <a href="/prices" style="color:#22d3ee;">価格ウォッチ</a>
+</nav>
+<div class="container">
+  <h1>PCパーツ価格ウォッチ</h1>
+  <p>14,000件のPCパーツ価格を毎週更新中。最終更新: {latest_date}</p>
+
+  <div class="watchlist" id="watchlist-area" style="display:none;">
+    <h3 style="color:#22d3ee;margin:0 0 8px;">⭐ マイウォッチリスト</h3>
+    <div id="watchlist-items"></div>
+    <p style="font-size:.8rem;color:#64748b;margin:8px 0 0;">ブラウザに保存されます（ログイン不要）</p>
+  </div>
+
+  {sections_html}
+
+  <div style="text-align:center; margin:40px 0;">
+    <p style="color:#94a3b8;">パーツ選びに迷ったら</p>
+    <a href="/" class="cta">AIショップ店員に相談する →</a>
+  </div>
+
+  <p style="text-align:center;color:#475569;font-size:.8rem;margin:20px 0;">&copy; 2026 pc-jisaku.com | 価格は価格.com調べ（税込）</p>
+</div>
+
+<script>
+var WL_KEY = 'pccompat_watchlist';
+function getWL() {{ try {{ return JSON.parse(localStorage.getItem(WL_KEY)) || []; }} catch(e) {{ return []; }} }}
+function saveWL(wl) {{ localStorage.setItem(WL_KEY, JSON.stringify(wl)); }}
+
+function toggleWatch(btn, id) {{
+  var wl = getWL();
+  var idx = wl.indexOf(id);
+  if (idx >= 0) {{
+    wl.splice(idx, 1);
+    btn.textContent = '+';
+    btn.classList.remove('active');
+  }} else {{
+    wl.push(id);
+    btn.textContent = '\\u2713';
+    btn.classList.add('active');
+    if (typeof gtag === 'function') gtag('event', 'add_to_watchlist', {{ item_id: id }});
+  }}
+  saveWL(wl);
+  renderWatchlist();
+}}
+
+function renderWatchlist() {{
+  var wl = getWL();
+  var area = document.getElementById('watchlist-area');
+  var items = document.getElementById('watchlist-items');
+  if (wl.length === 0) {{ area.style.display = 'none'; return; }}
+  area.style.display = 'block';
+  // Mark buttons
+  document.querySelectorAll('.watch-btn').forEach(function(btn) {{
+    if (wl.indexOf(btn.dataset.id) >= 0) {{
+      btn.textContent = '\\u2713';
+      btn.classList.add('active');
+    }}
+  }});
+  items.innerHTML = '<p style="color:#94a3b8;font-size:.9rem;">' + wl.length + '件のパーツをウォッチ中。毎週このページで最新価格を確認できます。</p>';
+}}
+renderWatchlist();
+</script>
 </body>
 </html>'''
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
