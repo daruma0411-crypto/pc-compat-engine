@@ -1148,26 +1148,13 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     }
   }
   
-  // チャット内に画像生成ボタンを挿入
+  // 全パーツ確定時に自動で画像生成を開始
   function appendImageGenButton() {
-    const wrap = mkEl('div', 'msg ai');
-    const inner = mkEl('div');
-    const bubble = mkEl('div', 'msg-bubble');
-    bubble.style.textAlign = 'center';
-    bubble.style.padding = '20px';
-    bubble.innerHTML =
-      '<p style="margin:0 0 12px;font-size:1rem;color:#94a3b8;">構成が完成しました！完成イメージを生成できます</p>' +
-      '<button id="btn-gen-img-chat" onclick="generateImage(this)" ' +
-      'style="display:inline-block;padding:14px 32px;font-size:1.1rem;font-weight:700;' +
-      'color:#fff;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:12px;' +
-      'cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(99,102,241,.4);"' +
-      ' onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">' +
-      '🖼️ 完成イメージを生成する</button>';
-    inner.appendChild(bubble);
-    wrap.innerHTML = '<div class="msg-avatar">🤖</div>';
-    wrap.appendChild(inner);
-    chat().appendChild(wrap);
+    // ローディング表示
+    appendAIBubble('🎨 構成が完成しました！完成イメージを生成しています...<br><span style="color:#94a3b8;font-size:.85rem;">30秒ほどお待ちください</span>');
     scrollBottom();
+    // 自動発火
+    generateImage(null);
   }
 
   // FLUX画像生成（チャット内ボタンから呼び出し）
@@ -1212,6 +1199,11 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       if (btn) btn.closest('.msg')?.remove();
 
       // チャット内に150%サイズで画像表示 + ダウンロードボタン
+      // シェア用テキスト・URL
+      var partsList = confirmedParts.map(function(p) { return p.name; }).join(' / ');
+      var shareText = 'AIショップ店員に選んでもらった自作PC構成！\n' + partsList + '\n#自作PC #pc自作';
+      var shareUrl = 'https://pc-jisaku.com/';
+
       const imgHtml =
         '<div style="text-align:center;">' +
         '<img src="' + escHtml(imgUrl) + '" alt="完成イメージ" ' +
@@ -1225,6 +1217,12 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
         'transition:transform .15s;" ' +
         'onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">' +
         '💾 画像をダウンロード</a>' +
+        '<div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">' +
+        '<a href="https://bsky.app/intent/compose?text=' + encodeURIComponent(shareText + '\n' + shareUrl) + '" target="_blank" rel="noopener" ' +
+        'style="display:inline-block;padding:8px 16px;background:#0085ff;color:#fff;border-radius:6px;text-decoration:none;font-size:.85rem;font-weight:600;">Blueskyでシェア</a>' +
+        '<button onclick="navigator.clipboard.writeText(\'' + escHtml(shareText + '\\n' + shareUrl) + '\').then(function(){this.textContent=\'✅ コピー済み\'}.bind(this))" ' +
+        'style="padding:8px 16px;background:#334155;color:#e2e8f0;border:1px solid #475569;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;">📋 構成をコピー</button>' +
+        '</div>' +
         '</div>';
       appendAIBubble('🖼️ あなたのPC、こんな感じに仕上がります！<br>' + imgHtml);
 
