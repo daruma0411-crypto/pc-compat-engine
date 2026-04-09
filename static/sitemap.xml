@@ -18,6 +18,13 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url><loc>https://pc-jisaku.com/build/8man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pc-jisaku.com/build/10man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pc-jisaku.com/build/12man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pc-jisaku.com/build/15man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pc-jisaku.com/build/20man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pc-jisaku.com/build/25man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pc-jisaku.com/build/30man</loc><lastmod>2026-04-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url>
     <loc>https://pc-jisaku.com/game/left-4-dead-2</loc>
     <lastmod>2026-04-08</lastmod>

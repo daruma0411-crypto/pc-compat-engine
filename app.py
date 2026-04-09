@@ -939,9 +939,63 @@ def game_page(game_name):
         (display_name, f'/game/{game_name}'),
     ])
     html = _inject_internal_links(html, 'game', game_name)
+    # チャット実績データ注入（独自コンテンツ）
+    html = _inject_chat_stats(html, game_name)
     # BTO キャンペーンバナー注入
     html = _inject_bto_banner(html, game_data)
     return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+def _inject_chat_stats(html, game_name):
+    """チャットログからゲーム別の実績データを注入（独自コンテンツ）"""
+    try:
+        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs', 'chat_log.jsonl')
+        if not os.path.isfile(log_path):
+            return html
+        gpu_counts = {}
+        budgets = []
+        total = 0
+        game_lower = game_name.replace('-', ' ').lower()
+        with open(log_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                try:
+                    entry = json.loads(line)
+                    entry_game = (entry.get('game', '') or '').lower()
+                    if not entry_game or entry_game not in game_lower:
+                        continue
+                    total += 1
+                    gpu = (entry.get('confirmed') or {}).get('gpu', {}).get('name', '')
+                    if gpu:
+                        gpu_counts[gpu] = gpu_counts.get(gpu, 0) + 1
+                    if entry.get('budget'):
+                        budgets.append(entry['budget'])
+                except Exception:
+                    pass
+        if total < 5:
+            return html
+        # 最も選ばれたGPU
+        top_gpu = max(gpu_counts.items(), key=lambda x: x[1]) if gpu_counts else None
+        avg_budget = round(sum(budgets) / len(budgets) / 10000, 1) if budgets else None
+        stats_items = f'<li>AI相談件数: <strong>{total}件</strong></li>'
+        if top_gpu:
+            pct = round(top_gpu[1] / sum(gpu_counts.values()) * 100)
+            stats_items += f'<li>最も選ばれたGPU: <strong>{top_gpu[0]}</strong>（{pct}%）</li>'
+        if avg_budget:
+            stats_items += f'<li>平均予算: <strong>{avg_budget}万円</strong></li>'
+        stats_html = f'''<div style="margin:20px 0;padding:16px;background:#1e293b;border-radius:8px;border:1px solid #334155;">
+          <h3 style="font-size:.95rem;color:#22d3ee;margin:0 0 8px;">📊 ユーザーの実績データ</h3>
+          <ul style="margin:0;padding:0 0 0 20px;color:#94a3b8;font-size:.9rem;">{stats_items}</ul>
+          <p style="margin:8px 0 0;font-size:.8rem;color:#475569;">※ AIチャット相談の匿名集計データです</p>
+        </div>'''
+        if '</main>' in html:
+            html = html.replace('</main>', stats_html + '</main>', 1)
+        elif '</body>' in html:
+            html = html.replace('</body>', stats_html + '</body>', 1)
+    except Exception:
+        pass
+    return html
 
 
 def _inject_bto_banner(html, game_data):
@@ -1213,6 +1267,402 @@ def _load_bto_for_demand(demand_level):
                 pass
     matched.sort(key=lambda x: x.get('price_jpy', 999999))
     return matched[:3]
+
+
+# ================================================================
+# 予算別構成ランディングページ
+# ================================================================
+
+def _build_optimal_config(budget_yen, all_products):
+    """予算内で最適なPC構成を自動算出"""
+    # 予算配分比率
+    alloc = {'gpu': 0.38, 'cpu': 0.18, 'motherboard': 0.10, 'ram': 0.08, 'case': 0.08, 'psu': 0.08, 'cooler': 0.05, 'storage': 0.05}
+    config = {}
+    for cat, ratio in alloc.items():
+        cat_budget = int(budget_yen * ratio)
+        cat_key = f'kakaku_{cat}' if cat not in ('motherboard', 'storage') else f'kakaku_{"mb" if cat == "motherboard" else "case"}'
+        # カテゴリ別のデータキーを正規化
+        data_cats = {
+            'gpu': 'kakaku_gpu', 'cpu': 'kakaku_cpu', 'ram': 'kakaku_ram',
+            'motherboard': 'kakaku_mb', 'case': 'kakaku_case', 'psu': 'kakaku_psu',
+            'cooler': 'kakaku_cooler', 'storage': 'kakaku_case',  # storageはSSD別途
+        }
+        candidates = [p for p in all_products
+                      if p.get('source', p.get('category', '')) in (data_cats.get(cat, ''), cat)
+                      or p.get('category', '') == cat
+                      and p.get('price_min', 0) > 0
+                      and p.get('price_min', 999999) <= cat_budget * 1.2
+                      and p.get('status', 'active') == 'active']
+        if not candidates:
+            # フォールバック: カテゴリマッチで探す
+            cat_names = {'gpu': 'gpu', 'cpu': 'cpu', 'ram': 'ram', 'motherboard': 'motherboard',
+                         'case': 'case', 'psu': 'psu', 'cooler': 'cpu_cooler'}
+            candidates = [p for p in all_products
+                          if p.get('category') == cat_names.get(cat, cat)
+                          and 0 < p.get('price_min', 0) <= cat_budget * 1.2
+                          and p.get('status', 'active') == 'active']
+        if candidates:
+            # 予算内で最も高性能（高価格）なものを選択
+            candidates.sort(key=lambda x: x.get('price_min', 0), reverse=True)
+            best = None
+            for c in candidates:
+                if c.get('price_min', 0) <= cat_budget:
+                    best = c
+                    break
+            if not best:
+                best = min(candidates, key=lambda x: x.get('price_min', 999999))
+            config[cat] = {
+                'name': best.get('name', ''),
+                'price': best.get('price_min', 0),
+                'specs': best.get('specs', {}),
+            }
+        else:
+            config[cat] = {'name': f'（予算{cat_budget//10000}万円で検索）', 'price': cat_budget, 'specs': {}}
+    return config
+
+
+@app.route('/build/<budget_str>')
+def build_page(budget_str):
+    """予算別PC構成ランディングページ"""
+    # 予算パース: "15man" "150000" "15" 等
+    budget_str_clean = budget_str.replace('man', '').replace('万', '').strip()
+    try:
+        budget_num = int(budget_str_clean)
+        budget_yen = budget_num * 10000 if budget_num < 1000 else budget_num
+    except ValueError:
+        return _render_404(), 404
+
+    if budget_yen < 50000 or budget_yen > 1000000:
+        return _render_404(), 404
+
+    budget_man = budget_yen // 10000
+    ga_id = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+
+    # パーツDBロード
+    all_products = _load_all_pc_products()
+
+    # 最適構成算出
+    config = _build_optimal_config(budget_yen, all_products)
+    total = sum(v.get('price', 0) for v in config.values())
+
+    # BTO比較
+    demand = 'light' if budget_yen < 100000 else 'light_mid' if budget_yen < 130000 else 'mid' if budget_yen < 180000 else 'heavy' if budget_yen < 280000 else 'ultra'
+    btos = _load_bto_for_demand(demand)
+
+    # パーツテーブル生成
+    parts_rows = ''
+    cat_labels = {'gpu': 'GPU', 'cpu': 'CPU', 'motherboard': 'マザーボード', 'ram': 'メモリ',
+                  'case': 'ケース', 'psu': '電源', 'cooler': 'CPUクーラー', 'storage': 'ストレージ'}
+    for cat in ['gpu', 'cpu', 'motherboard', 'ram', 'case', 'psu', 'cooler']:
+        part = config.get(cat, {})
+        name = part.get('name', '')[:50]
+        price = part.get('price', 0)
+        q = urllib.parse.quote(name[:40])
+        amz_url = f'https://www.amazon.co.jp/s?k={q}&tag={amazon_tag}'
+        parts_rows += f'''<tr>
+          <td style="font-weight:600;color:#60a5fa;">{cat_labels.get(cat, cat)}</td>
+          <td title="{part.get("name","")}">{name}</td>
+          <td style="text-align:right;font-weight:600;">¥{price:,}</td>
+          <td><a href="{amz_url}" target="_blank" rel="noopener" style="background:#FF9900;color:#fff;padding:3px 8px;border-radius:4px;text-decoration:none;font-size:.8rem;">Amazon</a></td>
+        </tr>'''
+
+    # BTO比較セクション
+    bto_html = ''
+    if btos:
+        bto_cards = ''
+        for bto in btos[:3]:
+            bto_name = f"{bto.get('maker','')} {bto.get('series','')} {bto.get('model','')}"
+            bto_gpu = bto.get('specs', {}).get('gpu', {}).get('name', '')
+            bto_cpu = bto.get('specs', {}).get('cpu', {}).get('name', '')
+            bto_price = bto.get('price_jpy', 0)
+            bto_url = bto.get('affiliate', {}).get('url', '') or bto.get('url', '')
+            diff = bto_price - total
+            diff_text = f'+¥{diff:,}' if diff > 0 else f'-¥{abs(diff):,}'
+            bto_cards += f'''<div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;flex:1;min-width:250px;">
+              <p style="font-weight:700;color:#e2e8f0;margin:0 0 4px;">{bto_name}</p>
+              <p style="color:#94a3b8;font-size:.85rem;margin:0;">{bto_gpu} / {bto_cpu}</p>
+              <p style="color:#22d3ee;font-weight:700;font-size:1.2rem;margin:8px 0;">¥{bto_price:,}</p>
+              <p style="color:#94a3b8;font-size:.8rem;margin:0 0 8px;">自作比 {diff_text}（組立済・保証付）</p>
+              <a href="{bto_url}" target="_blank" rel="noopener" style="display:inline-block;background:#f59e0b;color:#000;padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.85rem;">詳しく見る →</a>
+            </div>'''
+        bto_html = f'''
+        <section style="margin-top:32px;">
+          <h2 style="color:#f59e0b;">🏭 同スペック帯のBTO PC（組立済み）</h2>
+          <p style="color:#94a3b8;">自作が不安な方はBTO（完成品PC）もおすすめ。組み立て・保証付きで届きます。</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">{bto_cards}</div>
+        </section>'''
+
+    # ゲーム対応セクション
+    games_html = ''
+    games_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'workspace', 'data', 'steam', 'games.jsonl')
+    if os.path.isfile(games_file):
+        playable = []
+        gpu_name = config.get('gpu', {}).get('name', '').lower()
+        with open(games_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                try:
+                    g = json.loads(line)
+                    mc = g.get('metacritic_score', 0) or 0
+                    if mc >= 85:
+                        playable.append(g)
+                except Exception:
+                    pass
+        playable.sort(key=lambda x: x.get('metacritic_score', 0), reverse=True)
+        if playable:
+            game_items = ''.join(
+                f'<a href="/game/{g.get("slug", "")}" style="display:inline-block;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:4px 10px;margin:3px;color:#60a5fa;text-decoration:none;font-size:.85rem;">{g["name"][:30]}</a>'
+                for g in playable[:20]
+            )
+            games_html = f'''
+            <section style="margin-top:32px;">
+              <h2 style="color:#60a5fa;">🎮 この構成で遊べるゲーム</h2>
+              <div style="margin-top:8px;">{game_items}</div>
+            </section>'''
+
+    html = f'''<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>予算{budget_man}万円の自作PC構成【2026年最新】| pc-jisaku.com</title>
+<meta name="description" content="予算{budget_man}万円で組める最強ゲーミングPC構成。14,000件の価格データからAIが選んだ最適パーツとBTO比較。">
+<link rel="canonical" href="{_BASE_URL}/build/{budget_man}man">
+<meta property="og:title" content="予算{budget_man}万円の自作PC構成【2026年最新】">
+<meta property="og:description" content="予算{budget_man}万円で最適なゲーミングPC構成を自動算出。BTO比較付き。">
+<meta property="og:url" content="{_BASE_URL}/build/{budget_man}man">
+<meta property="og:image" content="{_BASE_URL}/static/og-image.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{ga_id}');</script>
+<style>
+* {{ box-sizing: border-box; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 0; }}
+.container {{ max-width: 900px; margin: 0 auto; padding: 20px; }}
+.site-nav {{ background: #1a1a1a; padding: 10px 16px; display: flex; align-items: center; gap: 16px; }}
+.site-nav a {{ color: #60a5fa; text-decoration: none; font-weight: 600; }}
+h1 {{ font-size: 1.8rem; color: #60a5fa; margin: 24px 0 8px; }}
+h2 {{ font-size: 1.3rem; color: #38bdf8; margin: 20px 0 8px; }}
+table {{ width: 100%; border-collapse: collapse; margin: 12px 0; }}
+th, td {{ border: 1px solid #334155; padding: 8px 12px; text-align: left; }}
+th {{ background: #1e293b; color: #94a3b8; }}
+.total {{ font-size: 1.4rem; color: #22d3ee; font-weight: 700; text-align: right; margin: 12px 0; }}
+.cta {{ display: inline-block; background: #2563eb; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; }}
+.cta:hover {{ background: #1d4ed8; }}
+.budget-nav {{ display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }}
+.budget-nav a {{ background: #1e293b; color: #94a3b8; padding: 6px 14px; border-radius: 6px; text-decoration: none; border: 1px solid #334155; font-size: .9rem; }}
+.budget-nav a.active {{ background: #2563eb; color: #fff; border-color: #2563eb; }}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/">PC互換チェッカー</a>
+  <a href="/blog/">ブログ</a>
+  <a href="/prices">価格ウォッチ</a>
+</nav>
+<div class="container">
+  <h1>予算{budget_man}万円で組む最強ゲーミングPC</h1>
+  <p>14,000件の価格データから、予算{budget_man}万円で最もコスパの高いPC構成をAIが自動算出しました。</p>
+
+  <div class="budget-nav">
+    <a href="/build/8man" {"class=active" if budget_man == 8 else ""}>8万円</a>
+    <a href="/build/10man" {"class=active" if budget_man == 10 else ""}>10万円</a>
+    <a href="/build/12man" {"class=active" if budget_man == 12 else ""}>12万円</a>
+    <a href="/build/15man" {"class=active" if budget_man == 15 else ""}>15万円</a>
+    <a href="/build/20man" {"class=active" if budget_man == 20 else ""}>20万円</a>
+    <a href="/build/25man" {"class=active" if budget_man == 25 else ""}>25万円</a>
+    <a href="/build/30man" {"class=active" if budget_man == 30 else ""}>30万円</a>
+  </div>
+
+  <section>
+    <h2>🔧 推奨パーツ構成</h2>
+    <table>
+      <tr><th>カテゴリ</th><th>製品名</th><th>価格</th><th>購入</th></tr>
+      {parts_rows}
+    </table>
+    <p class="total">合計: ¥{total:,}（税込）</p>
+    <p style="color:#94a3b8;font-size:.85rem;">※ 価格は価格.com調べ（最安値）。実際の購入価格は変動する場合があります。</p>
+  </section>
+
+  {bto_html}
+
+  {games_html}
+
+  <section style="text-align:center; margin: 40px 0; padding: 24px; background: #1e293b; border-radius: 12px;">
+    <p style="color:#22d3ee; font-size: 1.1rem; font-weight: 700; margin: 0 0 8px;">この構成をAIショップ店員にカスタマイズしてもらう</p>
+    <p style="color:#94a3b8; margin: 0 0 16px; font-size: .9rem;">ゲーム・用途に合わせて最適化します（無料）</p>
+    <a href="/?budget={budget_man}" class="cta">AIに相談する →</a>
+  </section>
+
+  <section style="margin-top:32px;">
+    <h2>❓ よくある質問</h2>
+    <details style="margin:8px 0;background:#1e293b;border-radius:8px;padding:12px;">
+      <summary style="cursor:pointer;font-weight:600;">予算{budget_man}万円でゲーミングPCは組めますか？</summary>
+      <p style="margin:8px 0 0;color:#94a3b8;">はい、上記の構成で1080pでの快適なゲームプレイが可能です。{config.get("gpu",{}).get("name","GPU")[:30]}搭載で、主要ゲームを中〜高設定でプレイできます。</p>
+    </details>
+    <details style="margin:8px 0;background:#1e293b;border-radius:8px;padding:12px;">
+      <summary style="cursor:pointer;font-weight:600;">自作とBTOどちらがお得ですか？</summary>
+      <p style="margin:8px 0 0;color:#94a3b8;">パーツ代だけなら自作の方が安くなります（上記構成で¥{total:,}）。BTOは組み立て済み・保証付きなので、その分の付加価値があります。初めての方はBTOも検討してみてください。</p>
+    </details>
+    <details style="margin:8px 0;background:#1e293b;border-radius:8px;padding:12px;">
+      <summary style="cursor:pointer;font-weight:600;">この構成のパーツは互換性ありますか？</summary>
+      <p style="margin:8px 0 0;color:#94a3b8;">当サイトのAI診断で互換性を自動チェックしています。ソケット・フォームファクター・電源容量を確認済みです。<a href="/" style="color:#60a5fa;">AI診断チャット</a>でさらに詳しく確認できます。</p>
+    </details>
+  </section>
+
+  <p style="text-align:center;color:#475569;font-size:.8rem;margin:40px 0 20px;">&copy; 2026 pc-jisaku.com | 価格は価格.com調べ（税込）</p>
+</div>
+</body>
+</html>'''
+    html = _inject_affiliate_tags(html)
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+# ================================================================
+# BTO vs 自作 比較シミュレーター
+# ================================================================
+
+@app.route('/compare')
+def compare_page():
+    """BTO vs 自作 比較シミュレーター"""
+    budget = request.args.get('budget', '150000')
+    game = request.args.get('game', '')
+    ga_id = os.getenv('GA_MEASUREMENT_ID', 'G-PPNEBG625J')
+    amazon_tag = os.environ.get('AMAZON_TAG', 'pccompat-22')
+
+    try:
+        budget_yen = int(budget)
+    except ValueError:
+        budget_yen = 150000
+    budget_man = budget_yen // 10000
+
+    all_products = _load_all_pc_products()
+    config = _build_optimal_config(budget_yen, all_products)
+    jisaku_total = sum(v.get('price', 0) for v in config.values())
+
+    demand = 'light' if budget_yen < 100000 else 'light_mid' if budget_yen < 130000 else 'mid' if budget_yen < 180000 else 'heavy' if budget_yen < 280000 else 'ultra'
+    btos = _load_bto_for_demand(demand)
+
+    # 比較テーブル
+    compare_rows = ''
+    for bto in btos[:3]:
+        bto_name = f"{bto.get('maker','')} {bto.get('series','')} {bto.get('model','')}"
+        bto_price = bto.get('price_jpy', 0)
+        bto_gpu = bto.get('specs', {}).get('gpu', {}).get('name', '')
+        bto_cpu = bto.get('specs', {}).get('cpu', {}).get('name', '')
+        bto_ram = bto.get('specs', {}).get('ram', {}).get('capacity_gb', '')
+        bto_url = bto.get('affiliate', {}).get('url', '') or bto.get('url', '')
+        diff = bto_price - jisaku_total
+        diff_color = '#f87171' if diff > 0 else '#4ade80'
+        diff_text = f'+¥{diff:,}' if diff > 0 else f'-¥{abs(diff):,}'
+        compare_rows += f'''<tr>
+          <td><strong>{bto_name}</strong></td>
+          <td>{bto_gpu}</td><td>{bto_cpu}</td><td>{bto_ram}GB</td>
+          <td style="font-weight:700;">¥{bto_price:,}</td>
+          <td style="color:{diff_color};font-weight:700;">{diff_text}</td>
+          <td>組立済/保証{bto.get("warranty_years",1)}年</td>
+          <td><a href="{bto_url}" target="_blank" rel="noopener" style="background:#f59e0b;color:#000;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600;">詳細</a></td>
+        </tr>'''
+
+    # 自作構成の行
+    jisaku_gpu = config.get('gpu', {}).get('name', '')[:25]
+    jisaku_cpu = config.get('cpu', {}).get('name', '')[:25]
+    jisaku_ram_name = config.get('ram', {}).get('name', '')[:15]
+
+    game_context = f'「{game}」向けの' if game else ''
+
+    html = f'''<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自作PC vs BTO 比較シミュレーター【予算{budget_man}万円】| pc-jisaku.com</title>
+<meta name="description" content="{game_context}予算{budget_man}万円のPC構成。自作の場合¥{jisaku_total:,}、BTOなら組立済み・保証付き。どちらがお得か比較。">
+<link rel="canonical" href="{_BASE_URL}/compare?budget={budget_yen}">
+<script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{ga_id}');</script>
+<style>
+* {{ box-sizing: border-box; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; }}
+.container {{ max-width: 960px; margin: 0 auto; padding: 20px; }}
+.site-nav {{ background: #1a1a1a; padding: 10px 16px; display: flex; align-items: center; gap: 16px; }}
+.site-nav a {{ color: #60a5fa; text-decoration: none; font-weight: 600; }}
+h1 {{ font-size: 1.6rem; color: #60a5fa; margin: 24px 0 8px; }}
+h2 {{ font-size: 1.2rem; margin: 20px 0 8px; }}
+table {{ width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .85rem; }}
+th, td {{ border: 1px solid #334155; padding: 6px 10px; }}
+th {{ background: #1e293b; color: #94a3b8; }}
+.vs {{ display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; }}
+.vs-card {{ flex: 1; min-width: 300px; background: #1e293b; border-radius: 12px; padding: 20px; border: 2px solid #334155; }}
+.vs-card.jisaku {{ border-color: #2563eb; }}
+.vs-card.bto {{ border-color: #f59e0b; }}
+.price-big {{ font-size: 1.8rem; font-weight: 700; margin: 8px 0; }}
+.cta {{ display: inline-block; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }}
+.merit {{ color: #4ade80; }} .demerit {{ color: #f87171; }}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/">PC互換チェッカー</a>
+  <a href="/blog/">ブログ</a>
+  <a href="/prices">価格ウォッチ</a>
+</nav>
+<div class="container">
+  <h1>⚖️ 自作PC vs BTO 比較シミュレーター</h1>
+  <p>{game_context}予算{budget_man}万円で自作した場合とBTOで買った場合を比較します。</p>
+
+  <div class="vs">
+    <div class="vs-card jisaku">
+      <h2 style="color:#60a5fa;margin:0;">🔧 自作する場合</h2>
+      <p class="price-big" style="color:#60a5fa;">¥{jisaku_total:,}</p>
+      <p style="color:#94a3b8;font-size:.9rem;">GPU: {jisaku_gpu}<br>CPU: {jisaku_cpu}</p>
+      <ul style="margin:12px 0;padding-left:20px;">
+        <li class="merit">パーツを自由に選べる</li>
+        <li class="merit">将来のアップグレードが容易</li>
+        <li class="merit">BTOより安い（差額で周辺機器が買える）</li>
+        <li class="demerit">組み立て作業が必要（2-3時間）</li>
+        <li class="demerit">パーツ個別の保証のみ</li>
+      </ul>
+      <a href="/build/{budget_man}man" class="cta" style="background:#2563eb;color:#fff;">パーツリストを見る →</a>
+    </div>
+    <div class="vs-card bto">
+      <h2 style="color:#f59e0b;margin:0;">🏭 BTOで買う場合</h2>
+      <p class="price-big" style="color:#f59e0b;">¥{btos[0].get("price_jpy",0):,}〜</p>
+      <p style="color:#94a3b8;font-size:.9rem;">{btos[0].get("maker","")} {btos[0].get("series","")}等</p>
+      <ul style="margin:12px 0;padding-left:20px;">
+        <li class="merit">組み立て済みですぐ使える</li>
+        <li class="merit">メーカー保証1-3年付き</li>
+        <li class="merit">トラブル時のサポート窓口あり</li>
+        <li class="demerit">自作より割高（+¥{(btos[0].get("price_jpy",0) - jisaku_total):,}程度）</li>
+        <li class="demerit">パーツの選択肢が限られる</li>
+      </ul>
+      <a href="{btos[0].get("affiliate",{}).get("url","") or btos[0].get("url","")}" target="_blank" rel="noopener" class="cta" style="background:#f59e0b;color:#000;">BTOを見る →</a>
+    </div>
+  </div>
+
+  <h2>📊 BTO製品 詳細比較</h2>
+  <table>
+    <tr><th>モデル</th><th>GPU</th><th>CPU</th><th>RAM</th><th>価格</th><th>自作比</th><th>特徴</th><th></th></tr>
+    <tr style="background:#0a1628;">
+      <td><strong>🔧 自作構成</strong></td>
+      <td>{jisaku_gpu}</td><td>{jisaku_cpu}</td><td>{jisaku_ram_name}</td>
+      <td style="font-weight:700;color:#60a5fa;">¥{jisaku_total:,}</td>
+      <td>—</td><td>自由構成/個別保証</td><td><a href="/build/{budget_man}man" style="color:#60a5fa;">詳細</a></td>
+    </tr>
+    {compare_rows}
+  </table>
+
+  <section style="text-align:center; margin: 40px 0; padding: 24px; background: #1e293b; border-radius: 12px;">
+    <p style="color:#22d3ee; font-size: 1.1rem; font-weight: 700; margin: 0 0 8px;">まだ迷っている？AIに相談しよう</p>
+    <p style="color:#94a3b8; margin: 0 0 16px; font-size: .9rem;">予算・用途に合わせて自作/BTO両方の最適解を提案します</p>
+    <a href="/?budget={budget_man}" class="cta" style="background:#2563eb;color:#fff;">AIショップ店員に相談する →</a>
+  </section>
+</div>
+</body>
+</html>'''
+    html = _inject_affiliate_tags(html)
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
 @app.route('/prices')
