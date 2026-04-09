@@ -1242,7 +1242,6 @@ function toggleFavorite() {{
 }}
 updateFavBtn();
 </script>
-<script src="{SITE_URL}/static/bounce-prevention.js"></script>
 </body>
 </html>"""
 
