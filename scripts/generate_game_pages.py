@@ -1044,11 +1044,9 @@ def generate_page(game, all_games=None, popular_games=None):
     faq_schema = generate_faq_schema(name, rec_gpu, min_gpu, rec_cpu, rec_ram)
     video_game_schema = generate_structured_data(game, slug)
 
-    # metacritic_score による noindex 判定
-    metacritic_score = game.get('metacritic_score', 0) or 0
+    # noindex 廃止: 全ゲームページをインデックス対象に（2026-04-14）
+    # metacriticスコアなし(449件)が全部noindexになっていたためSEO壊滅 → 撤廃
     noindex_tag = ''
-    if metacritic_score < 80:
-        noindex_tag = '\n  <meta name="robots" content="noindex, follow">'
 
     html = f"""<!DOCTYPE html>
 <html lang="ja">

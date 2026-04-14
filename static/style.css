@@ -1296,6 +1296,52 @@ header {
 }
 
 /* ================================================================
+   ゲームクイックアクセスバー (ヘッダー下の横スクロールタグ一覧)
+   ================================================================ */
+.game-quick-bar {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--c-border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+.game-quick-label {
+  font-size: 12px;
+  color: var(--c-sub);
+  white-space: nowrap;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.game-quick-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+.game-quick-scroll::-webkit-scrollbar { display: none; }
+.game-quick-tag {
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  color: var(--c-text);
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.game-quick-tag:hover {
+  background: var(--c-primary);
+  color: #fff;
+  border-color: var(--c-primary);
+}
+
+/* ================================================================
    直帰率対策: Discovery Bar (サイドバー代替 - 横3カラム)
    ================================================================ */
 .discovery-bar {
