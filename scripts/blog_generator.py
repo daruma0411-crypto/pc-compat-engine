@@ -493,7 +493,7 @@ def generate_article_html(title, content, keywords, template_id='', filename='',
 <meta property="og:image" content="{SITE_URL}/static/og-image.png">
 <meta property="og:site_name" content="PC互換チェッカー">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@syoyutarou">
+<meta name="twitter:site" content="@pc_compat">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:image" content="{SITE_URL}/static/og-image.png">
 <script type="application/ld+json">{schema_json}</script>

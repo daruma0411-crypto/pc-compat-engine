@@ -42,7 +42,7 @@ def main():
     bearer = urllib.parse.unquote(os.environ.get('TWITTER_BEARER_TOKEN', ''))
     client = tweepy.Client(bearer_token=bearer)
     
-    me = client.get_user(username='syoyutarou')
+    me = client.get_user(username='pc_compat')
     followers = client.get_users_followers(
         me.data.id, max_results=100,
         user_fields=['username', 'name', 'public_metrics']

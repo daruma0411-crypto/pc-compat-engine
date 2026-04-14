@@ -26,7 +26,7 @@ GPU_GAME_LIST_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:url" content="{site_url}/article/games-for-{gpu_slug}">
 <meta property="og:image" content="{site_url}/static/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@syoyutarou">
+<meta name="twitter:site" content="@pc_compat">
 <script async src="https://www.googletagmanager.com/gtag/js?id={ga_id}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{ga_id}');</script>
 <style>
