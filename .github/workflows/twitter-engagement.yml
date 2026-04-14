@@ -1,7 +1,7 @@
 name: Twitter Engagement Bot
 on:
-    schedule:
-      - cron: '0 0,12 * * *'
+    # schedule:                          # DISABLED 2026-04-14: BAN防止
+    #   - cron: '0 0,12 * * *'
     workflow_dispatch:
 jobs:
     auto-follow:
