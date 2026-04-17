@@ -1,0 +1,27 @@
+name: Service Monitor
+
+on:
+  schedule:
+    # 平日 9:00, 13:00, 17:00 JST (= 0:00, 4:00, 8:00 UTC)
+    - cron: '3 0 * * 1-5'   # 9:03 JST
+    - cron: '7 4 * * 1-5'   # 13:07 JST
+    - cron: '53 7 * * 1-5'  # 16:53 JST
+  workflow_dispatch:  # 手動実行可
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run health checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/service_monitor.py
