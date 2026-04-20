@@ -190,6 +190,84 @@ def generate_comparison_image(title, left_label, right_label, left_items, right_
     return str(output_path)
 
 
+CATEGORY_BADGE = {
+    'gpu':    ('GPU',    (220, 80, 90)),
+    'cpu':    ('CPU',    (80, 160, 240)),
+    'mb':     ('マザボ',  (180, 120, 240)),
+    'ram':    ('メモリ',  (240, 200, 60)),
+    'psu':    ('電源',    (240, 140, 60)),
+    'case':   ('ケース',  (140, 200, 120)),
+    'cooler': ('冷却',    (100, 220, 220)),
+}
+
+
+def generate_price_alert_card(date_str, items, output_path=None):
+    """値下げ速報カード（絵文字なし、カテゴリバッジ方式）
+    items: [{'name': str, 'old_price': int, 'new_price': int, 'drop': int, 'category': str}, ...]
+    """
+    from price_alert_tweet import shorten_product_name
+
+    W, H = 1200, 628
+    img = Image.new('RGB', (W, H), (14, 14, 24))
+    draw = ImageDraw.Draw(img)
+
+    for y in range(H):
+        r = int(14 + (35 - 14) * y / H)
+        g = int(14 + (18 - 14) * y / H)
+        b = int(24 + (40 - 24) * y / H)
+        draw.line([(0, y), (W, y)], fill=(r, g, b))
+
+    draw.rectangle([(0, 0), (W, 8)], fill=(255, 180, 30))
+
+    font_title = get_font(44)
+    font_sub = get_font(22)
+    font_item = get_font(22)
+    font_price = get_font(20)
+    font_badge = get_font(16)
+    font_footer = get_font(18)
+
+    draw.text((50, 28), f"値下げ速報  {date_str}", fill=(255, 220, 80), font=font_title)
+    draw.text((50, 92), "過去2週間の価格変動から厳選", fill=(180, 180, 200), font=font_sub)
+
+    top_items = items[:5]
+    y_start = 145
+    row_h = 88
+    for i, it in enumerate(top_items):
+        y = y_start + i * row_h
+        cat = it.get('category', '')
+        badge_label, badge_color = CATEGORY_BADGE.get(cat, (cat.upper(), (150, 150, 150)))
+        name = shorten_product_name(it.get('name', ''), max_len=38)
+        old_p = int(it['old_price'])
+        new_p = int(it['new_price'])
+        drop = int(it['drop'])
+
+        draw.rounded_rectangle([(40, y), (W - 40, y + row_h - 12)], radius=10, fill=(30, 30, 45))
+        draw.rounded_rectangle([(40, y), (48, y + row_h - 12)], radius=0, fill=(255, 180, 30))
+
+        rank_text = f"{i+1}"
+        draw.text((68, y + 18), rank_text, fill=(255, 200, 80), font=font_item)
+
+        badge_x = 108
+        badge_w = 76
+        draw.rounded_rectangle([(badge_x, y + 14), (badge_x + badge_w, y + 44)], radius=6, fill=badge_color)
+        tw = draw.textlength(badge_label, font=font_badge) if hasattr(draw, 'textlength') else len(badge_label) * 14
+        draw.text((badge_x + (badge_w - tw) / 2, y + 20), badge_label, fill=(20, 20, 30), font=font_badge)
+
+        draw.text((badge_x + badge_w + 14, y + 14), name, fill=(240, 240, 250), font=font_item)
+
+        price_line = f"¥{old_p:,}  →  ¥{new_p:,}    ▼¥{drop:,}"
+        draw.text((badge_x + badge_w + 14, y + 46), price_line, fill=(120, 220, 160), font=font_price)
+
+    draw.text((50, H - 40), f"{SITE_URL}   互換性チェックはここから", fill=(160, 160, 180), font=font_footer)
+
+    if not output_path:
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        output_path = OUTPUT_DIR / f"price-alert-{random.randint(1000,9999)}.png"
+
+    img.save(str(output_path), 'PNG')
+    return str(output_path)
+
+
 def generate_game_spec_card_from_db(game=None):
     """DBからランダムにゲームを選んでスペックカード生成"""
     games = []

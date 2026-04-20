@@ -23,6 +23,7 @@ static/compat/
 # 一時画像（Twitter Bot）
 scripts/temp_images/
 scripts/test_images/
+static/tweet_images/price-alert-*.png
 
 # 一時スクリプト
 tmp_*.py

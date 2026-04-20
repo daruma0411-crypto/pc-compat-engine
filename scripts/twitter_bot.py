@@ -1025,6 +1025,42 @@ def main():
             sys.exit(1)
         return
 
+    if not args.force_blog and random.random() < 0.15:
+        try:
+            from price_alert_tweet import generate_price_alert_tweet
+            alert_text, alert_pattern, alert_items = generate_price_alert_tweet()
+        except Exception as e:
+            print(f"[WARN] 価格アラート生成スキップ: {e}")
+            alert_text = None
+            alert_items = None
+
+        if alert_text and alert_items:
+            print("[モード] ⚡ 値下げ速報ツイート")
+            alert_image = None
+            try:
+                from generate_tweet_image import generate_price_alert_card
+                date_str = datetime.now().strftime('%m/%d')
+                alert_image = generate_price_alert_card(date_str, alert_items)
+                print(f"[OK] 値下げ速報画像: {alert_image}")
+            except Exception as e:
+                print(f"[WARN] 値下げ画像生成スキップ: {e}")
+
+            success = post_tweet(alert_text, dry_run=args.dry_run, image_path=alert_image)
+            if success and not args.dry_run:
+                history = load_history()
+                history.append({
+                    'name': '[price_alert]',
+                    'posted_at': datetime.now().isoformat(),
+                    'tweet_text': alert_text,
+                    'has_image': alert_image is not None,
+                    'post_type': 'price_alert',
+                    'hashtag_count': count_hashtags(alert_text),
+                })
+                save_history(history)
+            if not success:
+                sys.exit(1)
+            return
+
     if roll < 0.15 and blog_history:
         # ブログ紹介ツイート (15%)
         print("[モード] ブログ記事紹介ツイート")
