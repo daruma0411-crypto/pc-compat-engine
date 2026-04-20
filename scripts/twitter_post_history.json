@@ -824,5 +824,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-20T06:08:58.009071",
+    "tweet_text": "ブログ更新\n「ヴァロラント」の推奨スペックとGPU別FPS目安【2026年03月更新】\n\nhttps://pc-jisaku.com/blog/20260329-benchmark-valorant-spec-gpufps2026y03monthupdate.html\n\n#自作PC #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260329-benchmark-valorant-spec-gpufps2026y03monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
