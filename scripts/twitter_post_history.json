@@ -833,5 +833,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-04-20T09:56:23.816244",
+    "tweet_text": "空冷vs簡易水冷\n見た目は水冷がカッコいいけどメンテ考えると空冷かなあ\n\n気になる人→ https://pc-jisaku.com\n#GPU #PCゲーム",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
