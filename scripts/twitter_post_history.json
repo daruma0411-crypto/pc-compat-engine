@@ -889,5 +889,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-04-22T12:33:16.595541",
+    "tweet_text": "DLSSとFSRの違い、これで完全に理解できる\n\nどっちも「低解像度で描画→AIで拡大」\nでも中身が全然違う\n\nDLSS（NVIDIA）\n→専用AIチップ（Tensorコア）で処理\n→画質の劣化がほぼない\n→ゲームごとに学習データが必要\n→GeForce RTXシリーズ限定\n\nFSR（AMD）\n→GPUの汎用処理で計算\n→DLSSより少しボケる\n→どのGPUでも使える（Intel/NVIDIA含む）\n→ゲーム側の対応が簡単\n\n結論\n画質重視→DLSS（NVIDIA買え）\nコスパ重視→FSR（AMD安くてOK）\n\nぶっちゃけ普通にゲームするなら\nどっちでも十分キレイ",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
