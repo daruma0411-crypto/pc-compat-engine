@@ -913,5 +913,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-04-23T12:42:11.630814",
+    "tweet_text": "PC自作で一番やらかした失敗教えて\n自分は電源ケチって不安定になった\n#GPU #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
