@@ -627,7 +627,7 @@ def generate_blog_post(template, variables, dry_run=False):
         max_tokens = 6144
         for attempt in range(2):
             message = client.messages.create(
-                model="claude-opus-4-6",
+                model="claude-sonnet-4-6",
                 max_tokens=max_tokens,
                 system=AUTHOR_SYSTEM_PROMPT,
                 messages=[{"role": "user", "content": prompt}]
