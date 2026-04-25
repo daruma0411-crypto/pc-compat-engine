@@ -946,5 +946,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-25T09:37:53.924212",
+    "tweet_text": "PC自作勢向け\nRTX 3060で遊べる最新ゲーム50選【3月版】\n\nhttps://pc-jisaku.com/blog/20260331-gpu_list-palworld-rtx-306050picks3month.html\n\n#自作PC #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260331-gpu_list-palworld-rtx-306050picks3month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
