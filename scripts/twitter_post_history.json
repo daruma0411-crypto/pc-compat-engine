@@ -955,5 +955,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-25T12:14:32.644563",
+    "tweet_text": "これ需要あると思う\n\nRTX 4070で遊べる最新ゲーム50選【4月版】\nhttps://pc-jisaku.com/blog/20260410-gpu_list-dragons-dogma-2-rtx-407050picks4month.html\n\n#自作PC #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260410-gpu_list-dragons-dogma-2-rtx-407050picks4month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
