@@ -972,5 +972,13 @@
     "has_image": true,
     "post_type": "price_alert",
     "hashtag_count": 2
+  },
+  {
+    "name": "Metro Exodus",
+    "posted_at": "2026-04-26T09:30:01.746268",
+    "tweet_text": "予算15万円でMetro Exodusを快適に遊びたい\n\n推奨構成:\n・GPU: GTX 1070\n・CPU: Intel Core i7-4770k\n・RAM: 8GB\n\nhttps://pc-jisaku.com/game/metro-exodus\n\n#MetroExodus #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
