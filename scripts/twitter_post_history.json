@@ -996,5 +996,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-27T09:54:04.862956",
+    "tweet_text": "記事書きました\n\n「カウンターストライク2」の推奨スペックとGPU別FPS目安【2026年04月更新】\n\nhttps://pc-jisaku.com/blog/20260403-benchmark-counter-strike-2-2-spec-gpufps2026y04monthupdate.html\n\n#GPU #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260403-benchmark-counter-strike-2-2-spec-gpufps2026y04monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
