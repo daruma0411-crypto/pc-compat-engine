@@ -1005,5 +1005,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "It Takes Two Friend's Pass",
+    "posted_at": "2026-04-27T12:42:36.070013",
+    "tweet_text": "It Takes Two Friend's Pass、RTX 4060 vs RTX 3070\nどっちがコスパいい？\n\n性能: 3070が15%上\n価格: 4060が¥8,000安い\n電力: 4060が30W少ない\n\n詳細→ https://pc-jisaku.com/game/it-takes-two-friends-pass\n\n#ItTakesTwoFriendsPass #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
