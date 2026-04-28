@@ -26,7 +26,7 @@ SERVICES = [
     },
     {
         "name": "AIサービス",
-        "url": "http://34.85.123.74/",
+        "url": "https://34.85.123.74/",
         "host": "GCP VM",
     },
     {
