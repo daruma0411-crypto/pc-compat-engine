@@ -1029,5 +1029,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-28T12:35:11.511720",
+    "tweet_text": "実データで書いた記事\n予算10万円で組む最強ゲーミングPC構成【2026年04月版】\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20260408-budget_build-starfield-budget10manbestpc2026y04month.html\n\n#自作PC #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260408-budget_build-starfield-budget10manbestpc2026y04month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
