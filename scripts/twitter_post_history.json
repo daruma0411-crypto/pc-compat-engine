@@ -1038,5 +1038,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-04-29T04:28:15.135941",
+    "tweet_text": "記事書きました\n\nRTX 4080で遊べる最新ゲーム50選【4月版】\n\nhttps://pc-jisaku.com/blog/20260407-gpu_list-valorant-rtx-408050picks4month.html\n\n#自作PC #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260407-gpu_list-valorant-rtx-408050picks4month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
