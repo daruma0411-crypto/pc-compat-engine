@@ -1047,5 +1047,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "ペルソナ３ リロード",
+    "posted_at": "2026-04-29T10:04:37.650993",
+    "tweet_text": "ペルソナ３ リロード推奨スペック\nGPU: GTX 1650, 4 GB, AMD R9 290X, 4 GB\nCPU: Intel Core i7-4790, AMD Ryzen 5 1400\n\nhttps://pc-jisaku.com/game/%E3%83%9A%E3%83%AB%E3%82%BD%E3%83%8A%EF%BC%93-%E3%83%AA%E3%83%AD%E3%83%BC%E3%83%89\n\n#ペルソナ３リロード #PCゲーム",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
