@@ -1103,5 +1103,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "The Witcher 3: Wild Hunt",
+    "posted_at": "2026-05-01T12:31:28.266812",
+    "tweet_text": "The Witcher 3: Wild Hunt、RTX 4060 vs RTX 3070\nどっちがコスパいい？\n\n性能: 3070が15%上\n価格: 4060が¥8,000安い\n電力: 4060が30W少ない\n\n詳細→ https://pc-jisaku.com/game/the-witcher-3-wild-hunt\n\n#TheWitcher3WildHunt #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
