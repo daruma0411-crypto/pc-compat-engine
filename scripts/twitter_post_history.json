@@ -1087,5 +1087,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[price_alert]",
+    "posted_at": "2026-05-01T04:28:11.301208",
+    "tweet_text": "【⚡値下げ速報】05/01朝の狙い目パーツ\n\n過去2週間の価格変動から\n\"今が買い時\"を厳選しました。\n\n━━━━━━━━━━━━━━━━━\n💰 大幅値下げTOP5\n━━━━━━━━━━━━━━━━━\n\n1. 🎮 ASUS PRIME-RX9070-O16G-EVO\n   ¥160,800 → ¥80,800 (▼¥80,000)\n\n2. 🧠 CFD W5U5200CS-32G\n   ¥185,580 → ¥126,000 (▼¥59,580)\n\n3. 🧠 G.Skill F5-6000J3636F32GX1-IS\n   ¥137,201 → ¥94,890 (▼¥42,311)\n\n4. 🔌 ASUS ROG MAXIMUS Z890 HERO\n   ¥130,709 → ¥89,789 (▼¥40,920)\n\n5. 🎮 ASUS TUF-RTX5060TI-O16G-GAMING\n   ¥139,800 → ¥114,980 (▼¥24,820)\n\n━━━━━━━━━━━━━━━━━\n\n合計で¥247,631お得。\n互換性チェックは下から↓\nhttps://pc-jisaku.com\n\n#自作PC #PCパーツ",
+    "has_image": true,
+    "post_type": "price_alert",
+    "hashtag_count": 2
   }
 ]
