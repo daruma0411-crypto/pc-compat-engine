@@ -1111,5 +1111,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-05-02T04:31:31.626015",
+    "tweet_text": "新記事↓\nノートPCで「ドラゴンズドグマ2」は快適に遊べる？おすすめ3選\n\n価格.comの最新データ使ってます\nhttps://pc-jisaku.com/blog/20260428-laptop-dragons-dogma-2-pc2recommend3picks.html\n\n#自作PC #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260428-laptop-dragons-dogma-2-pc2recommend3picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
