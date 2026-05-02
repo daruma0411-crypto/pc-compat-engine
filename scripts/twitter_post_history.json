@@ -1120,5 +1120,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[price_alert]",
+    "posted_at": "2026-05-02T09:32:15.362352",
+    "tweet_text": "【⚡値下げ速報】05/02朝の狙い目パーツ\n\n過去2週間の価格変動から\n\"今が買い時\"を厳選しました。\n\n━━━━━━━━━━━━━━━━━\n💰 大幅値下げTOP5\n━━━━━━━━━━━━━━━━━\n\n1. 🧠 CFD W5U5200CS-32G\n   ¥185,580 → ¥126,000 (▼¥59,580)\n\n2. 🧠 トランセンド JM3200HLE-32G\n   ¥89,800 → ¥58,905 (▼¥30,895)\n\n3. 💻 インテル Core i9 13900KS BOX\n   ¥109,799 → ¥85,000 (▼¥24,799)\n\n4. 🎮 GIGABYTE GV-N507TWF3OC-16GD\n   ¥176,800 → ¥159,800 (▼¥17,000)\n\n5. 🎮 ASRock Radeon RX 9070 XT Taichi Whi…\n   ¥148,900 → ¥134,800 (▼¥14,100)\n\n━━━━━━━━━━━━━━━━━\n\n合計で¥146,374お得。\n互換性チェックは下から↓\nhttps://pc-jisaku.com\n\n#自作PC #PCパーツ",
+    "has_image": true,
+    "post_type": "price_alert",
+    "hashtag_count": 2
   }
 ]
