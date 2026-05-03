@@ -1152,5 +1152,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Sid Meier’s Civilization® VI",
+    "posted_at": "2026-05-03T12:39:42.853146",
+    "tweet_text": "Sid Meier’s Civilization® VI用にPC組むなら\n2GB & AMD 7970 + Fourth Generation Intel Core i5 2.5 Ghzで20万くらい？\n\n詳しいスペック→ https://pc-jisaku.com/game/sid-meier%E2%80%99s-civilization-vi\n\n#SidMeier’sCivilization®VI #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
