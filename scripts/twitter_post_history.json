@@ -1144,5 +1144,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-05-03T09:30:16.947430",
+    "tweet_text": "ゲーミングPCを5万円で組む方法（ガチ）\n\n「5万でゲーミングPC？無理でしょ」\n→組めます。中古パーツで\n\n構成例\nCPU: i5-10400（中古¥8,000）\nGPU: GTX 1660 Super（中古¥12,000）\nメモリ: DDR4 16GB（中古¥3,000）\nSSD: 500GB（新品¥5,000）\nマザボ: B460（中古¥5,000）\n電源: 550W（中古¥3,000）\nケース: 中古¥2,000\n合計: 約¥38,000\n\nこれで\n・Apex 100fps\n・フォートナイト 144fps\n・モンハンワイルズ 30-40fps\n\n嘘じゃないよ\n実際の動作確認→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
