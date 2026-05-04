@@ -1178,5 +1178,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-05-04T12:38:01.242060",
+    "tweet_text": "2026年に買うべきでないPCパーツ\n\n❌ DDR4メモリ（DDR5に移行中）\n❌ PCIe Gen3 SSD（Gen4が同価格帯）\n❌ RTX 3060（中古でも微妙）\n❌ 500W電源（最低650W推奨）\n\n逆に今買いなパーツも知りたい人はリプで\n#GPU #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
