@@ -1160,5 +1160,15 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "仁王３",
+    "posted_at": "2026-05-04T04:24:33.229507",
+    "tweet_text": "【仁王３の推奨スペック解説】\n\n推奨GPU: RTX 3060 Ti VRAM 8GB, AMD RX 6700 XT VRAM 12GB\n推奨RAM: 16GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
