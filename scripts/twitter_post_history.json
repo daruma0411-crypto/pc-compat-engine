@@ -1170,5 +1170,13 @@
     "post_type": "game",
     "is_thread": true,
     "hashtag_count": 0
+  },
+  {
+    "name": "Dragon's Dogma 2",
+    "posted_at": "2026-05-04T10:08:26.071048",
+    "tweet_text": "Dragon's Dogma 2ロード長すぎ問題\nSSDに入れても遅い\nこれCPUが原因？\n\n推奨CPU: Intel Core i7-10700\nhttps://pc-jisaku.com/game/dragons-dogma-2\n\n#DragonsDogma2 #スペック不足",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
