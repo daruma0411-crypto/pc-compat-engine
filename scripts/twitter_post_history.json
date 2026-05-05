@@ -1186,5 +1186,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "BIOHAZARD 5",
+    "posted_at": "2026-05-05T09:58:39.897863",
+    "tweet_text": "予算15万円でBIOHAZARD 5を快適に遊びたい\n\n推奨構成:\n・GPU: 512 MB VRAM, GTX 650\n・CPU: Intel Core i5-3570\n・RAM: 4GB\n\nhttps://pc-jisaku.com/game/biohazard-5\n\n#BIOHAZARD5 #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
