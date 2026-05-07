@@ -1242,5 +1242,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-05-07T13:02:25.376920",
+    "tweet_text": "Street Fighter 6クラッシュ多発する人\nRAM 16GB以上にしたら安定したわ\n\n詳細→ https://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #PC不具合",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
