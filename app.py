@@ -900,11 +900,19 @@ def _load_game_data(game_slug):
 
 @app.route('/game/<game_name>')
 def game_page(game_name):
-    """ゲーム個別ページ（SEO/AIO最適化済み + FAQ構造化データ）"""
+    """ゲーム個別ページ。Plan B (2026-05-07) 以降、ジャンル別記事へ301リダイレクト。"""
+    # 2026-05-07: Helpful Content Update 対応で /game/* を /genre/<primary> に集約
+    target_genre = _GENRE_REDIRECT_MAP.get(game_name)
+    if target_genre:
+        return redirect(f'/genre/{target_genre}', code=301)
+
     static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
     html_path = os.path.join(static_dir, f'{game_name}.html')
     if not os.path.isfile(html_path):
         return _render_404(), 404
+    # マップ外のゲーム(該当ジャンルなし) もジャンルハブに集約
+    return redirect('/genre/', code=301)
+    # NOTE: 以下の旧コードは到達しない。万一マップを完全に外した場合のフォールバックとして残置。
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
     html = _inject_affiliate_tags(html)
@@ -1049,6 +1057,33 @@ def _inject_bto_banner(html, game_data):
     except Exception:
         pass
     return html
+
+
+@app.route('/genre/')
+@app.route('/genre')
+def genre_index():
+    """ジャンル別推奨PC ハブページ。8ジャンル記事へのリンク集。"""
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'genre')
+    html_path = os.path.join(static_dir, 'index.html')
+    if not os.path.isfile(html_path):
+        return _render_404(), 404
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@app.route('/genre/<slug>')
+def genre_page(slug):
+    """ジャンル別推奨PC構成記事 (FPS/MMORPG/RPG/Simulation/Openworld/Fighting/Strategy/VR)。"""
+    if slug not in _VALID_GENRE_SLUGS:
+        return _render_404(), 404
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'genre')
+    html_path = os.path.join(static_dir, f'{slug}.html')
+    if not os.path.isfile(html_path):
+        return _render_404(), 404
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
 @app.route('/article/<article_name>')
@@ -1996,6 +2031,25 @@ th{background:#f9fafb;font-weight:600;font-size:.9rem;color:#374151}
 </style>"""
 
 _BASE_URL = os.getenv('SITE_URL', 'https://pc-jisaku.com')
+
+# ================================================================
+# /game/* → /genre/<primary> 301 リダイレクトマップ
+# (Plan B: Helpful Content Update 対応のサイト構造刷新)
+# ================================================================
+_GENRE_REDIRECT_MAP_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    'workspace', 'data', 'steam', 'genre_redirect_map.json'
+)
+try:
+    with open(_GENRE_REDIRECT_MAP_PATH, encoding='utf-8') as _f:
+        _GENRE_REDIRECT_MAP = json.load(_f)
+except (FileNotFoundError, json.JSONDecodeError):
+    _GENRE_REDIRECT_MAP = {}
+
+_VALID_GENRE_SLUGS = {
+    'fps', 'mmorpg', 'rpg', 'simulation', 'openworld',
+    'fighting', 'strategy', 'vr',
+}
 
 
 def _safe_parse_claude_json(text: str, fallback: dict | None = None) -> dict:
