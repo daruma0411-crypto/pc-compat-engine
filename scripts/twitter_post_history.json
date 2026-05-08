@@ -1258,5 +1258,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-05-08T09:42:11.495260",
+    "tweet_text": "Steamのウィッシュリストに入れっぱなしのゲーム何本ある？\n自分は47本...\n#GPU #PCゲーム",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
