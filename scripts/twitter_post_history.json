@@ -1282,5 +1282,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-05-09T12:28:43.951083",
+    "tweet_text": "サイバーパンク2077、あなたのPCで動く？\n\n最低: GTX 1060（カクカク覚悟）\n推奨: RTX 3070（まあまあ）\n快適: RTX 4070 Ti（ヌルヌル）\n\n「推奨」でもカクつく場面あるから\n正直RTX 4070 Ti欲しい\n\n診断→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
