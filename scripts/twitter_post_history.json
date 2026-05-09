@@ -1274,5 +1274,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Core Keeper",
+    "posted_at": "2026-05-09T09:34:36.765536",
+    "tweet_text": "予算5万円でCore Keeper動かせる？\n\n推奨スペック:\nGPU: GTX 1050 Ti\nRAM: 8GB\n\nあなたのPC診断↓\nhttps://pc-jisaku.com/game/core-keeper\n\n#CoreKeeper #コスパPC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
