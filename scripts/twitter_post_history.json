@@ -1290,5 +1290,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-05-10T09:39:57.397061",
+    "tweet_text": "今日のPC記事\n「エーペックスレジェンズ」の推奨スペックとGPU別FPS目安【2026年04月更新】\n\nhttps://pc-jisaku.com/blog/20260417-benchmark-apex-legends-spec-gpufps2026y04monthupdate.html\n\n#PCパーツ #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260417-benchmark-apex-legends-spec-gpufps2026y04monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
