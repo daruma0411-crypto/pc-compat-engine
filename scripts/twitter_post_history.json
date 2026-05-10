@@ -1299,5 +1299,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-05-10T12:30:44.213142",
+    "tweet_text": "ゲーム用CPUどっち買う？\n\nIntel i7-14700K\n→シングル最強だけど爆熱\n\nAMD Ryzen 7 7800X3D\n→ゲーム最強で省電力\n\n正直7800X3D一択じゃね？\n反論ある人こい",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
