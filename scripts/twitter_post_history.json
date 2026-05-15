@@ -1389,5 +1389,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-05-15T04:49:02.078232",
+    "tweet_text": "記事書きました\n\n5月版 最新ゲーム推奨スペックランキングTOP20\n\nhttps://pc-jisaku.com/blog/20260509-ranking-hogwarts-legacy-5month-spec-rankingtop20.html\n\n#ブログ更新 #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260509-ranking-hogwarts-legacy-5month-spec-rankingtop20.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
