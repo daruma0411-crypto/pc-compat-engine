@@ -1414,5 +1414,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-05-16T09:42:54.882304",
+    "tweet_text": "Steamのウィッシュリストに入れっぱなしのゲーム何本ある？\n自分は47本...\n\nちなみに診断できる→ https://pc-jisaku.com\n#PCゲーム #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
