@@ -1447,5 +1447,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Palworld",
+    "posted_at": "2026-05-18T04:49:54.784078",
+    "tweet_text": "Palworldやりたいんだけど\n予算10万円以内で組めますか？\n\n推奨: RTX 2070\n詳細→ https://pc-jisaku.com/game/palworld\n\n#Palworld #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
