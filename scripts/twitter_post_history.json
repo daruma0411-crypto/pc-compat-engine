@@ -1496,5 +1496,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "DARK SOULS™ III",
+    "posted_at": "2026-05-20T10:21:33.143951",
+    "tweet_text": "DARK SOULS™ IIIやりたいんだけど\n予算10万円以内で組めますか？\n\n推奨: GTX 970\n詳細→ https://pc-jisaku.com/game/dark-souls-iii\n\n#DARKSOULS™III #コスパPC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
