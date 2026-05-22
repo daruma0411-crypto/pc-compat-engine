@@ -1537,5 +1537,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-05-22T10:32:41.598195",
+    "tweet_text": "実データで書いた記事\n「スターフィールド」が重い・カクつく原因と解決策5選\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20260430-performance-starfield-heavy-lag-fix5picks.html\n\n#ブログ更新 #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260430-performance-starfield-heavy-lag-fix5picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
