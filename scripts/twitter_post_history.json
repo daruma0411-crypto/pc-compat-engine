@@ -1668,5 +1668,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-05-30T04:34:51.180490",
+    "tweet_text": "これ需要あると思う\n\nノートPCで「ファイナルファンタジーVII リバース」は快適に遊べる？おすすめ3選\nhttps://pc-jisaku.com/blog/20260512-laptop-final-fantasy-vii-rebirth-pcvii-recommend3picks.html\n\n#自作PC #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260512-laptop-final-fantasy-vii-rebirth-pcvii-recommend3picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
