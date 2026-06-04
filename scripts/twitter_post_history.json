@@ -1743,5 +1743,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-06-04T04:48:29.294260",
+    "tweet_text": "メモリ16GBと32GB、ゲーム用途ならどっち？\n最近のゲーム32GB推奨増えてきたよね\n\nhttps://pc-jisaku.com\n#自作PC #PCゲーム",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
