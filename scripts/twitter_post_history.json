@@ -1775,5 +1775,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-06-05T13:10:54.532771",
+    "tweet_text": "PC自作勢向け\nノートPCで「ヘルダイバー2」は快適に遊べる？おすすめ3選\n\nhttps://pc-jisaku.com/blog/20260522-laptop-helldivers-2-pc2recommend3picks.html\n\n#GPU #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260522-laptop-helldivers-2-pc2recommend3picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
