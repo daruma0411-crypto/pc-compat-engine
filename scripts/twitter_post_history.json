@@ -1767,5 +1767,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Among Us",
+    "posted_at": "2026-06-05T10:33:41.406157",
+    "tweet_text": "Among Usやりたいんだけど\n予算10万円以内で組めますか？\n\n推奨: Nvidia GTX 650\n詳細→ https://pc-jisaku.com/game/among-us\n\n#AmongUs #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
