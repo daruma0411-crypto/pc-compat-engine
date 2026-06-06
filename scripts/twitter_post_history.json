@@ -1792,5 +1792,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "GUILTY GEAR -STRIVE-",
+    "posted_at": "2026-06-06T09:43:08.757441",
+    "tweet_text": "GUILTY GEAR -STRIVE-推奨スペック\nGPU: GTX 660\nCPU: Intel Core i7-3770, 3.40 GHz\n\nhttps://pc-jisaku.com/game/guilty-gear-strive\n\n#GUILTYGEAR-STRIVE- #Steam",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
