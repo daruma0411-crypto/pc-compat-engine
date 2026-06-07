@@ -1816,5 +1816,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "ELDEN RING NIGHTREIGN",
+    "posted_at": "2026-06-07T12:33:09.322005",
+    "tweet_text": "ELDEN RING NIGHTREIGNのフレームレート出ない問題\nVSync切ったら改善した\n\n推奨GPU: GTX 1070 8GB\nhttps://pc-jisaku.com/game/elden-ring-nightreign\n\n#ELDENRINGNIGHTREIGN #トラブルシューティング",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
