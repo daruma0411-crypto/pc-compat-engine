@@ -1858,5 +1858,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "仁王３",
+    "posted_at": "2026-06-09T10:21:40.558594",
+    "tweet_text": "仁王３ベンチマーク結果\nRTX 3060 Ti VRAM 8GB, AMD RX 6700 XT VRAM 12GB / Intel Core i5-10600K, AMD Ryzen 5 5600X 6コア12スレッド以上\n→ 1080p60fps安定\n\n詳しいスペック→ https://pc-jisaku.com/game/%E4%BB%81%E7%8E%8B%EF%BC%93\n\n#仁王３ #PCスペック",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
