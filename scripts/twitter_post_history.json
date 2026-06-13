@@ -1939,5 +1939,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Total War: WARHAMMER II",
+    "posted_at": "2026-06-13T12:54:03.990704",
+    "tweet_text": "Total War: WARHAMMER IIが起動しない...\nGPUドライバ更新したら直った\n\n推奨: GTX 770 4GB | AMD R9 290X 4GB @1080p\nhttps://pc-jisaku.com/game/total-war-warhammer-ii\n\n#TotalWarWARHAMMERII #動作不良",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
