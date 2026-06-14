@@ -1963,5 +1963,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-06-14T13:05:49.126065",
+    "tweet_text": "グラボ変えただけでこの差はズルい\n\nGTX 1060 → Apex 30fps カクカク😵\nRTX 4060 → Apex 144fps ヌルヌル😎\n\n交換費用たった3万円\n電源足りてればポン付け\n\nあなたのPCで何fps出る？→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
