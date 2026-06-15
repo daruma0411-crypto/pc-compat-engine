@@ -1979,5 +1979,15 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "ELDEN RING",
+    "posted_at": "2026-06-15T11:20:17.346458",
+    "tweet_text": "【ELDEN RINGの推奨スペック解説】\n\n推奨GPU: GEFORCE GTX 1070 8 GB\n推奨RAM: 16GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
