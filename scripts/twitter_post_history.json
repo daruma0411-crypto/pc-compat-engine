@@ -1989,5 +1989,13 @@
     "post_type": "game",
     "is_thread": true,
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-06-15T14:29:36.374080",
+    "tweet_text": "え、5万円も安くなってるんだけど\n\nRTX 4070の価格推移\n1月: ¥218,800\n3月: ¥164,974\n\nRTX 5070出てから旧世代が暴落してる\n今が底かもしれない\n\nhttps://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
