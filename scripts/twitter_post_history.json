@@ -2013,5 +2013,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Undertale",
+    "posted_at": "2026-06-16T13:51:57.598002",
+    "tweet_text": "Undertale、RTX 4060 vs RTX 3070\nどっちがコスパいい？\n\n性能: 3070が15%上\n価格: 4060が¥8,000安い\n電力: 4060が30W少ない\n\n詳細→ https://pc-jisaku.com/game/undertale\n\n#Undertale #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
