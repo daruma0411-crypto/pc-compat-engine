@@ -2005,5 +2005,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Fallout 4",
+    "posted_at": "2026-06-16T10:39:31.200783",
+    "tweet_text": "Fallout 4ってRAM 8GBないとキツイ？\nうち16GBしかないんだけど\n\n推奨スペック→ https://pc-jisaku.com/game/fallout-4\n\n#Fallout4 #動作環境",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
