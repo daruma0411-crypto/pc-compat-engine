@@ -2062,5 +2062,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "HITMAN World of Assassination",
+    "posted_at": "2026-06-20T04:56:19.011674",
+    "tweet_text": "初めての自作PCでHITMAN World of Assassination遊びたい\n予算8万円でいける？\n\nNvidia GPU GTX 1070必要らしい\nhttps://pc-jisaku.com/game/hitman-world-of-assassination\n\n#HITMANWorldofAssassination #コスパPC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
