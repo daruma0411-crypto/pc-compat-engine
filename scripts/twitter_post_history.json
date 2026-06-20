@@ -2070,5 +2070,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "OMORI",
+    "posted_at": "2026-06-20T10:19:06.995979",
+    "tweet_text": "OMORI\nOpenGL ES 2.0 hardware driver support required for WebGL accelerationあれば余裕\n\nhttps://pc-jisaku.com/game/omori\n\n#OMORI #PCゲーム",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
