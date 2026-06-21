@@ -2095,5 +2095,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-06-21T10:24:01.282533",
+    "tweet_text": "記事書きました\n\n「ホグワーツ・レガシー」をWQHD/4Kで遊ぶために必要なGPU\n\nhttps://pc-jisaku.com/blog/20260617-high_res-hogwarts-legacy-wqhd4kgpu.html\n\n#ブログ更新 #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260617-high_res-hogwarts-legacy-wqhd4kgpu.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
