@@ -2104,5 +2104,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[data]",
+    "posted_at": "2026-06-21T12:55:54.279478",
+    "tweet_text": "GPU性能ランキング TOP5\n\n1. GeForce RTX 5090: 100点\n2. GeForce RTX 4090: 95点\n3. GeForce RTX 5080: 90点\n4. GeForce RTX 4080 Super: 83点\n5. GeForce RTX 5070 Ti: 82点\n\n14,000件の価格DBから算出\nhttps://pc-jisaku.com\n\n#GPU価格 #PCパーツ",
+    "has_image": true,
+    "post_type": "data",
+    "hashtag_count": 2
   }
 ]
