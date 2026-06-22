@@ -2120,5 +2120,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-06-22T14:00:49.746580",
+    "tweet_text": "Street Fighter 6を1080pと1440pで比較\n1080p: RTX2070で余裕\n1440p: RTX 4070推奨\n\n詳細→ https://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #自作PC\n\nスペック足りるか心配な人に共有してね",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
