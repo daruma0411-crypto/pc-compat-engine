@@ -2145,5 +2145,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Devil May Cry 5",
+    "posted_at": "2026-06-24T04:52:00.946931",
+    "tweet_text": "GTX 1060(6GB)でDevil May Cry 5って60fps出る？\n\n推奨スペック見る限りギリギリっぽいけど...\n\n詳細→ https://pc-jisaku.com/game/devil-may-cry-5\n\n#DevilMayCry5 #スペック相談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
