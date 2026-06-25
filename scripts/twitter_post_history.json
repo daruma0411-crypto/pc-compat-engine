@@ -2169,5 +2169,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-06-25T10:21:54.687947",
+    "tweet_text": "PC自作始めたきっかけ何だった？\n自分はBTOの電源が壊れて交換したのが最初\n\n気になる人→ https://pc-jisaku.com\n#PCゲーム #自作PC",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
