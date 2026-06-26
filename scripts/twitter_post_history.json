@@ -2193,5 +2193,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Factorio",
+    "posted_at": "2026-06-26T10:05:00.957735",
+    "tweet_text": "質問\nFactorioを快適に遊びたいんだけど\nDirectX 11 capable GPU with 4 GB VRAM - GTX 1050 Ti, RX 570, Intel ArcとQuad core 4Ghz+ from 2020ならいける？\n\nスペック確認ツール↓\nhttps://pc-jisaku.com/game/factorio\n\n#Factorio #スペック相談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
