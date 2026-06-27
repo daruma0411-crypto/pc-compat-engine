@@ -2210,5 +2210,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "フロストパンク",
+    "posted_at": "2026-06-27T09:51:44.043291",
+    "tweet_text": "初めての自作PCでフロストパンク遊びたい\n予算8万円でいける？\n\n970, RX 580必要らしい\nhttps://pc-jisaku.com/game/%E3%83%95%E3%83%AD%E3%82%B9%E3%83%88%E3%83%91%E3%83%B3%E3%82%AF\n\n#フロストパンク #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
