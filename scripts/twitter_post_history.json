@@ -2250,5 +2250,15 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "ELDEN RING NIGHTREIGN",
+    "posted_at": "2026-06-29T05:01:33.931762",
+    "tweet_text": "【ELDEN RING NIGHTREIGNの推奨スペック解説】\n\n推奨GPU: GTX 1070 8GB\n推奨RAM: 16GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
