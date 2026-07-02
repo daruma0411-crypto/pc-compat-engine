@@ -2324,5 +2324,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-07-02T12:47:52.396791",
+    "tweet_text": "このGPUでそのゲーム動くの？一覧\n\n🎮 フォートナイト: GTX 1060〜\n🎮 Apex: RTX 2060〜\n🎮 エルデン: RTX 3060〜\n🎮 モンハン: RTX 4060〜\n🎮 サイパン: RTX 4070〜\n\n保存しとくと便利\n\nhttps://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
