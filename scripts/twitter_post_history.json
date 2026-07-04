@@ -2364,5 +2364,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Clair Obscur: Expedition 33",
+    "posted_at": "2026-07-04T12:30:16.257274",
+    "tweet_text": "質問\nClair Obscur: Expedition 33を快適に遊びたいんだけど\nRTX 3060 Ti 8 GBとIntel Core i7-12700Kならいける？\n\nスペック確認ツール↓\nhttps://pc-jisaku.com/game/clair-obscur-expedition-33\n\n#ClairObscurExpedition33 #GPU相談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
