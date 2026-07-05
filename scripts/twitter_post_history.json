@@ -2372,5 +2372,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-07-05T04:36:40.743752",
+    "tweet_text": "GPU予算、年々エグくなってない？\n\n2024年: 4.2万円\n2025年: 5.8万円\n2026年: 7.1万円\n\nでもRTX 4060は4.5万で買える\nコスパ最強はまだこいつ\n\nhttps://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
