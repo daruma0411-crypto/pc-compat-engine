@@ -2420,5 +2420,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-07T10:28:29.890851",
+    "tweet_text": "記事書きました\n\n「バルダーズ・ゲート3」が動かない時の対処法7選\n\nhttps://pc-jisaku.com/blog/20260614-troubleshooting-baldurs-gate-3-3-fix7picks.html\n\n#ゲーミングPC #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260614-troubleshooting-baldurs-gate-3-3-fix7picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
