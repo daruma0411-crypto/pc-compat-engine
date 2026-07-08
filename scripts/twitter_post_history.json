@@ -2438,5 +2438,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Dying Light",
+    "posted_at": "2026-07-08T10:06:40.491495",
+    "tweet_text": "Dying Light\n重いけど面白い\n\n推奨→ https://pc-jisaku.com/game/dying-light\n\n#DyingLight #PCゲーム",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
