@@ -2446,5 +2446,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-10T04:43:55.060481",
+    "tweet_text": "これ需要あると思う\n\nRTX 3070で遊べる最新ゲーム50選【6月版】\nhttps://pc-jisaku.com/blog/20260616-gpu_list-counter-strike-2-rtx-307050picks6month.html\n\n#GPU #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260616-gpu_list-counter-strike-2-rtx-307050picks6month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
