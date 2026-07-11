@@ -2487,5 +2487,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-11T12:22:02.024096",
+    "tweet_text": "実データで書いた記事\nRTX 4070で遊べる最新ゲーム50選【7月版】\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20260710-gpu_list-elden-ring-rtx-407050picks7month.html\n\n#ゲーミングPC #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260710-gpu_list-elden-ring-rtx-407050picks7month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
