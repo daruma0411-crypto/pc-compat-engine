@@ -2479,5 +2479,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Cities: Skylines",
+    "posted_at": "2026-07-11T09:55:33.099798",
+    "tweet_text": "予算5万円でCities: Skylines動かせる？\n\n推奨スペック:\nGPU: Nvidia GTX 580 (1.5 GB)  |   AMD RX 560 (4 GB)\nRAM: 16GB\n\nあなたのPC診断↓\nhttps://pc-jisaku.com/game/cities-skylines\n\n#CitiesSkylines #コスパPC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
