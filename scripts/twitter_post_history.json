@@ -2471,5 +2471,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Satisfactory",
+    "posted_at": "2026-07-11T04:12:15.810703",
+    "tweet_text": "Satisfactoryのフレームレート出ない問題\nVSync切ったら改善した\n\n推奨GPU: Nvidia RTX 2070﻿\nhttps://pc-jisaku.com/game/satisfactory\n\n#Satisfactory #トラブルシューティング",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
