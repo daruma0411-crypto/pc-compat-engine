@@ -2496,5 +2496,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "龍が如く８",
+    "posted_at": "2026-07-12T04:40:12.397440",
+    "tweet_text": "龍が如く８ってRAM 16GBないとキツイ？\nうち16GBしかないんだけど\n\n推奨スペック→ https://pc-jisaku.com/game/%E9%BE%8D%E3%81%8C%E5%A6%82%E3%81%8F%EF%BC%98\n\n#龍が如く８ #動作環境",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
