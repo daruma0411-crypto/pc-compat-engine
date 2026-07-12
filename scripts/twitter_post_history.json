@@ -2512,5 +2512,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-12T12:37:18.295981",
+    "tweet_text": "これ需要あると思う\n\n「フォートナイト」の推奨スペックとGPU別FPS目安【2026年07月更新】\nhttps://pc-jisaku.com/blog/20260709-benchmark-fortnite-spec-gpufps2026y07monthupdate.html\n\n#GPU #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260709-benchmark-fortnite-spec-gpufps2026y07monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
