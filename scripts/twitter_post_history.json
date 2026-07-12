@@ -2504,5 +2504,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "DARK SOULS™ III",
+    "posted_at": "2026-07-12T09:42:17.499475",
+    "tweet_text": "DARK SOULS™ III、最低スペックと推奨スペックの差エグい\n\n推奨: GTX 970 / Intel Core i7-3770\n最低: GTX 1660 / Core i5\n\nhttps://pc-jisaku.com/game/dark-souls-iii\n\n#DARKSOULS™III #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
