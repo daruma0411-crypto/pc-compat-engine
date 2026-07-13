@@ -2521,5 +2521,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Red Dead Redemption 2",
+    "posted_at": "2026-07-13T10:26:33.436225",
+    "tweet_text": "Red Dead Redemption 2が起動しない...\nGPUドライバ更新したら直った\n\n推奨: Nvidia GTX 1060 6GB\nhttps://pc-jisaku.com/game/red-dead-redemption-2\n\n#RedDeadRedemption2 #トラブルシューティング",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
