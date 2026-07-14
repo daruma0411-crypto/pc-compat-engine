@@ -2538,5 +2538,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-14T12:29:23.803852",
+    "tweet_text": "実データで書いた記事\n「パルワールド」をWQHD/4Kで遊ぶために必要なGPU\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20260625-high_res-palworld-wqhd4kgpu.html\n\n#自作PC #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260625-high_res-palworld-wqhd4kgpu.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
