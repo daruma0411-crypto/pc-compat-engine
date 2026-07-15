@@ -2555,5 +2555,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-07-15T09:54:41.395013",
+    "tweet_text": "予算15万円でStreet Fighter 6を快適に遊びたい\n\n推奨構成:\n・GPU: RTX2070\n・CPU: Intel Core i7 8700\n・RAM: 16GB\n\nhttps://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
