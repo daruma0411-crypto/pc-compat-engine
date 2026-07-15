@@ -2547,5 +2547,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-07-15T04:17:11.362439",
+    "tweet_text": "みんなGPU何使ってる？\n筆者はRTX 4070だけどそろそろ5070気になる\n\nhttps://pc-jisaku.com\n#GPU #PCゲーム",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
