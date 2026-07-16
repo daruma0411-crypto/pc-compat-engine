@@ -2571,5 +2571,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Left 4 Dead 2",
+    "posted_at": "2026-07-16T09:44:21.629286",
+    "tweet_text": "初めての自作PCでLeft 4 Dead 2遊びたい\n予算8万円でいける？\n\nVideo Card Shader model 3.0. NVidia 7600, ATI X1600必要らしい\nhttps://pc-jisaku.com/game/left-4-dead-2\n\n#Left4Dead2 #自作PC初心者",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
