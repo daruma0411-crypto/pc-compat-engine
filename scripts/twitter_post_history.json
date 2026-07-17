@@ -2587,5 +2587,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-17T04:20:49.833903",
+    "tweet_text": "これ需要あると思う\n\n【週刊】PCパーツ価格ウォッチ 2026年6月第2週\nhttps://pc-jisaku.com/blog/20260621-weekly_report-pcparts-price-watch-2026y06monthweek2.html\n\n#ブログ更新 #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260621-weekly_report-pcparts-price-watch-2026y06monthweek2.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
