@@ -2604,5 +2604,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-17T12:38:34.991904",
+    "tweet_text": "ブログ更新\n「ファイナルファンタジーVII リバース」の推奨スペックとGPU別FPS目安【2026年07月更新】\n\nhttps://pc-jisaku.com/blog/20260705-benchmark-final-fantasy-vii-rebirth-vii-spec-gpufps2026y07monthupdate.html\n\n#PCパーツ #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260705-benchmark-final-fantasy-vii-rebirth-vii-spec-gpufps2026y07monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
