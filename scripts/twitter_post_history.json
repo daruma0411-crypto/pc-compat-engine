@@ -2613,5 +2613,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Hollow Knight: Silksong",
+    "posted_at": "2026-07-18T04:28:02.370269",
+    "tweet_text": "Hollow Knight: Silksong動作環境まとめ\nhttps://pc-jisaku.com/game/hollow-knight-silksong\n\n#HollowKnightSilksong #PCゲーム",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
