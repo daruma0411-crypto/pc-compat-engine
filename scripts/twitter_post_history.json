@@ -2630,5 +2630,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-07-19T04:25:14.913780",
+    "tweet_text": "GPU選びで騙されるな\n\n❌ VRAM多い=速い ←嘘\n❌ 最新=最強 ←嘘\n❌ ベンチ=実ゲーム ←嘘\n\n実際のゲームで比べないと意味ない\n\nゲーム別に診断できる→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
