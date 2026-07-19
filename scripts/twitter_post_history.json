@@ -2647,5 +2647,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "HITMAN World of Assassination",
+    "posted_at": "2026-07-19T12:40:33.731429",
+    "tweet_text": "HITMAN World of Assassinationベンチマーク結果\nNvidia GPU GTX 1070 / Intel CPU Core i7 4790 4 GHz\n→ 1080p60fps安定\n\n詳しいスペック→ https://pc-jisaku.com/game/hitman-world-of-assassination\n\n#HITMANWorldofAssassination #動作報告",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
