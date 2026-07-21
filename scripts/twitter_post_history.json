@@ -2671,5 +2671,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-21T04:14:57.172676",
+    "tweet_text": "今日のPC記事\nRTX 3070で遊べる最新ゲーム50選【7月版】\n\nhttps://pc-jisaku.com/blog/20260706-gpu_list-elden-ring-rtx-307050picks7month.html\n\n#自作PC #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260706-gpu_list-elden-ring-rtx-307050picks7month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
