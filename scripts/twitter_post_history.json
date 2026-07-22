@@ -2696,5 +2696,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Hades II",
+    "posted_at": "2026-07-22T04:14:01.177523",
+    "tweet_text": "Hades II、想像以上に最適化されてるわ\nRTX 2060, RX 5600 XT,でも余裕で遊べる\n\nhttps://pc-jisaku.com/game/hades-ii\n\n#HadesII #神ゲー",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
