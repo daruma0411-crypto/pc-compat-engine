@@ -2721,5 +2721,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Palworld",
+    "posted_at": "2026-07-23T04:07:44.112822",
+    "tweet_text": "Palworld、薄型ノートじゃキツイよな\n最低でもRTX 2070相当は欲しい\n\nhttps://pc-jisaku.com/game/palworld\n\n#Palworld #ゲーミングノート",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
