@@ -2729,5 +2729,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-07-23T10:09:34.638027",
+    "tweet_text": "記事書きました\n\n7月版 最新ゲーム推奨スペックランキングTOP20\n\nhttps://pc-jisaku.com/blog/20260704-ranking-monster-hunter-wilds-7month-spec-rankingtop20.html\n\n#PCパーツ #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260704-ranking-monster-hunter-wilds-7month-spec-rankingtop20.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
