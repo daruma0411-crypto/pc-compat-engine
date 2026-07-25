@@ -2754,5 +2754,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-07-25T04:19:34.204353",
+    "tweet_text": "PCゲーマーの皆さん、電気代月いくらくらい？\nハイエンドPC+モニター2枚だとヤバそう\n#GPU #PCゲーム",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
