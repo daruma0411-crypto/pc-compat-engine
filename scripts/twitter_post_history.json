@@ -2778,5 +2778,15 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Among Us",
+    "posted_at": "2026-07-27T10:27:02.403051",
+    "tweet_text": "【Among Usの推奨スペック解説】\n\n推奨GPU: Nvidia GTX 650\n推奨RAM: 4GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
