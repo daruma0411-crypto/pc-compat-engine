@@ -2797,5 +2797,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "フロストパンク",
+    "posted_at": "2026-07-28T10:14:57.483263",
+    "tweet_text": "フロストパンクを1080pと1440pで比較\n1080p: 970, RX 580で余裕\n1440p: RTX 4070推奨\n\n詳細→ https://pc-jisaku.com/game/%E3%83%95%E3%83%AD%E3%82%B9%E3%83%88%E3%83%91%E3%83%B3%E3%82%AF\n\n#フロストパンク #パーツ選び\n\n広まれ〜",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
