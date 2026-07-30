@@ -2829,5 +2829,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "鉄拳8",
+    "posted_at": "2026-07-30T04:20:39.060180",
+    "tweet_text": "鉄拳8ってRAM 16GBないとキツイ？\nうち16GBしかないんだけど\n\n推奨スペック→ https://pc-jisaku.com/game/%E9%89%84%E6%8B%B38\n\n#鉄拳8 #動作環境",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
