@@ -2902,5 +2902,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-08-04T10:09:29.505370",
+    "tweet_text": "今日のPC記事\n「フォートナイト」のMODを入れるために必要なスペック\n\nhttps://pc-jisaku.com/blog/20260727-mod-fortnite-mod-mod-spec.html\n\n#ゲーミングPC #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260727-mod-fortnite-mod-mod-spec.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
