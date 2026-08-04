@@ -2894,5 +2894,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "NieR:Automata™",
+    "posted_at": "2026-08-04T04:18:15.278230",
+    "tweet_text": "NieR:Automata™ベンチマーク結果\nGTX 980 VRAM 4GB 以上、AMD R9 380X VRAM 4GB 以上 / Intel Core i5 4670 以上、AMD A10-7850K 以上\n→ 1080p60fps安定\n\n詳しいスペック→ https://pc-jisaku.com/game/nierautomata\n\n#NieRAutomata™ #ベンチマーク",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
