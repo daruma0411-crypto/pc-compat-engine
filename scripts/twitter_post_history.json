@@ -2919,5 +2919,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Fate/stay night REMASTERED",
+    "posted_at": "2026-08-05T10:18:05.129662",
+    "tweet_text": "Fate/stay night REMASTERED、中古パーツで組んだら\n予算7万円で動いた\n\nGPU: GTX 660\nCPU: 第6世代インテルCoreプロセッサ以降\n\n詳細→ https://pc-jisaku.com/game/fatestay-night-remastered\n\n#Fate/staynightREMASTERED #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
