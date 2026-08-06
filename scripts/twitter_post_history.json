@@ -2935,5 +2935,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-06T14:12:37.599150",
+    "tweet_text": "【保存推奨】予算別おすすめGPUまとめ\n\n5万円以下: GTX 1660 Super\n7万円: RTX 4060\n10万円: RTX 4070\n15万円: RTX 4070 Ti Super\n20万円超: RTX 4080\n\n価格は常に変動するので要チェック\n\n気になる人→ https://pc-jisaku.com\n#GPU #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
