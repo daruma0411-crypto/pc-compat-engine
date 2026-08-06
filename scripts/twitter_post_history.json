@@ -2927,5 +2927,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Outer Wilds",
+    "posted_at": "2026-08-06T11:17:28.294655",
+    "tweet_text": "Outer Wilds、クソ重いって聞いたけど\nNvidia GTX 1060 | AMD RX 580なら余裕らしい\n\nうちのPCで動くか確認→ https://pc-jisaku.com/game/outer-wilds\n\n#OuterWilds #PCゲーム雑談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
