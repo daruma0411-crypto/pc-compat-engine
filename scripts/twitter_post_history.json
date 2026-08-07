@@ -2952,5 +2952,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "DARK SOULS™ III",
+    "posted_at": "2026-08-07T10:14:17.501222",
+    "tweet_text": "DARK SOULS™ III神ゲーすぎる\nグラフィック最高設定で快適\n\nGPU: GTX 970\n詳細→ https://pc-jisaku.com/game/dark-souls-iii\n\n#DARKSOULS™III #神ゲー",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
