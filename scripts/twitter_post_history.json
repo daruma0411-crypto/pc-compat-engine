@@ -2960,5 +2960,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-07T12:52:52.655849",
+    "tweet_text": "自作とBTO、初心者はどっちにすべき？\n\n自作: 2万安い / 好きなパーツ選べる / 壊したら自己責任\nBTO: 保証あり / 届いて即使える / パーツ選べない\n\n俺は自作派だけど\nぶっちゃけ初心者はBTOでよくない？",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
