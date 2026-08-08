@@ -2977,5 +2977,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-08-08T09:35:55.568766",
+    "tweet_text": "Street Fighter 6、RTX2070でも普通に遊べたわ\n\n推奨スペック:\n・GPU: RTX2070\n・CPU: Intel Core i7 8700\n・RAM: 16GB\n\nhttps://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #ベンチマーク",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
