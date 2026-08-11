@@ -3017,5 +3017,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "Assetto Corsa",
+    "posted_at": "2026-08-11T04:19:16.097374",
+    "tweet_text": "初めての自作PC\nAssetto Corsa用ならどのGPU選ぶ？\n\n推奨: DirectX 11 (e.g. AMD 290x, Nvidia GTX 970)\nコスパ: RTX 4060\n将来性: RTX 4070\n\nhttps://pc-jisaku.com/game/assetto-corsa\n\n#AssettoCorsa #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
