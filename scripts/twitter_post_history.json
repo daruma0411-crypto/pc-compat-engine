@@ -3041,5 +3041,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-12T09:55:16.433640",
+    "tweet_text": "これ全部やってた人、正直に手挙げて\n\n❌ メモリ1枚挿し→性能半減してる\n❌ 電源ケチった→パーツ巻き込んで死亡\n❌ CPUに10万かけてGPU3万→逆だろ\n\n自分のPC大丈夫？→ https://pc-jisaku.com",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
