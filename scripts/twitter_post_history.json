@@ -3049,5 +3049,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Panzer Corps 2",
+    "posted_at": "2026-08-13T10:14:53.640265",
+    "tweet_text": "Panzer Corps 2やりたいんだけど\n予算10万円以内で組めますか？\n\n推奨: nVidia\n詳細→ https://pc-jisaku.com/game/panzer-corps-2\n\n#PanzerCorps2 #自作PC初心者",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
