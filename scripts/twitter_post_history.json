@@ -3089,5 +3089,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-08-15T09:32:37.820239",
+    "tweet_text": "毎日更新中\n\n「エルデンリング」が重い・カクつく原因と解決策5選\nhttps://pc-jisaku.com/blog/20260719-performance-elden-ring-heavy-lag-fix5picks.html\n\n#ブログ更新 #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260719-performance-elden-ring-heavy-lag-fix5picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
