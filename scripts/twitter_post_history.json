@@ -3122,5 +3122,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-17T09:45:49.928673",
+    "tweet_text": "エルデンリング、あなたのPCで動く？\n\n最低: GTX 1060（カクカク覚悟）\n推奨: RTX 3060（まあまあ）\n快適: RTX 4070（ヌルヌル）\n\n「推奨」でもカクつく場面あるから\n正直RTX 4070欲しい\n\n診断→ https://pc-jisaku.com",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
