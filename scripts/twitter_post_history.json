@@ -3130,5 +3130,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[data]",
+    "posted_at": "2026-08-17T12:32:22.902615",
+    "tweet_text": "RTX 4060 Tiの最安値 今75,800円\nVRAM 8GB / 12製品比較\n価格.com調べ\n\nhttps://pc-jisaku.com\n\n#PCパーツ #GPU価格",
+    "has_image": true,
+    "post_type": "data",
+    "hashtag_count": 2
   }
 ]
