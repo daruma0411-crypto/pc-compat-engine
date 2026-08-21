@@ -3172,5 +3172,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Elden Ring Shadow of the Erdtree",
+    "posted_at": "2026-08-21T09:53:52.873137",
+    "tweet_text": "Elden Ring Shadow of the Erdtreeを1080pと1440pで比較\n1080p: GTX 1070 8GBで余裕\n1440p: RTX 4070推奨\n\n詳細→ https://pc-jisaku.com/game/elden-ring-shadow-of-the-erdtree\n\n#EldenRingShadowoftheErdtree #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
