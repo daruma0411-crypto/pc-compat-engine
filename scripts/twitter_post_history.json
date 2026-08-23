@@ -3204,5 +3204,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Undertale",
+    "posted_at": "2026-08-23T03:38:02.301627",
+    "tweet_text": "初めての自作PC\nUndertale用ならどのGPU選ぶ？\n\n推奨: 512MB\nコスパ: RTX 4060\n将来性: RTX 4070\n\nhttps://pc-jisaku.com/game/undertale\n\n#Undertale #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
