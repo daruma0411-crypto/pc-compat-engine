@@ -3228,5 +3228,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-24T12:28:03.575045",
+    "tweet_text": "今からPC組むならIntelとAMDどっち選ぶ？\nRyzen 7 7800X3Dが鉄板って聞くけど\n#GPU #PCゲーム",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
