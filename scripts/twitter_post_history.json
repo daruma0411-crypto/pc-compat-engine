@@ -3253,5 +3253,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "ELDEN RING",
+    "posted_at": "2026-08-26T09:39:13.470349",
+    "tweet_text": "予算5万円でELDEN RING動かせる？\n\n推奨スペック:\nGPU: GEFORCE GTX 1070 8 GB\nRAM: 16GB\n\nあなたのPC診断↓\nhttps://pc-jisaku.com/game/elden-ring\n\n#ELDENRING #自作PC初心者",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
