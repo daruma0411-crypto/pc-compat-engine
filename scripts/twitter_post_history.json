@@ -3244,5 +3244,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-08-26T03:46:13.237994",
+    "tweet_text": "これ需要あると思う\n\n「バルダーズ・ゲート3」が重い・カクつく原因と解決策5選\nhttps://pc-jisaku.com/blog/20260818-performance-baldurs-gate-3-3-heavy-lag-fix5picks.html\n\n#GPU #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260818-performance-baldurs-gate-3-3-heavy-lag-fix5picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
