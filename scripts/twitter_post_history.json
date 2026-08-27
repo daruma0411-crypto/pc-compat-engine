@@ -3285,5 +3285,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-27T16:02:17.543778",
+    "tweet_text": "この論争、終わらせたい\n\nRTX 4070 vs RX 7800 XT\n\n4070: DLSS神 / レイトレ◎ / VRAM 12GB\n7800XT: VRAM 16GB / 1万安い / 1440p最強\n\nどっち派？引用RTで決着つけよう",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
