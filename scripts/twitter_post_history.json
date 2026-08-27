@@ -3269,5 +3269,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-08-27T04:47:58.722494",
+    "tweet_text": "最近のゲーム、推奨スペック上がりすぎじゃない？\nRTX 4070が「推奨」はキツイ\n\nちなみに診断できる→ https://pc-jisaku.com\n#PCゲーム #自作PC",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
