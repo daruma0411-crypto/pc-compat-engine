@@ -3293,5 +3293,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Metro Exodus",
+    "posted_at": "2026-08-28T06:05:59.574619",
+    "tweet_text": "質問\nMetro Exodusを快適に遊びたいんだけど\nGTX 1070とIntel Core i7-4770kならいける？\n\nスペック確認ツール↓\nhttps://pc-jisaku.com/game/metro-exodus\n\n#MetroExodus #GPU相談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
