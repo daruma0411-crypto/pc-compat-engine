@@ -3342,5 +3342,15 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Total War: WARHAMMER II",
+    "posted_at": "2026-08-31T03:34:23.272147",
+    "tweet_text": "【Total War: WARHAMMER IIの推奨スペック解説】\n\n推奨GPU: GTX 770 4GB | AMD R9 290X 4GB @1080p\n推奨RAM: 8GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
