@@ -3376,5 +3376,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Red Dead Redemption 2",
+    "posted_at": "2026-09-01T12:17:29.773090",
+    "tweet_text": "【動作確認済み】\nRed Dead Redemption 2\nGPU: Nvidia GTX 1060 6GB\nCPU: Intel Core i7-4770K\nRAM: 12GB\n\nhttps://pc-jisaku.com/game/red-dead-redemption-2\n\n#RedDeadRedemption2 #ベンチマーク",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
