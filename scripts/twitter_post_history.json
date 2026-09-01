@@ -3360,5 +3360,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "It Takes Two Friend's Pass",
+    "posted_at": "2026-09-01T03:24:51.461558",
+    "tweet_text": "It Takes Two Friend's Passベンチマーク結果\nNvidia GTX 980 / Intel Core i5 3570K\n→ 1080p60fps安定\n\n詳しいスペック→ https://pc-jisaku.com/game/it-takes-two-friends-pass\n\n#ItTakesTwoFriendsPass #ベンチマーク",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
