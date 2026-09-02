@@ -3393,5 +3393,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-09-02T13:05:10.282055",
+    "tweet_text": "Street Fighter 6、RTX2070とRTX 4060どっちがいい？\n\n推奨スペック見る限り\nRTX2070で十分っぽい\n\nhttps://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
