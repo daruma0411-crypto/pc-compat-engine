@@ -3384,5 +3384,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-09-02T07:47:19.997741",
+    "tweet_text": "これ需要あると思う\n\n「サイバーパンク2077」の推奨スペックとGPU別FPS目安【2026年08月更新】\nhttps://pc-jisaku.com/blog/20260828-benchmark-cyberpunk-2077-2077-spec-gpufps2026y08monthupdate.html\n\n#ゲーミングPC #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260828-benchmark-cyberpunk-2077-2077-spec-gpufps2026y08monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
