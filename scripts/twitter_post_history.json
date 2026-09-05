@@ -3466,5 +3466,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-09-05T12:40:41.401692",
+    "tweet_text": "メモリ買おうとしてる人、急いだ方がいい\n\n今週のDDR5\n値上がり: 449件\n値下がり: 217件\n\n来週さらに上がる可能性あり\n価格チェック→ https://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
