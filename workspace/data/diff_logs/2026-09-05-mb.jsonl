@@ -1,0 +1,690 @@
+{"id": "kakaku_K0001265329", "name": "ASRock B550M Pro4", "old_price": 7980, "new_price": 6780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001404716", "name": "ASRock X570S PG Riptide", "old_price": 17980, "new_price": 17800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001693011", "name": "ASUS TUF GAMING B650E-PLUS WIFI", "old_price": 25000, "new_price": 26409, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259414", "name": "ASUS PRIME B550M-A", "old_price": 6847, "new_price": 7980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001695186", "name": "ASUS TUF GAMING X870E-PLUS WIFI7", "old_price": 42700, "new_price": 39800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259409", "name": "ASUS TUF GAMING B550-PLUS", "old_price": 16700, "new_price": 16641, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001719473", "name": "GIGABYTE B850M A ELT WF7 ICE-P", "old_price": 36310, "new_price": 35980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265329", "name": "ASRock B550M Pro4", "old_price": 7980, "new_price": 6780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001404716", "name": "ASRock X570S PG Riptide", "old_price": 17980, "new_price": 17800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001605001", "name": "ASUS PRIME B550M-A WIFI II", "old_price": 10980, "new_price": 14099, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001693011", "name": "ASUS TUF GAMING B650E-PLUS WIFI", "old_price": 25000, "new_price": 26409, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506408", "name": "ASUS PRIME B760M-A D4", "old_price": 14800, "new_price": 9980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259414", "name": "ASUS PRIME B550M-A", "old_price": 6847, "new_price": 7980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001269119", "name": "MSI MPG B550 GAMING PLUS", "old_price": 22979, "new_price": 16480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001695186", "name": "ASUS TUF GAMING X870E-PLUS WIFI7", "old_price": 42700, "new_price": 39800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259409", "name": "ASUS TUF GAMING B550-PLUS", "old_price": 16700, "new_price": 16641, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001719473", "name": "GIGABYTE B850M A ELT WF7 ICE-P", "old_price": 36310, "new_price": 35980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001706164", "name": "ASUS TUF GAMING B650EM-PLUS WIFI", "old_price": 24980, "new_price": 27800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001404716", "name": "ASRock X570S PG Riptide", "old_price": 17980, "new_price": 17800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001605001", "name": "ASUS PRIME B550M-A WIFI II", "old_price": 10980, "new_price": 14099, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001693011", "name": "ASUS TUF GAMING B650E-PLUS WIFI", "old_price": 25000, "new_price": 26409, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506408", "name": "ASUS PRIME B760M-A D4", "old_price": 14800, "new_price": 9980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259414", "name": "ASUS PRIME B550M-A", "old_price": 6847, "new_price": 7980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001269119", "name": "MSI MPG B550 GAMING PLUS", "old_price": 22979, "new_price": 16480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001695186", "name": "ASUS TUF GAMING X870E-PLUS WIFI7", "old_price": 42700, "new_price": 39800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259409", "name": "ASUS TUF GAMING B550-PLUS", "old_price": 16700, "new_price": 16641, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001719473", "name": "GIGABYTE B850M A ELT WF7 ICE-P", "old_price": 36310, "new_price": 35980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001281761", "name": "ASUS PRIME A520M-E", "old_price": 6480, "new_price": 6980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001620768", "name": "ASRock B550M Pro RS", "old_price": 12800, "new_price": 14400, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001706164", "name": "ASUS TUF GAMING B650EM-PLUS WIFI", "old_price": 24980, "new_price": 27800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265324", "name": "ASRock B550 Steel Legend", "old_price": 24980, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001605001", "name": "ASUS PRIME B550M-A WIFI II", "old_price": 10980, "new_price": 14099, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001613780", "name": "MSI B550M PRO-VDH", "old_price": 10081, "new_price": 13200, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506408", "name": "ASUS PRIME B760M-A D4", "old_price": 14800, "new_price": 9980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001269119", "name": "MSI MPG B550 GAMING PLUS", "old_price": 22979, "new_price": 16480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001675968", "name": "ASUS PRIME A520M-K", "old_price": 5679, "new_price": 6091, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001607553", "name": "ASRock B650 Steel Legend WiFi", "old_price": 21980, "new_price": 27000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001281761", "name": "ASUS PRIME A520M-E", "old_price": 6480, "new_price": 6980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698159", "name": "MSI B850M GAMING PLUS WIFI6E", "old_price": 18345, "new_price": 18336, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001620768", "name": "ASRock B550M Pro RS", "old_price": 12800, "new_price": 14400, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001272085", "name": "ASRock B550M-ITX/ac", "old_price": 27524, "new_price": 26999, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001706164", "name": "ASUS TUF GAMING B650EM-PLUS WIFI", "old_price": 24980, "new_price": 27800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265324", "name": "ASRock B550 Steel Legend", "old_price": 24980, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265326", "name": "ASRock B550 Phantom Gaming 4", "old_price": 12600, "new_price": 13860, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001613780", "name": "MSI B550M PRO-VDH", "old_price": 10081, "new_price": 13200, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001672219", "name": "ASUS ROG STRIX X870E-E GAMING WIFI", "old_price": 64700, "new_price": 69049, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001675968", "name": "ASUS PRIME A520M-K", "old_price": 5679, "new_price": 6091, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001662072", "name": "GIGABYTE B650M GAMING PLUS WF", "old_price": 28771, "new_price": 27588, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486550", "name": "ASUS TUF GAMING B650-PLUS WIFI", "old_price": 31030, "new_price": 31000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001685622", "name": "MSI MAG B850M MORTAR WIFI", "old_price": 38267, "new_price": 40980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001607553", "name": "ASRock B650 Steel Legend WiFi", "old_price": 21980, "new_price": 27000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698159", "name": "MSI B850M GAMING PLUS WIFI6E", "old_price": 18345, "new_price": 18336, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001281761", "name": "ASUS PRIME A520M-E", "old_price": 6480, "new_price": 6980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259195", "name": "ASUS PRIME H410M-A", "old_price": 10372, "new_price": 8000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001620768", "name": "ASRock B550M Pro RS", "old_price": 12800, "new_price": 14400, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001272085", "name": "ASRock B550M-ITX/ac", "old_price": 27524, "new_price": 26999, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265326", "name": "ASRock B550 Phantom Gaming 4", "old_price": 12600, "new_price": 13860, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265324", "name": "ASRock B550 Steel Legend", "old_price": 24980, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001588538", "name": "MSI MAG B760M MORTAR WIFI II", "old_price": 15570, "new_price": 17800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001613780", "name": "MSI B550M PRO-VDH", "old_price": 10081, "new_price": 13200, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001287854", "name": "ASUS ROG STRIX B550-A GAMING", "old_price": 17980, "new_price": 20880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001672219", "name": "ASUS ROG STRIX X870E-E GAMING WIFI", "old_price": 64700, "new_price": 69049, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001662072", "name": "GIGABYTE B650M GAMING PLUS WF", "old_price": 28771, "new_price": 27588, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001675968", "name": "ASUS PRIME A520M-K", "old_price": 5679, "new_price": 6091, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486550", "name": "ASUS TUF GAMING B650-PLUS WIFI", "old_price": 31030, "new_price": 31000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001685622", "name": "MSI MAG B850M MORTAR WIFI", "old_price": 38267, "new_price": 40980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001607553", "name": "ASRock B650 Steel Legend WiFi", "old_price": 21980, "new_price": 27000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698159", "name": "MSI B850M GAMING PLUS WIFI6E", "old_price": 18345, "new_price": 18336, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259195", "name": "ASUS PRIME H410M-A", "old_price": 10372, "new_price": 8000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001723050", "name": "MSI B850MPOWER", "old_price": 37980, "new_price": 44980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001272085", "name": "ASRock B550M-ITX/ac", "old_price": 27524, "new_price": 26999, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265326", "name": "ASRock B550 Phantom Gaming 4", "old_price": 12600, "new_price": 13860, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001283557", "name": "MSI A520M-A PRO", "old_price": 5680, "new_price": 5455, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001588538", "name": "MSI MAG B760M MORTAR WIFI II", "old_price": 15570, "new_price": 17800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001287854", "name": "ASUS ROG STRIX B550-A GAMING", "old_price": 17980, "new_price": 20880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001672219", "name": "ASUS ROG STRIX X870E-E GAMING WIFI", "old_price": 64700, "new_price": 69049, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001662072", "name": "GIGABYTE B650M GAMING PLUS WF", "old_price": 28771, "new_price": 27588, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659940", "name": "MSI Z890 GAMING PLUS WIFI", "old_price": 39212, "new_price": 30500, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486550", "name": "ASUS TUF GAMING B650-PLUS WIFI", "old_price": 31030, "new_price": 31000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001685622", "name": "MSI MAG B850M MORTAR WIFI", "old_price": 38267, "new_price": 40980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001723050", "name": "MSI B850MPOWER", "old_price": 37980, "new_price": 44980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001259195", "name": "ASUS PRIME H410M-A", "old_price": 10372, "new_price": 8000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001283557", "name": "MSI A520M-A PRO", "old_price": 5680, "new_price": 5455, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001588538", "name": "MSI MAG B760M MORTAR WIFI II", "old_price": 15570, "new_price": 17800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656281", "name": "MSI MPG X870E CARBON WIFI", "old_price": 59182, "new_price": 60228, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001287854", "name": "ASUS ROG STRIX B550-A GAMING", "old_price": 17980, "new_price": 20880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659940", "name": "MSI Z890 GAMING PLUS WIFI", "old_price": 39212, "new_price": 30500, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673135", "name": "MSI MAG B850 TOMAHAWK MAX WIFI", "old_price": 33313, "new_price": 35979, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669620", "name": "GIGABYTE B850I AORUS PRO", "old_price": 38609, "new_price": 39736, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001723050", "name": "MSI B850MPOWER", "old_price": 37980, "new_price": 44980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669884", "name": "ASRock B860M LiveMixer WiFi", "old_price": 25040, "new_price": 25293, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669880", "name": "ASRock B860 Steel Legend WiFi", "old_price": 30980, "new_price": 30114, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001283557", "name": "MSI A520M-A PRO", "old_price": 5680, "new_price": 5455, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656281", "name": "MSI MPG X870E CARBON WIFI", "old_price": 59182, "new_price": 60228, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506475", "name": "ASRock B760M-ITX/D4 WiFi", "old_price": 27800, "new_price": 19800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506470", "name": "ASRock B760 Pro RS", "old_price": 9955, "new_price": 9500, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265328", "name": "ASRock B550M Steel Legend", "old_price": 33411, "new_price": 32411, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673135", "name": "MSI MAG B850 TOMAHAWK MAX WIFI", "old_price": 33313, "new_price": 35979, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669636", "name": "ASUS PRIME B840M-A WIFI-CSM", "old_price": 13980, "new_price": 22000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659940", "name": "MSI Z890 GAMING PLUS WIFI", "old_price": 39212, "new_price": 30500, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669620", "name": "GIGABYTE B850I AORUS PRO", "old_price": 38609, "new_price": 39736, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001705034", "name": "ASRock X870 Livemixer WiFi", "old_price": 32980, "new_price": 36135, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669884", "name": "ASRock B860M LiveMixer WiFi", "old_price": 25040, "new_price": 25293, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604183", "name": "MSI Z790 GAMING PLUS WIFI", "old_price": 27200, "new_price": 28000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669638", "name": "ASUS ROG STRIX B860-G GAMING WIFI", "old_price": 40030, "new_price": 40300, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669880", "name": "ASRock B860 Steel Legend WiFi", "old_price": 30980, "new_price": 30114, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656602", "name": "GIGABYTE X870 A ELITE WF7 ICE", "old_price": 39980, "new_price": 37873, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506475", "name": "ASRock B760M-ITX/D4 WiFi", "old_price": 27800, "new_price": 19800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656281", "name": "MSI MPG X870E CARBON WIFI", "old_price": 59182, "new_price": 60228, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506470", "name": "ASRock B760 Pro RS", "old_price": 9955, "new_price": 9500, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001695184", "name": "ASUS ROG CROSSHAIR X870E EXTREME", "old_price": 219800, "new_price": 215545, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265328", "name": "ASRock B550M Steel Legend", "old_price": 33411, "new_price": 32411, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669636", "name": "ASUS PRIME B840M-A WIFI-CSM", "old_price": 13980, "new_price": 22000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670660", "name": "MSI B860 GAMING PLUS WIFI", "old_price": 24002, "new_price": 23980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673135", "name": "MSI MAG B850 TOMAHAWK MAX WIFI", "old_price": 33313, "new_price": 35979, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001705034", "name": "ASRock X870 Livemixer WiFi", "old_price": 32980, "new_price": 36135, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669620", "name": "GIGABYTE B850I AORUS PRO", "old_price": 38609, "new_price": 39736, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604183", "name": "MSI Z790 GAMING PLUS WIFI", "old_price": 27200, "new_price": 28000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670277", "name": "GIGABYTE B860I AORUS PRO ICE", "old_price": 31583, "new_price": 31591, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669638", "name": "ASUS ROG STRIX B860-G GAMING WIFI", "old_price": 40030, "new_price": 40300, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669884", "name": "ASRock B860M LiveMixer WiFi", "old_price": 25040, "new_price": 25293, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673416", "name": "MSI MAG X870E TOMAHAWK WIFI", "old_price": 54980, "new_price": 43980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656602", "name": "GIGABYTE X870 A ELITE WF7 ICE", "old_price": 39980, "new_price": 37873, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669880", "name": "ASRock B860 Steel Legend WiFi", "old_price": 30980, "new_price": 30114, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506475", "name": "ASRock B760M-ITX/D4 WiFi", "old_price": 27800, "new_price": 19800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001695184", "name": "ASUS ROG CROSSHAIR X870E EXTREME", "old_price": 219800, "new_price": 215545, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506470", "name": "ASRock B760 Pro RS", "old_price": 9955, "new_price": 9500, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265328", "name": "ASRock B550M Steel Legend", "old_price": 33411, "new_price": 32411, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670660", "name": "MSI B860 GAMING PLUS WIFI", "old_price": 24002, "new_price": 23980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669636", "name": "ASUS PRIME B840M-A WIFI-CSM", "old_price": 13980, "new_price": 22000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001681622", "name": "MSI MAG B860M MORTAR WIFI", "old_price": 30400, "new_price": 29800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001713994", "name": "ASUS X870 MAX GAMING WIFI7 パソコン工房限定モデル", "old_price": 27980, "new_price": 32800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001705034", "name": "ASRock X870 Livemixer WiFi", "old_price": 32980, "new_price": 36135, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001719726", "name": "MSI MPG B860I EDGE TI WIFI", "old_price": 30582, "new_price": 29980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656277", "name": "ASRock X870E Taichi", "old_price": 82574, "new_price": 79018, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670277", "name": "GIGABYTE B860I AORUS PRO ICE", "old_price": 31583, "new_price": 31591, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604183", "name": "MSI Z790 GAMING PLUS WIFI", "old_price": 27200, "new_price": 28000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673416", "name": "MSI MAG X870E TOMAHAWK WIFI", "old_price": 54980, "new_price": 43980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669638", "name": "ASUS ROG STRIX B860-G GAMING WIFI", "old_price": 40030, "new_price": 40300, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698158", "name": "MSI B850 GAMING PLUS WIFI6E", "old_price": 21200, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656602", "name": "GIGABYTE X870 A ELITE WF7 ICE", "old_price": 39980, "new_price": 37873, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669877", "name": "ASRock B850M Steel Legend WiFi", "old_price": 27980, "new_price": 33320, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670458", "name": "MSI B850 GAMING PLUS WIFI", "old_price": 33800, "new_price": 32580, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001695184", "name": "ASUS ROG CROSSHAIR X870E EXTREME", "old_price": 219800, "new_price": 215545, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001705035", "name": "ASRock X870 Pro-A WiFi", "old_price": 28980, "new_price": 25980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670660", "name": "MSI B860 GAMING PLUS WIFI", "old_price": 24002, "new_price": 23980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001681622", "name": "MSI MAG B860M MORTAR WIFI", "old_price": 30400, "new_price": 29800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001713994", "name": "ASUS X870 MAX GAMING WIFI7 パソコン工房限定モデル", "old_price": 27980, "new_price": 32800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658272", "name": "ASUS ROG STRIX Z890-F GAMING WIFI", "old_price": 53170, "new_price": 62600, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001719726", "name": "MSI MPG B860I EDGE TI WIFI", "old_price": 30582, "new_price": 29980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001624973", "name": "ASUS PRIME H610M-R D4", "old_price": 6779, "new_price": 7980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656277", "name": "ASRock X870E Taichi", "old_price": 82574, "new_price": 79018, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670277", "name": "GIGABYTE B860I AORUS PRO ICE", "old_price": 31583, "new_price": 31591, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673416", "name": "MSI MAG X870E TOMAHAWK WIFI", "old_price": 54980, "new_price": 43980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698158", "name": "MSI B850 GAMING PLUS WIFI6E", "old_price": 21200, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669877", "name": "ASRock B850M Steel Legend WiFi", "old_price": 27980, "new_price": 33320, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670458", "name": "MSI B850 GAMING PLUS WIFI", "old_price": 33800, "new_price": 32580, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001705035", "name": "ASRock X870 Pro-A WiFi", "old_price": 28980, "new_price": 25980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670459", "name": "MSI PRO B850-P WIFI", "old_price": 21980, "new_price": 27780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001681622", "name": "MSI MAG B860M MORTAR WIFI", "old_price": 30400, "new_price": 29800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001713994", "name": "ASUS X870 MAX GAMING WIFI7 パソコン工房限定モデル", "old_price": 27980, "new_price": 32800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001574429", "name": "ASRock B650I Lightning WiFi", "old_price": 32271, "new_price": 38140, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658272", "name": "ASUS ROG STRIX Z890-F GAMING WIFI", "old_price": 53170, "new_price": 62600, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001719726", "name": "MSI MPG B860I EDGE TI WIFI", "old_price": 30582, "new_price": 29980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669615", "name": "GIGABYTE B850 A ELITE WF7 ICE", "old_price": 32230, "new_price": 33740, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001624973", "name": "ASUS PRIME H610M-R D4", "old_price": 6779, "new_price": 7980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656277", "name": "ASRock X870E Taichi", "old_price": 82574, "new_price": 79018, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476935", "name": "ASRock Z790 Steel Legend WiFi", "old_price": 38000, "new_price": 39018, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698158", "name": "MSI B850 GAMING PLUS WIFI6E", "old_price": 21200, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658277", "name": "ASUS TUF GAMING Z890-PLUS WIFI", "old_price": 29150, "new_price": 33489, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669877", "name": "ASRock B850M Steel Legend WiFi", "old_price": 27980, "new_price": 33320, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670458", "name": "MSI B850 GAMING PLUS WIFI", "old_price": 33800, "new_price": 32580, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656600", "name": "GIGABYTE X870E AORUS PRO", "old_price": 58537, "new_price": 60976, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001705035", "name": "ASRock X870 Pro-A WiFi", "old_price": 28980, "new_price": 25980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001599223", "name": "MSI B760M GAMING PLUS WIFI", "old_price": 13991, "new_price": 12980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658272", "name": "ASUS ROG STRIX Z890-F GAMING WIFI", "old_price": 53170, "new_price": 62600, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001624973", "name": "ASUS PRIME H610M-R D4", "old_price": 6779, "new_price": 7980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001767044", "name": "MSI PRO B860M-E パソコン工房限定モデル", "old_price": 13979, "new_price": 17880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001692317", "name": "ASUS X870 MAX GAMING WIFI7 W (X870 AM5 ATX) ドスパラ限定モデル", "old_price": 28980, "new_price": 30800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656274", "name": "ASRock X870 Riptide WiFi", "old_price": 32500, "new_price": 32175, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660883", "name": "GIGABYTE Z890 AORUS MASTER", "old_price": 70881, "new_price": 69713, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670459", "name": "MSI PRO B850-P WIFI", "old_price": 21980, "new_price": 27780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670459", "name": "MSI PRO B850-P WIFI", "old_price": 21980, "new_price": 27780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001574429", "name": "ASRock B650I Lightning WiFi", "old_price": 32271, "new_price": 38140, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001574429", "name": "ASRock B650I Lightning WiFi", "old_price": 32271, "new_price": 38140, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669615", "name": "GIGABYTE B850 A ELITE WF7 ICE", "old_price": 32230, "new_price": 33740, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001704184", "name": "MSI PRO B840M-B パソコン工房限定モデル", "old_price": 9980, "new_price": 15180, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669615", "name": "GIGABYTE B850 A ELITE WF7 ICE", "old_price": 32230, "new_price": 33740, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476935", "name": "ASRock Z790 Steel Legend WiFi", "old_price": 38000, "new_price": 39018, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476935", "name": "ASRock Z790 Steel Legend WiFi", "old_price": 38000, "new_price": 39018, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001711637", "name": "ASRock B850M Pro-A WiFi", "old_price": 22680, "new_price": 21100, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669885", "name": "ASRock B860M Pro RS WiFi", "old_price": 21495, "new_price": 21718, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658277", "name": "ASUS TUF GAMING Z890-PLUS WIFI", "old_price": 29150, "new_price": 33489, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670663", "name": "MSI PRO B860M-A WIFI", "old_price": 26720, "new_price": 25980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656600", "name": "GIGABYTE X870E AORUS PRO", "old_price": 58537, "new_price": 60976, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001599223", "name": "MSI B760M GAMING PLUS WIFI", "old_price": 13991, "new_price": 12980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001497183", "name": "GIGABYTE B650I AORUS ULTRA [Rev.1.0]", "old_price": 42844, "new_price": 43275, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673134", "name": "MSI MPG B850 EDGE TI WIFI", "old_price": 35980, "new_price": 36980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001767044", "name": "MSI PRO B860M-E パソコン工房限定モデル", "old_price": 13979, "new_price": 17880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658277", "name": "ASUS TUF GAMING Z890-PLUS WIFI", "old_price": 29150, "new_price": 33489, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001707834", "name": "NZXT N7 B850 N7-B85XT-W1", "old_price": 59380, "new_price": 50866, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656600", "name": "GIGABYTE X870E AORUS PRO", "old_price": 58537, "new_price": 60976, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001692317", "name": "ASUS X870 MAX GAMING WIFI7 W (X870 AM5 ATX) ドスパラ限定モデル", "old_price": 28980, "new_price": 30800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656274", "name": "ASRock X870 Riptide WiFi", "old_price": 32500, "new_price": 32175, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001700361", "name": "ASRock A620AM-HVS", "old_price": 8980, "new_price": 9600, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660883", "name": "GIGABYTE Z890 AORUS MASTER", "old_price": 70881, "new_price": 69713, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001523298", "name": "GIGABYTE B760M DS3H DDR4 (B760 1700 MicroATX) ドスパラ限定モデル", "old_price": 11980, "new_price": 10980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001599223", "name": "MSI B760M GAMING PLUS WIFI", "old_price": 13991, "new_price": 12980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001414053", "name": "ASUS PRIME H610M-A D4", "old_price": 10899, "new_price": 9900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001767044", "name": "MSI PRO B860M-E パソコン工房限定モデル", "old_price": 13979, "new_price": 17880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001704184", "name": "MSI PRO B840M-B パソコン工房限定モデル", "old_price": 9980, "new_price": 15180, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001692317", "name": "ASUS X870 MAX GAMING WIFI7 W (X870 AM5 ATX) ドスパラ限定モデル", "old_price": 28980, "new_price": 30800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656274", "name": "ASRock X870 Riptide WiFi", "old_price": 32500, "new_price": 32175, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001711637", "name": "ASRock B850M Pro-A WiFi", "old_price": 22680, "new_price": 21100, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660883", "name": "GIGABYTE Z890 AORUS MASTER", "old_price": 70881, "new_price": 69713, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670662", "name": "MSI B860M GAMING PLUS WIFI", "old_price": 21899, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669885", "name": "ASRock B860M Pro RS WiFi", "old_price": 21495, "new_price": 21718, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670663", "name": "MSI PRO B860M-A WIFI", "old_price": 26720, "new_price": 25980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001704184", "name": "MSI PRO B840M-B パソコン工房限定モデル", "old_price": 9980, "new_price": 15180, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669616", "name": "GIGABYTE B850 A ELITE WF7", "old_price": 30530, "new_price": 31640, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001497183", "name": "GIGABYTE B650I AORUS ULTRA [Rev.1.0]", "old_price": 42844, "new_price": 43275, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673134", "name": "MSI MPG B850 EDGE TI WIFI", "old_price": 35980, "new_price": 36980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659521", "name": "ASRock Z890 Steel Legend WiFi", "old_price": 35333, "new_price": 38260, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656261", "name": "ASUS PRIME X870-P WIFI-CSM", "old_price": 29500, "new_price": 29000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001711637", "name": "ASRock B850M Pro-A WiFi", "old_price": 22680, "new_price": 21100, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669885", "name": "ASRock B860M Pro RS WiFi", "old_price": 21495, "new_price": 21718, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670663", "name": "MSI PRO B860M-A WIFI", "old_price": 26720, "new_price": 25980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660884", "name": "GIGABYTE Z890 AORUS PRO ICE", "old_price": 45500, "new_price": 53804, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001707834", "name": "NZXT N7 B850 N7-B85XT-W1", "old_price": 59380, "new_price": 50866, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001700361", "name": "ASRock A620AM-HVS", "old_price": 8980, "new_price": 9600, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001523298", "name": "GIGABYTE B760M DS3H DDR4 (B760 1700 MicroATX) ドスパラ限定モデル", "old_price": 11980, "new_price": 10980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001497183", "name": "GIGABYTE B650I AORUS ULTRA [Rev.1.0]", "old_price": 42844, "new_price": 43275, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001414053", "name": "ASUS PRIME H610M-A D4", "old_price": 10899, "new_price": 9900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659518", "name": "ASRock Z890 Nova WiFi", "old_price": 49301, "new_price": 49798, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001673134", "name": "MSI MPG B850 EDGE TI WIFI", "old_price": 35980, "new_price": 36980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001477034", "name": "ASRock B650 PG Lightning", "old_price": 29700, "new_price": 26000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001707834", "name": "NZXT N7 B850 N7-B85XT-W1", "old_price": 59380, "new_price": 50866, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486551", "name": "ASUS TUF GAMING B650M-PLUS", "old_price": 26980, "new_price": 26800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001700361", "name": "ASRock A620AM-HVS", "old_price": 8980, "new_price": 9600, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001523298", "name": "GIGABYTE B760M DS3H DDR4 (B760 1700 MicroATX) ドスパラ限定モデル", "old_price": 11980, "new_price": 10980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670662", "name": "MSI B860M GAMING PLUS WIFI", "old_price": 21899, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486548", "name": "MSI PRO Z790-P WIFI", "old_price": 19818, "new_price": 19800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001414053", "name": "ASUS PRIME H610M-A D4", "old_price": 10899, "new_price": 9900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604065", "name": "GIGABYTE Z790 EAGLE AX [Rev.1.0]", "old_price": 30992, "new_price": 31001, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656271", "name": "ASRock X870 Pro RS WiFi", "old_price": 29980, "new_price": 26980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669616", "name": "GIGABYTE B850 A ELITE WF7", "old_price": 30530, "new_price": 31640, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001480202", "name": "ASRock Z790M-ITX WiFi", "old_price": 41558, "new_price": 44000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659521", "name": "ASRock Z890 Steel Legend WiFi", "old_price": 35333, "new_price": 38260, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656261", "name": "ASUS PRIME X870-P WIFI-CSM", "old_price": 29500, "new_price": 29000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670662", "name": "MSI B860M GAMING PLUS WIFI", "old_price": 21899, "new_price": 21980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001712041", "name": "GIGABYTE X870E A ELITE X ICE", "old_price": 51508, "new_price": 51507, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001338305", "name": "GIGABYTE Z590 AORUS ULTRA [Rev.1.0]", "old_price": 90245, "new_price": 88510, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660884", "name": "GIGABYTE Z890 AORUS PRO ICE", "old_price": 45500, "new_price": 53804, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669616", "name": "GIGABYTE B850 A ELITE WF7", "old_price": 30530, "new_price": 31640, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658414", "name": "MSI MEG Z890 GODLIKE", "old_price": 213111, "new_price": 209881, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001665079", "name": "ASUS PRIME H610M-F D4 R2.0-CSM パソコン工房限定モデル", "old_price": 7980, "new_price": 6480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659518", "name": "ASRock Z890 Nova WiFi", "old_price": 49301, "new_price": 49798, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659521", "name": "ASRock Z890 Steel Legend WiFi", "old_price": 35333, "new_price": 38260, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656261", "name": "ASUS PRIME X870-P WIFI-CSM", "old_price": 29500, "new_price": 29000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001477034", "name": "ASRock B650 PG Lightning", "old_price": 29700, "new_price": 26000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670276", "name": "GIGABYTE B860M D2H", "old_price": 15400, "new_price": 15399, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660884", "name": "GIGABYTE Z890 AORUS PRO ICE", "old_price": 45500, "new_price": 53804, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486551", "name": "ASUS TUF GAMING B650M-PLUS", "old_price": 26980, "new_price": 26800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001528168", "name": "ASRock B760M Pro RS", "old_price": 15980, "new_price": 15795, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486548", "name": "MSI PRO Z790-P WIFI", "old_price": 19818, "new_price": 19800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659518", "name": "ASRock Z890 Nova WiFi", "old_price": 49301, "new_price": 49798, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604065", "name": "GIGABYTE Z790 EAGLE AX [Rev.1.0]", "old_price": 30992, "new_price": 31001, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001477034", "name": "ASRock B650 PG Lightning", "old_price": 29700, "new_price": 26000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656271", "name": "ASRock X870 Pro RS WiFi", "old_price": 29980, "new_price": 26980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001004317", "name": "ASUS ROG MAXIMUS X HERO (WI-FI AC)", "old_price": 137120, "new_price": 143589, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001480202", "name": "ASRock Z790M-ITX WiFi", "old_price": 41558, "new_price": 44000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486551", "name": "ASUS TUF GAMING B650M-PLUS", "old_price": 26980, "new_price": 26800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001012845", "name": "ASRock X299 Extreme4", "old_price": 36644, "new_price": 36427, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722930", "name": "SAPPHIRE NITRO+ B850A WIFI7", "old_price": 27980, "new_price": 30000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001712041", "name": "GIGABYTE X870E A ELITE X ICE", "old_price": 51508, "new_price": 51507, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486548", "name": "MSI PRO Z790-P WIFI", "old_price": 19818, "new_price": 19800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001338305", "name": "GIGABYTE Z590 AORUS ULTRA [Rev.1.0]", "old_price": 90245, "new_price": 88510, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604065", "name": "GIGABYTE Z790 EAGLE AX [Rev.1.0]", "old_price": 30992, "new_price": 31001, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656271", "name": "ASRock X870 Pro RS WiFi", "old_price": 29980, "new_price": 26980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001480202", "name": "ASRock Z790M-ITX WiFi", "old_price": 41558, "new_price": 44000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658419", "name": "MSI MAG Z890 TOMAHAWK WIFI", "old_price": 55980, "new_price": 33980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658414", "name": "MSI MEG Z890 GODLIKE", "old_price": 213111, "new_price": 209881, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001665079", "name": "ASUS PRIME H610M-F D4 R2.0-CSM パソコン工房限定モデル", "old_price": 7980, "new_price": 6480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001707835", "name": "NZXT N7 B850 N7-B85XT-B1", "old_price": 49500, "new_price": 46980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660891", "name": "GIGABYTE Z890 AERO G", "old_price": 53565, "new_price": 56425, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001712041", "name": "GIGABYTE X870E A ELITE X ICE", "old_price": 51508, "new_price": 51507, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670276", "name": "GIGABYTE B860M D2H", "old_price": 15400, "new_price": 15399, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001338305", "name": "GIGABYTE Z590 AORUS ULTRA [Rev.1.0]", "old_price": 90245, "new_price": 88510, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001528168", "name": "ASRock B760M Pro RS", "old_price": 15980, "new_price": 15795, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658414", "name": "MSI MEG Z890 GODLIKE", "old_price": 213111, "new_price": 209881, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001665079", "name": "ASUS PRIME H610M-F D4 R2.0-CSM パソコン工房限定モデル", "old_price": 7980, "new_price": 6480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001004317", "name": "ASUS ROG MAXIMUS X HERO (WI-FI AC)", "old_price": 137120, "new_price": 143589, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670276", "name": "GIGABYTE B860M D2H", "old_price": 15400, "new_price": 15399, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476942", "name": "MSI PRO B650M-A WIFI", "old_price": 21992, "new_price": 21900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001528168", "name": "ASRock B760M Pro RS", "old_price": 15980, "new_price": 15795, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001544729", "name": "MSI B760 GAMING PLUS WIFI", "old_price": 15981, "new_price": 14980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001012845", "name": "ASRock X299 Extreme4", "old_price": 36644, "new_price": 36427, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722930", "name": "SAPPHIRE NITRO+ B850A WIFI7", "old_price": 27980, "new_price": 30000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669882", "name": "ASRock B860 Pro RS WiFi", "old_price": 20317, "new_price": 17652, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001004317", "name": "ASUS ROG MAXIMUS X HERO (WI-FI AC)", "old_price": 137120, "new_price": 143589, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001689885", "name": "ASUS B850M AYW GAMING WIFI パソコン工房限定モデル", "old_price": 18980, "new_price": 22800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658419", "name": "MSI MAG Z890 TOMAHAWK WIFI", "old_price": 55980, "new_price": 33980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486546", "name": "ASRock B650M PG Riptide WiFi", "old_price": 26903, "new_price": 28270, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001707835", "name": "NZXT N7 B850 N7-B85XT-B1", "old_price": 49500, "new_price": 46980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476941", "name": "MSI MAG B650M MORTAR WIFI", "old_price": 26685, "new_price": 29421, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001012845", "name": "ASRock X299 Extreme4", "old_price": 36644, "new_price": 36427, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722930", "name": "SAPPHIRE NITRO+ B850A WIFI7", "old_price": 27980, "new_price": 30000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660891", "name": "GIGABYTE Z890 AERO G", "old_price": 53565, "new_price": 56425, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660889", "name": "GIGABYTE Z890M A ELITE WIFI7", "old_price": 36800, "new_price": 36792, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658419", "name": "MSI MAG Z890 TOMAHAWK WIFI", "old_price": 55980, "new_price": 33980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001707835", "name": "NZXT N7 B850 N7-B85XT-B1", "old_price": 49500, "new_price": 46980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658420", "name": "MSI PRO Z890-A WIFI", "old_price": 27250, "new_price": 30501, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660891", "name": "GIGABYTE Z890 AERO G", "old_price": 53565, "new_price": 56425, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659519", "name": "ASRock Z890M Riptide WiFi", "old_price": 41450, "new_price": 41316, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476942", "name": "MSI PRO B650M-A WIFI", "old_price": 21992, "new_price": 21900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001544729", "name": "MSI B760 GAMING PLUS WIFI", "old_price": 15981, "new_price": 14980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506422", "name": "GIGABYTE B760I AORUS PRO DDR4 [Rev.1.0]", "old_price": 50230, "new_price": 55736, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001647868", "name": "ASUS ROG STRIX X870-A GAMING WIFI", "old_price": 47800, "new_price": 54900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669882", "name": "ASRock B860 Pro RS WiFi", "old_price": 20317, "new_price": 17652, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001689885", "name": "ASUS B850M AYW GAMING WIFI パソコン工房限定モデル", "old_price": 18980, "new_price": 22800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486546", "name": "ASRock B650M PG Riptide WiFi", "old_price": 26903, "new_price": 28270, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001663604", "name": "GIGABYTE Z890 AI TOP", "old_price": 131920, "new_price": 127577, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476942", "name": "MSI PRO B650M-A WIFI", "old_price": 21992, "new_price": 21900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659515", "name": "ASRock Z890 Taichi AQUA", "old_price": 149025, "new_price": 124035, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476941", "name": "MSI MAG B650M MORTAR WIFI", "old_price": 26685, "new_price": 29421, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001544729", "name": "MSI B760 GAMING PLUS WIFI", "old_price": 15981, "new_price": 14980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001647866", "name": "ASUS ROG CROSSHAIR X870E HERO", "old_price": 135900, "new_price": 130000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001663603", "name": "GIGABYTE X870E AORUS XTREME AI TOP", "old_price": 170862, "new_price": 168937, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001622247", "name": "ASRock WRX90 WS EVO", "old_price": 205800, "new_price": 194844, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669175", "name": "GIGABYTE TRX50 AI TOP", "old_price": 224009, "new_price": 211614, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669882", "name": "ASRock B860 Pro RS WiFi", "old_price": 20317, "new_price": 17652, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001427466", "name": "MSI PRO H610M-G DDR4", "old_price": 11000, "new_price": 12080, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001689885", "name": "ASUS B850M AYW GAMING WIFI パソコン工房限定モデル", "old_price": 18980, "new_price": 22800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660889", "name": "GIGABYTE Z890M A ELITE WIFI7", "old_price": 36800, "new_price": 36792, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001486546", "name": "ASRock B650M PG Riptide WiFi", "old_price": 26903, "new_price": 28270, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476941", "name": "MSI MAG B650M MORTAR WIFI", "old_price": 26685, "new_price": 29421, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658420", "name": "MSI PRO Z890-A WIFI", "old_price": 27250, "new_price": 30501, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659519", "name": "ASRock Z890M Riptide WiFi", "old_price": 41450, "new_price": 41316, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001763283", "name": "MSI PRO H810M-B WIFI6E", "old_price": 15991, "new_price": 17590, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660889", "name": "GIGABYTE Z890M A ELITE WIFI7", "old_price": 36800, "new_price": 36792, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506422", "name": "GIGABYTE B760I AORUS PRO DDR4 [Rev.1.0]", "old_price": 50230, "new_price": 55736, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001647868", "name": "ASUS ROG STRIX X870-A GAMING WIFI", "old_price": 47800, "new_price": 54900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991637", "name": "SUPERMICRO X9SCL", "old_price": 41813, "new_price": 35292, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658420", "name": "MSI PRO Z890-A WIFI", "old_price": 27250, "new_price": 30501, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506468", "name": "ASRock B760M Steel Legend WiFi", "old_price": 27578, "new_price": 27565, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659519", "name": "ASRock Z890M Riptide WiFi", "old_price": 41450, "new_price": 41316, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670661", "name": "MSI PRO B860-P WIFI", "old_price": 23300, "new_price": 21880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001692316", "name": "GIGABYTE B860M A ELITE WIFI6E", "old_price": 23500, "new_price": 27370, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001663604", "name": "GIGABYTE Z890 AI TOP", "old_price": 131920, "new_price": 127577, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659515", "name": "ASRock Z890 Taichi AQUA", "old_price": 149025, "new_price": 124035, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506422", "name": "GIGABYTE B760I AORUS PRO DDR4 [Rev.1.0]", "old_price": 50230, "new_price": 55736, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001647866", "name": "ASUS ROG CROSSHAIR X870E HERO", "old_price": 135900, "new_price": 130000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001647868", "name": "ASUS ROG STRIX X870-A GAMING WIFI", "old_price": 47800, "new_price": 54900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001663603", "name": "GIGABYTE X870E AORUS XTREME AI TOP", "old_price": 170862, "new_price": 168937, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660091", "name": "ASUS Z890 MAX GAMING WIFI7 パソコン工房限定モデル", "old_price": 26980, "new_price": 30800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001622247", "name": "ASRock WRX90 WS EVO", "old_price": 205800, "new_price": 194844, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669175", "name": "GIGABYTE TRX50 AI TOP", "old_price": 224009, "new_price": 211614, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001427466", "name": "MSI PRO H610M-G DDR4", "old_price": 11000, "new_price": 12080, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001663604", "name": "GIGABYTE Z890 AI TOP", "old_price": 131920, "new_price": 127577, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659515", "name": "ASRock Z890 Taichi AQUA", "old_price": 149025, "new_price": 124035, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001207938", "name": "ASRock X299 Steel Legend", "old_price": 44332, "new_price": 43440, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001647866", "name": "ASUS ROG CROSSHAIR X870E HERO", "old_price": 135900, "new_price": 130000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001663603", "name": "GIGABYTE X870E AORUS XTREME AI TOP", "old_price": 170862, "new_price": 168937, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001622247", "name": "ASRock WRX90 WS EVO", "old_price": 205800, "new_price": 194844, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669175", "name": "GIGABYTE TRX50 AI TOP", "old_price": 224009, "new_price": 211614, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660892", "name": "GIGABYTE X870 A ELITE WIFI7", "old_price": 42548, "new_price": 42800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001427466", "name": "MSI PRO H610M-G DDR4", "old_price": 11000, "new_price": 12080, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001714088", "name": "ASRock Z890 Lightning WiFi", "old_price": 45594, "new_price": 43794, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001694214", "name": "NZXT N9 Z890 N9-Z89XT-B1", "old_price": 60761, "new_price": 69800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001763283", "name": "MSI PRO H810M-B WIFI6E", "old_price": 15991, "new_price": 17590, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991637", "name": "SUPERMICRO X9SCL", "old_price": 41813, "new_price": 35292, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001553713", "name": "ASUS Pro WS W680-ACE IPMI", "old_price": 64800, "new_price": 66480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506468", "name": "ASRock B760M Steel Legend WiFi", "old_price": 27578, "new_price": 27565, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001662074", "name": "MSI MPG Z890I EDGE TI WIFI", "old_price": 67136, "new_price": 65800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001763283", "name": "MSI PRO H810M-B WIFI6E", "old_price": 15991, "new_price": 17590, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670661", "name": "MSI PRO B860-P WIFI", "old_price": 23300, "new_price": 21880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001692316", "name": "GIGABYTE B860M A ELITE WIFI6E", "old_price": 23500, "new_price": 27370, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658271", "name": "ASUS ROG MAXIMUS Z890 APEX", "old_price": 105880, "new_price": 117550, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991637", "name": "SUPERMICRO X9SCL", "old_price": 41813, "new_price": 35292, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660091", "name": "ASUS Z890 MAX GAMING WIFI7 パソコン工房限定モデル", "old_price": 26980, "new_price": 30800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001527320", "name": "ASRock W790 WS", "old_price": 169800, "new_price": 166540, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001591061", "name": "ASRock TRX50 WS", "old_price": 154800, "new_price": 152020, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506468", "name": "ASRock B760M Steel Legend WiFi", "old_price": 27578, "new_price": 27565, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658269", "name": "ASUS ROG MAXIMUS Z890 EXTREME", "old_price": 176800, "new_price": 176330, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670661", "name": "MSI PRO B860-P WIFI", "old_price": 23300, "new_price": 21880, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001692316", "name": "GIGABYTE B860M A ELITE WIFI6E", "old_price": 23500, "new_price": 27370, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001207938", "name": "ASRock X299 Steel Legend", "old_price": 44332, "new_price": 43440, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660091", "name": "ASUS Z890 MAX GAMING WIFI7 パソコン工房限定モデル", "old_price": 26980, "new_price": 30800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660892", "name": "GIGABYTE X870 A ELITE WIFI7", "old_price": 42548, "new_price": 42800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001714088", "name": "ASRock Z890 Lightning WiFi", "old_price": 45594, "new_price": 43794, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001694214", "name": "NZXT N9 Z890 N9-Z89XT-B1", "old_price": 60761, "new_price": 69800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001547725", "name": "ASUS TUF GAMING A620M-PLUS", "old_price": 14470, "new_price": 16345, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001553713", "name": "ASUS Pro WS W680-ACE IPMI", "old_price": 64800, "new_price": 66480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722746", "name": "ASRock B850M Pro-A パソコン工房限定モデル", "old_price": 21980, "new_price": 12780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001662074", "name": "MSI MPG Z890I EDGE TI WIFI", "old_price": 67136, "new_price": 65800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658271", "name": "ASUS ROG MAXIMUS Z890 APEX", "old_price": 105880, "new_price": 117550, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001480204", "name": "GIGABYTE B650 AERO G [Rev.1.0]", "old_price": 37603, "new_price": 37859, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001527320", "name": "ASRock W790 WS", "old_price": 169800, "new_price": 166540, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001207938", "name": "ASRock X299 Steel Legend", "old_price": 44332, "new_price": 43440, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001511381", "name": "MSI MAG B760 TOMAHAWK WIFI", "old_price": 18999, "new_price": 25364, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001591061", "name": "ASRock TRX50 WS", "old_price": 154800, "new_price": 152020, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658269", "name": "ASUS ROG MAXIMUS Z890 EXTREME", "old_price": 176800, "new_price": 176330, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001725213", "name": "GIGABYTE B550M DS3H R2", "old_price": 24356, "new_price": 23754, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001660892", "name": "GIGABYTE X870 A ELITE WIFI7", "old_price": 42548, "new_price": 42800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001714088", "name": "ASRock Z890 Lightning WiFi", "old_price": 45594, "new_price": 43794, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001475671", "name": "ASRock X670E PG Lightning", "old_price": 34000, "new_price": 32980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001694214", "name": "NZXT N9 Z890 N9-Z89XT-B1", "old_price": 60761, "new_price": 69800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476938", "name": "ASRock Z790 Pro RS", "old_price": 44800, "new_price": 50170, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001414052", "name": "ASUS PRIME H670-PLUS D4", "old_price": 35480, "new_price": 27990, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001553713", "name": "ASUS Pro WS W680-ACE IPMI", "old_price": 64800, "new_price": 66480, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001662074", "name": "MSI MPG Z890I EDGE TI WIFI", "old_price": 67136, "new_price": 65800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001547725", "name": "ASUS TUF GAMING A620M-PLUS", "old_price": 14470, "new_price": 16345, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001205696", "name": "ASUS PRIME X299-A II", "old_price": 56760, "new_price": 55222, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658271", "name": "ASUS ROG MAXIMUS Z890 APEX", "old_price": 105880, "new_price": 117550, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722746", "name": "ASRock B850M Pro-A パソコン工房限定モデル", "old_price": 21980, "new_price": 12780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001694213", "name": "NZXT N9 Z890 N9-Z89XT-W1", "old_price": 67924, "new_price": 59705, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001527320", "name": "ASRock W790 WS", "old_price": 169800, "new_price": 166540, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001591061", "name": "ASRock TRX50 WS", "old_price": 154800, "new_price": 152020, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659517", "name": "ASRock Z890 Taichi", "old_price": 71448, "new_price": 70025, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658269", "name": "ASUS ROG MAXIMUS Z890 EXTREME", "old_price": 176800, "new_price": 176330, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001480204", "name": "GIGABYTE B650 AERO G [Rev.1.0]", "old_price": 37603, "new_price": 37859, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001511381", "name": "MSI MAG B760 TOMAHAWK WIFI", "old_price": 18999, "new_price": 25364, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001693010", "name": "ASUS PRO WS Z890-ACE SE", "old_price": 98800, "new_price": 110890, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001725213", "name": "GIGABYTE B550M DS3H R2", "old_price": 24356, "new_price": 23754, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001586753", "name": "GIGABYTE TRX50 AERO D", "old_price": 104155, "new_price": 104121, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001606680", "name": "ASRock ROMED8-2T", "old_price": 180057, "new_price": 171208, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001475671", "name": "ASRock X670E PG Lightning", "old_price": 34000, "new_price": 32980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001547725", "name": "ASUS TUF GAMING A620M-PLUS", "old_price": 14470, "new_price": 16345, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001141574", "name": "ASUS ROG Dominus Extreme", "old_price": 217347, "new_price": 196738, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476938", "name": "ASRock Z790 Pro RS", "old_price": 44800, "new_price": 50170, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722746", "name": "ASRock B850M Pro-A パソコン工房限定モデル", "old_price": 21980, "new_price": 12780, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001536599", "name": "ASUS Pro WS W790E-SAGE SE", "old_price": 201880, "new_price": 195000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001414052", "name": "ASUS PRIME H670-PLUS D4", "old_price": 35480, "new_price": 27990, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001561261", "name": "ASRock B760M-HDV/M.2", "old_price": 16980, "new_price": 10800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001205696", "name": "ASUS PRIME X299-A II", "old_price": 56760, "new_price": 55222, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001694213", "name": "NZXT N9 Z890 N9-Z89XT-W1", "old_price": 67924, "new_price": 59705, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001480204", "name": "GIGABYTE B650 AERO G [Rev.1.0]", "old_price": 37603, "new_price": 37859, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001511381", "name": "MSI MAG B760 TOMAHAWK WIFI", "old_price": 18999, "new_price": 25364, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659517", "name": "ASRock Z890 Taichi", "old_price": 71448, "new_price": 70025, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001725213", "name": "GIGABYTE B550M DS3H R2", "old_price": 24356, "new_price": 23754, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001693010", "name": "ASUS PRO WS Z890-ACE SE", "old_price": 98800, "new_price": 110890, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001475671", "name": "ASRock X670E PG Lightning", "old_price": 34000, "new_price": 32980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000443004", "name": "インテル D33217GKE", "old_price": 13515, "new_price": 12933, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001586753", "name": "GIGABYTE TRX50 AERO D", "old_price": 104155, "new_price": 104121, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001606680", "name": "ASRock ROMED8-2T", "old_price": 180057, "new_price": 171208, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001476938", "name": "ASRock Z790 Pro RS", "old_price": 44800, "new_price": 50170, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001414052", "name": "ASUS PRIME H670-PLUS D4", "old_price": 35480, "new_price": 27990, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669883", "name": "ASRock B860M Steel Legend WiFi", "old_price": 29600, "new_price": 29400, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001141574", "name": "ASUS ROG Dominus Extreme", "old_price": 217347, "new_price": 196738, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001536599", "name": "ASUS Pro WS W790E-SAGE SE", "old_price": 201880, "new_price": 195000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001205696", "name": "ASUS PRIME X299-A II", "old_price": 56760, "new_price": 55222, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659526", "name": "ASRock Z890 Pro-A WiFi", "old_price": 24980, "new_price": 26970, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001694213", "name": "NZXT N9 Z890 N9-Z89XT-W1", "old_price": 67924, "new_price": 59705, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001561261", "name": "ASRock B760M-HDV/M.2", "old_price": 16980, "new_price": 10800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659525", "name": "ASRock Z890 Pro RS", "old_price": 29800, "new_price": 29214, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659517", "name": "ASRock Z890 Taichi", "old_price": 71448, "new_price": 70025, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265332", "name": "GIGABYTE B550 AORUS ELITE [Rev.1.0]", "old_price": 47049, "new_price": 46675, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001693010", "name": "ASUS PRO WS Z890-ACE SE", "old_price": 98800, "new_price": 110890, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001586753", "name": "GIGABYTE TRX50 AERO D", "old_price": 104155, "new_price": 104121, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001606680", "name": "ASRock ROMED8-2T", "old_price": 180057, "new_price": 171208, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000443004", "name": "インテル D33217GKE", "old_price": 13515, "new_price": 12933, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001141574", "name": "ASUS ROG Dominus Extreme", "old_price": 217347, "new_price": 196738, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001536599", "name": "ASUS Pro WS W790E-SAGE SE", "old_price": 201880, "new_price": 195000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669883", "name": "ASRock B860M Steel Legend WiFi", "old_price": 29600, "new_price": 29400, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001561261", "name": "ASRock B760M-HDV/M.2", "old_price": 16980, "new_price": 10800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001646656", "name": "ASRock B650D4U", "old_price": 68625, "new_price": 66676, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659526", "name": "ASRock Z890 Pro-A WiFi", "old_price": 24980, "new_price": 26970, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001646657", "name": "ASRock B650D4U-2L2T/BCM", "old_price": 70800, "new_price": 74450, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658274", "name": "ASUS ROG STRIX Z890-I GAMING WIFI", "old_price": 64700, "new_price": 58800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650960", "name": "SUPERMICRO X13SCH-F", "old_price": 90583, "new_price": 86348, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659525", "name": "ASRock Z890 Pro RS", "old_price": 29800, "new_price": 29214, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265332", "name": "GIGABYTE B550 AORUS ELITE [Rev.1.0]", "old_price": 47049, "new_price": 46675, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000443004", "name": "インテル D33217GKE", "old_price": 13515, "new_price": 12933, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658415", "name": "MSI MEG Z890 ACE", "old_price": 114270, "new_price": 113533, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001669883", "name": "ASRock B860M Steel Legend WiFi", "old_price": 29600, "new_price": 29400, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659526", "name": "ASRock Z890 Pro-A WiFi", "old_price": 24980, "new_price": 26970, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659525", "name": "ASRock Z890 Pro RS", "old_price": 29800, "new_price": 29214, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001646656", "name": "ASRock B650D4U", "old_price": 68625, "new_price": 66676, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001646657", "name": "ASRock B650D4U-2L2T/BCM", "old_price": 70800, "new_price": 74450, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658274", "name": "ASUS ROG STRIX Z890-I GAMING WIFI", "old_price": 64700, "new_price": 58800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001265332", "name": "GIGABYTE B550 AORUS ELITE [Rev.1.0]", "old_price": 47049, "new_price": 46675, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650960", "name": "SUPERMICRO X13SCH-F", "old_price": 90583, "new_price": 86348, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001636021", "name": "ASUS PRIME A620M-K-CSM", "old_price": 11070, "new_price": 11800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001526991", "name": "ASRock A620M-HDV/M.2", "old_price": 13800, "new_price": 16980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658415", "name": "MSI MEG Z890 ACE", "old_price": 114270, "new_price": 113533, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001416787", "name": "ASUS PRIME H610M-E D4", "old_price": 6899, "new_price": 13333, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001483343", "name": "GIGABYTE B650M DS3H [Rev.1.0]", "old_price": 18081, "new_price": 17900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001646656", "name": "ASRock B650D4U", "old_price": 68625, "new_price": 66676, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001646657", "name": "ASRock B650D4U-2L2T/BCM", "old_price": 70800, "new_price": 74450, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658274", "name": "ASUS ROG STRIX Z890-I GAMING WIFI", "old_price": 64700, "new_price": 58800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650960", "name": "SUPERMICRO X13SCH-F", "old_price": 90583, "new_price": 86348, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001526988", "name": "ASRock A620M Pro RS WiFi", "old_price": 10980, "new_price": 18000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001714089", "name": "ASRock B760M Pro-A WiFi", "old_price": 13442, "new_price": 13200, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001665218", "name": "ASRock B650M-H/M.2+", "old_price": 21256, "new_price": 21232, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001658415", "name": "MSI MEG Z890 ACE", "old_price": 114270, "new_price": 113533, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001636021", "name": "ASUS PRIME A620M-K-CSM", "old_price": 11070, "new_price": 11800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001526991", "name": "ASRock A620M-HDV/M.2", "old_price": 13800, "new_price": 16980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001416787", "name": "ASUS PRIME H610M-E D4", "old_price": 6899, "new_price": 13333, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001483343", "name": "GIGABYTE B650M DS3H [Rev.1.0]", "old_price": 18081, "new_price": 17900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659527", "name": "ASRock Z890 Pro-A", "old_price": 25800, "new_price": 27809, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670456", "name": "ASUS TUF GAMING B860M-PLUS", "old_price": 24330, "new_price": 26250, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001526988", "name": "ASRock A620M Pro RS WiFi", "old_price": 10980, "new_price": 18000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001714089", "name": "ASRock B760M Pro-A WiFi", "old_price": 13442, "new_price": 13200, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001665218", "name": "ASRock B650M-H/M.2+", "old_price": 21256, "new_price": 21232, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001636021", "name": "ASUS PRIME A620M-K-CSM", "old_price": 11070, "new_price": 11800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001526991", "name": "ASRock A620M-HDV/M.2", "old_price": 13800, "new_price": 16980, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001416787", "name": "ASUS PRIME H610M-E D4", "old_price": 6899, "new_price": 13333, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001483343", "name": "GIGABYTE B650M DS3H [Rev.1.0]", "old_price": 18081, "new_price": 17900, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659527", "name": "ASRock Z890 Pro-A", "old_price": 25800, "new_price": 27809, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000995584", "name": "SUPERMICRO A1SRI-2358F", "old_price": 68000, "new_price": 61661, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670456", "name": "ASUS TUF GAMING B860M-PLUS", "old_price": 24330, "new_price": 26250, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001526988", "name": "ASRock A620M Pro RS WiFi", "old_price": 10980, "new_price": 18000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388114", "name": "SUPERMICRO X11SCV-L", "old_price": 47209, "new_price": 47734, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001714089", "name": "ASRock B760M Pro-A WiFi", "old_price": 13442, "new_price": 13200, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001665218", "name": "ASRock B650M-H/M.2+", "old_price": 21256, "new_price": 21232, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001659527", "name": "ASRock Z890 Pro-A", "old_price": 25800, "new_price": 27809, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001670456", "name": "ASUS TUF GAMING B860M-PLUS", "old_price": 24330, "new_price": 26250, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000966650", "name": "SUPERMICRO X11SSQ-L", "old_price": 72570, "new_price": 69569, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000995584", "name": "SUPERMICRO A1SRI-2358F", "old_price": 68000, "new_price": 61661, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388114", "name": "SUPERMICRO X11SCV-L", "old_price": 47209, "new_price": 47734, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000995584", "name": "SUPERMICRO A1SRI-2358F", "old_price": 68000, "new_price": 61661, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388114", "name": "SUPERMICRO X11SCV-L", "old_price": 47209, "new_price": 47734, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000966650", "name": "SUPERMICRO X11SSQ-L", "old_price": 72570, "new_price": 69569, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996382", "name": "SUPERMICRO X11SSZ-F", "old_price": 62350, "new_price": 62249, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650963", "name": "SUPERMICRO X13SCL-IF", "old_price": 80134, "new_price": 81603, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000995591", "name": "SUPERMICRO X11SAE-M", "old_price": 105691, "new_price": 100589, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001413228", "name": "GIGABYTE Z690 AORUS TACHYON [Rev.1.0]", "old_price": 59800, "new_price": 69800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996382", "name": "SUPERMICRO X11SSZ-F", "old_price": 62350, "new_price": 62249, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000966650", "name": "SUPERMICRO X11SSQ-L", "old_price": 72570, "new_price": 69569, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996377", "name": "SUPERMICRO X11SSQ", "old_price": 67983, "new_price": 66781, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388019", "name": "SUPERMICRO X11SCA", "old_price": 68206, "new_price": 68106, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650963", "name": "SUPERMICRO X13SCL-IF", "old_price": 80134, "new_price": 81603, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996216", "name": "SUPERMICRO X11SSL-nF", "old_price": 69205, "new_price": 69399, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000995591", "name": "SUPERMICRO X11SAE-M", "old_price": 105691, "new_price": 100589, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388929", "name": "SUPERMICRO X11SRA-F", "old_price": 101465, "new_price": 101365, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001413228", "name": "GIGABYTE Z690 AORUS TACHYON [Rev.1.0]", "old_price": 59800, "new_price": 69800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996382", "name": "SUPERMICRO X11SSZ-F", "old_price": 62350, "new_price": 62249, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996377", "name": "SUPERMICRO X11SSQ", "old_price": 67983, "new_price": 66781, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388019", "name": "SUPERMICRO X11SCA", "old_price": 68206, "new_price": 68106, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650963", "name": "SUPERMICRO X13SCL-IF", "old_price": 80134, "new_price": 81603, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996216", "name": "SUPERMICRO X11SSL-nF", "old_price": 69205, "new_price": 69399, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388929", "name": "SUPERMICRO X11SRA-F", "old_price": 101465, "new_price": 101365, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000995591", "name": "SUPERMICRO X11SAE-M", "old_price": 105691, "new_price": 100589, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650961", "name": "SUPERMICRO X13SCH-LN4F", "old_price": 104230, "new_price": 97949, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001413228", "name": "GIGABYTE Z690 AORUS TACHYON [Rev.1.0]", "old_price": 59800, "new_price": 69800, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996383", "name": "SUPERMICRO X11SSZ-TLN4F", "old_price": 92568, "new_price": 92468, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991577", "name": "SUPERMICRO X10SRM-F", "old_price": 90593, "new_price": 89139, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996377", "name": "SUPERMICRO X11SSQ", "old_price": 67983, "new_price": 66781, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388019", "name": "SUPERMICRO X11SCA", "old_price": 68206, "new_price": 68106, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996216", "name": "SUPERMICRO X11SSL-nF", "old_price": 69205, "new_price": 69399, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388929", "name": "SUPERMICRO X11SRA-F", "old_price": 101465, "new_price": 101365, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650961", "name": "SUPERMICRO X13SCH-LN4F", "old_price": 104230, "new_price": 97949, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996383", "name": "SUPERMICRO X11SSZ-TLN4F", "old_price": 92568, "new_price": 92468, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996384", "name": "SUPERMICRO X10SBA-L", "old_price": 78330, "new_price": 74444, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000984742", "name": "SUPERMICRO X11SPM-TPF", "old_price": 118355, "new_price": 120000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991577", "name": "SUPERMICRO X10SRM-F", "old_price": 90593, "new_price": 89139, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992778", "name": "SUPERMICRO X7SBI-LN4-TM", "old_price": 104745, "new_price": 106340, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991324", "name": "SUPERMICRO X10SDV-2C-7TP4F", "old_price": 75260, "new_price": 78238, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650961", "name": "SUPERMICRO X13SCH-LN4F", "old_price": 104230, "new_price": 97949, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650958", "name": "SUPERMICRO X13SAZ-F", "old_price": 122746, "new_price": 120116, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991773", "name": "SUPERMICRO X10DRD-LT", "old_price": 63845, "new_price": 60012, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388927", "name": "SUPERMICRO X11SPW-TF", "old_price": 122632, "new_price": 121714, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996383", "name": "SUPERMICRO X11SSZ-TLN4F", "old_price": 92568, "new_price": 92468, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996384", "name": "SUPERMICRO X10SBA-L", "old_price": 78330, "new_price": 74444, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000984742", "name": "SUPERMICRO X11SPM-TPF", "old_price": 118355, "new_price": 120000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992778", "name": "SUPERMICRO X7SBI-LN4-TM", "old_price": 104745, "new_price": 106340, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991577", "name": "SUPERMICRO X10SRM-F", "old_price": 90593, "new_price": 89139, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991468", "name": "SUPERMICRO X10DRD-iNTP", "old_price": 105893, "new_price": 105793, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000984739", "name": "SUPERMICRO X11DPi-N", "old_price": 109092, "new_price": 108992, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991324", "name": "SUPERMICRO X10SDV-2C-7TP4F", "old_price": 75260, "new_price": 78238, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650958", "name": "SUPERMICRO X13SAZ-F", "old_price": 122746, "new_price": 120116, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991773", "name": "SUPERMICRO X10DRD-LT", "old_price": 63845, "new_price": 60012, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388927", "name": "SUPERMICRO X11SPW-TF", "old_price": 122632, "new_price": 121714, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991576", "name": "SUPERMICRO X10SRG-F", "old_price": 143655, "new_price": 128626, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996384", "name": "SUPERMICRO X10SBA-L", "old_price": 78330, "new_price": 74444, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992775", "name": "SUPERMICRO X7SBU", "old_price": 116917, "new_price": 116817, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000984742", "name": "SUPERMICRO X11SPM-TPF", "old_price": 118355, "new_price": 120000, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991320", "name": "SUPERMICRO X10SDV-4C+-TP4F", "old_price": 117753, "new_price": 117653, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991468", "name": "SUPERMICRO X10DRD-iNTP", "old_price": 105893, "new_price": 105793, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992778", "name": "SUPERMICRO X7SBI-LN4-TM", "old_price": 104745, "new_price": 106340, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000984739", "name": "SUPERMICRO X11DPi-N", "old_price": 109092, "new_price": 108992, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992743", "name": "SUPERMICRO X9DRD-7LN4F-JBOD", "old_price": 161598, "new_price": 163768, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991324", "name": "SUPERMICRO X10SDV-2C-7TP4F", "old_price": 75260, "new_price": 78238, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001650958", "name": "SUPERMICRO X13SAZ-F", "old_price": 122746, "new_price": 120116, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991773", "name": "SUPERMICRO X10DRD-LT", "old_price": 63845, "new_price": 60012, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388927", "name": "SUPERMICRO X11SPW-TF", "old_price": 122632, "new_price": 121714, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991576", "name": "SUPERMICRO X10SRG-F", "old_price": 143655, "new_price": 128626, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992775", "name": "SUPERMICRO X7SBU", "old_price": 116917, "new_price": 116817, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991263", "name": "SUPERMICRO X8DAH+-F-LR", "old_price": 135792, "new_price": 143830, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991320", "name": "SUPERMICRO X10SDV-4C+-TP4F", "old_price": 117753, "new_price": 117653, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991468", "name": "SUPERMICRO X10DRD-iNTP", "old_price": 105893, "new_price": 105793, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992743", "name": "SUPERMICRO X9DRD-7LN4F-JBOD", "old_price": 161598, "new_price": 163768, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000984739", "name": "SUPERMICRO X11DPi-N", "old_price": 109092, "new_price": 108992, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000370037", "name": "SUPERMICRO X9DRW-3F", "old_price": 225056, "new_price": 221581, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991576", "name": "SUPERMICRO X10SRG-F", "old_price": 143655, "new_price": 128626, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991263", "name": "SUPERMICRO X8DAH+-F-LR", "old_price": 135792, "new_price": 143830, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992775", "name": "SUPERMICRO X7SBU", "old_price": 116917, "new_price": 116817, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991320", "name": "SUPERMICRO X10SDV-4C+-TP4F", "old_price": 117753, "new_price": 117653, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992743", "name": "SUPERMICRO X9DRD-7LN4F-JBOD", "old_price": 161598, "new_price": 163768, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000370037", "name": "SUPERMICRO X9DRW-3F", "old_price": 225056, "new_price": 221581, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001254926", "name": "GIGABYTE Z490 AORUS XTREME [Rev.1.0]", "old_price": 153443, "new_price": 115403, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001577382", "name": "ASUS ROG MAXIMUS Z790 APEX ENCORE", "old_price": 137221, "new_price": 136471, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991263", "name": "SUPERMICRO X8DAH+-F-LR", "old_price": 135792, "new_price": 143830, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991466", "name": "SUPERMICRO X10DRH-iLN4", "old_price": 218840, "new_price": 193029, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992744", "name": "SUPERMICRO X9DRD-iT+", "old_price": 169451, "new_price": 166076, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000370037", "name": "SUPERMICRO X9DRW-3F", "old_price": 225056, "new_price": 221581, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001254926", "name": "GIGABYTE Z490 AORUS XTREME [Rev.1.0]", "old_price": 153443, "new_price": 115403, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001577382", "name": "ASUS ROG MAXIMUS Z790 APEX ENCORE", "old_price": 137221, "new_price": 136471, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991466", "name": "SUPERMICRO X10DRH-iLN4", "old_price": 218840, "new_price": 193029, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992744", "name": "SUPERMICRO X9DRD-iT+", "old_price": 169451, "new_price": 166076, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001254926", "name": "GIGABYTE Z490 AORUS XTREME [Rev.1.0]", "old_price": 153443, "new_price": 115403, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991264", "name": "SUPERMICRO X8DAH+-LR", "old_price": 189996, "new_price": 189896, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991463", "name": "SUPERMICRO X10DRH-CLN4", "old_price": 201557, "new_price": 258503, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000998667", "name": "SUPERMICRO X10SDV-12C-TLN4F", "old_price": 171715, "new_price": 178602, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001577382", "name": "ASUS ROG MAXIMUS Z790 APEX ENCORE", "old_price": 137221, "new_price": 136471, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991466", "name": "SUPERMICRO X10DRH-iLN4", "old_price": 218840, "new_price": 193029, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001115157", "name": "ASUS WS Z390 PRO", "old_price": 199496, "new_price": 196192, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000992744", "name": "SUPERMICRO X9DRD-iT+", "old_price": 169451, "new_price": 166076, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991264", "name": "SUPERMICRO X8DAH+-LR", "old_price": 189996, "new_price": 189896, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991463", "name": "SUPERMICRO X10DRH-CLN4", "old_price": 201557, "new_price": 258503, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000998667", "name": "SUPERMICRO X10SDV-12C-TLN4F", "old_price": 171715, "new_price": 178602, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001115157", "name": "ASUS WS Z390 PRO", "old_price": 199496, "new_price": 196192, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388122", "name": "SUPERMICRO X11SDV-8C-TP8F", "old_price": 269616, "new_price": 269159, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991264", "name": "SUPERMICRO X8DAH+-LR", "old_price": 189996, "new_price": 189896, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991463", "name": "SUPERMICRO X10DRH-CLN4", "old_price": 201557, "new_price": 258503, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991319", "name": "SUPERMICRO X10SDV-7TP8F", "old_price": 510518, "new_price": 510418, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388127", "name": "SUPERMICRO X11SDV-16C-TP8F", "old_price": 602838, "new_price": 602738, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991317", "name": "SUPERMICRO X10SDV-16C-TLN4F", "old_price": 561959, "new_price": 570553, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000998667", "name": "SUPERMICRO X10SDV-12C-TLN4F", "old_price": 171715, "new_price": 178602, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001115157", "name": "ASUS WS Z390 PRO", "old_price": 199496, "new_price": 196192, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991318", "name": "SUPERMICRO X10SDV-16C+-TLN4F", "old_price": 776162, "new_price": 701533, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388122", "name": "SUPERMICRO X11SDV-8C-TP8F", "old_price": 269616, "new_price": 269159, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991319", "name": "SUPERMICRO X10SDV-7TP8F", "old_price": 510518, "new_price": 510418, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388127", "name": "SUPERMICRO X11SDV-16C-TP8F", "old_price": 602838, "new_price": 602738, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991317", "name": "SUPERMICRO X10SDV-16C-TLN4F", "old_price": 561959, "new_price": 570553, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991318", "name": "SUPERMICRO X10SDV-16C+-TLN4F", "old_price": 776162, "new_price": 701533, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388122", "name": "SUPERMICRO X11SDV-8C-TP8F", "old_price": 269616, "new_price": 269159, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991319", "name": "SUPERMICRO X10SDV-7TP8F", "old_price": 510518, "new_price": 510418, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001388127", "name": "SUPERMICRO X11SDV-16C-TP8F", "old_price": 602838, "new_price": 602738, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991317", "name": "SUPERMICRO X10SDV-16C-TLN4F", "old_price": 561959, "new_price": 570553, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000991318", "name": "SUPERMICRO X10SDV-16C+-TLN4F", "old_price": 776162, "new_price": 701533, "type": "price_changed", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698037", "name": "GIGABYTE B850 GAMING X WIFI6E (B850 AM5 ATX) ドスパラ限定モデル", "last_price": 24800, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698037", "name": "GIGABYTE B850 GAMING X WIFI6E (B850 AM5 ATX) ドスパラ限定モデル", "last_price": 24800, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001698037", "name": "GIGABYTE B850 GAMING X WIFI6E (B850 AM5 ATX) ドスパラ限定モデル", "last_price": 24800, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656598", "name": "GIGABYTE X870E AORUS MASTER", "last_price": 83712, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656598", "name": "GIGABYTE X870E AORUS MASTER", "last_price": 83712, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001656598", "name": "GIGABYTE X870E AORUS MASTER", "last_price": 83712, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604739", "name": "ASUS TUF GAMING B650M-PLUS WIFI", "last_price": 19780, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001549272", "name": "ASUS PRIME B760-PLUS", "last_price": 29506, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604739", "name": "ASUS TUF GAMING B650M-PLUS WIFI", "last_price": 19780, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001549272", "name": "ASUS PRIME B760-PLUS", "last_price": 29506, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001604739", "name": "ASUS TUF GAMING B650M-PLUS WIFI", "last_price": 19780, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001549272", "name": "ASUS PRIME B760-PLUS", "last_price": 29506, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001427467", "name": "MSI PRO H610M-B DDR4", "last_price": 16242, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001427467", "name": "MSI PRO H610M-B DDR4", "last_price": 16242, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001427467", "name": "MSI PRO H610M-B DDR4", "last_price": 16242, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001172571", "name": "GIGABYTE X570 AORUS PRO [Rev.1.0]", "last_price": 99880, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722747", "name": "ASRock B860M-X Gen5 パソコン工房限定モデル", "last_price": 17980, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001172571", "name": "GIGABYTE X570 AORUS PRO [Rev.1.0]", "last_price": 99880, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722747", "name": "ASRock B860M-X Gen5 パソコン工房限定モデル", "last_price": 17980, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001172571", "name": "GIGABYTE X570 AORUS PRO [Rev.1.0]", "last_price": 99880, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001488569", "name": "ASRock B650E Taichi", "last_price": 161875, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001722747", "name": "ASRock B860M-X Gen5 パソコン工房限定モデル", "last_price": 17980, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996386", "name": "SUPERMICRO X10SDV-4C-TLN2F", "last_price": 130809, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001488569", "name": "ASRock B650E Taichi", "last_price": 161875, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996386", "name": "SUPERMICRO X10SDV-4C-TLN2F", "last_price": 130809, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001488569", "name": "ASRock B650E Taichi", "last_price": 161875, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000996386", "name": "SUPERMICRO X10SDV-4C-TLN2F", "last_price": 130809, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000053415", "name": "インテル S3210SHLC", "last_price": 30521, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506409", "name": "BIOSTAR B760A-SILVER", "last_price": 38379, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001505627", "name": "BIOSTAR B650M-SILVER", "last_price": 51406, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000322018", "name": "ASUS P9X79 WS", "last_price": 21550, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000338391", "name": "ASUS Rampage IV GENE", "last_price": 27500, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000053415", "name": "インテル S3210SHLC", "last_price": 30521, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506409", "name": "BIOSTAR B760A-SILVER", "last_price": 38379, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001505627", "name": "BIOSTAR B650M-SILVER", "last_price": 51406, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000053415", "name": "インテル S3210SHLC", "last_price": 30521, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000322018", "name": "ASUS P9X79 WS", "last_price": 21550, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000338391", "name": "ASUS Rampage IV GENE", "last_price": 27500, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001506409", "name": "BIOSTAR B760A-SILVER", "last_price": 38379, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0001505627", "name": "BIOSTAR B650M-SILVER", "last_price": 51406, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000322018", "name": "ASUS P9X79 WS", "last_price": 21550, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000338391", "name": "ASUS Rampage IV GENE", "last_price": 27500, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000579170", "name": "ASUS MAXIMUS VI FORMULA", "last_price": 59880, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000579170", "name": "ASUS MAXIMUS VI FORMULA", "last_price": 59880, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000652611", "name": "ASUS Z97-A", "last_price": 77084, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000579170", "name": "ASUS MAXIMUS VI FORMULA", "last_price": 59880, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000652611", "name": "ASUS Z97-A", "last_price": 77084, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"id": "kakaku_K0000652611", "name": "ASUS Z97-A", "last_price": 77084, "type": "delisted", "category": "mb", "date": "2026-09-05-mb"}
+{"type": "summary", "date": "2026-09-05-mb", "new_count": 0, "price_changed_count": 641, "delisted_count": 48}
