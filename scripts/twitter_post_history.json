@@ -3474,5 +3474,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-09-05T14:25:44.066882",
+    "tweet_text": "PC自作勢向け\nノートPCで「エルデンリング」は快適に遊べる？おすすめ3選\n\nhttps://pc-jisaku.com/blog/20260809-laptop-elden-ring-pcrecommend3picks.html\n\n#GPU #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260809-laptop-elden-ring-pcrecommend3picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
