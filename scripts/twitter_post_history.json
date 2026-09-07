@@ -3509,5 +3509,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-09-07T17:05:56.065210",
+    "tweet_text": "これ需要あると思う\n\nRTX 3060で遊べる最新ゲーム50選【8月版】\nhttps://pc-jisaku.com/blog/20260810-gpu_list-elden-ring-rtx-306050picks8month.html\n\n#PCパーツ #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260810-gpu_list-elden-ring-rtx-306050picks8month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
