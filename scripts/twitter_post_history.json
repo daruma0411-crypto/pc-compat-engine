@@ -3591,5 +3591,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Baldur's Gate 3",
+    "posted_at": "2026-09-12T14:41:04.418138",
+    "tweet_text": "Baldur's Gate 3、Nvidia 2060 Superでも普通に遊べたわ\n\n推奨スペック:\n・GPU: Nvidia 2060 Super\n・CPU: Intel i7 8700K\n・RAM: 16GB\n\nhttps://pc-jisaku.com/game/baldurs-gate-3\n\n#BaldursGate3 #PCスペック",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
