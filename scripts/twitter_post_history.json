@@ -3615,5 +3615,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-09-14T08:29:39.882938",
+    "tweet_text": "今日のPC記事\n「モンスターハンターワイルズ」のMODを入れるために必要なスペック\n\nhttps://pc-jisaku.com/blog/20260819-mod-monster-hunter-wilds-mod-mod-spec.html\n\n#自作PC #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260819-mod-monster-hunter-wilds-mod-mod-spec.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
