@@ -3624,5 +3624,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Dying Light",
+    "posted_at": "2026-09-14T15:40:20.512197",
+    "tweet_text": "Dying Light、クソ重いって聞いたけど\nGTX 780なら余裕らしい\n\nうちのPCで動くか確認→ https://pc-jisaku.com/game/dying-light\n\n#DyingLight #Steam\n\nスペック足りるか心配な人に共有してね",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
