@@ -3640,5 +3640,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Dragon's Dogma 2",
+    "posted_at": "2026-09-15T08:23:37.962175",
+    "tweet_text": "Dragon's Dogma 2を1080pと1440pで比較\n1080p: RTX 2080で余裕\n1440p: RTX 4070推奨\n\n詳細→ https://pc-jisaku.com/game/dragons-dogma-2\n\n#DragonsDogma2 #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
