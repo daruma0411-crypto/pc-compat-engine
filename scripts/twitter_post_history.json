@@ -3665,5 +3665,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Hades",
+    "posted_at": "2026-09-16T14:12:11.994501",
+    "tweet_text": "Hades推奨スペック\nGPU: 2GB VRAM\nCPU: Dual Core 3.0 GHz+\n\nhttps://pc-jisaku.com/game/hades\n\n#Hades #Steam",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
