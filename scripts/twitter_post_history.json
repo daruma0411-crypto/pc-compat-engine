@@ -3656,5 +3656,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-09-16T08:31:31.237189",
+    "tweet_text": "これ需要あると思う\n\n8月版 最新ゲーム推奨スペックランキングTOP20\nhttps://pc-jisaku.com/blog/20260816-ranking-cyberpunk-2077-8month-spec-rankingtop20.html\n\n#自作PC #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260816-ranking-cyberpunk-2077-8month-spec-rankingtop20.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
