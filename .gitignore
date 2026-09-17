@@ -17,8 +17,14 @@ seo_gen*.log
 # Steam raw データ（容量大）
 workspace/data/steam/raw/
 
-# SEO互換性ページ（161,577件 ~1GB、Renderではオンデマンド生成想定）
-static/compat/
+# 組み合わせページ（グラボ×ケース）は保存しない。
+# アクセスされたときに app.py がその場で作るので、ファイルは要らない。
+# 2026-09-17: 手違いで16万ファイル・1.4GB が保存されていたのを消した。
+# ハブページ static/compat/index.html だけは保存する。
+static/compat/*.html
+!static/compat/index.html
+static/compat/gpu/
+static/compat/case/
 
 # 一時画像（Twitter Bot）
 scripts/temp_images/
@@ -32,3 +38,4 @@ tmp_*.json
 tmp_*.txt
 tmp_*.bat
 tmp_*.html
+
