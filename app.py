@@ -1915,6 +1915,20 @@ def robots():
     return content, 200, {'Content-Type': 'text/plain; charset=utf-8'}
 
 
+def _page_headers(filename):
+    """このページを検索結果に載せてよいかを決めて、返す見出し情報を作る。
+
+    /compat/ の下は、パーツの組み合わせを機械的に並べただけのページが
+    16万枚ある。中身が薄いページを大量に出すと、検索エンジンから
+    サイト全体が低く見られる。そこで「検索結果には載せなくていい」と
+    伝える。ページ自体は今までどおり見られるし、リンクもたどってよい。
+    """
+    headers = {'Content-Type': 'text/html; charset=utf-8'}
+    if filename.startswith('compat/'):
+        headers['X-Robots-Tag'] = 'noindex, follow'
+    return headers
+
+
 @app.route('/<path:filename>')
 def static_pages(filename):
     """ガイド・構成例・ブログ等の静的HTMLページを配信（アフィリエイトタグ注入付き）"""
@@ -1926,13 +1940,13 @@ def static_pages(filename):
         with open(html_path, 'r', encoding='utf-8') as f:
             html = f.read()
         html = _inject_affiliate_tags(html)
-        return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+        return html, 200, _page_headers(filename)
     # compat/ ページを動的生成（static/compat/ が存在しない環境用）
     if filename.startswith('compat/'):
         html = _generate_compat_page(filename[len('compat/'):])
         if html:
             html = _inject_affiliate_tags(html)
-            return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+            return html, 200, _page_headers(filename)
     return _render_404(), 404
 
 
@@ -2399,31 +2413,31 @@ def _submit_indexnow(urls):
         return None
 
 
+def _sitemap_urls():
+    """sitemap.xml に並べたページの住所を読み出す。
+
+    検索エンジンに知らせてよいページの一覧は sitemap.xml だけで管理する。
+    一覧を二か所に書くと、片方だけ古くなって食い違うため。
+    """
+    sitemap_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sitemap.xml')
+    if not os.path.isfile(sitemap_path):
+        return []
+    with open(sitemap_path, 'r', encoding='utf-8') as f:
+        return re.findall(r'<loc>\s*([^<\s]+)\s*</loc>', f.read())
+
+
 @app.route('/api/indexnow', methods=['POST'])
 def api_indexnow():
-    """手動IndexNow送信（管理者用）。全ゲーム/ブログページを一括送信。"""
-    urls = [f'{_BASE_URL}/']
-    urls.append(f'{_BASE_URL}/blog/')
-    urls.append(f'{_BASE_URL}/prices')
-    # インデックス対象ゲームページ
-    game_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'game')
-    if os.path.isdir(game_dir):
-        for f in os.listdir(game_dir):
-            if f.endswith('.html'):
-                slug = f.replace('.html', '')
-                fpath = os.path.join(game_dir, f)
-                # noindexページは除外
-                with open(fpath, 'r', encoding='utf-8') as fh:
-                    head = fh.read(2000)
-                if 'noindex' not in head:
-                    urls.append(f'{_BASE_URL}/game/{slug}')
-    # ブログページ
-    blog_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'blog')
-    if os.path.isdir(blog_dir):
-        for f in os.listdir(blog_dir):
-            if f.endswith('.html') and f != 'index.html':
-                slug = f.replace('.html', '')
-                urls.append(f'{_BASE_URL}/blog/{slug}')
+    """手動IndexNow送信（管理者用）。sitemap.xml のページをまとめて知らせる。
+
+    2026-09-17 変更。
+    それまでは /game/ の580ページを送っていた。このページは全部
+    /genre/ に転送される設定なので、送っても意味がなかった。
+    送る先を sitemap.xml の一覧にそろえた。
+    """
+    urls = _sitemap_urls()
+    if not urls:
+        return jsonify({'submitted': 0, 'error': 'sitemap.xml が見つからない'}), 500
     status = _submit_indexnow(urls)
     return jsonify({
         'submitted': len(urls),
