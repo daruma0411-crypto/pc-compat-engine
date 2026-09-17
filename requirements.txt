@@ -25,3 +25,6 @@ google-auth>=2.23.0
 python-dotenv>=1.0.0
 requests>=2.32.0
 gevent>=24.2.1
+# gunicorn の gevent ワーカーが中で使う。無いと起動できず、公開が失敗する。
+# 以前は他のパッケージについてきていたが、今はついてこないので明記する。
+packaging>=23.0
