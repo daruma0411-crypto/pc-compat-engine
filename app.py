@@ -1915,6 +1915,20 @@ def robots():
     return content, 200, {'Content-Type': 'text/plain; charset=utf-8'}
 
 
+def _page_headers(filename):
+    """このページを検索結果に載せてよいかを決めて、返す見出し情報を作る。
+
+    /compat/ の下は、パーツの組み合わせを機械的に並べただけのページが
+    16万枚ある。中身が薄いページを大量に出すと、検索エンジンから
+    サイト全体が低く見られる。そこで「検索結果には載せなくていい」と
+    伝える。ページ自体は今までどおり見られるし、リンクもたどってよい。
+    """
+    headers = {'Content-Type': 'text/html; charset=utf-8'}
+    if filename.startswith('compat/'):
+        headers['X-Robots-Tag'] = 'noindex, follow'
+    return headers
+
+
 @app.route('/<path:filename>')
 def static_pages(filename):
     """ガイド・構成例・ブログ等の静的HTMLページを配信（アフィリエイトタグ注入付き）"""
@@ -1926,13 +1940,13 @@ def static_pages(filename):
         with open(html_path, 'r', encoding='utf-8') as f:
             html = f.read()
         html = _inject_affiliate_tags(html)
-        return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+        return html, 200, _page_headers(filename)
     # compat/ ページを動的生成（static/compat/ が存在しない環境用）
     if filename.startswith('compat/'):
         html = _generate_compat_page(filename[len('compat/'):])
         if html:
             html = _inject_affiliate_tags(html)
-            return html, 200, {'Content-Type': 'text/html; charset=utf-8'}
+            return html, 200, _page_headers(filename)
     return _render_404(), 404
 
 

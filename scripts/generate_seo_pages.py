@@ -12,8 +12,7 @@ workspace/data/*/products.jsonl から GPU・ケースデータを読み込み�
     static/compat/{gpu-slug}-vs-{case-slug}.html  個別ページ
     static/compat/gpu/{gpu-slug}.html             GPU別インデックス
     static/compat/case/{case-slug}.html           ケース別インデックス
-    static/sitemap-1.xml〜sitemap-N.xml           分割サイトマップ
-    static/sitemap-index.xml                      サイトマップインデックス
+    （サイトマップは作らない。理由は _generate_sitemap を参照）
 """
 import glob
 import json
@@ -496,82 +495,20 @@ _SITEMAP_CHUNK = 50_000
 
 
 def _generate_sitemap(gpus: list, cases: list, n_total: int):
-    """sitemap-1.xml〜N.xml + sitemap-index.xml を生成する（50,000件/ファイル上限）"""
-    from datetime import datetime
-    today = datetime.now().strftime('%Y-%m-%d')
+    """何もしない。/compat/ のページはサイトマップに載せない。
 
-    urls = [
-        f'<url><loc>{_BASE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>',
-        f'<url><loc>{_BASE_URL}/compat/index.html</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>',
-    ]
+    2026-09-17 変更。
+    それまでは /compat/ の16万ページを sitemap-1.xml〜4.xml に並べて
+    Google に届け出ていた。中身の薄い自動生成ページを大量に出すと、
+    サイト全体が低く評価される。Bing からは人が来るのに Google からは
+    ほぼ来ない状態が続いていた原因がこれ。
 
-    # 個別ページ
-    for gpu in gpus:
-        g_slug = slugify(gpu.get('name', ''))
-        for case in cases:
-            c_slug = slugify(case.get('name', ''))
-            urls.append(
-                f'<url><loc>{_BASE_URL}/compat/{g_slug}-vs-{c_slug}.html</loc>'
-                f'<lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>'
-            )
-
-    # GPU別インデックス
-    for gpu in gpus:
-        g_slug = slugify(gpu.get('name', ''))
-        urls.append(
-            f'<url><loc>{_BASE_URL}/compat/gpu/{g_slug}.html</loc>'
-            f'<lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>'
-        )
-
-    # ケース別インデックス
-    for case in cases:
-        c_slug = slugify(case.get('name', ''))
-        urls.append(
-            f'<url><loc>{_BASE_URL}/compat/case/{c_slug}.html</loc>'
-            f'<lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>'
-        )
-
-    # チャンク分割してsitemap-N.xmlを生成
-    chunks = [urls[i:i + _SITEMAP_CHUNK] for i in range(0, len(urls), _SITEMAP_CHUNK)]
-    sitemap_files = []
-
-    for i, chunk in enumerate(chunks, 1):
-        sitemap_xml = (
-            '<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            + '\n'.join(chunk)
-            + '\n</urlset>\n'
-        )
-        fname = f'sitemap-{i}.xml'
-        out_path = os.path.join(_ROOT, 'static', fname)
-        with open(out_path, 'w', encoding='utf-8') as f:
-            f.write(sitemap_xml)
-        sitemap_files.append(fname)
-        print(f'  → {out_path} ({len(chunk):,}件)')
-
-    # sitemap-index.xml 生成
-    index_entries = '\n'.join(
-        f'  <sitemap><loc>{_BASE_URL}/{fname}</loc><lastmod>{today}</lastmod></sitemap>'
-        for fname in sitemap_files
-    )
-    index_xml = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + index_entries + '\n'
-        + '</sitemapindex>\n'
-    )
-    index_path = os.path.join(_ROOT, 'static', 'sitemap-index.xml')
-    with open(index_path, 'w', encoding='utf-8') as f:
-        f.write(index_xml)
-    print(f'  → {index_path} ({len(sitemap_files)}ファイル参照)')
-
-    # 旧 sitemap.xml を削除（存在する場合）
-    old_path = os.path.join(_ROOT, 'static', 'sitemap.xml')
-    if os.path.exists(old_path):
-        os.remove(old_path)
-        print(f'  → {old_path} 削除（分割ファイルに移行）')
-
-    return sitemap_files
+    Google に見せるページ（ブログ・ガイド・ジャンル別まとめ）の一覧は
+    scripts/build_sitemap.py で作る。
+    """
+    print('  サイトマップ生成はしない（/compat/ は検索結果に載せない方針）')
+    print('  記事ページの一覧を作り直すには: python scripts/build_sitemap.py')
+    return []
 
 
 # ── メイン処理 ────────────────────────────────────────────────
@@ -638,7 +575,6 @@ def main():
     _generate_hub_page(gpus, cases)
 
     # sitemap 分割生成
-    print('サイトマップ生成中（分割）...')
     sitemap_files = _generate_sitemap(gpus, cases, n_total)
 
     print(f'\n完了!')
@@ -646,10 +582,9 @@ def main():
     print(f'  GPU別インデックス:    {n_gpu_idx:,}件')
     print(f'  ケース別インデックス: {n_case_idx:,}件')
     print(f'  合計:                 {n_total:,}件')
-    print(f'  サイトマップ:         {len(sitemap_files)}ファイル (sitemap-index.xml 含む)')
     print(f'\n出力先: {_OUTPUT_DIR}')
     print('\n次のステップ:')
-    print(f'  git add static/compat/ static/sitemap-*.xml static/sitemap-index.xml')
+    print(f'  git add static/compat/')
     print(f'  git commit -m "feat: SEOページ再生成 {n_total}件 (パンくず+sitemap分割)"')
     print('  git push origin main')
 
