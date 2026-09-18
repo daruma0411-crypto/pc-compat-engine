@@ -3705,5 +3705,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-09-18T07:58:38.056133",
+    "tweet_text": "今買うべきGPU、これで決まり\n\n🥇 RTX 4060 ¥44,800←王者\n🥈 RX 7600 ¥35,800←最安\n🥉 RTX 4060 Ti ¥58,800\n4️⃣ RX 7700 XT ¥62,800\n5️⃣ RTX 4070 ¥82,800←値崩れ中\n\n異論ある人、引用RTで語って\n\nhttps://pc-jisaku.com",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
