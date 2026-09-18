@@ -3713,5 +3713,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "The Witcher 3: Wild Hunt",
+    "posted_at": "2026-09-18T13:25:09.947106",
+    "tweet_text": "初めての自作PCでThe Witcher 3: Wild Hunt遊びたい\n予算8万円でいける？\n\nNvidia GTX 1070必要らしい\nhttps://pc-jisaku.com/game/the-witcher-3-wild-hunt\n\n#TheWitcher3WildHunt #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
