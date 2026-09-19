@@ -3737,5 +3737,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Assetto Corsa",
+    "posted_at": "2026-09-19T12:54:21.239579",
+    "tweet_text": "予算5万円でAssetto Corsa動かせる？\n\n推奨スペック:\nGPU: DirectX 11 (e.g. AMD 290x, Nvidia GTX 970)\nRAM: 6GB\n\nあなたのPC診断↓\nhttps://pc-jisaku.com/game/assetto-corsa\n\n#AssettoCorsa #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
