@@ -3786,5 +3786,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Sid Meier’s Civilization® VI",
+    "posted_at": "2026-09-22T09:13:32.900893",
+    "tweet_text": "予算15万円でSid Meier’s Civilization® VIを快適に遊びたい\n\n推奨構成:\n・GPU: 2GB & AMD 7970\n・CPU: Fourth Generation Intel Core i5 2.5 Ghz\n・RAM: 8GB\n\nhttps://pc-jisaku.com/game/sid-meier%E2%80%99s-civilization-vi\n\n#SidMeier’sCivilization®VI #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
