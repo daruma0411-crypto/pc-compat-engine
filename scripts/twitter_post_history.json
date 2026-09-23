@@ -3803,5 +3803,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "GUILTY GEAR -STRIVE-",
+    "posted_at": "2026-09-23T09:23:53.285118",
+    "tweet_text": "GUILTY GEAR -STRIVE-を1080pと1440pで比較\n1080p: GTX 660で余裕\n1440p: RTX 4070推奨\n\n詳細→ https://pc-jisaku.com/game/guilty-gear-strive\n\n#GUILTYGEAR-STRIVE- #GPU比較",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
