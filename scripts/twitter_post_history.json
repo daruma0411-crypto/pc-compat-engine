@@ -3843,5 +3843,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-09-25T12:29:52.458658",
+    "tweet_text": "質問\nStreet Fighter 6を快適に遊びたいんだけど\nRTX2070とIntel Core i7 8700ならいける？\n\nスペック確認ツール↓\nhttps://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #スペック相談",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
