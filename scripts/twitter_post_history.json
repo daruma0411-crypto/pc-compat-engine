@@ -3859,5 +3859,13 @@
     "has_image": false,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-09-28T03:15:15.089045",
+    "tweet_text": "知らないと損する自作PCの豆知識\n\n1. メモリは2枚挿し必須（デュアルチャネル）\n2. M.2 SSDはGen4で十分\n3. 電源は構成の1.5倍が安全圏\n4. CPUクーラーはケチるな\n5. ケースのエアフロー>見た目\n\n初心者は保存しとくといいよ\n\nちなみに診断できる→ https://pc-jisaku.com\n#PCゲーム #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
