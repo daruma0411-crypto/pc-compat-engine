@@ -3909,5 +3909,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "龍が如く８",
+    "posted_at": "2026-09-30T12:17:38.667776",
+    "tweet_text": "予算5万円で龍が如く８動かせる？\n\n推奨スペック:\nGPU: RTX 2060, 6 GB\nRAM: 16GB\n\nあなたのPC診断↓\nhttps://pc-jisaku.com/game/%E9%BE%8D%E3%81%8C%E5%A6%82%E3%81%8F%EF%BC%98\n\n#龍が如く８ #自作PC初心者",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
