@@ -3951,5 +3951,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-10-03T09:07:25.164652",
+    "tweet_text": "新記事↓\n「パルワールド」が動かない時の対処法7選\n\n価格.comの最新データ使ってます\nhttps://pc-jisaku.com/blog/20260821-troubleshooting-palworld-fix7picks.html\n\n#PCパーツ #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260821-troubleshooting-palworld-fix7picks.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
