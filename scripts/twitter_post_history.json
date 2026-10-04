@@ -3985,5 +3985,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-10-04T13:54:49.923562",
+    "tweet_text": "記事書きました\n\nRTX 3070で遊べる最新ゲーム50選【9月版】\n\nhttps://pc-jisaku.com/blog/20260907-gpu_list-starfield-rtx-307050picks9month.html\n\n#ブログ更新 #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260907-gpu_list-starfield-rtx-307050picks9month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
