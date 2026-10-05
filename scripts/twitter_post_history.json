@@ -3994,5 +3994,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Chants of Sennaar",
+    "posted_at": "2026-10-05T03:18:56.424058",
+    "tweet_text": "Chants of Sennaarが起動しない...\nGPUドライバ更新したら直った\n\n推奨: 1GB VRAM, AMD HD 5850\nhttps://pc-jisaku.com/game/chants-of-sennaar\n\n#ChantsofSennaar #PC不具合",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
