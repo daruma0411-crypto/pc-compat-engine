@@ -4056,5 +4056,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Elden Ring Shadow of the Erdtree",
+    "posted_at": "2026-10-07T12:33:02.559329",
+    "tweet_text": "初めての自作PC\nElden Ring Shadow of the Erdtree用ならどのGPU選ぶ？\n\n推奨: GTX 1070 8GB\nコスパ: RTX 4060\n将来性: RTX 4070\n\nhttps://pc-jisaku.com/game/elden-ring-shadow-of-the-erdtree\n\n#EldenRingShadowoftheErdtree #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
