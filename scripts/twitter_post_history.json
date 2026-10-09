@@ -4080,5 +4080,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Devil May Cry 5",
+    "posted_at": "2026-10-09T09:17:09.531360",
+    "tweet_text": "Devil May Cry 5めっちゃ面白い！\nGTX 1060(6GB)でヌルヌル動いてる\n\n推奨スペック→ https://pc-jisaku.com/game/devil-may-cry-5\n\n#DevilMayCry5 #神ゲー",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
