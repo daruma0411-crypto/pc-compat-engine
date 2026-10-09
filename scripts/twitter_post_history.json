@@ -4088,5 +4088,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-10-09T12:14:39.182900",
+    "tweet_text": "実データで書いた記事\nRTX 5070で遊べる最新ゲーム50選【8月版】\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20260814-gpu_list-baldurs-gate-3-rtx-507050picks8month.html\n\n#PCパーツ #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260814-gpu_list-baldurs-gate-3-rtx-507050picks8month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
