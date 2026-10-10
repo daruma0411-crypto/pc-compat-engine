@@ -4097,5 +4097,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Hollow Knight",
+    "posted_at": "2026-10-10T03:26:29.612726",
+    "tweet_text": "学生でも手が届く\nHollow Knight用PC構成\n\n予算10万円以内\nGTX 1050 (2GB), R9 380 (2GB)で快適プレイ\n\nhttps://pc-jisaku.com/game/hollow-knight\n\n#HollowKnight #コスパPC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
