@@ -4138,5 +4138,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "ELDEN RING",
+    "posted_at": "2026-10-12T03:29:13.110488",
+    "tweet_text": "初めての自作PC\nELDEN RING用ならどのGPU選ぶ？\n\n推奨: GEFORCE GTX 1070 8 GB\nコスパ: RTX 4060\n将来性: RTX 4070\n\nhttps://pc-jisaku.com/game/elden-ring\n\n#ELDENRING #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
