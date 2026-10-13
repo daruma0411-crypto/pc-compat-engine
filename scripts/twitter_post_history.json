@@ -4179,5 +4179,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Timberborn",
+    "posted_at": "2026-10-13T12:32:27.381349",
+    "tweet_text": "Timberbornやりたいんだけど\n予算10万円以内で組めますか？\n\n推奨: RTX 2070, RX 5700\n詳細→ https://pc-jisaku.com/game/timberborn\n\n#Timberborn #自作PC初心者",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
