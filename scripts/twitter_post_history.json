@@ -4219,5 +4219,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-10-15T12:23:16.041618",
+    "tweet_text": "新記事↓\n予算12万円で組む最強ゲーミングPC構成【2026年08月版】\n\n価格.comの最新データ使ってます\nhttps://pc-jisaku.com/blog/20260823-budget_build-elden-ring-budget12manbestpc2026y08month.html\n\n#PCパーツ #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20260823-budget_build-elden-ring-budget12manbestpc2026y08month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
