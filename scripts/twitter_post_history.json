@@ -4261,5 +4261,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-10-17T09:30:36.961650",
+    "tweet_text": "BTOと自作、初心者にはどっちを勧める？\n自作の達成感は代えがたいけど\n#自作PC #GPU",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
