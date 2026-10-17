@@ -4269,5 +4269,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "Street Fighter 6",
+    "posted_at": "2026-10-17T12:25:48.434953",
+    "tweet_text": "Street Fighter 6用にPC組むなら\nRTX2070 + Intel Core i7 8700で20万くらい？\n\n詳しいスペック→ https://pc-jisaku.com/game/street-fighter-6\n\n#StreetFighter6 #コスパPC\n\n広まれ〜",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
