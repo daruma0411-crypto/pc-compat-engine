@@ -4285,5 +4285,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-10-18T09:23:37.166092",
+    "tweet_text": "毎日更新中\n\n【週刊】PCパーツ価格ウォッチ 2026年10月第1週\nhttps://pc-jisaku.com/blog/20261004-weekly_report-pcparts-price-watch-2026y10monthweek1.html\n\n#GPU #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20261004-weekly_report-pcparts-price-watch-2026y10monthweek1.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
