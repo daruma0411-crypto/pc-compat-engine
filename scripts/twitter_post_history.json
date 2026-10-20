@@ -4302,5 +4302,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-10-20T03:15:27.316436",
+    "tweet_text": "ゲーム中にタスクマネージャー開く癖ある人いない？\nGPU使用率つい気になる\n\n気になる人→ https://pc-jisaku.com\n#GPU #自作PC",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
