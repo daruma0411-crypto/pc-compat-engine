@@ -4327,5 +4327,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Undertale",
+    "posted_at": "2026-10-22T09:05:12.692637",
+    "tweet_text": "予算15万円でUndertaleを快適に遊びたい\n\n推奨構成:\n・GPU: 512MB\n・CPU: 2GHz+\n・RAM: 3GB\n\nhttps://pc-jisaku.com/game/undertale\n\n#Undertale #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
