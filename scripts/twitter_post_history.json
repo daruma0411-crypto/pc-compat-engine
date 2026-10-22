@@ -4335,5 +4335,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-10-22T12:18:20.460785",
+    "tweet_text": "PC初心者、これだけは覚えて帰って\n\n❌「推奨スペック」は快適じゃない\n❌ HDDだけは令和では人権ない\n❌ エアフロー無視すると夏に死ぬ\n\n全部やらかした民はRT",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 0
   }
 ]
