@@ -4352,5 +4352,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "GUILTY GEAR -STRIVE-",
+    "posted_at": "2026-10-23T12:07:18.343369",
+    "tweet_text": "質問\nGUILTY GEAR -STRIVE-を快適に遊びたいんだけど\nGTX 660とIntel Core i7-3770, 3.40 GHzならいける？\n\nスペック確認ツール↓\nhttps://pc-jisaku.com/game/guilty-gear-strive\n\n#GUILTYGEAR-STRIVE- #動作環境",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
