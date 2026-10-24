@@ -1,0 +1,523 @@
+{"id": "kakaku_K0001689912", "name": "MSI GeForce RTX 5060 8G VENTUS 2X OC [PCIExp 8GB]", "old_price": 75330, "new_price": 88790, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686415", "name": "MSI GeForce RTX 5060 Ti 16G VENTUS 2X OC PLUS [PCIExp 16GB]", "old_price": 139800, "new_price": 148800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673984", "name": "MSI GeForce RTX 5090 32G VENTUS 3X OC [PCIExp 32GB]", "old_price": 1839375, "new_price": 1676875, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687822", "name": "MSI GeForce RTX 5070 Ti 16G GAMING TRIO OC [PCIExp 16GB]", "old_price": 236700, "new_price": 236800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673758", "name": "ASUS ROG-ASTRAL-RTX5090-O32G-GAMING [PCIExp 32GB]", "old_price": 1234330, "new_price": 1299980, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679747", "name": "MSI GeForce RTX 5070 12G VENTUS 2X OC [PCIExp 12GB]", "old_price": 148980, "new_price": 150482, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001692367", "name": "Palit Microsystems NE7507T019T2-GB2031U (GeForce RTX 5070 Ti GamingPro-S 16GB) [PCIExp 16GB] ドスパラ限定モデル", "old_price": 219800, "new_price": 229980, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001682016", "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition 900-5G153-2500-000 [PCIExp 96GB]", "old_price": 2788000, "new_price": 2498000, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693219", "name": "PowerColor Reaper AMD Radeon RX 9060 XT 16GB GDDR6 RX9060XT 16G-A [PCIExp 16GB]", "old_price": 92801, "new_price": 134800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001663557", "name": "MSI GeForce RTX 3050 VENTUS 2X E 6G OC [PCIExp 6GB]", "old_price": 43980, "new_price": 42980, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693613", "name": "玄人志向 RD-RX7600-E8GB/V2 [PCIExp 8GB]", "old_price": 44850, "new_price": 46800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001696163", "name": "PNY GeForce RTX 5060 Ti 16GB Overclocked Dual Fan VCG5060T16DFXPB1-O [PCIExp 16GB]", "old_price": 129800, "new_price": 137800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673989", "name": "MSI GeForce RTX 5080 16G VENTUS 3X OC [PCIExp 16GB]", "old_price": 295799, "new_price": 351999, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673757", "name": "ASUS ROG-ASTRAL-RTX5080-O16G-GAMING [PCIExp 16GB]", "old_price": 416799, "new_price": 415000, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001677697", "name": "ASUS PRIME-RTX5070TI-O16G [PCIExp 16GB]", "old_price": 259770, "new_price": 255900, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001682019", "name": "NVIDIA RTX PRO 4000 Blackwell 900-5G147-2570-000 [PCIExp 24GB]", "old_price": 494780, "new_price": 511000, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673755", "name": "ASUS PRIME-RTX5080-O16G [PCIExp 16GB]", "old_price": 307237, "new_price": 331800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001674505", "name": "Inno3D GeForce RTX 5090 X3 GD5090-32GERX3 [PCIExp 32GB]", "old_price": 1179800, "new_price": 1099980, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680229", "name": "GIGABYTE GV-R9070XTGAMING OC-16GD [PCIExp 16GB]", "old_price": 154800, "new_price": 199800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679962", "name": "ASUS PRIME-RX9070XT-O16G [PCIExp 16GB]", "old_price": 179000, "new_price": 209058, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001716746", "name": "NVIDIA RTX PRO 2000 Blackwell 900-5G195-2551-000 [PCIExp 16GB]", "old_price": 219800, "new_price": 239500, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001334055", "name": "MSI GeForce RTX 3060 VENTUS 2X 12G OC [PCIExp 12GB]", "old_price": 57800, "new_price": 83800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001698728", "name": "ASUS DUAL-RTX5050-O8G [PCIExp 8GB]", "old_price": 77800, "new_price": 64800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001703169", "name": "MSI GT 710 2GD3H 4HDMI [PCIExp 2GB]", "old_price": 4980, "new_price": 6400, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680201", "name": "ASUS DUAL-RX7600-O8G-EVO [PCIExp 8GB]", "old_price": 46240, "new_price": 52800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001715099", "name": "ASUS PROART-RTX5070TI-O16G [PCIExp 16GB]", "old_price": 258800, "new_price": 284799, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001642766", "name": "玄人志向 RD-RX7800XT-E16GB/DF [PCIExp 16GB]", "old_price": 106920, "new_price": 85800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679955", "name": "SAPPHIRE NITRO+ Radeon RX 9070 GAMING OC 16GB GDDR6 [PCIExp 16GB]", "old_price": 119800, "new_price": 134800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001720920", "name": "SPARKLE Intel Arc Pro B60 24GB Blower SBP60W-24G [PCIExp 24GB]", "old_price": 178800, "new_price": 148000, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001682486", "name": "GIGABYTE GV-N507TEAGLEOC ICE-16GD [PCIExp 16GB]", "old_price": 253110, "new_price": 227800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001682488", "name": "GIGABYTE GV-N507TAERO OC-16GD [PCIExp 16GB]", "old_price": 237798, "new_price": 237800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000969293", "name": "ASUS GT1030-SL-2G-BRK [PCIExp 2GB]", "old_price": 11797, "new_price": 11800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686864", "name": "Palit Microsystems NE7506T019T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 16GB) [PCIExp 16GB] ドスパラ限定モデル", "old_price": 138000, "new_price": 129800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001692072", "name": "ASRock Radeon RX 9060 XT Challenger 16GB OC [PCIExp 16GB]", "old_price": 83980, "new_price": 96800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001628682", "name": "ASUS GT710-SL-2GD5-BRK-EVO [PCIExp 2GB]", "old_price": 5890, "new_price": 7000, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679961", "name": "ASUS TUF-RX9070-O16G-GAMING [PCIExp 16GB]", "old_price": 127896, "new_price": 120993, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679735", "name": "ASUS PRIME-RTX5070-O12G [PCIExp 12GB]", "old_price": 165000, "new_price": 186800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001540016", "name": "ASRock Radeon RX 7600 Steel Legend 8GB OC [PCIExp 8GB]", "old_price": 39800, "new_price": 48748, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693127", "name": "SAPPHIRE PURE Radeon RX 9060 XT GAMING OC 16GB [PCIExp 16GB]", "old_price": 93799, "new_price": 94716, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686400", "name": "ASUS DUAL-RTX5060TI-O16G [PCIExp 16GB]", "old_price": 159800, "new_price": 146736, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689909", "name": "ASUS DUAL-RTX5060-O8G [PCIExp 8GB]", "old_price": 75980, "new_price": 77980, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001711303", "name": "ASUS PRIME-RX9070XT-O16G-WHITE [PCIExp 16GB]", "old_price": 160000, "new_price": 169800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680317", "name": "PNY GeForce RTX 5080 16GB Overclocked Triple Fan VCG508016TFXPB1-O [PCIExp 16GB]", "old_price": 298980, "new_price": 395999, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673958", "name": "GIGABYTE GV-N5080GAMING OC-16GD [PCIExp 16GB]", "old_price": 305800, "new_price": 321800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693614", "name": "GIGABYTE GV-R9060XTGAMING OC-8GD [PCIExp 8GB]", "old_price": 79800, "new_price": 72861, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679734", "name": "ASUS TUF-RTX5070-O12G-GAMING [PCIExp 12GB]", "old_price": 165800, "new_price": 169529, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686187", "name": "ZOTAC GAMING GeForce RTX 5060 Ti 8GB Twin Edge OC ZT-B50610H-10M [PCIExp 8GB]", "old_price": 77790, "new_price": 113727, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001763287", "name": "MSI GeForce RTX 5060 Ti 8G VENTUS 2X OC WHITE PLUS [PCIExp 8GB]", "old_price": 76800, "new_price": 80607, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001707420", "name": "NVIDIA RTX PRO 2000 Blackwell ENQRP2000B-16GER [PCIExp 16GB]", "old_price": 188646, "new_price": 188739, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001565663", "name": "SAPPHIRE PULSE Radeon RX 7800 XT GAMING 16GB GDDR6 [PCIExp 16GB]", "old_price": 104700, "new_price": 101559, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001711990", "name": "ASUS DUAL-RTX5060TI-O16G-WHITE [PCIExp 16GB]", "old_price": 143945, "new_price": 146810, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001717983", "name": "SAPPHIRE AMD Radeon AI Pro R9700 32GB GDDR6 LITE [PCIExp 32GB]", "old_price": 375300, "new_price": 389800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001638239", "name": "NVIDIA RTX A400 ENQRA400-4GER [PCIExp 4GB]", "old_price": 32001, "new_price": 32850, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001721801", "name": "GIGABYTE GV-N5060WF2MAX OC-8GD [PCIExp 8GB]", "old_price": 77000, "new_price": 83800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001294863", "name": "MSI GeForce RTX 3090 VENTUS 3X 24G OC [PCIExp 24GB]", "old_price": 330791, "new_price": 344753, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001702540", "name": "Palit Microsystems NE7506TU19P1-GB2062M (GeForce RTX 5060 Ti White OC 8GB) [PCIExp 8GB] ドスパラ限定モデル", "old_price": 79800, "new_price": 86800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689698", "name": "ASUS ROG-STRIX-RTX5070-O12G-GAMING [PCIExp 12GB]", "old_price": 169800, "new_price": 207799, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001717220", "name": "GIGABYTE GV-R9700AI TOP-32GD [PCIExp 32GB]", "old_price": 354800, "new_price": 399800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001717219", "name": "PowerColor Radeon AI PRO R9700 AI PRO R9700 32G-B [PCIExp 32GB]", "old_price": 336427, "new_price": 379800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689908", "name": "ASUS PRIME-RTX5060-O8G [PCIExp 8GB]", "old_price": 69980, "new_price": 102800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687334", "name": "ASUS DUAL-RTX5060TI-O8G [PCIExp 8GB]", "old_price": 83980, "new_price": 89800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001769001", "name": "NVIDIA RTX PRO 4500 Blackwell NVRTXPRO 4500 BW NVBOX [PCIExp 32GB]", "old_price": 798000, "new_price": 843590, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001769000", "name": "NVIDIA RTX PRO 5000 Blackwell NVRTXPRO 5000 BW NVBOX [PCIExp 48GB]", "old_price": 1149800, "new_price": 1349800, "type": "price_changed", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001714932", "name": "PowerColor Hellhound Reva AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-L/OC/REVA [PCIExp 16GB]", "last_price": 184627, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686413", "name": "MSI GeForce RTX 5060 Ti 16G GAMING OC [PCIExp 16GB]", "last_price": 175151, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001718522", "name": "ASRock Radeon RX 9060 XT Challenger 16GB (RX9060XT CL 16G) [PCIExp 16GB] ドスパラ限定モデル", "last_price": 96800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679956", "name": "SAPPHIRE PURE Radeon RX 9070 GAMING OC 16GB GDDR6 [PCIExp 16GB]", "last_price": 135800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001713773", "name": "MSI GeForce RTX 5060 Ti 16G VENTUS 2X OC WHITE PLUS [PCIExp 16GB]", "last_price": 172570, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680191", "name": "PowerColor Hellhound AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-L/OC [PCIExp 16GB]", "last_price": 156800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001683735", "name": "Palit Microsystems NE75070019K9-GB2050S (GeForce RTX 5070 Infinity 3 12GB) [PCIExp 12GB] ドスパラ限定モデル", "last_price": 156800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001694581", "name": "GIGABYTE GV-R9060XTGAMING OC-16GD [PCIExp 16GB]", "last_price": 86799, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001709726", "name": "ASUS DUAL-RX9060XT-16G-WHITE (Radeon RX 9060 XT 16GB) [PCIExp 16GB] ドスパラ限定モデル", "last_price": 96800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001684656", "name": "PowerColor Red Devil Spectral White AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-E/OC/WHITE [PCIExp 16GB]", "last_price": 172800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001692078", "name": "MSI GeForce RTX 5070 Ti 16G GAMING TRIO OC WHITE [PCIExp 16GB]", "last_price": 306310, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001677694", "name": "ASUS ROG-ASTRAL-LC-RTX5090-O32G-GAMING [PCIExp 32GB]", "last_price": 1235010, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693126", "name": "SAPPHIRE NITRO+ Radeon RX 9060 XT GAMING OC 16GB [PCIExp 16GB]", "last_price": 117982, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001692991", "name": "ASUS DUAL-RTX5070-O12G [PCIExp 12GB]", "last_price": 165000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001708572", "name": "玄人志向 AR-B580D6-E12GB/DF [PCIExp 12GB]", "last_price": 42728, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673987", "name": "MSI GeForce RTX 5080 16G GAMING TRIO OC [PCIExp 16GB]", "last_price": 305800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001604025", "name": "MSI GeForce RTX 3050 LP 6G OC [PCIExp 6GB]", "last_price": 57514, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001667062", "name": "SPARKLE Intel Arc B580 TITAN OC SB580T-12GOC [PCIExp 12GB]", "last_price": 65675, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001707666", "name": "Palit Microsystems NE75070U19K9-GB2050W (GeForce RTX 5070 White OC 12GB) [PCIExp 12GB] ドスパラ限定モデル", "last_price": 154800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679957", "name": "SAPPHIRE PULSE Radeon RX 9070 GAMING 16GB GDDR6 [PCIExp 16GB]", "last_price": 143999, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001682018", "name": "NVIDIA RTX PRO 4500 Blackwell 900-5G147-2550-000 [PCIExp 32GB]", "last_price": 949555, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001540047", "name": "SAPPHIRE PULSE Radeon RX 7600 GAMING 8GB GDDR6 [PCIExp 8GB]", "last_price": 56000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001676305", "name": "Inno3D GeForce RTX 5070 Ti X3 OC GD5070T-16GERX3OC [PCIExp 16GB]", "last_price": 289300, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001620193", "name": "ASUS DUAL-RTX4060TI-O8G-EVO [PCIExp 8GB]", "last_price": 109900, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693171", "name": "ASUS TUF-RX9060XT-O16G-GAMING [PCIExp 16GB]", "last_price": 127900, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679963", "name": "ASUS PRIME-RX9070-O16G [PCIExp 16GB]", "last_price": 129980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001696305", "name": "ASUS ROG-ASTRAL-RTX5080-O16G-WHITE [PCIExp 16GB]", "last_price": 419800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693129", "name": "SAPPHIRE PULSE Radeon RX 9060 XT GAMING OC 8GB [PCIExp 8GB]", "last_price": 85545, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001681911", "name": "PowerColor Hellhound Spectral White AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-L/OC/WHITE [PCIExp 16GB]", "last_price": 151061, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693234", "name": "玄人志向 RD-RX9060XT-E16GB/DF [PCIExp 16GB]", "last_price": 104989, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689913", "name": "MSI GeForce RTX 5060 8G VENTUS 2X OC WHITE [PCIExp 8GB]", "last_price": 79000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679960", "name": "ASUS TUF-RX9070XT-O16G-GAMING [PCIExp 16GB]", "last_price": 191800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001598620", "name": "SPARKLE Intel Arc A310 ECO SA310C-4G [PCIExp 4GB]", "last_price": 32487, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001692070", "name": "ASRock Radeon RX 9060 XT Steel Legend 16GB OC [PCIExp 16GB]", "last_price": 109800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001539785", "name": "ZOTAC GAMING GeForce RTX 4060 Ti 8GB Twin Edge ZT-D40610E-10M [PCIExp 8GB]", "last_price": 122800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679968", "name": "GIGABYTE GV-N5070GAMING OC-12GD [PCIExp 12GB]", "last_price": 159800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001145788", "name": "玄人志向 GF-GT1030-E2GB/LP/D5 [PCIExp 2GB]", "last_price": 15000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001682489", "name": "GIGABYTE AORUS GV-N507TAORUS M-16GD [PCIExp 16GB]", "last_price": 350625, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693128", "name": "SAPPHIRE PULSE Radeon RX 9060 XT GAMING OC 16GB [PCIExp 16GB]", "last_price": 96500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686190", "name": "GAINWARD GeForce RTX 5070 Python III NE75070019K9-GB2050T [PCIExp 12GB]", "last_price": 180735, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001707419", "name": "NVIDIA RTX PRO 4000 Blackwell SFF Edition ENQRP4000BSF-24GER [PCIExp 24GB]", "last_price": 419980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001539421", "name": "MSI GeForce RTX 4060 Ti VENTUS 2X BLACK 8G OC [PCIExp 8GB]", "last_price": 101000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686398", "name": "ASUS TUF-RTX5060TI-O16G-GAMING [PCIExp 16GB]", "last_price": 175800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001047395", "name": "MSI GeForce GT 1030 2GD4 LP OC [PCIExp 2GB]", "last_price": 15600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679967", "name": "GIGABYTE GV-N5070AERO OC-12GD [PCIExp 12GB]", "last_price": 162800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673957", "name": "GIGABYTE GV-N5080AERO OC-16GD [PCIExp 16GB]", "last_price": 309800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001653726", "name": "NVIDIA RTX A400 900-5G172-2560-000 [PCIExp 4GB]", "last_price": 36078, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001613142", "name": "ASUS RTX3050-O6G-LP-BRK [PCIExp 6GB]", "last_price": 45980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001690581", "name": "Palit Microsystems NE75060019P1-GB2063D (GeForce RTX 5060 Dual 8GB) [PCIExp 8GB] ドスパラ限定モデル", "last_price": 79800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001285834", "name": "MSI GeForce RTX 3090 GAMING X TRIO 24G [PCIExp 24GB]", "last_price": 433748, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689917", "name": "GIGABYTE GV-N5060OC-8GL [PCIExp 8GB]", "last_price": 86093, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001558334", "name": "SPARKLE Intel Arc A380 ELF SA380E-6G [PCIExp 6GB]", "last_price": 30754, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001578679", "name": "MSI GeForce RTX 3050 VENTUS 2X XS 8G OC [PCIExp 8GB]", "last_price": 53205, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001697527", "name": "ZOTAC GAMING GeForce RTX 5050 SOLO ZT-B50500G-10L [PCIExp 8GB]", "last_price": 84309, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689911", "name": "MSI GeForce RTX 5060 8G GAMING OC [PCIExp 8GB]", "last_price": 84990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001565406", "name": "ASRock Radeon RX 7700 XT Challenger 12GB OC [PCIExp 12GB]", "last_price": 104762, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001213719", "name": "エレコム AD-CHDMIBK2 [ブラック]", "last_price": 2180, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001127556", "name": "玄人志向 GF-GT710-E1GB/HS [PCIExp 1GB]", "last_price": 4940, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001540017", "name": "ASRock Radeon RX 7600 Challenger 8GB OC [PCIExp 8GB]", "last_price": 49800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689928", "name": "GIGABYTE GV-N506TWF2OC-8GD [PCIExp 8GB]", "last_price": 98000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001590943", "name": "NVIDIA RTX 4000 Ada 世代 900-5G190-2570-000 [PCIExp 20GB]", "last_price": 279948, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001716968", "name": "ASRock Radeon AI PRO R9700 Creator 32GB [PCIExp 32GB]", "last_price": 327351, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680193", "name": "PowerColor Hellhound AMD Radeon RX 9070 16GB GDDR6 RX9070 16G-L/OC [PCIExp 16GB]", "last_price": 127624, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679748", "name": "MSI GeForce RTX 5070 12G VENTUS 2X OC WHITE [PCIExp 12GB]", "last_price": 154000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001716745", "name": "NVIDIA RTX PRO 4000 Blackwell SFF Edition 900-5G195-2501-000 [PCIExp 24GB]", "last_price": 565890, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001766185", "name": "PNY GeForce RTX 5060 8GB Overclocked Dual Fan VCG50608DFXPB1-O [PCIExp 8GB]", "last_price": 79000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680190", "name": "PowerColor Red Devil AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-E/OC [PCIExp 16GB]", "last_price": 159826, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001677383", "name": "ZOTAC GAMING GeForce RTX 5070 Ti SOLID OC ZT-B50710J-10P [PCIExp 16GB]", "last_price": 245000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001558336", "name": "SPARKLE Intel Arc A750 TITAN OC Edition SA750T-8GOC [PCIExp 8GB]", "last_price": 42800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001621230", "name": "NVIDIA RTX A1000 900-5G172-2580-000 [PCIExp 8GB]", "last_price": 93910, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001492544", "name": "MSI GeForce RTX 4080 16GB VENTUS 3X OC [PCIExp 16GB]", "last_price": 382328, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001372962", "name": "ASUS GT730-SL-2GD5-BRK [PCIExp 2GB]", "last_price": 8480, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001023921", "name": "PNY NVIDIA Quadro P600 VCQP600-PB [PCIExp 2GB]", "last_price": 14472, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001206485", "name": "ASUS PH-GTX1660S-O6G [PCIExp 6GB]", "last_price": 44680, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687332", "name": "ASUS TUF-RTX5060TI-O8G-GAMING [PCIExp 8GB]", "last_price": 126800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001598924", "name": "MSI GeForce RTX 4070 SUPER 12G VENTUS 2X OC [PCIExp 12GB]", "last_price": 224280, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001768820", "name": "Palit Microsystems NE75080S19T2-GB2031A (GeForce RTX 5080 GamingPro OC 16GB) [PCIExp 16GB] ドスパラ限定モデル", "last_price": 299800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001709342", "name": "NVIDIA RTX PRO 4000 Blackwell ENQRP4000B-24GER [PCIExp 24GB]", "last_price": 459980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001492542", "name": "MSI GeForce RTX 4080 16GB SUPRIM X [PCIExp 16GB]", "last_price": 438800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001697525", "name": "GIGABYTE GV-N5050OC-8GL [PCIExp 8GB]", "last_price": 74980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686403", "name": "GIGABYTE GV-N506TGAMING OC-16GD [PCIExp 16GB]", "last_price": 162800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679797", "name": "玄人志向 GK-RTX5070-E12GB/WHITE/DF [PCIExp 12GB]", "last_price": 157900, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693997", "name": "ASUS PRIME-RTX5070-O12G-WHITE [PCIExp 12GB]", "last_price": 188800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001768998", "name": "NVIDIA RTX PRO 6000 Blackwell Workst Edt Retail NVRTXPRO 6000BW WS ED NVBOX [PCIExp 96GB]", "last_price": 3433148, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001540019", "name": "GIGABYTE GV-R76GAMING OC-8GD [PCIExp 8GB]", "last_price": 52800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001697524", "name": "GIGABYTE GV-N5050WF2OC-8GD [PCIExp 8GB]", "last_price": 72800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693233", "name": "玄人志向 RD-RX9060XT-E8GB/DF [PCIExp 8GB]", "last_price": 78911, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001721001", "name": "GIGABYTE GV-R906XGAMINGOCICE-16GD [PCIExp 16GB] パソコン工房限定モデル", "last_price": 106800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001768821", "name": "Palit Microsystems NE75070S19K9-GB2050S (GeForce RTX 5070 Infinity 3 OC 12GB) [PCIExp 12GB] ドスパラ限定モデル", "last_price": 159800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679970", "name": "GIGABYTE GV-N5070EAGLE OC-12GD [PCIExp 12GB]", "last_price": 156800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001703308", "name": "MSI GeForce RTX 5080 16G VENTUS 3X OC PLUS [PCIExp 16GB]", "last_price": 576695, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000921442", "name": "ASUS STRIX-GTX1060-DC2O6G [PCIExp 6GB]", "last_price": 49800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001561423", "name": "ASRock Intel Arc A770 Phantom Gaming 16GB OC [PCIExp 16GB]", "last_price": 94600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001705933", "name": "ASUS RTX5060-O8G-LP-BRK [PCIExp 8GB]", "last_price": 100800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001548658", "name": "MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC [PCIExp 8GB]", "last_price": 89908, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001402513", "name": "NVIDIA RTX A2000 ENQRA2000-6GER [PCIExp 6GB]", "last_price": 498800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001725030", "name": "Palit Microsystems NE7506TS19T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 OC 16GB) [PCIExp 16GB] ドスパラ限定モデル", "last_price": 139800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001361291", "name": "ASUS ROG-STRIX-RTX3070TI-O8G-GAMING [PCIExp 8GB]", "last_price": 89800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001679745", "name": "MSI GeForce RTX 5070 12G GAMING TRIO OC WHITE [PCIExp 12GB]", "last_price": 243125, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680318", "name": "PNY GeForce RTX 5080 16GB ARGB Overclocked Triple Fan VCG508016TFXXPB1-O [PCIExp 16GB]", "last_price": 397935, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001388439", "name": "ASUS GT730-4H-SL-2GD5 [PCIExp 2GB]", "last_price": 14740, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001045285", "name": "PowerColor Radeon RX VEGA 56 8GB HBM2 AXRX VEGA 56 8GBHBM2-2D2HD/OC [PCIExp 8GB]", "last_price": 98665, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001436887", "name": "MSI Radeon RX 6400 AERO ITX 4G [PCIExp 4GB]", "last_price": 38788, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001618847", "name": "ZOTAC GAMING GeForce RTX 3050 6GB GDDR6 Solo ZT-A30510G-10L [PCIExp 6GB]", "last_price": 40800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693217", "name": "PowerColor Hellhound AMD Radeon RX 9060 XT 16GB GDDR6 RX9060XT 16G-L/OC [PCIExp 16GB]", "last_price": 97800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689907", "name": "ASUS TUF-RTX5060-O8G-GAMING [PCIExp 8GB]", "last_price": 107800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687928", "name": "GIGABYTE GV-N506TAERO OC-8GD [PCIExp 8GB]", "last_price": 107300, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001359954", "name": "MSI Radeon RX 6900 XT GAMING Z TRIO 16G [PCIExp 16GB]", "last_price": 147469, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001555334", "name": "MSI GeForce RTX 4060 Ti VENTUS 2X BLACK 16G OC [PCIExp 16GB]", "last_price": 268800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001654841", "name": "MSI GeForce RTX 4090 VENTUS 3X E 24G OC [PCIExp 24GB]", "last_price": 848000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001660919", "name": "エレコム AD-DPHBK [ブラック]", "last_price": 2830, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001419393", "name": "MSI GeForce RTX 3050 AERO ITX 8G OC [PCIExp 8GB]", "last_price": 52800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001504263", "name": "インテル Intel Arc A750 21P02J00BA [PCIExp 8GB]", "last_price": 56975, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689915", "name": "GIGABYTE GV-N5060GAMING OC-8GD [PCIExp 8GB]", "last_price": 87800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687038", "name": "GIGABYTE GV-N506TEAGLE OC-8GD [PCIExp 8GB]", "last_price": 90200, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001401071", "name": "SAPPHIRE PULSE Radeon RX 6800 XT 16GB GDDR6 [PCIExp 16GB]", "last_price": 144054, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001694356", "name": "PowerColor Hellhound Spectral White AMD Radeon RX 9060 XT 16GB GDDR6 RX9060XT 16G-L/OC/WHITE [PCIExp 16GB]", "last_price": 155699, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001680230", "name": "GIGABYTE GV-R9070GAMING OC-16GD [PCIExp 16GB]", "last_price": 129800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686186", "name": "ZOTAC GAMING GeForce RTX 5060 Ti 16GB Twin Edge OC ZT-B50620H-10M [PCIExp 16GB]", "last_price": 157424, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001612985", "name": "NVIDIA RTX 2000 Ada ENQR2000A-16GER [PCIExp 16GB]", "last_price": 269800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001334054", "name": "MSI GeForce RTX 3060 GAMING X 12G [PCIExp 12GB]", "last_price": 81592, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001598923", "name": "MSI GeForce RTX 4070 SUPER 12G GAMING X SLIM [PCIExp 12GB]", "last_price": 239800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689929", "name": "PNY GeForce RTX 5080 16GB Triple Fan VCG508016TFXPB1 [PCIExp 16GB]", "last_price": 364594, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001492546", "name": "ZOTAC GAMING GeForce RTX 4080 16GB AMP Extreme AIRO ZT-D40810B-10P [PCIExp 16GB]", "last_price": 669800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001658066", "name": "サンワサプライ 500-KC042 [ブラック]", "last_price": 1170, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001045530", "name": "j5 create JUA365", "last_price": 10980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000322853", "name": "IODATA USBグラフィック USB-RGB3/H", "last_price": 11682, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001417254", "name": "MSI Radeon RX 6500 XT MECH 2X 4G OC [PCIExp 4GB]", "last_price": 75985, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001020032", "name": "ASUS CERBERUS-GTX1070TI-A8G [PCIExp 8GB]", "last_price": 50000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000958081", "name": "MSI GTX 1070 AERO ITX 8G OC [PCIExp 8GB]", "last_price": 60774, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689916", "name": "GIGABYTE GV-N5060EAGLEOC ICE-8GD [PCIExp 8GB]", "last_price": 89800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001721781", "name": "ASUS DUAL-RTX5060-O8G-WHITE [PCIExp 8GB]", "last_price": 89990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001371826", "name": "MSI GeForce GTX 1660 Ti ARMOR 6G OC [PCIExp 6GB]", "last_price": 88800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001721780", "name": "ASUS DUAL-RTX5060TI-O8G-WHITE [PCIExp 8GB]", "last_price": 89990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001698774", "name": "Acer PREDATOR BiFrost Radeon RX 9070 OC 16GB PB-RX9070-SOC [PCIExp 16GB]", "last_price": 128800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001285833", "name": "ASUS DUAL-RTX3070-O8G [PCIExp 8GB]", "last_price": 150000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001529567", "name": "ZOTAC GAMING GeForce RTX 4070 Twin Edge OC ZT-D40700H-10M [PCIExp 12GB]", "last_price": 188800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001638890", "name": "AMD Radeon PRO W7700 100-300000006 [PCIExp 16GB]", "last_price": 211419, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001562417", "name": "NVIDIA RTX 4000 SFF Ada 世代 900-5G192-2571-000 [PCIExp 20GB]", "last_price": 255070, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001625064", "name": "PNY GeForce RTX 4070 Ti SUPER 16GB OC XLR8 ARGB オーバークロック トリプルファン VERTO VCG4070TS16TFXXPB1-O [PCIExp 16GB]", "last_price": 339989, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001601176", "name": "MSI GeForce RTX 4070 Ti SUPER 16G VENTUS 3X OC [PCIExp 16GB]", "last_price": 349800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001438116", "name": "MATROX QuadHead2Go MG/Q2G-H4K", "last_price": 324500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001435956", "name": "NVIDIA RTX A2000 12GB ENQRA2000-12GER [PCIExp 12GB]", "last_price": 339990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001432208", "name": "ASUS TUF-RTX3090TI-O24G-GAMING [PCIExp 24GB]", "last_price": 628800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001285766", "name": "NVIDIA Quadro RTX 8000 NVQRTX8000 [PCIExp 48GB]", "last_price": 614629, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001603032", "name": "MSI GeForce RTX 4080 SUPER 16G GAMING X SLIM [PCIExp 16GB]", "last_price": 648800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001127005", "name": "j5 create JDC159 [ホワイト]", "last_price": 1127005, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001445155", "name": "サンワサプライ AD-D15NEK", "last_price": 1218, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001126614", "name": "j5 create JDA152", "last_price": 1170, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001387397", "name": "HP H4F02AA#UUF", "last_price": 2205, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001213717", "name": "エレコム AD-CDPBK2 [ブラック]", "last_price": 2206, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001459878", "name": "エレコム AD-MDPDVIBK [ブラック]", "last_price": 1180, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001263970", "name": "エレコム AD-CHDMIPDBK [ブラック]", "last_price": 3091, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001248293", "name": "サンワサプライ AD-MDPHDR01 [ブラック]", "last_price": 3350, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001566148", "name": "サンワサプライ AD-DP8KHDR", "last_price": 4136, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001213720", "name": "エレコム AD-CHDMIQBK2 [ブラック]", "last_price": 2223, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001263969", "name": "エレコム AD-CDPPDBK [ブラック]", "last_price": 2234, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000785398", "name": "j5 create JUA355", "last_price": 5230, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001263973", "name": "エレコム AD-CHDMIVGAHBK [ブラック]", "last_price": 6578, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001474582", "name": "ASRock Intel Arc A380 Challenger ITX 6GB OC [PCIExp 6GB]", "last_price": 35474, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001604024", "name": "MSI GeForce RTX 3050 VENTUS 2X 6G OC [PCIExp 6GB]", "last_price": 49800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001171867", "name": "玄人志向 GALAKURO GAMING GG-GTX1660Ti-E6GB/DF [PCIExp 6GB]", "last_price": 49800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001436618", "name": "MSI GeForce GTX 1650 D6 VENTUS XS OC [PCIExp 4GB]", "last_price": 47314, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440129", "name": "MSI Radeon RX 6650 XT MECH 2X 8G OC [PCIExp 8GB]", "last_price": 76341, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001206481", "name": "玄人志向 GALAKURO GAMING GG-GTX1660SP-E6GB/DF [PCIExp 6GB]", "last_price": 36700, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001697526", "name": "ZOTAC GAMING GeForce RTX 5050 Twin Edge OC ZT-B50500H-10M [PCIExp 8GB]", "last_price": 86309, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001152723", "name": "玄人志向 GF-GTX1650-E4GB/OC/DF [PCIExp 4GB]", "last_price": 29980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689918", "name": "GIGABYTE GV-N5060EAGLE OC-8GD [PCIExp 8GB]", "last_price": 87800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001402189", "name": "MSI Radeon RX 6600 XT MECH 2X 8G OC [PCIExp 8GB]", "last_price": 59800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001161470", "name": "ASUS DUAL-RTX2060-O6G-EVO [PCIExp 6GB]", "last_price": 79394, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001410570", "name": "GAINWARD GeForce RTX 2060 Ghost 12GB NE62060018K9-1160L [PCIExp 12GB]", "last_price": 63800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440128", "name": "MSI Radeon RX 6650 XT GAMING X 8G [PCIExp 8GB]", "last_price": 71205, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000910676", "name": "ASUS ROG STRIX-GTX1080-A8G-GAMING [PCIExp 8GB]", "last_price": 42000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001640970", "name": "ADLINK Pocket AI EGX-TBT-A500 [4GB]", "last_price": 112056, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001548657", "name": "MSI GeForce RTX 4060 GAMING X 8G [PCIExp 8GB]", "last_price": 158800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001375167", "name": "MSI Radeon RX 6600 XT GAMING X 8G [PCIExp 8GB]", "last_price": 53980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687039", "name": "GIGABYTE GV-N506TGAMING OC-8GD [PCIExp 8GB]", "last_price": 100990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001638238", "name": "NVIDIA RTX A1000 ENQRA1000-8GER [PCIExp 8GB]", "last_price": 87990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001152736", "name": "MSI GeForce GTX 1650 AERO ITX 4G OC [PCIExp 4GB]", "last_price": 88880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001675348", "name": "SPARKLE TBX-240FU+RTX3050/6GB [6GB]", "last_price": 100620, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687036", "name": "Inno3D GeForce RTX 5060 Ti 8GB TWIN X2 OC GD5060T-8GERX2OC [PCIExp 8GB]", "last_price": 85980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440130", "name": "MSI Radeon RX 6750 XT GAMING X TRIO 12G [PCIExp 12GB]", "last_price": 93008, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001329260", "name": "EVGA GeForce RTX 3070 FTW3 ULTRA GAMING 08G-P5-3767-KR [PCIExp 8GB]", "last_price": 121527, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001320042", "name": "MSI GeForce RTX 3070 VENTUS 3X OC [PCIExp 8GB]", "last_price": 91139, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440703", "name": "ASRock Radeon RX 6650 XT Challenger D 8GB OC [PCIExp 8GB]", "last_price": 98800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001364509", "name": "ASUS TUF-RTX3060-O12G-V2-GAMING [PCIExp 12GB]", "last_price": 145449, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001689231", "name": "ZOTAC GAMING GeForce RTX 5070 Twin Edge OC ZT-B50700H-10P [PCIExp 12GB]", "last_price": 179800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001306492", "name": "MSI GeForce RTX 3070 GAMING X TRIO [PCIExp 8GB]", "last_price": 117872, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001721782", "name": "ASUS PRIME-RX9070-O16G-EVO [PCIExp 16GB]", "last_price": 191800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001361225", "name": "GAINWARD GeForce RTX 3080 Ti Phoenix NED308T019KB-132AX [PCIExp 12GB]", "last_price": 176166, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001369296", "name": "MSI GeForce RTX 3060 Ti GAMING X 8G LHR [PCIExp 8GB]", "last_price": 97325, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001330469", "name": "ASUS ROG-STRIX-LC-RX6800XT-O16G-GAMING [PCIExp 16GB]", "last_price": 129800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001385125", "name": "MSI GeForce RTX 3080 VENTUS 3X PLUS 10G OC LHR [PCIExp 10GB]", "last_price": 135166, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001285832", "name": "ASUS TUF-RTX3080-10G-GAMING [PCIExp 10GB]", "last_price": 148800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001424968", "name": "MSI GeForce RTX 3080 VENTUS 3X PLUS 12G OC LHR [PCIExp 12GB]", "last_price": 194281, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001342469", "name": "MSI Radeon RX 6700 XT GAMING X 12G [PCIExp 12GB]", "last_price": 158060, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001285835", "name": "MSI GeForce RTX 3080 GAMING X TRIO 10G [PCIExp 10GB]", "last_price": 147560, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001630294", "name": "MSI GeForce RTX 4060 Ti 8G VENTUS 2X BLACK E1 OC [PCIExp 8GB]", "last_price": 159800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001082413", "name": "ASUS TURBO-RTX2080TI-11G [PCIExp 11GB]", "last_price": 178256, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001416128", "name": "MSI GeForce RTX 3080 GAMING Z TRIO 12G LHR [PCIExp 12GB]", "last_price": 119800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001570029", "name": "MSI GeForce RTX 4070 GAMING X SLIM 12G [PCIExp 12GB]", "last_price": 218800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001579120", "name": "NVIDIA RTX 4000 SFF Ada NVBOX版 NVRTX4000 SFF AD NVBOX [PCIExp 20GB]", "last_price": 251700, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001359692", "name": "MSI GeForce RTX 3080 Ti SUPRIM X 12G [PCIExp 12GB]", "last_price": 238202, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001566001", "name": "NVIDIA RTX 4000 Ada ENQR4000A-20GER [PCIExp 20GB]", "last_price": 329980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001507103", "name": "ASUS TUF-RTX4070TI-12G-GAMING [PCIExp 12GB]", "last_price": 279000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001601177", "name": "MSI GeForce RTX 4070 Ti SUPER 16G VENTUS 2X OC [PCIExp 16GB]", "last_price": 337737, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001492543", "name": "MSI GeForce RTX 4080 16GB GAMING X TRIO [PCIExp 16GB]", "last_price": 315235, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001511813", "name": "NVIDIA RTX A5000 NVRTXA5000 NVBOX [PCIExp 24GB]", "last_price": 389800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001603033", "name": "MSI GeForce RTX 4080 SUPER 16G VENTUS 3X OC [PCIExp 16GB]", "last_price": 354577, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001505977", "name": "GAINWARD GeForce RTX 4080 Phantom GS NED4080S19T2-1030P [PCIExp 16GB]", "last_price": 398500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001588304", "name": "NVIDIA RTX 4500 Ada NVBOX版 NVRTX4500AD NVBOX [PCIExp 24GB]", "last_price": 431680, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001128766", "name": "MSI GeForce RTX 2080 Ti LIGHTNING Z [PCIExp 11GB]", "last_price": 628800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001432298", "name": "ZOTAC GAMING GeForce RTX 3090 Ti AMP Extreme Holo ZT-A30910B-10P [PCIExp 24GB]", "last_price": 669800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001588305", "name": "NVIDIA RTX 5000 Ada NVBOX版 NVRTX5000AD NVBOX [PCIExp 32GB]", "last_price": 766580, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001419770", "name": "NVIDIA RTX A4500 ENQRA4500-20GER [PCIExp 20GB]", "last_price": 848880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001578680", "name": "MSI GeForce RTX 4090 GAMING X SLIM 24G [PCIExp 24GB]", "last_price": 998800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001562419", "name": "NVIDIA RTX 6000 Ada 世代 900-5G133-2550-000 [PCIExp 48GB]", "last_price": 1888000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001609199", "name": "NVIDIA L40S 900-2G133-0080-000 [PCIExp 48GB]", "last_price": 1888000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001043984", "name": "NVIDIA Quadro GV100 EQGV100-32GER [PCIExp 32GB]", "last_price": 2688000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001445156", "name": "サンワサプライ AD-HD15NEK", "last_price": 1364, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000867439", "name": "j5 create JCA140", "last_price": 1580, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001126615", "name": "j5 create JDA154", "last_price": 1720, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001459880", "name": "エレコム AD-MDPVGABK [ブラック]", "last_price": 2280, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001213718", "name": "エレコム AD-CDVIBK [ブラック]", "last_price": 1888, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001658067", "name": "サンワサプライ 500-KC043 [ブラック]", "last_price": 1680, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001125152", "name": "j5 create JCA153J", "last_price": 2682, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001606209", "name": "PGA PG-SWTVAD1BK", "last_price": 2333, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001459879", "name": "エレコム AD-MDPHDMIBK [ブラック]", "last_price": 1782, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000825697", "name": "j5 create JCA111", "last_price": 1760, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001419505", "name": "リーダーメディアテクノ Lazos L-CH2 [シルバー]", "last_price": 2475, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001108022", "name": "センチュリー CCA-UCVGA", "last_price": 2384, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000808385", "name": "エレコム AD-APCVGAWH [ホワイト]", "last_price": 2600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001459877", "name": "エレコム AD-HDMIVGABK [ブラック]", "last_price": 1698, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001127001", "name": "j5 create JDA159", "last_price": 1570, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001418235", "name": "ANKER PowerExpand USB-C &amp; DisplayPort アダプタ A83150A1 [グレー]", "last_price": 2490, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001456788", "name": "サンワサプライ AD-MDPHD008 [ホワイト]", "last_price": 2508, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000079867", "name": "IODATA USBグラフィック USB-RGB/D2", "last_price": 4200, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001456783", "name": "サンワサプライ AD-HD13VGA [ブラック]", "last_price": 2972, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001127000", "name": "j5 create JDA158", "last_price": 1910, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001126611", "name": "j5 create JDA114", "last_price": 2580, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001387395", "name": "HP FH973AA", "last_price": 4325, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001346771", "name": "サンワサプライ AD-ALCDP1401 [ブラック]", "last_price": 3499, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001416094", "name": "HYPER HP-HDH8K", "last_price": 6662, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001263972", "name": "エレコム AD-CHDMIVGABK [ブラック]", "last_price": 3400, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001387394", "name": "HP 2JA63AA", "last_price": 3300, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001248291", "name": "サンワサプライ AD-DPHDR01 [ブラック]", "last_price": 3464, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001127003", "name": "j5 create JDA214", "last_price": 3693, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001279010", "name": "IODATA US3C-DA/HDR", "last_price": 4367, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000534538", "name": "j5 create JUA250", "last_price": 3180, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001248290", "name": "サンワサプライ AD-ALCHDR01 [ブラック]", "last_price": 2530, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001272278", "name": "BELKIN AVC003btBK", "last_price": 4883, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000062567", "name": "ロジテック LDE-SX015U", "last_price": 1980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001387396", "name": "HP F3W43AA", "last_price": 4400, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001464958", "name": "サンワサプライ AD-ALCHDR03", "last_price": 3000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000080433", "name": "バッファロー GX-DVI/U2AI", "last_price": 5680, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001115200", "name": "Acer NP.CAB1A.012 [Black]", "last_price": 5808, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000258574", "name": "バッファロー GX-HDMI/U2", "last_price": 7245, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001127397", "name": "j5 create JUA360", "last_price": 9980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000079868", "name": "IODATA USBグラフィック USB-RGB2", "last_price": 7220, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000534541", "name": "j5 create JUA350", "last_price": 7980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001045529", "name": "j5 create JUA354", "last_price": 7095, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001443919", "name": "j5 create JCA365 [シルバー]", "last_price": 9340, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001256185", "name": "Apple MJ1L2AM/A", "last_price": 7237, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000857590", "name": "サンワサプライ 400-HUB027", "last_price": 7630, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000794257", "name": "RATOC REX-USB3DP-4K", "last_price": 8185, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001593648", "name": "StarTech.com USB32HDEH [ブラック&amp;シルバー]", "last_price": 12572, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001228030", "name": "SILVERSTONE SST-EP11S [シルバー]", "last_price": 9000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001416095", "name": "HYPER HP-HDM1", "last_price": 12980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001445157", "name": "サンワサプライ USB-CVU3HD2N", "last_price": 15500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001360827", "name": "MSI N730K-2GD3H/LPV1 [PCIExp 2GB]", "last_price": 34800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000534536", "name": "j5 create JUA210", "last_price": 4220, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000586173", "name": "MSI R9 270X Twin Frozr 4S OC [PCIExp 2GB]", "last_price": 14980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001552723", "name": "NVIDIA T400 4GB NVIDIA BOX NVT400-4G NVBOX [PCIExp 4GB]", "last_price": 30555, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001558335", "name": "SPARKLE Intel Arc A750 ORC OC Edition SA750C-8GOC [PCIExp 8GB]", "last_price": 49918, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001000774", "name": "玄人志向 GF-GTX1060-E6GB/OC2/DF [PCIExp 6GB]", "last_price": 33800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001436884", "name": "GIGABYTE GV-R64D6-4GL [PCIExp 4GB]", "last_price": 33980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000902697", "name": "玄人志向 GF-GTX1060-3GB/OC/DF [PCIExp 3GB]", "last_price": 31194, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001275267", "name": "玄人志向 GF-GTX1650D6-E4GB/DF2 [PCIExp 4GB]", "last_price": 34500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001714831", "name": "Lenovo NVIDIA RTX A400 4GB GDDR6 4X61Q73040 [PCIExp 4GB]", "last_price": 38396, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000462250", "name": "MATROX DualHead2Go デジタル版 SE D2G/DSE", "last_price": 42000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001486592", "name": "ASRock Intel Arc A750 Challenger D 8GB OC [PCIExp 8GB]", "last_price": 59851, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001215823", "name": "ASUS TUF-GTX1660S-O6G-GAMING [PCIExp 6GB]", "last_price": 52253, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001259440", "name": "MSI GeForce GTX 1660 VENTUS XS 6G OC [PCIExp 6GB]", "last_price": 42318, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000462249", "name": "MATROX DualHead2Go デジタル版 D2G/D", "last_price": 45800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000902457", "name": "ASUS TURBO-GTX1060-6G [PCIExp 6GB]", "last_price": 79540, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001393431", "name": "XFX RX-66XL8LFDQ [PCIExp 8GB]", "last_price": 47161, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001690137", "name": "GAINWARD GeForce RTX 5060 Ghost NE75060019P1-GB2063B [PCIExp 8GB]", "last_price": 98800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001206478", "name": "ZOTAC GAMING GeForce GTX 1660 SUPER Twin Fan ZT-T16620F-10L [PCIExp 6GB]", "last_price": 49158, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000839756", "name": "ASUS STRIX-GTX960-DC2OC-4GD5 [PCIExp 4GB]", "last_price": 29800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001394958", "name": "MSI Radeon RX 6600 MECH 2X 8G [PCIExp 8GB]", "last_price": 45000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001697523", "name": "GIGABYTE GV-N5050GAMING OC-8GD [PCIExp 8GB]", "last_price": 67970, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000966104", "name": "MSI Radeon RX 550 AERO ITX 4G OC [PCIExp 4GB]", "last_price": 57061, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000229086", "name": "EVGA GeForce GTX 560 Ti FPB 01G-P3-1561-KR [PCIExp 1GB]", "last_price": 58660, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000228670", "name": "ANTEC EarthWatts EA-650 Green", "last_price": 2011, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000516537", "name": "ASUS GTX770-DC2OC-2GD5 [PCIExp 2GB]", "last_price": 23000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000958082", "name": "MSI GTX 1060 AERO ITX 6G OC [PCIExp 6GB]", "last_price": 148880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001354501", "name": "MSI GeForce RTX 2060 VENTUS GP OC [PCIExp 6GB]", "last_price": 61045, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001441243", "name": "SAPPHIRE NITRO+ Radeon RX 6650 XT GAMING OC 8GB GDDR6 [PCIExp 8GB]", "last_price": 62000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000835510", "name": "MATROX TripleHead2Go デジタル版SE T2G/DSE", "last_price": 62800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000902696", "name": "MSI Radeon RX 480 GAMING X 8G [PCIExp 8GB]", "last_price": 62000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001441244", "name": "SAPPHIRE PULSE Radeon RX 6650 XT GAMING OC 8GB GDDR6 [PCIExp 8GB]", "last_price": 60500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001402781", "name": "MSI Radeon RX 6600 XT MECH 2X 8G OCV1 [PCIExp 8GB]", "last_price": 63948, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001224525", "name": "SAPPHIRE PULSE RX 5600 XT 6G GDDR6 [PCIExp 6GB]", "last_price": 58680, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001418728", "name": "MSI GeForce GTX 1660 SUPER GAMING [PCIExp 6GB]", "last_price": 59800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000978852", "name": "EVGA GeForce GTX 1070 GAMING ACX 3.0 08G-P4-6171-KR [PCIExp 8GB]", "last_price": 65631, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001392543", "name": "PowerColor Hellhound AMD Radeon RX 6600 8GB GDDR6 AXRX 6600 8GBD6-3DHL [PCIExp 8GB]", "last_price": 93605, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001545765", "name": "MSI Radeon RX 7600 MECH 2X CLASSIC 8G OC [PCIExp 8GB]", "last_price": 69887, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000899295", "name": "ASUS TURBO-GTX1070-8G [PCIExp 8GB]", "last_price": 70253, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000699832", "name": "ZOTAC GeForce GTX 980 AMP！ Omega Edition ZT-90202-10P [PCIExp 4GB]", "last_price": 28730, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001021880", "name": "MSI Radeon RX Vega 56 Air Boost 8G OC [PCIExp 8GB]", "last_price": 71243, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001418776", "name": "MSI GeForce RTX 3050 VENTUS 2X 8G OC [PCIExp 8GB]", "last_price": 99880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000835509", "name": "MATROX TripleHead2Go デジタル版 T2G/D", "last_price": 73800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000902258", "name": "ASUS TURBO-GTX1080-8G [PCIExp 8GB]", "last_price": 79730, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001693174", "name": "ASUS DUAL-RX9060XT-8G [PCIExp 8GB]", "last_price": 101981, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000224796", "name": "MATROX M9128 LP PCIe x16 [PCIExp 1GB]", "last_price": 77500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001009207", "name": "ASUS ROG-STRIX-GTX1070TI-A8G-GAMING [PCIExp 8GB]", "last_price": 74332, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001687040", "name": "GIGABYTE GV-N506TEAGLEOC ICE-8GD [PCIExp 8GB]", "last_price": 96980, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001363704", "name": "GIGABYTE GV-N307TVISION OC-8GD [PCIExp 8GB]", "last_price": 168800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000884296", "name": "EVGA GeForce GTX 1080 ACX 3.0 08G-P4-6181-KR [PCIExp 8GB]", "last_price": 83922, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001769371", "name": "玄人志向 GK-RTX5060Ti-E8GB/WHITE/DF/V2 [PCIExp 8GB]", "last_price": 81800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001283965", "name": "MSI Radeon RX 5700 XT GAMING X [PCIExp 8GB]", "last_price": 133133, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000960869", "name": "MSI GTX 1080 Ti ARMOR 11G OC [PCIExp 11GB]", "last_price": 82557, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000902455", "name": "ASUS DUAL-GTX1060-O6G [PCIExp 6GB]", "last_price": 83735, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001686057", "name": "GAINWARD GeForce RTX 5060 Ti GHOST 8GB NE7506T019P1-GB2062B [PCIExp 8GB]", "last_price": 108800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440226", "name": "MSI Radeon RX 6750 XT MECH 2X 12G OC [PCIExp 12GB]", "last_price": 125061, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000957402", "name": "ASUS TURBO-GTX1080TI-11G [PCIExp 11GB]", "last_price": 82953, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001331383", "name": "PowerColor Red Dragon AMD Radeon RX 6800 AXRX 6800 16GBD6-3DHR/OC [PCIExp 16GB]", "last_price": 117261, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001361296", "name": "MSI Radeon RX 6700 XT MECH 2X 12G OC [PCIExp 12GB]", "last_price": 89600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001343140", "name": "SAPPHIRE NITRO+ Radeon RX 6700 XT OC 12G GDDR6 [PCIExp 12GB]", "last_price": 95000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001298302", "name": "Apple Radeon Pro W5500X MPX Module MXM52ZA/A [PCIExp 8GB]", "last_price": 108000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001378772", "name": "GIGABYTE GV-N306TAORUS E-8GD Rev2.0 [PCIExp 8GB]", "last_price": 82671, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001133239", "name": "ASUS DUAL-GTX1660TI-O6G [PCIExp 6GB]", "last_price": 91880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001275711", "name": "MSI Radeon RX 5600 XT GAMING MX [PCIExp 6GB]", "last_price": 95815, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001306493", "name": "MSI GeForce RTX 3070 VENTUS 2X OC [PCIExp 8GB]", "last_price": 135468, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001361295", "name": "MSI GeForce RTX 3070 Ti VENTUS 3X 8G OC [PCIExp 8GB]", "last_price": 168314, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001395405", "name": "GIGABYTE GV-N306TVISION OC-8GD Rev2.0 [PCIExp 8GB]", "last_price": 98000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000960158", "name": "PowerColor Red Devil Golden Sample Radeon RX 580 8GB GDDR5 AXRX 580 8GBD5-3DHG/OC [PCIExp 8GB]", "last_price": 101800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001317133", "name": "MSI GeForce RTX 3060 Ti GAMING X TRIO [PCIExp 8GB]", "last_price": 91392, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000880733", "name": "EVGA GeForce GTX 1080 FOUNDERS EDITION 08G-P4-6180-KR [PCIExp 8GB]", "last_price": 104598, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001714830", "name": "Lenovo NVIDIA RTX A1000 8GB GDDR6 4X61Q73041 [PCIExp 8GB]", "last_price": 104190, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001712196", "name": "Apple Radeon Pro W6600X MPX Module MKGY3ZA/A [PCIExp 8GB]", "last_price": 126000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001342862", "name": "PowerColor Red Devil AMD Radeon RX 6700XT 12GB GDDR6 AXRX 6700XT 12GBD6-3DHE/OC [PCIExp 12GB]", "last_price": 99000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001553763", "name": "ASUS DUAL-RTX4060-O8G-WHITE [PCIExp 8GB]", "last_price": 89800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001031957", "name": "MSI Radeon RX 570 ARMOR 8G OC [PCIExp 8GB]", "last_price": 108800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001201223", "name": "PowerColor Red Dragon Radeon RX 5700XT AXRX 5700XT 8GBD6-3DHR/OC [PCIExp 8GB]", "last_price": 107604, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001021628", "name": "ASUS ROG-STRIX-RXVEGA64-O8G-GAMING [PCIExp 8GB]", "last_price": 111595, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001374433", "name": "玄人志向 GALAKURO GAMING GG-RTX3070Ti-E8GB/DF [PCIExp 8GB]", "last_price": 89190, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000697636", "name": "GIGABYTE GV-N970G1 GAMING-4GD [PCIExp 4GB]", "last_price": 109800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000982278", "name": "ZOTAC GeForce GTX 1080 Ti Mini ZT-P10810G-10P [PCIExp 11GB]", "last_price": 89500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001330467", "name": "ASUS TUF-RX6900XT-O16G-GAMING [PCIExp 16GB]", "last_price": 248800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001417957", "name": "ASUS DUAL-RX6700XT-O12G [PCIExp 12GB]", "last_price": 85990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001220479", "name": "MSI GeForce RTX 2070 TRI FROZR [PCIExp 8GB]", "last_price": 398000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001642258", "name": "Lenovo NVIDIA T1000E 8GB GDDR6 4X61P81433 [PCIExp 8GB]", "last_price": 103961, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001511650", "name": "ZOTAC GAMING GeForce RTX 3070 Ti ZT-A30710Q-10P [PCIExp 8GB]", "last_price": 98800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001410671", "name": "MSI GeForce RTX 2060 VENTUS 12G OC [PCIExp 12GB]", "last_price": 158604, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001461654", "name": "MSI GeForce RTX 3070 Ti GAMING X TRIO 8G [PCIExp 8GB]", "last_price": 125099, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001126080", "name": "ASUS DUAL-RTX2060-O6G [PCIExp 6GB]", "last_price": 118000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001357882", "name": "MSI GeForce RTX 3070 GAMING Z TRIO [PCIExp 8GB]", "last_price": 120191, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001770450", "name": "NVIDIA RTX PRO 2000 Blackwell (LP) NVRTXPRO 2000 BW LP NVBOX [PCIExp 16GB]", "last_price": 306380, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001625065", "name": "PNY GeForce RTX 4060 Ti 8GB XLR8 ゲーミング VERTO オーバークロック ダブルファン VCG4060T8DFXPB1-O [PCIExp 8GB]", "last_price": 140759, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001415958", "name": "GAINWARD GeForce RTX 3070 Phantom+ NE63070019P2-1040M [PCIExp 8GB]", "last_price": 89800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000960937", "name": "MSI GTX 1080 Ti AERO 11G OC [PCIExp 11GB]", "last_price": 121203, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001331384", "name": "MSI Radeon RX 6900 XT GAMING X TRIO 16G [PCIExp 16GB]", "last_price": 124800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000887659", "name": "MSI GTX 1070 ARMOR 8G OC [PCIExp 8GB]", "last_price": 128000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000064747", "name": "MATROX M9138 LP PCIe x16 (PCIExp 1GB)", "last_price": 129500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001323525", "name": "MSI Radeon RX 6800 XT GAMING X TRIO 16G [PCIExp 16GB]", "last_price": 112800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001539419", "name": "MSI GeForce RTX 4060 Ti GAMING X TRIO 8G [PCIExp 8GB]", "last_price": 228800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001328987", "name": "PowerColor Red Dragon AMD Radeon RX 6800 XT AXRX 6800XT 16GBD6-3DHR/OC [PCIExp 16GB]", "last_price": 132606, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000910781", "name": "EVGA GeForce GTX 1070 FTW DT GAMING ACX 3.0 08G-P4-6274-KR [PCIExp 8GB]", "last_price": 298800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001330468", "name": "ASUS ROG-STRIX-RX6800-O16G-GAMING [PCIExp 16GB]", "last_price": 139000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001539762", "name": "玄人志向 GALAKURO GAMING GG-RTX4060Ti-E8GB/EX/DF [PCIExp 8GB]", "last_price": 139990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440254", "name": "PowerColor Red Devil AMD Radeon RX 6750 XT 12GB GDDR6 AXRX 6750XT 12GBD6-3DHE/OC [PCIExp 12GB]", "last_price": 144000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001133999", "name": "MSI GeForce GTX 1660 Ti GAMING X 6G [PCIExp 6GB]", "last_price": 144880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001518972", "name": "PNY GeForce RTX 3060 Ti 8GB GDDR6X VERTO Dual Fan(LHR) VCG3061T8LDFBPB1 [PCIExp 8GB]", "last_price": 148867, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001217730", "name": "MSI GeForce RTX 2070 SUPER GAMING Z TRIO [PCIExp 8GB]", "last_price": 152687, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001343143", "name": "GIGABYTE GV-R67XTAORUS E-12GD [PCIExp 12GB]", "last_price": 148000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001522756", "name": "MSI GeForce RTX 3060 Ti VENTUS 2X 8GD6X OC [PCIExp 8GB]", "last_price": 149800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001503594", "name": "XFX RX-79TMERCU9 [PCIExp 20GB]", "last_price": 219643, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000702363", "name": "GIGABYTE GV-N980G1 GAMING-4GD [PCIExp 4GB]", "last_price": 68000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000064749", "name": "MATROX M9148 LP PCIe x16 (PCIExp 1GB)", "last_price": 157500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001362990", "name": "SAPPHIRE TOXIC Radeon RX 6900 XT OC 16G GDDR6 Extreme Edition [PCIExp 16GB]", "last_price": 151036, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001350724", "name": "ASRock Radeon RX 6900 XT OC Formula 16GB [PCIExp 16GB]", "last_price": 143550, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000826065", "name": "ASUS R9NANO-4G-WHITE [PCIExp 4GB]", "last_price": 159800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001363703", "name": "GIGABYTE GV-N307TGAMING OC-8GD [PCIExp 8GB]", "last_price": 150733, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001323526", "name": "MSI Radeon RX 6800 GAMING X TRIO 16G [PCIExp 16GB]", "last_price": 168600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001328938", "name": "GIGABYTE GV-N306TGAMINGOC PRO-8GD Rev2.0 [PCIExp 8GB]", "last_price": 168800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000568004", "name": "EVGA GeForce GTX 770 4GB Dual Classified w/ ACX Cooler 04G-P4-3778-KR [PCIExp 4GB]", "last_price": 168800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001011942", "name": "PowerColor Radeon RX VEGA 56 8GB HBM2 AXRX VEGA 56 8GBHBM2-3DH [PCIExp 8GB]", "last_price": 168800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001371499", "name": "MSI GeForce RTX 3080 Ti VENTUS 3X 12G OC [PCIExp 12GB]", "last_price": 182075, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001082414", "name": "ASUS ROG-STRIX-RTX2080-O8G-GAMING [PCIExp 8GB]", "last_price": 155769, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001361034", "name": "ZOTAC GAMING GeForce RTX 3070 Ti AMP Holo ZT-A30710F-10P [PCIExp 8GB]", "last_price": 131900, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001319636", "name": "ASRock Radeon RX 6900 XT Phantom Gaming D 16G OC [PCIExp 16GB]", "last_price": 183822, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001103647", "name": "ASUS ROG-STRIX-RTX2080TI-O11G-GAMING [PCIExp 11GB]", "last_price": 160349, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001324260", "name": "GIGABYTE GV-N306TVISION OC-8GD [PCIExp 8GB]", "last_price": 178800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001529568", "name": "PNY GeForce RTX 4070 12GB XLR8 ゲーミング VERTO EPIC-X RGB トリプルファン VCG407012TFXXPB1 [PCIExp 12GB]", "last_price": 203805, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001359477", "name": "ZOTAC GAMING GeForce RTX 3080 Ti AMP Holo ZT-A30810F-10P [PCIExp 12GB]", "last_price": 141000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000664204", "name": "NVIDIA Quadro K4000 NVQK4000-R [PCIExp 3GB]", "last_price": 196000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000539965", "name": "ASUS GTX780-DC2OC-3GD5 [PCIExp 3GB]", "last_price": 199800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001347286", "name": "EVGA GeForce RTX 3080 XC3 BLACK GAMING 10G-P5-3881-KR [PCIExp 10GB]", "last_price": 233030, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001289848", "name": "MSI GeForce RTX 3080 VENTUS 3X 10G OC [PCIExp 10GB]", "last_price": 145323, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001417956", "name": "MSI Radeon RX 6800 XT GAMING Z TRIO 16G [PCIExp 16GB]", "last_price": 178695, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000911458", "name": "MSI GTX 1060 ARMOR 6G OCV1 [PCIExp 6GB]", "last_price": 66310, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001242372", "name": "ASUS ROG-STRIX-RTX2080TI-11G-GAMING [PCIExp 11GB]", "last_price": 193201, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000951498", "name": "ASUS GTX1080TI-FE [PCIExp 11GB]", "last_price": 209660, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001017411", "name": "PowerColor Red Devil RX VEGA 64 8GB HBM2 AXRX VEGA 64 8GBHBM2-2D2H/OC [PCIExp 8GB]", "last_price": 209660, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001082412", "name": "ASUS DUAL-RTX2080TI-O11G [PCIExp 11GB]", "last_price": 179465, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001374268", "name": "MSI GeForce RTX 3080 GAMING Z TRIO 10G LHR [PCIExp 10GB]", "last_price": 166817, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001141305", "name": "ASUS DUAL-RTX2080-O8G-EVO [PCIExp 8GB]", "last_price": 218800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000951495", "name": "MSI GTX 1080 Ti Founders Edition [PCIExp 11GB]", "last_price": 218800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001180627", "name": "MSI GeForce RTX 2060 SUPER VENTUS OC [PCIExp 8GB]", "last_price": 218800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001513271", "name": "SPARKLE QUADRO MINI WORKSTATION-RTX3000 [6GB]", "last_price": 150000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001598928", "name": "ASUS TUF-RTX4070S-O12G-GAMING [PCIExp 12GB]", "last_price": 235800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001440251", "name": "MSI Radeon RX 6950 XT GAMING X TRIO 16G [PCIExp 16GB]", "last_price": 231927, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001342766", "name": "GAINWARD GeForce RTX 3080 Phoenix NED3080019IA-132AX [PCIExp 10GB]", "last_price": 248800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001599012", "name": "MATROX LUMA-A310FP [PCIExp 4GB]", "last_price": 249800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001598922", "name": "MSI GeForce RTX 4070 SUPER 12G GAMING X SLIM WHITE [PCIExp 12GB]", "last_price": 329990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001104411", "name": "ASUS TURBO-RTX2080-8G [PCIExp 8GB]", "last_price": 146443, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001438115", "name": "MATROX QuadHead2Go MG/Q2G-DP4K-C [PCIExp]", "last_price": 288600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001438117", "name": "MATROX QuadHead2Go MG/Q2G-H4K-C [PCIExp]", "last_price": 288600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000886956", "name": "EVGA GeForce GTX 1070 FOUNDERS EDITION 08G-P4-6170-KR [PCIExp 8GB]", "last_price": 298800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001323728", "name": "GIGABYTE GV-R69XTGAMING OC-16GD [PCIExp 16GB]", "last_price": 299800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001570026", "name": "MSI GeForce RTX 4070 Ti GAMING X SLIM 12G [PCIExp 12GB]", "last_price": 227411, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001369585", "name": "GIGABYTE AORUS GV-N3080AORUS X-10GD Rev2.0 [PCIExp 10GB]", "last_price": 309000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001492545", "name": "ZOTAC GAMING GeForce RTX 4080 16GB Trinity OC ZT-D40810J-10P [PCIExp 16GB]", "last_price": 428800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001506541", "name": "GIGABYTE AORUS GV-N407TAORUS E-12GD [PCIExp 12GB]", "last_price": 319900, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001438114", "name": "MATROX QuadHead2Go MG/Q2G-DP4K", "last_price": 324500, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001010818", "name": "MSI GTX 1070 Ti ARMOR 8G [PCIExp 8GB]", "last_price": 328800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001010977", "name": "GIGABYTE GV-N107TGAMING OC-8GD [PCIExp 8GB]", "last_price": 339000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001376899", "name": "GIGABYTE AORUS GV-N3080AORUSX WB-10GD Rev2.0 [PCIExp 10GB]", "last_price": 339990, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001343401", "name": "PowerColor Liquid Devil AMD Radeon RX 6900XT 16GB GDDR6 AXRX 6900XT 16GBD6-W2DHC/OC [PCIExp 16GB]", "last_price": 348800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001599013", "name": "MATROX LUMA-A380P [PCIExp 6GB]", "last_price": 349800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001041181", "name": "MSI Radeon RX 580 ARMOR MK2 8G OC [PCIExp 8GB]", "last_price": 358800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001100683", "name": "ASUS DUAL-RTX2080-A8G [PCIExp 8GB]", "last_price": 368800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001314758", "name": "MSI GeForce RTX 3090 SUPRIM X 24G  [PCIExp 24GB]", "last_price": 698800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000664203", "name": "NVIDIA Quadro K5000 NVQK5000-R [PCIExp 4GB]", "last_price": 386600, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001205631", "name": "MSI GeForce RTX 2080 SUPER VENTUS XS OC [PCIExp 8GB]", "last_price": 398800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001183627", "name": "MSI Radeon RX 5700 XT EVOKE OC [PCIExp 8GB]", "last_price": 398800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001544294", "name": "GIGABYTE GV-N4080EAGLE OC-16GD [PCIExp 16GB]", "last_price": 399800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001432299", "name": "MSI GeForce RTX 3090 Ti SUPRIM X 24G [PCIExp 24GB]", "last_price": 476785, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001432300", "name": "MSI GeForce RTX 3090 Ti GAMING X TRIO 24G [PCIExp 24GB]", "last_price": 658800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001438118", "name": "MATROX M9188 PCIe x16/J M9188/2048PEX16 [PCIExp 2GB]", "last_price": 438800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001180626", "name": "MSI GeForce RTX 2080 SUPER GAMING X TRIO [PCIExp 8GB]", "last_price": 448000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001613146", "name": "Inno3D GeForce RTX 4070 Ti SUPER TWIN X2 N407TS2-166X-186156N [PCIExp 16GB]", "last_price": 449000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001640947", "name": "NVIDIA RTX 4500 Ada 世代 900-5G132-2560-000 [PCIExp 24GB]", "last_price": 426800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001336762", "name": "GIGABYTE GV-R69XTAORUS M-16GD [PCIExp 16GB]", "last_price": 458000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001362330", "name": "Colorful iGame RTX 3080 Ti Advanced OC [PCIExp 12GB]", "last_price": 490000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001198789", "name": "ASUS TUF 3-RX5700XT-O8G-GAMING [PCIExp 8GB]", "last_price": 498000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001603036", "name": "ASUS TUF-RTX4080S-O16G-GAMING [PCIExp 16GB]", "last_price": 559800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001106669", "name": "Inno3D GeForce RTX 2080 Ti Gaming OC X3 N208T3-11D6X-1150VA24 [PCIExp 11GB]", "last_price": 558800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001511812", "name": "NVIDIA RTX A5500 NVRTXA5500 NVBOX [PCIExp 24GB]", "last_price": 618000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000705877", "name": "NVIDIA Quadro K6000 EQK6000-12GER [PCIExp 12GB]", "last_price": 650000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001393375", "name": "ZOTAC GAMING GeForce RTX 3080 Ti AMP Extreme Holo ZT-A30810B-10P [PCIExp 12GB]", "last_price": 668800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001369228", "name": "ZOTAC GAMING GeForce RTX 3090 ArcticStorm ZT-A30900Q-30P [PCIExp 24GB]", "last_price": 698800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001671115", "name": "NVIDIA RTX 5000 Ada 世代 900-5G132-2540-000 [PCIExp 32GB]", "last_price": 759810, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0000903096", "name": "ELSA NVIDIA Tesla K80 ETSK80-24GER [PCIExp 24GB]", "last_price": 986000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001477459", "name": "ZOTAC GAMING GeForce RTX 4090 AMP Extreme AIRO ZT-D40900B-10P [PCIExp 24GB]", "last_price": 998800, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001541451", "name": "GIGABYTE GV-N4090WF3-24GD [PCIExp 24GB]", "last_price": 999880, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001605272", "name": "NVIDIA Quadro P6000 NVQP6000-24G [PCIExp 24GB]", "last_price": 1190000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"id": "kakaku_K0001673759", "name": "NVIDIA L40S NVL40S-48G [PCIExp 48GB]", "last_price": 1488000, "type": "delisted", "category": "gpu", "date": "2026-10-24-gpu"}
+{"type": "summary", "date": "2026-10-24-gpu", "new_count": 0, "price_changed_count": 63, "delisted_count": 459}
