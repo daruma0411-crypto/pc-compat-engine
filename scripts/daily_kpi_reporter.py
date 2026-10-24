@@ -186,10 +186,13 @@ def analyze_twitter_bot_health():
 
 
 # ツール利用として数える GA4 イベント（static/app.js の trackEvent で送っているもの）
+# 互換性チェックとゲーム別おすすめは AI相談（/api/chat）に統合済みで、
+# 旧イベント diagnosis_complete / game_recommendation はもう送られない。
+# 代わりに AI相談の中でパーツが決まった回数と、6パーツがそろった回数を数える。
 TOOL_EVENTS = [
-    ('diagnosis_complete', '互換性チェック'),
     ('chat_send', 'AI相談（送信）'),
-    ('game_recommendation', 'ゲーム別おすすめ'),
+    ('build_update', 'パーツ決定'),
+    ('build_complete', '構成完成（6パーツ）'),
     ('bto_result', 'BTO提案'),
     ('purchase_click', '購入リンク'),
     ('bulk_purchase_click', 'まとめて購入'),

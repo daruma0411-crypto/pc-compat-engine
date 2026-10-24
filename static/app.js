@@ -84,6 +84,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   let confirmedParts = [];  // [{name: string, category: string}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
   let currentImageGenerated = false;  // 画像生成済みフラグ
+  let lastCompleteBuildKey = '';      // 構成完成イベントを同じ構成で二重に送らないための記録
   
   // セッションIDを生成（初回またはリセット時）
   function generateSessionId() {
@@ -386,6 +387,11 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       });
     }
 
+    // ①-b 計測: AI相談の中でパーツが決まった／変わった
+    if (changedCount > 0) {
+      trackEvent('build_update', { parts_count: confirmedParts.length, changed: changedCount });
+    }
+
     // ② パネル更新
     updateDashboardFromConfirmedParts();
     console.info('[build] confirmed:', confirmedParts.map(p => p.category).join(','));
@@ -404,6 +410,18 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     );
     if (allConfirmed && !currentImageGenerated) {
       appendImageGenButton();
+    }
+    // 計測: 主要6パーツがそろった（互換性を確かめた構成ができた）。同じ構成では1回だけ送る
+    if (allConfirmed) {
+      const buildKey = confirmedParts.map(p => p.category + ':' + p.name).sort().join('|');
+      if (buildKey !== lastCompleteBuildKey) {
+        lastCompleteBuildKey = buildKey;
+        trackEvent('build_complete', {
+          parts_count: confirmedParts.length,
+          value: confirmedParts.reduce((s, p) => s + (p.price_min || 0), 0),
+          currency: 'JPY',
+        });
+      }
     }
 
     // ④ リセット通知
