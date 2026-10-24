@@ -32,6 +32,8 @@ from fetch_reports import (
     get_top_pages,
     get_traffic_sources,
     get_device_breakdown,
+    get_event_counts,
+    get_returning_users,
 )
 
 from dotenv import load_dotenv
@@ -183,6 +185,42 @@ def analyze_twitter_bot_health():
     }
 
 
+# ツール利用として数える GA4 イベント（static/app.js の trackEvent で送っているもの）
+TOOL_EVENTS = [
+    ('diagnosis_complete', '互換性チェック'),
+    ('chat_send', 'AI相談（送信）'),
+    ('game_recommendation', 'ゲーム別おすすめ'),
+    ('bto_result', 'BTO提案'),
+    ('purchase_click', '購入リンク'),
+    ('bulk_purchase_click', 'まとめて購入'),
+    ('share_click', 'シェア'),
+    ('config_restore', '保存構成の再表示'),
+]
+
+
+def get_tool_usage():
+    """昨日と直近7日のツール利用回数。取れなければ None"""
+    names = [name for name, _ in TOOL_EVENTS]
+    try:
+        return {
+            'yesterday': get_event_counts(names, 'yesterday', 'yesterday'),
+            'week': get_event_counts(names, '7daysAgo', 'yesterday'),
+        }
+    except Exception as e:
+        print(f"[WARN] ツール利用データ取得失敗: {e}")
+        return None
+
+
+def format_tool_usage(usage):
+    """【ツール利用】の欄を作る"""
+    lines = ["", "【ツール利用】（昨日 / 7日間、回数(人数)）"]
+    for name, label in TOOL_EVENTS:
+        y = usage['yesterday'][name]
+        w = usage['week'][name]
+        lines.append(f"{label}: {y['count']}({y['users']}) / {w['count']}({w['users']})")
+    return "\n".join(lines) + "\n"
+
+
 def calc_wow_change(current, previous):
     """前週比の変化率を計算（%）"""
     if previous == 0:
@@ -204,6 +242,14 @@ def generate_report():
     # 前週同日のデータ（8日前〜7日前 = 前週の同じ日）
     last_week_data = get_daily_overview_range(8, 7)
 
+    # リピーター数は newVsReturning で取り直す（activeUsers - newUsers はマイナスになることがある）
+    if yesterday_data is not None:
+        try:
+            yesterday_data['returning_users'] = get_returning_users('1daysAgo', 'today')
+        except Exception as e:
+            print(f"[WARN] リピーター数取得失敗: {e}")
+
+    tool_usage = get_tool_usage()
     top_pages = get_top_pages(1, 5)
     traffic = get_traffic_sources(1)
     devices = get_device_breakdown(1)
@@ -256,6 +302,10 @@ def generate_report():
     if devices:
         device_line = " | ".join([f"{d.capitalize()}: {data['users']:,}" for d, data in sorted(devices.items(), key=lambda x: x[1]['users'], reverse=True)])
         report += f"{device_line}\n"
+
+    # ツール利用（サイトの中心機能が使われているか）
+    if tool_usage:
+        report += format_tool_usage(tool_usage)
 
     # 流入元（絵文字で短縮）
     if traffic:
