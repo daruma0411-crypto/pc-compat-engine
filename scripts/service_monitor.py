@@ -21,8 +21,10 @@ NOW = datetime.now(JST)
 SERVICES = [
     {
         "name": "pc-compat-engine",
-        "url": "https://pc-compat-engine-production.up.railway.app/",
+        # deep=1 で AI 相談に使う Anthropic API キーが有効かまで確かめる
+        "url": "https://pc-compat-engine-production.up.railway.app/api/health?deep=1",
         "host": "Railway",
+        "expect_json": {"api_key_valid": True},
     },
     {
         "name": "AIサービス",
@@ -47,6 +49,7 @@ SERVICES = [
 ]
 
 TIMEOUT = 15  # seconds
+REPO = "daruma0411-crypto/pc-compat-engine"
 
 
 def check_http(service):
@@ -65,6 +68,16 @@ def check_http(service):
         elapsed = time.time() - start
         code = resp.getcode()
 
+        if code == 200 and service.get("expect_json"):
+            try:
+                body = json.loads(resp.read().decode("utf-8"))
+            except ValueError:
+                body = {}
+            wrong = [k for k, v in service["expect_json"].items() if body.get(k) != v]
+            if wrong:
+                note = ", ".join(f"{k}={body.get(k)}" for k in wrong)
+                return {"name": name, "status": "DOWN", "code": code, "time": round(elapsed, 2), "note": note}
+
         if code == 200 and elapsed <= 10:
             return {"name": name, "status": "OK", "code": code, "time": round(elapsed, 2), "note": ""}
         elif code == 200:
@@ -79,31 +92,53 @@ def check_http(service):
         return {"name": name, "status": "DOWN", "code": 0, "time": round(elapsed, 2), "note": str(e)[:80]}
 
 
-def check_twitter_bot():
-    """GitHub Actions の Twitter Bot 最新実行結果"""
+# === 監視する自動化ジョブ ===
+# fail_after: 直近この回数すべてが失敗したときだけ異常とみなす（1回の失敗で騒がない）
+WORKFLOWS = [
+    {"name": "Twitter Bot", "file": "twitter-bot.yml", "fail_after": 3},
+    {"name": "Blog Generator", "file": "blog-generator.yml", "fail_after": 1},
+]
+
+
+def check_workflow(wf):
+    """GitHub Actions のジョブが直近で続けて失敗していないかを見る"""
+    name, n = wf["name"], wf["fail_after"]
     try:
         result = subprocess.run(
-            ["gh", "run", "list", "--repo", "daruma0411-crypto/pc-compat-engine",
-             "--workflow=twitter-bot.yml", "--limit=1", "--json", "conclusion,startedAt"],
+            ["gh", "run", "list", "--repo", REPO,
+             f"--workflow={wf['file']}", "--status=completed", f"--limit={n}",
+             "--json", "conclusion,startedAt"],
             capture_output=True, text=True, timeout=15
         )
         if result.returncode != 0:
-            return {"name": "Twitter Bot", "status": "UNKNOWN", "code": "-", "time": "-", "note": "gh CLI error"}
+            return {"name": name, "status": "UNKNOWN", "code": "-", "time": "-", "note": "gh CLI error"}
 
-        data = json.loads(result.stdout)
-        if not data:
-            return {"name": "Twitter Bot", "status": "UNKNOWN", "code": "-", "time": "-", "note": "実行履歴なし"}
+        runs = json.loads(result.stdout)
+        if not runs:
+            return {"name": name, "status": "UNKNOWN", "code": "-", "time": "-", "note": "実行履歴なし"}
 
-        run = data[0]
-        conclusion = run.get("conclusion", "unknown")
-        started = run.get("startedAt", "")[:10]
-
-        if conclusion == "success":
-            return {"name": "Twitter Bot", "status": "OK", "code": "-", "time": "-", "note": f"最終成功: {started}"}
-        else:
-            return {"name": "Twitter Bot", "status": "FAIL", "code": "-", "time": "-", "note": f"{conclusion} ({started})"}
+        started = runs[0].get("startedAt", "")[:10]
+        failed = [r for r in runs if r.get("conclusion") != "success"]
+        if len(runs) >= n and len(failed) == len(runs):
+            return {"name": name, "status": "FAIL", "code": "-", "time": "-",
+                    "note": f"直近{n}回連続で失敗 ({started})"}
+        note = f"最終実行: {started}" + (f"（直近{len(runs)}回中{len(failed)}回失敗）" if failed else "")
+        return {"name": name, "status": "OK", "code": "-", "time": "-", "note": note}
     except Exception as e:
-        return {"name": "Twitter Bot", "status": "UNKNOWN", "code": "-", "time": "-", "note": str(e)[:80]}
+        return {"name": name, "status": "UNKNOWN", "code": "-", "time": "-", "note": str(e)[:80]}
+
+
+def find_open_alert_issue():
+    """まだ閉じていない [ALERT] Issue の番号を返す（なければ None）"""
+    result = subprocess.run(
+        ["gh", "issue", "list", "--repo", REPO, "--state", "open",
+         "--search", "[ALERT] in:title", "--json", "number", "--limit", "1"],
+        capture_output=True, text=True, timeout=30
+    )
+    if result.returncode != 0:
+        return None
+    issues = json.loads(result.stdout or "[]")
+    return issues[0]["number"] if issues else None
 
 
 def create_github_issue(failures, all_results):
@@ -125,9 +160,22 @@ def create_github_issue(failures, all_results):
     body = "\n".join(body_lines)
 
     try:
+        # 開いたままの Alert Issue があれば、新しく作らずにそこへ追記する
+        existing = find_open_alert_issue()
+        if existing:
+            result = subprocess.run(
+                ["gh", "issue", "comment", str(existing), "--repo", REPO,
+                 "--body", f"### {title}\n\n{body}"],
+                capture_output=True, text=True, timeout=30
+            )
+            if result.returncode == 0:
+                print(f"Issue #{existing} に追記しました")
+                return
+            print(f"Issue comment failed: {result.stderr}", file=sys.stderr)
+
         result = subprocess.run(
             ["gh", "issue", "create",
-             "--repo", "daruma0411-crypto/pc-compat-engine",
+             "--repo", REPO,
              "--title", title,
              "--body", body,
              "--label", "alert,monitoring"],
@@ -139,7 +187,7 @@ def create_github_issue(failures, all_results):
             # label が無い場合はラベルなしで再試行
             result2 = subprocess.run(
                 ["gh", "issue", "create",
-                 "--repo", "daruma0411-crypto/pc-compat-engine",
+                 "--repo", REPO,
                  "--title", title,
                  "--body", body],
                 capture_output=True, text=True, timeout=30
@@ -164,11 +212,12 @@ def main():
         icon = "[OK]" if r["status"] == "OK" else "[NG]" if r["status"] == "DOWN" else "[!!]"
         print(f"  {icon} {r['name']:20s} {r['status']:5s} {r['time']}s  {r['note']}")
 
-    # 2. Twitter Bot check
-    tw = check_twitter_bot()
-    results.append(tw)
-    icon = "[OK]" if tw["status"] == "OK" else "[NG]"
-    print(f"  {icon} {tw['name']:20s} {tw['status']:5s} {tw['time']}  {tw['note']}")
+    # 2. Automation jobs
+    for wf in WORKFLOWS:
+        r = check_workflow(wf)
+        results.append(r)
+        icon = "[OK]" if r["status"] == "OK" else "[NG]" if r["status"] == "FAIL" else "[!!]"
+        print(f"  {icon} {r['name']:20s} {r['status']:5s} {r['time']}  {r['note']}")
 
     print()
 

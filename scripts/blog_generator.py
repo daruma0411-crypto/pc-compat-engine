@@ -12,6 +12,7 @@ Claude API (Opus 4.6) を使用して記事を生成し static/blog/ に保存
 """
 
 import os
+import sys
 import json
 import random
 import time
@@ -809,7 +810,7 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
             import urllib.request
             site_url = os.getenv('SITE_URL', 'https://pc-jisaku.com')
             indexnow_key = '3f264e2600904952b0efaa0c0651442e'
-            urls = [f"{site_url}/blog/{e['slug']}" for e in new_entries]
+            urls = [f"{site_url}/blog/{e['filename'].removesuffix('.html')}" for e in new_entries]
             payload = json.dumps({
                 'host': 'pc-jisaku.com', 'key': indexnow_key,
                 'keyLocation': f'{site_url}/static/{indexnow_key}.txt',
@@ -823,6 +824,8 @@ def generate_posts(count=1, dry_run=False, weekly_report=False, template_filter=
         except Exception as e:
             print(f"[IndexNow] Warning: {e}")
 
+    return len(new_entries)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Blog Auto Generator (Daily)')
@@ -832,12 +835,18 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='API呼び出しなしのテスト')
     args = parser.parse_args()
 
-    generate_posts(
+    generated = generate_posts(
         count=args.count,
         dry_run=args.dry_run,
         weekly_report=args.weekly_report,
         template_filter=args.template,
     )
+
+    # 1本も作れなかったときはジョブを失敗させる。
+    # 以前はAPIキー切れでも「成功」扱いになり、1か月以上気づけなかった。
+    if not args.dry_run and args.count > 0 and not generated:
+        print("[ERROR] 記事を1本も生成できませんでした（APIキー・残高・ログを確認してください）")
+        sys.exit(1)
 
 
 if __name__ == '__main__':

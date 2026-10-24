@@ -10,6 +10,7 @@ on:
 
 permissions:
   issues: write
+  actions: read
 
 jobs:
   monitor:

@@ -4,16 +4,11 @@
 Railwayの診断ログを取得して分析する
 Railway上のログはデプロイ時に消えるので定期的に取得が必要
 """
+import os
 import sys
 import json
-import urllib3
-urllib3.disable_warnings()
+# 管理トークンを送るので、TLS 証明書の検証は必ず有効のままにする
 import requests
-_old = requests.Session.request
-def _p(self, *a, **kw):
-    kw['verify'] = False
-    return _old(self, *a, **kw)
-requests.Session.request = _p
 
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -32,7 +27,11 @@ def fetch_and_save():
     save_path = save_dir / f'{today}.jsonl'
     
     try:
-        resp = requests.get(f'{SITE_URL}/api/diagnosis-logs', timeout=10)
+        resp = requests.get(
+            f'{SITE_URL}/api/diagnosis-logs',
+            headers={'X-Admin-Token': os.getenv('ADMIN_TOKEN', '')},
+            timeout=10,
+        )
         if resp.status_code != 200:
             print(f"⚠️ ログ取得失敗: {resp.status_code}")
             return []
