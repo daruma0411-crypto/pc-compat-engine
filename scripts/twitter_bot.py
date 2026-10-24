@@ -743,8 +743,9 @@ def post_tweet(text, dry_run=True, image_path=None):
 
         return True
     except tweepy.errors.Forbidden as e:
-        print(f"[ERROR] 403 Forbidden: App permissions が Read Only の可能性")
-        print(f"        対処: Developer Portal で Read and Write に変更後、Access Token を再生成")
+        print(f"[ERROR] 403 Forbidden: X が投稿を拒否しました")
+        print(f"        原因候補: 重複・類似内容の投稿、自動投稿ルールへの抵触、App権限が Read Only")
+        print(f"        他の種類の投稿が成功しているなら、権限ではなく投稿内容が原因です")
         print(f"        詳細: {e}")
         return False
     except tweepy.errors.Unauthorized as e:
@@ -1025,7 +1026,10 @@ def main():
             sys.exit(1)
         return
 
-    if not args.force_blog and random.random() < 0.15:
+    # 値下げ速報は 2026-05 以降すべて 403 で投稿を拒否されているため、
+    # 原因が分かるまで PRICE_ALERT_ENABLED=1 のときだけ動かす
+    price_alert_enabled = os.getenv('PRICE_ALERT_ENABLED') == '1'
+    if price_alert_enabled and not args.force_blog and random.random() < 0.15:
         try:
             from price_alert_tweet import generate_price_alert_tweet
             alert_text, alert_pattern, alert_items = generate_price_alert_tweet()

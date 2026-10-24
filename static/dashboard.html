@@ -215,7 +215,9 @@
     async function loadAnalytics() {
       const days = document.getElementById('days-select').value;
       try {
-        const res = await fetch(`/api/analytics?days=${days}`);
+        // /dashboard?token=... で開いたときのトークンを API にも渡す
+        const token = new URLSearchParams(location.search).get('token') || '';
+        const res = await fetch(`/api/analytics?days=${days}`, { headers: { 'X-Admin-Token': token } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (data.error) throw new Error(data.error);

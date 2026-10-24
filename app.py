@@ -6,10 +6,12 @@ POST /api/diagnose → PC部品互換性診断（Claude Haiku）
 GET  /api/health  → ヘルスチェック（Render用）
 """
 import glob as glob_module
+import hmac
 import json
 import os
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -17,6 +19,7 @@ import sys
 
 from dotenv import load_dotenv
 from flask import Flask, Response, abort, jsonify, redirect, request, send_from_directory
+from functools import wraps
 
 # BTOマッチングモジュールのパスを追加
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
@@ -40,6 +43,22 @@ CLAUDE_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
 REPLICATE_API_TOKEN = os.environ.get('REPLICATE_API_TOKEN', '')
 
 app = Flask(__name__, static_folder='static')
+
+
+def require_admin(view):
+    """管理者用の入口を守る。
+
+    ADMIN_TOKEN 環境変数と同じ値を、X-Admin-Token ヘッダか ?token= で渡したときだけ通す。
+    ADMIN_TOKEN が未設定なら誰も通さない（設定し忘れても中身が漏れないように）。
+    """
+    @wraps(view)
+    def wrapper(*args, **kwargs):
+        expected = os.environ.get('ADMIN_TOKEN', '')
+        given = request.headers.get('X-Admin-Token') or request.args.get('token', '')
+        if not expected or not hmac.compare_digest(given, expected):
+            return jsonify({'error': 'forbidden'}), 403
+        return view(*args, **kwargs)
+    return wrapper
 
 # ================================================================
 # GA4 除外IPリスト（計測対象外にするIPアドレス）
@@ -2367,12 +2386,47 @@ def _render_case_index_page(case, results) -> str:
 </div></body></html>"""
 
 
+_api_key_check = {'at': 0.0, 'valid': None}
+
+
+def _check_api_key_valid():
+    """Anthropic API キーが本当に使えるかを確かめる（トークンを消費しない /v1/models を使う）。
+
+    監視が何度呼んでも API を叩きすぎないよう、結果は10分間使い回す。
+    """
+    if not CLAUDE_API_KEY:
+        return False
+    now = time.time()
+    if _api_key_check['valid'] is not None and now - _api_key_check['at'] < 600:
+        return _api_key_check['valid']
+    req = urllib.request.Request(
+        'https://api.anthropic.com/v1/models?limit=1',
+        headers={'x-api-key': CLAUDE_API_KEY, 'anthropic-version': '2023-06-01'},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            valid = resp.status == 200
+    except urllib.error.HTTPError as e:
+        # 401/403 はキーの問題。それ以外（5xx など）は判定できないので前回の結果を返す
+        if e.code not in (401, 403):
+            return _api_key_check['valid']
+        valid = False
+    except Exception:
+        return _api_key_check['valid']
+    _api_key_check.update(at=now, valid=valid)
+    return valid
+
+
 @app.route('/api/health')
 def health():
-    return jsonify({
+    body = {
         'status': 'ok',
         'api_key_set': bool(CLAUDE_API_KEY),
-    })
+    }
+    # ?deep=1 のときだけキーの有効性まで見る（Railway のヘルスチェックは軽いまま）
+    if request.args.get('deep'):
+        body['api_key_valid'] = _check_api_key_valid()
+    return jsonify(body)
 
 
 # ================================================================
@@ -2555,6 +2609,7 @@ def diagnose():
 
 
 @app.route('/api/diagnosis-logs', methods=['GET'])
+@require_admin
 def get_diagnosis_logs():
     """診断ログを取得（分析用）"""
     try:
@@ -6113,6 +6168,7 @@ def _build_chat_response(session, session_id, session_expired,
 # ================================================================
 
 @app.route('/api/chat-analytics')
+@require_admin
 def chat_analytics():
     """チャットログの集計データを返す（管理者用）"""
     log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs', 'chat_log.jsonl')
@@ -7209,6 +7265,7 @@ def generate_image():
 # ================================================================
 
 @app.route('/api/analytics')
+@require_admin
 def api_analytics():
     """Analytics データAPI"""
     try:
@@ -7234,6 +7291,7 @@ def api_analytics():
 
 
 @app.route('/dashboard')
+@require_admin
 def analytics_dashboard():
     """Analytics ダッシュボードページ"""
     return send_from_directory('static', 'dashboard.html')

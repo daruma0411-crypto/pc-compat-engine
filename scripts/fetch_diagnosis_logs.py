@@ -4,6 +4,7 @@
 Railwayの診断ログを取得して分析する
 Railway上のログはデプロイ時に消えるので定期的に取得が必要
 """
+import os
 import sys
 import json
 import urllib3
@@ -32,7 +33,11 @@ def fetch_and_save():
     save_path = save_dir / f'{today}.jsonl'
     
     try:
-        resp = requests.get(f'{SITE_URL}/api/diagnosis-logs', timeout=10)
+        resp = requests.get(
+            f'{SITE_URL}/api/diagnosis-logs',
+            headers={'X-Admin-Token': os.getenv('ADMIN_TOKEN', '')},
+            timeout=10,
+        )
         if resp.status_code != 200:
             print(f"⚠️ ログ取得失敗: {resp.status_code}")
             return []
