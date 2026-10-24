@@ -84,7 +84,7 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
   let confirmedParts = [];  // [{name: string, category: string}]
   let budgetYen = null;     // ユーザーが指定した予算（数値）
   let currentImageGenerated = false;  // 画像生成済みフラグ
-  let lastCompleteBuildKey = '';      // 構成完成イベントを同じ構成で二重に送らないための記録
+  const reportedCompleteBuilds = new Set();  // 構成完成イベントを同じ構成で二重に送らないための記録
   
   // セッションIDを生成（初回またはリセット時）
   function generateSessionId() {
@@ -352,6 +352,12 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
       gpu: 'GPU', cpu: 'CPU', motherboard: 'MB',
       ram: 'RAM', case: 'CASE', psu: 'PSU', cooler: 'COOLER',
     };
+    // 計測用: クーラーも含めて、この応答で決まった／変わったパーツの数
+    const decidedCount = Object.entries(cb).filter(([key, val]) => {
+      if (!CB_CAT_MAP[key] || !val || !val.name) return false;
+      const oldPart = confirmedParts.find(cp => normalizeCat(cp.category) === CB_CAT_MAP[key]);
+      return !oldPart || oldPart.name !== val.name;
+    }).length;
     for (const [key, val] of Object.entries(cb)) {
       const cat = CB_CAT_MAP[key];
       if (!cat) continue;
@@ -388,8 +394,8 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     }
 
     // ①-b 計測: AI相談の中でパーツが決まった／変わった
-    if (changedCount > 0) {
-      trackEvent('build_update', { parts_count: confirmedParts.length, changed: changedCount });
+    if (decidedCount > 0) {
+      trackEvent('build_update', { parts_count: confirmedParts.length, changed: decidedCount });
     }
 
     // ② パネル更新
@@ -413,9 +419,13 @@ let btoSubMode = null;    // 'purpose' | 'budget' | null
     }
     // 計測: 主要6パーツがそろった（互換性を確かめた構成ができた）。同じ構成では1回だけ送る
     if (allConfirmed) {
-      const buildKey = confirmedParts.map(p => p.category + ':' + p.name).sort().join('|');
-      if (buildKey !== lastCompleteBuildKey) {
-        lastCompleteBuildKey = buildKey;
+      // 主要6パーツだけで構成を見分ける（クーラーを足しただけでは別の構成として数えない）
+      const buildKey = ['GPU','CPU','MB','RAM','CASE','PSU'].map(c => {
+        const part = confirmedParts.find(p => normalizeCat(p.category) === c);
+        return c + ':' + (part ? part.name : '');
+      }).join('|');
+      if (!reportedCompleteBuilds.has(buildKey)) {
+        reportedCompleteBuilds.add(buildKey);
         trackEvent('build_complete', {
           parts_count: confirmedParts.length,
           value: confirmedParts.reduce((s, p) => s + (p.price_min || 0), 0),
