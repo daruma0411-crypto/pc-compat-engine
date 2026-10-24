@@ -209,6 +209,69 @@ def get_device_breakdown(days=7):
     return results
 
 
+def get_event_counts(event_names, start_date="7daysAgo", end_date="yesterday"):
+    """
+    指定したイベントの回数と、それを起こしたユーザー数
+
+    返り値（期間中に1回も起きなかったイベントは 0 で返す）:
+    {
+      "chat_send": {"count": 12, "users": 7},
+      "purchase_click": {"count": 3, "users": 2},
+      ...
+    }
+    """
+    from google.analytics.data_v1beta.types import Filter, FilterExpression
+
+    request = RunReportRequest(
+        property=f"properties/{PROPERTY_ID}",
+        date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
+        dimensions=[Dimension(name="eventName")],
+        metrics=[
+            Metric(name="eventCount"),
+            Metric(name="totalUsers"),
+        ],
+        dimension_filter=FilterExpression(
+            filter=Filter(
+                field_name="eventName",
+                in_list_filter=Filter.InListFilter(values=list(event_names)),
+            )
+        ),
+    )
+
+    response = client.run_report(request)
+
+    results = {name: {"count": 0, "users": 0} for name in event_names}
+    for row in response.rows:
+        results[row.dimension_values[0].value] = {
+            "count": int(row.metric_values[0].value),
+            "users": int(row.metric_values[1].value),
+        }
+
+    return results
+
+
+def get_returning_users(start_date, end_date):
+    """
+    リピーター数（GA4 の newVsReturning で数える）
+
+    activeUsers - newUsers で出すと、GA4 の数え方の違いでマイナスになることがあるため、
+    こちらを使う。
+    """
+    request = RunReportRequest(
+        property=f"properties/{PROPERTY_ID}",
+        date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
+        dimensions=[Dimension(name="newVsReturning")],
+        metrics=[Metric(name="activeUsers")],
+    )
+
+    response = client.run_report(request)
+
+    for row in response.rows:
+        if row.dimension_values[0].value == "returning":
+            return int(row.metric_values[0].value)
+    return 0
+
+
 def get_realtime_users():
     """
     リアルタイムユーザー数取得
