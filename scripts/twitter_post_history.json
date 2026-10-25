@@ -4376,5 +4376,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Left 4 Dead 2",
+    "posted_at": "2026-10-25T09:09:09.057650",
+    "tweet_text": "Left 4 Dead 2、Video Card Shader model 3.0. NVidia 7600, ATI X1600でも普通に遊べたわ\n\n推奨スペック:\n・GPU: Video Card Shader model 3.0. NVidia 7600, ATI X1600\n・CPU: Intel core 2 duo 2.4GHz\n・RAM: 2GB\n\nhttps://pc-jisaku.com/game/left-4-dead-2\n\n#Left4Dead2 #ベンチマーク",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
