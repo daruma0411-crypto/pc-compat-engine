@@ -4408,5 +4408,15 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "ゴースト トリック",
+    "posted_at": "2026-10-26T13:52:59.972944",
+    "tweet_text": "【ゴースト トリックの推奨スペック解説】\n\n推奨GPU: GT 1030 (VRAM2GB) もしくは AMD RX550 (VRAM2GB)\n推奨RAM: 8GB\n\nこのゲームを快適に遊ぶために必要な構成を3ツイートで解説します",
+    "type": "thread",
+    "has_image": false,
+    "post_type": "game",
+    "is_thread": true,
+    "hashtag_count": 0
   }
 ]
