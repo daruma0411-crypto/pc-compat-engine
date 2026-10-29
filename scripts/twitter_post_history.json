@@ -4459,5 +4459,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "Core Keeper",
+    "posted_at": "2026-10-29T03:11:58.901649",
+    "tweet_text": "Core Keeperが起動しない...\nGPUドライバ更新したら直った\n\n推奨: GTX 1050 Ti\nhttps://pc-jisaku.com/game/core-keeper\n\n#CoreKeeper #動作不良",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
