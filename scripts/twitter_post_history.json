@@ -4492,5 +4492,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-10-31T09:32:01.285599",
+    "tweet_text": "ブログ更新\nRTX 4080で遊べる最新ゲーム50選【8月版】\n\nhttps://pc-jisaku.com/blog/20260826-gpu_list-hogwarts-legacy-rtx-408050picks8month.html\n\n#ゲーミングPC #GPU",
+    "blog_url": "https://pc-jisaku.com/blog/20260826-gpu_list-hogwarts-legacy-rtx-408050picks8month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
