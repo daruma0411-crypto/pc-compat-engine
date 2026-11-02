@@ -4525,5 +4525,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-02T09:26:30.602245",
+    "tweet_text": "ブログ更新\n「パルワールド」の推奨スペックとGPU別FPS目安【2026年09月更新】\n\nhttps://pc-jisaku.com/blog/20260903-benchmark-palworld-spec-gpufps2026y09monthupdate.html\n\n#GPU #PCパーツ",
+    "blog_url": "https://pc-jisaku.com/blog/20260903-benchmark-palworld-spec-gpufps2026y09monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
