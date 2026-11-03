@@ -4559,5 +4559,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-03T12:28:40.097239",
+    "tweet_text": "ブログ更新\n予算8万円で組む最強ゲーミングPC構成【2026年10月版】\n\nhttps://pc-jisaku.com/blog/20261025-budget_build-fortnite-budget8manbestpc2026y10month.html\n\n#GPU #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20261025-budget_build-fortnite-budget8manbestpc2026y10month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
