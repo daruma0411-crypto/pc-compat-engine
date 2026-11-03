@@ -4543,5 +4543,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Elden Ring Shadow of the Erdtree",
+    "posted_at": "2026-11-03T03:06:22.659146",
+    "tweet_text": "Elden Ring Shadow of the Erdtreeクラッシュ多発する人\nRAM 16GB以上にしたら安定したわ\n\n詳細→ https://pc-jisaku.com/game/elden-ring-shadow-of-the-erdtree\n\n#EldenRingShadowoftheErdtree #動作不良",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
