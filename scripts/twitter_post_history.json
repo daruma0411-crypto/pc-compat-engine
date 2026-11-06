@@ -4633,5 +4633,14 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-06T12:28:49.465901",
+    "tweet_text": "今日のPC記事\n「エルデンリング」の推奨スペックとGPU別FPS目安【2026年10月更新】\n\nhttps://pc-jisaku.com/blog/20261031-benchmark-elden-ring-spec-gpufps2026y10monthupdate.html\n\n#ゲーミングPC #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20261031-benchmark-elden-ring-spec-gpufps2026y10monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
