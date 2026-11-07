@@ -4642,5 +4642,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Hollow Knight: Silksong",
+    "posted_at": "2026-11-07T03:17:20.434079",
+    "tweet_text": "Hollow Knight: Silksongベンチマーク結果\nGTX 1050 (2GB), R9 380 (2GB) / Intel Core i5-3470\n→ 1080p60fps安定\n\n詳しいスペック→ https://pc-jisaku.com/game/hollow-knight-silksong\n\n#HollowKnightSilksong #動作報告",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
