@@ -4683,5 +4683,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "ELDEN RING",
+    "posted_at": "2026-11-08T12:32:49.606976",
+    "tweet_text": "ELDEN RING、想像以上に最適化されてるわ\nGEFORCE GTX 1070 8 GBでも余裕で遊べる\n\nhttps://pc-jisaku.com/game/elden-ring\n\n#ELDENRING #PCゲーム",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
