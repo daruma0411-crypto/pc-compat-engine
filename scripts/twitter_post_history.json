@@ -4733,5 +4733,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-11-10T12:25:39.627691",
+    "tweet_text": "PCケースのエアフロー気にする派？見た目重視派？\n最近のケースはどっちも優秀だけど\n#自作PC #PCゲーム",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
