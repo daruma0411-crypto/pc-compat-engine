@@ -4750,5 +4750,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-11-11T12:29:02.063643",
+    "tweet_text": "フルHDで十分って人、WQHD試したことある？\n一度体験すると戻れなくなるよ\n\n気になる人→ https://pc-jisaku.com\n#PCゲーム #GPU",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
