@@ -4741,5 +4741,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-11T03:34:26.176950",
+    "tweet_text": "実データで書いた記事\n予算15万円で組む最強ゲーミングPC構成【2026年11月版】\n\n価格.com調べの最新価格入り\nhttps://pc-jisaku.com/blog/20261110-budget_build-baldurs-gate-3-budget15manbestpc2026y11month.html\n\n#ゲーミングPC #自作PC",
+    "blog_url": "https://pc-jisaku.com/blog/20261110-budget_build-baldurs-gate-3-budget15manbestpc2026y11month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
