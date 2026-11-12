@@ -4766,5 +4766,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Beat Saber",
+    "posted_at": "2026-11-12T12:27:27.115786",
+    "tweet_text": "Beat Saber用にPC組むなら\nNvidia GTX 1060 + Intel Core i7 Skylakeで20万くらい？\n\n詳しいスペック→ https://pc-jisaku.com/game/beat-saber\n\n#BeatSaber #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
