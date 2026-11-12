@@ -4758,5 +4758,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "It Takes Two Friend's Pass",
+    "posted_at": "2026-11-12T03:26:05.662169",
+    "tweet_text": "It Takes Two Friend's Pass推奨スペック\nGPU: Nvidia GTX 980\nCPU: Intel Core i5 3570K\n\nhttps://pc-jisaku.com/game/it-takes-two-friends-pass\n\n#ItTakesTwoFriendsPass #Steam",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
