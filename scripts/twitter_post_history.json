@@ -4782,5 +4782,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-11-13T09:12:40.411215",
+    "tweet_text": "中古GPUって買う？買わない？\nマイニング落ちは避けるべき？\n\nhttps://pc-jisaku.com\n#PCゲーム #GPU",
+    "has_image": false,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
