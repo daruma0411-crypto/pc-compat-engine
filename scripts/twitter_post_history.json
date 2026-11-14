@@ -4815,5 +4815,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "Baldur's Gate 3",
+    "posted_at": "2026-11-14T12:06:28.607133",
+    "tweet_text": "ゲーミングノートでBaldur's Gate 3動く？\n\n推奨: Nvidia 2060 Super\n→ RTX 4060 Laptop以上なら余裕\n\nhttps://pc-jisaku.com/game/baldurs-gate-3\n\n#BaldursGate3 #ゲーミングノート",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
