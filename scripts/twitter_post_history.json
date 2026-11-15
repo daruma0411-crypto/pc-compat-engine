@@ -4832,5 +4832,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "ペルソナ4 ザ・ゴールデン",
+    "posted_at": "2026-11-15T09:08:21.671201",
+    "tweet_text": "ペルソナ4 ザ・ゴールデン、中古パーツで組んだら\n予算7万円で動いた\n\nGPU: Nvidia GTX 460 | AMD HD 6870\nCPU: Intel Core i5-650 | AMD Phenom X4 940\n\n詳細→ https://pc-jisaku.com/game/%E3%83%9A%E3%83%AB%E3%82%BD%E3%83%8A4-%E3%82%B6%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%87%E3%83%B3\n\n#ペルソナ4ザ・ゴールデン #予算PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
