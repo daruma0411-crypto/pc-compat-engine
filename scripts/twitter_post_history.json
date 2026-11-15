@@ -4840,5 +4840,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Hollow Knight",
+    "posted_at": "2026-11-15T12:05:19.363155",
+    "tweet_text": "予算5万円でHollow Knight動かせる？\n\n推奨スペック:\nGPU: GTX 1050 (2GB), R9 380 (2GB)\nRAM: 8GB\n\nあなたのPC診断↓\nhttps://pc-jisaku.com/game/hollow-knight\n\n#HollowKnight #コスパPC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
