@@ -4883,5 +4883,13 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-11-17T09:17:04.490796",
+    "tweet_text": "中古GPUって買う？買わない？\nマイニング落ちは避けるべき？\n#自作PC #PCゲーム",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
