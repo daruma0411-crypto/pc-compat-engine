@@ -4891,5 +4891,13 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 2
+  },
+  {
+    "name": "[data]",
+    "posted_at": "2026-11-17T12:32:59.724541",
+    "tweet_text": "RTX 4070 Tiの最安値 今190,174円\nVRAM 12GB / 7製品比較\n価格.com調べ\n\nhttps://pc-jisaku.com\n\n#PCパーツ #GPU価格",
+    "has_image": true,
+    "post_type": "data",
+    "hashtag_count": 2
   }
 ]
