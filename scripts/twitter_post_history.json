@@ -4916,5 +4916,13 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "Palworld",
+    "posted_at": "2026-11-18T12:13:04.706388",
+    "tweet_text": "Palworld、RTX 4060 vs RTX 3070\nどっちがコスパいい？\n\n性能: 3070が15%上\n価格: 4060が¥8,000安い\n電力: 4060が30W少ない\n\n詳細→ https://pc-jisaku.com/game/palworld\n\n#Palworld #GPU比較\n\n参考になったらRTお願い🙏",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
