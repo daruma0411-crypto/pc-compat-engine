@@ -4907,5 +4907,14 @@
     "has_image": true,
     "post_type": "data",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-18T09:08:51.391309",
+    "tweet_text": "新記事↓\nRTX 3060で遊べる最新ゲーム50選【9月版】\n\n価格.comの最新データ使ってます\nhttps://pc-jisaku.com/blog/20260913-gpu_list-final-fantasy-vii-rebirth-rtx-306050picks9month.html\n\n#PCパーツ #ブログ更新",
+    "blog_url": "https://pc-jisaku.com/blog/20260913-gpu_list-final-fantasy-vii-rebirth-rtx-306050picks9month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
