@@ -4948,5 +4948,14 @@
     "has_image": true,
     "post_type": "question",
     "hashtag_count": 0
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-20T12:33:30.044330",
+    "tweet_text": "毎日更新中\n\n予算20万円で組む最強ゲーミングPC構成【2026年09月版】\nhttps://pc-jisaku.com/blog/20260915-budget_build-apex-legends-budget20manbestpc2026y09month.html\n\n#ブログ更新 #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20260915-budget_build-apex-legends-budget20manbestpc2026y09month.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
