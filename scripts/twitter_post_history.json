@@ -4973,5 +4973,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "[opinion]",
+    "posted_at": "2026-11-22T09:18:58.288604",
+    "tweet_text": "PCケースのエアフロー気にする派？見た目重視派？\n最近のケースはどっちも優秀だけど\n\nちなみに診断できる→ https://pc-jisaku.com\n#PCゲーム #GPU",
+    "has_image": true,
+    "post_type": "question",
+    "hashtag_count": 2
   }
 ]
