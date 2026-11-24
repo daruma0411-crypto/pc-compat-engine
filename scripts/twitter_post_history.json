@@ -5014,5 +5014,14 @@
     "has_image": false,
     "post_type": "blog",
     "hashtag_count": 2
+  },
+  {
+    "name": "[blog]",
+    "posted_at": "2026-11-24T03:26:28.326116",
+    "tweet_text": "ブログ更新\n「モンスターハンターワイルズ」の推奨スペックとGPU別FPS目安【2026年11月更新】\n\nhttps://pc-jisaku.com/blog/20261101-benchmark-monster-hunter-wilds-spec-gpufps2026y11monthupdate.html\n\n#GPU #ゲーミングPC",
+    "blog_url": "https://pc-jisaku.com/blog/20261101-benchmark-monster-hunter-wilds-spec-gpufps2026y11monthupdate.html",
+    "has_image": false,
+    "post_type": "blog",
+    "hashtag_count": 2
   }
 ]
