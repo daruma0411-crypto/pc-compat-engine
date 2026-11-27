@@ -5087,5 +5087,13 @@
     "has_image": true,
     "post_type": "game",
     "hashtag_count": 2
+  },
+  {
+    "name": "Devil May Cry 5",
+    "posted_at": "2026-11-27T09:27:26.643984",
+    "tweet_text": "Devil May Cry 5、最低スペックと推奨スペックの差エグい\n\n推奨: GTX 1060(6GB) / Intel Core i7-3770以上、AMD FX-9590以上\n最低: GTX 1660 / Core i5\n\nhttps://pc-jisaku.com/game/devil-may-cry-5\n\n#DevilMayCry5 #自作PC",
+    "has_image": true,
+    "post_type": "game",
+    "hashtag_count": 2
   }
 ]
